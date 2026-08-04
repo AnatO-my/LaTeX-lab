@@ -434,6 +434,18 @@ A read-only usage and compatibility audit has been completed for:
 * Confirmed that no undefined references remain after rebuilding.
 * Made no changes to representative note sources.
 
+### Studentnotes theorem and note-box checkpoint
+
+* Added `tests/studentnotes_theorem_notes_compatibility.tex`.
+* Verified independent numbering of `theorem`, `definition`, and `example`.
+* Verified section-based counter resets.
+* Verified headed and unheaded theorem rendering.
+* Verified `\label`, `\ref`, `\nameref`, and `\autoref`.
+* Verified the established appearance of `quicknote`, `personalnote`, and `importantnote`.
+* Verified that all three note boxes remain intact at page boundaries.
+* Confirmed that the existing interfaces require no class-level changes.
+* Made no changes to representative note sources.
+
 ### Compatibility decisions
 
 * Existing documents using the five-argument `\choices` command require no migration.
@@ -445,17 +457,17 @@ A read-only usage and compatibility audit has been completed for:
 
 ### Next Phase 2 action
 
-Audit the theorem environments and semantic note-box interfaces.
+Audit the `otscience` semantic-box interfaces and their workbook fallback definitions.
 
-Before changing them:
+Before changing any definition:
 
-* inventory their definitions and all representative call sites;
-* distinguish semantic interfaces from visual-only wrappers;
-* preserve existing environment names and established output;
-* identify duplicated implementation across the active classes;
-* establish compatibility requirements;
-* create isolated regression tests; and
-* avoid moving code into a shared package until compatibility has been demonstrated.
+* inventory all breakable and `nosplit` box families;
+* compare the class definitions with `00_common_setup.tex`;
+* identify which interfaces are used in combined and standalone builds;
+* preserve existing environment names and visual output;
+* test page-breaking and non-splitting behaviour;
+* establish isolated regression coverage; and
+* avoid cross-class consolidation until compatibility has been demonstrated.
 
 ## Session handover log
 
@@ -538,12 +550,23 @@ Before changing them:
 * Left all representative note sources unchanged.
 * Preserved and excluded the independent modification to `examples/studentnotes/Optics.tex`.
 
+### Session 7 — Studentnotes theorem and note-box compatibility
+
+* Added an isolated regression test for the existing theorem and note-box interfaces.
+* Verified independent theorem, definition, and example counters.
+* Verified section-based counter resets and optional headings.
+* Verified numeric, automatic, and descriptive cross-references.
+* Verified the ordinary appearance of all three semantic note boxes.
+* Verified intact rendering at page boundaries.
+* Confirmed that no change to `studentnotes.cls` is required.
+* Preserved and excluded the independent modification to `examples/studentnotes/Optics.tex`.
+
 ## Next action
 
-Commit the `namedformula` compatibility checkpoint while excluding:
+Commit the studentnotes theorem and note-box compatibility test while excluding:
 
 * `examples/studentnotes/Optics.tex`;
 * generated PDFs;
 * logs and other build artefacts.
 
-After the checkpoint is committed, continue Phase 2 with the theorem and semantic note-box audit. No definitions should be changed until their usage inventory and compatibility requirements have been documented.
+After the checkpoint is committed, continue Phase 2 with the read-only audit of the `otscience` semantic-box interfaces and the fallback definitions in `00_common_setup.tex`.

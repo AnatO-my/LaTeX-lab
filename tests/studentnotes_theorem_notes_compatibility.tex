@@ -1,0 +1,194 @@
+\documentclass{studentnotes}
+
+\setnotetitle{Theorem and Note-Box Compatibility Test}
+\setnotecourse{LaTeX Lab}
+\setnoteauthor{OT}
+\setnotedate{4 August 2026}
+
+\begin{document}
+
+\makenotetitle
+
+\section{Numbering and optional headings}
+
+\begin{theorem}[Pythagorean theorem]
+    \label{thm:pythagorean}
+    For a right-angled triangle with legs \(a\) and \(b\), and
+    hypotenuse \(c\),
+    \[
+        a^2+b^2=c^2.
+    \]
+\end{theorem}
+
+\begin{theorem}
+    \label{thm:unheaded}
+    If \(n\) is even, then \(n^2\) is even.
+\end{theorem}
+
+\begin{definition}[Linear independence]
+    \label{def:linear-independence}
+    The vectors \(\mathbf{v}_1,\ldots,\mathbf{v}_n\) are linearly
+    independent if
+    \[
+        c_1\mathbf{v}_1+\cdots+c_n\mathbf{v}_n=\mathbf{0}
+    \]
+    implies \(c_1=\cdots=c_n=0\).
+\end{definition}
+
+\begin{example}[Testing two vectors]
+    \label{ex:independent-vectors}
+    The vectors
+    \[
+        \begin{bmatrix}1\\0\end{bmatrix}
+        \quad\text{and}\quad
+        \begin{bmatrix}0\\1\end{bmatrix}
+    \]
+    are linearly independent.
+\end{example}
+
+The expected numbering in this section is:
+
+\begin{itemize}
+    \item the headed theorem: \(1.1\);
+    \item the unheaded theorem: \(1.2\);
+    \item the definition: \(1.1\);
+    \item the example: \(1.1\).
+\end{itemize}
+
+The theorem, definition, and example counters are intentionally
+independent under the current class definition.
+
+\section{Section-based counter resets}
+
+\begin{theorem}[Section-reset theorem]
+    \label{thm:section-reset}
+    For every real number \(x\),
+    \[
+        x^2\geq 0.
+    \]
+\end{theorem}
+
+\begin{definition}[Absolute value]
+    \label{def:absolute-value}
+    The absolute value of a real number \(x\) is
+    \[
+        |x|=
+        \begin{cases}
+            x,  & x\geq 0,\\
+            -x, & x<0.
+        \end{cases}
+    \]
+\end{definition}
+
+\begin{example}[Absolute value calculation]
+    \label{ex:absolute-value}
+    Since \(-4<0\), it follows that
+    \[
+        |-4|=4.
+    \]
+\end{example}
+
+The theorem, definition, and example above should each be numbered
+\(2.1\).
+
+\section{Cross-reference behaviour}
+
+Numeric references should produce the stored numbers:
+
+\begin{itemize}
+    \item Theorem~\ref{thm:pythagorean};
+    \item Theorem~\ref{thm:unheaded};
+    \item Definition~\ref{def:linear-independence};
+    \item Example~\ref{ex:independent-vectors};
+    \item Theorem~\ref{thm:section-reset};
+    \item Definition~\ref{def:absolute-value};
+    \item Example~\ref{ex:absolute-value}.
+\end{itemize}
+
+Automatic references should identify the corresponding environment:
+
+\begin{itemize}
+    \item \autoref{thm:pythagorean};
+    \item \autoref{def:linear-independence};
+    \item \autoref{ex:independent-vectors};
+    \item \autoref{thm:section-reset}.
+\end{itemize}
+
+The optional headings should be available as descriptive references:
+
+\begin{itemize}
+    \item ``\nameref{thm:pythagorean}'';
+    \item ``\nameref{def:linear-independence}'';
+    \item ``\nameref{ex:independent-vectors}'';
+    \item ``\nameref{thm:section-reset}''.
+\end{itemize}
+
+\section{Ordinary note-box rendering}
+
+\begin{quicknote}
+    This is an ordinary quick note. Its expected title is
+    \textbf{Quick Note}, with the established yellow background and
+    orange frame.
+\end{quicknote}
+
+\begin{personalnote}
+    This is an ordinary personal note. Its expected title is
+    \textbf{Personal Note}, with the established blue background and
+    blue frame.
+\end{personalnote}
+
+\begin{importantnote}
+    This is an ordinary important note. Its expected title is
+    \textbf{Important}, with the established green background and
+    green frame.
+\end{importantnote}
+
+The three boxes should retain their fixed titles, colours, sharp
+corners, and established border thickness.
+
+\clearpage
+\section{Quick-note page-boundary test}
+
+The following vertical space deliberately leaves too little room for
+the complete note box at the bottom of this page.
+
+\rule{0pt}{0.78\textheight}
+
+\begin{quicknote}
+    This quick note tests page-boundary behaviour. The complete box
+    should move to the following page when insufficient space remains.
+    It should not overlap the footer, become clipped, or lose its title
+    and frame.
+\end{quicknote}
+
+\clearpage
+\section{Personal-note page-boundary test}
+
+The following vertical space deliberately leaves too little room for
+the complete note box at the bottom of this page.
+
+\rule{0pt}{0.78\textheight}
+
+\begin{personalnote}
+    This personal note tests page-boundary behaviour. The complete box
+    should move to the following page when insufficient space remains.
+    It should not overlap the footer, become clipped, or lose its title
+    and frame.
+\end{personalnote}
+
+\clearpage
+\section{Important-note page-boundary test}
+
+The following vertical space deliberately leaves too little room for
+the complete note box at the bottom of this page.
+
+\rule{0pt}{0.78\textheight}
+
+\begin{importantnote}
+    This important note tests page-boundary behaviour. The complete box
+    should move to the following page when insufficient space remains.
+    It should not overlap the footer, become clipped, or lose its title
+    and frame.
+\end{importantnote}
+
+\end{document}

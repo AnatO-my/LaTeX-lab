@@ -42,10 +42,15 @@ This file records significant changes to the LaTeX Workspace Learning and Class 
 - Verified descriptive-title references through `\nameref`.
 - Verified that formula titles remain visually hidden.
 - Verified that the final build contains no unresolved references.
+- Verified independent numbering and section-based resets for `theorem`, `definition`, and `example`.
+- Verified headed and unheaded theorem rendering.
+- Verified `\label`, `\ref`, `\nameref`, and `\autoref` behaviour.
+- Verified the established appearance of `quicknote`, `personalnote`, and `importantnote`.
+- Verified intact note-box rendering at page boundaries.
+- Confirmed that the existing theorem and note-box definitions require no changes.
 
 ### Deferred
 
-- Changes to theorem environments and semantic note boxes.
 - Changes to the `answerkey` environment.
 - Multiple assessment-output modes and question-bank metadata.
 
