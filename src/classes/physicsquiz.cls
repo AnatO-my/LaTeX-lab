@@ -202,19 +202,39 @@
 % -------------------------------------------------
 % Multiple-choice options
 % -------------------------------------------------
-\newcommand{\choices}[5]{
+% Flexible semantic interface: use one \item per option.
+% The list may contain any number of options and may break
+% across columns or pages when space is tight.
+\newenvironment{choiceoptions}
+{
     \begingroup
     \everymath{\displaystyle}
-    \renewcommand{\arraystretch}{1.3}
-    \par\vspace{0.35em}
-    \begin{tabular}{@{}p{0.95\linewidth}@{}}
-        \(\mathbf{A.}\) #1 \\[6pt]
-        \(\mathbf{B.}\) #2 \\[6pt]
-        \(\mathbf{C.}\) #3 \\[6pt]
-        \(\mathbf{D.}\) #4 \\[6pt]
-        \(\mathbf{E.}\) #5
-    \end{tabular}
+    \begin{enumerate}[
+        label=\(\mathbf{\Alph*.}\),
+        leftmargin=2.1em,
+        labelwidth=1.6em,
+        labelsep=0.5em,
+        align=left,
+        itemsep=6pt,
+        topsep=0.35em,
+        parsep=0pt,
+        partopsep=0pt
+    ]
+}
+{
+    \end{enumerate}
     \endgroup
+}
+
+% Backward-compatible five-option interface.
+\newcommand{\choices}[5]{%
+    \begin{choiceoptions}
+        \item #1
+        \item #2
+        \item #3
+        \item #4
+        \item #5
+    \end{choiceoptions}%
 }
 
 % -------------------------------------------------

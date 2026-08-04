@@ -2,6 +2,43 @@
 
 This file records significant changes to the LaTeX Workspace Learning and Class Refactoring Project.
 
+## Phase 2 — Semantic and flexible document interfaces
+
+**In progress: 4 August 2026**
+
+### Added
+
+- Added the semantic `choiceoptions` environment to `physicsquiz.cls`.
+- Added support for an arbitrary number of alphabetically labelled options.
+- Added `tests/physicsquiz_choices_compatibility.tex`.
+- Added repository-level class discovery to `.latexmkrc`.
+
+### Changed
+
+- Reimplemented the five-argument `\choices` command as a backward-compatible wrapper around `choiceoptions`.
+- Replaced the unbreakable options table with a semantic list-based interface.
+
+### Fixed
+
+- Fixed the Question 60 layout defect in the representative physics quiz.
+- Prevented the complete option block from overlapping content in the following column.
+
+### Verified
+
+- Verified all 60 existing legacy `\choices` calls without source migration.
+- Verified four-option, five-option, and six-option questions.
+- Verified mathematical and prose options.
+- Verified the representative quiz using the controlled `build/` output.
+- Confirmed that the answer-key table remains correct.
+- Confirmed that `examples/studentnotes/Optics.tex` remains separate from Phase 2.
+
+### Deferred
+
+- Changes to `namedformula`.
+- Changes to theorem environments and semantic note boxes.
+- Changes to the `answerkey` environment.
+- Multiple assessment-output modes and question-bank metadata.
+
 ## Phase 1 — LaTeX Workshop workflow
 
 **Completed: 4 August 2026**

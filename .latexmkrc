@@ -33,3 +33,9 @@ $do_cd = 1;
 # Enable SyncTeX and clear file-and-line diagnostics.
 $pdflatex =
     'pdflatex -synctex=1 -interaction=nonstopmode -file-line-error %O %S';
+
+# Make repository classes visible to TeX.
+my $class_dir = './src/classes//';
+my $separator = ($^O eq 'MSWin32') ? ';' : ':';
+$ENV{'TEXINPUTS'} =
+    $class_dir . $separator . ($ENV{'TEXINPUTS'} // '');
