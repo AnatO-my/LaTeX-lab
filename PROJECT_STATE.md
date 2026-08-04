@@ -19,11 +19,73 @@ LaTeX Workspace Learning and Class Refactoring Project
 
 ## Current phase
 
-**Phase 0 — complete; Phase 1 not yet started.**
+**Phase 1 — complete; Phase 2 ready to begin.**
 
-The Phase 0 audit, source inventory, dependency review, baseline folder design, and representative-output inspection have been completed.
+The project-local LaTeX Workshop workflow has been configured and validated without changing any class, package, or example-document source.
 
-No class or package source correction has been made. The immediate remaining administrative action is to validate and record the Phase 0 Git baseline before beginning Phase 1.
+The repository now has one canonical build configuration shared by VS Code and command-line builds. All representative class architectures, the modular workbook’s combined and standalone roots, controlled output directories, SyncTeX navigation, clean builds, automatic builds, linting, and explicit formatting have been tested successfully.
+
+The next phase is:
+
+**Phase 2 — Semantic and flexible document interfaces.**
+
+## Phase 1 completed configuration
+
+### Repository-level `.latexmkrc`
+
+The repository-level `.latexmkrc` now:
+
+* discovers classes under `src/classes`;
+* discovers packages under `src/packages`;
+* preserves MiKTeX’s standard input trees;
+* builds directly with pdfLaTeX;
+* enables SyncTeX;
+* enables file-and-line error reporting;
+* processes nested roots from their document directories; and
+* supports both command-line and LaTeX Workshop builds.
+
+The configuration assumes that `latexmk` is launched from the repository root before `$do_cd` changes into the selected document’s directory.
+
+### Project-local LaTeX Workshop settings
+
+`.vscode/settings.json` now:
+
+* launches builds from the repository root;
+* loads the repository `.latexmkrc`;
+* writes generated files under `build/%RELATIVE_DIR%`;
+* automatically builds LaTeX documents on save;
+* displays the selected root file in the status bar;
+* uses LaTeX Workshop’s internal PDF viewer;
+* runs ChkTeX when a document is saved;
+* uses `latexindent` for explicitly requested formatting;
+* disables LaTeX formatting on save;
+* disables automatic mathematical-delimiter rewriting; and
+* disables automatic quotation rewriting.
+
+## Phase 1 acceptance evidence
+
+The following tests passed:
+
+* project-local discovery of all four active classes;
+* project-local discovery of all seven OT companion packages;
+* `otengineering` representative build;
+* `physicsquiz` representative build;
+* `studentnotes` representative build;
+* combined vector-workbook build;
+* standalone vector-workbook module builds;
+* correct root selection for combined and standalone documents;
+* forward SyncTeX navigation;
+* inverse SyncTeX navigation;
+* inverse navigation from the combined PDF into an imported module;
+* controlled output under the mirrored `build/` tree;
+* command-line building through the repository `.latexmkrc`;
+* LaTeX Workshop building through the same `.latexmkrc`;
+* auxiliary-file cleaning and fresh rebuilding;
+* automatic compilation on save;
+* ChkTeX 1.7.9 linting; and
+* explicit `latexindent` 4.0 formatting.
+
+No `% !TeX root` directives were added. The workbook’s existing conditional architecture correctly supports both combined and standalone compilation.
 
 ## Immediate baseline-commit checks
 
@@ -345,8 +407,6 @@ These findings are recorded for controlled treatment in later phases. They must 
 * Engine support has not been formally defined.
 * No automated class regression suite exists.
 * No `l3build` configuration exists.
-* No project-local LaTeX Workshop configuration exists.
-* No reproducible output-directory policy exists.
 * Package-version diagnostics are not automated.
 * The preserved PDFs are untagged and contain limited document metadata.
 
@@ -363,27 +423,23 @@ These findings are recorded for controlled treatment in later phases. They must 
 * Accessibility target for future PDFs
 * Release-versioning and tagging conventions
 
-## Phase 1 entry point
+## Phase 2 entry point
 
-Phase 1 will treat LaTeX Workshop as a serious project IDE without disturbing the working MiKTeX installation.
+Phase 2 will audit and improve semantic document interfaces without changing the established visual identity.
 
-The first Phase 1 task will be to make the canonical repository structure compile reliably by configuring project-local class and package discovery.
+The priority interfaces are:
 
-Phase 1 will then address:
+* the fixed five-argument `\choices` command in `physicsquiz.cls`;
+* the currently unused required argument of `namedformula` in `studentnotes.cls`;
+* labels and cross-references;
+* theorem and semantic-box interfaces; and
+* documentation of public commands and environments.
 
-* root-file detection;
-* `% !TeX root` directives where justified;
-* project-local `.vscode/settings.json`;
-* build recipes;
-* controlled output directories;
-* SyncTeX forward and inverse search;
-* diagnostics and log inspection;
-* clean commands;
-* linting;
-* formatting;
-* conflicts between LaTeX Workshop and Overleaf Workshop.
+Phase 2 must inspect every representative source that currently uses `\choices`, `namedformula`, theorem environments, note boxes, or answer-key environments before changing their definitions.
 
-No semantic class-interface refactoring belongs in Phase 1 unless required to restore the preserved build behaviour.
+Compatibility with current documents must be preserved where practical. Existing syntax should remain available through compatibility definitions until a deliberate migration is approved.
+
+Multiple assessment-output modes, question-bank metadata, and large architectural changes do not belong in Phase 2.
 
 ## Session handover log
 
@@ -430,12 +486,14 @@ No semantic class-interface refactoring belongs in Phase 1 unless required to re
 
 ## Next action
 
-Complete the baseline-commit checks recorded above.
+Commit the Phase 1 configuration and governance files while excluding the separate modification to `examples/studentnotes/Optics.tex`.
 
-After the staged contents pass:
+After the Phase 1 commit and tag are verified, begin Phase 2 by auditing the real uses of:
 
-```powershell
-git diff --cached --check
-```
+* `\choices`;
+* `namedformula`;
+* theorem environments;
+* semantic note boxes; and
+* answer-key environments.
 
-record the initial baseline commit and annotated Phase 0 tag. Only then begin Phase 1.
+Do not change their definitions until the usage inventory and compatibility requirements have been established.

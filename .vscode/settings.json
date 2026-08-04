@@ -1,0 +1,38 @@
+{
+    "latex-workshop.latex.autoBuild.run": "onSave",
+    "latex-workshop.latex.recipe.default": "first",
+    "latex-workshop.latex.build.rootfileInStatus": true,
+    "latex-workshop.latex.build.fromFolder": ".",
+    "latex-workshop.latex.outDir": "%WORKSPACE_FOLDER%/build/%RELATIVE_DIR%",
+    "latex-workshop.latex.auxDir": "%OUTDIR%",
+    "latex-workshop.latex.recipes": [
+        {
+            "name": "latexmk (LaTeX-Lab)",
+            "tools": [
+                "latexmk (LaTeX-Lab)"
+            ]
+        }
+    ],
+    "latex-workshop.latex.tools": [
+        {
+            "name": "latexmk (LaTeX-Lab)",
+            "command": "latexmk",
+            "args": [
+                "-outdir=%OUTDIR%",
+                "%DOC%"
+            ]
+        }
+    ],
+    "latex-workshop.linting.chktex.enabled": true,
+    "latex-workshop.linting.chktex.exec.path": "chktex",
+    "latex-workshop.linting.run": "onSave",
+    "latex-workshop.formatting.latex": "latexindent",
+    "latex-workshop.formatting.latexindent.path": "latexindent",
+    "latex-workshop.format.fixMath.enabled": false,
+    "latex-workshop.format.fixQuotes.enabled": false,
+    "[latex]": {
+        "editor.defaultFormatter": "James-Yu.latex-workshop",
+        "editor.formatOnSave": false
+    },
+    "latex-workshop.view.pdf.viewer": "tab"
+}
