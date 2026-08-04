@@ -150,9 +150,15 @@
 \renewcommand{\theformula}{\thesection.\arabic{formula}}
 \renewcommand{\theHformula}{formula.\thesection.\arabic{formula}}
 
+% Print a reference exactly as the visible formula tag.
+\newcommand{\formularef}[1]{F\ref{#1}}
+
 \newenvironment{namedformula}[1]
 {
     \refstepcounter{formula}
+    % Retain the descriptive title for \nameref without
+    % changing the established visual appearance.
+    \def\@currentlabelname{#1}
     \begin{equation*}
     \tag{F\theformula}
 }

@@ -12,11 +12,16 @@ This file records significant changes to the LaTeX Workspace Learning and Class 
 - Added support for an arbitrary number of alphabetically labelled options.
 - Added `tests/physicsquiz_choices_compatibility.tex`.
 - Added repository-level class discovery to `.latexmkrc`.
+- Added `\formularef` for references matching visible named-formula tags.
+- Added `tests/studentnotes_namedformula_compatibility.tex`.
 
 ### Changed
 
 - Reimplemented the five-argument `\choices` command as a backward-compatible wrapper around `choiceoptions`.
 - Replaced the unbreakable options table with a semantic list-based interface.
+- Retained the required `namedformula` title as reference metadata.
+- Enabled descriptive formula-title references through `\nameref`.
+- Preserved the existing hidden-title appearance and environment syntax.
 
 ### Fixed
 
@@ -31,10 +36,15 @@ This file records significant changes to the LaTeX Workspace Learning and Class 
 - Verified the representative quiz using the controlled `build/` output.
 - Confirmed that the answer-key table remains correct.
 - Confirmed that `examples/studentnotes/Optics.tex` remains separate from Phase 2.
+- Verified `F<section>.<formula>` numbering.
+- Verified formula-counter resets between sections.
+- Verified `\formularef` output.
+- Verified descriptive-title references through `\nameref`.
+- Verified that formula titles remain visually hidden.
+- Verified that the final build contains no unresolved references.
 
 ### Deferred
 
-- Changes to `namedformula`.
 - Changes to theorem environments and semantic note boxes.
 - Changes to the `answerkey` environment.
 - Multiple assessment-output modes and question-bank metadata.

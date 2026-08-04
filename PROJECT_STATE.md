@@ -1,151 +1,104 @@
-PROJECT_STATE.md
+# PROJECT_STATE.md
 
-Project
+## Project
 
 LaTeX Workspace Learning and Class Refactoring Project
 
-Environment
+## Environment
 
-Operating system: Windows
+* Operating system: Windows
+* Editor: Visual Studio Code
+* TeX distribution: MiKTeX 26.2
+* pdfTeX: MiKTeX-pdfTeX 4.26
+* Build tool: latexmk 4.88
+* Local extension: LaTeX Workshop
+* Overleaf Workshop use: deliberate online collaboration and multi-device access only
+* Primary working copy: local project folder
+* Repository root: `C:\Users\Ot\OneDrive\Documents\LaTeX\LaTeX-Lab`
+* Primary Git branch: `main`
 
-Editor: Visual Studio Code
+## Current phase
 
-TeX distribution: MiKTeX 26.2
-
-pdfTeX: MiKTeX-pdfTeX 4.26
-
-Build tool: latexmk 4.88
-
-Local extension: LaTeX Workshop
-
-Overleaf Workshop use: deliberate online collaboration and multi-device access only
-
-Primary working copy: local project folder
-
-Repository root: C:\Users\Ot\OneDrive\Documents\LaTeX\LaTeX-Lab
-
-Primary Git branch: main
-
-Current phase
-
-Phase 2 — Semantic and flexible document interfaces — in progress.
+**Phase 2 — Semantic and flexible document interfaces — in progress.**
 
 Phase 1 is complete. The project-local LaTeX Workshop workflow has been configured and validated, and the repository now has one canonical build configuration shared by VS Code and command-line builds.
 
-The first controlled Phase 2 refactor is complete and awaiting its selective checkpoint commit. It introduces a flexible semantic multiple-choice interface in physicsquiz.cls while preserving the legacy five-argument \choices syntax.
+The first controlled Phase 2 refactor is complete and awaiting its selective checkpoint commit. It introduces a flexible semantic multiple-choice interface in `physicsquiz.cls` while preserving the legacy five-argument `\choices` syntax.
 
-The representative physics quiz and the dedicated compatibility test have been rebuilt successfully through the controlled build/ output tree. Question 60 now keeps all five options together in one column without overlapping the following column, and the existing answer-key table remains correct.
+The representative physics quiz and the dedicated compatibility test have been rebuilt successfully through the controlled `build/` output tree. Question 60 now keeps all five options together in one column without overlapping the following column, and the existing answer-key table remains correct.
 
-The independent working-tree modification to examples/studentnotes/Optics.tex remains outside the Phase 2 checkpoint and must stay unstaged.
+The independent working-tree modification to `examples/studentnotes/Optics.tex` remains outside the Phase 2 checkpoint and must stay unstaged.
 
-Phase 1 completed configuration
+## Phase 1 completed configuration
 
-Repository-level .latexmkrc
+### Repository-level `.latexmkrc`
 
-The repository-level .latexmkrc now:
+The repository-level `.latexmkrc` now:
 
-discovers classes under src/classes;
+* discovers classes under `src/classes`;
+* discovers packages under `src/packages`;
+* preserves MiKTeX’s standard input trees;
+* builds directly with pdfLaTeX;
+* enables SyncTeX;
+* enables file-and-line error reporting;
+* processes nested roots from their document directories; and
+* supports both command-line and LaTeX Workshop builds.
 
-discovers packages under src/packages;
+The configuration assumes that `latexmk` is launched from the repository root before `$do_cd` changes into the selected document’s directory.
 
-preserves MiKTeX’s standard input trees;
+### Project-local LaTeX Workshop settings
 
-builds directly with pdfLaTeX;
+`.vscode/settings.json` now:
 
-enables SyncTeX;
+* launches builds from the repository root;
+* loads the repository `.latexmkrc`;
+* writes generated files under `build/%RELATIVE_DIR%`;
+* automatically builds LaTeX documents on save;
+* displays the selected root file in the status bar;
+* uses LaTeX Workshop’s internal PDF viewer;
+* runs ChkTeX when a document is saved;
+* uses `latexindent` for explicitly requested formatting;
+* disables LaTeX formatting on save;
+* disables automatic mathematical-delimiter rewriting; and
+* disables automatic quotation rewriting.
 
-enables file-and-line error reporting;
-
-processes nested roots from their document directories; and
-
-supports both command-line and LaTeX Workshop builds.
-
-The configuration assumes that latexmk is launched from the repository root before $do_cd changes into the selected document’s directory.
-
-Project-local LaTeX Workshop settings
-
-.vscode/settings.json now:
-
-launches builds from the repository root;
-
-loads the repository .latexmkrc;
-
-writes generated files under build/%RELATIVE_DIR%;
-
-automatically builds LaTeX documents on save;
-
-displays the selected root file in the status bar;
-
-uses LaTeX Workshop’s internal PDF viewer;
-
-runs ChkTeX when a document is saved;
-
-uses latexindent for explicitly requested formatting;
-
-disables LaTeX formatting on save;
-
-disables automatic mathematical-delimiter rewriting; and
-
-disables automatic quotation rewriting.
-
-Phase 1 acceptance evidence
+## Phase 1 acceptance evidence
 
 The following tests passed:
 
-project-local discovery of all four active classes;
+* project-local discovery of all four active classes;
+* project-local discovery of all seven OT companion packages;
+* `otengineering` representative build;
+* `physicsquiz` representative build;
+* `studentnotes` representative build;
+* combined vector-workbook build;
+* standalone vector-workbook module builds;
+* correct root selection for combined and standalone documents;
+* forward SyncTeX navigation;
+* inverse SyncTeX navigation;
+* inverse navigation from the combined PDF into an imported module;
+* controlled output under the mirrored `build/` tree;
+* command-line building through the repository `.latexmkrc`;
+* LaTeX Workshop building through the same `.latexmkrc`;
+* auxiliary-file cleaning and fresh rebuilding;
+* automatic compilation on save;
+* ChkTeX 1.7.9 linting; and
+* explicit `latexindent` 4.0 formatting.
 
-project-local discovery of all seven OT companion packages;
+No `% !TeX root` directives were added. The workbook’s existing conditional architecture correctly supports both combined and standalone compilation.
 
-otengineering representative build;
+## Repository checkpoint status
 
-physicsquiz representative build;
+* The audited Phase 0 baseline has been committed.
+* The annotated tag `phase-0-baseline` has been created and verified.
+* The Phase 1 workflow configuration has been completed and verified.
+* Phase 2 source changes are limited to the controlled `physicsquiz` choices-interface refactor.
+* Generated logs and regenerated reference PDFs are excluded from the current source-focused checkpoint.
+* `examples/studentnotes/Optics.tex` remains an independent modification and is excluded from the current checkpoint.
 
-studentnotes representative build;
+## Canonical repository structure
 
-combined vector-workbook build;
-
-standalone vector-workbook module builds;
-
-correct root selection for combined and standalone documents;
-
-forward SyncTeX navigation;
-
-inverse SyncTeX navigation;
-
-inverse navigation from the combined PDF into an imported module;
-
-controlled output under the mirrored build/ tree;
-
-command-line building through the repository .latexmkrc;
-
-LaTeX Workshop building through the same .latexmkrc;
-
-auxiliary-file cleaning and fresh rebuilding;
-
-automatic compilation on save;
-
-ChkTeX 1.7.9 linting; and
-
-explicit latexindent 4.0 formatting.
-
-No % !TeX root directives were added. The workbook’s existing conditional architecture correctly supports both combined and standalone compilation.
-
-Repository checkpoint status
-
-The audited Phase 0 baseline has been committed.
-
-The annotated tag phase-0-baseline has been created and verified.
-
-The Phase 1 workflow configuration has been completed and verified.
-
-Phase 2 source changes are limited to the controlled physicsquiz choices-interface refactor.
-
-Generated logs and regenerated reference PDFs are excluded from the current source-focused checkpoint.
-
-examples/studentnotes/Optics.tex remains an independent modification and is excluded from the current checkpoint.
-
-Canonical repository structure
-
+```text
 LaTeX-Lab/
 ├── .gitignore
 ├── CHANGELOG.md
@@ -211,561 +164,386 @@ LaTeX-Lab/
 │
 └── tests/
     └── physicsquiz_choices_compatibility.tex
+```
 
-The tests directory now contains the first isolated compatibility test. Its generated files belong under build/tests/ and must not be committed from the source directory.
+The `tests` directory now contains the first isolated compatibility test. Its generated files belong under `build/tests/` and must not be committed from the source directory.
 
-Canonical source files
+## Canonical source files
 
-Classes
+### Classes
 
-src/classes/studentnotes.cls
-
-src/classes/physicsquiz.cls
-
-src/classes/otengineering.cls
-
-src/classes/otscience.cls
+* `src/classes/studentnotes.cls`
+* `src/classes/physicsquiz.cls`
+* `src/classes/otengineering.cls`
+* `src/classes/otscience.cls`
 
 All four active classes have now been supplied and audited.
 
-Active OT packages
+### Active OT packages
 
-src/packages/otnotation.sty
+* `src/packages/otnotation.sty`
+* `src/packages/otmath.sty`
+* `src/packages/ottensors.sty`
+* `src/packages/otphysics.sty`
+* `src/packages/otcoordinates.sty`
+* `src/packages/otpractice.sty`
+* `src/packages/otfigures.sty`
 
-src/packages/otmath.sty
+These seven packages form the companion package system used by `otscience.cls` and the modular workbook.
 
-src/packages/ottensors.sty
+They currently depend on colours, boxes, or other interfaces defined by `otscience.cls`. They must therefore be treated as ecosystem components rather than independently loadable general-purpose packages.
 
-src/packages/otphysics.sty
+### Legacy source
 
-src/packages/otcoordinates.sty
-
-src/packages/otpractice.sty
-
-src/packages/otfigures.sty
-
-These seven packages form the companion package system used by otscience.cls and the modular workbook.
-
-They currently depend on colours, boxes, or other interfaces defined by otscience.cls. They must therefore be treated as ecosystem components rather than independently loadable general-purpose packages.
-
-Legacy source
-
-src/legacy/otscience.sty
+* `src/legacy/otscience.sty`
 
 This is the older monolithic version 0.1 implementation.
 
-It overlaps with the newer version 0.2 otscience.cls and its seven companion packages. It is preserved for historical reference and must not be loaded alongside the active otscience.cls architecture.
+It overlaps with the newer version 0.2 `otscience.cls` and its seven companion packages. It is preserved for historical reference and must not be loaded alongside the active `otscience.cls` architecture.
 
-Representative projects
+## Representative projects
 
-physicsquiz.cls
+### `physicsquiz.cls`
 
 Representative project:
 
-PHY104_Exam revision.tex
-
-PHY104_Exam revision.pdf
-
-PHY104_Exam revision.log
+* `PHY104_Exam revision.tex`
+* `PHY104_Exam revision.pdf`
+* `PHY104_Exam revision.log`
 
 The audited baseline build produced a readable 24-page examination-revision document without LaTeX warnings or overfull boxes.
 
 The Phase 2 refactor replaced the unbreakable choices table with a semantic list-based interface. The representative quiz was rebuilt successfully, and Question 60’s five options now remain together in one column without overlapping the following column.
 
-studentnotes.cls
+### `studentnotes.cls`
 
 Canonical representative project:
 
-Optics.tex
+* `Optics.tex`
+* `Optics.pdf`
 
-Optics.pdf
+The separate normal-modes project was also audited during Phase 0. Its historical log confirmed successful compilation and identified a small margin-note overflow. The `Optics` project is presently the representative example retained in the canonical repository.
 
-The separate normal-modes project was also audited during Phase 0. Its historical log confirmed successful compilation and identified a small margin-note overflow. The Optics project is presently the representative example retained in the canonical repository.
-
-otengineering.cls
+### `otengineering.cls`
 
 Representative project:
 
-test.tex
-
-test.pdf
-
-test.log
+* `test.tex`
+* `test.pdf`
+* `test.log`
 
 The audited build produced a four-page engineering notebook. The project dashboard fits correctly, and the log contains only one harmless underfull-box warning.
 
-otscience.cls and modular workbook
+### `otscience.cls` and modular workbook
 
 The workbook source set is complete.
 
 It contains:
 
-the active class;
-
-all seven companion packages;
-
-00_common_setup.tex;
-
-the combined root document;
-
-all seven numbered modules;
-
-combined and standalone reference PDFs;
-
-the historical combined-build log.
+* the active class;
+* all seven companion packages;
+* `00_common_setup.tex`;
+* the combined root document;
+* all seven numbered modules;
+* combined and standalone reference PDFs;
+* the historical combined-build log.
 
 The historical MiKTeX 26.2 build successfully loaded the class, all seven packages, the shared setup, and all seven modules. It produced the preserved 30-page combined PDF.
 
-The canonical repository structure is now supported by the shared Phase 1 class and package search-path configuration. Internal \documentclass, \input, and package paths remain unchanged.
-
-Known current features
-
-studentnotes.cls
-
-article base class
-
-fixed A4 and 12-point configuration
-
-geometry and margin-note support
-
-fancyhdr
-
-custom section formatting
-
-optional TikZ dot-grid page background
-
-semantic tcolorbox note environments
-
-theorem, definition, and example environments
-
-custom formula counter
-
-namedformula environment
-
-margin-note helper commands
-
-witharrows helper commands
-
-matrix and vector helper commands
-
-physicsquiz.cls
-
-article base class
-
-pass-through class options
-
-configurable global quiz font size
-
-title metadata setters
-
-custom quiz title page
-
-constants box
-
-multi-column quizquestions environment
-
-flexible choiceoptions environment with alphabetical labels
-
-backward-compatible five-argument \choices wrapper
-
-answer-key environment
-
-siunitx configuration
-
-custom colours and page styling
-
-otengineering.cls
-
-project metadata setters
-
-project dashboard and title commands
-
-semantic engineering and research boxes
-
-status labels
-
-confidence, success, and pursuit ratings
-
-calculation fields
-
-sketch boxes
-
-project tracking and decision-record helpers
-
-otscience.cls
-
-scientific-document page layout
-
-mathematical and physics package support
-
-breakable and non-splitting semantic boxes
-
-section and header styling
-
-scientific colour system
-
-conditional loading of the seven OT companion packages
-
-hyperref and cleveref support
-
-combined and standalone workbook architecture
-
-Agreed principles
-
-Preserve the existing visual identity unless redesign is explicitly approved.
-
-Learn the underlying concepts while refactoring.
-
-Make small, compilable changes.
-
-Preserve backward compatibility where reasonable.
-
-Do not replace MiKTeX without a concrete need.
-
-Keep local files as the primary working copy.
-
-Use Overleaf deliberately rather than as the sole source.
-
-Maintain explicit change and state records between sessions.
-
-Do not assume a build succeeded without checking the relevant log.
-
-Do not change unrelated parts of a class or package.
-
-Introduce new packages only when their benefit justifies their maintenance cost.
-
-Preserve representative outputs for visual and behavioural comparison.
-
-Record public-interface changes and migration requirements.
-
-Known issues to audit or correct later
-
-These remaining findings are recorded for controlled treatment in the appropriate later checkpoints. They must not be mixed into the current physicsquiz choices-interface checkpoint.
-
-studentnotes.cls
-
-witharrows is loaded twice.
-
-The required argument of namedformula is currently ignored.
-
-The dot-grid background creates approximately 2,580 TikZ dots per page.
-
-Calling \usedotgrid more than once may install the background repeatedly.
-
-The class loads marginnote but primarily uses \marginpar.
-
-Narrow margin notes can stack words awkwardly.
-
-Several generic public environment names create future collision risks.
-
-physicsquiz.cls
-
-The public choiceoptions and legacy \choices interfaces require formal documentation.
-
-Wider compatibility testing is still needed for exceptionally long options, displayed mathematics, and future assessment layouts.
-
-Question stems and choice blocks may still require a deliberate keep-together policy for edge cases beyond the representative quiz.
-
-Some dependencies may be broader than the class implementation requires.
-
-otengineering.cls
-
-A tabularx inside a tcolorbox uses \textwidth; \linewidth may be safer.
-
-Some loaded packages may support document content rather than class implementation.
-
-Several generic public names create namespace-collision risks.
-
-The representative log contains one harmless underfull-box warning.
-
-otscience.cls and workbook
-
-A long Section 4 heading requires approximately 25.16pt of header height, while the setup specifies 13.6pt.
-
-The historical workbook log records eleven overfull lines.
-
-The largest recorded overflow is approximately 28.74pt.
-
-Mathematical spacing commands in subsection titles generate malformed PDF-bookmark warnings.
-
-Two siunitx settings are deprecated.
-
-The attempted physics–siunitx warning suppression is ineffective in the preserved log.
-
-00_main_combined_workbook.tex loads silence even though the class already loads it.
-
-Some subsection and module headings require editorial correction.
-
-\CartToCyl and \CartToSph use \tan^{-1}(y/x), which loses quadrant information; a later implementation should use an atan2 formulation.
-
-The companion packages currently depend on class-defined colours and box interfaces.
-
-The optional-loading arrangement can hide missing ecosystem dependencies.
-
-Combined and standalone builds require controlled regression testing after path configuration.
-
-General ecosystem issues
-
-Public namespaces are not formally documented.
-
-Minimum supported LaTeX version has not been chosen.
-
-Engine support has not been formally defined.
-
-No automated class regression suite exists.
-
-No l3build configuration exists.
-
-Package-version diagnostics are not automated.
-
-The preserved PDFs are untagged and contain limited document metadata.
-
-Decisions still required
-
-Minimum supported LaTeX kernel or release date
-
-Whether support is limited to pdfLaTeX or extended to LuaLaTeX and XeLaTeX
-
-Exact output modes required from physicsquiz.cls
-
-Whether assessment questions should use a lightweight custom architecture or xsim
-
-How much shared code should move into common OT packages
-
-Whether the modular workbook should retain its existing conditional structure or adopt subfiles
-
-Whether generated PDFs and selected logs should remain version-controlled after the baseline
-
-Naming and compatibility policy for public commands
-
-Accessibility target for future PDFs
-
-Release-versioning and tagging conventions
-
-Phase 2 status
+The canonical repository structure is now supported by the shared Phase 1 class and package search-path configuration. Internal `\documentclass`, `\input`, and package paths remain unchanged.
+
+## Known current features
+
+### `studentnotes.cls`
+
+* `article` base class
+* fixed A4 and 12-point configuration
+* geometry and margin-note support
+* `fancyhdr`
+* custom section formatting
+* optional TikZ dot-grid page background
+* semantic `tcolorbox` note environments
+* theorem, definition, and example environments
+* custom formula counter
+* `namedformula` environment
+* margin-note helper commands
+* `witharrows` helper commands
+* matrix and vector helper commands
+
+### `physicsquiz.cls`
+
+* `article` base class
+* pass-through class options
+* configurable global quiz font size
+* title metadata setters
+* custom quiz title page
+* constants box
+* multi-column `quizquestions` environment
+* flexible `choiceoptions` environment with alphabetical labels
+* backward-compatible five-argument `\choices` wrapper
+* answer-key environment
+* `siunitx` configuration
+* custom colours and page styling
+
+### `otengineering.cls`
+
+* project metadata setters
+* project dashboard and title commands
+* semantic engineering and research boxes
+* status labels
+* confidence, success, and pursuit ratings
+* calculation fields
+* sketch boxes
+* project tracking and decision-record helpers
+
+### `otscience.cls`
+
+* scientific-document page layout
+* mathematical and physics package support
+* breakable and non-splitting semantic boxes
+* section and header styling
+* scientific colour system
+* conditional loading of the seven OT companion packages
+* `hyperref` and `cleveref` support
+* combined and standalone workbook architecture
+
+## Agreed principles
+
+* Preserve the existing visual identity unless redesign is explicitly approved.
+* Learn the underlying concepts while refactoring.
+* Make small, compilable changes.
+* Preserve backward compatibility where reasonable.
+* Do not replace MiKTeX without a concrete need.
+* Keep local files as the primary working copy.
+* Use Overleaf deliberately rather than as the sole source.
+* Maintain explicit change and state records between sessions.
+* Do not assume a build succeeded without checking the relevant log.
+* Do not change unrelated parts of a class or package.
+* Introduce new packages only when their benefit justifies their maintenance cost.
+* Preserve representative outputs for visual and behavioural comparison.
+* Record public-interface changes and migration requirements.
+
+## Known issues to audit or correct later
+
+These remaining findings are recorded for controlled treatment in the appropriate later checkpoints. They must not be mixed into the current `physicsquiz` choices-interface checkpoint.
+
+### `studentnotes.cls`
+
+* `witharrows` is loaded twice.
+* The required argument of `namedformula` is currently ignored.
+* The dot-grid background creates approximately 2,580 TikZ dots per page.
+* Calling `\usedotgrid` more than once may install the background repeatedly.
+* The class loads `marginnote` but primarily uses `\marginpar`.
+* Narrow margin notes can stack words awkwardly.
+* Several generic public environment names create future collision risks.
+
+### `physicsquiz.cls`
+
+* The public `choiceoptions` and legacy `\choices` interfaces require formal documentation.
+* Wider compatibility testing is still needed for exceptionally long options, displayed mathematics, and future assessment layouts.
+* Question stems and choice blocks may still require a deliberate keep-together policy for edge cases beyond the representative quiz.
+* Some dependencies may be broader than the class implementation requires.
+
+### `otengineering.cls`
+
+* A `tabularx` inside a `tcolorbox` uses `\textwidth`; `\linewidth` may be safer.
+* Some loaded packages may support document content rather than class implementation.
+* Several generic public names create namespace-collision risks.
+* The representative log contains one harmless underfull-box warning.
+
+### `otscience.cls` and workbook
+
+* A long Section 4 heading requires approximately `25.16pt` of header height, while the setup specifies `13.6pt`.
+* The historical workbook log records eleven overfull lines.
+* The largest recorded overflow is approximately `28.74pt`.
+* Mathematical spacing commands in subsection titles generate malformed PDF-bookmark warnings.
+* Two `siunitx` settings are deprecated.
+* The attempted `physics`–`siunitx` warning suppression is ineffective in the preserved log.
+* `00_main_combined_workbook.tex` loads `silence` even though the class already loads it.
+* Some subsection and module headings require editorial correction.
+* `\CartToCyl` and `\CartToSph` use `\tan^{-1}(y/x)`, which loses quadrant information; a later implementation should use an `atan2` formulation.
+* The companion packages currently depend on class-defined colours and box interfaces.
+* The optional-loading arrangement can hide missing ecosystem dependencies.
+* Combined and standalone builds require controlled regression testing after path configuration.
+
+### General ecosystem issues
+
+* Public namespaces are not formally documented.
+* Minimum supported LaTeX version has not been chosen.
+* Engine support has not been formally defined.
+* No automated class regression suite exists.
+* No `l3build` configuration exists.
+* Package-version diagnostics are not automated.
+* The preserved PDFs are untagged and contain limited document metadata.
+
+## Decisions still required
+
+* Minimum supported LaTeX kernel or release date
+* Whether support is limited to pdfLaTeX or extended to LuaLaTeX and XeLaTeX
+* Exact output modes required from `physicsquiz.cls`
+* Whether assessment questions should use a lightweight custom architecture or `xsim`
+* How much shared code should move into common OT packages
+* Whether the modular workbook should retain its existing conditional structure or adopt `subfiles`
+* Whether generated PDFs and selected logs should remain version-controlled after the baseline
+* Naming and compatibility policy for public commands
+* Accessibility target for future PDFs
+* Release-versioning and tagging conventions
+
+## Phase 2 status
 
 Phase 2 is in progress. It audits and improves semantic document interfaces without changing the established visual identity.
 
 A read-only usage and compatibility audit has been completed for:
 
-\choices;
-
-namedformula;
-
-theorem environments;
-
-semantic note boxes; and
-
-the answerkey environment.
-
-Completed work
-
-Confirmed 60 legacy \choices calls in the representative physics quiz.
-
-Confirmed that the representative answer key contains a 12-row, five-column booktabs table.
-
-Confirmed exactly 13 namedformula calls across the complete normal-modes source set.
-
-Added the semantic choiceoptions environment to physicsquiz.cls.
-
-Allowed an arbitrary number of alphabetically labelled multiple-choice options.
-
-Preserved the legacy five-argument \choices{...}{...}{...}{...}{...} syntax through a compatibility wrapper.
-
-Added tests/physicsquiz_choices_compatibility.tex.
-
-Reinforced repository class discovery in .latexmkrc for command-line and test builds.
-
-Verified the legacy five-option interface.
-
-Verified four-option and six-option uses of choiceoptions.
-
-Verified prose choices and display-style mathematical choices.
-
-Rebuilt the representative 60-question physics quiz through the controlled build/ output tree.
-
-Confirmed that Question 60’s options remain together in one column without overlapping the following column.
-
-Confirmed that the existing answer-key table remains visually correct.
-
-Compatibility decisions
-
-Existing documents using the five-argument \choices command require no migration.
-
-The new choiceoptions environment is additive.
-
-The legacy \choices command delegates to the new semantic interface.
-
-The answerkey environment remains unchanged.
-
-Multiple assessment-output modes, question-bank metadata, and large architectural changes remain outside Phase 2.
-
-The separate working-tree modification to examples/studentnotes/Optics.tex remains outside Phase 2.
-
-Remaining Phase 2 work
-
-Design and test the namedformula compatibility improvement.
-
-Establish label and cross-reference requirements.
-
-Review theorem interface compatibility.
-
-Review semantic note-box compatibility and pagination behaviour.
-
-Document the public commands and environments.
-
-The existing namedformula syntax and F<section>.<formula> numbering must remain available. Its currently unused descriptive argument must not become visible automatically because doing so would alter established output.
-
-No namedformula, theorem, semantic-note-box, or answerkey definition should be changed until its specific compatibility requirements and isolated test document have been established.
-
-Session handover log
-
-Session 0 — Project definition
-
-Established the staged learning and refactoring plan.
-
-Confirmed that MiKTeX, pdfTeX, latexmk, and LaTeX Workshop are working.
-
-Established local project folders as the primary working copy.
-
-Agreed to preserve visual identity and backward compatibility.
-
-No source files were modified.
-
-Session 1 — Initial Phase 0 audit
-
-Inspected the four classes, supplied documents, modules, and reference PDFs.
-
-Inventoried the public commands and environments.
-
-Audited direct package dependencies.
-
-Identified missing shared setup, companion packages, and diagram fragments.
-
-Recorded layout, performance, namespace, and interface risks.
-
-Confirmed that historical PDFs demonstrated successful earlier builds.
-
-No source files were modified.
-
-Session 2 — Phase 0 evidence completion
-
-Inspected all seven OT companion packages.
-
-Inspected 00_common_setup.tex.
-
-Confirmed that the workbook source set is complete.
-
-Distinguished the active otscience.cls architecture from the legacy otscience.sty.
-
-Inspected representative physicsquiz and otengineering projects, PDFs, and logs.
-
-Confirmed the successful 30-page workbook build from its historical log.
-
-Recorded the workbook warnings and the Question 60 column-splitting defect.
-
-No source files were modified.
-
-Session 3 — Repository preparation
-
-Corrected an initially misplaced Git repository that had been created above the intended project root.
-
-Established LaTeX-Lab as the dedicated repository root.
-
-Reorganised the copied sources into src/classes, src/packages, and src/legacy.
-
-Established one example folder for each active class architecture.
-
-Preserved the reference PDFs and available diagnostic logs.
-
-Staged 41 project files for inspection.
-
-Identified the accidental untracked file tatus --short.
-
-Identified the two audited logs that must be added before the baseline commit.
-
-Prepared the repository for final validation, the initial baseline commit, and an annotated Phase 0 tag.
-
-Session 4 — Phase 1 LaTeX Workshop workflow
-
-Added and verified the shared repository-level .latexmkrc workflow.
-
-Added and verified project-local LaTeX Workshop settings.
-
-Established the mirrored build/ output structure.
-
-Verified all four active class architectures.
-
-Verified combined and standalone vector-workbook builds.
-
-Verified forward and inverse SyncTeX navigation.
-
-Verified clean rebuilding, automatic compilation, ChkTeX, and explicit latexindent formatting.
-
-Preserved and excluded the independent modification to examples/studentnotes/Optics.tex.
-
-Session 5 — Phase 2 choices interface
-
-Completed the usage and compatibility audit of \choices, namedformula, theorem environments, semantic note boxes, and the answerkey environment.
-
-Confirmed 60 legacy \choices calls in the representative physics quiz.
-
-Confirmed exactly 13 namedformula uses in the complete normal-modes source set.
-
-Identified the unbreakable legacy choices table as the cause of the Question 60 column-overlap defect.
-
-Added the flexible choiceoptions environment.
-
-Preserved the five-argument \choices command as a compatibility wrapper.
-
-Added a compatibility test covering four-, five-, and six-option questions.
-
-Reinforced repository class discovery in .latexmkrc.
-
-Verified the compatibility test and representative physics quiz using the controlled build/ output tree.
-
-Confirmed that Question 60 now renders without column overlap.
-
-Left the answerkey environment unchanged.
-
-Preserved and excluded the independent modification to examples/studentnotes/Optics.tex.
-
-Next action
-
-Commit the first Phase 2 checkpoint while excluding:
-
-examples/studentnotes/Optics.tex;
-
-regenerated reference PDFs;
-
-logs and other build artefacts.
-
-The checkpoint should contain only:
-
-.latexmkrc;
-
-src/classes/physicsquiz.cls;
-
-tests/physicsquiz_choices_compatibility.tex;
-
-PROJECT_STATE.md; and
-
-CHANGELOG.md.
-
-After the checkpoint is committed, continue Phase 2 with the namedformula interface.
-
-Before changing namedformula:
-
-document all 13 confirmed call sites;
-
-preserve the existing environment syntax;
-
-preserve F<section>.<formula> numbering;
-
-preserve section-based counter resets;
-
-keep descriptive titles visually hidden by default;
-
-establish label and cross-reference requirements; and
-
-create an isolated compatibility test.
+* `\choices`;
+* `namedformula`;
+* theorem environments;
+* semantic note boxes; and
+* the `answerkey` environment.
+
+### Completed work
+
+* Confirmed 60 legacy `\choices` calls in the representative physics quiz.
+* Confirmed that the representative answer key contains a 12-row, five-column `booktabs` table.
+* Confirmed exactly 13 `namedformula` calls across the complete normal-modes source set.
+* Added the semantic `choiceoptions` environment to `physicsquiz.cls`.
+* Allowed an arbitrary number of alphabetically labelled multiple-choice options.
+* Preserved the legacy five-argument `\choices{...}{...}{...}{...}{...}` syntax through a compatibility wrapper.
+* Added `tests/physicsquiz_choices_compatibility.tex`.
+* Reinforced repository class discovery in `.latexmkrc` for command-line and test builds.
+* Verified the legacy five-option interface.
+* Verified four-option and six-option uses of `choiceoptions`.
+* Verified prose choices and display-style mathematical choices.
+* Rebuilt the representative 60-question physics quiz through the controlled `build/` output tree.
+* Confirmed that Question 60’s options remain together in one column without overlapping the following column.
+* Confirmed that the existing answer-key table remains visually correct.
+
+### Named-formula interface checkpoint
+
+* Preserved the existing `namedformula` environment syntax and visual appearance.
+* Preserved section-based numbering in the form `F<section>.<formula>`.
+* Preserved formula-counter resets at each section.
+* Added `\formularef{<label>}` for references matching the visible formula tag.
+* Retained each required descriptive title as reference metadata.
+* Enabled descriptive-title references through `\nameref`.
+* Kept descriptive titles visually hidden by default.
+* Added `tests/studentnotes_namedformula_compatibility.tex`.
+* Verified tags `F1.1`, `F1.2`, and `F2.1`.
+* Verified section-based counter resetting.
+* Verified `\formularef` and `\nameref` output.
+* Confirmed that no undefined references remain after rebuilding.
+* Made no changes to representative note sources.
+
+### Compatibility decisions
+
+* Existing documents using the five-argument `\choices` command require no migration.
+* The new `choiceoptions` environment is additive.
+* The legacy `\choices` command delegates to the new semantic interface.
+* The `answerkey` environment remains unchanged.
+* Multiple assessment-output modes, question-bank metadata, and large architectural changes remain outside Phase 2.
+* The separate working-tree modification to `examples/studentnotes/Optics.tex` remains outside Phase 2.
+
+### Next Phase 2 action
+
+Audit the theorem environments and semantic note-box interfaces.
+
+Before changing them:
+
+* inventory their definitions and all representative call sites;
+* distinguish semantic interfaces from visual-only wrappers;
+* preserve existing environment names and established output;
+* identify duplicated implementation across the active classes;
+* establish compatibility requirements;
+* create isolated regression tests; and
+* avoid moving code into a shared package until compatibility has been demonstrated.
+
+## Session handover log
+
+### Session 0 — Project definition
+
+* Established the staged learning and refactoring plan.
+* Confirmed that MiKTeX, pdfTeX, latexmk, and LaTeX Workshop are working.
+* Established local project folders as the primary working copy.
+* Agreed to preserve visual identity and backward compatibility.
+* No source files were modified.
+
+### Session 1 — Initial Phase 0 audit
+
+* Inspected the four classes, supplied documents, modules, and reference PDFs.
+* Inventoried the public commands and environments.
+* Audited direct package dependencies.
+* Identified missing shared setup, companion packages, and diagram fragments.
+* Recorded layout, performance, namespace, and interface risks.
+* Confirmed that historical PDFs demonstrated successful earlier builds.
+* No source files were modified.
+
+### Session 2 — Phase 0 evidence completion
+
+* Inspected all seven OT companion packages.
+* Inspected `00_common_setup.tex`.
+* Confirmed that the workbook source set is complete.
+* Distinguished the active `otscience.cls` architecture from the legacy `otscience.sty`.
+* Inspected representative `physicsquiz` and `otengineering` projects, PDFs, and logs.
+* Confirmed the successful 30-page workbook build from its historical log.
+* Recorded the workbook warnings and the Question 60 column-splitting defect.
+* No source files were modified.
+
+### Session 3 — Repository preparation
+
+* Corrected an initially misplaced Git repository that had been created above the intended project root.
+* Established `LaTeX-Lab` as the dedicated repository root.
+* Reorganised the copied sources into `src/classes`, `src/packages`, and `src/legacy`.
+* Established one example folder for each active class architecture.
+* Preserved the reference PDFs and available diagnostic logs.
+* Staged 41 project files for inspection.
+* Identified the accidental untracked file `tatus --short`.
+* Identified the two audited logs that must be added before the baseline commit.
+* Prepared the repository for final validation, the initial baseline commit, and an annotated Phase 0 tag.
+
+### Session 4 — Phase 1 LaTeX Workshop workflow
+
+* Added and verified the shared repository-level `.latexmkrc` workflow.
+* Added and verified project-local LaTeX Workshop settings.
+* Established the mirrored `build/` output structure.
+* Verified all four active class architectures.
+* Verified combined and standalone vector-workbook builds.
+* Verified forward and inverse SyncTeX navigation.
+* Verified clean rebuilding, automatic compilation, ChkTeX, and explicit `latexindent` formatting.
+* Preserved and excluded the independent modification to `examples/studentnotes/Optics.tex`.
+
+### Session 5 — Phase 2 choices interface
+
+* Completed the usage and compatibility audit of `\choices`, `namedformula`, theorem environments, semantic note boxes, and the `answerkey` environment.
+* Confirmed 60 legacy `\choices` calls in the representative physics quiz.
+* Confirmed exactly 13 `namedformula` uses in the complete normal-modes source set.
+* Identified the unbreakable legacy choices table as the cause of the Question 60 column-overlap defect.
+* Added the flexible `choiceoptions` environment.
+* Preserved the five-argument `\choices` command as a compatibility wrapper.
+* Added a compatibility test covering four-, five-, and six-option questions.
+* Reinforced repository class discovery in `.latexmkrc`.
+* Verified the compatibility test and representative physics quiz using the controlled `build/` output tree.
+* Confirmed that Question 60 now renders without column overlap.
+* Left the `answerkey` environment unchanged.
+* Preserved and excluded the independent modification to `examples/studentnotes/Optics.tex`.
+
+### Session 6 — Phase 2 named-formula interface
+
+* Audited the existing `namedformula` interface and its confirmed call sites.
+* Preserved the required descriptive argument and existing environment syntax.
+* Preserved `F<section>.<formula>` numbering and section-based resets.
+* Made the descriptive title available to `\nameref` without displaying it.
+* Added the `\formularef` command for references matching visible formula tags.
+* Added an isolated compatibility test.
+* Verified formula numbering, section resets, descriptive-title references, and the absence of unresolved references.
+* Left all representative note sources unchanged.
+* Preserved and excluded the independent modification to `examples/studentnotes/Optics.tex`.
+
+## Next action
+
+Commit the `namedformula` compatibility checkpoint while excluding:
+
+* `examples/studentnotes/Optics.tex`;
+* generated PDFs;
+* logs and other build artefacts.
+
+After the checkpoint is committed, continue Phase 2 with the theorem and semantic note-box audit. No definitions should be changed until their usage inventory and compatibility requirements have been documented.

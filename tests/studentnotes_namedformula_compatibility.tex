@@ -1,0 +1,39 @@
+\documentclass{studentnotes}
+
+\setnotetitle{Named Formula Compatibility Test}
+\setnotecourse{LaTeX Lab}
+\setnoteauthor{OT}
+
+\begin{document}
+
+\makenotetitle
+
+\section{First section}
+
+\begin{namedformula}{Pythagorean identity}
+    \label{formula:pythagorean}
+    \sin^2\theta+\cos^2\theta=1
+\end{namedformula}
+
+\begin{namedformula}{Quadratic formula}
+    \label{formula:quadratic}
+    x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}
+\end{namedformula}
+
+The first result is \formularef{formula:pythagorean},
+titled ``\nameref{formula:pythagorean}''.
+
+The second result is \formularef{formula:quadratic}.
+
+\section{Second section}
+
+\begin{namedformula}{Normal mode condition}
+    \label{formula:normal-mode-condition}
+    \det(K-m\omega^2I)=0
+\end{namedformula}
+
+The section-reset result is
+\formularef{formula:normal-mode-condition},
+titled ``\nameref{formula:normal-mode-condition}''.
+
+\end{document}
