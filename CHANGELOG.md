@@ -66,6 +66,7 @@ This file records significant changes to the LaTeX Workspace Learning and Class 
 - Added project-local discovery paths for packages under `src/packages`.
 - Added a controlled and mirrored `build/` output structure.
 - Added `tests/otscience_boxes_compatibility.tex`.
+- Added `tests/otengineering_boxes_compatibility.tex`.
 
 ### Configured
 
@@ -101,6 +102,14 @@ This file records significant changes to the LaTeX Workspace Learning and Class 
 - Verified the `practicebox` and `practiceboxnosplit` workbook wrappers.
 - Verified successful standalone and combined vector-workbook builds.
 - Confirmed that the existing `otscience` box definitions require no changes.
+- Verified the generic `otbox` interface and all fifteen semantic wrappers.
+- Verified default and custom semantic-box titles.
+- Verified established colours and visual appearance.
+- Verified the `calculation` environment and `\calcfield` command.
+- Verified intact page-boundary movement of short boxes.
+- Verified clean continuation of long breakable boxes across pages.
+- Verified the representative `otengineering` notebook build.
+- Confirmed that the existing box definitions require no changes.
 
 ### Preserved
 

@@ -1,0 +1,211 @@
+\documentclass{otengineering}
+\newcommand{\breakprobe}[1]{%
+    \par\medskip
+    \textbf{Continuation probe #1.}
+    This deliberately repeated paragraph makes the record long enough to
+    require continuation onto another page. The frame and contents should
+    remain complete, readable, and clear of the footer.
+}
+\begin{document}
+
+\section{Generic box interface}
+
+\begin{otbox}[Generic OT Box]{OTDark}
+    This box directly tests the generic \texttt{otbox} interface. It should
+    have a light-grey background, dark frame, bold title, sharp corners, and
+    the established border thickness.
+\end{otbox}
+
+\section{Core engineering environments}
+
+\begin{idea}
+    The default title should be \textbf{Idea}, with the established blue
+    frame.
+\end{idea}
+
+\begin{questionbox}
+    The default title should be \textbf{Engineering Question}, with the
+    established purple frame.
+\end{questionbox}
+
+\begin{decision}
+    The default title should be \textbf{Design Decision}, with the
+    established green frame.
+\end{decision}
+
+\begin{experiment}
+    The default title should be \textbf{Experiment}, with the established
+    orange frame.
+\end{experiment}
+
+\begin{failure}
+    The default title should be \textbf{Failure / Problem}, with the
+    established red frame.
+\end{failure}
+
+\begin{discovery}
+    The default title should be \textbf{Discovery}, with the established
+    purple frame.
+\end{discovery}
+
+\begin{lesson}
+    The default title should be \textbf{Lesson Learned}, with the
+    established green frame.
+\end{lesson}
+
+\begin{futurememo}
+    The default title should be \textbf{Note to Future Self}, with the
+    established orange frame.
+\end{futurememo}
+
+\section{Informal research and development environments}
+
+\begin{thought}
+    The default title should be \textbf{Random Thought}, with the
+    established muted-grey frame.
+\end{thought}
+
+\begin{rabbithole}
+    The default title should be \textbf{Rabbit Hole Tracker}, with the
+    established orange frame.
+\end{rabbithole}
+
+\begin{researchqueue}
+    The default title should be \textbf{Future Research Queue}, with the
+    established blue frame.
+\end{researchqueue}
+
+\begin{wisdom}
+    The default title should be \textbf{What I Wish I Knew Earlier}, with
+    the established green frame.
+\end{wisdom}
+
+\section{Risk, assumption, and calculation environments}
+
+\begin{risk}
+    The default title should be \textbf{Risk Register Entry}, with the
+    established red frame.
+\end{risk}
+
+\begin{assumption}
+    The default title should be \textbf{Assumption Tracker}, with the
+    established orange frame.
+\end{assumption}
+
+\begin{calculation}
+    The default title should be \textbf{Engineering Calculation}, with the
+    established blue frame.
+
+    \calcfield{Given}{\(V=12\,\mathrm{V}\) and \(R=4\,\Omega\)}
+    \calcfield{Required}{The current \(I\)}
+    \calcfield{Calculation}{%
+        \[
+            I=\frac{V}{R}
+             =\frac{12\,\mathrm{V}}{4\,\Omega}
+             =3\,\mathrm{A}.
+        \]
+    }
+    \calcfield{Result}{\(I=3\,\mathrm{A}\)}
+\end{calculation}
+
+\section{Custom titles}
+
+\begin{idea}[Candidate Power-Supply Architecture]
+    The optional argument should replace the default title while preserving
+    the blue frame and all other established styling.
+\end{idea}
+
+\begin{failure}[Prototype Overheating]
+    The optional argument should replace the default title while preserving
+    the red frame and breakable behaviour.
+\end{failure}
+
+\begin{calculation}[Motor Starting-Current Estimate]
+    The optional argument should replace the default calculation title.
+
+    \calcfield{Nominal current}{\(I_{\mathrm{N}}=2.0\,\mathrm{A}\)}
+    \calcfield{Starting-current factor}{\(k=5\)}
+    \calcfield{Estimated starting current}{%
+        \[
+            I_{\mathrm{start}}
+            =kI_{\mathrm{N}}
+            =5(2.0\,\mathrm{A})
+            =10\,\mathrm{A}.
+        \]
+    }
+\end{calculation}
+
+\clearpage
+\section{Ordinary page-boundary behaviour}
+
+The following space deliberately leaves too little room for the complete
+box.
+
+\rule{0pt}{0.92\textheight}
+
+\begin{decision}[Boundary-Test Decision]
+    This short box should move intact to the following page when there is
+    insufficient space. Its title, background, contents, and frame should
+    remain complete, with no overlap against the footer.
+\end{decision}
+
+\clearpage
+\section{Breakable long-box behaviour}
+
+The following space positions a long box near a page boundary.
+
+\rule{0pt}{0.42\textheight}
+
+\begin{experiment}[Long Breakable Experiment Record]
+    \textbf{Objective.}
+    Verify that the semantic wrapper inherits the generic box's breakable
+    behaviour without losing its title or frame.
+
+    \textbf{Initial condition.}
+    The test begins near the bottom of a page, where the remaining vertical
+    space cannot contain the complete record.
+
+    \textbf{Observation 1.}
+    The first portion should occupy the available space without overlapping
+    the footer.
+
+    \textbf{Observation 2.}
+    The remaining material should continue on the following page with the
+    established frame rendered correctly.
+
+    \textbf{Observation 3.}
+    Paragraph spacing and text alignment should remain readable on both
+    pages.
+
+    \textbf{Observation 4.}
+    Mathematical content should remain aligned:
+    \[
+        P=VI,
+        \qquad
+        E=Pt,
+        \qquad
+        \eta=\frac{P_{\mathrm{out}}}{P_{\mathrm{in}}}.
+    \]
+
+    \textbf{Observation 5.}
+    The page break should not clip any line, duplicate content, or create
+    unexpected blank space.
+
+    \textbf{Conclusion.}\breakprobe{1}
+\breakprobe{2}
+\breakprobe{3}
+\breakprobe{4}
+\breakprobe{5}
+\breakprobe{6}
+\breakprobe{7}
+\breakprobe{8}
+\breakprobe{9}
+\breakprobe{10}
+\breakprobe{11}
+\breakprobe{12}
+    Successful continuation across the page boundary confirms the current
+    breakable behaviour of both the semantic wrapper and the underlying
+    \texttt{otbox} interface.
+\end{experiment}
+
+\end{document}

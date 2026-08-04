@@ -432,6 +432,20 @@ A read-only usage and compatibility audit has been completed for:
 * Rebuilt the standalone and combined vector workbooks successfully.
 * Confirmed that the existing interfaces require no class-level changes.
 
+### OTEngineering semantic-box compatibility checkpoint
+
+* Added `tests/otengineering_boxes_compatibility.tex`.
+* Verified the generic `otbox` interface.
+* Verified all fifteen semantic wrapper environments.
+* Verified default and custom titles.
+* Verified established colours and visual styling.
+* Verified the `calculation` environment and `\calcfield` command.
+* Verified that short boxes move intact at page boundaries.
+* Verified that long breakable boxes continue cleanly across pages.
+* Verified complete frames, footer clearance, and absence of clipping or overlap.
+* Rebuilt the representative engineering notebook successfully.
+* Confirmed that the existing interfaces require no class-level changes.
+
 ### Named-formula interface checkpoint
 
 * Preserved the existing `namedformula` environment syntax and visual appearance.
@@ -471,17 +485,17 @@ A read-only usage and compatibility audit has been completed for:
 
 ### Next Phase 2 action
 
-Audit the `otengineering` semantic-box interfaces.
+Document the stable public interfaces of the four active classes.
 
-Before changing any definition:
+The documentation audit should:
 
-* inventory the generic `otbox` interface and all semantic wrappers;
-* confirm which wrappers are exercised by representative documents;
-* preserve environment names, titles, colours, icons, and pagination behaviour;
-* test default and custom titles where supported;
-* test ordinary and page-boundary rendering;
-* establish isolated regression coverage; and
-* avoid cross-class consolidation until compatibility has been demonstrated.
+* inventory public commands and environments;
+* distinguish stable interfaces from internal implementation details;
+* record syntax, arguments, defaults, and representative examples;
+* document backward-compatibility guarantees;
+* identify naming or collision risks without renaming interfaces;
+* cover `studentnotes`, `physicsquiz`, `otengineering`, and `otscience`; and
+* avoid further refactoring until the documented interface baseline is complete.
 
 ## Session handover log
 
@@ -583,6 +597,16 @@ Before changing any definition:
 * Verified the workbook compatibility layer and practice-box wrappers.
 * Rebuilt the standalone and combined vector workbooks successfully.
 * Confirmed that no change to `otscience.cls` is required.
+* Preserved and excluded the independent modification to `examples/studentnotes/Optics.tex`.
+
+### Session 9 — OTEngineering semantic-box compatibility
+
+* Added regression coverage for the generic `otbox` interface and all fifteen semantic wrappers.
+* Verified default and custom titles, colours, and calculation helpers.
+* Strengthened the original pagination probes after they proved insufficient.
+* Verified intact movement of short boxes and clean splitting of long boxes.
+* Rebuilt the representative engineering notebook successfully.
+* Confirmed that no change to `otengineering.cls` is required.
 * Preserved and excluded the independent modification to `examples/studentnotes/Optics.tex`.
 
 ## Next action
