@@ -1,0 +1,75 @@
+% ============================================================
+% otphysics.sty
+% Mechanics, EM, thermodynamics, relativity commands
+% ============================================================
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{otphysics}[2026/06/22 OT physics macros]
+
+\RequirePackage{amsmath}
+\RequirePackage{amssymb}
+\RequirePackage{bm}
+\RequirePackage{siunitx}
+
+% -----------------------------
+% Mechanics
+% -----------------------------
+\newcommand{\position}{\mathbf{r}}
+\newcommand{\velocity}{\mathbf{v}}
+\newcommand{\accel}{\mathbf{a}}
+\newcommand{\force}{\mathbf{F}}
+\newcommand{\netforce}{\sum \mathbf{F}}
+\newcommand{\momentum}{\mathbf{p}=m\mathbf{v}}
+\newcommand{\angmomentum}{\mathbf{L}=\mathbf{r}\times\mathbf{p}}
+\newcommand{\torque}{\boldsymbol{\tau}=\mathbf{r}\times\mathbf{F}}
+
+\newcommand{\ke}{K=\frac{1}{2}mv^2}
+\newcommand{\gpe}{U=mgh}
+\newcommand{\Hooke}{\mathbf{F}=-k\mathbf{x}}
+\newcommand{\NewtonSecond}{\sum\mathbf{F}=m\mathbf{a}}
+
+% -----------------------------
+% Rotation
+% -----------------------------
+\newcommand{\angvel}{\boldsymbol{\omega}}
+\newcommand{\angaccel}{\boldsymbol{\alpha}}
+\newcommand{\rotke}{K_{\mathrm{rot}}=\frac{1}{2}I\omega^2}
+\newcommand{\rolling}{v=\omega R}
+
+% -----------------------------
+% Electromagnetism
+% -----------------------------
+\newcommand{\Efield}{\mathbf{E}}
+\newcommand{\Bfield}{\mathbf{B}}
+\newcommand{\Dfield}{\mathbf{D}}
+\newcommand{\Hfield}{\mathbf{H}}
+\newcommand{\Jcurrent}{\mathbf{J}}
+\newcommand{\rhocharge}{\rho}
+
+\newcommand{\GaussE}{\nabla\cdot\mathbf{E}=\frac{\rho}{\varepsilon_0}}
+\newcommand{\GaussB}{\nabla\cdot\mathbf{B}=0}
+\newcommand{\Faraday}{\nabla\times\mathbf{E}=-\frac{\partial\mathbf{B}}{\partial t}}
+\newcommand{\AmpereMaxwell}{\nabla\times\mathbf{B}=\mu_0\mathbf{J}+\mu_0\varepsilon_0\frac{\partial\mathbf{E}}{\partial t}}
+
+\newcommand{\LorentzForce}{\mathbf{F}=q(\mathbf{E}+\mathbf{v}\times\mathbf{B})}
+
+% -----------------------------
+% Thermodynamics
+% -----------------------------
+\newcommand{\FirstLaw}{\Delta U=Q-W}
+\newcommand{\IdealGas}{PV=nRT}
+\newcommand{\entropydef}{\mathrm{d}S=\frac{\delta Q_{\mathrm{rev}}}{T}}
+\newcommand{\enthalpy}{H=U+PV}
+\newcommand{\gibbs}{G=H-TS}
+\newcommand{\helmholtz}{F=U-TS}
+
+% -----------------------------
+% Relativity
+% -----------------------------
+\newcommand{\lightspeed}{c}
+\newcommand{\lorentzfactor}{\gamma=\frac{1}{\sqrt{1-v^2/c^2}}}
+\newcommand{\spacetimeinterval}{s^2=c^2t^2-x^2-y^2-z^2}
+\newcommand{\energymass}{E=mc^2}
+\newcommand{\relenergy}{E^2=(pc)^2+(mc^2)^2}
+
+\endinput

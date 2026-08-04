@@ -1,0 +1,90 @@
+% ============================================================
+% otpractice.sty
+% Worksheets, blanks, flashcards, exam templates
+% ============================================================
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{otpractice}[2026/06/22 OT practice macros]
+
+\RequirePackage{xcolor}
+\RequirePackage{tcolorbox}
+\RequirePackage{enumitem}
+
+% -----------------------------
+% Fill-in helpers
+% -----------------------------
+\providecommand{\blank}[1][3cm]{\rule{#1}{0.4pt}}
+\providecommand{\bigblank}{\rule{7cm}{0.4pt}}
+\providecommand{\longblank}{\rule{11cm}{0.4pt}}
+\providecommand{\componentblank}{\rule{2.5cm}{0.4pt}}
+
+% -----------------------------
+% Question helpers
+% -----------------------------
+\newcounter{otquestion}
+\newcommand{\qitem}{\stepcounter{otquestion}\noindent\textbf{Q\theotquestion.}\ }
+\newcommand{\resetquestions}{\setcounter{otquestion}{0}}
+
+\newenvironment{practice}[1][Practice]
+{\begin{otscibox}[#1]{OTBlue}\resetquestions}
+{\end{otscibox}}
+
+\newenvironment{drillbox}[1][Formula Drill]
+{\begin{otscibox}[#1]{OTTeal}}
+{\end{otscibox}}
+
+\newenvironment{recallbox}[1][Recall Without Looking]
+{\begin{otscibox}[#1]{OTPurple}}
+{\end{otscibox}}
+
+\newenvironment{examquestion}[1][Exam Question]
+{\begin{otscibox}[#1]{OTOrange}}
+{\end{otscibox}}
+
+% -----------------------------
+% Worked solution template
+% -----------------------------
+\newcommand{\given}[1]{\textbf{Given:} #1\par}
+\newcommand{\find}[1]{\textbf{Find:} #1\par}
+\newcommand{\strategy}[1]{\textbf{Strategy:} #1\par}
+\newcommand{\solutionstep}[1]{\textbf{Step:} #1\par}
+\newcommand{\thereforeanswer}[1]{\[
+\boxed{#1}
+\]}
+
+% -----------------------------
+% Spaced repetition card
+% -----------------------------
+\newtcolorbox{flashcard}[2][]{
+  enhanced,
+  breakable,
+  colback=OTLight,
+  colframe=OTGreen,
+  title={Flashcard: #2},
+  fonttitle=\bfseries,
+  #1
+}
+
+\newcommand{\front}[1]{\textbf{Front:} #1\par}
+\newcommand{\back}[1]{\textbf{Back:} #1\par}
+
+% -----------------------------
+% Exam header
+% -----------------------------
+\newcommand{\examheader}[4]{
+\begin{center}
+{\Large\bfseries #1}\\[2mm]
+#2\\[1mm]
+Time: #3 \qquad Marks: #4
+\end{center}
+\vspace{2mm}
+\hrule
+\vspace{4mm}
+}
+
+% -----------------------------
+% Mark scheme helper
+% -----------------------------
+\providecommand{\marks}[1]{\hfill\textbf{[#1 marks]}}
+
+\endinput

@@ -1,0 +1,284 @@
+\ifdefined\OTCOMBINED%
+\else
+\documentclass{otscience}
+\input{00_common_setup.tex}
+\standalonetitle{Gradient, Divergence and Curl of Vector Fields}{Part 1 of the OT Science Formula Completion Workbook}{\DTMtoday}
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+\fi
+
+\section{Gradient, Divergence and Curl of Vector Fields}
+
+This part fixes the central grammar of vector calculus. The same symbol \(\nabla\) behaves differently depending on what it acts on and how it is combined with dot, cross, or ordinary multiplication. The fastest way to avoid confusion is to always ask what kind of object must come out of the operation.
+
+\begin{center}
+    \begin{tabularx}{\textwidth}{>{\bfseries}l X l}
+        \toprule
+        Operation                  & Input        & Output                               \\
+        \midrule
+        \(\nabla f\)               & scalar field & vector field                         \\
+        \(\nabla\cdot\mathbf{A}\)  & vector field & scalar field                         \\
+        \(\nabla\times\mathbf{A}\) & vector field & vector field                         \\
+        \(\nabla\mathbf{A}\)       & vector field & second-order tensor/Jacobian         \\
+        \(\nabla^2 f\)             & scalar field & scalar field                         \\
+        \(\nabla^2\mathbf{A}\)     & vector field & vector field, component by component \\
+        \bottomrule
+    \end{tabularx}
+\end{center}
+
+\subsection{The Cartesian Nabla Operator}
+
+In rectangular Cartesian coordinates, the basis vectors \(\ihat,\jhat,\khat\) are constant. This is why the Cartesian formulas look cleaner than cylindrical or spherical formulas. The derivatives act only on the components of the fields, not on the basis vectors.
+
+\begin{formulaboxnosplit}[Core Cartesian Formulae]
+    For a scalar field \(f(x,y,z)\) and a vector field
+    \[
+        \mathbf{A}=A_x\ihat+A_y\jhat+A_z\khat,
+    \]
+    \[
+        \nabla=\ihat\frac{\partial}{\partial x}+\jhat\frac{\partial}{\partial y}+\khat\frac{\partial}{\partial z}.
+    \]
+
+    \[
+        \nabla f=\frac{\partial f}{\partial x}\ihat+\frac{\partial f}{\partial y}\jhat+\frac{\partial f}{\partial z}\khat.
+    \]
+
+    \[
+        \nabla\cdot\mathbf{A}=\frac{\partial A_x}{\partial x}+\frac{\partial A_y}{\partial y}+\frac{\partial A_z}{\partial z}.
+    \]
+
+    \[
+        \nabla\times\mathbf{A}=\begin{vmatrix}
+            \ihat      & \jhat      & \khat      \\
+            \partial_x & \partial_y & \partial_z \\
+            A_x        & A_y        & A_z
+        \end{vmatrix}
+    \]
+
+    \[
+        =\left(\frac{\partial A_z}{\partial y}-\frac{\partial A_y}{\partial z}\right)\ihat
+        +\left(\frac{\partial A_x}{\partial z}-\frac{\partial A_z}{\partial x}\right)\jhat
+        +\left(\frac{\partial A_y}{\partial x}-\frac{\partial A_x}{\partial y}\right)\khat.
+    \]
+
+    \[
+        \nabla^2 f=\frac{\partial^2 f}{\partial x^2}+\frac{\partial^2 f}{\partial y^2}+\frac{\partial^2 f}{\partial z^2}.
+    \]
+\end{formulaboxnosplit}
+
+\subsection{Gradient of a Scalar Field}
+
+The gradient points in the direction of steepest increase of a scalar field. Its magnitude is the maximum possible directional rate of change. If \(f\) is temperature, then \(\nabla f\) points toward the direction in which temperature increases fastest.
+
+\begin{exampleboxnosplit}[Worked Example: Gradient of a Scalar Field]
+    Let
+    \[
+        f=x^2y+yz^3.
+    \]
+    Then
+    \[
+        \frac{\partial f}{\partial x}=2xy,\qquad
+        \frac{\partial f}{\partial y}=x^2+z^3,\qquad
+        \frac{\partial f}{\partial z}=3yz^2.
+    \]
+    Therefore
+    \[
+        \nabla f=2xy\ihat+(x^2+z^3)\jhat+3yz^2\khat.
+    \]
+\end{exampleboxnosplit}
+
+\subsection{Gradient of a Vector Field}
+
+The expression \(\nabla\mathbf{A}\) is not the same kind of object as \(\nabla f\). The gradient of a scalar is a vector, but the gradient of a vector is a second-order tensor. It tells us how every component of \(\mathbf{A}\) changes in every coordinate direction.
+
+Using the convention
+\[
+    {(\nabla\mathbf{A})}_{ij}=\frac{\partial A_i}{\partial x_j},
+\]
+the vector gradient is the matrix
+\[
+    \nabla\mathbf{A}=
+    \begin{pmatrix}
+        \partial_x A_x & \partial_y A_x & \partial_z A_x \\
+        \partial_x A_y & \partial_y A_y & \partial_z A_y \\
+        \partial_x A_z & \partial_y A_z & \partial_z A_z
+    \end{pmatrix}.
+\]
+
+The divergence is the trace of this tensor:
+\[
+    \nabla\cdot\mathbf{A}=\tr(\nabla\mathbf{A}).
+\]
+The curl is related to the skew-symmetric part of \(\nabla\mathbf{A}\). This is why curl is naturally connected to rotation.
+
+\begin{formulabox}[Vector Gradient, Divergence and Curl Relationship]
+    \[
+        {(\nabla\mathbf{A})}_{ij}=\partial_j A_i.
+    \]
+
+    \[
+        \nabla\cdot\mathbf{A}=\partial_i A_i=\tr(\nabla\mathbf{A}).
+    \]
+
+    \[
+        {(\nabla\times\mathbf{A})}_i=\varepsilon_{ijk}\partial_j A_k.
+    \]
+
+    If
+    \[
+        W_{ij}=\frac12(\partial_{j}A_i-\partial_{i}A_j),
+    \]
+    then \(W_{ij}\) is the skew part of the vector gradient. In three dimensions, the curl is the axial vector associated with this skew part.
+\end{formulabox}
+
+\subsection{Divergence}
+
+Divergence measures source-like or sink-like behaviour. A positive divergence at a point suggests local outward spreading. A negative divergence suggests local inward concentration. Zero divergence does not mean the vector field is zero; it means the field has no net local source or sink.
+
+\subsection{Curl}
+
+Curl measures local rotational tendency. A non-zero curl indicates that a small paddle wheel placed in the field would tend to rotate. A zero curl means the field is irrotational locally, although this does not automatically settle global questions in domains with holes.
+
+\subsection{Directional Derivatives}
+
+For a scalar field \(f\), the directional derivative in a unit direction \(\hat{\mathbf{u}}\) is
+\[
+    D_{\hat{\mathbf{u}}}f=\nabla f\cdot\hat{\mathbf{u}}.
+\]
+For a vector field, the derivative along \(\hat{\mathbf{u}}\) is
+\[
+    (\hat{\mathbf{u}}\cdot\nabla)\mathbf{A}.
+\]
+This gives another vector, not a scalar.
+
+\begin{formulaboxnosplit}[Directional Derivative Formulae]
+    If
+    \[
+        \hat{\mathbf{u}}=u_x\ihat+u_y\jhat+u_z\khat,\qquad \normval{\hat{\mathbf{u}}}=1,
+    \]
+    then
+    \[
+        D_{\hat{\mathbf{u}}}f=u_x\frac{\partial f}{\partial x}+u_y\frac{\partial f}{\partial y}+u_z\frac{\partial f}{\partial z}.
+    \]
+
+    \[
+        \max_{\normval{\hat{\mathbf{u}}}=1}D_{\hat{\mathbf{u}}}f=\normval{\nabla f},
+        \qquad
+        \text{direction of maximum increase}=\frac{\nabla f}{\normval{\nabla f}}.
+    \]
+
+    \[
+        (\hat{\mathbf{u}}\cdot\nabla)\mathbf{A}=
+        \left(u_x\partial_x+u_y\partial_y+u_z\partial_z\right)\mathbf{A}.
+    \]
+\end{formulaboxnosplit}
+
+\subsection{Product and Composition Identities}
+
+These identities are worth learning in families. Notice how scalar multiplication, dot products and cross products change the type of the output.
+
+\begin{formulabox}[Core Vector Identities]
+    \[
+        \nabla(fg)=f\nabla g+g\nabla f.
+    \]
+
+    \[
+        \nabla\cdot(f\mathbf{A})=\nabla f\cdot\mathbf{A}+f\nabla\cdot\mathbf{A}.
+    \]
+
+    \[
+        \nabla\times(f\mathbf{A})=\nabla f\times\mathbf{A}+f\nabla\times\mathbf{A}.
+    \]
+
+    \[
+        \nabla(\mathbf{A}\cdot\mathbf{B})=(\mathbf{A}\cdot\nabla)\mathbf{B}+(\mathbf{B}\cdot\nabla)\mathbf{A}+\mathbf{A}\times(\nabla\times\mathbf{B})+\mathbf{B}\times(\nabla\times\mathbf{A}).
+    \]
+
+    \[
+        \nabla\cdot(\mathbf{A}\times\mathbf{B})=\mathbf{B}\cdot(\nabla\times\mathbf{A})-\mathbf{A}\cdot(\nabla\times\mathbf{B}).
+    \]
+
+    \[
+        \nabla\times(\mathbf{A}\times\mathbf{B})=\mathbf{A}(\nabla\cdot\mathbf{B})-\mathbf{B}(\nabla\cdot\mathbf{A})+(\mathbf{B}\cdot\nabla)\mathbf{A}-(\mathbf{A}\cdot\nabla)\mathbf{B}.
+    \]
+
+    \[
+        \nabla\times(\nabla f)=\mathbf{0},\qquad \nabla\cdot(\nabla\times\mathbf{A})=0.
+    \]
+
+    \[
+        \nabla\times(\nabla\times\mathbf{A})=\nabla(\nabla\cdot\mathbf{A})-\nabla^2\mathbf{A}.
+    \]
+\end{formulabox}
+
+\begin{warningboxnosplit}[Common Mistakes]
+    \begin{enumerate}
+        \item Do not say that \(\nabla\mathbf{A}\) is automatically a vector. It is usually a second-order tensor.
+        \item Do not confuse \(\nabla\cdot\mathbf{A}\) with \(\nabla\mathbf{A}\). Divergence is only the trace of the vector gradient in Cartesian coordinates.
+        \item Do not use the Cartesian curl formula unchanged in cylindrical or spherical coordinates.
+        \item Do not forget to normalise the direction vector before computing a directional derivative.
+        \item Do not treat \(\nabla\) as an ordinary vector in every context. It is a differential operator.
+    \end{enumerate}
+\end{warningboxnosplit}
+
+\begin{practicebox}[Quick Drills and Practice: Gradient, Divergence and Curl]
+    \textbf{Level A:\,Formula recall}
+    \begin{enumerate}
+        \item Complete: \(\nabla=\ihat\quad\blank[1.6cm]+\jhat\quad\blank[1.6cm]+\khat\quad\blank[1.6cm]\).
+        \item Complete: \(\nabla f=\blank[3cm]\).
+        \item Complete: \(\nabla\cdot\mathbf{A}=\blank[3cm]\).
+        \item Complete: \({(\nabla\times\mathbf{A})}_x=\blank[3cm]\).
+        \item Complete: \({(\nabla\times\mathbf{A})}_y=\blank[3cm]\).
+        \item Complete: \({(\nabla\times\mathbf{A})}_z=\blank[3cm]\).
+        \item Complete: \(D_{\hat{\mathbf{u}}}f=\blank[3cm]\).
+        \item Complete: \(\nabla\times(\nabla f)=\blank[2cm]\).
+        \item Complete: \(\nabla\cdot(\nabla\times\mathbf{A})=\blank[2cm]\).
+        \item Complete: \(\nabla\times(\nabla\times\mathbf{A})=\blank[6cm]\).
+    \end{enumerate}
+
+    \textbf{Level B:\,Direct computation}
+    \begin{enumerate}
+        \item Compute \(\nabla f\) for \(f=x^2+3y^2-z^2\).
+        \item Compute \(\nabla f\) for \(f=xy^2+z\sin x\).
+        \item Compute \(\nabla\cdot\mathbf{A}\) for \(\mathbf{A}=x\ihat+y\jhat+z\khat\).
+        \item Compute \(\nabla\cdot\mathbf{A}\) for \(\mathbf{A}=yz\ihat+xz\jhat+xy\khat\).
+        \item Compute \(\nabla\times\mathbf{A}\) for \(\mathbf{A}=(-y)\ihat+x\jhat+0\khat\).
+        \item Compute \(\nabla\times\mathbf{A}\) for \(\mathbf{A}=z\ihat+x\jhat+y\khat\).
+        \item For \(f=x^2y+yz^2\), find \(D_{\hat{\mathbf{u}}}f\) at \((1,2,1)\) in the direction \(\mathbf{u}=2\ihat-\jhat+2\khat\).
+        \item For \(\mathbf{A}=x^2\ihat+xy\jhat+z^2\khat\), compute \(\nabla\mathbf{A}\), \(\nabla\cdot\mathbf{A}\), and \(\nabla\times\mathbf{A}\).
+    \end{enumerate}
+
+    \textbf{Level C:\,Interpretation and multi-step questions}
+    \begin{enumerate}
+        \item A vector field has \(\nabla\cdot\mathbf{A}>0\) near a point. Explain the local behaviour in words.
+        \item Give a vector field with zero divergence but non-zero curl.
+        \item Give a vector field with non-zero divergence but zero curl.
+        \item If \(\nabla f=\mathbf{0}\) throughout a connected region, what can be said about \(f\)?
+        \item Find the direction of maximum increase of \(f=x^2+y^2+z^2\) at \((1,1,2)\).
+        \item Find the maximum directional derivative of \(f=xy+yz+zx\) at \((1,2,3)\).
+    \end{enumerate}
+
+    \textbf{Level D:\,Proofs and identities}
+    \begin{enumerate}
+        \item Prove in Cartesian components that \(\nabla\times(\nabla f)=\mathbf{0}\), assuming mixed partial derivatives are equal.
+        \item Prove in Cartesian components that \(\nabla\cdot(\nabla\times\mathbf{A})=0\).
+        \item Verify the curl-curl identity for \(\mathbf{A}=x^2\ihat+y^2\jhat+z^2\khat\).
+        \item Derive the product rule for \(\nabla\cdot(f\mathbf{A})\).
+        \item Derive the product rule for \(\nabla\times(f\mathbf{A})\).
+    \end{enumerate}
+
+    \textbf{Level E:\,Challenge applications}
+    \begin{enumerate}
+        \item In fluid mechanics, \(\mathbf{v}\) is a velocity field. Interpret \(\nabla\cdot\mathbf{v}=0\).
+        \item In electromagnetism, \(\nabla\times\mathbf{E}=\mathbf{0}\) in electrostatics. What does this imply about a scalar potential?
+        \item For \(\mathbf{v}=(-\omega y)\ihat+(\omega x)\jhat\), compute divergence and curl, then interpret the motion.
+        \item For \(\mathbf{v}=a x\ihat+a y\jhat+a z\khat\), compute divergence and curl, then interpret the motion.
+    \end{enumerate}
+\end{practicebox}
+
+\ifdefined\OTCOMBINED%
+\else
+\end{document}
+\fi

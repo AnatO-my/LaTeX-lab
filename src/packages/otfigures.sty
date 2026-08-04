@@ -1,0 +1,101 @@
+% ============================================================
+% otfigures.sty
+% TikZ figures for vectors, coordinates, tensors, fields
+% ============================================================
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{otfigures}[2026/06/22 OT figure macros]
+
+\RequirePackage{tikz}
+\usetikzlibrary{arrows.meta,calc,decorations.pathreplacing,patterns,angles,quotes,3d}
+
+% -----------------------------
+% Simple axes
+% -----------------------------
+\newcommand{\cartesianaxes}[1][2.5]{
+\begin{tikzpicture}[>=Latex,scale=1]
+  \draw[->] (-#1,0) -- (#1,0) node[right] {$x$};
+  \draw[->] (0,-#1) -- (0,#1) node[above] {$y$};
+\end{tikzpicture}
+}
+
+% -----------------------------
+% 2D vector
+% -----------------------------
+\newcommand{\vectorfigure}[4]{
+\begin{tikzpicture}[>=Latex,scale=1]
+  \draw[->] (-0.5,0) -- (#2+0.8,0) node[right] {$x$};
+  \draw[->] (0,-0.5) -- (0,#3+0.8) node[above] {$y$};
+  \draw[->,thick,OTBlue] (0,0) -- (#2,#3) node[midway,above left] {$#1$};
+  \draw[dashed] (#2,0) -- (#2,#3);
+  \draw[dashed] (0,#3) -- (#2,#3);
+  \node at (#2,-0.25) {$#2$};
+  \node at (-0.25,#3) {$#3$};
+  \node[below] at (1.2,-0.6) {#4};
+\end{tikzpicture}
+}
+
+% -----------------------------
+% Cylindrical coordinate sketch
+% -----------------------------
+\newcommand{\cylfigure}{
+\begin{tikzpicture}[>=Latex,scale=1.2]
+  \draw[->] (-0.2,0) -- (3,0) node[right] {$x$};
+  \draw[->] (0,-0.2) -- (0,2.4) node[above] {$y$};
+  \coordinate (O) at (0,0);
+  \coordinate (P) at (2.2,1.4);
+  \draw[->,thick,OTBlue] (O) -- (P) node[midway,above] {$\rho$};
+  \draw[dashed] (P) -- (2.2,0);
+  \draw pic[draw,->,"$\phi$",angle radius=0.7cm] {angle=(3,0)--O--P};
+  \draw[->,OTGreen,thick] (P) -- ($(P)+(0.7,0.45)$) node[right] {$\hat{\mathbf{e}}_\rho$};
+  \draw[->,OTOrange,thick] (P) -- ($(P)+(-0.45,0.7)$) node[above] {$\hat{\mathbf{e}}_\phi$};
+\end{tikzpicture}
+}
+
+% -----------------------------
+% Spherical coordinate sketch
+% -----------------------------
+\newcommand{\sphfigure}{
+\begin{tikzpicture}[>=Latex,scale=1.1]
+  \draw[->] (0,0) -- (3,0) node[right] {$x$};
+  \draw[->] (0,0) -- (0,3) node[above] {$z$};
+  \coordinate (O) at (0,0);
+  \coordinate (P) at (2.1,2.2);
+  \draw[->,thick,OTBlue] (O) -- (P) node[midway,above left] {$r$};
+  \draw[dashed] (P) -- (2.1,0);
+  \draw pic[draw,->,"$\theta$",angle radius=0.8cm] {angle=(0,3)--O--P};
+  \node at (2.25,-0.25) {$r\sin\theta$};
+  \node at (-0.35,2.2) {$r\cos\theta$};
+\end{tikzpicture}
+}
+
+% -----------------------------
+% Stress element sketch
+% -----------------------------
+\newcommand{\stresselement}{
+\begin{tikzpicture}[>=Latex,scale=1.1]
+  \draw[thick] (0,0) rectangle (2,2);
+  \draw[->,OTBlue,thick] (2,1) -- (3,1) node[right] {$\sigma_{xx}$};
+  \draw[->,OTBlue,thick] (1,2) -- (1,3) node[above] {$\sigma_{yy}$};
+  \draw[->,OTOrange,thick] (2,1.55) -- (2,2.3) node[right] {$\tau_{xy}$};
+  \draw[->,OTOrange,thick] (1.55,2) -- (2.3,2) node[above] {$\tau_{yx}$};
+  \node at (1,-0.3) {2D stress element};
+\end{tikzpicture}
+}
+
+% -----------------------------
+% Field arrow grid
+% -----------------------------
+\newcommand{\fieldgrid}{
+\begin{tikzpicture}[>=Latex,scale=0.75]
+  \foreach \x in {-2,-1,0,1,2}{
+    \foreach \y in {-2,-1,0,1,2}{
+      \draw[->,OTBlue] (\x,\y) -- ({\x+0.25*\x},{\y+0.25*\y});
+    }
+  }
+  \draw[->] (-2.5,0) -- (2.8,0) node[right] {$x$};
+  \draw[->] (0,-2.5) -- (0,2.8) node[above] {$y$};
+\end{tikzpicture}
+}
+
+\endinput

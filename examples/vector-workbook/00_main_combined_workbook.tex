@@ -1,0 +1,27 @@
+\documentclass{otscience}
+\def\OTCOMBINED{1}
+\input{00_common_setup.tex}
+\usepackage{silence}
+
+\standalonetitle{Vector Calculus, Coordinate Systems, Tensor Operations, and Complex Numbers}{Modular Formula Completion and Practice Workbook}{\DTMtoday}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+
+\section*{How to Use the Modular Workbook}
+\addcontentsline{toc}{section}{How to Use the Modular Workbook}
+This combined file imports each modular part. Each numbered file can also be compiled and printed independently. The design keeps formulas in formula boxes, places practice work in one larger box per major section, and leaves ordinary explanation as normal text so that the page does not become visually noisy.
+
+When a box uses a \texttt{..boxnosplit} environment, it is because the material should remain together on one page where possible. Longer practice boxes are allowed to break across pages.
+
+\input{01_grad_div_curl_vector_fields.tex}
+\input{02_coordinate_systems_tensor_operations.tex}
+\input{03_index_delta_levicivita.tex}
+\input{04_covariant_contravariant_metrics.tex}
+\input{05_symmetric_skew_tensors_invariants.tex}
+\input{06_complex_numbers_hyperbolic_functions.tex}
+\input{07_final_mixed_practice_bank.tex}
+
+\end{document}

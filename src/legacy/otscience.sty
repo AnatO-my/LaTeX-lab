@@ -1,0 +1,194 @@
+% ============================================================
+% OT Science Notes Styler
+% Version: 0.1
+% For: Mathematics, Physics, Chemistry, Engineering, Science Notes
+% ============================================================
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{otscience}[2026/06/22 OT Science Notes Styler]
+
+% ============================================================
+% 1. Core Dependencies
+% ============================================================
+
+\RequirePackage{xcolor}
+\RequirePackage{amsmath}
+\RequirePackage{amssymb}
+\RequirePackage{mathtools}
+\RequirePackage{physics}
+\RequirePackage{siunitx}
+\RequirePackage{tcolorbox}
+\RequirePackage{tikz}
+\RequirePackage{enumitem}
+\RequirePackage{booktabs}
+\RequirePackage{tabularx}
+\RequirePackage{array}
+\RequirePackage{hyperref}
+\RequirePackage{cleveref}
+
+\tcbuselibrary{skins,breakable,theorems}
+
+% ============================================================
+% 2. Colour Palette
+% ============================================================
+
+\definecolor{OTDark}{HTML}{1F2937}
+\definecolor{OTMuted}{HTML}{6B7280}
+\definecolor{OTLight}{HTML}{F9FAFB}
+
+\definecolor{OTBlue}{HTML}{2563EB}
+\definecolor{OTGreen}{HTML}{059669}
+\definecolor{OTOrange}{HTML}{D97706}
+\definecolor{OTRed}{HTML}{DC2626}
+\definecolor{OTPurple}{HTML}{7C3AED}
+\definecolor{OTTeal}{HTML}{0891B2}
+\definecolor{OTYellow}{HTML}{CA8A04}
+
+% ============================================================
+% 3. Hyperlink Styling
+% ============================================================
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=OTBlue,
+    urlcolor=OTBlue,
+    citecolor=OTGreen
+}
+
+% ============================================================
+% 4. Global Math/Science Settings
+% ============================================================
+
+\sisetup{
+    per-mode=symbol,
+    separate-uncertainty=true,
+    detect-all=true
+}
+
+\setlist[itemize]{topsep=3pt,itemsep=2pt}
+\setlist[enumerate]{topsep=3pt,itemsep=2pt}
+
+% ============================================================
+% 5. Base Box Style
+% ============================================================
+
+\newtcolorbox{otscibox}[2][]{
+    enhanced,
+    breakable,
+    colback=OTLight,
+    colframe=#2,
+    boxrule=0.8pt,
+    arc=2mm,
+    left=6pt,
+    right=6pt,
+    top=6pt,
+    bottom=6pt,
+    fonttitle=\bfseries,
+    title=#1
+}
+
+% ============================================================
+% 6. Science Note Environments
+% ============================================================
+
+\newenvironment{definitionbox}[1][Definition]
+{\begin{otscibox}[#1]{OTBlue}}
+{\end{otscibox}}
+
+\newenvironment{theorembox}[1][Theorem]
+{\begin{otscibox}[#1]{OTPurple}}
+{\end{otscibox}}
+
+\newenvironment{lawbox}[1][Law / Principle]
+{\begin{otscibox}[#1]{OTGreen}}
+{\end{otscibox}}
+
+\newenvironment{formulabox}[1][Formula]
+{\begin{otscibox}[#1]{OTTeal}}
+{\end{otscibox}}
+
+\newenvironment{derivationbox}[1][Derivation]
+{\begin{otscibox}[#1]{OTOrange}}
+{\end{otscibox}}
+
+\newenvironment{examplebox}[1][Worked Example]
+{\begin{otscibox}[#1]{OTGreen}}
+{\end{otscibox}}
+
+\newenvironment{warningbox}[1][Common Mistake]
+{\begin{otscibox}[#1]{OTRed}}
+{\end{otscibox}}
+
+\newenvironment{intuitionbox}[1][Intuition]
+{\begin{otscibox}[#1]{OTYellow}}
+{\end{otscibox}}
+
+\newenvironment{summarybox}[1][Key Summary]
+{\begin{otscibox}[#1]{OTDark}}
+{\end{otscibox}}
+
+\newenvironment{experimentbox}[1][Experiment / Observation]
+{\begin{otscibox}[#1]{OTPurple}}
+{\end{otscibox}}
+
+% ============================================================
+% 7. Quick Labels
+% ============================================================
+
+\newcommand{\important}[1]{\textbf{\color{OTRed}#1}}
+\newcommand{\keyterm}[1]{\textbf{\color{OTBlue}#1}}
+\newcommand{\concept}[1]{\textbf{\color{OTPurple}#1}}
+\newcommand{\result}[1]{\textbf{\color{OTGreen}#1}}
+
+% ============================================================
+% 8. Math Helper Commands
+% ============================================================
+
+\newcommand{\unit}[1]{\,\si{#1}}
+\newcommand{\vectorq}[1]{\vec{\mathbf{#1}}}
+\newcommand{\mat}[1]{\mathbf{#1}}
+
+\newcommand{\ddx}[1]{\frac{d}{d#1}}
+\newcommand{\dvx}[2]{\frac{d#1}{d#2}}
+\newcommand{\pdvx}[2]{\frac{\partial #1}{\partial #2}}
+
+\newcommand{\mean}[1]{\left\langle #1 \right\rangle}
+\newcommand{\absval}[1]{\left| #1 \right|}
+\newcommand{\normval}[1]{\left\lVert #1 \right\rVert}
+
+% ============================================================
+% 9. Physics Helper Commands
+% ============================================================
+
+\newcommand{\netforce}{\sum \vectorq{F}}
+\newcommand{\accel}{\vectorq{a}}
+\newcommand{\velocity}{\vectorq{v}}
+\newcommand{\position}{\vectorq{r}}
+
+\newcommand{\ke}{K = \frac{1}{2}mv^2}
+\newcommand{\gpe}{U = mgh}
+\newcommand{\momentum}{\vectorq{p}=m\vectorq{v}}
+
+% ============================================================
+% 10. Chemistry Helper Commands
+% ============================================================
+
+\newcommand{\chem}[1]{\ensuremath{\mathrm{#1}}}
+\newcommand{\reaction}[1]{\[
+        #1
+    \]}
+
+% ============================================================
+% 11. Problem-Solving Template Helpers
+% ============================================================
+
+\newcommand{\given}[1]{\textbf{Given:} #1\par}
+\newcommand{\find}[1]{\textbf{Find:} #1\par}
+\newcommand{\solutionstep}[1]{\textbf{Step:} #1\par}
+\newcommand{\thereforeanswer}[1]{\[
+        \boxed{#1}
+    \]}
+
+% ============================================================
+% 12. End of Package
+% ============================================================

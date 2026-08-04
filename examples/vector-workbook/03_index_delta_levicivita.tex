@@ -1,0 +1,222 @@
+\ifdefined\OTCOMBINED%
+\else
+\documentclass{otscience}
+\input{00_common_setup.tex}
+\standalonetitle{Index Notation, Kronecker Delta and Levi-Civita Symbol}{Part 3 of the OT Science Formula Completion Workbook}{\DTMtoday}
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+\fi
+
+\section{Index Notation, Kronecker Delta and Levi-Civita Symbol}
+
+Index notation compresses vector and tensor formulas into short expressions. It is especially useful when proving vector identities. The price is that every index must be handled carefully.
+
+\subsection{Einstein Summation Convention}
+
+When an index is repeated once as a subscript or repeated in a product in Euclidean notation, it is summed over its full range. In three-dimensional Cartesian coordinates, the range is usually \(1,2,3\).
+
+\begin{formulaboxnosplit}[Einstein Summation]
+    \[
+        a_i b_i=a_1b_1+a_2b_2+a_3b_3.
+    \]
+
+    \[
+        A_{ij}b_j=A_{i1}b_1+A_{i2}b_2+A_{i3}b_3.
+    \]
+
+    \[
+        A_{ij}B_{ij}=\sum_{i=1}^{3}\sum_{j=1}^{3}A_{ij}B_{ij}.
+    \]
+
+    \[
+        {(A B)}_{ij}=A_{ik}B_{kj}.
+    \]
+\end{formulaboxnosplit}
+
+A free index appears on both sides of an equation and is not summed. A dummy index is repeated and summed. Dummy indices can be renamed as long as no conflict is created.
+
+\subsection{Kronecker Delta}
+
+The Kronecker delta is the identity tensor in component form. It replaces one index by another.
+
+\begin{formulabox}[Kronecker Delta Identities]
+    \[
+        \delta_{ij}=\begin{cases}
+            1, & i=j,     \\
+            0, & i\neq j.
+        \end{cases}
+    \]
+
+    \[
+        \delta_{ij}a_j=a_i,
+        \qquad
+        \delta_{ij}a_i=a_j.
+    \]
+
+    \[
+        \delta_{ij}\delta_{jk}=\delta_{ik},
+        \qquad
+        \delta_{ii}=3.
+    \]
+
+    \[
+        \delta_{ij}A_{ij}=A_{ii}=\tr(A).
+    \]
+
+    \[
+        \partial_i x_j=\frac{\partial x_j}{\partial x_i}=\delta_{ij}.
+    \]
+
+    \[
+        \partial_i x_i=3,
+        \qquad
+        \partial_i r=\frac{x_i}{r},
+        \qquad
+        \partial_i(r^2)=2x_i.
+    \]
+\end{formulabox}
+
+\subsection{Levi-Civita Symbol}
+
+The Levi-Civita symbol tracks orientation and cross products. It is zero whenever any two indices are repeated.
+
+\begin{formulabox}[Levi-Civita Identities]
+    \[
+        \varepsilon_{ijk}=\begin{cases}
+            +1, & (i,j,k)\text{ is an even permutation of }(1,2,3), \\
+            -1, & (i,j,k)\text{ is an odd permutation of }(1,2,3),  \\
+            0,  & \text{two indices are repeated}.
+        \end{cases}
+    \]
+
+    \[
+        {(\mathbf{a}\times\mathbf{b})}_i=\varepsilon_{ijk}a_{j}b_k.
+    \]
+
+    \[
+        \varepsilon_{ijk}\varepsilon_{ilm}=\delta_{jl}\delta_{km}-\delta_{jm}\delta_{kl}.
+    \]
+
+    \[
+        \varepsilon_{ijk}\varepsilon_{ijm}=2\delta_{km},
+        \qquad
+        \varepsilon_{ijk}\varepsilon_{ijk}=6.
+    \]
+
+    \[
+        \varepsilon_{ijk}\varepsilon_{lmn}=\begin{vmatrix}
+            \delta_{il} & \delta_{im} & \delta_{in} \\
+            \delta_{jl} & \delta_{jm} & \delta_{jn} \\
+            \delta_{kl} & \delta_{km} & \delta_{kn}
+        \end{vmatrix}.
+    \]
+\end{formulabox}
+
+\subsection{Vector Calculus in Index Notation}
+
+\begin{formulabox}[Vector Operations in Index Form]
+    \[
+        {(\nabla f)}_i=\partial_i f.
+    \]
+
+    \[
+        \nabla\cdot\mathbf{A}=\partial_{i}A_i.
+    \]
+
+    \[
+        {(\nabla\times\mathbf{A})}_i=\varepsilon_{ijk}\partial_{j}A_k.
+    \]
+
+    \[
+        \nabla^2 f=\partial_i\partial_i f.
+    \]
+
+    \[
+        {(\nabla\mathbf{A})}_{ij}=\partial_{j}A_i.
+    \]
+
+    \[
+        {(\nabla\cdot\mathbf{T})}_i=\partial_{j}T_{ij}.
+    \]
+\end{formulabox}
+
+\subsection{Proof Pattern: Curl of Curl}
+
+The index method is powerful because the proof becomes a controlled substitution. Starting with
+\[
+    {(\nabla\times(\nabla\times\mathbf{A}))}_i=\varepsilon_{ijk}\partial_j{(\nabla\times\mathbf{A})}_k,
+\]
+use
+\[
+    {(\nabla\times\mathbf{A})}_k=\varepsilon_{klm}\partial_{l}A_m.
+\]
+Then
+\[
+    {(\nabla\times(\nabla\times\mathbf{A}))}_i=\varepsilon_{ijk}\varepsilon_{klm}\partial_j\partial_{l}A_m.
+\]
+Using the contraction identity gives the familiar result
+\[
+    \nabla\times(\nabla\times\mathbf{A})=\nabla(\nabla\cdot\mathbf{A})-\nabla^2\mathbf{A}.
+\]
+
+\begin{warningboxnosplit}[Index-Notation Mistakes]
+    \begin{enumerate}
+        \item Do not repeat the same index more than twice in one term unless you have explicitly defined what it means.
+        \item Do not change a free index on one side of an equation without changing it on the other side.
+        \item Dummy indices may be renamed, but free indices may not.
+        \item The identity \(\varepsilon_{ijk}\varepsilon_{ilm}\) depends on which index is contracted. Check the repeated index carefully.
+    \end{enumerate}
+\end{warningboxnosplit}
+
+\begin{practicebox}[Quick Drills and Practice: Index Notation]
+    \textbf{Level A:\,Expansion and simplification}
+    \begin{multicols}{2}
+        \begin{enumerate}
+            \item Expand \(a_{i}b_i\) in three dimensions.
+            \item Expand \(A_{ij}b_j\) for \(i=1\).
+            \item Simplify \(\delta_{ij}a_j\).
+            \item Simplify \(\delta_{ij}A_{jk}\).
+            \item Simplify \(\delta_{ij}\delta_{jk}\delta_{kl}\).
+            \item Simplify \(\delta_{ij}A_{ij}\).
+            \item Compute \(\delta_{ii}\) in three dimensions.
+            \item Compute \(\partial_i x_j\).
+            \item Compute \(\partial_i x_i\).
+            \item Compute \(\partial_i(x_{i}x_j)\).
+        \end{enumerate}
+    \end{multicols}
+
+    \textbf{Level B:\,Levi-Civita}
+    \begin{enumerate}
+        \item Evaluate \(\varepsilon_{123}\), \(\varepsilon_{132}\), \(\varepsilon_{221}\), \(\varepsilon_{312}\).
+        \item Expand \({(\mathbf{a}\times\mathbf{b})}_1=\varepsilon_{1jk}a_{j}b_k\).
+        \item Show that \(\mathbf{a}\times\mathbf{b}=-\mathbf{b}\times\mathbf{a}\) using \(\varepsilon_{ijk}\).
+        \item Simplify \(\varepsilon_{ijk}\varepsilon_{ijm}\).
+        \item Simplify \(\varepsilon_{ijk}\varepsilon_{ijk}\).
+        \item Use \(\varepsilon_{ijk}\varepsilon_{ilm}\) to simplify \((\mathbf{a}\times\mathbf{b})\cdot(\mathbf{c}\times\mathbf{d})\).
+    \end{enumerate}
+
+    \textbf{Level C:\,Vector identities}
+    \begin{enumerate}
+        \item Prove \(\nabla\cdot(\nabla\times\mathbf{A})=0\) using index notation.
+        \item Prove \(\nabla\times(\nabla f)=\mathbf{0}\) using index notation.
+        \item Prove \(\nabla\times(\nabla\times\mathbf{A})=\nabla(\nabla\cdot\mathbf{A})-\nabla^2\mathbf{A}\).
+        \item Prove \(\mathbf{a}\times(\mathbf{b}\times\mathbf{c})=\mathbf{b}(\mathbf{a}\cdot\mathbf{c})-\mathbf{c}(\mathbf{a}\cdot\mathbf{b})\).
+        \item Prove \((\mathbf{a}\times\mathbf{b})\cdot(\mathbf{c}\times\mathbf{d})=(\mathbf{a}\cdot\mathbf{c})(\mathbf{b}\cdot\mathbf{d})-(\mathbf{a}\cdot\mathbf{d})(\mathbf{b}\cdot\mathbf{c})\).
+    \end{enumerate}
+
+    \textbf{Level D:\,Derivative identities}
+    \begin{enumerate}
+        \item Show that \(\partial_i r=x_i/r\), where \(r={(x_{j}x_j)}^{1/2}\).
+        \item Show that \(\partial_i(1/r)=-x_i/r^3\).
+        \item Compute \(\partial_i(x_i/r^3)\) for \(r\neq0\).
+        \item Compute \(\partial_j(x_{i}x_j)\) in three dimensions.
+        \item If \(T_{ij}=f\delta_{ij}\), compute \(\partial_{j}T_{ij}\).
+    \end{enumerate}
+\end{practicebox}
+
+\ifdefined\OTCOMBINED%
+\else
+\end{document}
+\fi

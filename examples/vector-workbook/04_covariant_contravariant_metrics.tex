@@ -1,0 +1,229 @@
+\ifdefined\OTCOMBINED%
+\else
+\documentclass{otscience}
+\input{00_common_setup.tex}
+\standalonetitle{Covariant and Contravariant Bases, Metrics and General Curvilinear Calculus}{Part 4 of the OT Science Formula Completion Workbook}{\DTMtoday}
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+\fi
+
+\section{Covariant and Contravariant Bases, Metrics and General Curvilinear Calculus}
+
+This part connects coordinate geometry with tensor notation. The key idea is that a vector itself is geometric, but its components depend on the basis used to describe it. Covariant and contravariant components are two related ways of recording the same geometric object.
+
+\subsection{Coordinate Basis and Reciprocal Basis}
+
+Let
+\[
+    \mathbf{r}=\mathbf{r}(q^1,q^2,q^3).
+\]
+The covariant basis vectors are tangent to coordinate curves:
+\[
+    \mathbf{e}_i=\frac{\partial\mathbf{r}}{\partial q^i}.
+\]
+The contravariant basis vectors form the reciprocal basis:
+\[
+    \mathbf{e}^i\cdot\mathbf{e}_j=\delta^i_j.
+\]
+
+\begin{formulaboxnosplit}[Covariant and Contravariant Bases]
+    \[
+        \mathbf{e}_i=\frac{\partial\mathbf{r}}{\partial q^i},
+        \qquad
+        \mathbf{e}^i=\nabla q^i.
+    \]
+
+    \[
+        \mathbf{e}^i\cdot\mathbf{e}_j=\delta^i_j.
+    \]
+
+    \[
+        \mathbf{A}=A^i\mathbf{e}_i=A_i\mathbf{e}^i.
+    \]
+
+    \[
+        A^i=\mathbf{A}\cdot\mathbf{e}^i,
+        \qquad
+        A_i=\mathbf{A}\cdot\mathbf{e}_i.
+    \]
+\end{formulaboxnosplit}
+
+\subsection{Metric Tensor}
+
+The metric tensor records dot products between basis vectors. It is the object that turns coordinate changes into physical lengths and angles.
+
+\begin{formulabox}[Metric Tensor and Raising/Lowering]
+    \[
+        g_{ij}=\mathbf{e}_i\cdot\mathbf{e}_j,
+        \qquad
+        g^{ij}=\mathbf{e}^i\cdot\mathbf{e}^j.
+    \]
+
+    \[
+        g^{ik}g_{kj}=\delta^i_j.
+    \]
+
+    \[
+        A_i=g_{ij}A^j,
+        \qquad
+        A^i=g^{ij}A_j.
+    \]
+
+    \[
+        ds^2=g_{ij}\,dq^{i}dq^j.
+    \]
+
+    \[
+        \mathbf{A}\cdot\mathbf{B}=g_{ij}A^{i}B^j=g^{ij}A_{i}B_j=A_{i}B^i=A^{i}B_i.
+    \]
+\end{formulabox}
+
+\subsection{Orthogonal Coordinates as a Special Case}
+
+If the coordinate system is orthogonal, the metric tensor is diagonal. This is why scale factors are enough to describe many engineering coordinate systems.
+
+\begin{formulaboxnosplit}[Orthogonal Metric and Scale Factors]
+    \[
+        g_{ij}=h_i^2\delta_{ij}\quad\text{no sum on }i.
+    \]
+
+    \[
+        g^{ij}=\frac{1}{h_i^2}\delta^{ij}\quad\text{no sum on }i.
+    \]
+
+    \[
+        \mathbf{e}_i=h_i\hat{\mathbf{e}}_i,
+        \qquad
+        \mathbf{e}^i=\frac{1}{h_i}\hat{\mathbf{e}}_i.
+    \]
+
+    \[
+        A_i=h_i A_{\text{phys},i},
+        \qquad
+        A^i=\frac{A_{\text{phys},i}}{h_i}.
+    \]
+\end{formulaboxnosplit}
+
+\subsection{Jacobian, Metric and Volume}
+
+For a coordinate transformation \(x^a=x^a(q^1,q^2,q^3)\), the Jacobian matrix connects small coordinate changes to small physical displacements.
+
+\begin{formulabox}[Jacobian and Volume Element]
+    \[
+        J^a{}_i=\frac{\partial x^a}{\partial q^i}.
+    \]
+
+    \[
+        g_{ij}=\frac{\partial x^a}{\partial q^i}\frac{\partial x^a}{\partial q^j}=J^a{}_{i}J^a{}_j.
+    \]
+
+    \[
+        g=\det(g_{ij}),
+        \qquad
+        \sqrt{g}=\left|\det(J)\right|.
+    \]
+
+    \[
+        dV=\sqrt{g}\,dq^1dq^2dq^3.
+    \]
+
+    For orthogonal coordinates,
+    \[
+        \sqrt{g}=h_1h_2h_3.
+    \]
+\end{formulabox}
+
+\subsection{Gradient, Divergence and Laplacian in General Curvilinear Coordinates}
+
+The following formulas use the metric determinant \(g=\det(g_{ij})\). They are especially useful when coordinates are not necessarily orthogonal.
+
+\begin{formulabox}[General Curvilinear Formulae]
+    \[
+        \nabla f=(\partial_i f)\mathbf{e}^i.
+    \]
+
+    \[
+        \nabla\cdot\mathbf{A}=\frac{1}{\sqrt{g}}\frac{\partial}{\partial q^i}\left(\sqrt{g}\,A^i\right).
+    \]
+
+    \[
+        \nabla^2f=\frac{1}{\sqrt{g}}\frac{\partial}{\partial q^i}\left(\sqrt{g}\,g^{ij}\frac{\partial f}{\partial q^j}\right).
+    \]
+
+    For orthogonal coordinates,
+    \[
+        \nabla^2 f=\frac{1}{h_1h_2h_3}\sum_{i=1}^{3}\frac{\partial}{\partial q^i}\left(\frac{h_1h_2h_3}{h_i^2}\frac{\partial f}{\partial q^i}\right).
+    \]
+\end{formulabox}
+
+\subsection{Cylindrical and Spherical Laplacians}
+
+\begin{formulabox}[Common Laplacians]
+    Cartesian:
+    \[
+        \nabla^2f=f_{xx}+f_{yy}+f_{zz}.
+    \]
+
+    Cylindrical:
+    \[
+        \nabla^2f=\frac{1}{\rho}\frac{\partial}{\partial\rho}\left(\rho\frac{\partial f}{\partial\rho}\right)+\frac{1}{\rho^2}\frac{\partial^2f}{\partial\phi^2}+\frac{\partial^2f}{\partial z^2}.
+    \]
+
+    Spherical:
+    \[
+        \nabla^2f=\frac{1}{r^2}\frac{\partial}{\partial r}\left(r^2\frac{\partial f}{\partial r}\right)
+        +\frac{1}{r^2\sin\theta}\frac{\partial}{\partial\theta}\left(\sin\theta\frac{\partial f}{\partial\theta}\right)
+        +\frac{1}{r^2\sin^2\theta}\frac{\partial^2f}{\partial\phi^2}.
+    \]
+\end{formulabox}
+
+\begin{practicebox}[Quick Drills and Practice: Covariant/Contravariant Components and Metrics]
+    \textbf{Level A:\,Conceptual recall}
+    \begin{multicols}{2}
+        \begin{enumerate}
+            \item Complete: \(\mathbf{e}_i=\blank[4cm]\).
+            \item Complete: \(\mathbf{e}^i=\blank[3cm]\).
+            \item Complete: \(\mathbf{e}^i\cdot\mathbf{e}_j=\blank[2cm]\).
+            \item Complete: \(g_{ij}=\blank[4cm]\).
+            \item Complete: \(g^{ik}g_{kj}=\blank[2cm]\).
+            \item Complete: \(A_i=\blank[3cm]\).
+            \item Complete: \(A^i=\blank[3cm]\).
+            \item Complete: \(ds^2=\blank[4cm]\).
+        \end{enumerate}
+    \end{multicols}
+
+    \textbf{Level B:\,Metric computations}
+    \begin{enumerate}
+        \item Compute \(g_{ij}\) for cylindrical coordinates directly from \(\mathbf{r}(\rho,\phi,z)\).
+        \item Compute \(g^{ij}\) for cylindrical coordinates.
+        \item Compute \(g_{ij}\) for spherical coordinates directly from \(\mathbf{r}(r,\theta,\phi)\).
+        \item Compute \(g^{ij}\) for spherical coordinates.
+        \item Compute \(\sqrt{g}\) for Cartesian, cylindrical and spherical coordinates.
+        \item Show that \(dV=\sqrt{g}\,dq^1dq^2dq^3\) gives the correct cylindrical and spherical volume elements.
+    \end{enumerate}
+
+    \textbf{Level C:\,Components}
+    \begin{enumerate}
+        \item In cylindrical coordinates, if the physical components are \((A_\rho,A_\phi,A_z)=(2,3,4)\), write the contravariant components \(A^i\).
+        \item In spherical coordinates, if the physical components are \((A_r,A_\theta,A_\phi)=(1,2,3)\), write \(A^i\) and \(A_i\).
+        \item Given \(g_{ij}=\diag(1,r^2,r^2\sin^2\theta)\), lower the index of \(A^i=(r,\sin\theta,1)\).
+        \item Given \(g^{ij}=\diag(1,1/r^2,1/(r^2\sin^2\theta))\), raise the index of \(A_i=(r^2,r^2\theta,r^2\sin\theta)\).
+    \end{enumerate}
+
+    \textbf{Level D:\,Differential operators}
+    \begin{enumerate}
+        \item Derive the cylindrical divergence formula from \(\nabla\cdot\mathbf{A}=\frac1{\sqrt g}\partial_i(\sqrt g A^i)\).
+        \item Derive the spherical divergence formula from \(\nabla\cdot\mathbf{A}=\frac1{\sqrt g}\partial_i(\sqrt g A^i)\).
+        \item Derive the cylindrical scalar Laplacian from the general curvilinear formula.
+        \item Derive the spherical scalar Laplacian from the general curvilinear formula.
+        \item Compute \(\nabla^2f\) in cylindrical coordinates for \(f=\rho^2+z^2\).
+        \item Compute \(\nabla^2f\) in spherical coordinates for \(f=r^2\).
+    \end{enumerate}
+\end{practicebox}
+
+\ifdefined\OTCOMBINED%
+\else
+\end{document}
+\fi

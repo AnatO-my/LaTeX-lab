@@ -1,0 +1,283 @@
+\ifdefined\OTCOMBINED%
+\else
+\documentclass{otscience}
+\input{00_common_setup.tex}
+\standalonetitle{Coordinate Systems and Tensor Operations}{Part 2 of the OT Science Formula Completion Workbook}{\DTMtoday}
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+\fi
+
+\section{Coordinate Systems and Tensor Operations}
+
+Coordinate systems are not just different labels for the same point. They also change how basis vectors, scale factors, area elements, volume elements and differential operators are written. Tensor operations help us keep the geometry clear when the coordinates become less simple than rectangular coordinates.
+
+\subsection{Rectangular, Cylindrical and Spherical Coordinates}
+
+Rectangular coordinates are the easiest because the basis vectors are fixed. Cylindrical and spherical coordinates are more natural for circular, axial, radial and angular symmetry, but their basis vectors change with position.
+
+\begin{formulabox}[Coordinate Transformations]
+    \[
+        \text{Cartesian:}\qquad (x,y,z).
+    \]
+
+    \[
+        \text{Cylindrical:}\qquad x=\rho\cos\phi,\quad y=\rho\sin\phi,\quad z=z.
+    \]
+
+    \[
+        \rho=\sqrt{x^2+y^2},\qquad \phi=\operatorname{atan2}(y,x),\qquad z=z.
+    \]
+
+    \[
+        \text{Spherical:}\qquad x=r\sin\theta\cos\phi,
+        \quad y=r\sin\theta\sin\phi,
+        \quad z=r\cos\theta.
+    \]
+
+    \[
+        r=\sqrt{x^2+y^2+z^2},\qquad
+        \theta=\cos^{-1}\left(\frac{z}{r}\right),\qquad
+        \phi=\operatorname{atan2}(y,x).
+    \]
+
+    \[
+        \rho=r\sin\theta,
+        \qquad z=r\cos\theta,
+        \qquad r=\sqrt{\rho^2+z^2}.
+    \]
+\end{formulabox}
+
+\subsection{Basis Vectors and Scale Factors}
+
+A coordinate basis is obtained by differentiating the position vector with respect to the coordinates. In orthogonal coordinates, the scale factors tell us how much physical length corresponds to a small coordinate change.
+
+\begin{formulabox}[Basis Vectors, Scale Factors and Metric Matrices]
+    For orthogonal coordinates \((q^1,q^2,q^3)\),
+    \[
+        \mathbf{g}_i=\frac{\partial\mathbf{r}}{\partial q^i},
+        \qquad
+        h_i=\normval{\mathbf{g}_i},
+        \qquad
+        \hat{\mathbf{e}}_i=\frac{\mathbf{g}_i}{h_i}.
+    \]
+
+    \[
+        ds^2=h_1^2{(dq^1)}^2+h_2^2{(dq^2)}^2+h_3^2{(dq^3)}^2.
+    \]
+
+    \[
+        [g_{ij}]=\begin{pmatrix}
+            h_1^2 & 0     & 0     \\
+            0     & h_2^2 & 0     \\
+            0     & 0     & h_3^2
+        \end{pmatrix},
+        \qquad
+        [g^{ij}]=\begin{pmatrix}
+            1/h_1^2 & 0       & 0       \\
+            0       & 1/h_2^2 & 0       \\
+            0       & 0       & 1/h_3^2
+        \end{pmatrix}.
+    \]
+
+    \[
+        \text{Cartesian:}\qquad h_x=h_y=h_z=1,
+        \qquad ds^2=dx^2+dy^2+dz^2.
+    \]
+
+    \[
+        \text{Cylindrical:}\qquad h_\rho=1,
+        \qquad h_\phi=\rho,
+        \qquad h_z=1,
+        \qquad ds^2=d\rho^2+\rho^2d\phi^2+dz^2.
+    \]
+
+    \[
+        \text{Spherical:}\qquad h_r=1,
+        \qquad h_\theta=r,
+        \qquad h_\phi=r\sin\theta,
+    \]
+    \[
+        ds^2=dr^2+r^2d\theta^2+r^2\sin^2\theta\,d\phi^2.
+    \]
+\end{formulabox}
+
+\subsection{Volume and Area Elements}
+
+The volume element is controlled by the product of the scale factors. This is why cylindrical and spherical integrals contain the extra factors \(\rho\) and \(r^2\sin\theta\).
+
+\begin{formulaboxnosplit}[Differential Elements]
+    \[
+        dV=h_1h_2h_3\,dq^1dq^2dq^3.
+    \]
+
+    \[
+        dV_{\text{cart}}=dx\,dy\,dz.
+    \]
+
+    \[
+        dV_{\text{cyl}}=\rho\,d\rho\,d\phi\,dz.
+    \]
+
+    \[
+        dV_{\text{sph}}=r^2\sin\theta\,dr\,d\theta\,d\phi.
+    \]
+
+    For orthogonal coordinates, the coordinate surface elements are
+    \[
+        dS_1=h_2h_3\,dq^2dq^3,
+        \qquad
+        dS_2=h_3h_1\,dq^3dq^1,
+        \qquad
+        dS_3=h_1h_2\,dq^1dq^2.
+    \]
+\end{formulaboxnosplit}
+
+\subsection{Coordinate Basis, Physical Components and Tensor Components}
+
+A vector can be represented in coordinate basis vectors or in unit basis vectors. In many engineering texts, cylindrical and spherical vector fields are written using unit basis vectors, so the listed components are physical components. In tensor notation, however, components may be covariant or contravariant depending on the basis used.
+
+\begin{formulabox}[Basic Tensor Operations]
+    For a second-order tensor \(A_{ij}\),
+    \[
+        {(\mathbf{A}\mathbf{x})}_i=A_{ij}x_j,
+        \qquad
+        \tr(\mathbf{A})=A_{ii},
+        \qquad
+        \mathbf{A}:\mathbf{B}=A_{ij}B_{ij}.
+    \]
+
+    \[
+        {(\mathbf{A}\mathbf{B})}_{ij}=A_{ik}B_{kj}.
+    \]
+
+    \[
+        \mathbf{x}\cdot\mathbf{A}\mathbf{x}=x_{i}A_{ij}x_j.
+    \]
+
+    \[
+        \nabla\mathbf{A}\quad\text{for a vector field gives}\quad {(\nabla\mathbf{A})}_{ij}=\partial_j A_i.
+    \]
+
+    \[
+        \nabla\cdot\mathbf{T}\quad\text{for a second-order tensor can be written}\quad {(\nabla\cdot\mathbf{T})}_i=\partial_{j}T_{ij}.
+    \]
+\end{formulabox}
+
+\subsection{Gradient, Divergence and Curl in Orthogonal Coordinates}
+
+The following formulas use physical components \(A_1,A_2,A_3\) along unit vectors \(\hat{\mathbf{e}}_1,\hat{\mathbf{e}}_2,\hat{\mathbf{e}}_3\).
+
+\begin{formulabox}[General Orthogonal Differential Operators]
+    \[
+        \nabla f=\sum_{i=1}^{3}\hat{\mathbf{e}}_i\frac{1}{h_i}\frac{\partial f}{\partial q^i}.
+    \]
+
+    \[
+        \nabla\cdot\mathbf{A}=\frac{1}{h_1h_2h_3}\left[
+            \frac{\partial}{\partial q^1}(h_2h_3A_1)+
+            \frac{\partial}{\partial q^2}(h_3h_1A_2)+
+            \frac{\partial}{\partial q^3}(h_1h_2A_3)
+            \right].
+    \]
+
+    \[
+        \nabla\times\mathbf{A}=\frac{1}{h_1h_2h_3}
+        \begin{vmatrix}
+            h_1\hat{\mathbf{e}}_1 & h_2\hat{\mathbf{e}}_2 & h_3\hat{\mathbf{e}}_3 \\
+            \partial_{q^1}        & \partial_{q^2}        & \partial_{q^3}        \\
+            h_1A_1                & h_2A_2                & h_3A_3
+        \end{vmatrix}.
+    \]
+\end{formulabox}
+
+\subsection{Cylindrical Differential Operators}
+
+\begin{formulabox}[Cylindrical: \((\rho,\phi,z)\)]
+    \[
+        \nabla f=\erho\frac{\partial f}{\partial\rho}+\hat{\boldsymbol{\phi}}\frac{1}{\rho}\frac{\partial f}{\partial\phi}+\khat\frac{\partial f}{\partial z}.
+    \]
+
+    \[
+        \nabla\cdot\mathbf{A}=\frac{1}{\rho}\frac{\partial}{\partial\rho}(\rho A_\rho)+\frac{1}{\rho}\frac{\partial A_\phi}{\partial\phi}+\frac{\partial A_z}{\partial z}.
+    \]
+
+    \[
+        \nabla\times\mathbf{A}=
+        \erho\left(\frac{1}{\rho}\frac{\partial A_z}{\partial\phi}-\frac{\partial A_\phi}{\partial z}\right)
+        +\hat{\boldsymbol{\phi}}\left(\frac{\partial A_\rho}{\partial z}-\frac{\partial A_z}{\partial\rho}\right)
+        +\khat\left(\frac{1}{\rho}\frac{\partial}{\partial\rho}(\rho A_\phi)-\frac{1}{\rho}\frac{\partial A_\rho}{\partial\phi}\right).
+    \]
+\end{formulabox}
+
+\subsection{Spherical Differential Operators}
+
+\begin{formulabox}[Spherical: \((r,\theta,\phi)\)]
+    \[
+        \nabla f=\er\frac{\partial f}{\partial r}+\etheta\frac{1}{r}\frac{\partial f}{\partial\theta}+\ephi\frac{1}{r\sin\theta}\frac{\partial f}{\partial\phi}.
+    \]
+
+    \[
+        \nabla\cdot\mathbf{A}=\frac{1}{r^2}\frac{\partial}{\partial r}(r^2A_r)+\frac{1}{r\sin\theta}\frac{\partial}{\partial\theta}(\sin\theta A_\theta)+\frac{1}{r\sin\theta}\frac{\partial A_\phi}{\partial\phi}.
+    \]
+
+    \[
+        \nabla\times\mathbf{A}=
+        \er\frac{1}{r\sin\theta}\left[\frac{\partial}{\partial\theta}(\sin\theta A_\phi)-\frac{\partial A_\theta}{\partial\phi}\right]
+    \]
+    \[
+        +\etheta\frac{1}{r}\left[\frac{1}{\sin\theta}\frac{\partial A_r}{\partial\phi}-\frac{\partial}{\partial r}(rA_\phi)\right]
+        +\ephi\frac{1}{r}\left[\frac{\partial}{\partial r}(rA_\theta)-\frac{\partial A_r}{\partial\theta}\right].
+    \]
+\end{formulabox}
+
+\begin{practicebox}[Quick Drills and Practice: Coordinates and Tensor Operations]
+    \textbf{Level A:\,Coordinate conversion}
+    \begin{multicols}{2}
+        \begin{enumerate}
+            \item Convert \((x,y,z)=(3,4,5)\) to cylindrical coordinates.
+            \item Convert \((x,y,z)=(1,1,\sqrt2)\) to spherical coordinates.
+            \item Convert \((\rho,\phi,z)=(2,\pi/3,5)\) to Cartesian coordinates.
+            \item Convert \((r,\theta,\phi)=(4,\pi/2,\pi/6)\) to Cartesian coordinates.
+            \item Fill in: \(\rho=\blank[2cm]\), \(z=\blank[2cm]\), \(r=\blank[2cm]\).
+            \item Fill in: \(dV_{\text{cyl}}=\blank[3cm]\).
+            \item Fill in: \(dV_{\text{sph}}=\blank[3cm]\).
+            \item Fill in the spherical scale factors.
+        \end{enumerate}
+    \end{multicols}
+
+    \textbf{Level B:\,Scale factors and metric matrices}
+    \begin{enumerate}
+        \item Starting from \(\mathbf{r}=\rho\cos\phi\,\ihat+\rho\sin\phi\,\jhat+z\khat\), derive \(h_\rho,h_\phi,h_z\).
+        \item Starting from \(\mathbf{r}=r\sin\theta\cos\phi\,\ihat+r\sin\theta\sin\phi\,\jhat+r\cos\theta\,\khat\), derive \(h_r,h_\theta,h_\phi\).
+        \item Write the metric matrix \([g_{ij}]\) for cylindrical coordinates.
+        \item Write the metric matrix \([g_{ij}]\) for spherical coordinates.
+        \item Find \(ds^2\) for cylindrical coordinates and explain why the term \(\rho^2d\phi^2\) appears.
+        \item Find \(ds^2\) for spherical coordinates and explain the term \(r^2\sin^2\theta\,d\phi^2\).
+    \end{enumerate}
+
+    \textbf{Level C:\,Differential operators}
+    \begin{enumerate}
+        \item Compute \(\nabla f\) in cylindrical coordinates for \(f=\rho^2z\sin\phi\).
+        \item Compute \(\nabla f\) in spherical coordinates for \(f=r^2\cos\theta\).
+        \item Compute \(\nabla\cdot\mathbf{A}\) in cylindrical coordinates for \(\mathbf{A}=\rho^2\erho+\rho z\hat{\boldsymbol{\phi}}+z^2\khat\).
+        \item Compute \(\nabla\cdot\mathbf{A}\) in spherical coordinates for \(\mathbf{A}=r^2\er+r\sin\theta\,\etheta+0\ephi\).
+        \item Compute \(\nabla\times\mathbf{A}\) in cylindrical coordinates for \(\mathbf{A}=0\erho+\rho^2\hat{\boldsymbol{\phi}}+0\khat\).
+        \item Compute \(\nabla\times\mathbf{A}\) in spherical coordinates for \(\mathbf{A}=0\er+0\etheta+r\sin\theta\,\ephi\).
+    \end{enumerate}
+
+    \textbf{Level D:\,Tensor operations}
+    \begin{enumerate}
+        \item Given \(A_{ij}=\begin{pmatrix}1&2&0\\0&3&1\\4&0&2\end{pmatrix}\), compute \(A_{ij}x_j\) for \(\mathbf{x}=(1,2,3)\).
+        \item Compute \(\tr(A)\), \(A:A\), and \(A^2\) for the matrix above.
+        \item If \(T_{ij}=x_{i}x_j\), compute \(\partial_{j}T_{ij}\) in three-dimensional Cartesian coordinates.
+        \item For \(\mathbf{A}=x^2\ihat+xy\jhat+yz\khat\), compute \({(\nabla\mathbf{A})}_{ij}\).
+        \item Show explicitly that \(\nabla\cdot\mathbf{A}=\tr(\nabla\mathbf{A})\) for the same vector field.
+    \end{enumerate}
+\end{practicebox}
+
+\ifdefined\OTCOMBINED%
+\else
+\end{document}
+\fi

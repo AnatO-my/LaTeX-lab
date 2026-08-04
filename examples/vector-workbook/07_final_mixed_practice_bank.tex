@@ -1,0 +1,204 @@
+\ifdefined\OTCOMBINED%
+\else
+\documentclass{otscience}
+\input{00_common_setup.tex}
+\standalonetitle{Final Mixed Practice Bank and Formula Recall}{Part 7 of the OT Science Formula Completion Workbook}{\DTMtoday}
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+\fi
+
+\section{Final Mixed Practice Bank and Formula Recall}
+
+This final part is designed for spaced revision. It deliberately mixes recall, computation, proof, interpretation and engineering-style applications. Use it after completing the earlier parts, or use it diagnostically to find weak areas.
+
+\subsection{Formula Recall Page}
+
+\begin{summarybox}[Final Formula Recall]
+Fill these from memory before checking earlier sections.
+\begin{multicols}{2}
+\begin{enumerate}
+\item \(\nabla f=\blank[5cm]\)
+\item \(\nabla\cdot\mathbf{A}=\blank[5cm]\)
+\item \(\nabla\times\mathbf{A}=\blank[5cm]\)
+\item \(D_{\hat{\mathbf{u}}}f=\blank[4cm]\)
+\item \(\nabla^2 f=\blank[5cm]\)
+\item \({(\nabla\mathbf{A})}_{ij}=\blank[4cm]\)
+\item \(\delta_{ij}a_j=\blank[3cm]\)
+\item \(\varepsilon_{ijk}\varepsilon_{ilm}=\blank[4cm]\)
+\item \(S_{ij}=\blank[4cm]\)
+\item \(W_{ij}=\blank[4cm]\)
+\item \(I_1=\blank[3cm]\)
+\item \(I_2=\blank[5cm]\)
+\item \(I_3=\blank[3cm]\)
+\item \(A'_{ij}=\blank[5cm]\)
+\item \(\mathbf{g}_i=\blank[4cm]\)
+\item \(\mathbf{g}^i\cdot\mathbf{g}_j=\blank[3cm]\)
+\item \(A_i=\blank[4cm]\)
+\item \(A^i=\blank[4cm]\)
+\item \(ds^2=\blank[5cm]\)
+\item \(dV=\blank[5cm]\)
+\item \(dV_{\text{cyl}}=\blank[4cm]\)
+\item \(dV_{\text{sph}}=\blank[4cm]\)
+\item \(\ee^{\ii\theta}=\blank[4cm]\)
+\item \(\cos(\ii x)=\blank[3cm]\)
+\item \(\sin(\ii x)=\blank[3cm]\)
+\item \(\cosh^2x-\sinh^2x=\blank[2cm]\)
+\end{enumerate}
+\end{multicols}
+\end{summarybox}
+
+\subsection{Part I:\,Vector Calculus Computation}
+
+\begin{practicebox}[Final Practice I:\,Grad, Div, Curl and Directional Derivatives]
+\begin{enumerate}
+\item Compute \(\nabla f\) for \(f=x^3y^2+z\cos x\).
+\item Compute \(\nabla f\) for \(f=\ln(x^2+y^2+z^2)\), away from the origin.
+\item Compute \(\nabla^2 f\) for \(f=x^2+y^2+z^2\).
+\item Compute \(\nabla^2 f\) for \(f=1/r\), where \(r=\sqrt{x^2+y^2+z^2}\), away from the origin.
+\item Compute \(\nabla\cdot\mathbf{A}\) for \(\mathbf{A}=x^2\ihat+y^2\jhat+z^2\khat\).
+\item Compute \(\nabla\cdot\mathbf{A}\) for \(\mathbf{A}=yz\ihat+xz\jhat+xy\khat\).
+\item Compute \(\nabla\times\mathbf{A}\) for \(\mathbf{A}=xy\ihat+yz\jhat+zx\khat\).
+\item Compute \(\nabla\times\mathbf{A}\) for \(\mathbf{A}=(-y/(x^2+y^2))\ihat+(x/(x^2+y^2))\jhat\), away from the \(z\)-axis.
+\item For \(f=x^2y+yz^2\), compute the directional derivative at \((1,1,2)\) in direction \((2,-1,2)\).
+\item Find the direction of steepest increase of \(f=xy+yz+zx\) at \((1,2,3)\).
+\item Compute \(\nabla\mathbf{A}\) for \(\mathbf{A}=x^2\ihat+xy\jhat+xz\khat\).
+\item For the vector field in Question 11, find the symmetric and skew-symmetric parts of \(\nabla\mathbf{A}\).
+\item Verify \(\nabla\cdot(\nabla\times\mathbf{A})=0\) for \(\mathbf{A}=z\ihat+x\jhat+y\khat\).
+\item Verify \(\nabla\times(\nabla f)=0\) for \(f=xyz+x^2+y^2\).
+\item Evaluate \(\nabla\times(\nabla\times\mathbf{A})\) directly and using the identity for \(\mathbf{A}=x^2\ihat+y^2\jhat+z^2\khat\).
+\end{enumerate}
+\end{practicebox}
+
+\subsection{Part II:\,Coordinate Systems and Differential Operators}
+
+\begin{practicebox}[Final Practice II:\,Coordinates, Scale Factors and Operators]
+\begin{enumerate}
+\item Convert \((x,y,z)=(-1,\sqrt3,2)\) to cylindrical coordinates using \(\operatorname{atan2}\).
+\item Convert \((x,y,z)=(1,1,\sqrt2)\) to spherical coordinates.
+\item Convert \((\rho,\phi,z)=(3,5\pi/6,-2)\) to Cartesian coordinates.
+\item Convert \((r,\theta,\phi)=(2,\pi/3,\pi/4)\) to Cartesian coordinates.
+\item Derive the cylindrical basis vectors \(\erho\) and \(\hat{\boldsymbol{\phi}}\) in terms of \(\ihat,\jhat\).
+\item Derive the spherical basis vectors \(\er,\etheta,\ephi\) in terms of \(\ihat,\jhat,\khat\).
+\item Derive \(h_\rho,h_\phi,h_z\) from the cylindrical position vector.
+\item Derive \(h_r,h_\theta,h_\phi\) from the spherical position vector.
+\item Write \([g_{ij}]\) and \([g^{ij}]\) for cylindrical coordinates.
+\item Write \([g_{ij}]\) and \([g^{ij}]\) for spherical coordinates.
+\item Compute \(\nabla f\) in cylindrical coordinates for \(f=\rho z\cos\phi\).
+\item Compute \(\nabla f\) in spherical coordinates for \(f=r^3\sin\theta\cos\phi\).
+\item Compute \(\nabla\cdot\mathbf{A}\) in cylindrical coordinates for \(\mathbf{A}=\rho\erho+\rho^2\hat{\boldsymbol{\phi}}+z\khat\).
+\item Compute \(\nabla\cdot\mathbf{A}\) in spherical coordinates for \(\mathbf{A}=r\er+\sin\theta\,\etheta+\cos\phi\,\ephi\).
+\item Compute \(\nabla\times\mathbf{A}\) in cylindrical coordinates for \(\mathbf{A}=0\erho+\rho\hat{\boldsymbol{\phi}}+z\khat\).
+\item Compute \(\nabla\times\mathbf{A}\) in spherical coordinates for \(\mathbf{A}=0\er+0\etheta+r\sin\theta\ephi\).
+\item Derive the cylindrical scalar Laplacian from the general orthogonal coordinate formula.
+\item Derive the spherical scalar Laplacian from the general curvilinear formula.
+\end{enumerate}
+\end{practicebox}
+
+\subsection{Part III:\,Index Notation and Tensor Identities}
+
+\begin{practicebox}[Final Practice III:\,Index Notation, Delta and Levi-Civita]
+\begin{enumerate}
+\item Expand \(A_{ij}B_{jk}\) for the component \((i,k)=(1,2)\).
+\item Simplify \(\delta_{ij}\delta_{jk}a_k\).
+\item Simplify \(\delta_{ij}A_{ik}B_{jk}\).
+\item Simplify \(\varepsilon_{ijk}\varepsilon_{ilm}a_{j}b_{k}c_{l}d_m\).
+\item Show that \(\varepsilon_{ijk}a_{j}b_k\) gives the cross product.
+\item Prove \(\mathbf{a}\times\mathbf{b}=-\mathbf{b}\times\mathbf{a}\).
+\item Prove \((\mathbf{a}\times\mathbf{b})\cdot\mathbf{c}=\mathbf{a}\cdot(\mathbf{b}\times\mathbf{c})\).
+\item Prove the vector triple product identity using \(\varepsilon_{ijk}\).
+\item Prove \(\nabla\times(\nabla f)=0\) using indices.
+\item Prove \(\nabla\cdot(\nabla\times\mathbf{A})=0\) using indices.
+\item Prove the curl-curl identity using indices.
+\item Compute \(\partial_i(x_{j}x_j)\).
+\item Compute \(\partial_j(x_{i}x_j)\) in three dimensions.
+\item Compute \(\partial_i(r^n)\), where \(r={(x_{j}x_j)}^{1/2}\).
+\item Compute \(\partial_i(x_i/r^3)\) for \(r\neq0\).
+\end{enumerate}
+\end{practicebox}
+
+\subsection{Part IV:\,Tensor Decompositions and Invariants}
+
+\begin{practicebox}[Final Practice IV:\,Symmetry, Skew-Symmetry and Invariants]
+\begin{enumerate}
+\item Decompose \(A=\begin{pmatrix}2&1&0\\3&4&5\\1&-2&6\end{pmatrix}\) into symmetric and skew parts.
+\item Check whether \(A=\begin{pmatrix}0&-2&1\\2&0&-3\\-1&3&0\end{pmatrix}\) is skew-symmetric.
+\item Compute \(I_1,I_2,I_3\) for \(A=\diag(2,4,6)\).
+\item Compute \(I_1,I_2,I_3\) for \(A=\begin{pmatrix}1&1&0\\1&1&0\\0&0&2\end{pmatrix}\).
+\item Find the characteristic polynomial of \(A=\diag(a,b,c)\).
+\item Find the deviatoric part of \(A=\diag(5,2,2)\).
+\item Find the hydrostatic and deviatoric parts of \(\sigma=\diag(120,60,30)\).
+\item Prove that the deviatoric tensor has zero trace.
+\item Prove that \(x_{i}W_{ij}x_j=0\) for skew-symmetric \(W\).
+\item Show that \(x_{i}A_{ij}x_j\) depends only on the symmetric part of \(A\).
+\item For \(\mathbf{v}=(-\omega y,\omega x,0)\), compute the velocity gradient and split it into symmetric and skew parts.
+\item For \(\mathbf{v}=(ax,by,cz)\), compute the invariants of \(\nabla\mathbf{v}\).
+\end{enumerate}
+\end{practicebox}
+
+\subsection{Part V:\,Covariant and Contravariant Components}
+
+\begin{practicebox}[Final Practice V:\,Metrics, Raising and Lowering]
+\begin{enumerate}
+\item Explain the difference between \(\mathbf{g}_i\) and \(\mathbf{g}^i\).
+\item Prove \(\mathbf{g}^i\cdot\mathbf{g}_j=\delta^i_j\) for an orthogonal coordinate system.
+\item In cylindrical coordinates, compute \(\mathbf{g}_\rho,\mathbf{g}_\phi,\mathbf{g}_z\).
+\item In cylindrical coordinates, compute \(\mathbf{g}^\rho,\mathbf{g}^\phi,\mathbf{g}^z\).
+\item In spherical coordinates, compute \(\mathbf{g}_r,\mathbf{g}_\theta,\mathbf{g}_\phi\).
+\item In spherical coordinates, compute \(\mathbf{g}^r,\mathbf{g}^\theta,\mathbf{g}^\phi\).
+\item Given cylindrical physical components \((A_\rho,A_\phi,A_z)=(3,4,5)\), find \(A^i\) and \(A_i\).
+\item Given spherical physical components \((A_r,A_\theta,A_\phi)=(2,3,4)\), find \(A^i\) and \(A_i\).
+\item Prove \(\mathbf{A}\cdot\mathbf{B}=g_{ij}A^{i}B^j\).
+\item Derive \(\nabla^2f=\frac1{\sqrt g}\partial_i(\sqrt g g^{ij}\partial_{j}f)\) for the cylindrical case.
+\end{enumerate}
+\end{practicebox}
+
+\subsection{Part VI:\,Complex Numbers and Hyperbolic Functions}
+
+\begin{practicebox}[Final Practice VI:\,Complex and Hyperbolic Problems]
+\begin{enumerate}
+\item Write \(z=-1+\ii\) in polar and exponential form.
+\item Write \(z=-\sqrt3-\ii\) in polar and exponential form.
+\item Compute \({(\sqrt3+\ii)}^6\) using polar form.
+\item Find all roots of \(z^4=16\).
+\item Find all roots of \(z^3=-8\).
+\item Solve \(z^5=32\ee^{\ii\pi/2}\).
+\item Prove Euler's formula from the power series of \(\ee^x\), \(\sin x\), and \(\cos x\).
+\item Derive De Moivre's theorem.
+\item Express \(\cos(x+\ii y)\) in real and imaginary parts.
+\item Express \(\sin(x+\ii y)\) in real and imaginary parts.
+\item Prove \(\cos(\ii x)=\cosh x\).
+\item Prove \(\sin(\ii x)=\ii\sinh x\).
+\item Prove \(\tanh(\ii x)=\ii\tan x\).
+\item Derive \(\sinh^{-1}x=\ln(x+\sqrt{x^2+1})\).
+\item Derive \(\tanh^{-1}x=\frac12\ln\left(\frac{1+x}{1-x}\right)\).
+\end{enumerate}
+\end{practicebox}
+
+\subsection{Part VII:\,Mixed Challenge Problems}
+
+\begin{practicebox}[Final Practice VII:\,Mixed Challenge Set]
+\begin{enumerate}
+\item A scalar field is given by \(T=1/r\). Compute \(\nabla T\), \(\nabla^2T\) for \(r\neq0\), and interpret the singularity at the origin qualitatively.
+\item A velocity field is \(\mathbf{v}=a\rho\erho+bz\khat\) in cylindrical coordinates. Find \(\nabla\cdot\mathbf{v}\). For what relation between \(a\) and \(b\) is the flow incompressible?
+\item A purely azimuthal field is \(\mathbf{A}=A_\phi(r,\theta)\ephi\) in spherical coordinates. Write the general formula for its curl.
+\item A tensor \(A\) has eigenvalues \(1,2,5\). Find \(I_1,I_2,I_3\) and write its characteristic polynomial.
+\item For \(A_{ij}=x_{i}x_j\), compute \(\tr(A)\), \(A_{ij}A_{ij}\), and \(\partial_{j}A_{ij}\).
+\item Use \(\varepsilon_{ijk}\varepsilon_{ilm}\) to derive Lagrange's identity \(|\mathbf{a}\times\mathbf{b}|^2=|\mathbf{a}|^2|\mathbf{b}|^2-{(\mathbf{a}\cdot\mathbf{b})}^2\).
+\item Show that \(\nabla\cdot(f\mathbf{A}\times\mathbf{B})\) can be expanded using product identities.
+\item In spherical coordinates, compute \(\nabla f\) and \(\nabla^2f\) for \(f=f(r)\), a radial-only scalar field.
+\item In cylindrical coordinates, compute \(\nabla f\) and \(\nabla^2f\) for \(f=f(\rho)\), an axisymmetric radial field.
+\item Explain why a formula that is true in Cartesian components may need correction terms in curvilinear coordinates if components are not physical components.
+\item A complex number is multiplied by \(2\ee^{\ii\pi/3}\). Describe the geometric action.
+\item Solve \(\ee^{2z}=1\) for complex \(z\).
+\item Show that \(\cosh x\) and \(\sinh x\) parametrise the unit hyperbola \(X^2-Y^2=1\).
+\item Compare \(\cos^2x+\sin^2x=1\) with \(\cosh^2x-\sinh^2x=1\). Explain the sign difference using exponentials.
+\item Build a one-page personal formula sheet from memory covering all topics in this workbook.
+\end{enumerate}
+\end{practicebox}
+
+\ifdefined\OTCOMBINED%
+\else
+\end{document}
+\fi

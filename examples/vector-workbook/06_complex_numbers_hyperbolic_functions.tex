@@ -1,0 +1,278 @@
+\ifdefined\OTCOMBINED%
+\else
+\documentclass{otscience}
+\input{00_common_setup.tex}
+\standalonetitle{Complex Numbers, Circular Functions and Hyperbolic Functions}{Part 6 of the OT Science Formula Completion Workbook}{\DTMtoday}
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+\fi
+
+\section{Complex Numbers, Circular Functions and Hyperbolic Functions}
+
+Complex numbers connect algebra, geometry, oscillations, rotations, exponentials and hyperbolic functions. The core bridge is Euler's formula. Once that is understood, trigonometric and hyperbolic identities become different faces of the same exponential structure.
+
+\subsection{Basic Complex Algebra}
+
+A complex number has a real part and an imaginary part:
+\[
+z=x+\ii y,
+\qquad \ii^2=-1.
+\]
+The complex plane treats \(x\) as the horizontal coordinate and \(y\) as the vertical coordinate.
+
+\begin{formulaboxnosplit}[Complex Number Basics]
+\[
+z=x+\ii y,
+\qquad
+\Re(z)=x,
+\qquad
+\Im(z)=y.
+\]
+
+\[
+\overline{z}=x-\ii y.
+\]
+
+\[
+|z|=\sqrt{x^2+y^2},
+\qquad
+\arg(z)=\theta.
+\]
+
+\[
+z\overline{z}=|z|^2.
+\]
+
+\[
+\frac{1}{z}=\frac{\overline{z}}{|z|^2}=\frac{x-\ii y}{x^2+y^2},\qquad z\neq0.
+\]
+\end{formulaboxnosplit}
+
+\subsection{Polar and Exponential Forms}
+
+The polar form is often the best way to multiply, divide, raise to powers and extract roots.
+
+\begin{formulabox}[Euler, Polar Form and De Moivre]
+\[
+\ee^{\ii\theta}=\cos\theta+\ii\sin\theta.
+\]
+
+\[
+z=r(\cos\theta+\ii\sin\theta)=r\ee^{\ii\theta}.
+\]
+
+\[
+r=|z|,
+\qquad
+\theta=\arg(z).
+\]
+
+\[
+z_1z_2=r_1r_2\ee^{\ii(\theta_1+\theta_2)}.
+\]
+
+\[
+\frac{z_1}{z_2}=\frac{r_1}{r_2}\ee^{\ii(\theta_1-\theta_2)},\qquad z_2\neq0.
+\]
+
+\[
+{(r\ee^{\ii\theta})}^n=r^n\ee^{\ii n\theta}.
+\]
+
+\[
+{(\cos\theta+\ii\sin\theta)}^n=\cos(n\theta)+\ii\sin(n\theta).
+\]
+\end{formulabox}
+
+\subsection{Roots of Complex Numbers}
+
+If \(z^n=R\ee^{\ii\Theta}\), then the \(n\) roots are evenly spaced around a circle in the complex plane.
+
+\begin{formulaboxnosplit}[Complex Roots]
+\[
+z_k=R^{1/n}\ee^{\ii(\Theta+2\pi k)/n},
+\qquad k=0,1,2,\dots,n-1.
+\]
+
+Equivalently,
+\[
+z_k=R^{1/n}\left[\cos\left(\frac{\Theta+2\pi k}{n}\right)+\ii\sin\left(\frac{\Theta+2\pi k}{n}\right)\right].
+\]
+\end{formulaboxnosplit}
+
+\subsection{Complex Exponentials and Circular Functions}
+
+The ordinary circular functions can be written using complex exponentials:
+
+\begin{formulabox}[Circular Functions from Exponentials]
+\[
+\cos x=\frac{\ee^{\ii x}+\ee^{-\ii x}}{2}.
+\]
+
+\[
+\sin x=\frac{\ee^{\ii x}-\ee^{-\ii x}}{2\ii}.
+\]
+
+\[
+\tan x=\frac{\sin x}{\cos x}.
+\]
+
+\[
+\cos^2x+\sin^2x=1.
+\]
+
+\[
+\ee^{\ii x}\ee^{-\ii x}=1.
+\]
+\end{formulabox}
+
+\subsection{Hyperbolic Functions}
+
+Hyperbolic functions are built from real exponentials. They resemble circular functions, but their signs differ in crucial places.
+
+\begin{formulabox}[Hyperbolic Definitions and Identities]
+\[
+\sinh x=\frac{\ee^x-\ee^{-x}}{2}.
+\]
+
+\[
+\cosh x=\frac{\ee^x+\ee^{-x}}{2}.
+\]
+
+\[
+\tanh x=\frac{\sinh x}{\cosh x}.
+\]
+
+\[
+\cosh^2x-\sinh^2x=1.
+\]
+
+\[
+\sinh(2x)=2\sinh x\cosh x.
+\]
+
+\[
+\cosh(2x)=\cosh^2x+\sinh^2x=2\cosh^2x-1=1+2\sinh^2x.
+\]
+
+\[
+\frac{d}{dx}\sinh x=\cosh x,
+\qquad
+\frac{d}{dx}\cosh x=\sinh x,
+\qquad
+\frac{d}{dx}\tanh x=\operatorname{sech}^2x.
+\]
+\end{formulabox}
+
+\subsection{Circular---Hyperbolic Connections}
+
+Replacing a real argument by an imaginary one converts circular functions into hyperbolic functions and vice versa.
+
+\begin{formulaboxnosplit}[Complex Arguments and Hyperbolic Connections]
+\[
+\cos(\ii x)=\cosh x.
+\]
+
+\[
+\sin(\ii x)=\ii\sinh x.
+\]
+
+\[
+\tan(\ii x)=\ii\tanh x.
+\]
+
+\[
+\cosh(\ii x)=\cos x.
+\]
+
+\[
+\sinh(\ii x)=\ii\sin x.
+\]
+
+\[
+\tanh(\ii x)=\ii\tan x.
+\]
+\end{formulaboxnosplit}
+
+\subsection{Inverse Hyperbolic Functions}
+
+Inverse hyperbolic functions can be written using logarithms. These are important in integration and differential equations.
+
+\begin{formulabox}[Inverse Hyperbolic Forms]
+\[
+\sinh^{-1}x=\ln(x+\sqrt{x^2+1}).
+\]
+
+\[
+\cosh^{-1}x=\ln(x+\sqrt{x^2-1}),\qquad x\ge1.
+\]
+
+\[
+\tanh^{-1}x=\frac12\ln\left(\frac{1+x}{1-x}\right),\qquad |x|<1.
+\]
+\end{formulabox}
+
+\begin{practicebox}[Quick Drills and Practice: Complex and Hyperbolic Functions]
+\textbf{Level A:\,Formula recall}
+\begin{multicols}{2}
+\begin{enumerate}
+\item Complete: \(\ee^{\ii\theta}=\blank[4cm]\).
+\item Complete: \(z\overline{z}=\blank[2.5cm]\).
+\item Complete: \(1/(x+\ii y)=\blank[4cm]\).
+\item Complete: \(\cos x=\blank[4cm]\).
+\item Complete: \(\sin x=\blank[4cm]\).
+\item Complete: \(\sinh x=\blank[4cm]\).
+\item Complete: \(\cosh x=\blank[4cm]\).
+\item Complete: \(\cosh^2x-\sinh^2x=\blank[2cm]\).
+\item Complete: \(\cos(\ii x)=\blank[3cm]\).
+\item Complete: \(\sin(\ii x)=\blank[3cm]\).
+\end{enumerate}
+\end{multicols}
+
+\textbf{Level B:\,Complex algebra}
+\begin{enumerate}
+\item Compute \((3+2\ii)+(1-5\ii)\).
+\item Compute \((2+\ii)(3-4\ii)\).
+\item Compute \({(1+\ii)}^4\) using ordinary algebra.
+\item Write \(1+\ii\) in polar and exponential form.
+\item Write \(-1+\sqrt3\ii\) in polar and exponential form.
+\item Compute \({(1+\ii)}^8\) using polar form.
+\item Compute \(\frac{2+3\ii}{1-\ii}\).
+\end{enumerate}
+
+\textbf{Level C:\,Powers and roots}
+\begin{enumerate}
+\item Find all cube roots of \(8\).
+\item Find all fourth roots of \(1\).
+\item Find all fourth roots of \(-16\).
+\item Solve \(z^3=-8\ii\).
+\item Sketch the roots of \(z^5=1\) on the complex plane.
+\end{enumerate}
+
+\textbf{Level D:\,Hyperbolic connections}
+\begin{enumerate}
+\item Prove \(\cos(\ii x)=\cosh x\) using exponential definitions.
+\item Prove \(\sin(\ii x)=\ii\sinh x\).
+\item Prove \(\cosh(\ii x)=\cos x\).
+\item Prove \(\sinh(\ii x)=\ii\sin x\).
+\item Prove \(\cosh^2x-\sinh^2x=1\).
+\item Derive \(\sinh(2x)=2\sinh x\cosh x\).
+\item Derive \(\cosh(2x)=\cosh^2x+\sinh^2x\).
+\end{enumerate}
+
+\textbf{Level E:\,Challenge}
+\begin{enumerate}
+\item Express \(\cos(x+\ii y)\) in terms of \(\cos x,\sin x,\cosh y,\sinh y\).
+\item Express \(\sin(x+\ii y)\) in terms of \(\cos x,\sin x,\cosh y,\sinh y\).
+\item Solve \(\ee^z=-1\) for complex \(z\).
+\item Solve \(\cos z=0\) for complex \(z\).
+\item Show that multiplication by \(\ee^{\ii\theta}\) rotates a complex number by angle \(\theta\).
+\end{enumerate}
+\end{practicebox}
+
+\ifdefined\OTCOMBINED%
+\else
+\end{document}
+\fi

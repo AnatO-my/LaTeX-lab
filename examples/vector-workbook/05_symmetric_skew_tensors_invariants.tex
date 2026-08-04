@@ -1,0 +1,238 @@
+\ifdefined\OTCOMBINED%
+\else
+\documentclass{otscience}
+\input{00_common_setup.tex}
+\standalonetitle{Symmetric and Skew-Symmetric Tensors, Invariants and Decompositions}{Part 5 of the OT Science Formula Completion Workbook}{\DTMtoday}
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+\fi
+
+\section{Symm and Skew-Symm Tensors, Invariants  n' Decomps}
+
+Second-order tensors appear naturally as stress tensors, strain tensors, inertia tensors, conductivity tensors, deformation gradients and vector gradients. Their symmetric and skew-symmetric parts often carry different physical meanings.
+
+\subsection{Symmetric and Skew-Symmetric Tensors}
+
+A tensor is symmetric if transposing it does not change it. A tensor is skew-symmetric if transposing it changes its sign. In three dimensions, a skew-symmetric tensor has only three independent components and can be represented by an axial vector.
+
+\begin{formulaboxnosplit}[Symmetry Conditions]
+    \[
+        S_{ij}=S_{ji}\qquad\text{symmetry}.
+    \]
+
+    \[
+        W_{ij}=-W_{ji}\qquad\text{skew-symmetry}.
+    \]
+
+    \[
+        W_{ii}=0.
+    \]
+
+    \[
+        A_{ij}=S_{ij}+W_{ij}.
+    \]
+
+    \[
+        S_{ij}=\frac12(A_{ij}+A_{ji}),
+        \qquad
+        W_{ij}=\frac12(A_{ij}-A_{ji}).
+    \]
+\end{formulaboxnosplit}
+
+\subsection{Connection with Vector Gradient}
+
+If \(\mathbf{v}\) is a velocity field, then \(\nabla\mathbf{v}\) can be decomposed into symmetric and skew-symmetric parts. The symmetric part is related to strain rate, while the skew-symmetric part is related to local rotation.
+
+\begin{formulabox}[Gradient Decomposition]
+    \[
+        L_{ij}=\partial_{j}v_i.
+    \]
+
+    \[
+        D_{ij}=\frac12(L_{ij}+L_{ji})
+        \qquad\text{symmetric rate-of-deformation tensor}.
+    \]
+
+    \[
+        \Omega_{ij}=\frac12(L_{ij}-L_{ji})
+        \qquad\text{skew spin tensor}.
+    \]
+
+    \[
+        L_{ij}=D_{ij}+\Omega_{ij}.
+    \]
+
+    \[
+        \omega_i={(\nabla\times\mathbf{v})}_i=\varepsilon_{ijk}\partial_{j}v_k.
+    \]
+\end{formulabox}
+
+\subsection{Principal Invariants of a Second-Order Tensor}
+
+Invariants do not change under a rotation of coordinates. They describe intrinsic properties of the tensor.
+
+\begin{formulaboxnosplit}[Principal Invariants]
+    For a \(3\times3\) tensor \(\mathbf{A}\),
+    \[
+        I_1=\tr(A)=A_{ii}.
+    \]
+
+    \[
+        I_2=\frac12\left[{(\tr A)}^2-\tr(A^2)\right].
+    \]
+
+    \[
+        I_3=\det(A).
+    \]
+
+    The characteristic polynomial may be written as
+    \[
+        \det(\lambda I-A)=\lambda^3-I_1\lambda^2+I_2\lambda-I_3.
+    \]
+    Equivalently,
+    \[
+        \det(A-\lambda I)=-\lambda^3+I_1\lambda^2-I_2\lambda+I_3.
+    \]
+\end{formulaboxnosplit}
+
+\subsection{Deviatoric and Spherical Parts}
+
+Many physical tensors can be decomposed into a mean or spherical part and a deviatoric part. In stress analysis, the spherical part is associated with hydrostatic pressure, while the deviatoric part is associated with shape distortion.
+
+\begin{formulabox}[Deviatoric Decomposition]
+    \[
+        \operatorname{sph}{(A)}_{ij}=\frac13A_{kk}\delta_{ij}.
+    \]
+
+    \[
+        A'_{ij}=\dev{(A)}_{ij}=A_{ij}-\frac13A_{kk}\delta_{ij}.
+    \]
+
+    \[
+        A_{ij}=\frac13A_{kk}\delta_{ij}+A'_{ij}.
+    \]
+
+    \[
+        A'_{kk}=0.
+    \]
+
+    For a stress tensor \(\sigma_{ij}\),
+    \[
+        p=-\frac13\sigma_{kk},
+        \qquad
+        s_{ij}=\sigma_{ij}-\frac13\sigma_{kk}\delta_{ij}.
+    \]
+\end{formulabox}
+
+\subsection{Invariants of Deviatoric Tensors}
+
+For a deviatoric tensor \(A'\), the first invariant is zero. The remaining invariants are important in mechanics.
+
+\begin{formulabox}[Deviatoric Invariants]
+    \[
+        J_1=\tr(A')=0.
+    \]
+
+    \[
+        J_2=\frac12A'_{ij}A'_{ij}.
+    \]
+
+    \[
+        J_3=\det(A').
+    \]
+
+    For stress deviator \(s_{ij}\), one common convention is
+    \[
+        J_2=\frac12s_{ij}s_{ij}.
+    \]
+\end{formulabox}
+
+\begin{exampleboxnosplit}[Worked Example: Tensor Decomposition]
+    Let
+    \[
+        A=\begin{pmatrix}
+            2 & 1 & 3  \\
+            4 & 0 & -1 \\
+            5 & 2 & 1
+        \end{pmatrix}.
+    \]
+    Then
+    \[
+        S=\frac12(A+A^T),
+        \qquad
+        W=\frac12(A-A^T).
+    \]
+    Compute
+    \[
+        S=\begin{pmatrix}
+            2   & 5/2 & 4   \\
+            5/2 & 0   & 1/2 \\
+            4   & 1/2 & 1
+        \end{pmatrix},
+        \qquad
+        W=\begin{pmatrix}
+            0   & -3/2 & -1   \\
+            3/2 & 0    & -3/2 \\
+            1   & 3/2  & 0
+        \end{pmatrix}.
+    \]
+    Check that \(S^T=S\), \(W^T=-W\), and \(A=S+W\).
+\end{exampleboxnosplit}
+
+\begin{practicebox}[Quick Drills and Practice: Tensor Decompositions and Invariants]
+    \textbf{Level A:\,Symmetry checks}
+    \begin{multicols}{2}
+        \begin{enumerate}
+            \item Is \(\begin{pmatrix}1&2\\2&3\end{pmatrix}\) symmetric?
+            \item Is \(\begin{pmatrix}0&-4\\4&0\end{pmatrix}\) skew-symmetric?
+            \item Complete: \(S_{ij}-S_{ji}=\blank[2cm]\).
+            \item Complete: \(W_{ij}+W_{ji}=\blank[2cm]\).
+            \item Complete: \(W_{ii}=\blank[2cm]\).
+            \item Complete: \(A_{ij}=\blank[3cm]\).
+            \item Complete: \(S_{ij}=\blank[3cm]\).
+            \item Complete: \(W_{ij}=\blank[3cm]\).
+        \end{enumerate}
+    \end{multicols}
+
+    \textbf{Level B:\,Decomposition}
+    \begin{enumerate}
+        \item Decompose \(A=\begin{pmatrix}1&2&3\\0&4&5\\1&0&6\end{pmatrix}\) into symmetric and skew-symmetric parts.
+        \item Decompose \(A=\begin{pmatrix}0&-1&2\\1&0&-3\\-2&3&0\end{pmatrix}\). What do you notice?
+        \item For \(\mathbf{v}=(-y,x,0)\), compute \(\nabla\mathbf{v}\), its symmetric part and its skew part.
+        \item For \(\mathbf{v}=(ax,by,cz)\), compute \(\nabla\mathbf{v}\), its trace and its symmetric/skew parts.
+    \end{enumerate}
+
+    \textbf{Level C:\,Invariants}
+    \begin{enumerate}
+        \item Compute \(I_1,I_2,I_3\) for \(A=\diag(1,2,3)\).
+        \item Compute \(I_1,I_2,I_3\) for \(A=\diag(a,b,c)\).
+        \item Compute \(I_1,I_2,I_3\) for \(A=\begin{pmatrix}2&1&0\\1&2&0\\0&0&3\end{pmatrix}\).
+        \item Write the characteristic polynomial of a \(3\times3\) tensor using \(I_1,I_2,I_3\).
+        \item If a tensor has eigenvalues \(\lambda_1,\lambda_2,\lambda_3\), express \(I_1,I_2,I_3\) in terms of the eigenvalues.
+    \end{enumerate}
+
+    \textbf{Level D:\,Deviatoric tensors}
+    \begin{enumerate}
+        \item Find the deviatoric part of \(A=\diag(4,1,1)\).
+        \item Find the deviatoric part of \(A=\diag(6,3,0)\).
+        \item Prove that \(A'_{kk}=0\).
+        \item For \(A=\diag(4,1,1)\), compute \(J_2=\frac12A'_{ij}A'_{ij}\).
+        \item For \(\sigma=\diag(100,50,25)\), compute the hydrostatic part and deviatoric part.
+    \end{enumerate}
+
+    \textbf{Level E:\,Challenge}
+    \begin{enumerate}
+        \item Show that the trace of a skew-symmetric tensor is zero.
+        \item Show that \(x_{i}W_{ij}x_j=0\) for any skew-symmetric tensor \(W_{ij}\).
+        \item Show that \(x_{i}S_{ij}x_j\) depends only on the symmetric part of a tensor.
+        \item If \(A\) is symmetric, explain why its eigenvalues are real in ordinary Euclidean space.
+        \item Explain why invariants are useful when comparing the same tensor in two different coordinate frames.
+    \end{enumerate}
+\end{practicebox}
+
+\ifdefined\OTCOMBINED%
+\else
+\end{document}
+\fi

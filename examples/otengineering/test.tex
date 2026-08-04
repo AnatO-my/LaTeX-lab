@@ -1,0 +1,120 @@
+\documentclass{otengineering}
+
+\projectname{Modular Magnetic Headphones}
+\projectid{ENG-001}
+\projectversion{0.1}
+\projectstatus{\statusconcept}
+\projectcategory{Consumer Electronics / Hardware Design}
+\projectstarted{17 May 2025}
+\projectupdated{\today}
+
+\begin{document}
+
+\makeotengtitle%
+
+\section{Project Overview}
+
+\begin{idea}
+    Design a semi-modular headphone system with retractable magnetic headbands,
+    power/data-sharing connectors, ANC synchronisation, and an interactive earcup screen.
+\end{idea}
+
+\section{Engineering Questions}
+
+\begin{questionbox}
+    Can magnetic connectors safely support mechanical attachment, charging, and data transfer
+    without compromising comfort or reliability?
+\end{questionbox}
+
+\section{Design Decisions}
+
+\begin{decision}
+    \entrydate{\today}
+    \textbf{Decision:} Explore MagSafe-style connector points between the retractable band and earcups.
+
+    \reason{This may simplify attachment while supporting modularity.}
+
+    \tradeoff{Magnetic alignment may introduce cost and durability challenges.}
+\end{decision}
+
+\section{Experiments}
+
+\begin{experiment}
+    \entrydate{\today}
+    \textbf{Objective:} Test whether a retractable rail can fit inside the earcup housing.
+
+    \textbf{Method:} Begin with hand sketches, then produce a simplified 3D model.
+
+    \successrating{4}
+    \confidencerating{5}
+    \pursuerating{Yes}
+\end{experiment}
+
+\section{Failures and Problems}
+
+\begin{failure}
+    \entrydate{\today}
+    \textbf{Problem:} The first headband concept may require more internal space than expected.
+
+    \observation{The earcup may become too bulky if the rail mechanism is not compact.}
+
+    \nextstep{Compare telescopic, flexible-band, and folding-arm mechanisms.}
+\end{failure}
+
+\section{Discoveries}
+
+\begin{discovery}
+    \entrydate{\today}
+    \context{Thinking about modular headphones.}
+
+    \observation{A magnetic connector might serve three roles: alignment, attachment, and electrical contact.}
+
+    \textbf{Potential Applications:}
+    \begin{itemize}
+        \item Modular headbands
+        \item Swappable earcups
+        \item Charging docks
+    \end{itemize}
+\end{discovery}
+
+\section{Sketches}
+
+\sketchbox{Draw the retractable headband concept here.}
+
+\section{Engineering Calculation}
+
+\begin{calculation}
+    \calcfield{Purpose}{Estimate the holding force needed for the magnetic connector.}
+    \calcfield{Inputs}{Estimated headphone mass, expected movement, contact area.}
+    \calcfield{Assumptions}{The user will experience normal walking and head movement only.}
+    \calcfield{Calculation}{To be added.}
+    \calcfield{Interpretation}{To be added after first estimate.}
+\end{calculation}
+
+\section{Future Research Queue}
+
+\begin{researchqueue}
+    \textbf{Investigate:}
+    \begin{itemize}
+        \item Hall-effect sensors
+        \item Magnetic pogo pins
+        \item Flexible PCB connectors
+        \item Bluetooth antenna placement
+    \end{itemize}
+\end{researchqueue}
+
+\section{Note to Future Self}
+
+\begin{futurememo}
+    Do not redesign the entire headphone too early. First prove the retractable mechanism,
+    then test power/data connection, then think about aesthetics.
+\end{futurememo}
+
+\section{What I Wish I Knew Earlier}
+
+\begin{wisdom}
+    Mechanical feasibility should be checked before adding complex electronics.
+    A beautiful product idea can fail if the housing cannot physically contain the mechanism.
+\end{wisdom}
+
+\end{document}

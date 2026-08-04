@@ -1,0 +1,95 @@
+% ============================================================
+% otnotation.sty
+% Consistent notation for vectors, tensors, operators, units
+% ============================================================
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{otnotation}[2026/06/22 OT notation macros]
+
+\RequirePackage{amsmath}
+\RequirePackage{amssymb}
+\RequirePackage{bm}
+\RequirePackage{xcolor}
+\RequirePackage{siunitx}
+
+% -----------------------------
+% Sets and fields
+% -----------------------------
+\providecommand{\N}{\mathbb{N}}
+\providecommand{\Z}{\mathbb{Z}}
+\providecommand{\Q}{\mathbb{Q}}
+\providecommand{\R}{\mathbb{R}}
+\providecommand{\C}{\mathbb{C}}
+
+% -----------------------------
+% Text emphasis
+% -----------------------------
+\newcommand{\important}[1]{\textbf{\color{OTRed}#1}}
+\newcommand{\keyterm}[1]{\textbf{\color{OTBlue}#1}}
+\newcommand{\concept}[1]{\textbf{\color{OTPurple}#1}}
+\newcommand{\result}[1]{\textbf{\color{OTGreen}#1}}
+
+% -----------------------------
+% Vectors, matrices, tensors
+% -----------------------------
+\newcommand{\vect}[1]{\boldsymbol{#1}}
+\newcommand{\uvect}[1]{\hat{\boldsymbol{#1}}}
+\newcommand{\mat}[1]{\mathbf{#1}}
+\newcommand{\ten}[1]{\boldsymbol{\mathsf{#1}}}
+\newcommand{\idten}{\ten{I}}
+
+% Legacy alias
+\newcommand{\vectorq}[1]{\vec{\mathbf{#1}}}
+
+% -----------------------------
+% Common basis vectors
+% -----------------------------
+\newcommand{\ihat}{\hat{\mathbf{i}}}
+\newcommand{\jhat}{\hat{\mathbf{j}}}
+\newcommand{\khat}{\hat{\mathbf{k}}}
+
+\newcommand{\er}{\hat{\mathbf{e}}_r}
+\newcommand{\etheta}{\hat{\mathbf{e}}_\theta}
+\newcommand{\ephi}{\hat{\mathbf{e}}_\phi}
+\newcommand{\erho}{\hat{\mathbf{e}}_\rho}
+\newcommand{\ez}{\hat{\mathbf{e}}_z}
+
+% -----------------------------
+% Operators
+% -----------------------------
+\providecommand{\tr}{\operatorname{tr}}
+\DeclareMathOperator{\diag}{diag}
+\providecommand{\rank}{\operatorname{rank}}
+\DeclareMathOperator{\spanop}{span}
+\DeclareMathOperator{\im}{Im}
+\DeclareMathOperator{\kernel}{Ker}
+\DeclareMathOperator{\sgn}{sgn}
+
+% -----------------------------
+% Differentials
+% -----------------------------
+\providecommand{\dd}{\,\mathrm{d}}
+\newcommand{\ddx}[1]{\frac{\mathrm{d}}{\mathrm{d}#1}}
+\newcommand{\dvx}[2]{\frac{\mathrm{d}#1}{\mathrm{d}#2}}
+\newcommand{\pdvx}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\pdd}[2]{\frac{\partial}{\partial #1}\left(#2\right)}
+\providecommand{\grad}{\nabla}
+\newcommand{\lap}{\nabla^2}
+
+% -----------------------------
+% Delimiters
+% -----------------------------
+\newcommand{\paren}[1]{\left(#1\right)}
+\newcommand{\bracket}[1]{\left[#1\right]}
+\newcommand{\bracee}[1]{\left\{#1\right\}}
+\newcommand{\absval}[1]{\left|#1\right|}
+\newcommand{\normval}[1]{\left\lVert#1\right\rVert}
+\newcommand{\mean}[1]{\left\langle #1 \right\rangle}
+
+% -----------------------------
+% Units and constants
+% -----------------------------
+\providecommand{\unit}[1]{\,\si{#1}}
+\newcommand{\const}{\mathrm{const.}}
+
+\endinput

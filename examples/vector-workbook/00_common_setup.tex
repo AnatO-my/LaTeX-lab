@@ -1,0 +1,67 @@
+% ============================================================
+% Shared setup for OT Science modular workbook parts
+% Place these files in the same folder as your fixed otscience.cls
+% ============================================================
+
+\makeatletter
+\makeatother
+\usepackage{multicol}
+\usepackage{longtable}
+\usepackage{makecell}
+\usepackage{pdflscape}
+\usepackage{bm}
+\providecommand{\blank}[1][3cm]{\rule{#1}{0.4pt}}
+\providecommand{\bigblank}{\rule{7cm}{0.4pt}}
+\providecommand{\componentblank}{\blank[2.5cm]}
+\providecommand{\R}{\mathbb{R}}
+\providecommand{\C}{\mathbb{C}}
+\providecommand{\ii}{\mathrm{i}}
+\providecommand{\ee}{\mathrm{e}}
+\providecommand{\dd}{\mathrm{d}}
+\providecommand{\grad}{\nabla}
+\providecommand{\divergence}{\nabla\!\cdot}
+\providecommand{\curl}{\nabla\!\times}
+\providecommand{\lap}{\nabla^2}
+\providecommand{\ihat}{\hat{\mathbf{i}}}
+\providecommand{\jhat}{\hat{\mathbf{j}}}
+\providecommand{\khat}{\hat{\mathbf{k}}}
+\providecommand{\er}{\hat{\mathbf{e}}_r}
+\providecommand{\etheta}{\hat{\mathbf{e}}_\theta}
+\providecommand{\ephi}{\hat{\mathbf{e}}_\phi}
+\providecommand{\erho}{\hat{\boldsymbol{\rho}}}
+\providecommand{\vA}{\mathbf{A}}
+\providecommand{\vB}{\mathbf{B}}
+\providecommand{\va}{\mathbf{a}}
+\providecommand{\vb}{\mathbf{b}}
+\providecommand{\vc}{\mathbf{c}}
+\providecommand{\vx}{\mathbf{x}}
+\providecommand{\vr}{\mathbf{r}}
+\providecommand{\matA}{\mathbf{A}}
+\providecommand{\matB}{\mathbf{B}}
+\providecommand{\tr}{\operatorname{tr}}
+\providecommand{\cof}{\operatorname{cof}}
+\providecommand{\dev}{\operatorname{dev}}
+\providecommand{\diag}{\operatorname{diag}}
+\providecommand{\questionline}[1][5cm]{\rule{#1}{0.4pt}}
+\setlength{\headheight}{13.6pt}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{4pt}
+\renewcommand{\arraystretch}{1.25}
+
+% Fallbacks in case the current otscience.cls has not defined nosplit boxes.
+\makeatletter
+\@ifundefined{formulaboxnosplit}{\newenvironment{formulaboxnosplit}[1][Formula]{\begin{formulabox}[#1]}{\end{formulabox}}}{}
+\@ifundefined{definitionboxnosplit}{\newenvironment{definitionboxnosplit}[1][Definition]{\begin{definitionbox}[#1]}{\end{definitionbox}}}{}
+\@ifundefined{summaryboxnosplit}{\newenvironment{summaryboxnosplit}[1][Summary]{\begin{summarybox}[#1]}{\end{summarybox}}}{}
+\@ifundefined{warningboxnosplit}{\newenvironment{warningboxnosplit}[1][Warning]{\begin{warningbox}[#1]}{\end{warningbox}}}{}
+\@ifundefined{exampleboxnosplit}{\newenvironment{exampleboxnosplit}[1][Example]{\begin{examplebox}[#1]}{\end{examplebox}}}{}
+\makeatother
+
+\newenvironment{practicebox}[1][Quick Drills and Practice]{\begin{examplebox}[#1]}{\end{examplebox}}
+\newenvironment{practiceboxnosplit}[1][Quick Drills and Practice]{\begin{exampleboxnosplit}[#1]}{\end{exampleboxnosplit}}
+
+\newcommand{\standalonetitle}[3]{%
+    \title{\textbf{#1}\\\large #2}
+    \author{OT Science Notes}
+    \date{#3}
+}

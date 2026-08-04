@@ -1,0 +1,95 @@
+% ============================================================
+% otmath.sty
+% Advanced mathematics macros and theorem environments
+% ============================================================
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{otmath}[2026/06/22 OT mathematics macros]
+
+\RequirePackage{amsmath}
+\RequirePackage{amssymb}
+\RequirePackage{amsthm}
+\RequirePackage{mathtools}
+\RequirePackage{tcolorbox}
+
+% -----------------------------
+% Theorem environments
+% -----------------------------
+\newtheorem{otplainthm}{Theorem}[section]
+\newtheorem{otplainlemma}[otplainthm]{Lemma}
+\newtheorem{otplainprop}[otplainthm]{Proposition}
+\newtheorem{otplaincor}[otplainthm]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{otplaindef}[otplainthm]{Definition}
+\newtheorem{otplainex}[otplainthm]{Example}
+\newtheorem{otplainexer}[otplainthm]{Exercise}
+
+% -----------------------------
+% Boxed theorem-like environments
+% -----------------------------
+\newtcolorbox{proofbox}[1][Proof]{
+  enhanced,
+  breakable,
+  colback=OTLight,
+  colframe=OTOrange,
+  title=#1,
+  fonttitle=\bfseries
+}
+
+\newtcolorbox{identitybox}[1][Identity]{
+  enhanced,
+  breakable,
+  colback=OTLight,
+  colframe=OTTeal,
+  title=#1,
+  fonttitle=\bfseries
+}
+
+% -----------------------------
+% Algebra helpers
+% -----------------------------
+\newcommand{\inv}[1]{#1^{-1}}
+\newcommand{\transpose}[1]{#1^{\mathsf{T}}}
+\newcommand{\adj}[1]{#1^{\ast}}
+\newcommand{\conj}[1]{\overline{#1}}
+\newcommand{\realpart}{\operatorname{Re}}
+\newcommand{\imagpart}{\operatorname{Im}}
+
+% -----------------------------
+% Calculus helpers
+% -----------------------------
+\newcommand{\evalat}[2]{\left.#1\right|_{#2}}
+\newcommand{\limto}[2]{\lim_{#1\to #2}}
+\newcommand{\series}[3]{\sum_{#1=#2}^{#3}}
+\newcommand{\intab}[4]{\int_{#1}^{#2} #3\,\mathrm{d}#4}
+\newcommand{\partialop}[1]{\partial_{#1}}
+
+% -----------------------------
+% Vector calculus identities
+% -----------------------------
+\newcommand{\gradf}[1]{\nabla #1}
+\newcommand{\divv}[1]{\nabla\cdot #1}
+\newcommand{\curlv}[1]{\nabla\times #1}
+\newcommand{\lapf}[1]{\nabla^2 #1}
+
+\newcommand{\dirder}[2]{D_{#1}#2}
+\newcommand{\hessian}[1]{\nabla^2 #1}
+
+% -----------------------------
+% Linear algebra
+% -----------------------------
+\newcommand{\dotp}[2]{#1\cdot #2}
+\newcommand{\crossp}[2]{#1\times #2}
+\newcommand{\outerp}[2]{#1\otimes #2}
+\newcommand{\doublecontract}{\mathbin{:}}
+\newcommand{\innerp}[2]{\left\langle #1,#2\right\rangle}
+
+% -----------------------------
+% Common identities as display helpers
+% -----------------------------
+\newcommand{\curlgradzero}[1]{\nabla\times(\nabla #1)=\mathbf{0}}
+\newcommand{\divcurlzero}[1]{\nabla\cdot(\nabla\times #1)=0}
+\newcommand{\curlcurlid}[1]{\nabla\times(\nabla\times #1)=\nabla(\nabla\cdot #1)-\nabla^2 #1}
+
+\endinput
