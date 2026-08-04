@@ -65,6 +65,7 @@ This file records significant changes to the LaTeX Workspace Learning and Class 
 - Added project-local discovery paths for classes under `src/classes`.
 - Added project-local discovery paths for packages under `src/packages`.
 - Added a controlled and mirrored `build/` output structure.
+- Added `tests/otscience_boxes_compatibility.tex`.
 
 ### Configured
 
@@ -91,6 +92,15 @@ This file records significant changes to the LaTeX Workspace Learning and Class 
 - Verified ChkTeX 1.7.9 integration.
 - Verified `latexindent` 4.0 integration.
 - Confirmed that `% !TeX root` directives are unnecessary for the existing dual-root workbook architecture.
+- Verified all breakable and non-splitting `otscience` semantic-box interfaces.
+- Verified default and custom semantic-box titles.
+- Verified established box colours and visual appearance.
+- Verified clean splitting of breakable boxes across pages.
+- Verified intact page-boundary movement of `nosplit` boxes.
+- Verified compatibility with the fallback definitions in `00_common_setup.tex`.
+- Verified the `practicebox` and `practiceboxnosplit` workbook wrappers.
+- Verified successful standalone and combined vector-workbook builds.
+- Confirmed that the existing `otscience` box definitions require no changes.
 
 ### Preserved
 

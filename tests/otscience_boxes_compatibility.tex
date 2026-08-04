@@ -1,0 +1,184 @@
+\documentclass{otscience}
+
+% Also verifies that the workbook compatibility layer can be loaded
+% without redefining interfaces already supplied by otscience.cls.
+\input{../examples/vector-workbook/00_common_setup.tex}
+
+\standalonetitle
+    {OT Science Semantic-Box Compatibility Test}
+    {Phase 2 Regression Coverage}
+    {4 August 2026}
+
+\begin{document}
+
+\maketitle
+
+\section{Breakable semantic boxes}
+
+\begin{definitionbox}
+    The default title should be \textbf{Definition}, with the established
+    blue frame.
+\end{definitionbox}
+
+\begin{theorembox}
+    The default title should be \textbf{Theorem}, with the established
+    purple frame. This remains an unnumbered visual box.
+\end{theorembox}
+
+\begin{lawbox}
+    The default title should be \textbf{Law / Principle}, with the
+    established green frame.
+\end{lawbox}
+
+\begin{formulabox}
+    The default title should be \textbf{Formula}, with the established
+    teal frame.
+    \[
+        E=mc^2.
+    \]
+\end{formulabox}
+
+\begin{derivationbox}
+    The default title should be \textbf{Derivation}, with the established
+    orange frame.
+\end{derivationbox}
+
+\begin{examplebox}
+    The default title should be \textbf{Worked Example}, with the
+    established green frame.
+\end{examplebox}
+
+\begin{warningbox}
+    The default title should be \textbf{Common Mistake}, with the
+    established red frame.
+\end{warningbox}
+
+\begin{intuitionbox}
+    The default title should be \textbf{Intuition}, with the established
+    yellow frame.
+\end{intuitionbox}
+
+\begin{summarybox}
+    The default title should be \textbf{Key Summary}, with the established
+    dark frame.
+\end{summarybox}
+
+\begin{experimentbox}
+    The default title should be \textbf{Experiment / Observation}, with
+    the established purple frame.
+\end{experimentbox}
+
+\section{Non-splitting semantic boxes}
+
+\begin{definitionboxnosplit}
+    This definition box should remain intact.
+\end{definitionboxnosplit}
+
+\begin{theoremboxnosplit}
+    This theorem box should remain intact and unnumbered.
+\end{theoremboxnosplit}
+
+\begin{lawboxnosplit}
+    This law box should remain intact.
+\end{lawboxnosplit}
+
+\begin{formulaboxnosplit}
+    This formula box should remain intact.
+    \[
+        a^2+b^2=c^2.
+    \]
+\end{formulaboxnosplit}
+
+\begin{derivationboxnosplit}
+    This derivation box should remain intact.
+\end{derivationboxnosplit}
+
+\begin{exampleboxnosplit}
+    This worked-example box should remain intact.
+\end{exampleboxnosplit}
+
+\begin{warningboxnosplit}
+    This warning box should remain intact.
+\end{warningboxnosplit}
+
+\begin{intuitionboxnosplit}
+    This intuition box should remain intact.
+\end{intuitionboxnosplit}
+
+\begin{summaryboxnosplit}
+    This summary box should remain intact.
+\end{summaryboxnosplit}
+
+\begin{experimentboxnosplit}
+    This experiment box should remain intact.
+\end{experimentboxnosplit}
+
+\section{Custom titles}
+
+\begin{formulabox}[Custom Formula Title]
+    The optional argument should replace the default title.
+    \[
+        \nabla\cdot\mathbf{A}
+        =
+        \frac{\partial A_x}{\partial x}
+        +
+        \frac{\partial A_y}{\partial y}
+        +
+        \frac{\partial A_z}{\partial z}.
+    \]
+\end{formulabox}
+
+\begin{warningboxnosplit}[Custom Warning Title]
+    The optional argument should replace the default title while the box
+    retains its established colour and non-splitting behaviour.
+\end{warningboxnosplit}
+
+\section{Workbook compatibility wrappers}
+
+\begin{practicebox}
+    This box is created through the workbook's breakable
+    \texttt{practicebox} wrapper. It should retain the visual appearance
+    of an example box.
+\end{practicebox}
+
+\begin{practiceboxnosplit}
+    This box is created through the workbook's non-splitting
+    \texttt{practiceboxnosplit} wrapper. It should remain intact.
+\end{practiceboxnosplit}
+
+\clearpage
+\section{Breakable page-boundary test}
+
+The following space deliberately positions a long formula box near a
+page boundary.
+
+\rule{0pt}{0.48\textheight}
+
+\begin{formulabox}[Breakable Formula Box]
+    \foreach \n in {1,...,14}{%
+        Test paragraph \n. This repeated material verifies that the
+        breakable semantic box can continue onto another page without
+        clipping, overlapping the footer, or losing its frame.\par
+    }
+\end{formulabox}
+
+\clearpage
+\section{Non-splitting page-boundary test}
+
+The following space deliberately leaves insufficient room for the
+complete box.
+
+\rule{0pt}{0.72\textheight}
+
+\begin{formulaboxnosplit}[Non-Splitting Formula Box]
+    This material should move together to the following page when there
+    is insufficient space. The title, contents, background, and frame
+    must remain intact.
+    \[
+        \int_a^b f(x)\,dx
+        \approx
+        \frac{b-a}{2}\bigl(f(a)+f(b)\bigr).
+    \]
+\end{formulaboxnosplit}
+
+\end{document}

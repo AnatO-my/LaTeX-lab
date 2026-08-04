@@ -418,6 +418,20 @@ A read-only usage and compatibility audit has been completed for:
 * Confirmed that Question 60’s options remain together in one column without overlapping the following column.
 * Confirmed that the existing answer-key table remains visually correct.
 
+### OTScience semantic-box compatibility checkpoint
+
+* Added `tests/otscience_boxes_compatibility.tex`.
+* Verified all ten breakable semantic-box interfaces.
+* Verified all ten corresponding `nosplit` interfaces.
+* Verified default and custom box titles.
+* Verified established colours and visual appearance.
+* Verified clean page splitting for breakable boxes.
+* Verified intact page-boundary movement for non-splitting boxes.
+* Verified that `00_common_setup.tex` loads without redefining class interfaces.
+* Verified the `practicebox` and `practiceboxnosplit` workbook wrappers.
+* Rebuilt the standalone and combined vector workbooks successfully.
+* Confirmed that the existing interfaces require no class-level changes.
+
 ### Named-formula interface checkpoint
 
 * Preserved the existing `namedformula` environment syntax and visual appearance.
@@ -457,15 +471,15 @@ A read-only usage and compatibility audit has been completed for:
 
 ### Next Phase 2 action
 
-Audit the `otscience` semantic-box interfaces and their workbook fallback definitions.
+Audit the `otengineering` semantic-box interfaces.
 
 Before changing any definition:
 
-* inventory all breakable and `nosplit` box families;
-* compare the class definitions with `00_common_setup.tex`;
-* identify which interfaces are used in combined and standalone builds;
-* preserve existing environment names and visual output;
-* test page-breaking and non-splitting behaviour;
+* inventory the generic `otbox` interface and all semantic wrappers;
+* confirm which wrappers are exercised by representative documents;
+* preserve environment names, titles, colours, icons, and pagination behaviour;
+* test default and custom titles where supported;
+* test ordinary and page-boundary rendering;
 * establish isolated regression coverage; and
 * avoid cross-class consolidation until compatibility has been demonstrated.
 
@@ -561,12 +575,22 @@ Before changing any definition:
 * Confirmed that no change to `studentnotes.cls` is required.
 * Preserved and excluded the independent modification to `examples/studentnotes/Optics.tex`.
 
+### Session 8 — OTScience semantic-box compatibility
+
+* Added isolated regression coverage for all twenty `otscience` semantic-box interfaces.
+* Verified default and custom titles.
+* Verified breakable and non-splitting pagination behaviour.
+* Verified the workbook compatibility layer and practice-box wrappers.
+* Rebuilt the standalone and combined vector workbooks successfully.
+* Confirmed that no change to `otscience.cls` is required.
+* Preserved and excluded the independent modification to `examples/studentnotes/Optics.tex`.
+
 ## Next action
 
-Commit the studentnotes theorem and note-box compatibility test while excluding:
+Commit the `otscience` semantic-box compatibility test while excluding:
 
 * `examples/studentnotes/Optics.tex`;
 * generated PDFs;
 * logs and other build artefacts.
 
-After the checkpoint is committed, continue Phase 2 with the read-only audit of the `otscience` semantic-box interfaces and the fallback definitions in `00_common_setup.tex`.
+After the checkpoint is committed, continue Phase 2 with the read-only audit of the `otengineering` generic box and semantic wrapper interfaces.
