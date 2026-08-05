@@ -4,7 +4,7 @@ This file records significant changes to the LaTeX Workspace Learning and Class 
 
 ## Phase 2 — Semantic and flexible document interfaces
 
-**In progress: 4 August 2026**
+**Completed: 5 August 2026**
 
 ### Added
 
@@ -14,6 +14,9 @@ This file records significant changes to the LaTeX Workspace Learning and Class 
 - Added repository-level class discovery to `.latexmkrc`.
 - Added `\formularef` for references matching visible named-formula tags.
 - Added `tests/studentnotes_namedformula_compatibility.tex`.
+- Added `docs/PUBLIC_INTERFACES.md`, documenting the supported interfaces of all four active classes.
+- Added `tests/otengineering_helpers_smoke.tex`.
+- Added `tests/studentnotes_helpers_smoke.tex`.
 
 ### Changed
 
@@ -22,11 +25,22 @@ This file records significant changes to the LaTeX Workspace Learning and Class 
 - Retained the required `namedformula` title as reference metadata.
 - Enabled descriptive formula-title references through `\nameref`.
 - Preserved the existing hidden-title appearance and environment syntax.
+- Documented stable author interfaces, advanced ecosystem hooks, implementation boundaries, defaults, compatibility guarantees, and namespace risks.
+- Added explicit `\autoref` names for definitions and examples where required.
+- Reduced the fixed `Remember:` margin-note label slightly so that it fits within the established margin width.
+- Replaced the ineffective `silence`-based `physics`–`siunitx` warning filter with the native message redirection.
+- Corrected the shared workbook setup and all seven modules without changing their intended mathematical content or visual identity.
 
 ### Fixed
 
 - Fixed the Question 60 layout defect in the representative physics quiz.
 - Prevented the complete option block from overlapping content in the following column.
+- Fixed the `\remembernote` label overflow detected by the StudentNotes helper test.
+- Fixed the workbook header-height warning.
+- Fixed the recorded overfull lines in the combined workbook.
+- Fixed malformed PDF-bookmark warnings caused by mathematical formatting in headings.
+- Replaced deprecated `siunitx` settings.
+- Removed redundant warning-suppression configuration.
 
 ### Verified
 
@@ -48,6 +62,12 @@ This file records significant changes to the LaTeX Workspace Learning and Class 
 - Verified the established appearance of `quicknote`, `personalnote`, and `importantnote`.
 - Verified intact note-box rendering at page boundaries.
 - Confirmed that the existing theorem and note-box definitions require no changes.
+- Verified the documented public-interface declarations against the canonical class sources.
+- Verified OTEngineering metadata, dashboard, sketch, status, rating, field, and theme helpers.
+- Verified StudentNotes metadata, dotted background, margin-note, `WithArrows`, vector, and theme helpers.
+- Confirmed that both helper smoke-test logs contain no matching warnings or errors.
+- Visually confirmed both helper-test PDFs.
+- Verified the corrected combined vector workbook with a clean build.
 
 ### Deferred
 

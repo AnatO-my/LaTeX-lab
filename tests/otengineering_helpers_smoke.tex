@@ -1,0 +1,78 @@
+\documentclass{otengineering}
+
+\projectname{Solar Charge Controller}
+\projectid{ENG-POWER-01}
+\projectversion{0.3}
+\projectstatus{\statusprototype}
+\projectcategory{Power Electronics}
+\projectstarted{1 July 2026}
+\projectupdated{5 August 2026}
+
+\begin{document}
+
+\makeotengtitle
+
+\section{Standalone dashboard helper}
+
+The dashboard below directly exercises \verb|\makeprojectdashboard|. It should
+repeat all seven configured metadata values without truncation or overlap.
+
+\makeprojectdashboard
+
+\section{Sketch helpers}
+
+The first placeholder should use the default height of \(6\,\mathrm{cm}\).
+
+\sketchbox{Default-height sketch area}
+
+The second placeholder should use the requested height of \(3\,\mathrm{cm}\).
+
+\sketchbox[3cm]{Custom-height sketch area}
+
+\section{Status labels}
+
+Each status should appear in bold:
+
+\begin{itemize}
+    \item \statusseed
+    \item \statusconcept
+    \item \statusdesign
+    \item \statusprototype
+    \item \statustesting
+    \item \statusdeployment
+    \item \statusarchived
+\end{itemize}
+
+\section{Rating helpers}
+
+\successrating{8}
+\confidencerating{7}
+\pursuerating{Revisit}
+
+\section{Field helpers}
+
+\entrydate{5 August 2026}
+\context{Bench testing of the first power-stage prototype.}
+\observation{The heat sink remained below the target temperature.}
+\reason{The revised switching frequency reduced device losses.}
+\tradeoff{Efficiency improved at the cost of a larger inductor.}
+\nextstep{Repeat the test at the maximum design current.}
+\linkedproject{ENG-THERMAL-02}
+
+\section{Theme hooks}
+
+The following swatches confirm that the documented engineering colour names
+remain available:
+
+\begin{center}
+    \fcolorbox{black}{OTDark}{\strut\hspace{1.4cm}}\quad
+    \fcolorbox{black}{OTMuted}{\strut\hspace{1.4cm}}\quad
+    \fcolorbox{black}{OTLight}{\strut\hspace{1.4cm}}\quad
+    \fcolorbox{black}{OTBlue}{\strut\hspace{1.4cm}}\\[1em]
+    \fcolorbox{black}{OTGreen}{\strut\hspace{1.4cm}}\quad
+    \fcolorbox{black}{OTOrange}{\strut\hspace{1.4cm}}\quad
+    \fcolorbox{black}{OTRed}{\strut\hspace{1.4cm}}\quad
+    \fcolorbox{black}{OTPurple}{\strut\hspace{1.4cm}}
+\end{center}
+
+\end{document}

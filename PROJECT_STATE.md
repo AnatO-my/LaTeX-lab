@@ -19,17 +19,13 @@ LaTeX Workspace Learning and Class Refactoring Project
 
 ## Current phase
 
-**Phase 2 — Semantic and flexible document interfaces — in progress.**
+**Phase 2 — Semantic and flexible document interfaces — completed on 5 August 2026.**
 
-Phase 1 is complete. The project-local LaTeX Workshop workflow has been configured and validated, and the repository now has one canonical build configuration shared by VS Code and command-line builds.
+Phase 2 established and verified the public-interface baseline for all four active classes. It introduced the flexible `physicsquiz` choices interface, completed the `studentnotes` named-formula reference interface, regression-tested the established semantic environments, documented stable and advanced interfaces, and verified the remaining helper commands.
 
-The first controlled Phase 2 refactor is complete and awaiting its selective checkpoint commit. It introduces a flexible semantic multiple-choice interface in `physicsquiz.cls` while preserving the legacy five-argument `\choices` syntax.
-
-The representative physics quiz and the dedicated compatibility test have been rebuilt successfully through the controlled `build/` output tree. Question 60 now keeps all five options together in one column without overlapping the following column, and the existing answer-key table remains correct.
+The final Phase 2 checkpoint includes the public-interface reference, two helper smoke tests, the validated `\remembernote` correction, residual class diagnostics corrections, and the verified vector-workbook source corrections.
 
 The independent working-tree modification to `examples/studentnotes/Optics.tex` remains outside the Phase 2 checkpoint and must stay unstaged.
-
-## Phase 1 completed configuration
 
 ### Repository-level `.latexmkrc`
 
@@ -89,12 +85,12 @@ No `% !TeX root` directives were added. The workbook’s existing conditional ar
 
 ## Repository checkpoint status
 
-* The audited Phase 0 baseline has been committed.
-* The annotated tag `phase-0-baseline` has been created and verified.
-* The Phase 1 workflow configuration has been completed and verified.
-* Phase 2 source changes are limited to the controlled `physicsquiz` choices-interface refactor.
-* Generated logs and regenerated reference PDFs are excluded from the current source-focused checkpoint.
-* `examples/studentnotes/Optics.tex` remains an independent modification and is excluded from the current checkpoint.
+* The audited Phase 0 baseline has been committed and tagged as `phase-0-baseline`.
+* The Phase 1 workflow configuration has been committed and verified.
+* The earlier Phase 2 semantic-interface compatibility checkpoints have been committed.
+* The final Phase 2 public-interface and helper-verification checkpoint has been completed and verified.
+* Generated PDFs, logs, and other build artefacts remain excluded from the source-focused checkpoint.
+* `examples/studentnotes/Optics.tex` remains an independent modification and is excluded from the checkpoint.
 
 ## Canonical repository structure
 
@@ -330,7 +326,6 @@ These remaining findings are recorded for controlled treatment in the appropriat
 ### `studentnotes.cls`
 
 * `witharrows` is loaded twice.
-* The required argument of `namedformula` is currently ignored.
 * The dot-grid background creates approximately 2,580 TikZ dots per page.
 * Calling `\usedotgrid` more than once may install the background repeatedly.
 * The class loads `marginnote` but primarily uses `\marginpar`.
@@ -353,14 +348,6 @@ These remaining findings are recorded for controlled treatment in the appropriat
 
 ### `otscience.cls` and workbook
 
-* A long Section 4 heading requires approximately `25.16pt` of header height, while the setup specifies `13.6pt`.
-* The historical workbook log records eleven overfull lines.
-* The largest recorded overflow is approximately `28.74pt`.
-* Mathematical spacing commands in subsection titles generate malformed PDF-bookmark warnings.
-* Two `siunitx` settings are deprecated.
-* The attempted `physics`–`siunitx` warning suppression is ineffective in the preserved log.
-* `00_main_combined_workbook.tex` loads `silence` even though the class already loads it.
-* Some subsection and module headings require editorial correction.
 * `\CartToCyl` and `\CartToSph` use `\tan^{-1}(y/x)`, which loses quadrant information; a later implementation should use an `atan2` formulation.
 * The companion packages currently depend on class-defined colours and box interfaces.
 * The optional-loading arrangement can hide missing ecosystem dependencies.
@@ -391,7 +378,7 @@ These remaining findings are recorded for controlled treatment in the appropriat
 
 ## Phase 2 status
 
-Phase 2 is in progress. It audits and improves semantic document interfaces without changing the established visual identity.
+Phase 2 is complete. It audited, documented, and improved semantic document interfaces without changing the established visual identity.
 
 A read-only usage and compatibility audit has been completed for:
 
@@ -483,19 +470,26 @@ A read-only usage and compatibility audit has been completed for:
 * Multiple assessment-output modes, question-bank metadata, and large architectural changes remain outside Phase 2.
 * The separate working-tree modification to `examples/studentnotes/Optics.tex` remains outside Phase 2.
 
-### Next Phase 2 action
+### Public-interface documentation checkpoint
 
-Document the stable public interfaces of the four active classes.
+* Added `docs/PUBLIC_INTERFACES.md`.
+* Documented the supported interfaces of all four active classes.
+* Distinguished stable author interfaces, advanced ecosystem hooks, package-owned commands, and internal implementation details.
+* Recorded syntax, arguments, defaults, representative examples, compatibility guarantees, and namespace risks.
+* Verified the documentation against canonical class sources and existing regression evidence.
 
-The documentation audit should:
+### Helper-interface verification checkpoint
 
-* inventory public commands and environments;
-* distinguish stable interfaces from internal implementation details;
-* record syntax, arguments, defaults, and representative examples;
-* document backward-compatibility guarantees;
-* identify naming or collision risks without renaming interfaces;
-* cover `studentnotes`, `physicsquiz`, `otengineering`, and `otscience`; and
-* avoid further refactoring until the documented interface baseline is complete.
+* Added `tests/otengineering_helpers_smoke.tex`.
+* Verified project metadata, dashboards, sketch helpers, status labels, ratings, field helpers, and theme colours.
+* Added `tests/studentnotes_helpers_smoke.tex`.
+* Verified metadata, title output, dotted background, margin-note helpers, arrow annotations, the two-component vector helper, and theme colours.
+* Corrected the fixed `Remember:` label overflow without changing the public command or margin geometry.
+* Confirmed clean logs and correct visual output for both helper tests.
+
+### Phase 2 completion
+
+The stable public-interface baseline is now documented and regression-supported. Further architectural changes, new assessment modes, namespace migrations, or companion-package redesign belong to later phases.
 
 ## Session handover log
 
@@ -609,12 +603,24 @@ The documentation audit should:
 * Confirmed that no change to `otengineering.cls` is required.
 * Preserved and excluded the independent modification to `examples/studentnotes/Optics.tex`.
 
+### Session 10 — Public-interface baseline and helper verification
+
+* Documented the supported public interfaces of all four active classes.
+* Classified stable author interfaces, advanced hooks, internal details, and package-owned commands.
+* Added helper smoke tests for OTEngineering and StudentNotes.
+* Detected and corrected the small `\remembernote` label overflow.
+* Verified both helper tests with clean logs and visual inspection.
+* Completed the residual class and vector-workbook diagnostic corrections.
+* Confirmed a clean combined-workbook build.
+* Completed Phase 2.
+
 ## Next action
 
-Commit the `otscience` semantic-box compatibility test while excluding:
+Create and verify the final Phase 2 checkpoint commit while excluding:
 
 * `examples/studentnotes/Optics.tex`;
 * generated PDFs;
-* logs and other build artefacts.
+* logs; and
+* other build artefacts.
 
-After the checkpoint is committed, continue Phase 2 with the read-only audit of the `otengineering` generic box and semantic wrapper interfaces.
+After the checkpoint is verified, begin the next phase defined in `ROADMAP.md`.

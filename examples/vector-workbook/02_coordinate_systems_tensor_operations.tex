@@ -9,7 +9,9 @@
 \newpage
 \fi
 
+% 02_coordinate_systems_tensor_operations.tex
 \section{Coordinate Systems and Tensor Operations}
+\sectionmark{Coordinate Systems}
 
 Coordinate systems are not just different labels for the same point. They also change how basis vectors, scale factors, area elements, volume elements and differential operators are written. Tensor operations help us keep the geometry clear when the coordinates become less simple than rectangular coordinates.
 
@@ -169,28 +171,20 @@ A vector can be represented in coordinate basis vectors or in unit basis vectors
 
 The following formulas use physical components \(A_1,A_2,A_3\) along unit vectors \(\hat{\mathbf{e}}_1,\hat{\mathbf{e}}_2,\hat{\mathbf{e}}_3\).
 
-\begin{formulabox}[General Orthogonal Differential Operators]
-    \[
-        \nabla f=\sum_{i=1}^{3}\hat{\mathbf{e}}_i\frac{1}{h_i}\frac{\partial f}{\partial q^i}.
-    \]
-
-    \[
-        \nabla\cdot\mathbf{A}=\frac{1}{h_1h_2h_3}\left[
-            \frac{\partial}{\partial q^1}(h_2h_3A_1)+
-            \frac{\partial}{\partial q^2}(h_3h_1A_2)+
-            \frac{\partial}{\partial q^3}(h_1h_2A_3)
-            \right].
-    \]
-
-    \[
-        \nabla\times\mathbf{A}=\frac{1}{h_1h_2h_3}
-        \begin{vmatrix}
-            h_1\hat{\mathbf{e}}_1 & h_2\hat{\mathbf{e}}_2 & h_3\hat{\mathbf{e}}_3 \\
-            \partial_{q^1}        & \partial_{q^2}        & \partial_{q^3}        \\
-            h_1A_1                & h_2A_2                & h_3A_3
-        \end{vmatrix}.
-    \]
-\end{formulabox}
+\begingroup
+\small
+\setlength{\arraycolsep}{3pt}
+\[
+    \nabla\times\mathbf{A}
+    =
+    \frac{1}{h_1h_2h_3}
+    \begin{vmatrix}
+        h_1\hat{\mathbf{e}}_1 & h_2\hat{\mathbf{e}}_2 & h_3\hat{\mathbf{e}}_3 \\
+        \partial_{q^1}        & \partial_{q^2}        & \partial_{q^3}        \\
+        h_1A_1                & h_2A_2                & h_3A_3
+    \end{vmatrix}.
+\]
+\endgroup
 
 \subsection{Cylindrical Differential Operators}
 
@@ -214,22 +208,53 @@ The following formulas use physical components \(A_1,A_2,A_3\) along unit vector
 \subsection{Spherical Differential Operators}
 
 \begin{formulabox}[Spherical: \((r,\theta,\phi)\)]
-    \[
-        \nabla f=\er\frac{\partial f}{\partial r}+\etheta\frac{1}{r}\frac{\partial f}{\partial\theta}+\ephi\frac{1}{r\sin\theta}\frac{\partial f}{\partial\phi}.
-    \]
+\[
+\begin{aligned}
+    \nabla\cdot\mathbf{A}
+    ={}&
+    \frac{1}{r^2}
+    \frac{\partial}{\partial r}(r^2A_r)
+    \\[2pt]
+    &+
+    \frac{1}{r\sin\theta}
+    \frac{\partial}{\partial\theta}
+    (\sin\theta A_\theta)
+    \\[2pt]
+    &+
+    \frac{1}{r\sin\theta}
+    \frac{\partial A_\phi}{\partial\phi}.
+\end{aligned}
+\]
 
-    \[
-        \nabla\cdot\mathbf{A}=\frac{1}{r^2}\frac{\partial}{\partial r}(r^2A_r)+\frac{1}{r\sin\theta}\frac{\partial}{\partial\theta}(\sin\theta A_\theta)+\frac{1}{r\sin\theta}\frac{\partial A_\phi}{\partial\phi}.
-    \]
-
-    \[
-        \nabla\times\mathbf{A}=
-        \er\frac{1}{r\sin\theta}\left[\frac{\partial}{\partial\theta}(\sin\theta A_\phi)-\frac{\partial A_\theta}{\partial\phi}\right]
-    \]
-    \[
-        +\etheta\frac{1}{r}\left[\frac{1}{\sin\theta}\frac{\partial A_r}{\partial\phi}-\frac{\partial}{\partial r}(rA_\phi)\right]
-        +\ephi\frac{1}{r}\left[\frac{\partial}{\partial r}(rA_\theta)-\frac{\partial A_r}{\partial\theta}\right].
-    \]
+\[
+\begin{aligned}
+    \nabla\times\mathbf{A}
+    ={}&
+    \er\frac{1}{r\sin\theta}
+    \left[
+        \frac{\partial}{\partial\theta}(\sin\theta A_\phi)
+        -
+        \frac{\partial A_\theta}{\partial\phi}
+    \right]
+    \\[3pt]
+    &+
+    \etheta\frac{1}{r}
+    \left[
+        \frac{1}{\sin\theta}
+        \frac{\partial A_r}{\partial\phi}
+        -
+        \frac{\partial}{\partial r}(rA_\phi)
+    \right]
+    \\[3pt]
+    &+
+    \ephi\frac{1}{r}
+    \left[
+        \frac{\partial}{\partial r}(rA_\theta)
+        -
+        \frac{\partial A_r}{\partial\theta}
+    \right].
+\end{aligned}
+\]
 \end{formulabox}
 
 \begin{practicebox}[Quick Drills and Practice: Coordinates and Tensor Operations]

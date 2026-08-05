@@ -1,0 +1,87 @@
+\documentclass{studentnotes}
+
+\setnotetitle{StudentNotes Helper-Interface Smoke Test}
+\setnotecourse{Phase 2 Interface Verification}
+\setnoteauthor{OT}
+\setnotedate{5 August 2026}
+\usedotgrid
+
+\begin{document}
+
+\makenotetitle
+
+\section{Metadata, title, and background}
+
+This page verifies the configured title, course, author, and date. The running
+header should show the configured course and title, and the dotted background
+should appear on every page.
+
+\section{Margin-note helpers}
+
+This paragraph carries the generic margin-note interface.
+\notebox{orange!70!black}{\textbf{Generic:}\\ Two-argument note.}
+
+\vspace{2.2cm}
+
+This paragraph carries the reference-note wrapper.
+\refnote{Reference wrapper.}
+
+\vspace{2.2cm}
+
+This paragraph carries the theorem-note wrapper.
+\theoremnote{Theorem wrapper.}
+
+\vspace{2.2cm}
+
+This paragraph carries the formula-note wrapper.
+\formulanote{Formula wrapper.}
+
+\vspace{2.2cm}
+
+This paragraph carries the reminder-note wrapper.
+\remembernote{Reminder wrapper.}
+
+\clearpage
+\section{WithArrows helpers}
+
+Each annotation helper appears once below. The first two should be plain; the
+last three should carry the documented bold prefixes.
+
+\[
+    \begin{WithArrows}
+        2(x+3) &= 14
+        \arrowcomment{expand the brackets} \\
+        2x+6 &= 14
+        \stepnote{subtract 6 from both sides} \\
+        2x &= 8
+        \steparrow{divide both sides by 2} \\
+        x &= 4
+        \reasonarrow{equal quantities have equal squares} \\
+        x^2 &= 4^2
+        \subarrow{\(4^2=16\)} \\
+        x^2 &= 16
+    \end{WithArrows}
+\]
+
+\section{Two-component vector helper}
+
+The expression
+\[
+    \mathbf{v}=\colvec{3}{-2}
+\]
+should render as a two-row column vector.
+
+\section{Theme hooks}
+
+The following swatches confirm that the documented colour names remain
+available:
+
+\begin{center}
+    \fcolorbox{black}{NoteBlue}{\strut\hspace{1.6cm}}\quad
+    \fcolorbox{black}{SoftBlue}{\strut\hspace{1.6cm}}\quad
+    \fcolorbox{black}{SoftYellow}{\strut\hspace{1.6cm}}\\[1em]
+    \fcolorbox{black}{SoftGreen}{\strut\hspace{1.6cm}}\quad
+    \fcolorbox{black}{DotGrey}{\strut\hspace{1.6cm}}
+\end{center}
+
+\end{document}

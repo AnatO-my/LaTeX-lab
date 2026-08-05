@@ -145,6 +145,8 @@
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{definition}{Definition}[section]
 \newtheorem{example}{Example}[section]
+\providecommand*{\definitionautorefname}{Definition}
+\providecommand*{\exampleautorefname}{Example}
 
 \newcounter{formula}[section]
 \renewcommand{\theformula}{\thesection.\arabic{formula}}
@@ -194,7 +196,7 @@
 }
 
 \newcommand{\remembernote}[1]{%
-    \notebox{green!50!black}{\textbf{Remember:}\\ #1}%
+    \notebox{green!50!black}{{\scriptsize\textbf{Remember:}}\\ #1}%
 }
 
 % ------------------------------------------------

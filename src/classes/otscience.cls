@@ -22,14 +22,18 @@
 \RequirePackage{mathtools}
 \RequirePackage{amsthm}
 % Silence the known siunitx/physics \qty warning.
-\RequirePackage{silence}
-\WarningFilter{siunitx}{Detected the ``physics'' package}
+
 
 \RequirePackage{physics}
 \RequirePackage{siunitx}
 
 % Restore siunitx's \qty after physics has taken it.
 \AtBeginDocument{\RenewCommandCopy\qty\SI}
+\ExplSyntaxOn
+\msg_redirect_name:nnn { siunitx } { physics-pkg } { none }
+\ExplSyntaxOff
+\providecommand*{\definitionautorefname}{Definition}
+\providecommand*{\exampleautorefname}{Example}
 \RequirePackage{bm}
 \RequirePackage{tcolorbox}
 \RequirePackage{tikz}
@@ -85,6 +89,7 @@
 % -----------------------------
 % Page style
 % -----------------------------
+\setlength{\headheight}{15pt}
 \pagestyle{fancy}
 \fancyhf{}
 \lhead{\textcolor{OTMuted}{OT Science Notes}}
