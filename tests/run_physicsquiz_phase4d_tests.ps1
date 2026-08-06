@@ -1,0 +1,116 @@
+$ErrorActionPreference = "Stop"
+
+$repoRoot = (Resolve-Path (Join-Path $PSScriptRoot "..")).Path
+$buildDir = Join-Path $repoRoot "build\tests"
+New-Item -ItemType Directory -Force -Path $buildDir | Out-Null
+
+Push-Location $repoRoot
+try {
+    if (-not (Get-Command latexmk -ErrorAction SilentlyContinue)) {
+        throw "latexmk was not found on PATH."
+    }
+
+    if (-not (& kpsewhich xsim.sty)) {
+        throw "xsim.sty was not found. Install xsim with MiKTeX Console before running Phase 4D."
+    }
+
+    $phase4cRunner = "tests\run_physicsquiz_phase4c_tests.ps1"
+    if (-not (Test-Path $phase4cRunner)) {
+        throw "The Phase 4C regression runner is missing: $phase4cRunner"
+    }
+
+    Write-Host "Running the accepted Phase 4C regression suite..." -ForegroundColor Cyan
+    try {
+        & $phase4cRunner
+    }
+    catch {
+        throw "The Phase 4C regression suite failed: $($_.Exception.Message)"
+    }
+    $global:LASTEXITCODE = 0
+
+    $positiveTests = @(
+        "physicsquiz_selection_ids_default",
+        "physicsquiz_selection_ids_student",
+        "physicsquiz_selection_ids_teacher",
+        "physicsquiz_selection_ids_solutions",
+        "physicsquiz_selection_ids_answerkey",
+        "physicsquiz_selection_metadata",
+        "physicsquiz_selection_tags",
+        "physicsquiz_selection_topic",
+        "physicsquiz_selection_append_deduplicate",
+        "physicsquiz_selection_clear_all"
+    )
+
+    foreach ($name in $positiveTests) {
+        $source = "tests\$name.tex"
+        Write-Host "Building $name..." -ForegroundColor Cyan
+        & latexmk -pdf -g "-outdir=$buildDir" $source
+        if ($LASTEXITCODE -ne 0) {
+            throw "LaTeX compilation failed for $source"
+        }
+
+        $log = Join-Path $buildDir "$name.log"
+        $pdf = Join-Path $buildDir "$name.pdf"
+        $synctex = Join-Path $buildDir "$name.synctex.gz"
+        foreach ($artifact in @($log, $pdf, $synctex)) {
+            if (-not (Test-Path $artifact)) {
+                throw "Expected build artifact was not created: $artifact"
+            }
+        }
+
+        $diagnostics = Select-String -Path $log -SimpleMatch -Pattern @(
+            "LaTeX Warning:",
+            "Package xsim Warning:",
+            "Overfull \hbox",
+            "Underfull \hbox"
+        )
+        if ($diagnostics) {
+            $diagnostics | ForEach-Object { Write-Host $_.Line -ForegroundColor Red }
+            throw "Unexpected LaTeX diagnostics in $log"
+        }
+    }
+
+    if (Get-Command py -ErrorAction SilentlyContinue) {
+        & py -3 tests\check_physicsquiz_selection.py $buildDir
+    }
+    elseif (Get-Command python -ErrorAction SilentlyContinue) {
+        & python tests\check_physicsquiz_selection.py $buildDir
+    }
+    else {
+        throw "Python was not found. Install Python or make py/python available."
+    }
+    if ($LASTEXITCODE -ne 0) {
+        throw "The Phase 4D semantic checker failed."
+    }
+
+    $expectedFailures = @(
+        @{ Name = "physicsquiz_selection_unknown_id";         Marker = "PQ4D-VALIDATION:UNKNOWN-ID:phy104-not-declared" },
+        @{ Name = "physicsquiz_selection_empty";              Marker = "PQ4D-VALIDATION:EMPTY-SELECTION" },
+        @{ Name = "physicsquiz_selection_empty_ids";          Marker = "PQ4D-VALIDATION:EMPTY-ID-LIST" },
+        @{ Name = "physicsquiz_selection_empty_filter";       Marker = "PQ4D-VALIDATION:EMPTY-FILTER" },
+        @{ Name = "physicsquiz_selection_no_match";           Marker = "PQ4D-VALIDATION:NO-MATCH" },
+        @{ Name = "physicsquiz_selection_invalid_difficulty"; Marker = "PQ4D-VALIDATION:INVALID-FILTER-DIFFICULTY:advanced" },
+        @{ Name = "physicsquiz_selection_invalid_marks";      Marker = "PQ4D-VALIDATION:INVALID-FILTER-MARKS:zero" }
+    )
+
+    foreach ($test in $expectedFailures) {
+        $source = "tests\$($test.Name).tex"
+        Write-Host "Building expected-failure test $($test.Name)..." -ForegroundColor Yellow
+        & latexmk -pdf -g "-outdir=$buildDir" $source
+        if ($LASTEXITCODE -eq 0) {
+            throw "$source unexpectedly compiled successfully."
+        }
+
+        $log = Join-Path $buildDir "$($test.Name).log"
+        if (-not (Select-String -Path $log -SimpleMatch $test.Marker -Quiet)) {
+            throw "$source failed without the expected validation marker: $($test.Marker)"
+        }
+        Write-Host "PASS expected failure: $($test.Name)" -ForegroundColor Green
+    }
+
+    $global:LASTEXITCODE = 0
+    Write-Host "All Phase 4D tests passed." -ForegroundColor Green
+}
+finally {
+    Pop-Location
+}

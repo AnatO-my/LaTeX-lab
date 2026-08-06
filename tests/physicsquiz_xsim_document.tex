@@ -1,0 +1,44 @@
+\quiztitle{Phase 4C Structured Question Interface}
+\quizcourse{PHY 104}
+\quizauthor{OT LaTeX Lab}
+\quizinstructions{Choose the best answer in each case.}
+
+\begin{document}
+\pagenumbering{gobble}
+\makequiztitle
+\pagenumbering{arabic}
+
+\begin{quizquestionbank}[2]
+  \input{physicsquiz_xsim_bank.tex}
+\end{quizquestionbank}
+
+\quizbankassert{4}{8}
+
+\begin{quizanswerkeycontent}
+  \clearpage
+  \printquizanswerkey
+  \printquiztopicreport
+\end{quizanswerkeycontent}
+
+\begin{quizsolutioncontent}
+  \clearpage
+  \printquizsolutions
+\end{quizsolutioncontent}
+
+\begin{quizteachercontent}
+  \clearpage
+  \printquizteacherreport
+\end{quizteachercontent}
+
+\begin{quizreferencecontent}
+  \typeout{PQ4C-CONTENT:REFERENCE}
+  \section{Reference Formulae}
+  \[
+    F=-kx,\qquad
+    \omega_1=\sqrt{\frac{k}{m}},\qquad
+    v=\frac{\omega}{k},\qquad
+    d\sin\theta=m\lambda.
+  \]
+\end{quizreferencecontent}
+
+\end{document}

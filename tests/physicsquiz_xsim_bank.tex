@@ -1,0 +1,112 @@
+% Four representative records from PHY104_Exam revision.tex.
+% This is a production-interface fixture, not a migration of the full quiz.
+
+\begin{quizquestion}[
+  id=phy104-osc-001,
+  topic=oscillations,
+  difficulty=foundation,
+  marks=1,
+  correct=C,
+  tags={shm,restoring-force},
+  outcome={Identify the direction of a restoring force}
+]
+  A particle is displaced a distance \(x>0\) from equilibrium and executes
+  simple harmonic motion. Which expression correctly gives the restoring
+  force and its direction?
+  \choices
+    {\(F=+kx\), directed away from equilibrium}
+    {\(F=-kx\), directed away from equilibrium}
+    {\(F=-kx\), directed toward equilibrium}
+    {\(F=-k/x\), directed toward equilibrium}
+    {\(F=0\) because the particle is momentarily displaced}
+\end{quizquestion}
+\begin{quizsolution}
+  Simple harmonic motion obeys \(F=-kx\).  The minus sign shows that the
+  force is opposite to the displacement, so for \(x>0\) it points toward
+  equilibrium.  Therefore option \textbf{C} is correct.
+\end{quizsolution}
+
+\begin{quizquestion}[
+  id=phy104-nm-026,
+  topic=normal-modes,
+  difficulty=applied,
+  marks=2,
+  correct=B,
+  tags={coupled-oscillators,eigenfrequencies},
+  outcome={Calculate the normal frequencies of a symmetric coupled system}
+]
+  For two identical coupled oscillators, \(m=0.50\,\mathrm{kg}\),
+  \(k=100\,\mathrm{N\,m^{-1}}\), and
+  \(k_c=50\,\mathrm{N\,m^{-1}}\). What are the two normal angular
+  frequencies?
+  \choices
+    {\(10.0\) and \(14.1\,\mathrm{rad\,s^{-1}}\)}
+    {\(14.1\) and \(20.0\,\mathrm{rad\,s^{-1}}\)}
+    {\(20.0\) and \(28.3\,\mathrm{rad\,s^{-1}}\)}
+    {\(7.07\) and \(14.1\,\mathrm{rad\,s^{-1}}\)}
+    {\(14.1\) and \(17.3\,\mathrm{rad\,s^{-1}}\)}
+\end{quizquestion}
+\begin{quizsolution}
+  The normal frequencies are
+  \[
+    \omega_1=\sqrt{\frac{k}{m}}=\sqrt{200}=14.1\,\mathrm{rad\,s^{-1}},
+    \qquad
+    \omega_2=\sqrt{\frac{k+2k_c}{m}}=\sqrt{400}=20.0\,\mathrm{rad\,s^{-1}}.
+  \]
+  Therefore option \textbf{B} is correct.
+\end{quizsolution}
+
+\begin{quizquestion}[
+  id=phy104-wave-031,
+  topic=waves-and-sound,
+  difficulty=applied,
+  marks=2,
+  correct=B,
+  tags={travelling-wave,string,power},
+  outcome={Relate a wave equation to speed tension and average power}
+]
+  A string wave is
+  \(y=(4.0\,\mathrm{mm})\sin(5x-100t)\). If the linear density is
+  \(0.010\,\mathrm{kg\,m^{-1}}\), which set gives the wave speed, tension,
+  and average power?
+  \choices
+    {\(5\,\mathrm{m\,s^{-1}}\), \(0.25\,\mathrm{N}\), \(0.004\,\mathrm{W}\)}
+    {\(20\,\mathrm{m\,s^{-1}}\), \(4.0\,\mathrm{N}\), \(0.016\,\mathrm{W}\)}
+    {\(20\,\mathrm{m\,s^{-1}}\), \(2.0\,\mathrm{N}\), \(0.032\,\mathrm{W}\)}
+    {\(100\,\mathrm{m\,s^{-1}}\), \(100\,\mathrm{N}\), \(0.080\,\mathrm{W}\)}
+    {\(500\,\mathrm{m\,s^{-1}}\), \(2500\,\mathrm{N}\), \(1.60\,\mathrm{W}\)}
+\end{quizquestion}
+\begin{quizsolution}
+  From the wave equation, \(k=5\,\mathrm{rad\,m^{-1}}\) and
+  \(\omega=100\,\mathrm{rad\,s^{-1}}\), so
+  \(v=\omega/k=20\,\mathrm{m\,s^{-1}}\). Then
+  \(T=\mu v^2=4.0\,\mathrm{N}\), while
+  \[
+    P_{\mathrm{av}}=\tfrac12\mu\omega^2A^2v=0.016\,\mathrm{W}.
+  \]
+  Therefore option \textbf{B} is correct.
+\end{quizsolution}
+
+\begin{quizquestion}[
+  id=phy104-opt-060,
+  topic=optics,
+  difficulty=challenge,
+  marks=3,
+  correct=E,
+  tags={diffraction-grating,missing-orders},
+  outcome={Combine grating-order limits with missing-order conditions}
+]
+  A grating has \(300\) lines per millimetre, and each slit has width
+  \(a=d/3\), where \(d\) is the grating spacing. It is illuminated with
+  \(500\,\mathrm{nm}\) light. How many observable principal maxima occur
+  over both sides, including the central maximum, after missing orders are
+  excluded?
+  \choices{\(5\)}{\(7\)}{\(11\)}{\(13\)}{\(9\)}
+\end{quizquestion}
+\begin{quizsolution}
+  Here \(d=3.333\times10^{-6}\,\mathrm{m}\), so
+  \(m_{\max}=\lfloor d/\lambda\rfloor=6\). Since \(a=d/3\), orders
+  \(3\) and \(6\) are missing. The observable positive orders are
+  \(1,2,4,5\), giving four maxima on each side and one central maximum:
+  \(2(4)+1=9\). Therefore option \textbf{E} is correct.
+\end{quizsolution}
