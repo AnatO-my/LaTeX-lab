@@ -1,0 +1,308 @@
+% Phase 4F migration pilot: twelve real records from
+% examples/physicsquiz/PHY104_Exam revision.tex.
+%
+% The source wording, choices, correct answers, and worked-solution reasoning
+% are preserved. Metadata is the only new authoring layer.
+
+\begin{quizquestion}[
+  id=phy104-osc-001,
+  topic=oscillations,
+  difficulty=foundation,
+  marks=1,
+  correct=C,
+  tags={shm,restoring-force,hookes-law},
+  outcome={Identify the magnitude and direction of a restoring force}
+]
+  A particle is displaced a distance \(x>0\) from equilibrium and executes simple harmonic motion. Which expression correctly gives the restoring force and its direction?
+  \choices{\(F=+kx\), directed away from equilibrium}{\(F=-kx\), directed away from equilibrium}{\(F=-kx\), directed toward equilibrium}{\(F=-k/x\), directed toward equilibrium}{\(F=0\) because the particle is momentarily displaced}
+\end{quizquestion}
+\begin{quizsolution}
+  For simple harmonic motion, the defining force law is Hooke's law,
+  \[
+    F=-kx.
+  \]
+  The magnitude \(kx\) is proportional to the displacement. The minus sign does not mean that the force is always numerically negative; it means that the force points opposite to the displacement. Since \(x>0\), the restoring force points in the negative direction, toward equilibrium. Hence option \textbf{C}.
+\end{quizsolution}
+
+\begin{quizquestion}[
+  id=phy104-nm-006,
+  topic=normal-modes,
+  difficulty=foundation,
+  marks=1,
+  correct=B,
+  tags={normal-mode,coupled-system,phase-relation},
+  outcome={Recognise the defining features of a normal mode}
+]
+  Which statement best defines a normal mode of a coupled system?
+  \choices{Every part remains at rest while energy moves through the system.}{Every part oscillates with one angular frequency and fixed phase relations.}{Different parts oscillate at unrelated frequencies.}{Only one part of the system is allowed to move.}{The coupling force must vanish at every instant.}
+\end{quizquestion}
+\begin{quizsolution}
+  A normal mode is a special coordinated motion. Every moving part has the same angular frequency, while the phase relation and amplitude ratio between parts remain fixed. The parts don't necessarily have equal amplitudes, and the coupling force need not always vanish. Hence option \textbf{B}.
+\end{quizsolution}
+
+\begin{quizquestion}[
+  id=phy104-wave-011,
+  topic=waves-and-sound,
+  difficulty=foundation,
+  marks=1,
+  correct=C,
+  tags={travelling-wave,wavelength,wave-speed},
+  outcome={Extract wavelength and speed from a travelling-wave equation}
+]
+  A transverse wave is described by \(y=(\SI{3.0}{mm})\sin(4x-20t)\), with SI units. Which pair gives its wavelength and speed?
+  \choices{\(\lambda=\SI{0.250}{m}\), \(v=\SI{80}{m.s^{-1}}\)}{\(\lambda=\SI{1.00}{m}\), \(v=\SI{5.0}{m.s^{-1}}\)}{\(\lambda=\SI{1.57}{m}\), \(v=\SI{5.0}{m.s^{-1}}\)}{\(\lambda=\SI{1.57}{m}\), \(v=\SI{80}{m.s^{-1}}\)}{\(\lambda=\SI{6.28}{m}\), \(v=\SI{0.20}{m.s^{-1}}\)}
+\end{quizquestion}
+\begin{quizsolution}
+  Comparing with \(y=A\sin(kx-\omega t)\) gives \(k=\SI{4}{rad.m^{-1}}\) and \(\omega=\SI{20}{rad.s^{-1}}\). Hence,
+  \[
+    \lambda=\frac{2\pi}{k}=\frac{2\pi}{4}=\SI{1.57}{m},
+    \qquad
+    v=\frac{\omega}{k}=\frac{20}{4}=\SI{5.0}{m.s^{-1}}.
+  \]
+  Thus, option \textbf{C}.
+\end{quizsolution}
+
+\begin{quizquestion}[
+  id=phy104-opt-016,
+  topic=optics,
+  difficulty=foundation,
+  marks=1,
+  correct=A,
+  tags={refraction,refractive-index,wavelength},
+  outcome={Determine wave speed and wavelength in a refracting medium}
+]
+  Light of vacuum wavelength \SI{600}{nm} enters a medium of refractive index \(1.50\). Which pair gives its speed and wavelength in the medium?
+  \choices{\(\SI{2.00e8}{m.s^{-1}}\) and \SI{400}{nm}}{\(\SI{2.00e8}{m.s^{-1}}\) and \SI{600}{nm}}{\(\SI{3.00e8}{m.s^{-1}}\) and \SI{400}{nm}}{\(\SI{4.50e8}{m.s^{-1}}\) and \SI{900}{nm}}{\(\SI{1.50e8}{m.s^{-1}}\) and \SI{300}{nm}}
+\end{quizquestion}
+\begin{quizsolution}
+  The speed is
+  \[
+    v=\frac{c}{n}=\frac{3.00\times10^8}{1.50}=\SI{2.00e8}{m.s^{-1}}.
+  \]
+  The frequency is fixed by the source and does not change at the boundary. Hence,
+  \[
+    \lambda=\frac{\lambda_0}{n}=\frac{600}{1.50}=\SI{400}{nm}.
+  \]
+  Thus, option \textbf{A}.
+\end{quizsolution}
+
+\begin{quizquestion}[
+  id=phy104-osc-021,
+  topic=oscillations,
+  difficulty=applied,
+  marks=2,
+  correct=B,
+  tags={shm,initial-conditions,phase-constant},
+  outcome={Determine amplitude and phase from initial conditions}
+]
+  An oscillator obeys \(x=A\cos(\omega t+\phi)\). At \(t=0\), \(x=\SI{3.0}{cm}\) and \(v=\SI{-0.40}{m.s^{-1}}\), while \(\omega=\SI{10}{rad.s^{-1}}\). What are \(A\) and \(\phi\)?
+  \choices{\(A=\SI{4.0}{cm}\), \(\phi=36.9^\circ\)}{\(A=\SI{5.0}{cm}\), \(\phi=53.1^\circ\)}{\(A=\SI{5.0}{cm}\), \(\phi=-53.1^\circ\)}{\(A=\SI{7.0}{cm}\), \(\phi=45.0^\circ\)}{\(A=\SI{3.0}{cm}\), \(\phi=90.0^\circ\)}
+\end{quizquestion}
+\begin{quizsolution}
+  At \(t=0\),
+  \[
+    x_0=A\cos\phi,\qquad v_0=-A\omega\sin\phi.
+  \]
+  Therefore,
+  \[
+    A^2=x_0^2+{\left(\frac{v_0}{\omega}\right)}^2
+    ={(0.030)}^2+{(0.040)}^2={(0.050)}^2,
+  \]
+  so \(A=\SI{5.0}{cm}\). Also,
+  \[
+    \cos\phi=0.030/0.050=0.6,
+    \qquad
+    \sin\phi=-v_0/(A\omega)=0.8.
+  \]
+  Both are positive, so \(\phi=53.1^\circ\). Hence option \textbf{B}.
+\end{quizsolution}
+
+\begin{quizquestion}[
+  id=phy104-nm-026,
+  topic=normal-modes,
+  difficulty=applied,
+  marks=2,
+  correct=B,
+  tags={coupled-oscillators,normal-frequency,eigenfrequencies},
+  outcome={Calculate the normal frequencies of a symmetric coupled system}
+]
+  For two identical coupled oscillators, \(m=\SI{0.50}{kg}\), \(k=\SI{100}{N.m^{-1}}\), and \(k_c=\SI{50}{N.m^{-1}}\). What are the two normal angular frequencies?
+  \choices{\(10.0\) and \(14.1\ \mathrm{rad\,s^{-1}}\)}{\(14.1\) and \(20.0\ \mathrm{rad\,s^{-1}}\)}{\(20.0\) and \(28.3\ \mathrm{rad\,s^{-1}}\)}{\(7.07\) and \(14.1\ \mathrm{rad\,s^{-1}}\)}{\(14.1\) and \(17.3\ \mathrm{rad\,s^{-1}}\)}
+\end{quizquestion}
+\begin{quizsolution}
+  The symmetric-system frequencies are
+  \[
+    \omega_1=\sqrt{\frac{k}{m}},\qquad
+    \omega_2=\sqrt{\frac{k+2k_c}{m}}.
+  \]
+  Thus,
+  \[
+    \omega_1=\sqrt{\frac{100}{0.50}}=\sqrt{200}=\SI{14.1}{rad.s^{-1}},
+  \]
+  \[
+    \omega_2=\sqrt{\frac{100+100}{0.50}}=\sqrt{400}=\SI{20.0}{rad.s^{-1}}.
+  \]
+  Therefore, option \textbf{B}.
+\end{quizsolution}
+
+\begin{quizquestion}[
+  id=phy104-wave-031,
+  topic=waves-and-sound,
+  difficulty=applied,
+  marks=2,
+  correct=B,
+  tags={travelling-wave,string,tension,power},
+  outcome={Relate a wave equation to speed tension and average power}
+]
+  A string wave is \(y=(\SI{4.0}{mm})\sin(5x-100t)\). If the linear density is \SI{0.010}{kg.m^{-1}}, which set gives the wave speed, tension, and average power?
+  \choices{\(\SI{5}{m.s^{-1}}\), \SI{0.25}{N}, \SI{0.004}{W}}{\(\SI{20}{m.s^{-1}}\), \SI{4.0}{N}, \SI{0.016}{W}}{\(\SI{20}{m.s^{-1}}\), \SI{2.0}{N}, \SI{0.032}{W}}{\(\SI{100}{m.s^{-1}}\), \SI{100}{N}, \SI{0.080}{W}}{\(\SI{500}{m.s^{-1}}\), \SI{2500}{N}, \SI{1.60}{W}}
+\end{quizquestion}
+\begin{quizsolution}
+  Here \(k=\SI{5}{rad.m^{-1}}\) and \(\omega=\SI{100}{rad.s^{-1}}\), so
+  \[
+    v=\frac{\omega}{k}=\SI{20}{m.s^{-1}}.
+  \]
+  Since \(v=\sqrt{T/\mu}\),
+  \[
+    T=\mu v^2=0.010{(20)}^2=\SI{4.0}{N}.
+  \]
+  The average power is
+  \[
+    P_{\mathrm{av}}=\frac12\mu\omega^2A^2v
+    =\frac12{(0.010)}{(100)}^2{(0.004)}^2{(20)}
+    =\SI{0.016}{W}.
+  \]
+  Thus, option \textbf{B}.
+\end{quizsolution}
+
+\begin{quizquestion}[
+  id=phy104-opt-036,
+  topic=optics,
+  difficulty=applied,
+  marks=2,
+  correct=B,
+  tags={double-slit,optical-path,fringe-shift},
+  outcome={Calculate the fringe shift caused by a transparent sheet}
+]
+  A mica sheet of refractive index \(1.60\) and thickness \SI{5.0}{\micro\,m} is placed over one slit in a double-slit experiment using \SI{600}{nm} light. By how many fringe spacings does the pattern shift?
+  \choices{\(3\)}{\(5\)}{\(6\)}{\(8\)}{\(10\)}
+\end{quizquestion}
+\begin{quizsolution}
+  The sheet introduces additional optical path
+  \[
+    \Delta L=(n-1)t.
+  \]
+  The number of fringe spacings shifted is
+  \[
+    N=\frac{\Delta L}{\lambda}
+    =\frac{(1.60-1)(5.0\times10^{-6})}{600\times10^{-9}}
+    =\frac{3.0\times10^{-6}}{0.60\times10^{-6}}=5.
+  \]
+  Hence option \textbf{B}.
+\end{quizsolution}
+
+\begin{quizquestion}[
+  id=phy104-osc-041,
+  topic=oscillations,
+  difficulty=challenge,
+  marks=3,
+  correct=C,
+  tags={shm,initial-conditions,phase-direction},
+  outcome={Construct an SHM equation from displacement and direction}
+]
+  An oscillator has amplitude \SI{6.0}{cm} and angular frequency \SI{8.0}{rad.s^{-1}}. At \(t=0\), its displacement is \SI{3.0}{cm} and it is moving in the positive direction. Which equation is correct?
+  \choices{\(x=0.060\cos(8t+\pi/3)\)}{\(x=0.030\cos(8t-\pi/3)\)}{\(x=0.060\cos(8t-\pi/3)\)}{\(x=0.060\sin(8t-\pi/3)\)}{\(x=0.060\cos(8t+2\pi/3)\)}
+\end{quizquestion}
+\begin{quizsolution}
+  Using \(x=A\cos(\omega t+\phi)\) at \(t=0\),
+  \[
+    \cos\phi=\frac{x_0}{A}=\frac{0.030}{0.060}=\frac12.
+  \]
+  Thus \(\phi=\pm\pi/3\). The velocity is
+  \[
+    v=-A\omega\sin(\omega t+\phi).
+  \]
+  For \(v(0)>0\), we require \(\sin\phi<0\), so \(\phi=-\pi/3\). Therefore,
+  \[
+    x=0.060\cos(8t-\pi/3),
+  \]
+  which is option \textbf{C}.
+\end{quizsolution}
+
+\begin{quizquestion}[
+  id=phy104-nm-046,
+  topic=normal-modes,
+  difficulty=challenge,
+  marks=3,
+  correct=C,
+  tags={coupled-oscillators,modal-superposition,time-evolution},
+  outcome={Use modal superposition to determine coupled-system motion}
+]
+  For a symmetric coupled system with \(m=\SI{1}{kg}\), \(k=\SI{4}{N.m^{-1}}\), and \(k_c=\SI{6}{N.m^{-1}}\), mass 1 is initially displaced by \(A\), mass 2 is at equilibrium, and both are released from rest. What are the displacements at \(t=\pi/2\ \mathrm{s}\)?
+  \choices{\(x_1=A\), \(x_2=0\)}{\(x_1=-A\), \(x_2=0\)}{\(x_1=0\), \(x_2=-A\)}{\(x_1=0\), \(x_2=A\)}{\(x_1=A/2\), \(x_2=-A/2\)}
+\end{quizquestion}
+\begin{quizsolution}
+  The frequencies are
+  \[
+    \omega_1=\sqrt{\frac{k}{m}}=2,
+    \qquad
+    \omega_2=\sqrt{\frac{k+2k_c}{m}}=\sqrt{16}=4\ \mathrm{rad\,s^{-1}}.
+  \]
+  The initial displacement \({[A,0]}^T\) contains equal modal coefficients:
+  \[
+    x_1=\frac{A}{2}(\cos\omega_1t+\cos\omega_2t),
+    \quad
+    x_2=\frac{A}{2}(\cos\omega_1t-\cos\omega_2t).
+  \]
+  At \(t=\pi/2\), \(\cos(2t)=\cos\pi=-1\) and \(\cos(4t)=\cos2\pi=1\). Hence \(x_1=0\) and \(x_2=-A\). Option \textbf{C}.
+\end{quizsolution}
+
+\begin{quizquestion}[
+  id=phy104-wave-051,
+  topic=waves-and-sound,
+  difficulty=challenge,
+  marks=3,
+  correct=C,
+  tags={superposition,phasors,resultant-wave},
+  outcome={Combine several equal-frequency waves by phasor addition}
+]
+  Three waves of equal frequency and amplitude \SI{5.0}{mm} have phase constants \(0\), \(\pi/3\), and \(2\pi/3\). What are the amplitude and phase constant of their resultant?
+  \choices{\SI{5.0}{mm} and \(0\)}{\SI{8.66}{mm} and \(\pi/2\)}{\SI{10.0}{mm} and \(\pi/3\)}{\SI{15.0}{mm} and \(\pi/3\)}{\(0\) and an undefined phase}
+\end{quizquestion}
+\begin{quizsolution}
+  Represent the three contributions as phasors:
+  \[
+    A_R=A\left(1+e^{i\pi/3}+e^{i2\pi/3}\right).
+  \]
+  Using \(e^{i\pi/3}=\tfrac12+i\tfrac{\sqrt3}{2}\) and \(e^{i2\pi/3}=-\tfrac12+i\tfrac{\sqrt3}{2}\),
+  \[
+    1+e^{i\pi/3}+e^{i2\pi/3}=1+i\sqrt3=2e^{i\pi/3}.
+  \]
+  Therefore, the resultant amplitude is \(2A=\SI{10.0}{mm}\) and its phase is \(\pi/3\). Option \textbf{C}.
+\end{quizsolution}
+
+\begin{quizquestion}[
+  id=phy104-opt-060,
+  topic=optics,
+  difficulty=challenge,
+  marks=3,
+  correct=E,
+  tags={diffraction-grating,missing-orders,order-limit},
+  outcome={Combine grating-order limits with missing-order conditions}
+]
+  A grating has \(300\) lines per millimetre, and each slit has width \(a=d/3\), where \(d\) is the grating spacing. It is illuminated with \SI{500}{nm} light. How many observable principal maxima occur over both sides, including the central maximum, after missing orders are excluded?
+  \choices{\(5\)}{\(7\)}{\(11\)}{\(13\)}{\(9\)}
+\end{quizquestion}
+\begin{quizsolution}
+  The spacing is
+  \[
+    d=\frac{1}{300\ \mathrm{mm}^{-1}}=3.333\times10^{-6}\ \mathrm{m}.
+  \]
+  The largest possible positive order is
+  \[
+    m_{\max}=\left\lfloor\frac{d}{\lambda}\right\rfloor
+    =\left\lfloor\frac{3.333\times10^{-6}}{500\times10^{-9}}\right\rfloor
+    =\lfloor6.667\rfloor=6.
+  \]
+  Because \(a=d/3\), we have \(d/a=3\), so missing orders satisfy \(m=3p\): \(m=3\) and \(m=6\) within the allowed range. The observable positive orders are therefore \(1,2,4,5\), four on each side. Including the central order gives \(2(4)+1=9\). Hence option \textbf{E}.
+\end{quizsolution}

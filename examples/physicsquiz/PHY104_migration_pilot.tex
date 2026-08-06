@@ -1,0 +1,39 @@
+\documentclass[full,10pt,a4paper]{physicsquiz}
+
+\quizfontsize{9.4pt}{11.5pt}
+\quiztitle{PHY 104 Migration Pilot}
+\quizcourse{PHY 104 Oscillations, Normal Modes, Waves and Optics}
+\quizauthor{Prepared by OT}
+\quizinstitution{Drill Tutors}
+\quizinstructions{Choose the best answer in each case. This pilot draws one applied question from each topic in a deliberately reordered booklet.}
+\quizconstants{\(g=\SI{9.80}{m.s^{-2}}\), \(v_{\text{sound}}=\SI{343}{m.s^{-1}}\), \(c=\SI{3.00e8}{m.s^{-1}}\).}
+
+\begin{document}
+\pagenumbering{gobble}
+\makequiztitle
+\pagenumbering{arabic}
+
+\begin{quizbank}
+  \input{banks/phy104_migration_pilot_bank.tex}
+\end{quizbank}
+
+\quizselectids{phy104-opt-036,phy104-osc-021,phy104-wave-031,phy104-nm-026}
+\printquizquestions[2]
+
+\begin{quizanswerkeycontent}
+  \clearpage
+  \printquizanswerkey
+  \printquiztopicreport
+\end{quizanswerkeycontent}
+
+\begin{quizsolutioncontent}
+  \clearpage
+  \printquizsolutions
+\end{quizsolutioncontent}
+
+\begin{quizteachercontent}
+  \clearpage
+  \printquizteacherreport
+\end{quizteachercontent}
+
+\end{document}

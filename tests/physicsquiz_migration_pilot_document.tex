@@ -1,0 +1,35 @@
+\quiztitle{Phase 4F Real-Question Migration Pilot}
+\quizcourse{PHY 104}
+\quizauthor{OT LaTeX Lab}
+\quizinstructions{Choose the best answer in each case.}
+
+\begin{document}
+\pagenumbering{gobble}
+\makequiztitle
+\pagenumbering{arabic}
+
+\begin{quizbank}
+\input{../examples/physicsquiz/banks/phy104_migration_pilot_bank.tex}
+\end{quizbank}
+
+\PQMigrationSetup
+\printquizquestions[\PQColumns]
+\quizselectionassert{\PQExpectedCount}{\PQExpectedMarks}{\PQExpectedOrder}
+
+\begin{quizanswerkeycontent}
+  \clearpage
+  \printquizanswerkey
+  \printquiztopicreport
+\end{quizanswerkeycontent}
+
+\begin{quizsolutioncontent}
+  \clearpage
+  \printquizsolutions
+\end{quizsolutioncontent}
+
+\begin{quizteachercontent}
+  \clearpage
+  \printquizteacherreport
+\end{quizteachercontent}
+
+\end{document}
