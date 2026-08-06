@@ -1,0 +1,17 @@
+\documentclass{physicsquiz}
+
+\makeatletter
+\ifpq@presentation@colour\else
+  \errmessage{Default presentation should be colour}
+\fi
+\ifpq@presentation@print
+  \errmessage{Default presentation should not be print}
+\fi
+\ifpq@versioned
+  \errmessage{Version metadata should be unset by default}
+\fi
+\makeatother
+
+\begin{document}
+Default presentation-state assertions passed.
+\end{document}

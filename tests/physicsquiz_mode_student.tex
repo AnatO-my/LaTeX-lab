@@ -1,0 +1,32 @@
+\documentclass[student,12pt,a4paper]{physicsquiz}
+
+\makeatletter
+\ifpq@mode@student\else
+  \errmessage{Student mode should be selected}
+\fi
+\ifpq@show@questions\else
+  \errmessage{Student mode should show questions}
+\fi
+\ifpq@show@answerkey
+  \errmessage{Student mode should hide the answer key}
+\fi
+\ifpq@show@solutions
+  \errmessage{Student mode should hide solutions}
+\fi
+\ifpq@show@teacher
+  \errmessage{Student mode should hide teacher-only content}
+\fi
+\ifpq@show@marks\else
+  \errmessage{Student mode should show supplied marks}
+\fi
+\ifpq@show@difficulty
+  \errmessage{Student mode should hide difficulty labels}
+\fi
+\ifnum\@ptsize=2\relax\else
+  \errmessage{The 12pt article option was not passed through}
+\fi
+\makeatother
+
+\begin{document}
+Student mode state and article-option pass-through assertions passed.
+\end{document}

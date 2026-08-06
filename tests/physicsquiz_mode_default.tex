@@ -1,0 +1,29 @@
+\documentclass{physicsquiz}
+
+\makeatletter
+\ifpq@mode@full\else
+  \errmessage{Default mode should be full}
+\fi
+\ifpq@show@questions\else
+  \errmessage{Default mode should show questions}
+\fi
+\ifpq@show@answerkey\else
+  \errmessage{Default mode should show the answer key}
+\fi
+\ifpq@show@solutions\else
+  \errmessage{Default mode should show solutions}
+\fi
+\ifpq@show@teacher
+  \errmessage{Default mode should not enable teacher-only content}
+\fi
+\ifpq@show@marks\else
+  \errmessage{Default mode should show supplied marks}
+\fi
+\ifpq@show@difficulty\else
+  \errmessage{Default mode should show supplied difficulty labels}
+\fi
+\makeatother
+
+\begin{document}
+Default/full mode state assertions passed.
+\end{document}

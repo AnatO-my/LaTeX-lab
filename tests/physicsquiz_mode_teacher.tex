@@ -1,0 +1,29 @@
+\documentclass[teacher]{physicsquiz}
+
+\makeatletter
+\ifpq@mode@teacher\else
+  \errmessage{Teacher mode should be selected}
+\fi
+\ifpq@show@questions\else
+  \errmessage{Teacher mode should show questions}
+\fi
+\ifpq@show@answerkey\else
+  \errmessage{Teacher mode should show compact answers}
+\fi
+\ifpq@show@solutions
+  \errmessage{Teacher mode should hide the solutions booklet}
+\fi
+\ifpq@show@teacher\else
+  \errmessage{Teacher mode should show teacher-only content}
+\fi
+\ifpq@show@marks\else
+  \errmessage{Teacher mode should show supplied marks}
+\fi
+\ifpq@show@difficulty\else
+  \errmessage{Teacher mode should show supplied difficulty labels}
+\fi
+\makeatother
+
+\begin{document}
+Teacher mode state assertions passed.
+\end{document}

@@ -1,0 +1,65 @@
+% Shared synthetic assessment body for Phase 3 output-mode tests.
+% This fixture exercises rendering only; it is not a question bank.
+\newcommand{\pqcontentmarker}[1]{%
+  \typeout{PQ-CONTENT:#1}%
+  \par\noindent\texttt{PQ-CONTENT:#1}\par
+}
+\newcommand{\pqhookmarker}[1]{\typeout{PQ-CONTENT:#1}}
+
+\quiztitle{Phase 3 Output-Mode Fixture}
+\quizcourse{PHY TEST}
+\quizauthor{Compatibility fixture}
+\quizinstitution{LaTeX Lab}
+\quizinstructions{Use this document only to verify semantic output gates.}
+
+\begin{document}
+
+\begin{quizquestioncontent}
+  \section*{Questions}
+  \pqcontentmarker{QUESTIONS}
+  \begin{quizquestions}
+    \item Which quantity has SI unit hertz?
+      \quizmarks{\pqhookmarker{MARKS}2}%
+      \quizdifficulty{\pqhookmarker{DIFFICULTY}Introductory}
+      \choices{Frequency}{Wavelength}{Amplitude}{Phase}{Speed}
+
+    \item Which expression gives the speed of a periodic wave?
+      \begin{choiceoptions}
+        \item \(v=f\lambda\)
+        \item \(v=f/\lambda\)
+        \item \(v=\lambda/f\)
+        \item \(v=2\pi f/\lambda\)
+      \end{choiceoptions}
+  \end{quizquestions}
+\end{quizquestioncontent}
+
+\begin{quizanswerkeycontent}
+  \pqcontentmarker{ANSWERKEY}
+  \begin{answerkey}
+    1. A\qquad 2. A
+  \end{answerkey}
+\end{quizanswerkeycontent}
+
+\begin{quizsolutioncontent}
+  \section*{Worked Solutions}
+  \pqcontentmarker{SOLUTIONS}
+  \begin{tcolorbox}[colback=white,colframe=QuizBlue]
+    Frequency is measured in hertz. A periodic wave travels at
+    \(v=f\lambda\).
+  \end{tcolorbox}
+\end{quizsolutioncontent}
+
+\begin{quizteachercontent}
+  \section*{Teacher Notes}
+  \pqcontentmarker{TEACHER}
+  Ask learners to distinguish a quantity from its unit before discussing the
+  wave-speed relation.
+\end{quizteachercontent}
+
+\begin{quizreferencecontent}
+  \section*{Reference Material}
+  \pqcontentmarker{REFERENCE}
+  \[v=f\lambda\]
+\end{quizreferencecontent}
+
+\end{document}

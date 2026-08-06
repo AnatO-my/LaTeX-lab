@@ -19,13 +19,26 @@ LaTeX Workspace Learning and Class Refactoring Project
 
 ## Current phase
 
-**Phase 2 — Semantic and flexible document interfaces — completed on 5 August 2026.**
+**Phase 3 — One source, multiple assessment outputs — completed on 6 August 2026.**
 
-Phase 2 established and verified the public-interface baseline for all four active classes. It introduced the flexible `physicsquiz` choices interface, completed the `studentnotes` named-formula reference interface, regression-tested the established semantic environments, documented stable and advanced interfaces, and verified the remaining helper commands.
+Phase 3 established the rendering and output-selection layer for
+`physicsquiz.cls`. It added mutually exclusive student, teacher, solutions,
+answer-key, and full outputs; an independent colour/print presentation axis;
+version metadata; optional marks and difficulty labels; and semantic section
+gates that a future question-bank architecture can call.
 
-The final Phase 2 checkpoint includes the public-interface reference, two helper smoke tests, the validated `\remembernote` correction, residual class diagnostics corrections, and the verified vector-workbook source corrections.
+The no-option default remains the established full-colour document. Existing
+`physicsquiz` documents remain compatible and require no immediate migration.
+The representative 60-question quiz remains the compatibility baseline rather
+than a structured question bank.
 
-The independent working-tree modification to `examples/studentnotes/Optics.tex` remains outside the Phase 2 checkpoint and must stay unstaged.
+The Phase 3 implementation is covered by mode-state assertions, one shared
+synthetic assessment fixture, ten semantic colour/print combinations, version
+tests, and deliberate conflict tests. The repository-local Phase 3D runner
+passed in the MiKTeX environment.
+
+The independent working-tree modification to `examples/studentnotes/Optics.tex`
+remains outside the Phase 3 checkpoint and must stay unstaged.
 
 ### Repository-level `.latexmkrc`
 
@@ -89,8 +102,16 @@ No `% !TeX root` directives were added. The workbook’s existing conditional ar
 * The Phase 1 workflow configuration has been committed and verified.
 * The earlier Phase 2 semantic-interface compatibility checkpoints have been committed.
 * The final Phase 2 public-interface and helper-verification checkpoint has been completed and verified.
+* Phase 2 was committed on `main` as `e045765` — `Complete Phase 2 public-interface baseline`.
+* Phase 3A established the assessment-output architecture contract.
+* Phase 3B added and verified mutually exclusive primary output modes.
+* Phase 3C added semantic content gates and a shared synthetic assessment fixture.
+* Phase 3D added colour/print presentation, version metadata, marks, difficulty,
+  and the repository-local PowerShell verification runner.
+* Phase 3E has updated the public-interface, changelog, and project-state records
+  for final review and commit preparation.
 * Generated PDFs, logs, and other build artefacts remain excluded from the source-focused checkpoint.
-* `examples/studentnotes/Optics.tex` remains an independent modification and is excluded from the checkpoint.
+* `examples/studentnotes/Optics.tex` remains an independent modification and is excluded from every Phase 3 checkpoint.
 
 ## Canonical repository structure
 
@@ -269,9 +290,14 @@ The canonical repository structure is now supported by the shared Phase 1 class 
 ### `physicsquiz.cls`
 
 * `article` base class
-* pass-through class options
+* pass-through article options
+* mutually exclusive `full`, `student`, `teacher`, `solutions`, and `answerkey` primary modes
+* independent `colour`/`print` presentation modes, with `color` as an alias
+* semantic gates for questions, answer keys, solutions, teacher notes, and references
 * configurable global quiz font size
 * title metadata setters
+* visible version metadata
+* optional display-only marks and difficulty labels
 * custom quiz title page
 * constants box
 * multi-column `quizquestions` environment
@@ -334,10 +360,11 @@ These remaining findings are recorded for controlled treatment in the appropriat
 
 ### `physicsquiz.cls`
 
-* The public `choiceoptions` and legacy `\choices` interfaces require formal documentation.
 * Wider compatibility testing is still needed for exceptionally long options, displayed mathematics, and future assessment layouts.
 * Question stems and choice blocks may still require a deliberate keep-together policy for edge cases beyond the representative quiz.
 * Some dependencies may be broader than the class implementation requires.
+* Phase 3 section gates select complete authored blocks; they do not yet remove
+  duplication between question, answer-key, and worked-solution sources.
 
 ### `otengineering.cls`
 
@@ -367,8 +394,8 @@ These remaining findings are recorded for controlled treatment in the appropriat
 
 * Minimum supported LaTeX kernel or release date
 * Whether support is limited to pdfLaTeX or extended to LuaLaTeX and XeLaTeX
-* Exact output modes required from `physicsquiz.cls`
 * Whether assessment questions should use a lightweight custom architecture or `xsim`
+* The exact Phase 4 question-record interface and metadata validation policy
 * How much shared code should move into common OT packages
 * Whether the modular workbook should retain its existing conditional structure or adopt `subfiles`
 * Whether generated PDFs and selected logs should remain version-controlled after the baseline
@@ -490,6 +517,83 @@ A read-only usage and compatibility audit has been completed for:
 ### Phase 2 completion
 
 The stable public-interface baseline is now documented and regression-supported. Further architectural changes, new assessment modes, namespace migrations, or companion-package redesign belong to later phases.
+
+## Phase 3 status
+
+Phase 3 is complete. It added an additive output-control layer to
+`physicsquiz.cls` without creating a question bank or changing the representative
+quiz source.
+
+### Output and presentation architecture
+
+* `full` is the default primary mode.
+* `student`, `teacher`, `solutions`, and `answerkey` are the alternative primary
+  modes.
+* Primary modes are mutually exclusive and conflicting selections produce a
+  descriptive class error.
+* `colour` is the default presentation mode; `color` is an alias.
+* `print` is orthogonal to the primary mode and maps the established public
+  palette to economical, high-contrast greys.
+* Conflicting presentation selections produce a descriptive class error.
+* Article options not owned by `physicsquiz` continue to pass through to
+  `article`.
+
+### Semantic rendering boundary
+
+The class now provides:
+
+* `quizquestioncontent`;
+* `quizanswerkeycontent`;
+* `quizsolutioncontent`;
+* `quizteachercontent`; and
+* `quizreferencecontent`.
+
+These gates select complete authored blocks according to the primary mode. They
+do not store question records, collect correct answers, calculate totals, or
+perform question selection.
+
+### Metadata and labels
+
+* `\quizversion{<label>}` displays version metadata on the title and running
+  header.
+* Version metadata is display-only and does not assign questions to versions.
+* `\quizmarks{<value>}` appears in full, student, and teacher outputs when used.
+* `\quizdifficulty{<label>}` appears in full and teacher outputs when used.
+* Marks and difficulty remain presentation hooks rather than Phase 4 metadata.
+
+### Compatibility
+
+* The no-option declaration remains equivalent to `full,colour`.
+* Existing metadata commands, `quizquestions`, `choiceoptions`, the legacy
+  five-argument `\choices`, `answerkey`, and public colour names remain valid.
+* The representative 60-question quiz requires no immediate migration.
+* The existing manual answer key remains author supplied.
+* The document-local `workedsolution` and `\levelbanner` interfaces remain
+  outside the class.
+
+### Acceptance evidence
+
+* All 21 positive Phase 3D test drivers passed in the repository-local MiKTeX
+  environment.
+* All ten semantic colour/print combinations produced the exact expected marker
+  sets.
+* Both deliberate conflict drivers failed with their intended class errors.
+* Positive logs contained no LaTeX warnings, overfull boxes, or underfull boxes.
+* Version A/B output, marks, difficulty, colour, print, and the `color` alias were
+  verified.
+* The Phase 2 choices compatibility document remained unchanged.
+* The representative quiz retained the accepted 23-page default rendering and
+  kept Question 60 with all five choices.
+* `examples/studentnotes/Optics.tex` remained outside the Phase 3 work.
+
+### Phase 4 boundary
+
+Phase 4 must begin with a read-only comparison of a lightweight custom question
+record and `xsim`, followed by a small structured proof of concept. It must not
+migrate the representative 60-question quiz until the proof of concept compiles
+and the architecture is reviewed. `07_final_mixed_practice_bank.tex` belongs to
+the separate `otscience` workbook ecosystem and is not a `physicsquiz`
+question-bank precedent.
 
 ## Session handover log
 
@@ -614,13 +718,36 @@ The stable public-interface baseline is now documented and regression-supported.
 * Confirmed a clean combined-workbook build.
 * Completed Phase 2.
 
+### Session 11 — Phase 3 assessment-output architecture
+
+* Audited the existing 60-question representative quiz as the compatibility
+  baseline.
+* Defined the boundary between Phase 3 rendering and Phase 4 question storage.
+* Added mutually exclusive primary output modes and preserved full output as the
+  default.
+* Added semantic section gates without migrating the representative quiz.
+* Added independent colour/print presentation options.
+* Added visible version metadata and optional marks/difficulty labels.
+* Added a small shared assessment fixture rather than a question bank.
+* Added assertion, semantic-marker, version, presentation, and expected-failure
+  tests.
+* Added a single PowerShell verification runner.
+* Verified the complete local Phase 3D matrix and representative default output.
+* Updated the public-interface reference, changelog, and project state.
+* Preserved and excluded the independent modification to
+  `examples/studentnotes/Optics.tex`.
+* Completed Phase 3.
+
 ## Next action
 
-Create and verify the final Phase 2 checkpoint commit while excluding:
+Create and verify the final Phase 3 checkpoint commit while excluding:
 
 * `examples/studentnotes/Optics.tex`;
 * generated PDFs;
 * logs; and
 * other build artefacts.
 
-After the checkpoint is verified, begin the next phase defined in `ROADMAP.md`.
+After the checkpoint is verified, begin Phase 4 with a read-only architecture
+comparison and a small structured question-bank proof of concept. Do not migrate
+the representative 60-question quiz before the proof of concept and architecture
+decision are reviewed.

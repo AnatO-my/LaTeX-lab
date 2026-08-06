@@ -1,0 +1,30 @@
+\documentclass[answerkey,print]{physicsquiz}
+
+\quiztitle{Version-Metadata Fixture}
+\quizcourse{PHY TEST}
+\quizauthor{Compatibility fixture}
+\quizinstitution{LaTeX Lab}
+\quizversion{B}
+
+\makeatletter
+\ifpq@versioned\else
+  \errmessage{Version B metadata should be enabled}
+\fi
+\edef\pq@actualversion{\QuizVersion}
+\def\pq@expectedversion{B}
+\ifx\pq@actualversion\pq@expectedversion\else
+  \errmessage{Version B metadata was not stored correctly}
+\fi
+\ifpq@presentation@print\else
+  \errmessage{Version B fixture should use print presentation}
+\fi
+\makeatother
+
+\begin{document}
+\makequiztitle
+\begin{quizanswerkeycontent}
+  \begin{answerkey}
+    1. A\qquad 2. C
+  \end{answerkey}
+\end{quizanswerkeycontent}
+\end{document}

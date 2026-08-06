@@ -1,0 +1,29 @@
+\documentclass[solutions]{physicsquiz}
+
+\makeatletter
+\ifpq@mode@solutions\else
+  \errmessage{Solutions mode should be selected}
+\fi
+\ifpq@show@questions
+  \errmessage{Solutions mode should hide the question booklet}
+\fi
+\ifpq@show@answerkey
+  \errmessage{Solutions mode should hide the compact answer key}
+\fi
+\ifpq@show@solutions\else
+  \errmessage{Solutions mode should show worked solutions}
+\fi
+\ifpq@show@teacher
+  \errmessage{Solutions mode should hide teacher-only content}
+\fi
+\ifpq@show@marks
+  \errmessage{Solutions mode should hide per-question marks}
+\fi
+\ifpq@show@difficulty
+  \errmessage{Solutions mode should hide per-question difficulty labels}
+\fi
+\makeatother
+
+\begin{document}
+Solutions mode state assertions passed.
+\end{document}

@@ -1,0 +1,26 @@
+\documentclass[teacher]{physicsquiz}
+
+\quiztitle{Version-Metadata Fixture}
+\quizcourse{PHY TEST}
+\quizauthor{Compatibility fixture}
+\quizinstitution{LaTeX Lab}
+\quizversion{A}
+
+\makeatletter
+\ifpq@versioned\else
+  \errmessage{Version A metadata should be enabled}
+\fi
+\edef\pq@actualversion{\QuizVersion}
+\def\pq@expectedversion{A}
+\ifx\pq@actualversion\pq@expectedversion\else
+  \errmessage{Version A metadata was not stored correctly}
+\fi
+\makeatother
+
+\begin{document}
+\makequiztitle
+\section*{Versioned content}
+This page verifies the automatic running-header label.
+\newpage
+The header on this page should include \textbf{Version A}.
+\end{document}

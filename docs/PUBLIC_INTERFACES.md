@@ -47,14 +47,16 @@ The interface baseline uses three forms of evidence:
   not imply that every possible layout or third-party-package interaction has been
   tested.
 
-The major semantic interfaces have regression coverage. Small metadata, label,
+The major semantic interfaces have regression coverage. The Phase 3 assessment
+options, semantic gates, and display hooks are covered by state assertions and a
+shared synthetic assessment matrix. Small metadata, label,
 rating, margin-note, arrow-annotation, and field helpers are documented from their
 source contracts and representative uses. The distinction prevents the reference
 from claiming broader test coverage than the project has established.
 
 ## General compatibility policy
 
-* Existing stable interfaces remain available throughout Phase 2.
+* Existing stable interfaces remain available throughout the controlled refactor.
 * Additive interfaces are preferred to breaking replacements.
 * Established defaults, titles, colours, numbering, and pagination behaviour are
   preserved.
@@ -71,13 +73,50 @@ from claiming broader test coverage than the project has established.
 
 # `physicsquiz.cls`
 
-## Class declaration
+## Class declaration and output options
 
 ```latex
-\documentclass[<article options>]{physicsquiz}
+\documentclass[<primary mode>,<presentation mode>,<article options>]{physicsquiz}
 ```
 
-Class options are passed to the underlying `article` class.
+`physicsquiz` owns two independent option axes. Options it does not own continue
+to the underlying `article` class, so declarations such as
+`\documentclass[12pt,a4paper]{physicsquiz}` remain valid.
+
+### Primary output mode
+
+Exactly one primary output mode may be selected:
+
+| Option | Selected semantic content |
+|---|---|
+| `full` | questions, answer key, worked solutions, references; marks and difficulty when supplied |
+| `student` | questions and references; marks when supplied |
+| `teacher` | questions, answer key, teacher notes, and references; marks and difficulty when supplied |
+| `solutions` | worked solutions and references |
+| `answerkey` | compact answer-key content only |
+
+With no primary option, `full` is selected. Selecting more than one primary
+mode produces a class error rather than silently choosing one.
+
+### Presentation mode
+
+Exactly one presentation mode may be selected:
+
+| Option | Effect |
+|---|---|
+| `colour` | established colour appearance; the default |
+| `color` | alias for `colour` |
+| `print` | high-contrast greys, economical backgrounds, and hidden hyperlink decoration |
+
+The presentation mode is independent of the primary output mode. For example:
+
+```latex
+\documentclass[student,print,12pt,a4paper]{physicsquiz}
+```
+
+Selecting `print` together with either spelling of `colour` produces a class
+error. The default declaration `\documentclass{physicsquiz}` remains equivalent
+to `full,colour` and preserves the established output.
 
 ## Quiz configuration commands
 
@@ -93,6 +132,7 @@ the preamble, before `\makequiztitle` or other content that consumes their value
 | `\quizinstitution{<institution>}` | 1 required | Replaces the empty institution value |
 | `\quizinstructions{<instructions>}` | 1 required | Replaces `Choose the correct option for each question.` |
 | `\quizconstants{<constants>}` | 1 required | Stores the author-supplied constants content; empty by default |
+| `\quizversion{<label>}` | 1 required | Adds `Version <label>` to the title and running header; empty by default |
 | `\makequiztitle` | none | Produces the configured title page and instructions box |
 | `\constantsbox` | none | Produces the configured constants box |
 
@@ -110,6 +150,7 @@ Minimal configuration:
   \(g=9.81\,\mathrm{m\,s^{-2}}\),
   \(c=3.00\times10^8\,\mathrm{m\,s^{-1}}\)
 }
+\quizversion{A}
 
 \begin{document}
 \makequiztitle
@@ -117,8 +158,62 @@ Minimal configuration:
 \end{document}
 ```
 
-The metadata values also feed the running header where applicable. The uppercase
-storage commands described below are not the supported way to change them.
+The metadata values also feed the running header where applicable. An empty
+`\quizversion{}` clears the visible version label. Versioning is metadata-only:
+it does not select, reorder, or shuffle questions. The uppercase storage commands
+described below are not the supported way to change metadata.
+
+## Semantic output gates
+
+The following stable environments include or suppress complete document sections
+according to the selected primary mode:
+
+| Environment | Intended content |
+|---|---|
+| `quizquestioncontent` | question booklet |
+| `quizanswerkeycontent` | compact answer-key section |
+| `quizsolutioncontent` | worked-solutions section |
+| `quizteachercontent` | teacher-only guidance or annotations |
+| `quizreferencecontent` | formula sheet or other reference material |
+
+Example:
+
+```latex
+\begin{quizquestioncontent}
+  \begin{quizquestions}
+    \item Which quantity has SI unit hertz?
+      \choices{Frequency}{Wavelength}{Amplitude}{Phase}{Speed}
+  \end{quizquestions}
+\end{quizquestioncontent}
+
+\begin{quizanswerkeycontent}
+  \begin{answerkey}
+    1. A
+  \end{answerkey}
+\end{quizanswerkeycontent}
+```
+
+The gates select already-authored blocks. They do not store questions, collect
+answers, or define a question-bank record. Existing documents remain valid without
+these wrappers and therefore require no immediate migration.
+
+## Optional question labels
+
+```latex
+\quizmarks{<value>}
+\quizdifficulty{<label>}
+```
+
+These display-only hooks may follow a question stem. Marks are visible in `full`,
+`student`, and `teacher`; difficulty is visible in `full` and `teacher`. Neither
+command stores metadata, validates its argument, nor calculates totals.
+
+```latex
+\item Determine the fundamental frequency.
+  \quizmarks{3}\quizdifficulty{Intermediate}
+```
+
+When horizontal space is limited, the labels may move together to the next line.
 
 ## Question and option interfaces
 
@@ -207,9 +302,11 @@ class styling use them directly:
 | `QuizGrey` | `#4B5563` |
 | `QuizLightGrey` | `#F3F4F6` |
 
-Their names and values should remain available during Phase 2. Authors may use them
-with ordinary `xcolor` commands, but semantic class interfaces should be preferred
-where one exists.
+In `colour` mode, their names and values retain the table above. In `print` mode,
+the same public names remain defined but map to high-contrast greys, allowing
+existing document-owned styling to become print-friendly without changing colour
+references. Authors may use these names with ordinary `xcolor` commands, but a
+semantic class interface should be preferred where one exists.
 
 ## Internal and package-owned interfaces
 
@@ -224,7 +321,12 @@ The following are internal metadata storage and are not stable setters:
 \QuizInstitution
 \QuizInstructions
 \QuizConstants
+\QuizVersion
 ```
+
+The internal mode, presentation, visibility, and version-state conditionals use
+the private `\ifpq@...` namespace. Documents should use class options, semantic
+gates, and public metadata commands rather than testing those internals directly.
 
 Commands supplied by `siunitx` and other loaded packages remain package-owned. The
 class-level `\unit{<unit>}` provision is only a compatibility safeguard when no
@@ -775,6 +877,8 @@ the other classes, but `examplebox`, the two generic base-box names, and the sha
 | Name or family | Owner | Classification | Important qualification |
 |---|---|---|---|
 | `choiceoptions`, `\choices` | `physicsquiz` | stable | `\choices` is the five-option compatibility wrapper |
+| `quizquestioncontent`, `quizanswerkeycontent`, `quizsolutioncontent`, `quizteachercontent`, `quizreferencecontent` | `physicsquiz` | stable | section gates controlled by the primary output mode |
+| `\quizversion`, `\quizmarks`, `\quizdifficulty` | `physicsquiz` | stable | display-only Phase 3 metadata and labels; no question storage or mark calculation |
 | `theorem`, `definition`, `example` | `studentnotes` | stable | generic names; independent section-based counters |
 | `namedformula`, `\formularef` | `studentnotes` | stable | descriptive title remains visually hidden |
 | `\notebox` | `studentnotes` | advanced | semantic margin-note wrappers are preferred |

@@ -1,0 +1,14 @@
+\documentclass[colour]{physicsquiz}
+
+\makeatletter
+\ifpq@presentation@colour\else
+  \errmessage{Colour presentation should be selected}
+\fi
+\ifpq@presentation@print
+  \errmessage{Colour presentation should not select print}
+\fi
+\makeatother
+
+\begin{document}
+Explicit colour presentation-state assertions passed.
+\end{document}

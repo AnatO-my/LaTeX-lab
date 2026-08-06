@@ -1,0 +1,29 @@
+\documentclass[answerkey]{physicsquiz}
+
+\makeatletter
+\ifpq@mode@answerkey\else
+  \errmessage{Answer-key mode should be selected}
+\fi
+\ifpq@show@questions
+  \errmessage{Answer-key mode should hide questions}
+\fi
+\ifpq@show@answerkey\else
+  \errmessage{Answer-key mode should show the compact answer key}
+\fi
+\ifpq@show@solutions
+  \errmessage{Answer-key mode should hide solutions}
+\fi
+\ifpq@show@teacher
+  \errmessage{Answer-key mode should hide teacher-only content}
+\fi
+\ifpq@show@marks
+  \errmessage{Answer-key mode should hide per-question marks}
+\fi
+\ifpq@show@difficulty
+  \errmessage{Answer-key mode should hide per-question difficulty labels}
+\fi
+\makeatother
+
+\begin{document}
+Answer-key mode state assertions passed.
+\end{document}

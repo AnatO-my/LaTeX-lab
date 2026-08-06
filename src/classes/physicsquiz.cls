@@ -1,8 +1,128 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{physicsquiz}[2026/05/27 Stylish physics quiz class]
+\ProvidesClass{physicsquiz}[2026/08/05 Stylish physics quiz class]
 
+% -------------------------------------------------
+% Primary assessment-output modes
+% -------------------------------------------------
+% Exactly one primary mode may be selected. With no explicit
+% mode option, the class preserves its established full output.
+\newif\ifpq@mode@full
+\newif\ifpq@mode@student
+\newif\ifpq@mode@teacher
+\newif\ifpq@mode@solutions
+\newif\ifpq@mode@answerkey
+
+% The presentation axis is independent of the primary output mode.
+% With no explicit presentation option, the established colour theme remains.
+\newif\ifpq@presentation@colour
+\newif\ifpq@presentation@print
+
+\newcount\pq@primarymodecount
+\pq@primarymodecount=0
+\def\pq@primarymodename{full}
+
+\newcount\pq@presentationmodecount
+\pq@presentationmodecount=0
+
+\def\pq@selectprimarymode#1#2{%
+    \advance\pq@primarymodecount by 1\relax
+    \def\pq@primarymodename{#1}%
+    #2%
+}
+
+\DeclareOption{full}{%
+    \pq@selectprimarymode{full}{\pq@mode@fulltrue}%
+}
+\DeclareOption{student}{%
+    \pq@selectprimarymode{student}{\pq@mode@studenttrue}%
+}
+\DeclareOption{teacher}{%
+    \pq@selectprimarymode{teacher}{\pq@mode@teachertrue}%
+}
+\DeclareOption{solutions}{%
+    \pq@selectprimarymode{solutions}{\pq@mode@solutionstrue}%
+}
+\DeclareOption{answerkey}{%
+    \pq@selectprimarymode{answerkey}{\pq@mode@answerkeytrue}%
+}
+
+\def\pq@selectpresentationmode#1{%
+    \advance\pq@presentationmodecount by 1\relax
+    #1%
+}
+
+\DeclareOption{colour}{%
+    \pq@selectpresentationmode{\pq@presentation@colourtrue}%
+}
+\DeclareOption{color}{%
+    \pq@selectpresentationmode{\pq@presentation@colourtrue}%
+}
+\DeclareOption{print}{%
+    \pq@selectpresentationmode{\pq@presentation@printtrue}%
+}
+
+% Options not owned by physicsquiz remain article options.
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{article}}
 \ProcessOptions\relax
+
+\ifnum\pq@primarymodecount=0\relax
+    \pq@mode@fulltrue
+\else
+    \ifnum\pq@primarymodecount>1\relax
+        \ClassError{physicsquiz}
+          {Conflicting primary output modes}
+          {Select exactly one of full, student, teacher, solutions, or answerkey.}%
+    \fi
+\fi
+
+\ifnum\pq@presentationmodecount=0\relax
+    \pq@presentation@colourtrue
+\else
+    \ifnum\pq@presentationmodecount>1\relax
+        \ClassError{physicsquiz}
+          {Conflicting presentation modes}
+          {Select exactly one of colour (or color) and print.}%
+    \fi
+\fi
+
+% Derived content state. Later semantic rendering environments use
+% these booleans rather than testing class-option names directly.
+\newif\ifpq@show@questions
+\newif\ifpq@show@answerkey
+\newif\ifpq@show@solutions
+\newif\ifpq@show@teacher
+\newif\ifpq@show@reference
+\newif\ifpq@show@marks
+\newif\ifpq@show@difficulty
+
+\ifpq@mode@full
+    \pq@show@questionstrue
+    \pq@show@answerkeytrue
+    \pq@show@solutionstrue
+    \pq@show@referencetrue
+    \pq@show@markstrue
+    \pq@show@difficultytrue
+\fi
+\ifpq@mode@student
+    \pq@show@questionstrue
+    \pq@show@referencetrue
+    \pq@show@markstrue
+\fi
+\ifpq@mode@teacher
+    \pq@show@questionstrue
+    \pq@show@answerkeytrue
+    \pq@show@teachertrue
+    \pq@show@referencetrue
+    \pq@show@markstrue
+    \pq@show@difficultytrue
+\fi
+\ifpq@mode@solutions
+    \pq@show@solutionstrue
+    \pq@show@referencetrue
+\fi
+\ifpq@mode@answerkey
+    \pq@show@answerkeytrue
+\fi
 
 \LoadClass{article}
 
@@ -54,22 +174,36 @@
 }
 
 % -------------------------------------------------
-% Theme colours
+% Theme colours and presentation modes
 % -------------------------------------------------
-\definecolor{QuizNavy}{HTML}{102A43}
-\definecolor{QuizBlue}{HTML}{00008B}
-\definecolor{QuizLightBlue}{HTML}{EFF6FF}
-\definecolor{QuizGreen}{HTML}{166534}
-\definecolor{QuizGold}{HTML}{DCD705}
-\definecolor{QuizGrey}{HTML}{4B5563}
-\definecolor{QuizLightGrey}{HTML}{F3F4F6}
+\ifpq@presentation@print
+    % Preserve the public colour names while mapping them to economical,
+    % high-contrast greys for monochrome printing.
+    \definecolor{QuizNavy}{gray}{0}
+    \definecolor{QuizBlue}{gray}{0}
+    \definecolor{QuizLightBlue}{gray}{0.97}
+    \definecolor{QuizGreen}{gray}{0}
+    \definecolor{QuizGold}{gray}{0.35}
+    \definecolor{QuizGrey}{gray}{0.25}
+    \definecolor{QuizLightGrey}{gray}{0.95}
 
-\hypersetup{
-    colorlinks=true,
-    linkcolor=QuizBlue,
-    urlcolor=QuizBlue,
-    citecolor=QuizGreen
-}
+    \hypersetup{hidelinks}
+\else
+    \definecolor{QuizNavy}{HTML}{102A43}
+    \definecolor{QuizBlue}{HTML}{00008B}
+    \definecolor{QuizLightBlue}{HTML}{EFF6FF}
+    \definecolor{QuizGreen}{HTML}{166534}
+    \definecolor{QuizGold}{HTML}{DCD705}
+    \definecolor{QuizGrey}{HTML}{4B5563}
+    \definecolor{QuizLightGrey}{HTML}{F3F4F6}
+
+    \hypersetup{
+        colorlinks=true,
+        linkcolor=QuizBlue,
+        urlcolor=QuizBlue,
+        citecolor=QuizGreen
+    }
+\fi
 
 % -------------------------------------------------
 % Document information
@@ -80,6 +214,8 @@
 \newcommand{\QuizInstitution}{}
 \newcommand{\QuizInstructions}{Choose the correct option for each question.}
 \newcommand{\QuizConstants}{}
+\newcommand{\QuizVersion}{}
+\newif\ifpq@versioned
 
 \newcommand{\quiztitle}[1]{\renewcommand{\QuizTitle}{#1}}
 \newcommand{\quizauthor}[1]{\renewcommand{\QuizAuthor}{#1}}
@@ -87,6 +223,14 @@
 \newcommand{\quizinstitution}[1]{\renewcommand{\QuizInstitution}{#1}}
 \newcommand{\quizinstructions}[1]{\renewcommand{\QuizInstructions}{#1}}
 \newcommand{\quizconstants}[1]{\renewcommand{\QuizConstants}{#1}}
+\newcommand{\quizversion}[1]{%
+    \renewcommand{\QuizVersion}{#1}%
+    \if\relax\detokenize{#1}\relax
+        \pq@versionedfalse
+    \else
+        \pq@versionedtrue
+    \fi
+}
 
 % -------------------------------------------------
 % Page header and footer
@@ -96,7 +240,8 @@
 \pagestyle{fancy}
 \fancyhf{}
 \lhead{\textcolor{QuizGrey}{\small \QuizCourse}}
-\rhead{\textcolor{QuizGrey}{\small \QuizTitle}}
+\rhead{\textcolor{QuizGrey}{\small \QuizTitle%
+    \ifpq@versioned\enspace|\enspace Version \QuizVersion\fi}}
 \cfoot{\textcolor{QuizGrey}{\small Page \thepage}}
 \renewcommand{\headrulewidth}{0.3pt}
 
@@ -123,6 +268,10 @@
         \vspace{0.35cm}
 
         {\Large\textcolor{QuizBlue}{\QuizCourse}\par}
+        \ifpq@versioned
+            \vspace{0.25cm}
+            {\large\bfseries\textcolor{QuizGrey}{Version \QuizVersion}\par}
+        \fi
         \vspace{0.6cm}
 
         \textcolor{QuizGold}{\rule{0.75\linewidth}{1pt}}
@@ -236,6 +385,72 @@
         \item #5
     \end{choiceoptions}%
 }
+
+% -------------------------------------------------
+% Optional per-question presentation hooks
+% -------------------------------------------------
+% Marks appear on full, student, and teacher papers. Difficulty appears
+% on full and teacher papers only. The supplied values are display-only;
+% Phase 3 does not store metadata or calculate mark totals.
+\newcommand{\quizmarks}[1]{%
+    \ifpq@show@marks
+        \unskip\hfill
+        \mbox{\textcolor{QuizGrey}{\footnotesize\bfseries[Marks: #1]}}%
+    \fi
+}
+
+\newcommand{\quizdifficulty}[1]{%
+    \ifpq@show@difficulty
+        \unskip\hspace{0.6em}%
+        \mbox{\textcolor{QuizGrey}{\footnotesize\bfseries[Difficulty: #1]}}%
+    \fi
+}
+
+% -------------------------------------------------
+% Semantic output gates
+% -------------------------------------------------
+% These environments select complete document sections from the
+% derived content state. They do not store questions, collect
+% answers, or define a question-bank record.
+\NewDocumentEnvironment{quizquestioncontent}{+b}
+{%
+    \ifpq@show@questions
+        #1%
+    \fi
+}
+{}
+
+\NewDocumentEnvironment{quizanswerkeycontent}{+b}
+{%
+    \ifpq@show@answerkey
+        #1%
+    \fi
+}
+{}
+
+\NewDocumentEnvironment{quizsolutioncontent}{+b}
+{%
+    \ifpq@show@solutions
+        #1%
+    \fi
+}
+{}
+
+\NewDocumentEnvironment{quizteachercontent}{+b}
+{%
+    \ifpq@show@teacher
+        #1%
+    \fi
+}
+{}
+
+\NewDocumentEnvironment{quizreferencecontent}{+b}
+{%
+    \ifpq@show@reference
+        #1%
+    \fi
+}
+{}
 
 % -------------------------------------------------
 % Answer key

@@ -1,0 +1,14 @@
+\documentclass[color]{physicsquiz}
+
+\makeatletter
+\ifpq@presentation@colour\else
+  \errmessage{Color alias should select colour presentation}
+\fi
+\ifpq@presentation@print
+  \errmessage{Color alias should not select print}
+\fi
+\makeatother
+
+\begin{document}
+Color-alias presentation-state assertions passed.
+\end{document}

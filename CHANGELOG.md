@@ -2,6 +2,85 @@
 
 This file records significant changes to the LaTeX Workspace Learning and Class Refactoring Project.
 
+## Phase 3 — One source, multiple assessment outputs
+
+**Completed: 6 August 2026**
+
+### Added
+
+- Added mutually exclusive `full`, `student`, `teacher`, `solutions`, and
+  `answerkey` primary output modes to `physicsquiz.cls`.
+- Added five semantic section gates: `quizquestioncontent`,
+  `quizanswerkeycontent`, `quizsolutioncontent`, `quizteachercontent`, and
+  `quizreferencecontent`.
+- Added independent `colour` and `print` presentation modes, with `color` as an
+  alias for `colour`.
+- Added `\quizversion{<label>}` for visible version metadata.
+- Added the display-only `\quizmarks{<value>}` and
+  `\quizdifficulty{<label>}` question hooks.
+- Added a shared synthetic assessment fixture and separate drivers for every
+  primary output mode.
+- Added colour/print matrix tests, Version A/B tests, option-state assertions,
+  and deliberate conflict tests.
+- Added `tests/check_physicsquiz_output_modes.py` for exact semantic-marker
+  verification.
+- Added `tests/run_physicsquiz_phase3d_tests.ps1` as the repository-local
+  Phase 3 verification runner.
+
+### Changed
+
+- Preserved `full,colour` as the no-option default.
+- Continued forwarding non-`physicsquiz` options such as `12pt` and `a4paper`
+  to `article`.
+- Mapped the public quiz palette to high-contrast greys in `print` mode and
+  hid hyperlink decoration.
+- Extended the title page and running header to show version metadata only
+  when supplied.
+- Defined marks as visible in `full`, `student`, and `teacher` outputs.
+- Defined difficulty as visible in `full` and `teacher` outputs.
+- Documented the new Phase 3 public interfaces and their compatibility
+  boundaries.
+
+### Preserved
+
+- Preserved the existing metadata commands, `quizquestions`, `choiceoptions`,
+  legacy five-argument `\choices`, `answerkey`, and public colour names.
+- Preserved the established default visual output.
+- Left the representative 60-question quiz source unchanged and requiring no
+  immediate migration.
+- Kept answer-key contents manually authored; automatic answer collection was
+  not introduced.
+- Preserved and excluded the independent modification to
+  `examples/studentnotes/Optics.tex`.
+
+### Verified
+
+- Verified all 21 positive Phase 3D drivers in the repository-local MiKTeX
+  environment.
+- Verified all ten semantic colour/print combinations against the exact content
+  matrix.
+- Verified that both conflicting-primary-mode and conflicting-presentation-mode
+  tests fail with their intended class errors.
+- Verified default and explicit colour state, the `color` alias, and explicit
+  print state.
+- Verified Version A and Version B output.
+- Verified marks and difficulty visibility in every primary mode.
+- Verified pass-through article options.
+- Verified positive logs without LaTeX warnings, overfull boxes, or underfull
+  boxes.
+- Verified the unchanged Phase 2 choices compatibility output.
+- Verified the representative quiz's accepted 23-page default rendering, with
+  Question 60 and all five choices together.
+
+### Deferred
+
+- Structured question records and question-bank storage.
+- Automatic answer-key generation and mark-total calculation.
+- Question selection, filtering, reordering, randomisation, and choice shuffling.
+- Version-dependent question assignment.
+- Comparison of a lightweight custom architecture with `xsim`.
+- Migration of the representative 60-question quiz.
+
 ## Phase 2 — Semantic and flexible document interfaces
 
 **Completed: 5 August 2026**
