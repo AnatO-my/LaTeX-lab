@@ -47,7 +47,12 @@ The interface baseline uses three forms of evidence:
   not imply that every possible layout or third-party-package interaction has been
   tested.
 
-The major semantic interfaces have regression coverage. The Phase 3 assessment
+The major semantic interfaces have regression coverage. The Phase 4 structured question-bank interface is regression-verified: its
+records, validation errors, deterministic selection, seeded selection, and
+generated outputs are exercised by the 4C, 4D, 4E, 4F, and 4G drivers and
+checked by Python checkers against both semantic markers and the legacy
+question source.
+The Phase 3 assessment
 options, semantic gates, and display hooks are covered by state assertions and a
 shared synthetic assessment matrix. Small metadata, label,
 rating, margin-note, arrow-annotation, and field helpers are documented from their
@@ -88,7 +93,7 @@ to the underlying `article` class, so declarations such as
 Exactly one primary output mode may be selected:
 
 | Option | Selected semantic content |
-|---|---|
+| --- | --- |
 | `full` | questions, answer key, worked solutions, references; marks and difficulty when supplied |
 | `student` | questions and references; marks when supplied |
 | `teacher` | questions, answer key, teacher notes, and references; marks and difficulty when supplied |
@@ -103,7 +108,7 @@ mode produces a class error rather than silently choosing one.
 Exactly one presentation mode may be selected:
 
 | Option | Effect |
-|---|---|
+| --- | --- |
 | `colour` | established colour appearance; the default |
 | `color` | alias for `colour` |
 | `print` | high-contrast greys, economical backgrounds, and hidden hyperlink decoration |
@@ -124,7 +129,7 @@ These commands form the stable author interface. Setters should normally be used
 the preamble, before `\makequiztitle` or other content that consumes their values.
 
 | Command | Arguments | Default or effect |
-|---|---:|---|
+| --- | ---: | --- |
 | `\quizfontsize{<size>}{<baseline skip>}` | 2 required | Sets the document font at `\begin{document}`; defaults are `10pt` and `12pt` |
 | `\quiztitle{<title>}` | 1 required | Replaces `Pre-test Questions` |
 | `\quizauthor{<author>}` | 1 required | Replaces the empty author value |
@@ -169,7 +174,7 @@ The following stable environments include or suppress complete document sections
 according to the selected primary mode:
 
 | Environment | Intended content |
-|---|---|
+| --- | --- |
 | `quizquestioncontent` | question booklet |
 | `quizanswerkeycontent` | compact answer-key section |
 | `quizsolutioncontent` | worked-solutions section |
@@ -274,6 +279,158 @@ The option interfaces are regression-verified for four, five, and six options,
 prose, display-style mathematics, limited column space, and the representative
 60-question quiz.
 
+## Structured question-bank interface
+
+*Stability: stable author interface. Regression-verified.*
+
+The structured interface stores each question once, with its metadata, stem,
+choices, and worked solution, and derives the booklet, answer key, topic report,
+solutions, and mark totals from those records. It is additive: the manual
+`quizquestions`, `choiceoptions`, `\choices`, and `answerkey` interfaces remain
+fully supported and no existing document requires migration.
+
+`xsim` provides the storage engine. Raw `xsim` syntax is an implementation
+detail and is not a `physicsquiz` author interface. Both `xsim` and `siunitx`
+must be installed.
+
+### Declaring a bank
+
+```latex
+\begin{quizbank}
+  \input{banks/<bank file>.tex}
+\end{quizbank}
+```
+
+`quizbank` declares records without rendering anything. It is the normal way to
+bring in a bank file.
+
+### `quizquestion` and `quizsolution`
+
+```latex
+\begin{quizquestion}[
+  id=phy104-osc-001,
+  topic=oscillations,
+  difficulty=foundation,
+  marks=1,
+  correct=C,
+  tags={shm,restoring-force},
+  outcome={Identify the direction of a restoring force}
+]
+  <question stem>
+  \choices{<A>}{<B>}{<C>}{<D>}{<E>}
+\end{quizquestion}
+\begin{quizsolution}
+  <worked solution>
+\end{quizsolution}
+```
+
+| Key | Required | Contract |
+| --- | --- | --- |
+| `id` | yes | Stable identifier. Lowercase letters, digits, and single hyphens only. Must be unique across the document. |
+| `topic` | yes | Free-form label used by filters and the topic report. |
+| `difficulty` | yes | Exactly one of `foundation`, `applied`, or `challenge`. |
+| `marks` | yes | Positive integer or decimal. Zero is rejected. |
+| `correct` | yes | One option letter. Lowercase input is normalised to uppercase. |
+| `tags` | yes | Comma-separated list. |
+| `outcome` | no | Free-form learning outcome. |
+
+Every `quizquestion` must be followed immediately by exactly one
+`quizsolution`. The class raises a descriptive error for a missing required key,
+a malformed or duplicate `id`, an invalid `marks` value, an invalid `correct`
+label, an orphan solution, a duplicate solution, or a solution that does not
+immediately follow its question.
+
+Choices inside a record use the existing `\choices` or `choiceoptions`
+interfaces, so a migrated question keeps its established rendering.
+
+### Selection
+
+```latex
+\quizselectids{<comma-separated stable IDs>}
+\quizselect[topic=...,difficulty=...,marks=...,tags={...}]
+\quizselectall
+\quizselectrandom[<same filter keys>]{<count>}{<seed>}
+\quizclearselection
+```
+
+Selection semantics:
+
+* explicit ID selection follows the order the author wrote;
+* metadata selection follows declaration order in the bank;
+* multiple filter keys combine with AND semantics;
+* a tag filter requires every requested tag to be present on the record;
+* `marks` uses exact numeric equality;
+* selection commands append, and a record already selected is not added again,
+  keeping its first selected position; and
+* `\quizclearselection` starts a new selection and restores eligibility.
+
+`\quizselectrandom` takes a positive integer count and a seed from 1 to
+2147483646. The same bank, declaration order, existing selection state, filter,
+count, and seed always produce the same ordered stable IDs. The implementation
+uses a class-owned Park-Miller generator with Schrage's update, rejection
+sampling, and a Fisher-Yates permutation; it depends on no clock, job name, or
+engine random primitive. Its algorithm marker is `park-miller-v1`, and changing
+that algorithm would be a documented compatibility change. Different seeds are
+permitted to coincide by chance.
+
+Errors are raised for unknown IDs, empty ID lists, empty metadata filters, an
+empty selection at render time, invalid difficulty or marks filters, filters
+matching nothing, non-positive or non-integer counts, out-of-range seeds, and
+candidate pools too small for the requested count.
+
+### Generated output
+
+```latex
+\printquizquestions[<columns>]
+\printquizanswerkey
+\printquiztopicreport
+\printquizsolutions
+\printquizteacherreport
+```
+
+All five consume only the current selection, in selection order, so booklet
+numbering, answer-key numbering, solution numbering, topic reports, and mark
+totals agree even when stable IDs are selected out of bank order.
+`\printquizquestions` defaults to two columns.
+
+Place these inside the Phase 3 semantic gates. Each gate still governs whether
+its section appears in the selected primary mode.
+
+Two caveats follow from selection being document-global state. A gate that
+changes the selection leaves that change in place for later gates, so a document
+that filters inside its answer-key gate must re-select before printing
+solutions. And `quizquestionbank` clears the current selection before printing,
+so mixing it with explicit selection commands discards the earlier selection.
+
+A generated 60-entry answer key is taller than one page;
+`\printquizanswerkey` does not yet paginate a long key. Split a long key by
+printing one band at a time, as
+`examples/physicsquiz/PHY104_structured_revision.tex` does.
+
+### `quizquestionbank` compatibility wrapper
+
+```latex
+\begin{quizquestionbank}[<columns>]
+  % quizquestion and quizsolution records
+\end{quizquestionbank}
+```
+
+Declares, selects, and prints the records it encloses, with two columns by
+default. It exists so that documents written against the Checkpoint 4C
+interface need no rewrite. New documents should prefer the explicit
+declare-then-select-then-print form.
+
+### Regression assertions
+
+```latex
+\quizbankassert{<question count>}{<marks total>}
+\quizselectionassert{<count>}{<marks>}{<ordered stable IDs>}
+```
+
+*Stability: advanced ecosystem hook.* These support project test fixtures.
+Ordinary assessment documents do not need them, and they emit typeout markers
+intended for the automated checkers rather than for readers.
+
 ## Answer-key environment
 
 ```latex
@@ -293,7 +450,7 @@ The following names are advanced theme hooks because representative quizzes and
 class styling use them directly:
 
 | Colour | Definition |
-|---|---|
+| --- | --- |
 | `QuizNavy` | `#102A43` |
 | `QuizBlue` | `#00008B` |
 | `QuizLightBlue` | `#EFF6FF` |
@@ -347,7 +504,7 @@ class-option forwarding interface.
 ## Note metadata and title commands
 
 | Command | Arguments | Default or effect |
-|---|---:|---|
+| --- | ---: | --- |
 | `\setnotetitle{<title>}` | 1 required | Replaces `Student Notes` |
 | `\setnotecourse{<course>}` | 1 required | Replaces `Course` |
 | `\setnoteauthor{<author>}` | 1 required | Replaces `Name` |
@@ -383,7 +540,7 @@ preferred author command.
 ## Semantic note environments
 
 | Environment | Syntax | Fixed title | Appearance |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | `quicknote` | `\begin{quicknote}...\end{quicknote}` | Quick Note | soft-yellow background, orange frame |
 | `personalnote` | `\begin{personalnote}...\end{personalnote}` | Personal Note | soft-blue background, `NoteBlue` frame |
 | `importantnote` | `\begin{importantnote}...\end{importantnote}` | Important | soft-green background, green frame |
@@ -396,7 +553,7 @@ regression-verified.
 ## Theorem interfaces
 
 | Environment | Printed name | Numbering |
-|---|---|---|
+| --- | --- | --- |
 | `theorem` | Theorem | independent counter reset by section |
 | `definition` | Definition | independent counter reset by section |
 | `example` | Example | independent counter reset by section |
@@ -454,7 +611,7 @@ undefined references are regression-verified.
 ## Margin-note commands
 
 | Command | Arguments | Output |
-|---|---:|---|
+| --- | ---: | --- |
 | `\notebox{<colour>}{<content>}` | 2 required | Generic small, ragged-right coloured margin note |
 | `\refnote{<content>}` | 1 required | `Ref:` note in `NoteBlue` |
 | `\theoremnote{<content>}` | 1 required | `Thm:` note in purple |
@@ -473,7 +630,7 @@ These commands are stable convenience wrappers around the `witharrows` package's
 `\Arrow` command and are intended for use inside `WithArrows`.
 
 | Command | Inserted annotation |
-|---|---|
+| --- | --- |
 | `\arrowcomment{<text>}` | plain annotation |
 | `\stepnote{<text>}` | plain annotation; currently equivalent to `\arrowcomment` |
 | `\steparrow{<text>}` | bold `Step:` prefix followed by the text |
@@ -510,7 +667,7 @@ source-verified and representative-use verified.
 The following colour names are advanced theme hooks:
 
 | Colour | Definition |
-|---|---|
+| --- | --- |
 | `NoteBlue` | `RGB(30,80,160)` |
 | `SoftBlue` | `RGB(235,245,255)` |
 | `SoftYellow` | `RGB(255,249,220)` |
@@ -541,7 +698,7 @@ class-option forwarding interface.
 ## Project metadata commands
 
 | Command | Arguments | Default |
-|---|---:|---|
+| --- | ---: | --- |
 | `\projectname{<name>}` | 1 required | `Untitled Project` |
 | `\projectid{<identifier>}` | 1 required | `ENG-000` |
 | `\projectversion{<version>}` | 1 required | `0.1` |
@@ -600,7 +757,7 @@ Every semantic environment accepts an optional replacement title:
 ```
 
 | Environment | Default title | Default frame |
-|---|---|---|
+| --- | --- | --- |
 | `idea` | Idea | `OTBlue` |
 | `questionbox` | Engineering Question | `OTPurple` |
 | `decision` | Design Decision | `OTGreen` |
@@ -664,7 +821,7 @@ default height, and fixed title are source-verified.
 The following zero-argument commands produce the corresponding value in bold:
 
 | Command | Output text |
-|---|---|
+| --- | --- |
 | `\statusseed` | Seed |
 | `\statusconcept` | Concept |
 | `\statusdesign` | Design |
@@ -679,7 +836,7 @@ Their expansions are source-verified.
 ## Rating commands
 
 | Command | Output pattern |
-|---|---|
+| --- | --- |
 | `\successrating{<value>}` | **Success Rating:** `<value>/10` |
 | `\confidencerating{<value>}` | **Confidence Rating:** `<value>/10` |
 | `\pursuerating{<value>}` | **Worth Pursuing:** `<value>` |
@@ -693,7 +850,7 @@ values such as `Yes`, `No`, or `Revisit`. The expansions are source-verified.
 Each helper accepts one argument, prints a fixed bold label, and ends the paragraph.
 
 | Command | Fixed label |
-|---|---|
+| --- | --- |
 | `\entrydate{<content>}` | Date: |
 | `\context{<content>}` | Context: |
 | `\observation{<content>}` | Observation: |
@@ -710,7 +867,7 @@ expansions are source-verified.
 The `otengineering` palette is an advanced theme interface:
 
 | Colour | Definition |
-|---|---|
+| --- | --- |
 | `OTDark` | `#1F2937` |
 | `OTMuted` | `#6B7280` |
 | `OTLight` | `#F3F4F6` |
@@ -747,7 +904,7 @@ class-option forwarding interface or class-owned title-metadata commands.
 Every semantic environment accepts an optional replacement title.
 
 | Breakable environment | Non-splitting environment | Default title | Frame |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | `definitionbox` | `definitionboxnosplit` | Definition | `OTBlue` |
 | `theorembox` | `theoremboxnosplit` | Theorem | `OTPurple` |
 | `lawbox` | `lawboxnosplit` | Law / Principle | `OTGreen` |
@@ -807,7 +964,7 @@ their pagination behaviour are regression-verified.
 The science palette is an advanced theme interface:
 
 | Colour | Definition |
-|---|---|
+| --- | --- |
 | `OTDark` | `#1F2937` |
 | `OTMuted` | `#6B7280` |
 | `OTLight` | `#F9FAFB` |
@@ -875,7 +1032,7 @@ the other classes, but `examplebox`, the two generic base-box names, and the sha
 # Cross-class ownership and collision notes
 
 | Name or family | Owner | Classification | Important qualification |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | `choiceoptions`, `\choices` | `physicsquiz` | stable | `\choices` is the five-option compatibility wrapper |
 | `quizquestioncontent`, `quizanswerkeycontent`, `quizsolutioncontent`, `quizteachercontent`, `quizreferencecontent` | `physicsquiz` | stable | section gates controlled by the primary output mode |
 | `\quizversion`, `\quizmarks`, `\quizdifficulty` | `physicsquiz` | stable | display-only Phase 3 metadata and labels; no question storage or mark calculation |
@@ -901,6 +1058,12 @@ This reference does not define contracts for:
 * workbook-only wrappers in `00_common_setup.tex`;
 * internal counters and hyperlink-anchor commands;
 * uppercase or otherwise class-private metadata-storage commands;
+* `expl3` internal functions and variables in the `__pq` namespace, and the
+`PQ4C-` and `PQ4D-` typeout markers, which exist for the automated checkers
+and may change with the tests;
+* raw `xsim` commands, environments, keys, and properties, which back the
+structured question interface as an implementation detail rather than a
+`physicsquiz` author API;
 * package loading order as a general author API; or
 * incidental visual implementation details that do not affect documented public
   behaviour.

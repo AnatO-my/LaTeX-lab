@@ -2,6 +2,182 @@
 
 This file records significant changes to the LaTeX Workspace Learning and Class Refactoring Project.
 
+# Phase 4 changelog section — draft for insertion
+
+Insert the section below into `CHANGELOG.md` immediately after the
+`# Changelog` heading and its introductory sentence, above
+`## Phase 3 — One source, multiple assessment outputs`. Nothing in the existing
+file needs to change.
+
+Two values are left for you to confirm: the completion date, and whether the
+class version line should be advanced (see the note at the end).
+
+---
+
+## Phase 4 — Question-bank architecture
+
+**Completed: 8 August 2026**
+
+### Decided
+
+- Chose an `xsim`-backed storage engine behind a `physicsquiz`-owned author
+  syntax, rather than a lightweight fully custom record implementation. This
+  closes the open decision "whether assessment questions should use a
+  lightweight custom architecture or `xsim`".
+- Fixed the question-record interface and metadata validation policy at
+  Checkpoint 4C, closing the open decision "the exact Phase 4 question-record
+  interface and metadata validation policy".
+- Adopted `xsim` and `siunitx` as verified prerequisites of the structured
+  interface. The Phase 4 runners fail early when `kpsewhich` cannot find them.
+
+### Added
+
+- Added the `quizbank` environment for declaring a structured bank without
+  rendering it.
+- Added the `quizquestion` environment, taking `id`, `topic`, `difficulty`,
+  `marks`, `correct`, and `tags` as required keys and `outcome` as optional.
+- Added the `quizsolution` environment, which must immediately follow its
+  question.
+- Added `quizquestionbank` as a declare-select-print compatibility wrapper for
+  documents written against the Checkpoint 4C interface.
+- Added deterministic selection commands `\quizselectids`, `\quizselect`,
+  `\quizselectall`, and `\quizclearselection`.
+- Added seeded reproducible random selection through
+  `\quizselectrandom[<filters>]{<count>}{<seed>}`.
+- Added the generated output commands `\printquizquestions`,
+  `\printquizanswerkey`, `\printquiztopicreport`, `\printquizsolutions`, and
+  `\printquizteacherreport`.
+- Added the regression assertions `\quizbankassert{<count>}{<marks>}` and
+  `\quizselectionassert{<count>}{<marks>}{<ordered IDs>}`.
+- Added metadata validation with descriptive class errors for missing required
+  keys, malformed stable IDs, duplicate stable IDs, invalid marks values,
+  invalid correct-option labels, orphan solutions, duplicate solutions, and
+  non-adjacent solutions.
+- Added selection validation with descriptive class errors for unknown IDs,
+  empty ID lists, empty selections, empty metadata filters, invalid difficulty
+  or marks filters, and filters matching no records.
+- Added random-selection validation for non-positive and non-integer counts,
+  out-of-range seeds, insufficient candidate pools, exhausted pools, and
+  filters matching no eligible records.
+- Added a class-owned Park-Miller pseudo-random generator using Schrage's
+  overflow-safe update, rejection sampling, and a Fisher-Yates permutation,
+  published under the compatibility marker `park-miller-v1`.
+- Added `examples/physicsquiz/banks/phy104_migration_pilot_bank.tex`, a
+  twelve-record audit pilot covering every topic-by-difficulty combination.
+- Added `examples/physicsquiz/PHY104_migration_pilot.tex`.
+- Added `examples/physicsquiz/banks/phy104_full_question_bank.tex`, the complete
+  sixty-record structured migration of the representative quiz.
+- Added `examples/physicsquiz/PHY104_structured_revision.tex`, the complete
+  structured example document.
+- Added the Phase 4C, 4D, 4E, 4F, and 4G test drivers, the Python checkers
+  `check_physicsquiz_xsim_facade.py`, `check_physicsquiz_selection.py`,
+  `check_physicsquiz_random_selection.py`,
+  `check_physicsquiz_migration_pilot.py`, and
+  `check_physicsquiz_full_migration.py`, and their PowerShell runners.
+
+### Changed
+
+- Separated declaration, selection, and rendering into three distinct stages.
+  Questions are now single authoritative records; answers, solutions, topic
+  reports, and mark totals are derived from them rather than maintained
+  separately.
+- Made `quizquestions` support a single column as well as its established
+  two-column default.
+- Reimplemented `quizquestionbank` as a wrapper that declares, selects, and
+  prints the records it encloses, so Checkpoint 4C documents need no rewrite.
+- Introduced `expl3` programming into `physicsquiz.cls` — key definitions,
+  sequences, property lists, floating-point totals, and regular-expression
+  validation — ahead of the planned Phase 6 introduction of modern interface
+  programming.
+- Corrected the Phase 4C runner to use literal `Select-String` matching, so the
+  `Overfull \hbox` regular-expression failure does not recur.
+
+### Preserved
+
+- Preserved `full,colour` as the no-option default.
+- Preserved `quizquestions`, `choiceoptions`, the legacy five-argument
+  `\choices`, the manual `answerkey` environment, the five Phase 3 semantic
+  gates, version metadata, and the display-only marks and difficulty hooks.
+- Preserved the representative 60-question `PHY104_Exam revision.tex` unchanged,
+  as the fidelity baseline against which the migration is checked.
+- Preserved the accepted 23-page default rendering of that legacy quiz,
+  pixel-identical through Checkpoints 4C, 4D, and 4E.
+- Preserved and excluded the independent modification to
+  `examples/studentnotes/Optics.tex`.
+
+### Verified
+
+- Verified that the Phase 4B proof of concept stored four real questions,
+  derived the answer sequence C, B, B, E, and totalled 8 marks without changing
+  the production class.
+- Verified the Phase 4C production interface across five output modes, one-column
+  and optional-outcome fixtures, and ten deliberate validation failures.
+- Verified deterministic selection across reordered IDs in all five output modes,
+  topic, difficulty, marks and match-all tag filters, append, de-duplication,
+  clearing, select-all, and seven deliberate selection failures.
+- Verified that the same bank, filter, count, and seed reproduce the same ordered
+  stable IDs, that a comparison seed produces a different valid selection, and
+  that seven deliberate random-selection failures behave as intended.
+- Verified the twelve-record migration pilot against the legacy source for stems,
+  choices, choice order, correct options, and worked reasoning.
+- Verified the complete sixty-record migration: all 60 stems, all 300 choices,
+  all 60 correct answers, all 60 worked solutions, record order, stable IDs,
+  topic, difficulty and mark metadata, tags, and learning outcomes, against the
+  legacy source.
+- Verified complete declaration-order selection, three 20-question difficulty
+  bands, deliberately reordered ID selection, combined topic-and-difficulty
+  filtering, tag filtering across bands, and reproducible 12-question random
+  selection under seed 104.
+- Verified the 60-record, 120-mark bank totals through `\quizbankassert` and
+  `\quizselectionassert`.
+- Verified clean compilation of the complete structured example at 25 pages.
+- Verified that positive logs contain no LaTeX warnings, `xsim` warnings,
+  overfull boxes, or underfull boxes.
+- Verified that the Phase 4G runner reruns the accepted 4F, 4E, 4D, 4C, and 3D
+  suites, and that the complete chain passed in the repository-local MiKTeX
+  environment on 6 August 2026.
+
+### Known limitations
+
+- A generated 60-entry answer key is taller than one page. The complete example
+  therefore prints three 20-question band keys. `\printquizanswerkey` does not
+  yet paginate a long key by itself.
+- `quizquestionbank` clears the current selection before printing the records it
+  encloses. Mixing it with explicit selection commands in one document discards
+  the earlier selection.
+- A semantic gate that changes the selection leaves that change in place for
+  later gates. The complete example re-selects deliberately for this reason.
+- The structured bank and the legacy quiz now describe the same 60 questions.
+  This duplication persists until the legacy source is retired.
+- Changing the `park-miller-v1` algorithm would be a documented compatibility
+  break, because existing seeds would stop reproducing their selections.
+
+### Deferred
+
+- Choice shuffling within a question.
+- Assigning questions to multiple version labels from a version manifest.
+- Balancing a random paper to a target mark total.
+- Retiring or replacing the legacy `PHY104_Exam revision.tex`.
+- A pagination strategy for long generated answer keys.
+- Any use of `xsim`'s own selection, collection, or grading facilities beyond
+  storage.
+
+---
+
+## Note on the class version line
+
+`src/classes/physicsquiz.cls` currently declares:
+
+```latex
+\ProvidesClass{physicsquiz}[2026/08/06 Stylish physics quiz class]
+```
+
+It carries a date but no semantic version, so a document cannot test for the
+presence of the structured interface. Phase 10 owns release-versioning
+conventions, so this draft does not change it — but it is worth deciding now
+whether Phase 4 should have bumped a version number, because the structured
+interface is the largest addition the class has ever received.
+
 ## Phase 3 — One source, multiple assessment outputs
 
 **Completed: 6 August 2026**
