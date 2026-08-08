@@ -1,0 +1,57 @@
+\documentclass[full,10pt,a4paper]{physicsquiz}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.35em}
+\raggedcolumns
+
+\quizfontsize{9.4pt}{11.5pt}
+\quiztitle{Comprehensive Practice: 60 Questions}
+\quizcourse{PHY 104 Oscillations, Normal Modes, Waves and Optics}
+\quizauthor{Prepared by OT}
+\quizinstitution{Drill Tutors}
+\quizinstructions{Choose the best answer in each case. Questions 1—20 test foundations, Questions 21—40 test applied reasoning, and Questions 41—60 are multi-step challenges. Work independently before consulting the answer key and fully worked solutions.}
+\quizconstants{\(g=\SI{9.80}{m.s^{-2}}\), \(v_{\text{sound}}=\SI{343}{m.s^{-1}}\) unless otherwise stated, \(c=\SI{3.00e8}{m.s^{-1}}\), \(\rho_{\text{air}}=\SI{1.21}{kg.m^{-3}}\), \(I_0=\SI{1.00e-12}{W.m^{-2}}\). Angles are measured from the normal unless stated otherwise.}
+
+\begin{document}
+\pagenumbering{gobble}
+\makequiztitle
+\pagenumbering{roman}
+\tableofcontents
+\clearpage
+\pagenumbering{arabic}
+
+\begin{quizbank}
+  \input{banks/phy104_full_question_bank.tex}
+\end{quizbank}
+
+\quizselectall
+\quizbankassert{60}{120}
+\quizselectionassert{60}{120}{phy104-osc-001,phy104-osc-002,phy104-osc-003,phy104-osc-004,phy104-osc-005,phy104-nm-006,phy104-nm-007,phy104-nm-008,phy104-nm-009,phy104-nm-010,phy104-wave-011,phy104-wave-012,phy104-wave-013,phy104-wave-014,phy104-wave-015,phy104-opt-016,phy104-opt-017,phy104-opt-018,phy104-opt-019,phy104-opt-020,phy104-osc-021,phy104-osc-022,phy104-osc-023,phy104-osc-024,phy104-osc-025,phy104-nm-026,phy104-nm-027,phy104-nm-028,phy104-nm-029,phy104-nm-030,phy104-wave-031,phy104-wave-032,phy104-wave-033,phy104-wave-034,phy104-wave-035,phy104-opt-036,phy104-opt-037,phy104-opt-038,phy104-opt-039,phy104-opt-040,phy104-osc-041,phy104-osc-042,phy104-osc-043,phy104-osc-044,phy104-osc-045,phy104-nm-046,phy104-nm-047,phy104-nm-048,phy104-nm-049,phy104-nm-050,phy104-wave-051,phy104-wave-052,phy104-wave-053,phy104-wave-054,phy104-wave-055,phy104-opt-056,phy104-opt-057,phy104-opt-058,phy104-opt-059,phy104-opt-060}
+\printquizquestions[2]
+
+\begin{quizanswerkeycontent}
+  \clearpage
+  \quizclearselection
+  \quizselect[difficulty=foundation]
+  \printquizanswerkey
+  \quizclearselection
+  \quizselect[difficulty=applied]
+  \printquizanswerkey
+  \quizclearselection
+  \quizselect[difficulty=challenge]
+  \printquizanswerkey
+\end{quizanswerkeycontent}
+
+\begin{quizsolutioncontent}
+  \clearpage
+  \quizclearselection
+  \quizselectall
+  \printquizsolutions
+\end{quizsolutioncontent}
+
+\begin{quizteachercontent}
+  \clearpage
+  \printquizteacherreport
+\end{quizteachercontent}
+
+\end{document}

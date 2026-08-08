@@ -1,0 +1,1570 @@
+% Phase 4G: complete structured migration of all sixty records from
+% examples/physicsquiz/PHY104_Exam revision.tex.
+%
+% Question wording, choice order, correct answers, and worked-solution
+% reasoning are preserved. Stable IDs and metadata are the new layer.
+
+\begin{quizquestion}[
+  id=phy104-osc-001,
+  topic=oscillations,
+  difficulty=foundation,
+  marks=1,
+  correct=C,
+  tags={shm,restoring-force,hookes-law},
+  outcome={Identify the magnitude and direction of a restoring force}
+]
+  A particle is displaced a distance \(x>0\) from equilibrium and executes simple harmonic motion. Which expression correctly gives the restoring force and its direction?
+    \choices{\(F=+kx\), directed away from equilibrium}{\(F=-kx\), directed away from equilibrium}{\(F=-kx\), directed toward equilibrium}{\(F=-k/x\), directed toward equilibrium}{\(F=0\) because the particle is momentarily displaced}
+\end{quizquestion}
+\begin{quizsolution}
+  For simple harmonic motion, the defining force law is Hooke's law,
+    \[
+      F=-kx.
+    \]
+    The magnitude \(kx\) is proportional to the displacement. The minus sign does not mean that the force is always numerically negative; it means that the force points opposite to the displacement. Since \(x>0\), the restoring force points in the negative direction, toward equilibrium. Hence option \textbf{C}.
+\end{quizsolution}
+
+\begin{quizquestion}[
+  id=phy104-osc-002,
+  topic=oscillations,
+  difficulty=foundation,
+  marks=1,
+  correct=B,
+  tags={mass-spring,period,angular-frequency},
+  outcome={Calculate the period of a mass--spring oscillator}
+]
+  A \SI{0.50}{kg} mass is attached to a spring of constant \SI{200}{N.m^{-1}}. What is the period of the motion?
+    \choices{\SI{0.157}{s}}{\SI{0.314}{s}}{\SI{0.628}{s}}{\SI{1.57}{s}}{\SI{3.14}{s}}
+\end{quizquestion}
+\begin{quizsolution}
+  For a mass{--}spring oscillator,
+    \[
+      T=2\pi\sqrt{\frac{m}{k}}.
+    \]
+    Substituting \(m=\SI{0.50}{kg}\) and \(k=\SI{200}{N.m^{-1}}\),
+    \[
+      T=2\pi\sqrt{\frac{0.50}{200}}
+      =2\pi\sqrt{0.0025}
+      =2\pi(0.0500)
+      =\SI{0.314}{s}.
+    \]
+    Therefore, option \textbf{B} is correct.
+\end{quizsolution}
+
+\begin{quizquestion}[
+  id=phy104-osc-003,
+  topic=oscillations,
+  difficulty=foundation,
+  marks=1,
+  correct=D,
+  tags={shm,maximum-speed,frequency},
+  outcome={Calculate maximum speed from amplitude and frequency}
+]
+  A platform oscillates with amplitude \SI{4.0}{cm} and frequency \SI{2.5}{Hz}. What is its maximum speed?
+    \choices{\SI{0.100}{m.s^{-1}}}{\SI{0.251}{m.s^{-1}}}{\SI{0.400}{m.s^{-1}}}{\SI{0.628}{m.s^{-1}}}{\SI{1.57}{m.s^{-1}}}
+\end{quizquestion}
+\begin{quizsolution}
+  The maximum speed in SHM is
+    \[
+      v_{\max}=\omega A=2\pi fA.
+    \]
+    Here, \(A=\SI{0.040}{m}\) and \(f=\SI{2.5}{Hz}\), so
+    \[
+      v_{\max}=2\pi(2.5)(0.040)=\SI{0.628}{m.s^{-1}}.
+    \]
+    Thus, option \textbf{D}.
+\end{quizsolution}
+
+\begin{quizquestion}[
+  id=phy104-osc-004,
+  topic=oscillations,
+  difficulty=foundation,
+  marks=1,
+  correct=B,
+  tags={shm,energy,displacement},
+  outcome={Partition oscillator energy at a specified displacement}
+]
+  A mass—spring oscillator has amplitude \(A\) and total mechanical energy \(E\). When the displacement is \(x=A/2\), which statement is correct?
+    \choices{\(U=E/2\) and \(K=E/2\)}{\(U=E/4\) and \(K=3E/4\)}{\(U=3E/4\) and \(K=E/4\)}{\(U=E\) and \(K=0\)}{\(U=0\) and \(K=E\)}
+\end{quizquestion}
+\begin{quizsolution}
+  For a spring oscillator,
+    \[
+      E=\frac12 kA^2,\qquad U=\frac12 kx^2.
+    \]
+    At \(x=A/2\),
+    \[
+      U=\frac12 k{\left\{\frac{A}{2}\right\}}^2
+      =\frac18 kA^2
+      =\frac14\left(\frac12 kA^2\right)
+      =\frac{E}{4}.
+    \]
+    Energy conservation gives \(K=E-U=3E/4\). Hence option \textbf{B}.
+\end{quizsolution}
+
+\begin{quizquestion}[
+  id=phy104-osc-005,
+  topic=oscillations,
+  difficulty=foundation,
+  marks=1,
+  correct=A,
+  tags={pendulum,period,length},
+  outcome={Determine pendulum length from its period}
+]
+  What length must a simple pendulum have to possess a period of \SI{2.00}{s} near Earth's surface?
+    \choices{\SI{0.993}{m}}{\SI{1.56}{m}}{\SI{2.00}{m}}{\SI{3.12}{m}}{\SI{9.80}{m}}
+\end{quizquestion}
+\begin{quizsolution}
+  For a small-amplitude simple pendulum,
+    \[
+      T=2\pi\sqrt{\frac{L}{g}}.
+    \]
+    Solving for \(L\),
+    \[
+      L=g{\left(\frac{T}{2\pi}\right)}^2
+      =9.80{\left(\frac{2.00}{2\pi}\right)}^2
+      =\SI{0.993}{m}.
+    \]
+    Therefore, option \textbf{A}.
+\end{quizsolution}
+
+\begin{quizquestion}[
+  id=phy104-nm-006,
+  topic=normal-modes,
+  difficulty=foundation,
+  marks=1,
+  correct=B,
+  tags={normal-mode,coupled-system,phase-relation},
+  outcome={Recognise the defining features of a normal mode}
+]
+  Which statement best defines a normal mode of a coupled system?
+    \choices{Every part remains at rest while energy moves through the system.}{Every part oscillates with one angular frequency and fixed phase relations.}{Different parts oscillate at unrelated frequencies.}{Only one part of the system is allowed to move.}{The coupling force must vanish at every instant.}
+\end{quizquestion}
+\begin{quizsolution}
+  A normal mode is a special coordinated motion. Every moving part has the same angular frequency, while the phase relation and amplitude ratio between parts remain fixed. The parts don't necessarily have equal amplitudes, and the coupling force need not always vanish. Hence option \textbf{B}.
+\end{quizsolution}
+
+\begin{quizquestion}[
+  id=phy104-nm-007,
+  topic=normal-modes,
+  difficulty=foundation,
+  marks=1,
+  correct=A,
+  tags={coupled-oscillators,in-phase,normal-frequency},
+  outcome={Identify the in-phase normal frequency}
+]
+  Two identical masses \(m\) are attached to end springs of constant \(k\) and joined by a coupling spring \(k_c\). What is the angular frequency of the in-phase mode?
+    \choices{\(\sqrt{k/m}\)}{\(\sqrt{k_c/m}\)}{\(\sqrt{(k+k_c)/m}\)}{\(\sqrt{(k+2k_c)/m}\)}{\(\sqrt{2k/m}\)}
+\end{quizquestion}
+\begin{quizsolution}
+  In the in-phase mode, \(x_1=x_2\). The coupling spring has no change in length because both masses move together (in the same direction). It therefore adds no restoring force. Each mass behaves as though attached only to its outer spring, giving
+    \[
+      \omega_1=\sqrt{\frac{k}{m}}.
+    \]
+    Thus, option \textbf{A}.
+\end{quizsolution}
+
+\begin{quizquestion}[
+  id=phy104-nm-008,
+  topic=normal-modes,
+  difficulty=foundation,
+  marks=1,
+  correct=D,
+  tags={coupled-oscillators,out-of-phase,eigenvector},
+  outcome={Recognise an out-of-phase mode vector}
+]
+  Which amplitude vector represents the out-of-phase normal mode of two identical coupled oscillators?
+    \choices{\(\begin{bmatrix}0\\0\end{bmatrix}\)}{\(\begin{bmatrix}1\\0\end{bmatrix}\)}{\(\begin{bmatrix}1\\1\end{bmatrix}\)}{\(\begin{bmatrix}1\\-1\end{bmatrix}\)}{\(\begin{bmatrix}1\\2\end{bmatrix}\)}
+\end{quizquestion}
+\begin{quizsolution}
+  Out-of-phase motion requires equal and opposite displacements:
+    \[
+      x_1=-x_2.
+    \]
+    The vector \({[1,-1]}^T\) encodes precisely this relation. Any nonzero scalar multiple, such as \({[3,-3]}^T\), describes the same mode shape.\\
+    I may write vectors like \({[1, 1]}^T\), instead of the usual \({\displaystyle{\binom{1}{1}}}\) Therefore, option \textbf{D}.
+\end{quizsolution}
+
+\begin{quizquestion}[
+  id=phy104-nm-009,
+  topic=normal-modes,
+  difficulty=foundation,
+  marks=1,
+  correct=C,
+  tags={coupled-oscillators,out-of-phase,coupling-spring},
+  outcome={Explain the higher out-of-phase frequency}
+]
+  Why is the out-of-phase normal frequency higher than the in-phase normal frequency in the symmetric two-mass system?
+    \choices{The masses become heavier in the out-of-phase mode.}{The end springs stop exerting forces.}{The coupling spring is strongly stretched or compressed and adds restoring force.}{The coupling spring removes kinetic energy permanently.}{The amplitude vector is not an eigenvector.}
+\end{quizquestion}
+\begin{quizsolution}
+  When the masses move oppositely, their relative displacement is large. The middle spring is therefore stretched or compressed substantially, so it contributes an additional restoring force. A stronger effective restoring action produces a larger angular frequency. Hence option \textbf{C}.
+\end{quizsolution}
+
+\begin{quizquestion}[
+  id=phy104-nm-010,
+  topic=normal-modes,
+  difficulty=foundation,
+  marks=1,
+  correct=B,
+  tags={coupled-oscillators,frequency-ratio,normal-frequency},
+  outcome={Calculate a normal-frequency ratio}
+]
+  For \(k=\SI{100}{N.m^{-1}}\) and \(k_c=\SI{50}{N.m^{-1}}\), what is the ratio \(\omega_2/\omega_1\)?
+    \choices{\(1.00\)}{\(\sqrt{2}\approx1.41\)}{\(2.00\)}{\(\sqrt{3}\approx1.73\)}{\(0.707\)}
+\end{quizquestion}
+\begin{quizsolution}
+  The two angular frequencies are
+    \[
+      \omega_1=\sqrt{\frac{k}{m}},\qquad
+      \omega_2=\sqrt{\frac{k+2k_c}{m}}.
+    \]
+    Thus,
+    \[
+      \frac{\omega_2}{\omega_1}
+      =\sqrt{\frac{k+2k_c}{k}}
+      =\sqrt{\frac{100+2(50)}{100}}
+      =\sqrt{2}.
+    \]
+    Therefore, option \textbf{B}.
+\end{quizsolution}
+
+\begin{quizquestion}[
+  id=phy104-wave-011,
+  topic=waves-and-sound,
+  difficulty=foundation,
+  marks=1,
+  correct=C,
+  tags={travelling-wave,wavelength,wave-speed},
+  outcome={Extract wavelength and speed from a travelling-wave equation}
+]
+  A transverse wave is described by \(y=(\SI{3.0}{mm})\sin(4x-20t)\), with SI units. Which pair gives its wavelength and speed?
+    \choices{\(\lambda=\SI{0.250}{m}\), \(v=\SI{80}{m.s^{-1}}\)}{\(\lambda=\SI{1.00}{m}\), \(v=\SI{5.0}{m.s^{-1}}\)}{\(\lambda=\SI{1.57}{m}\), \(v=\SI{5.0}{m.s^{-1}}\)}{\(\lambda=\SI{1.57}{m}\), \(v=\SI{80}{m.s^{-1}}\)}{\(\lambda=\SI{6.28}{m}\), \(v=\SI{0.20}{m.s^{-1}}\)}
+\end{quizquestion}
+\begin{quizsolution}
+  Comparing with \(y=A\sin(kx-\omega t)\) gives \(k=\SI{4}{rad.m^{-1}}\) and \(\omega=\SI{20}{rad.s^{-1}}\). Hence,
+    \[
+      \lambda=\frac{2\pi}{k}=\frac{2\pi}{4}=\SI{1.57}{m},
+      \qquad
+      v=\frac{\omega}{k}=\frac{20}{4}=\SI{5.0}{m.s^{-1}}.
+    \]
+    Thus, option \textbf{C}.
+\end{quizsolution}
+
+\begin{quizquestion}[
+  id=phy104-wave-012,
+  topic=waves-and-sound,
+  difficulty=foundation,
+  marks=1,
+  correct=D,
+  tags={travelling-wave,direction,wave-speed},
+  outcome={Determine propagation direction and speed from a wave equation}
+]
+  The wave \(y=A\cos(6x+24t)\) travels in which direction and at what speed?
+    \choices{+\(x\) at \SI{24}{m.s^{-1}}}{+\(x\) at \SI{4}{m.s^{-1}}}{-\(x\) at \SI{24}{m.s^{-1}}}{-\(x\) at \SI{4}{m.s^{-1}}}{It is a standing wave.}
+\end{quizquestion}
+\begin{quizsolution}
+  A travelling wave of the form \(kx+\omega t\) moves in the negative \(x\)-direction. Its speed is
+    \[
+      v=\frac{\omega}{k}=\frac{24}{6}=\SI{4}{m.s^{-1}}.
+    \]
+    Therefore, option \textbf{D}.
+\end{quizsolution}
+
+\begin{quizquestion}[
+  id=phy104-wave-013,
+  topic=waves-and-sound,
+  difficulty=foundation,
+  marks=1,
+  correct=B,
+  tags={standing-wave,nodes,wavelength},
+  outcome={Relate node spacing to wavelength}
+]
+  A standing wave has wavelength \SI{0.80}{m}. What is the separation between adjacent nodes?
+    \choices{\SI{0.20}{m}}{\SI{0.40}{m}}{\SI{0.80}{m}}{\SI{1.20}{m}}{\SI{1.60}{m}}
+\end{quizquestion}
+\begin{quizsolution}
+  Adjacent nodes of a standing wave are separated by half a wavelength:
+    \[
+      \Delta x_{\text{node-node}}=\frac{\lambda}{2}
+      =\frac{0.80}{2}=\SI{0.40}{m}.
+    \]
+    Hence option \textbf{B}.
+\end{quizsolution}
+
+\begin{quizquestion}[
+  id=phy104-wave-014,
+  topic=waves-and-sound,
+  difficulty=foundation,
+  marks=1,
+  correct=E,
+  tags={string,harmonics,frequency},
+  outcome={Calculate a string harmonic frequency}
+]
+  A string of length \SI{0.80}{m}, fixed at both ends, carries waves at \SI{120}{m.s^{-1}}. What is the third-harmonic frequency?
+    \choices{\SI{75}{Hz}}{\SI{120}{Hz}}{\SI{150}{Hz}}{\SI{180}{Hz}}{\SI{225}{Hz}}
+\end{quizquestion}
+\begin{quizsolution}
+  For a string fixed at both ends,
+    \[
+      f_n=\frac{nv}{2L}.
+    \]
+    With \(n=3\),
+    \[
+      f_3=\frac{3(120)}{2(0.80)}=\frac{360}{1.60}=\SI{225}{Hz}.
+    \]
+    Thus, option \textbf{E}.
+\end{quizsolution}
+
+\begin{quizquestion}[
+  id=phy104-wave-015,
+  topic=waves-and-sound,
+  difficulty=foundation,
+  marks=1,
+  correct=C,
+  tags={sound,intensity-level,decibel},
+  outcome={Convert sound intensity to intensity level}
+]
+  A sound intensity is \SI{1.0e-6}{W.m^{-2}}. What is the corresponding sound level? Take \(I_0=\SI{1.0e-12}{W.m^{-2}}\).
+    \choices{\SI{6}{dB}}{\SI{12}{dB}}{\SI{60}{dB}}{\SI{100}{dB}}{\SI{120}{dB}}
+\end{quizquestion}
+\begin{quizsolution}
+  The sound level is
+    \[
+      \beta=10\log_{10}\left(\frac{I}{I_0}\right).
+    \]
+    Here, \(I/I_0=10^{-6}/10^{-12}=10^6\), so
+    \[
+      \beta=10\log_{10}(10^6)=10(6)=\SI{60}{dB}.
+    \]
+    Therefore, option \textbf{C}.
+\end{quizsolution}
+
+\begin{quizquestion}[
+  id=phy104-opt-016,
+  topic=optics,
+  difficulty=foundation,
+  marks=1,
+  correct=A,
+  tags={refraction,refractive-index,wavelength},
+  outcome={Determine wave speed and wavelength in a refracting medium}
+]
+  Light of vacuum wavelength \SI{600}{nm} enters a medium of refractive index \(1.50\). Which pair gives its speed and wavelength in the medium?
+    \choices{\(\SI{2.00e8}{m.s^{-1}}\) and \SI{400}{nm}}{\(\SI{2.00e8}{m.s^{-1}}\) and \SI{600}{nm}}{\(\SI{3.00e8}{m.s^{-1}}\) and \SI{400}{nm}}{\(\SI{4.50e8}{m.s^{-1}}\) and \SI{900}{nm}}{\(\SI{1.50e8}{m.s^{-1}}\) and \SI{300}{nm}}
+\end{quizquestion}
+\begin{quizsolution}
+  The speed is
+    \[
+      v=\frac{c}{n}=\frac{3.00\times10^8}{1.50}=\SI{2.00e8}{m.s^{-1}}.
+    \]
+    The frequency is fixed by the source and does not change at the boundary. Hence,
+    \[
+      \lambda=\frac{\lambda_0}{n}=\frac{600}{1.50}=\SI{400}{nm}.
+    \]
+    Thus, option \textbf{A}.
+\end{quizsolution}
+
+\begin{quizquestion}[
+  id=phy104-opt-017,
+  topic=optics,
+  difficulty=foundation,
+  marks=1,
+  correct=D,
+  tags={refraction,snells-law,angle},
+  outcome={Apply Snell's law to determine a refraction angle}
+]
+  A ray passes from air into glass of refractive index \(1.50\) at an incidence angle of \(30.0^\circ\). What is the refracted angle?
+    \choices{\(10.0^\circ\)}{\(15.0^\circ\)}{\(30.0^\circ\)}{\(19.5^\circ\)}{\(48.6^\circ\)}
+\end{quizquestion}
+\begin{quizsolution}
+  Snell's law gives
+    \[
+      n_1\sin\theta_1=n_2\sin\theta_2.
+    \]
+    With \(n_1=1.00\), \(n_2=1.50\), and \(\theta_1=30.0^\circ\),
+    \[
+      \sin\theta_2=\frac{\sin30^\circ}{1.50}=\frac{0.5}{1.5}=\frac13.
+    \]
+    Therefore, \(\theta_2=\sin^{-1}(1/3)=19.5^\circ\), so option \textbf{D}.
+\end{quizsolution}
+
+\begin{quizquestion}[
+  id=phy104-opt-018,
+  topic=optics,
+  difficulty=foundation,
+  marks=1,
+  correct=B,
+  tags={double-slit,fringe-spacing,interference},
+  outcome={Calculate Young double-slit fringe spacing}
+]
+  In a Young double-slit experiment, \(\lambda=\SI{600}{nm}\), the screen distance is \SI{2.0}{m}, and the slit separation is \SI{0.40}{mm}. What is the fringe spacing?
+    \choices{\SI{0.75}{mm}}{\SI{3.00}{mm}}{\SI{6.00}{mm}}{\SI{12.0}{mm}}{\SI{30.0}{mm}}
+\end{quizquestion}
+\begin{quizsolution}
+  For small angles, the double-slit fringe spacing is
+    \[
+      \Delta y=\frac{\lambda L}{d}.
+    \]
+    Thus,
+    \[
+      \Delta y=\frac{(600\times10^{-9})(2.0)}{0.40\times10^{-3}}
+      =3.00\times10^{-3}\ \mathrm{m}
+      =\SI{3.00}{mm}.
+    \]
+    Hence option \textbf{B}.
+\end{quizsolution}
+
+\begin{quizquestion}[
+  id=phy104-opt-019,
+  topic=optics,
+  difficulty=foundation,
+  marks=1,
+  correct=E,
+  tags={single-slit,diffraction,first-minimum},
+  outcome={Calculate the first single-slit minimum angle}
+]
+  Light of wavelength \SI{500}{nm} passes through a single slit of width \SI{0.20}{mm}. At what angle does the first minimum occur?
+    \choices{\(0.0143^\circ\)}{\(0.0286^\circ\)}{\(0.0716^\circ\)}{\(0.100^\circ\)}{\(0.143^\circ\)}
+\end{quizquestion}
+\begin{quizsolution}
+  For the first single-slit minimum,
+    \[
+      a\sin\theta=\lambda.
+    \]
+    Therefore,
+    \[
+      \sin\theta=\frac{500\times10^{-9}}{0.20\times10^{-3}}=2.50\times10^{-3}.
+    \]
+    Thus, \(\theta\approx2.50\times10^{-3}\ \mathrm{rad}=0.143^\circ\). Option \textbf{E}.
+\end{quizsolution}
+
+\begin{quizquestion}[
+  id=phy104-opt-020,
+  topic=optics,
+  difficulty=foundation,
+  marks=1,
+  correct=C,
+  tags={rayleigh-criterion,resolution,aperture},
+  outcome={Calculate diffraction-limited angular resolution}
+]
+  A telescope of aperture diameter \SI{0.10}{m} observes light of wavelength \SI{550}{nm}. What is its diffraction-limited angular resolution?
+    \choices{\(5.50\times10^{-7}\ \mathrm{rad}\)}{\(4.51\times10^{-6}\ \mathrm{rad}\)}{\(6.71\times10^{-6}\ \mathrm{rad}\)}{\(1.22\times10^{-5}\ \mathrm{rad}\)}{\(6.71\times10^{-5}\ \mathrm{rad}\)}
+\end{quizquestion}
+\begin{quizsolution}
+  Rayleigh's criterion for a circular aperture is
+    \[
+      \theta_R=1.22\frac{\lambda}{D}.
+    \]
+    Hence,
+    \[
+      \theta_R=1.22\frac{550\times10^{-9}}{0.10}
+      =6.71\times10^{-6}\ \mathrm{rad}.
+    \]
+    Therefore, option \textbf{C}.
+\end{quizsolution}
+
+\begin{quizquestion}[
+  id=phy104-osc-021,
+  topic=oscillations,
+  difficulty=applied,
+  marks=2,
+  correct=B,
+  tags={shm,initial-conditions,phase-constant},
+  outcome={Determine amplitude and phase from initial conditions}
+]
+  An oscillator obeys \(x=A\cos(\omega t+\phi)\). At \(t=0\), \(x=\SI{3.0}{cm}\) and \(v=\SI{-0.40}{m.s^{-1}}\), while \(\omega=\SI{10}{rad.s^{-1}}\). What are \(A\) and \(\phi\)?
+    \choices{\(A=\SI{4.0}{cm}\), \(\phi=36.9^\circ\)}{\(A=\SI{5.0}{cm}\), \(\phi=53.1^\circ\)}{\(A=\SI{5.0}{cm}\), \(\phi=-53.1^\circ\)}{\(A=\SI{7.0}{cm}\), \(\phi=45.0^\circ\)}{\(A=\SI{3.0}{cm}\), \(\phi=90.0^\circ\)}
+\end{quizquestion}
+\begin{quizsolution}
+  At \(t=0\),
+    \[
+      x_0=A\cos\phi,\qquad v_0=-A\omega\sin\phi.
+    \]
+    Therefore,
+    \[
+      A^2=x_0^2+{\left(\frac{v_0}{\omega}\right)}^2
+      ={(0.030)}^2+{(0.040)}^2={(0.050)}^2,
+    \]
+    so \(A=\SI{5.0}{cm}\). Also,
+    \[
+      \cos\phi=0.030/0.050=0.6,
+      \qquad
+      \sin\phi=-v_0/(A\omega)=0.8.
+    \]
+    Both are positive, so \(\phi=53.1^\circ\). Hence option \textbf{B}.
+\end{quizsolution}
+
+\begin{quizquestion}[
+  id=phy104-osc-022,
+  topic=oscillations,
+  difficulty=applied,
+  marks=2,
+  correct=D,
+  tags={physical-pendulum,rod,period},
+  outcome={Calculate the period of a rod as a physical pendulum}
+]
+  A uniform rod of length \SI{1.20}{m} swings with small amplitude about a horizontal pivot through one end. What is its period?
+    \choices{\SI{0.898}{s}}{\SI{1.27}{s}}{\SI{1.55}{s}}{\SI{1.80}{s}}{\SI{2.20}{s}}
+\end{quizquestion}
+\begin{quizsolution}
+  For a physical pendulum,
+    \[
+      T=2\pi\sqrt{\frac{I}{mgh}}.
+    \]
+    For a uniform rod pivoted at one end, \(I=mL^2/3\) and the centre of mass is at \(h=L/2\). Thus,
+    \[
+      T=2\pi\sqrt{\frac{mL^2/3}{mg(L/2)}}
+      =2\pi\sqrt{\frac{2L}{3g}}.
+    \]
+    With \(L=\SI{1.20}{m}\),
+    \[
+      T=2\pi\sqrt{\frac{2(1.20)}{3(9.80)}}=\SI{1.80}{s}.
+    \]
+    Therefore, option \textbf{D}.
+\end{quizsolution}
+
+\begin{quizquestion}[
+  id=phy104-osc-023,
+  topic=oscillations,
+  difficulty=applied,
+  marks=2,
+  correct=C,
+  tags={springs,series,effective-stiffness},
+  outcome={Determine the period for springs connected in series}
+]
+  Three identical springs, each of constant \SI{120}{N.m^{-1}}, are connected in series to a \SI{0.36}{kg} mass. What is the oscillation period?
+    \choices{\SI{0.172}{s}}{\SI{0.344}{s}}{\SI{0.596}{s}}{\SI{1.03}{s}}{\SI{1.88}{s}}
+\end{quizquestion}
+\begin{quizsolution}
+  For three identical springs in series,
+    \[
+      \frac{1}{k_{\mathrm{eq}}}=\frac{1}{k}+\frac{1}{k}+\frac{1}{k}=\frac{3}{k},
+    \]
+    so \(k_{\mathrm{eq}}=k/3=\SI{40}{N.m^{-1}}\). Therefore,
+    \[
+      T=2\pi\sqrt{\frac{m}{k_{\mathrm{eq}}}}
+      =2\pi\sqrt{\frac{0.36}{40}}
+      =\SI{0.596}{s}.
+    \]
+    Hence option \textbf{C}.
+\end{quizsolution}
+
+\begin{quizquestion}[
+  id=phy104-osc-024,
+  topic=oscillations,
+  difficulty=applied,
+  marks=2,
+  correct=A,
+  tags={collision,ballistic-oscillator,amplitude},
+  outcome={Combine momentum conservation with subsequent SHM}
+]
+  A \SI{10.0}{g} bullet moving at \SI{400}{m.s^{-1}} embeds in a \SI{1.99}{kg} block attached to a spring of constant \SI{800}{N.m^{-1}}. The block is initially at equilibrium and at rest. Which pair gives the speed immediately after impact and the resulting amplitude?
+    \choices{\SI{2.00}{m.s^{-1}} and \SI{0.100}{m}}{\SI{4.00}{m.s^{-1}} and \SI{0.200}{m}}{\SI{2.01}{m.s^{-1}} and \SI{0.050}{m}}{\SI{1.00}{m.s^{-1}} and \SI{0.100}{m}}{\SI{200}{m.s^{-1}} and \SI{0.500}{m}}
+\end{quizquestion}
+\begin{quizsolution}
+  During the short collision, horizontal momentum is conserved:
+    \[
+      m_{b}v_{b}=(M+m_{b})V.
+    \]
+    Thus,
+    \[
+      V=\frac{(0.0100)(400)}{1.99+0.0100}=\SI{2.00}{m.s^{-1}}.
+    \]
+    After the collision, the total mass is \SI{2.00}{kg}, so
+    \[
+      \omega=\sqrt{\frac{k}{M+m_b}}=\sqrt{\frac{800}{2.00}}=\SI{20.0}{rad.s^{-1}}.
+    \]
+    Starting at equilibrium with speed \(V\), the amplitude is \(A=V/\omega=2.00/20.0=\SI{0.100}{m}\). Option \textbf{A}.
+\end{quizsolution}
+
+\begin{quizquestion}[
+  id=phy104-osc-025,
+  topic=oscillations,
+  difficulty=applied,
+  marks=2,
+  correct=E,
+  tags={torsional-oscillator,energy,angular-speed},
+  outcome={Use energy conservation in a torsional oscillator}
+]
+  A torsional oscillator has torsion constant \[\kappa=\SI{0.80}{N.m.rad^{-1}},\] moment of inertia \(I=\SI{0.020}{kg.m^2}\), and angular amplitude \(\theta_{\max}=\SI{0.25}{rad}\). What is its angular speed when \(\theta=\SI{0.15}{rad}\)?
+    \choices{\SI{0.400}{rad.s^{-1}}}{\SI{0.800}{rad.s^{-1}}}{\SI{1.00}{rad.s^{-1}}}{\SI{1.60}{rad.s^{-1}}}{\SI{1.26}{rad.s^{-1}}}
+\end{quizquestion}
+\begin{quizsolution}
+  Conservation of energy gives
+    \[
+      \frac12\kappa\theta_{\max}^2
+      =\frac12\kappa\theta^2+\frac12I\dot\theta^2.
+    \]
+    Hence,
+    \[
+      \dot\theta=\sqrt{\frac{\kappa}{I}\left(\theta_{\max}^2-\theta^2\right)}.
+    \]
+    Substituting,
+    \[
+      \dot\theta=\sqrt{\frac{0.80}{0.020}\left(0.25^2-0.15^2\right)}
+      =\sqrt{40(0.0400)}
+      =\SI{1.26}{rad.s^{-1}}.
+    \]
+    Thus, option \textbf{E}.
+\end{quizsolution}
+
+\begin{quizquestion}[
+  id=phy104-nm-026,
+  topic=normal-modes,
+  difficulty=applied,
+  marks=2,
+  correct=B,
+  tags={coupled-oscillators,normal-frequency,eigenfrequencies},
+  outcome={Calculate the normal frequencies of a symmetric coupled system}
+]
+  For two identical coupled oscillators, \(m=\SI{0.50}{kg}\), \(k=\SI{100}{N.m^{-1}}\), and \(k_c=\SI{50}{N.m^{-1}}\). What are the two normal angular frequencies?
+    \choices{\(10.0\) and \(14.1\ \mathrm{rad\,s^{-1}}\)}{\(14.1\) and \(20.0\ \mathrm{rad\,s^{-1}}\)}{\(20.0\) and \(28.3\ \mathrm{rad\,s^{-1}}\)}{\(7.07\) and \(14.1\ \mathrm{rad\,s^{-1}}\)}{\(14.1\) and \(17.3\ \mathrm{rad\,s^{-1}}\)}
+\end{quizquestion}
+\begin{quizsolution}
+  The symmetric-system frequencies are
+    \[
+      \omega_1=\sqrt{\frac{k}{m}},\qquad
+      \omega_2=\sqrt{\frac{k+2k_c}{m}}.
+    \]
+    Thus,
+    \[
+      \omega_1=\sqrt{\frac{100}{0.50}}=\sqrt{200}=\SI{14.1}{rad.s^{-1}},
+    \]
+    \[
+      \omega_2=\sqrt{\frac{100+100}{0.50}}=\sqrt{400}=\SI{20.0}{rad.s^{-1}}.
+    \]
+    Therefore, option \textbf{B}.
+\end{quizsolution}
+
+\begin{quizquestion}[
+  id=phy104-nm-027,
+  topic=normal-modes,
+  difficulty=applied,
+  marks=2,
+  correct=D,
+  tags={coupled-oscillators,inverse-problem,spring-constants},
+  outcome={Infer spring constants from measured normal frequencies}
+]
+  A symmetric two-mass system has \(m=\SI{2.0}{kg}\) and measured normal angular frequencies \(\omega_1=\SI{10}{rad.s^{-1}}\) and \(\omega_2=\SI{14}{rad.s^{-1}}\). Find \(k\) and \(k_c\).
+    \choices{\(k=\SI{100}{N.m^{-1}}\), \(k_c=\SI{48}{N.m^{-1}}\)}{\(k=\SI{196}{N.m^{-1}}\), \(k_c=\SI{100}{N.m^{-1}}\)}{\(k=\SI{200}{N.m^{-1}}\), \(k_c=\SI{192}{N.m^{-1}}\)}{\(k=\SI{200}{N.m^{-1}}\), \(k_c=\SI{96}{N.m^{-1}}\)}{\(k=\SI{392}{N.m^{-1}}\), \(k_c=\SI{96}{N.m^{-1}}\)}
+\end{quizquestion}
+\begin{quizsolution}
+  From the in-phase frequency,
+    \[
+      k=m\omega_1^2=2.0{(10)}^2=\SI{200}{N.m^{-1}}.
+    \]
+    From the out-of-phase frequency,
+    \[
+      k+2k_c=m\omega_2^2=2.0{(14)}^2=\SI{392}{N.m^{-1}}.
+    \]
+    Therefore,
+    \[
+      2k_c=392-200=192,
+      \qquad k_c=\SI{96}{N.m^{-1}}.
+    \]
+    Hence option \textbf{D}.
+\end{quizsolution}
+
+\begin{quizquestion}[
+  id=phy104-nm-028,
+  topic=normal-modes,
+  difficulty=applied,
+  marks=2,
+  correct=C,
+  tags={normal-coordinates,modal-decomposition,initial-conditions},
+  outcome={Decompose an initial displacement into normal modes}
+]
+  The initial displacement of two identical coupled masses is \(\mathbf{x}(0)=\begin{bmatrix}A\\0\end{bmatrix}\), with zero initial velocities. In the expansion \(\mathbf{x}=C_1\begin{bmatrix}1\\1\end{bmatrix}+C_2\begin{bmatrix}1\\-1\end{bmatrix}\), what are \(C_1\) and \(C_2\) at \(t=0\)?
+    \choices{\(C_1=A\), \(C_2=0\)}{\(C_1=0\), \(C_2=A\)}{\(C_1=A/2\), \(C_2=A/2\)}{\(C_1=A\), \(C_2=-A\)}{\(C_1=2A\), \(C_2=2A\)}
+\end{quizquestion}
+\begin{quizsolution}
+  Equating components gives
+    \[
+      C_1+C_2=A,
+      \qquad
+      C_1-C_2=0.
+    \]
+    The second equation gives \(C_1=C_2\). Substituting into the first gives \(2C_1=A\), so
+    \[
+      C_1=C_2=\frac{A}{2}.
+    \]
+    Therefore, option \textbf{C}.
+\end{quizsolution}
+
+\begin{quizquestion}[
+  id=phy104-nm-029,
+  topic=normal-modes,
+  difficulty=applied,
+  marks=2,
+  correct=A,
+  tags={normal-coordinates,coordinate-transform},
+  outcome={Calculate normal coordinates from physical displacements}
+]
+  For \(x_1=\SI{3.0}{cm}\) and \(x_2=\SI{-1.0}{cm}\), what are the normal coordinates \(q_1=x_1+x_2\) and \(q_2=x_1-x_2\)?
+    \choices{\(q_1=\SI{2.0}{cm}\), \(q_2=\SI{4.0}{cm}\)}{\(q_1=\SI{4.0}{cm}\), \(q_2=\SI{2.0}{cm}\)}{\(q_1=\SI{2.0}{cm}\), \(q_2=\SI{-4.0}{cm}\)}{\(q_1=\SI{-2.0}{cm}\), \(q_2=\SI{4.0}{cm}\)}{\(q_1=\SI{3.0}{cm}\), \(q_2=\SI{-1.0}{cm}\)}
+\end{quizquestion}
+\begin{quizsolution}
+  Direct substitution gives
+    \[
+      q_1=x_1+x_2=3.0+(-1.0)=\SI{2.0}{cm},
+    \]
+    \[
+      q_2=x_1-x_2=3.0-(-1.0)=\SI{4.0}{cm}.
+    \]
+    Thus, option \textbf{A}. The positive \(q_2\) indicates a substantial out-of-phase component.
+\end{quizsolution}
+
+\begin{quizquestion}[
+  id=phy104-nm-030,
+  topic=normal-modes,
+  difficulty=applied,
+  marks=2,
+  correct=E,
+  tags={coupled-oscillators,characteristic-equation,eigenvalues},
+  outcome={Identify the characteristic equation for coupled oscillators}
+]
+  Which characteristic equation determines the normal angular frequencies of the symmetric two-mass system?
+    \choices{\(k+k_c-m\omega^2=0\)}{\({(k-m\omega^2)}^2+k_c^2=0\)}{\({(k+k_c+m\omega^2)}^2-k_c^2=0\)}{\({(k+2k_c-m\omega)}^2=0\)}{\({(k+k_c-m\omega^2)}^2-k_c^2=0\)}
+\end{quizquestion}
+\begin{quizsolution}
+  The normal-mode condition is
+    \[
+      \det(K-m\omega^2I)=0,
+    \]
+    with
+    \[
+      K-m\omega^2I=
+      \begin{bmatrix}
+        k+k_c-m\omega^2 & -k_c            \\
+        -k_c            & k+k_c-m\omega^2
+      \end{bmatrix}.
+    \]
+    Its determinant is
+    \[
+      {(k+k_c-m\omega^2)}^2-(-k_c)(-k_c)
+      ={(k+k_c-m\omega^2)}^2-k_c^2.
+    \]
+    Hence option \textbf{E}.
+\end{quizsolution}
+
+\begin{quizquestion}[
+  id=phy104-wave-031,
+  topic=waves-and-sound,
+  difficulty=applied,
+  marks=2,
+  correct=B,
+  tags={travelling-wave,string,tension,power},
+  outcome={Relate a wave equation to speed tension and average power}
+]
+  A string wave is \(y=(\SI{4.0}{mm})\sin(5x-100t)\). If the linear density is \SI{0.010}{kg.m^{-1}}, which set gives the wave speed, tension, and average power?
+    \choices{\(\SI{5}{m.s^{-1}}\), \SI{0.25}{N}, \SI{0.004}{W}}{\(\SI{20}{m.s^{-1}}\), \SI{4.0}{N}, \SI{0.016}{W}}{\(\SI{20}{m.s^{-1}}\), \SI{2.0}{N}, \SI{0.032}{W}}{\(\SI{100}{m.s^{-1}}\), \SI{100}{N}, \SI{0.080}{W}}{\(\SI{500}{m.s^{-1}}\), \SI{2500}{N}, \SI{1.60}{W}}
+\end{quizquestion}
+\begin{quizsolution}
+  Here \(k=\SI{5}{rad.m^{-1}}\) and \(\omega=\SI{100}{rad.s^{-1}}\), so
+    \[
+      v=\frac{\omega}{k}=\SI{20}{m.s^{-1}}.
+    \]
+    Since \(v=\sqrt{T/\mu}\),
+    \[
+      T=\mu v^2=0.010{(20)}^2=\SI{4.0}{N}.
+    \]
+    The average power is
+    \[
+      P_{\mathrm{av}}=\frac12\mu\omega^2A^2v
+      =\frac12{(0.010)}{(100)}^2{(0.004)}^2{(20)}
+      =\SI{0.016}{W}.
+    \]
+    Thus, option \textbf{B}.
+\end{quizsolution}
+
+\begin{quizquestion}[
+  id=phy104-wave-032,
+  topic=waves-and-sound,
+  difficulty=applied,
+  marks=2,
+  correct=C,
+  tags={closed-pipe,resonance,harmonics},
+  outcome={Calculate the first resonances of a closed pipe}
+]
+  A pipe of length \SI{0.85}{m} is closed at one end and open at the other. Taking the sound speed as \SI{340}{m.s^{-1}}, what are its first three resonant frequencies?
+    \choices{\(100,200,300\ \mathrm{Hz}\)}{\(200,400,600\ \mathrm{Hz}\)}{\(100,300,500\ \mathrm{Hz}\)}{\(50,150,250\ \mathrm{Hz}\)}{\(100,400,700\ \mathrm{Hz}\)}
+\end{quizquestion}
+\begin{quizsolution}
+  For a closed-open pipe,
+    \[
+      f_m=\frac{(2m+1)v}{4L},\qquad m=0,1,2,\ldots
+    \]
+    The fundamental is
+    \[
+      f_1=\frac{340}{4(0.85)}=\SI{100}{Hz}.
+    \]
+    Only odd harmonics occur, so the next two are \(3f_1=\SI{300}{Hz}\) and \(5f_1=\SI{500}{Hz}\). Therefore, option \textbf{C}.
+\end{quizsolution}
+
+\begin{quizquestion}[
+  id=phy104-wave-033,
+  topic=waves-and-sound,
+  difficulty=applied,
+  marks=2,
+  correct=D,
+  tags={beats,string,tension,frequency},
+  outcome={Relate beat frequency to a fractional tension change}
+]
+  A stretched wire has fundamental frequency \SI{500}{Hz}. Its tension is increased slightly so that it produces \SI{5.0}{beats.s^{-1}} with the original wire. What fractional increase in tension is required?
+    \choices{\(0.0050\)}{\(0.0100\)}{\(0.0150\)}{\(0.0201\)}{\(0.0404\)}
+\end{quizquestion}
+\begin{quizsolution}
+  The increased tension raises the frequency to \(505\ \mathrm{Hz}\). For the same string length and linear density,
+    \[
+      f\propto\sqrt{T}.
+    \]
+    Therefore,
+    \[
+      \frac{T_f}{T_i}={\left(\frac{f_f}{f_i}\right)}^2
+      ={\left(\frac{505}{500}\right)}^2=1.0201.
+    \]
+    The fractional increase is \(1.0201-1=0.0201\). Hence option \textbf{D}.
+\end{quizsolution}
+
+\begin{quizquestion}[
+  id=phy104-wave-034,
+  topic=waves-and-sound,
+  difficulty=applied,
+  marks=2,
+  correct=A,
+  tags={doppler-effect,moving-source,frequency},
+  outcome={Calculate the Doppler shift from a moving source}
+]
+  A source emitting \SI{600}{Hz} moves directly toward a stationary observer at \SI{30}{m.s^{-1}}. Taking \(v=\SI{343}{m.s^{-1}}\), what frequency is observed?
+    \choices{\SI{658}{Hz}}{\SI{600}{Hz}}{\SI{552}{Hz}}{\SI{630}{Hz}}{\SI{714}{Hz}}
+\end{quizquestion}
+\begin{quizsolution}
+  For a moving source approaching a stationary observer,
+    \[
+      f'=f\frac{v}{v-v_s}.
+    \]
+    Thus,
+    \[
+      f'=600\frac{343}{343-30}
+      =600\frac{343}{313}
+      =\SI{658}{Hz}\quad\text{(approximately)}.
+    \]
+    The observed frequency is higher because the source approaches. Option \textbf{A}.
+\end{quizsolution}
+
+\begin{quizquestion}[
+  id=phy104-wave-035,
+  topic=waves-and-sound,
+  difficulty=applied,
+  marks=2,
+  correct=E,
+  tags={mach-cone,mach-number,angle},
+  outcome={Calculate a Mach-cone half-angle}
+]
+  An aircraft travels at Mach \(1.50\). What is the Mach-cone half-angle?
+    \choices{\(30.0^\circ\)}{\(33.7^\circ\)}{\(45.0^\circ\)}{\(60.0^\circ\)}{\(41.8^\circ\)}
+\end{quizquestion}
+\begin{quizsolution}
+  The Mach angle satisfies
+    \[
+      \sin\mu=\frac{1}{M}.
+    \]
+    For \(M=1.50\),
+    \[
+      \mu=\sin^{-1}\left(\frac{1}{1.50}\right)
+      =\sin^{-1}(0.6667)
+      =41.8^\circ.
+    \]
+    Therefore, option \textbf{E}.
+\end{quizsolution}
+
+\begin{quizquestion}[
+  id=phy104-opt-036,
+  topic=optics,
+  difficulty=applied,
+  marks=2,
+  correct=B,
+  tags={double-slit,optical-path,fringe-shift},
+  outcome={Calculate the fringe shift caused by a transparent sheet}
+]
+  A mica sheet of refractive index \(1.60\) and thickness \SI{5.0}{\micro\,m} is placed over one slit in a double-slit experiment using \SI{600}{nm} light. By how many fringe spacings does the pattern shift?
+    \choices{\(3\)}{\(5\)}{\(6\)}{\(8\)}{\(10\)}
+\end{quizquestion}
+\begin{quizsolution}
+  The sheet introduces additional optical path
+    \[
+      \Delta L=(n-1)t.
+    \]
+    The number of fringe spacings shifted is
+    \[
+      N=\frac{\Delta L}{\lambda}
+      =\frac{(1.60-1)(5.0\times10^{-6})}{600\times10^{-9}}
+      =\frac{3.0\times10^{-6}}{0.60\times10^{-6}}=5.
+    \]
+    Hence option \textbf{B}.
+\end{quizsolution}
+
+\begin{quizquestion}[
+  id=phy104-opt-037,
+  topic=optics,
+  difficulty=applied,
+  marks=2,
+  correct=C,
+  tags={double-slit,diffraction-envelope,missing-orders},
+  outcome={Identify missing interference orders in a real double slit}
+]
+  In a real double-slit arrangement, the slit separation is four times the slit width: \(d=4a\). Which interference orders are missing?
+    \choices{\(m=1,2,3,\ldots\)}{\(m=2,4,6,\ldots\)}{\(m=4,8,12,\ldots\)}{\(m=3,6,9,\ldots\)}{No orders are missing.}
+\end{quizquestion}
+\begin{quizsolution}
+  An interference maximum is missing when it coincides with a single-slit minimum. The condition is
+    \[
+      m=p\frac{d}{a}.
+    \]
+    Since \(d/a=4\),
+    \[
+      m=4p=4,8,12,\ldots
+    \]
+    Therefore, option \textbf{C}.
+\end{quizsolution}
+
+\begin{quizquestion}[
+  id=phy104-opt-038,
+  topic=optics,
+  difficulty=applied,
+  marks=2,
+  correct=D,
+  tags={diffraction-grating,grating-equation,order-limit},
+  outcome={Combine a grating angle calculation with the order limit}
+]
+  A diffraction grating has \(500\) lines per millimetre and is illuminated with \SI{600}{nm} light. Which pair gives the second-order angle and the maximum possible order?
+    \choices{\(17.5^\circ\) and \(m_{\max}=2\)}{\(30.0^\circ\) and \(m_{\max}=3\)}{\(53.1^\circ\) and \(m_{\max}=4\)}{\(36.9^\circ\) and \(m_{\max}=3\)}{\(90.0^\circ\) and \(m_{\max}=2\)}
+\end{quizquestion}
+\begin{quizsolution}
+  The line spacing is
+    \[
+      d=\frac{1}{500\ \mathrm{mm}^{-1}}=0.00200\ \mathrm{mm}=\SI{2.00e-6}{m}.
+    \]
+    For \(m=2\),
+    \[
+      \sin\theta_2=\frac{2\lambda}{d}
+      =\frac{2(600\times10^{-9})}{2.00\times10^{-6}}=0.600,
+    \]
+    so \(\theta_2=36.9^\circ\). Also,
+    \[
+      m_{\max}=\left\lfloor\frac{d}{\lambda}\right\rfloor
+      =\lfloor3.33\rfloor=3.
+    \]
+    Hence option \textbf{D}.
+\end{quizsolution}
+
+\begin{quizquestion}[
+  id=phy104-opt-039,
+  topic=optics,
+  difficulty=applied,
+  marks=2,
+  correct=A,
+  tags={total-internal-reflection,brewster-angle,critical-angle},
+  outcome={Calculate critical and Brewster angles}
+]
+  For glass of refractive index \(1.50\) surrounded by air, which pair gives (i) the critical angle for glass-to-air incidence and (ii) Brewster's angle for air-to-glass incidence?
+    \choices{\(41.8^\circ\) and \(56.3^\circ\)}{\(56.3^\circ\) and \(41.8^\circ\)}{\(33.7^\circ\) and \(48.2^\circ\)}{\(48.2^\circ\) and \(33.7^\circ\)}{\(90.0^\circ\) and \(45.0^\circ\)}
+\end{quizquestion}
+\begin{quizsolution}
+  For critical incidence from glass to air,
+    \[
+      \sin\theta_c=\frac{n_{\text{air}}}{n_{\text{glass}}}=\frac{1}{1.50},
+    \]
+    so \(\theta_c=41.8^\circ\). For Brewster incidence from air to glass,
+    \[
+      \tan\theta_B=\frac{n_{\text{glass}}}{n_{\text{air}}}=1.50,
+    \]
+    so \(\theta_B=56.3^\circ\). Therefore, option \textbf{A}.
+\end{quizsolution}
+
+\begin{quizquestion}[
+  id=phy104-opt-040,
+  topic=optics,
+  difficulty=applied,
+  marks=2,
+  correct=E,
+  tags={bragg-law,x-ray-diffraction,plane-spacing},
+  outcome={Use Bragg's law to determine crystal-plane spacing}
+]
+  X-rays of wavelength \SI{0.154}{nm} produce a first-order Bragg peak at a measured scattering angle \(2\theta=50.0^\circ\). What is the crystal-plane spacing?
+    \choices{\SI{0.0770}{nm}}{\SI{0.119}{nm}}{\SI{0.154}{nm}}{\SI{0.238}{nm}}{\SI{0.182}{nm}}
+\end{quizquestion}
+\begin{quizsolution}
+  Bragg's law uses \(\theta\), not the displayed angle \(2\theta\). Thus \(\theta=25.0^\circ\). For first order,
+    \[
+      \lambda=2d\sin\theta.
+    \]
+    Therefore,
+    \[
+      d=\frac{0.154}{2\sin25.0^\circ}\ \mathrm{nm}
+      =\SI{0.182}{nm}.
+    \]
+    Hence option \textbf{E}.
+\end{quizsolution}
+
+\begin{quizquestion}[
+  id=phy104-osc-041,
+  topic=oscillations,
+  difficulty=challenge,
+  marks=3,
+  correct=C,
+  tags={shm,initial-conditions,phase-direction},
+  outcome={Construct an SHM equation from displacement and direction}
+]
+  An oscillator has amplitude \SI{6.0}{cm} and angular frequency \SI{8.0}{rad.s^{-1}}. At \(t=0\), its displacement is \SI{3.0}{cm} and it is moving in the positive direction. Which equation is correct?
+    \choices{\(x=0.060\cos(8t+\pi/3)\)}{\(x=0.030\cos(8t-\pi/3)\)}{\(x=0.060\cos(8t-\pi/3)\)}{\(x=0.060\sin(8t-\pi/3)\)}{\(x=0.060\cos(8t+2\pi/3)\)}
+\end{quizquestion}
+\begin{quizsolution}
+  Using \(x=A\cos(\omega t+\phi)\) at \(t=0\),
+    \[
+      \cos\phi=\frac{x_0}{A}=\frac{0.030}{0.060}=\frac12.
+    \]
+    Thus \(\phi=\pm\pi/3\). The velocity is
+    \[
+      v=-A\omega\sin(\omega t+\phi).
+    \]
+    For \(v(0)>0\), we require \(\sin\phi<0\), so \(\phi=-\pi/3\). Therefore,
+    \[
+      x=0.060\cos(8t-\pi/3),
+    \]
+    which is option \textbf{C}.
+\end{quizsolution}
+
+\begin{quizquestion}[
+  id=phy104-osc-042,
+  topic=oscillations,
+  difficulty=challenge,
+  marks=3,
+  correct=B,
+  tags={shm,energy,period},
+  outcome={Determine an SHM period from displacement and speed}
+]
+  At a displacement of \SI{3.0}{cm}, a mass in SHM has speed \SI{0.40}{m.s^{-1}}. Its turning points are at \(x=\pm\SI{5.0}{cm}\). What is the period?
+    \choices{\SI{0.314}{s}}{\SI{0.628}{s}}{\SI{0.785}{s}}{\SI{1.26}{s}}{\SI{1.57}{s}}
+\end{quizquestion}
+\begin{quizsolution}
+  The SHM speed-position relation is
+    \[
+      v=\omega\sqrt{A^2-x^2}.
+    \]
+    Here,
+    \[
+      \sqrt{A^2-x^2}=\sqrt{{(0.050)}^2-{(0.030)}^2}
+      =\sqrt{0.0016}=\SI{0.040}{m}.
+    \]
+    Thus,
+    \[
+      \omega=\frac{0.40}{0.040}=\SI{10}{rad.s^{-1}},
+      \qquad
+      T=\frac{2\pi}{\omega}=\SI{0.628}{s}.
+    \]
+    Therefore, option \textbf{B}.
+\end{quizsolution}
+
+\begin{quizquestion}[
+  id=phy104-osc-043,
+  topic=oscillations,
+  difficulty=challenge,
+  marks=3,
+  correct=D,
+  tags={physical-pendulum,parallel-axis,period},
+  outcome={Apply the parallel-axis theorem to a physical pendulum}
+]
+  A uniform rod of length \SI{1.20}{m} oscillates as a physical pendulum about a pivot located one-quarter of its length from one end. What is its small-angle period?
+    \choices{\SI{0.840}{s}}{\SI{1.12}{s}}{\SI{1.44}{s}}{\SI{1.68}{s}}{\SI{2.06}{s}}
+\end{quizquestion}
+\begin{quizsolution}
+  The centre of mass is at \(L/2\) from the end, while the pivot is at \(L/4\), so \(h=L/4\). The moment of inertia about the pivot is found by the parallel-axis theorem:
+    \[
+      I=I_{\mathrm{cm}}+mh^2
+      =\frac{mL^2}{12}+m{\left\{\frac{L}{4}\right\}}^2
+      =\frac{7mL^2}{48}.
+    \]
+    Therefore,
+    \[
+      T=2\pi\sqrt{\frac{I}{mgh}}
+      =2\pi\sqrt{\frac{7L}{12g}}
+      =\SI{1.68}{s}.
+    \]
+    Hence option \textbf{D}.
+\end{quizsolution}
+
+\begin{quizquestion}[
+  id=phy104-osc-044,
+  topic=oscillations,
+  difficulty=challenge,
+  marks=3,
+  correct=A,
+  tags={shm,phase,time-interval},
+  outcome={Determine a travel time between specified SHM positions}
+]
+  At \(t=0\), an oscillator is at \(x=A/2\) and moving toward equilibrium. How long does it first take to reach the opposite turning point \(x=-A\)?
+    \choices{\(T/3\)}{\(T/4\)}{\(T/2\)}{\(2T/3\)}{\(3T/4\)}
+\end{quizquestion}
+\begin{quizsolution}
+  Write \(x=A\cos(\omega t+\phi)\). At \(t=0\), \(x=A/2\), so \(\cos\phi=1/2\). Moving toward equilibrium from the positive side means \(v<0\), hence \(\sin\phi>0\) and \(\phi=\pi/3\). The opposite turning point occurs when the phase first reaches \(\pi\):
+    \[
+      \omega t+\frac{\pi}{3}=\pi
+      \quad\Rightarrow\quad
+      \omega t=\frac{2\pi}{3}.
+    \]
+    Since \(T=2\pi/\omega\), \(t=T/3\). Thus, option \textbf{A}.
+\end{quizsolution}
+
+\begin{quizquestion}[
+  id=phy104-osc-045,
+  topic=oscillations,
+  difficulty=challenge,
+  marks=3,
+  correct=E,
+  tags={inelastic-collision,shm,amplitude},
+  outcome={Determine post-collision oscillation amplitude}
+]
+  A \SI{1.00}{kg} block attached to a \SI{100}{N.m^{-1}} spring passes through equilibrium at \SI{2.00}{m.s^{-1}}. At that instant, a \SI{0.25}{kg} lump of clay moving vertically falls onto the block and sticks. What is the new horizontal oscillation amplitude?
+    \choices{\SI{0.100}{m}}{\SI{0.125}{m}}{\SI{0.160}{m}}{\SI{0.200}{m}}{\SI{0.179}{m}}
+\end{quizquestion}
+\begin{quizsolution}
+  During sticking, horizontal momentum is conserved because the clay initially has no horizontal momentum:
+    \[
+      Mv_0=(M+m)V.
+    \]
+    Thus,
+    \[
+      V=\frac{(1.00)(2.00)}{1.25}=\SI{1.60}{m.s^{-1}}.
+    \]
+    The new angular frequency is
+    \[
+      \omega'=\sqrt{\frac{k}{M+m}}=\sqrt{\frac{100}{1.25}}=\SI{8.94}{rad.s^{-1}}.
+    \]
+    At equilibrium all post-collision oscillator energy is kinetic, so \(A'=V/\omega'=1.60/8.94=\SI{0.179}{m}\). Option \textbf{E}.
+\end{quizsolution}
+
+\begin{quizquestion}[
+  id=phy104-nm-046,
+  topic=normal-modes,
+  difficulty=challenge,
+  marks=3,
+  correct=C,
+  tags={coupled-oscillators,modal-superposition,time-evolution},
+  outcome={Use modal superposition to determine coupled-system motion}
+]
+  For a symmetric coupled system with \(m=\SI{1}{kg}\), \(k=\SI{4}{N.m^{-1}}\), and \(k_c=\SI{6}{N.m^{-1}}\), mass 1 is initially displaced by \(A\), mass 2 is at equilibrium, and both are released from rest. What are the displacements at \(t=\pi/2\ \mathrm{s}\)?
+    \choices{\(x_1=A\), \(x_2=0\)}{\(x_1=-A\), \(x_2=0\)}{\(x_1=0\), \(x_2=-A\)}{\(x_1=0\), \(x_2=A\)}{\(x_1=A/2\), \(x_2=-A/2\)}
+\end{quizquestion}
+\begin{quizsolution}
+  The frequencies are
+    \[
+      \omega_1=\sqrt{\frac{k}{m}}=2,
+      \qquad
+      \omega_2=\sqrt{\frac{k+2k_c}{m}}=\sqrt{16}=4\ \mathrm{rad\,s^{-1}}.
+    \]
+    The initial displacement \({[A,0]}^T\) contains equal modal coefficients:
+    \[
+      x_1=\frac{A}{2}(\cos\omega_1t+\cos\omega_2t),
+      \quad
+      x_2=\frac{A}{2}(\cos\omega_1t-\cos\omega_2t).
+    \]
+    At \(t=\pi/2\), \(\cos(2t)=\cos\pi=-1\) and \(\cos(4t)=\cos2\pi=1\). Hence \(x_1=0\) and \(x_2=-A\). Option \textbf{C}.
+\end{quizsolution}
+
+\begin{quizquestion}[
+  id=phy104-nm-047,
+  topic=normal-modes,
+  difficulty=challenge,
+  marks=3,
+  correct=B,
+  tags={coupled-oscillators,measured-frequencies,spring-constants},
+  outcome={Recover coupled-system spring constants from frequencies}
+]
+  Two identical masses of \SI{0.50}{kg} have normal frequencies \(f_1=\SI{2.00}{Hz}\) and \(f_2=\SI{3.00}{Hz}\). What are \(k\) and \(k_c\)?
+    \choices{\(k=\SI{19.7}{N.m^{-1}}\), \(k_c=\SI{12.3}{N.m^{-1}}\)}{\(k=\SI{79.0}{N.m^{-1}}\), \(k_c=\SI{49.3}{N.m^{-1}}\)}{\(k=\SI{78.9}{N.m^{-1}}\), \(k_c=\SI{98.7}{N.m^{-1}}\)}{\(k=\SI{157.9}{N.m^{-1}}\), \(k_c=\SI{49.3}{N.m^{-1}}\)}{\(k=\SI{39.5}{N.m^{-1}}\), \(k_c=\SI{24.7}{N.m^{-1}}\)}
+\end{quizquestion}
+\begin{quizsolution}
+  First convert to angular frequencies:
+    \[
+      \omega_1=2\pi f_1=4\pi,
+      \qquad
+      \omega_2=2\pi f_2=6\pi.
+    \]
+    Then
+    \[
+      k=m\omega_1^2=0.50{(4\pi)}^2=\SI{79.0}{N.m^{-1}}.
+    \]
+    Also,
+    \[
+      k+2k_c=m\omega_2^2,
+    \]
+    so
+    \[
+      k_c=\frac{m(\omega_2^2-\omega_1^2)}{2}
+      =\frac{0.50[{(6\pi)}^2-{(4\pi)}^2]}{2}
+      =\SI{49.3}{N.m^{-1}}.
+    \]
+    Therefore, option \textbf{B}.
+\end{quizsolution}
+
+\begin{quizquestion}[
+  id=phy104-nm-048,
+  topic=normal-modes,
+  difficulty=challenge,
+  marks=3,
+  correct=D,
+  tags={beats,coupled-oscillators,energy-transfer},
+  outcome={Determine the first complete energy-transfer time}
+]
+  One mass of a weakly coupled identical pair is displaced and both are released from rest. If the normal angular frequencies are \SI{10}{rad.s^{-1}} and \SI{12}{rad.s^{-1}}, when does the first complete transfer of oscillation amplitude to the other mass occur?
+    \choices{\SI{0.262}{s}}{\SI{0.524}{s}}{\SI{1.05}{s}}{\SI{1.57}{s}}{\SI{3.14}{s}}
+\end{quizquestion}
+\begin{quizsolution}
+  For the initial condition \({[A,0]}^T\), the displacement of the first mass can be written
+    \[
+      x_1=A\cos\left(\frac{\omega_1+\omega_2}{2}t\right)
+      \cos\left(\frac{\omega_2-\omega_1}{2}t\right).
+    \]
+    Its amplitude envelope first becomes zero when
+    \[
+      \cos\left(\frac{\Delta\omega}{2}t\right)=0.
+    \]
+    The first solution is \((\Delta\omega/2)t=\pi/2\), hence
+    \[
+      t=\frac{\pi}{\Delta\omega}=\frac{\pi}{12-10}=\SI{1.57}{s}.
+    \]
+    At this time the amplitude has transferred to the other mass. Option \textbf{D}.
+\end{quizsolution}
+
+\begin{quizquestion}[
+  id=phy104-nm-049,
+  topic=normal-modes,
+  difficulty=challenge,
+  marks=3,
+  correct=A,
+  tags={coupled-oscillators,modal-energy,energy-ratio},
+  outcome={Compare energies of two pure normal modes}
+]
+  For the same displacement amplitude \(A\) of each mass, compare the total energies of the pure out-of-phase and in-phase modes when \(k=\SI{100}{N.m^{-1}}\) and \(k_c=\SI{50}{N.m^{-1}}\). What is \(E_{\mathrm{out}}/E_{\mathrm{in}}\)?
+    \choices{\(2.00\)}{\(1.50\)}{\(1.00\)}{\(0.50\)}{\(3.00\)}
+\end{quizquestion}
+\begin{quizsolution}
+  Evaluate the energy at a turning point, where kinetic energy is zero. In phase, each outer spring stores \(\tfrac12kA^2\), while the coupling spring is unstrained:
+    \[
+      E_{\mathrm{in}}=kA^2.
+    \]
+    Out of phase, the outer springs still store \(kA^2\) in total, but the coupling spring changes length by \(2A\):
+    \[
+      E_{\mathrm{out}}=kA^2+\frac12k_c{(2A)}^2={(k+2k_c)}A^2.
+    \]
+    Thus,
+    \[
+      \frac{E_{\mathrm{out}}}{E_{\mathrm{in}}}=\frac{k+2k_c}{k}=\frac{100+100}{100}=2.
+    \]
+    Hence option \textbf{A}.
+\end{quizsolution}
+
+\begin{quizquestion}[
+  id=phy104-nm-050,
+  topic=normal-modes,
+  difficulty=challenge,
+  marks=3,
+  correct=E,
+  tags={stiffness-matrix,eigenvectors,modal-decomposition},
+  outcome={Determine modal coefficients and frequencies from a stiffness matrix}
+]
+  A system with unit masses has stiffness matrix \(K=\begin{bmatrix}6&-2\\-2&6\end{bmatrix}\ \mathrm{N.m^{-1}}\). Its initial displacement is \(\begin{bmatrix}3\\1\end{bmatrix}\ \mathrm{cm}\). Which option gives the modal coefficients in the basis \({[1,1]}^T,{[1,-1]}^T\) and the corresponding angular frequencies?
+    \choices{\(C_1=1\ \mathrm{cm}\), \(C_2=2\ \mathrm{cm}\); \(\omega_1=\sqrt6\), \(\omega_2=\sqrt2\)}{\(C_1=3\ \mathrm{cm}\), \(C_2=1\ \mathrm{cm}\); \(\omega_1=2\), \(\omega_2=4\)}{\(C_1=2\ \mathrm{cm}\), \(C_2=-1\ \mathrm{cm}\); \(\omega_1=\sqrt8\), \(\omega_2=2\)}{\(C_1=4\ \mathrm{cm}\), \(C_2=2\ \mathrm{cm}\); \(\omega_1=4\), \(\omega_2=8\)}{\(C_1=2\ \mathrm{cm}\), \(C_2=1\ \mathrm{cm}\); \(\omega_1=2\), \(\omega_2=2\sqrt2\)}
+\end{quizquestion}
+\begin{quizsolution}
+  Acting with \(K\) on the mode vectors gives
+    \[
+      K\begin{bmatrix}1\\1\end{bmatrix}=4\begin{bmatrix}1\\1\end{bmatrix},
+      \qquad
+      K\begin{bmatrix}1\\-1\end{bmatrix}=8\begin{bmatrix}1\\-1\end{bmatrix}.
+    \]
+    For unit masses, \(\omega_1=\sqrt4=2\) and \(\omega_2=\sqrt8=2\sqrt2\). For the displacement decomposition,
+    \[
+      C_1+C_2=3,\qquad C_1-C_2=1,
+    \]
+    so \(C_1=2\ \mathrm{cm}\) and \(C_2=1\ \mathrm{cm}\). Thus, option \textbf{E}.
+\end{quizsolution}
+
+\begin{quizquestion}[
+  id=phy104-wave-051,
+  topic=waves-and-sound,
+  difficulty=challenge,
+  marks=3,
+  correct=C,
+  tags={superposition,phasors,resultant-wave},
+  outcome={Combine several equal-frequency waves by phasor addition}
+]
+  Three waves of equal frequency and amplitude \SI{5.0}{mm} have phase constants \(0\), \(\pi/3\), and \(2\pi/3\). What are the amplitude and phase constant of their resultant?
+    \choices{\SI{5.0}{mm} and \(0\)}{\SI{8.66}{mm} and \(\pi/2\)}{\SI{10.0}{mm} and \(\pi/3\)}{\SI{15.0}{mm} and \(\pi/3\)}{\(0\) and an undefined phase}
+\end{quizquestion}
+\begin{quizsolution}
+  Represent the three contributions as phasors:
+    \[
+      A_R=A\left(1+e^{i\pi/3}+e^{i2\pi/3}\right).
+    \]
+    Using \(e^{i\pi/3}=\tfrac12+i\tfrac{\sqrt3}{2}\) and \(e^{i2\pi/3}=-\tfrac12+i\tfrac{\sqrt3}{2}\),
+    \[
+      1+e^{i\pi/3}+e^{i2\pi/3}=1+i\sqrt3=2e^{i\pi/3}.
+    \]
+    Therefore, the resultant amplitude is \(2A=\SI{10.0}{mm}\) and its phase is \(\pi/3\). Option \textbf{C}.
+\end{quizsolution}
+
+\begin{quizquestion}[
+  id=phy104-wave-052,
+  topic=waves-and-sound,
+  difficulty=challenge,
+  marks=3,
+  correct=B,
+  tags={falling-body,sound-travel,time-of-flight},
+  outcome={Combine fall time and sound travel time to find depth}
+]
+  A stone is dropped from rest into a well. The splash is heard \SI{4.00}{s} later. Taking \(g=\SI{9.80}{m.s^{-2}}\) and the sound speed as \SI{343}{m.s^{-1}}, what is the well depth?
+    \choices{\SI{61.0}{m}}{\SI{70.5}{m}}{\SI{78.4}{m}}{\SI{86.0}{m}}{\SI{39.2}{m}}
+\end{quizquestion}
+\begin{quizsolution}
+  The total time is the fall time plus the upward sound-travel time:
+    \[
+      \sqrt{\frac{2h}{g}}+\frac{h}{v}=4.00.
+    \]
+    Let \(u=\sqrt{h}\). Then
+    \[
+      \frac{u^2}{343}+\sqrt{\frac{2}{9.80}}u-4.00=0.
+    \]
+    The positive root is \(u=8.399\), so
+    \[
+      h=u^2=\SI{70.5}{m}.
+    \]
+    As a check, the fall time is \SI{3.794}{s} and the sound time is \SI{0.206}{s}, summing to \SI{4.00}{s}. Hence option \textbf{B}.
+\end{quizsolution}
+
+\begin{quizquestion}[
+  id=phy104-wave-053,
+  topic=waves-and-sound,
+  difficulty=challenge,
+  marks=3,
+  correct=E,
+  tags={doppler-effect,reflection,ultrasound},
+  outcome={Calculate a double Doppler shift from a moving reflector}
+]
+  A stationary detector emits ultrasound at \SI{40.0}{kHz} toward a car approaching at \SI{30.0}{m.s^{-1}}. The wave reflects from the car and returns to the detector. Taking \(v=\SI{343}{m.s^{-1}}\), what return frequency is detected?
+    \choices{\SI{36.8}{kHz}}{\SI{40.0}{kHz}}{\SI{43.5}{kHz}}{\SI{45.2}{kHz}}{\SI{47.7}{kHz}}
+\end{quizquestion}
+\begin{quizsolution}
+  There are two Doppler shifts. First, the moving car is an observer approaching the stationary source:
+    \[
+      f_1=f_0\frac{v+u}{v}.
+    \]
+    The car then acts as a moving source approaching the detector:
+    \[
+      f_2=f_1\frac{v}{v-u}.
+    \]
+    Therefore,
+    \[
+      f_2=f_0\frac{v+u}{v-u}
+      =40.0\frac{343+30}{343-30}\ \mathrm{kHz}
+      =\SI{47.7}{kHz}.
+    \]
+    Thus, option \textbf{E}.
+\end{quizsolution}
+
+\begin{quizquestion}[
+  id=phy104-wave-054,
+  topic=waves-and-sound,
+  difficulty=challenge,
+  marks=3,
+  correct=A,
+  tags={standing-wave,local-amplitude,instantaneous-displacement},
+  outcome={Evaluate local amplitude and displacement in a standing wave}
+]
+  A standing wave is \(y=0.080\sin(\pi x/2)\cos(4\pi t)\) in SI units. At \(x=\SI{0.50}{m}\) and \(t=\SI{0.0625}{s}\), which pair gives the local amplitude and instantaneous displacement?
+    \choices{\SI{56.6}{mm} and \SI{40.0}{mm}}{\SI{80.0}{mm} and \SI{56.6}{mm}}{\SI{40.0}{mm} and \SI{56.6}{mm}}{\SI{56.6}{mm} and \(0\)}{\SI{40.0}{mm} and \SI{40.0}{mm}}
+\end{quizquestion}
+\begin{quizsolution}
+  The local amplitude is the magnitude of the position factor:
+    \[
+      A_{\mathrm{local}}=0.080\left|\sin\left(\frac{\pi(0.50)}{2}\right)\right|
+      =0.080\sin\frac{\pi}{4}
+      =\SI{0.0566}{m}.
+    \]
+    At \(t=0.0625=1/16\ \mathrm{s}\),
+    \[
+      \cos(4\pi t)=\cos\frac{\pi}{4}=\frac{\sqrt2}{2}.
+    \]
+    Thus,
+    \[
+      y=0.080\left(\frac{\sqrt2}{2}\right)\left(\frac{\sqrt2}{2}\right)
+      =\SI{0.0400}{m}.
+    \]
+    Hence option \textbf{A}.
+\end{quizsolution}
+
+\begin{quizquestion}[
+  id=phy104-wave-055,
+  topic=waves-and-sound,
+  difficulty=challenge,
+  marks=3,
+  correct=D,
+  tags={two-source-interference,path-difference,maxima},
+  outcome={Count far-field maxima from two coherent sources}
+]
+  Two coherent in-phase point sources are separated by \SI{1.50}{m} and emit wavelength \SI{0.400}{m}. A detector moves once around a very large circle in the plane of the sources. How many intensity maxima does it encounter?
+    \choices{\(7\)}{\(8\)}{\(12\)}{\(14\)}{\(16\)}
+\end{quizquestion}
+\begin{quizsolution}
+  Far from the sources, the path difference is \(\Delta L=d\cos\theta\) (an equivalent sine convention gives the same count). Maxima require
+    \[
+      d\cos\theta=m\lambda.
+    \]
+    Because \(d/\lambda=1.50/0.400=3.75\), the allowed integers are
+    \[
+      m=-3,-2,-1,0,1,2,3,
+    \]
+    seven values. For each value, \(|m\lambda/d|<1\), so \(\cos\theta=m\lambda/d\) has two positions during a full circuit. Therefore, the total is \(7\times2=14\). Option \textbf{D}.
+\end{quizsolution}
+
+\begin{quizquestion}[
+  id=phy104-opt-056,
+  topic=optics,
+  difficulty=challenge,
+  marks=3,
+  correct=B,
+  tags={double-slit,diffraction-envelope,intensity},
+  outcome={Evaluate real double-slit intensity at a specified angle}
+]
+  For a real double slit, the intensity is \[I=I_0{(\sin\beta/\beta)}^2\cos^2\alpha.\] At an angle where \(\beta=\pi/2\) and \(\alpha=\pi/3\), what is \(I/I_0\)?
+    \choices{\(1/4\)}{\(1/\pi^2\approx0.101\)}{\(4/\pi^2\approx0.405\)}{\(1/2\)}{\(0\)}
+\end{quizquestion}
+\begin{quizsolution}
+  Substitute the specified values:
+    \[
+      {\left(\frac{\sin\beta}{\beta}\right)}^2
+      ={\left(\frac{1}{\pi/2}\right)}^2
+      =\frac{4}{\pi^2},
+    \]
+    and
+    \[
+      \cos^2\alpha=\cos^2\frac{\pi}{3}={\left(\frac12\right)}^2=\frac14.
+    \]
+    Therefore,
+    \[
+      \frac{I}{I_0}=\frac{4}{\pi^2}\cdot\frac14=\frac{1}{\pi^2}\approx0.101.
+    \]
+    Hence option \textbf{B}.
+\end{quizsolution}
+
+\begin{quizquestion}[
+  id=phy104-opt-057,
+  topic=optics,
+  difficulty=challenge,
+  marks=3,
+  correct=C,
+  tags={diffraction-grating,resolving-power,illuminated-width},
+  outcome={Determine grating line count and illuminated width for resolution}
+]
+  A grating must just resolve \SI{600.0}{nm} and \SI{600.3}{nm} in second order. If the grating has \(500\) lines per millimetre, what minimum number of illuminated lines and illuminated width are required?
+    \choices{\(N=500\) and \SI{1.00}{mm}}{\(N=667\) and \SI{1.33}{mm}}{\(N=1000\) and \SI{2.00}{mm}}{\(N=2000\) and \SI{4.00}{mm}}{\(N=4000\) and \SI{8.00}{mm}}
+\end{quizquestion}
+\begin{quizsolution}
+  The required resolving power is
+    \[
+      R=\frac{\lambda}{\Delta\lambda}
+      =\frac{600.0}{0.3}=2000.
+    \]
+    For a grating, \(R=mN\). In second order,
+    \[
+      N=\frac{R}{m}=\frac{2000}{2}=1000.
+    \]
+    At \(500\) lines per millimetre, the illuminated width is
+    \[
+      W=\frac{1000}{500\ \mathrm{mm}^{-1}}=\SI{2.00}{mm}.
+    \]
+    Therefore, option \textbf{C}.
+\end{quizsolution}
+
+\begin{quizquestion}[
+  id=phy104-opt-058,
+  topic=optics,
+  difficulty=challenge,
+  marks=3,
+  correct=D,
+  tags={single-slit,secondary-maximum,intensity},
+  outcome={Locate a secondary diffraction maximum and its intensity}
+]
+  For a single slit of width \SI{0.20}{mm} illuminated by \SI{600}{nm} light, the first secondary maximum occurs at \(\beta\approx4.493\). Approximately where is it, and what fraction of the central intensity does it have?
+    \choices{\(0.086^\circ\) and \(50\%\)}{\(0.143^\circ\) and \(10\%\)}{\(0.200^\circ\) and \(1.0\%\)}{\(0.246^\circ\) and \(4.7\%\)}{\(0.492^\circ\) and \(0.47\%\)}
+\end{quizquestion}
+\begin{quizsolution}
+  The parameter is
+    \[
+      \beta=\frac{\pi a\sin\theta}{\lambda}.
+    \]
+    Thus,
+    \[
+      \sin\theta=\frac{\beta\lambda}{\pi a}
+      =\frac{4.493(600\times10^{-9})}{\pi(0.20\times10^{-3})}
+      =4.29\times10^{-3}.
+    \]
+    Hence \(\theta\approx0.246^\circ\). The first secondary maximum has the standard intensity \(I\approx0.047I_{\max}\), or \(4.7\%\). Therefore, option \textbf{D}.
+\end{quizsolution}
+
+\begin{quizquestion}[
+  id=phy104-opt-059,
+  topic=optics,
+  difficulty=challenge,
+  marks=3,
+  correct=A,
+  tags={rayleigh-criterion,angular-resolution,aperture},
+  outcome={Determine telescope aperture from Rayleigh's criterion}
+]
+  Two headlights separated by \SI{1.50}{m} are \SI{100}{km} away. What minimum telescope aperture is required to just resolve them at \SI{550}{nm}, according to Rayleigh's criterion?
+    \choices{\SI{4.47}{cm}}{\SI{2.24}{cm}}{\SI{8.94}{cm}}{\SI{44.7}{cm}}{\SI{1.22}{cm}}
+\end{quizquestion}
+\begin{quizsolution}
+  Their small angular separation is
+    \[
+      \theta\approx\frac{s}{L}=\frac{1.50}{100\,000}=1.50\times10^{-5}\ \mathrm{rad}.
+    \]
+    Rayleigh's criterion requires
+    \[
+      \theta=1.22\frac{\lambda}{D}.
+    \]
+    Therefore,
+    \[
+      D=1.22\frac{550\times10^{-9}}{1.50\times10^{-5}}
+      =4.47\times10^{-2}\ \mathrm{m}
+      =\SI{4.47}{cm}.
+    \]
+    Hence option \textbf{A}.
+\end{quizsolution}
+
+\begin{quizquestion}[
+  id=phy104-opt-060,
+  topic=optics,
+  difficulty=challenge,
+  marks=3,
+  correct=E,
+  tags={diffraction-grating,missing-orders,order-limit},
+  outcome={Combine grating-order limits with missing-order conditions}
+]
+  A grating has \(300\) lines per millimetre, and each slit has width \(a=d/3\), where \(d\) is the grating spacing. It is illuminated with \SI{500}{nm} light. How many observable principal maxima occur over both sides, including the central maximum, after missing orders are excluded?
+    \choices{\(5\)}{\(7\)}{\(11\)}{\(13\)}{\(9\)}
+\end{quizquestion}
+\begin{quizsolution}
+  The spacing is
+    \[
+      d=\frac{1}{300\ \mathrm{mm}^{-1}}=3.333\times10^{-6}\ \mathrm{m}.
+    \]
+    The largest possible positive order is
+    \[
+      m_{\max}=\left\lfloor\frac{d}{\lambda}\right\rfloor
+      =\left\lfloor\frac{3.333\times10^{-6}}{500\times10^{-9}}\right\rfloor
+      =\lfloor6.667\rfloor=6.
+    \]
+    Because \(a=d/3\), we have \(d/a=3\), so missing orders satisfy \(m=3p\): \(m=3\) and \(m=6\) within the allowed range. The observable positive orders are therefore \(1,2,4,5\), four on each side. Including the central order gives \(2(4)+1=9\). Hence option \textbf{E}.
+\end{quizsolution}
