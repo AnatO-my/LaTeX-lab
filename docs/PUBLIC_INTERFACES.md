@@ -391,7 +391,11 @@ candidate pools too small for the requested count.
 All five consume only the current selection, in selection order, so booklet
 numbering, answer-key numbering, solution numbering, topic reports, and mark
 totals agree even when stable IDs are selected out of bank order.
-`\printquizquestions` defaults to two columns.
+`\printquizquestions` defaults to two columns. It also renders the established
+constants box immediately after its section heading whenever `\quizconstants`
+has been set, so a structured document does not call `\constantsbox` itself.
+Manually authored quizzes continue to call `\constantsbox` directly and are
+unaffected.
 
 Place these inside the Phase 3 semantic gates. Each gate still governs whether
 its section appears in the selected primary mode.

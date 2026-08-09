@@ -1167,6 +1167,11 @@
       \typeout{PQ4C-CONTENT:QUESTIONS}
       \typeout{PQ4D-CONTENT:SELECTED-QUESTIONS}
       \section{Generated~Question~Booklet}
+      % Render the established constants box when the author has supplied
+      % constants through \quizconstants.  Manually authored quizzes call
+      % \constantsbox themselves; only the Phase 4 generated booklet reaches
+      % this code, so no existing document can receive a duplicated box.
+      \exp_args:No \tl_if_blank:nF { \QuizConstants } { \constantsbox }
       \begin{quizquestions}[#1]
         \seq_map_inline:Nn \g__pq_selected_ids_seq
           {

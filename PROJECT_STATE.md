@@ -131,7 +131,10 @@ No `% !TeX root` directives were added. The workbook's existing conditional arch
 * Phase 4F migrated a twelve-record audit pilot and was committed on `main` as
   `f7afd1e` — `Add PHY104 structured migration pilot`.
 * Phase 4G migrated the complete sixty-record bank. Its runner passed locally on
-  6 August 2026.
+  6 August 2026 and was committed on `main` as `19e816b` — `Migrate the complete
+  PHY104 question bank`. The governance records followed as `5dc4a0b`.
+* Phase 4H restored the constants box in the generated booklet after the Phase 4G
+  visual review found it missing.
 * Generated PDFs, logs, and other build artefacts remain excluded from the
   source-focused checkpoints.
 * `examples/physicsquiz/PHY104_Exam revision.pdf` and its `.log` are tracked from
@@ -660,6 +663,23 @@ was moved into metadata.
 * The legacy quiz remained pixel-identical at 23 pages through Checkpoints 4C,
   4D, and 4E.
 
+### Checkpoint 4H — generated-booklet constants box
+
+The Phase 4G visual review found that the complete structured example rendered no
+constants box. `\quizconstants` only stores its text; `\constantsbox` renders it,
+and `\makequiztitle` never calls it. The manually authored quiz calls
+`\constantsbox` explicitly after its section heading, but a structured document
+cannot reproduce that placement, because `\printquizquestions` emits its own
+heading and then opens `multicol` with no author hook in between.
+
+`\printquizquestions` therefore now renders `\constantsbox` itself, immediately
+after its heading, whenever `\quizconstants` has been set. No pre-Phase-4
+document calls `\printquizquestions`, so no existing quiz can receive a
+duplicated box. The complete structured example remains 25 pages with the box
+present and clean logs; the `all`, `foundation`, `ids`, and `random`
+full-migration drivers are byte-identical, because none of them set
+`\quizconstants`.
+
 ### Deferred to a later phase
 
 * Choice shuffling within a question.
@@ -820,22 +840,30 @@ begin in a new chat with the complete class and package set attached.
 * Preserved and excluded the independent modification to
   `examples/studentnotes/Optics.tex`.
 
+### Session 15 — Phase 4G review and Phase 4H constants box
+
+* Confirmed the Phase 4G runner ending locally with both expected lines.
+* Performed the mandated visual review against the legacy PDF and found the
+  missing constants box.
+* Committed Phase 4G as `19e816b` and the governance records as `5dc4a0b`.
+* Removed draft scaffolding that had been pasted into `CHANGELOG.md`.
+* Restored the constants box inside `\printquizquestions` as Checkpoint 4H and
+  verified the complete example and four full-migration drivers.
+* Recorded the mixed CRLF/LF line endings in `physicsquiz.cls` as a formatting
+  hazard and added `.gitattributes`.
+* Preserved and excluded the independent modification to
+  `examples/studentnotes/Optics.tex`.
+
 ## Next action
 
-1. Complete the Phase 4G visual review — the complete booklet, the three band
-   answer keys, the reordered-ID and seed-104 random PDFs, and a fidelity
-   spot-check against the legacy PDF. Confirm in particular that Question 60
-   still keeps all five options in one column and that no answer-key box
-   overflows a page.
-2. Commit Phase 4G as a source-only checkpoint: the bank, the structured example,
-   the nine drivers, the shared driver content file, the checker, and the runner.
-   Exclude the regenerated `PHY104_Exam revision.pdf` and `.log`, all other build
-   artefacts, and `examples/studentnotes/Optics.tex`.
-3. Commit the governance records — this file, `CHANGELOG.md`, and
-   `docs/PUBLIC_INTERFACES.md` — as a separate documentation checkpoint.
+1. Run the Phase 4G suite against the Checkpoint 4H class and confirm both
+   expected closing lines, then commit Checkpoint 4H.
+2. Decide whether `.gitattributes` is adopted now or deferred to Phase 9.
+3. Decide whether choice shuffling and version-dependent question assignment,
+   both deferred out of Phase 3 into the question-bank layer, are added as
+   further Phase 4 checkpoints or moved to a later phase.
 4. Decide whether `physicsquiz.cls` should now carry a semantic version, and
    whether the repository should continue tracking generated example PDFs.
-5. Decide when the legacy `PHY104_Exam revision.tex` is retired. It must not be
-   replaced or deleted until the visual review is complete and recorded.
+5. Decide when the legacy `PHY104_Exam revision.tex` is retired.
 6. Begin Phase 5 in a new chat, with the complete class and package set attached,
    auditing duplication before moving any shared code.

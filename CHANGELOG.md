@@ -2,21 +2,11 @@
 
 This file records significant changes to the LaTeX Workspace Learning and Class Refactoring Project.
 
-# Phase 4 changelog section — draft for insertion
-
-Insert the section below into `CHANGELOG.md` immediately after the
-`# Changelog` heading and its introductory sentence, above
-`## Phase 3 — One source, multiple assessment outputs`. Nothing in the existing
-file needs to change.
-
-Two values are left for you to confirm: the completion date, and whether the
-class version line should be advanced (see the note at the end).
-
----
-
 ## Phase 4 — Question-bank architecture
 
 **Completed: 8 August 2026**
+
+**Amended: 9 August 2026 — Checkpoint 4H**
 
 ### Decided
 
@@ -137,6 +127,20 @@ class version line should be advanced (see the note at the end).
   suites, and that the complete chain passed in the repository-local MiKTeX
   environment on 6 August 2026.
 
+### Fixed (Checkpoint 4H)
+
+- Restored the established constants box in the generated question booklet.
+  `\printquizquestions` now renders `\constantsbox` immediately after its
+  section heading when `\quizconstants` has been set, reproducing the placement
+  used by the manually authored quiz. Documents that call `\constantsbox`
+  themselves are unaffected, because only the Phase 4 generated booklet reaches
+  this code.
+- Verified that the complete structured example remains 25 pages with the
+  constants box present and produces no LaTeX, `xsim`, overfull, or underfull
+  diagnostics, and that the `all`, `foundation`, `ids`, and `random`
+  full-migration drivers are byte-identical because they do not set
+  `\quizconstants`.
+
 ### Known limitations
 
 - A generated 60-entry answer key is taller than one page. The complete example
@@ -161,22 +165,6 @@ class version line should be advanced (see the note at the end).
 - A pagination strategy for long generated answer keys.
 - Any use of `xsim`'s own selection, collection, or grading facilities beyond
   storage.
-
----
-
-## Note on the class version line
-
-`src/classes/physicsquiz.cls` currently declares:
-
-```latex
-\ProvidesClass{physicsquiz}[2026/08/06 Stylish physics quiz class]
-```
-
-It carries a date but no semantic version, so a document cannot test for the
-presence of the structured interface. Phase 10 owns release-versioning
-conventions, so this draft does not change it — but it is worth deciding now
-whether Phase 4 should have bumped a version number, because the structured
-interface is the largest addition the class has ever received.
 
 ## Phase 3 — One source, multiple assessment outputs
 
