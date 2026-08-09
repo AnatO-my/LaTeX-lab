@@ -9,6 +9,19 @@ def normalise(text: str) -> str:
     return re.sub(r"\s+", " ", text).strip()
 
 
+def resolve_correct_letter(text: str, letter: str) -> str:
+    """Resolve the Phase 4I answer-letter macro back to the declared letter.
+
+    Checkpoint 4I replaced the literal answer letter in every migrated worked
+    solution with \\quizcorrectletter, which expands to the record's declared
+    letter whenever options are not shuffled.  Resolving it here keeps this
+    fidelity comparison about the reasoning text, and makes it fail if a record
+    ever used the macro while declaring a different answer from the legacy
+    source.
+    """
+    return text.replace(r"\quizcorrectletter", letter)
+
+
 def topic_for(number: int) -> tuple[str, str]:
     position = (number - 1) % 20 + 1
     if position <= 5:
@@ -146,7 +159,11 @@ def extract_bank(bank: str) -> list[dict[str, str]]:
                 "tags": braced(options, "tags"),
                 "outcome": braced(options, "outcome"),
                 "question": normalise(question.group(2)),
-                "solution": normalise(solution.group(1)),
+                "solution": normalise(
+                    resolve_correct_letter(
+                        solution.group(1), scalar(options, "correct")
+                    )
+                ),
             }
         )
     return records

@@ -171,6 +171,11 @@ This file records significant changes to the LaTeX Workspace Learning and Class 
 - Made `\quizclearselection` also discard any existing shuffle.
 - Made `choiceoptions` raise a class error when a shuffled record would be
   rendered through it, because the class cannot know the option count.
+- Taught `check_physicsquiz_full_migration.py` to resolve `\quizcorrectletter`
+  back to the record's declared letter before comparing worked solutions with
+  the legacy source. The Phase 4G fidelity contract is about reasoning text,
+  and the resolution also makes the check fail if a record ever used the macro
+  while declaring a different answer from the legacy quiz.
 
 ### Known limitations
 

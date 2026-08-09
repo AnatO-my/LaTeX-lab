@@ -68,6 +68,7 @@ build script may pass a macro.
 - `tests/physicsquiz_shuffle_document.tex` and ten positive drivers
 - eight expected-failure drivers
 - `tests/check_physicsquiz_shuffle_versions.py`
+- `tests/check_physicsquiz_full_migration.py` (resolves the new answer-letter macro)
 - `tests/run_physicsquiz_phase4ij_tests.ps1`
 
 ## Acceptance contract
@@ -86,6 +87,10 @@ build script may pass a macro.
 - Eight deliberate failures each abort with their intended marker.
 - The accepted Phase 4G suite still passes, and the unshuffled full-migration
   drivers remain byte-identical.
+- The Phase 4G fidelity checker resolves `\quizcorrectletter` to the declared
+  letter before comparing with the legacy source, so the sixty-solution rewrite
+  does not weaken it: altered reasoning still fails, and a record whose
+  `correct=` disagrees with the legacy answer now fails twice.
 
 ## Run
 
