@@ -21,7 +21,13 @@ LaTeX Workspace Learning and Class Refactoring Project
 
 ## Current phase
 
-**Phase 4 — Question-bank architecture — completed on 8 August 2026.**
+**Phase 4 — Question-bank architecture — completed on 9 August 2026.**
+
+Checkpoints 4A to 4J. Every item that Phase 3 deferred into the question-bank
+layer has been delivered: structured records, automatic answer keys and mark
+totals, deterministic selection and filtering and reordering, seeded
+randomisation, the `xsim` comparison, the sixty-question migration, choice
+shuffling, and version-dependent question assignment.
 
 Phase 4 gave `physicsquiz.cls` a structured question-record layer on top of the
 Phase 3 output-selection layer. A question is now declared once, carrying its
@@ -436,6 +442,11 @@ The canonical repository structure is now supported by the shared Phase 1 class 
   documents; the Phase 4 runners fail early and explain this.
 * `\ProvidesClass` carries a date but no semantic version, so a document cannot
   test for the presence of the structured interface.
+* Option shuffling supports the five-option `\choices` interface only; a
+  `choiceoptions` record raises a class error under shuffling.
+* No option can be pinned to a fixed position, so a bank containing
+  none-of-the-above style options must not be shuffled. The PHY104 bank has none.
+* Producing a full set of versioned papers means one compile per version label.
 * The class now mixes traditional LaTeX and `expl3` code. This anticipated
   Phase 6 rather than following it, and the mixture should be reviewed for
   consistency when Phase 6 begins.
@@ -891,13 +902,22 @@ begin in a new chat with the complete class and package set attached.
 
 ## Next action
 
-1. Run `tests\run_physicsquiz_phase4ij_tests.ps1` and confirm both expected
-   closing lines, then review `PHY104_versioned_paper.pdf` for versions A and B.
-2. Commit Checkpoints 4I and 4J.
-3. Declare Phase 4 complete: every item deferred out of Phase 3 into the
-   question-bank layer has now been delivered.
-4. Decide whether `physicsquiz.cls` should now carry a semantic version, and
-   whether the repository should continue tracking generated example PDFs.
-5. Decide when the legacy `PHY104_Exam revision.tex` is retired.
-6. Begin Phase 5 in a new chat, with the complete class and package set attached,
-   auditing duplication before moving any shared code.
+Phase 4 is closed. Before starting Phase 5:
+
+1. Review `build/examples/physicsquiz/PHY104_versioned_paper.pdf` for version A,
+   then rebuild with `\quizuseversion{B}` and confirm the two papers differ in
+   both question set and option order, and that each answer key matches its own
+   solutions. A shuffled booklet is the one output no checker can fully judge.
+2. Decide whether `physicsquiz.cls` should now carry a semantic version.
+3. Decide whether the repository should continue tracking generated example PDFs.
+4. Decide when the legacy `PHY104_Exam revision.tex` is retired. The structured
+   bank and the legacy quiz still describe the same sixty questions.
+
+Then begin Phase 5 in a new chat, per `ROADMAP.md`. Phase 5 audits duplication
+across all four classes and the seven companion packages and designs a minimal
+shared-package architecture. It must not begin by moving `physicsquiz` code:
+that class has just absorbed the largest addition in its history, and shared-code
+extraction should start from a concern that is genuinely duplicated across
+classes. Attach `MASTER_PROMPT.md`, this file, `CHANGELOG.md`,
+`docs/PUBLIC_INTERFACES.md`, all four classes, all seven companion packages, one
+representative source per class, and a fresh `project-tree.txt`.
