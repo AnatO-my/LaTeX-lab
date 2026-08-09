@@ -1,0 +1,13 @@
+# Keep every text file LF in the repository and in the working tree.
+#
+# CHANGELOG.md was entirely CRLF and physicsquiz.cls held 327 CRLF lines among
+# 1320, while every other source file is LF. Without this, any tool that
+# rewrites a file - latexindent in particular - turns a one-line change into a
+# whole-file diff.
+
+* text=auto eol=lf
+
+*.pdf binary
+*.png binary
+*.jpg binary
+*.gz  binary
