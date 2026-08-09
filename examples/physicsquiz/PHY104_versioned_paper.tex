@@ -1,0 +1,55 @@
+% Phase 4I/4J demonstration: two genuinely different papers from one bank.
+% Build version B by changing the \quizuseversion argument, or by defining
+% \PQVersion before \documentclass in a build script.
+\documentclass[full,10pt,a4paper]{physicsquiz}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.35em}
+\raggedcolumns
+
+\quizfontsize{9.4pt}{11.5pt}
+\quiztitle{Versioned Practice Paper}
+\quizcourse{PHY 104 Oscillations, Normal Modes, Waves and Optics}
+\quizauthor{Prepared by OT}
+\quizinstitution{Drill Tutors}
+\quizinstructions{Choose the best answer in each case. Option order differs between versions, so answers may not be compared across papers.}
+\quizconstants{\(g=\SI{9.80}{m.s^{-2}}\), \(v_{\text{sound}}=\SI{343}{m.s^{-1}}\) unless otherwise stated, \(c=\SI{3.00e8}{m.s^{-1}}\). Angles are measured from the normal unless stated otherwise.}
+
+\begin{document}
+
+\begin{quizbank}
+  \input{banks/phy104_full_question_bank.tex}
+\end{quizbank}
+
+\quizdefineversion{A}{%
+  \quizselect[difficulty=foundation]%
+  \quizselectrandom[difficulty=applied]{6}{1041}%
+  \quizselectrandom[difficulty=challenge]{4}{1042}%
+  \quizshuffleoptions{10401}%
+}
+\quizdefineversion{B}{%
+  \quizselect[difficulty=foundation]%
+  \quizselectrandom[difficulty=applied]{6}{2051}%
+  \quizselectrandom[difficulty=challenge]{4}{2052}%
+  \quizshuffleoptions{20502}%
+}
+
+\quizuseversion{A}
+
+\pagenumbering{gobble}
+\makequiztitle
+\pagenumbering{arabic}
+
+\printquizquestions[2]
+
+\begin{quizanswerkeycontent}
+  \clearpage
+  \printquizanswerkey
+\end{quizanswerkeycontent}
+
+\begin{quizsolutioncontent}
+  \clearpage
+  \printquizsolutions
+\end{quizsolutioncontent}
+
+\end{document}

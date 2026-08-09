@@ -368,6 +368,7 @@
 % across columns or pages when space is tight.
 \newenvironment{choiceoptions}
 {
+    \pqchoiceoptionsguard
     \begingroup
     \everymath{\displaystyle}
     \begin{enumerate}[
@@ -520,7 +521,7 @@
       colbacktitle=QuizLightBlue,
       coltitle=QuizNavy,
       fonttitle=\bfseries,
-      title={Question \arabic{pqselectedquestion} --- Correct option \GetExerciseProperty{correct}},
+      title={Question \arabic{pqselectedquestion} --- Correct option \quizcorrectletter},
       arc=2mm,
       boxrule=0.65pt,
       left=8pt,right=8pt,top=6pt,bottom=6pt,
@@ -1146,7 +1147,10 @@
   }
 
 \NewDocumentCommand \quizclearselection {}
-  { \seq_gclear:N \g__pq_selected_ids_seq }
+  {
+    \seq_gclear:N \g__pq_selected_ids_seq
+    \__pq_reset_shuffle:
+  }
 
 \NewDocumentCommand \quizselectids {m}
   { \__pq_select_ids:n {#1} }
@@ -1176,7 +1180,9 @@
         \seq_map_inline:Nn \g__pq_selected_ids_seq
           {
             \typeout{PQ4D-QUESTION:##1}
+            \tl_gset:Nn \g__pq_current_id_tl {##1}
             \printexercise{exercise}{##1}
+            \tl_gclear:N \g__pq_current_id_tl
           }
       \end{quizquestions}
     \fi
@@ -1192,8 +1198,8 @@
         \seq_map_inline:Nn \g__pq_selected_ids_seq
           {
             \int_incr:N \l_tmpa_int
-            \typeout{PQ4C-ANSWER:##1=\__pq_property:nn {##1}{correct}}
-            \item[Question~\int_use:N \l_tmpa_int]~\textbf{\__pq_property:nn {##1}{correct}}
+            \typeout{PQ4C-ANSWER:##1=\__pq_effective_letter:n {##1}}
+            \item[Question~\int_use:N \l_tmpa_int]~\textbf{\__pq_effective_letter:n {##1}}
             \quad\textcolor{QuizGrey}{\small(##1)}
           }
       \end{description}
@@ -1232,7 +1238,9 @@
     \seq_map_inline:Nn \g__pq_selected_ids_seq
       {
         \stepcounter{pqselectedquestion}
+        \tl_gset:Nn \g__pq_current_id_tl {##1}
         \printsolution{exercise}{##1}
+        \tl_gclear:N \g__pq_current_id_tl
       }
   }
 
@@ -1313,6 +1321,290 @@
         \ClassError{physicsquiz}
           {Selection-order~assertion~failed}
           {Expected the stable-ID order #3.}
+      }
+  }
+
+% -------------------------------------------------
+% Phase 4I: seeded option shuffling
+% -------------------------------------------------
+% Shuffling permutes the five slots of the \choices interface.  The permutation
+% for a record is derived from the document seed and the record's declaration
+% index, so it does not depend on selection order and is reproducible across
+% engines.  It is computed for the whole selection before anything is rendered,
+% because the answer key must report the shuffled letter even in answerkey-only
+% output, where no booklet is typeset.
+\prop_new:N \g__pq_shuffle_perm_prop
+\prop_new:N \g__pq_shuffle_letter_prop
+\tl_new:N   \g__pq_current_id_tl
+\bool_new:N \g__pq_shuffled_bool
+\bool_new:N \g__pq_from_choices_bool
+\seq_new:N  \l__pq_choice_seq
+\seq_new:N  \l__pq_perm_seq
+\int_new:N  \l__pq_perm_pos_int
+\int_new:N  \l__pq_orig_pos_int
+\tl_new:N   \l__pq_letter_tl
+\bool_new:N \l__pq_do_shuffle_bool
+
+\cs_generate_variant:Nn \prop_item:Nn { NV }
+\cs_generate_variant:Nn \prop_if_in:NnTF { NV }
+\cs_generate_variant:Nn \str_case:nn { V }
+\cs_generate_variant:Nn \prop_if_in:NnTF { NV }
+
+\cs_new:Npn \__pq_effective_letter:n #1
+  {
+    \prop_if_in:NnTF \g__pq_shuffle_letter_prop {#1}
+      { \prop_item:Nn \g__pq_shuffle_letter_prop {#1} }
+      { \__pq_property:nn {#1}{correct} }
+  }
+\cs_generate_variant:Nn \__pq_effective_letter:n {V}
+
+\cs_new_protected:Npn \__pq_shuffle_one:nn #1#2
+  {
+    % #1 = stable id, #2 = declaration index
+    \int_set_eq:NN \l__pq_random_state_int \l__pq_random_seed_int
+    \int_step_inline:nn {#2} { \__pq_random_next: }
+    \seq_clear:N \l__pq_perm_seq
+    \int_step_inline:nn {5}
+      { \seq_put_right:Nn \l__pq_perm_seq {##1} }
+    \int_step_inline:nnnn {5} {-1} {2}
+      {
+        \__pq_random_index:n {##1}
+        \tl_set:Nx \l_tmpa_tl { \seq_item:Nn \l__pq_perm_seq {##1} }
+        \tl_set:Nx \l_tmpb_tl
+          { \seq_item:Nn \l__pq_perm_seq {\l__pq_random_index_int} }
+        \seq_set_item:NnV \l__pq_perm_seq {##1} \l_tmpb_tl
+        \seq_set_item:NnV \l__pq_perm_seq
+          {\l__pq_random_index_int} \l_tmpa_tl
+      }
+    \tl_set:Nx \l_tmpa_tl { \seq_use:Nn \l__pq_perm_seq {,} }
+    \prop_gput:NnV \g__pq_shuffle_perm_prop {#1} \l_tmpa_tl
+    \typeout{PQ4I-PERM:#1=\tl_use:N \l_tmpa_tl}
+    % Locate the display position now holding the originally correct slot.
+    \tl_set:Nx \l__pq_letter_tl { \__pq_property:nn {#1}{correct} }
+    \int_set:Nn \l__pq_orig_pos_int
+      {
+        \str_case:Vn \l__pq_letter_tl
+          { {A}{1} {B}{2} {C}{3} {D}{4} {E}{5} }
+      }
+    \int_zero:N \l__pq_perm_pos_int
+    \int_step_inline:nn {5}
+      {
+        \int_compare:nNnT
+          { \seq_item:Nn \l__pq_perm_seq {##1} }
+          =
+          { \l__pq_orig_pos_int }
+          { \int_set:Nn \l__pq_perm_pos_int {##1} }
+      }
+    \tl_set:Nx \l_tmpa_tl { \int_to_Alph:n { \l__pq_perm_pos_int } }
+    \prop_gput:NnV \g__pq_shuffle_letter_prop {#1} \l_tmpa_tl
+    \typeout{PQ4I-ANSWER:#1=\tl_use:N \l_tmpa_tl}
+  }
+
+\cs_new_protected:Npn \__pq_shuffle_options:n #1
+  {
+    \__pq_require_selection:
+    \bool_if:NTF \g__pq_shuffled_bool
+      {
+        \typeout{PQ4I-VALIDATION:ALREADY-SHUFFLED}
+        \ClassError{physicsquiz}
+          {Option~shuffling~has~already~been~applied}
+          {Call \quizshuffleoptions once, after the selection is complete.}
+      }
+      {
+        \__pq_random_parse_seed:n {#1}
+        \typeout{PQ4I-SHUFFLE:ALGORITHM=park-miller-v1}
+        \typeout{PQ4I-SHUFFLE:SEED=\int_use:N \l__pq_random_seed_int}
+        \seq_map_indexed_inline:Nn \g__pq_question_ids_seq
+          {
+            \seq_if_in:NnT \g__pq_selected_ids_seq {##2}
+              { \__pq_shuffle_one:nn {##2}{##1} }
+          }
+        \bool_gset_true:N \g__pq_shuffled_bool
+      }
+  }
+
+\cs_new_protected:Npn \__pq_reset_shuffle:
+  {
+    \prop_gclear:N \g__pq_shuffle_perm_prop
+    \prop_gclear:N \g__pq_shuffle_letter_prop
+    \bool_gset_false:N \g__pq_shuffled_bool
+  }
+
+% Shuffle-aware five-option interface.  The natural branch reproduces the
+% established output token for token; the shuffled branch emits the same items
+% in permuted order.
+\cs_new_protected:Npn \__pq_choices:nnnnn #1#2#3#4#5
+  {
+    \bool_gset_true:N \g__pq_from_choices_bool
+    \bool_set_false:N \l__pq_do_shuffle_bool
+    \tl_if_blank:VF \g__pq_current_id_tl
+      {
+        \prop_if_in:NVT \g__pq_shuffle_perm_prop \g__pq_current_id_tl
+          { \bool_set_true:N \l__pq_do_shuffle_bool }
+      }
+    \bool_if:NTF \l__pq_do_shuffle_bool
+      {
+        \seq_clear:N \l__pq_choice_seq
+        \seq_put_right:Nn \l__pq_choice_seq {#1}
+        \seq_put_right:Nn \l__pq_choice_seq {#2}
+        \seq_put_right:Nn \l__pq_choice_seq {#3}
+        \seq_put_right:Nn \l__pq_choice_seq {#4}
+        \seq_put_right:Nn \l__pq_choice_seq {#5}
+        \tl_set:Nx \l_tmpa_tl
+          { \prop_item:NV \g__pq_shuffle_perm_prop \g__pq_current_id_tl }
+        \begin{choiceoptions}
+          \exp_args:NV \clist_map_inline:nn \l_tmpa_tl
+            { \item \seq_item:Nn \l__pq_choice_seq {##1} }
+        \end{choiceoptions}
+      }
+      {
+        \begin{choiceoptions}
+          \item #1
+          \item #2
+          \item #3
+          \item #4
+          \item #5
+        \end{choiceoptions}
+      }
+    \bool_gset_false:N \g__pq_from_choices_bool
+  }
+
+\RenewDocumentCommand \choices { m m m m m }
+  { \__pq_choices:nnnnn {#1}{#2}{#3}{#4}{#5} }
+
+% A record whose options are authored with choiceoptions cannot be shuffled,
+% because the class cannot know how many items the author will write.  Fail
+% loudly rather than emit a booklet whose answer key is wrong.
+\cs_new_protected:Npn \__pq_choiceoptions_guard:
+  {
+    \bool_set_false:N \l__pq_do_shuffle_bool
+    \bool_if:NF \g__pq_from_choices_bool
+      {
+        \tl_if_blank:VF \g__pq_current_id_tl
+          {
+            \prop_if_in:NVT \g__pq_shuffle_perm_prop \g__pq_current_id_tl
+              { \bool_set_true:N \l__pq_do_shuffle_bool }
+          }
+      }
+    \bool_if:NT \l__pq_do_shuffle_bool
+      {
+        \typeout{PQ4I-VALIDATION:CHOICEOPTIONS-NOT-SHUFFLEABLE}
+        \ClassError{physicsquiz}
+          {Cannot~shuffle~a~choiceoptions~record}
+          {Shuffling supports the five-option \choices interface only.}
+      }
+  }
+\cs_set_eq:NN \pqchoiceoptionsguard \__pq_choiceoptions_guard:
+
+\NewDocumentCommand \quizshuffleoptions { m }
+  { \__pq_shuffle_options:n {#1} }
+
+\NewDocumentCommand \quizcorrectletter {}
+  {
+    \tl_if_blank:VTF \g__pq_current_id_tl
+      {
+        \typeout{PQ4I-VALIDATION:NO-CURRENT-RECORD}
+        \ClassError{physicsquiz}
+          {\quizcorrectletter~used~outside~a~rendered~record}
+          {Use it inside a quizsolution body or a generated section.}
+      }
+      { \__pq_effective_letter:V \g__pq_current_id_tl }
+  }
+
+\NewDocumentCommand \quizshuffleassert { m }
+  {
+    \tl_set:Nx \l_tmpa_tl
+      {
+        \seq_use:Nn \g__pq_selected_ids_seq {,}
+      }
+    \tl_clear:N \l_tmpb_tl
+    \seq_map_inline:Nn \g__pq_selected_ids_seq
+      {
+        \tl_put_right:Nx \l_tmpb_tl
+          {
+            \tl_if_empty:NF \l_tmpb_tl {,}
+            \__pq_effective_letter:n {##1}
+          }
+      }
+    \tl_set:Nx \l_tmpa_tl {#1}
+    \tl_if_eq:NNTF \l_tmpa_tl \l_tmpb_tl
+      { \typeout{PQ4I-LETTERS:#1} }
+      {
+        \ClassError{physicsquiz}
+          {Shuffled-answer~assertion~failed}
+          {Expected #1 but obtained \tl_use:N \l_tmpb_tl.}
+      }
+  }
+
+% -------------------------------------------------
+% Phase 4J: version manifest
+% -------------------------------------------------
+% A version names a selection recipe and its own shuffle seed.  One compile
+% produces one version, so pagination, numbering, and the answer key stay
+% unambiguous, and the Phase 3 \quizversion header metadata finally carries a
+% question-level meaning.
+\prop_new:N \g__pq_version_prop
+\tl_new:N   \g__pq_active_version_tl
+
+\cs_new_protected:Npn \__pq_define_version:nn #1#2
+  {
+    \prop_if_in:NnTF \g__pq_version_prop {#1}
+      {
+        \typeout{PQ4J-VALIDATION:DUPLICATE-VERSION:#1}
+        \ClassError{physicsquiz}
+          {Duplicate~version~label:~#1}
+          {Every quizdefineversion label must be unique.}
+      }
+      {
+        \prop_gput:Nnn \g__pq_version_prop {#1} {#2}
+        \typeout{PQ4J-VERSION-DEFINED:#1}
+      }
+  }
+
+\cs_new_protected:Npn \__pq_use_version:n #1
+  {
+    % The label is expanded, so a build script may pass a macro.
+    \tl_set:Nx \l__pq_letter_tl {#1}
+    \tl_if_blank:VF \g__pq_active_version_tl
+      {
+        \typeout{PQ4J-VALIDATION:VERSION-ALREADY-ACTIVE}
+        \ClassError{physicsquiz}
+          {A~version~is~already~active}
+          {One compile produces one version; call \quizuseversion once.}
+      }
+    \prop_if_in:NVTF \g__pq_version_prop \l__pq_letter_tl
+      {
+        \seq_gclear:N \g__pq_selected_ids_seq
+        \__pq_reset_shuffle:
+        \tl_gset_eq:NN \g__pq_active_version_tl \l__pq_letter_tl
+        \typeout{PQ4J-VERSION:\tl_use:N \l__pq_letter_tl}
+        \exp_args:NV \quizversion \l__pq_letter_tl
+        \prop_item:NV \g__pq_version_prop \l__pq_letter_tl
+      }
+      {
+        \typeout{PQ4J-VALIDATION:UNKNOWN-VERSION:\tl_use:N \l__pq_letter_tl}
+        \ClassError{physicsquiz}
+          {Unknown~version~label:~#1}
+          {Define the version with quizdefineversion before using it.}
+      }
+  }
+
+\NewDocumentCommand \quizdefineversion { m +m }
+  { \__pq_define_version:nn {#1}{#2} }
+
+\NewDocumentCommand \quizuseversion { m }
+  { \__pq_use_version:n {#1} }
+
+\NewDocumentCommand \quizversionassert { m }
+  {
+    \tl_set:Nx \l_tmpa_tl { \g__pq_active_version_tl }
+    \tl_set:Nx \l_tmpb_tl {#1}
+    \tl_if_eq:NNTF \l_tmpa_tl \l_tmpb_tl
+      { \typeout{PQ4J-ACTIVE:#1} }
+      {
+        \ClassError{physicsquiz}
+          {Active-version~assertion~failed}
+          {Expected version #1.}
       }
   }
 

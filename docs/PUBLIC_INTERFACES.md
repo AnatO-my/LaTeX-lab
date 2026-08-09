@@ -411,6 +411,65 @@ A generated 60-entry answer key is taller than one page;
 printing one band at a time, as
 `examples/physicsquiz/PHY104_structured_revision.tex` does.
 
+### Option shuffling
+
+```latex
+\quizshuffleoptions{<seed>}
+\quizcorrectletter
+```
+
+*Stability: stable author interface. Regression-verified.*
+
+`\quizshuffleoptions` permutes the five slots of the `\choices` interface for
+every currently selected record. Call it after the selection is complete and
+before anything is rendered: the permutation is computed up front so that an
+`answerkey` compile, which typesets no booklet, still reports the letters of the
+paper it belongs to.
+
+A record's permutation derives from the seed and the record's declaration index
+in the bank, not from its position in the selection, so the same bank, seed and
+record always give the same permutation. The generator is the `park-miller-v1`
+implementation already used by `\quizselectrandom`.
+
+`\quizcorrectletter` expands to the effective answer letter for the record being
+rendered: the shuffled letter when shuffling is active, the declared `correct`
+key otherwise. Worked solutions should cite it rather than a literal letter.
+Outside a rendered record it raises a class error.
+
+Shuffling supports the five-option `\choices` interface. A record whose options
+use `choiceoptions` raises a class error under shuffling, because the class
+cannot know how many items the author will write. No option can be pinned to a
+fixed position, so a bank containing none-of-the-above style options must not be
+shuffled.
+
+Calling `\quizshuffleoptions` twice, with an invalid seed, or with an empty
+selection raises a class error. `\quizclearselection` discards the shuffle
+along with the selection.
+
+### Version manifest
+
+```latex
+\quizdefineversion{<label>}{<selection recipe>}
+\quizuseversion{<label>}
+```
+
+*Stability: stable author interface. Regression-verified.*
+
+A version names a selection recipe -- any combination of the selection commands,
+optionally ending in `\quizshuffleoptions` -- and is activated by
+`\quizuseversion`, which clears the current selection and shuffle, runs the
+recipe, records the active label, and sets the Phase 3 `\quizversion` header
+metadata. A version label therefore denotes a genuinely different paper rather
+than a decoration.
+
+One compile produces one version, which keeps pagination, question numbering and
+the answer key unambiguous. The label argument is expanded, so a build script may
+pass a macro. Duplicate labels, unknown labels, and a second `\quizuseversion`
+in one document each raise a class error.
+
+`\quizshuffleassert{<ordered letters>}` and `\quizversionassert{<label>}` are
+advanced ecosystem hooks for regression fixtures.
+
 ### `quizquestionbank` compatibility wrapper
 
 ```latex

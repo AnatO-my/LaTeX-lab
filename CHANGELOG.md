@@ -6,7 +6,7 @@ This file records significant changes to the LaTeX Workspace Learning and Class 
 
 **Completed: 8 August 2026**
 
-**Amended: 9 August 2026 — Checkpoint 4H**
+**Amended: 9 August 2026 — Checkpoints 4H, 4I, and 4J**
 
 ### Decided
 
@@ -141,6 +141,37 @@ This file records significant changes to the LaTeX Workspace Learning and Class 
   full-migration drivers are byte-identical because they do not set
   `\quizconstants`.
 
+### Added (Checkpoints 4I and 4J)
+
+- Added `\quizshuffleoptions{<seed>}`, which permutes the five slots of the
+  `\choices` interface for every selected record. A record's permutation derives
+  from the seed and its declaration index, so it is independent of selection
+  order, and it is computed before rendering so that an answer-key-only compile
+  agrees with the paper it belongs to.
+- Added `\quizcorrectletter`, expanding to the effective answer letter for the
+  record being rendered.
+- Added `\quizdefineversion{<label>}{<recipe>}` and `\quizuseversion{<label>}`.
+  A version names a selection recipe and its own shuffle seed; activating one
+  clears the selection, runs the recipe, and sets the Phase 3 `\quizversion`
+  header metadata, so a version label now denotes a genuinely different paper.
+- Added the `\quizshuffleassert` and `\quizversionassert` regression hooks.
+- Added `examples/physicsquiz/PHY104_versioned_paper.tex`.
+- Added ten positive drivers, eight expected-failure drivers,
+  `tests/check_physicsquiz_shuffle_versions.py`, and
+  `tests/run_physicsquiz_phase4ij_tests.ps1`.
+
+### Changed (Checkpoints 4I and 4J)
+
+- Rewrote all sixty worked solutions in the PHY104 bank to end with
+  `\quizcorrectletter` rather than a hard-coded answer letter. Every literal was
+  verified against its record's `correct=` key before the rewrite, and the
+  unshuffled build is byte-identical afterwards.
+- Made the generated answer key and the solution heading read the effective
+  letter rather than the declared one.
+- Made `\quizclearselection` also discard any existing shuffle.
+- Made `choiceoptions` raise a class error when a shuffled record would be
+  rendered through it, because the class cannot know the option count.
+
 ### Known limitations
 
 - A generated 60-entry answer key is taller than one page. The complete example
@@ -158,8 +189,6 @@ This file records significant changes to the LaTeX Workspace Learning and Class 
 
 ### Deferred
 
-- Choice shuffling within a question.
-- Assigning questions to multiple version labels from a version manifest.
 - Balancing a random paper to a target mark total.
 - Retiring or replacing the legacy `PHY104_Exam revision.tex`.
 - A pagination strategy for long generated answer keys.

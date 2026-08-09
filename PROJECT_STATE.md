@@ -135,6 +135,9 @@ No `% !TeX root` directives were added. The workbook's existing conditional arch
   PHY104 question bank`. The governance records followed as `5dc4a0b`.
 * Phase 4H restored the constants box in the generated booklet after the Phase 4G
   visual review found it missing.
+* Phase 4I added seeded option shuffling and Phase 4J added the version
+  manifest. They were designed and verified together, because a manifest entry
+  carries its own shuffle seed.
 * Generated PDFs, logs, and other build artefacts remain excluded from the
   source-focused checkpoints.
 * `examples/physicsquiz/PHY104_Exam revision.pdf` and its `.log` are tracked from
@@ -680,10 +683,28 @@ present and clean logs; the `all`, `foundation`, `ids`, and `random`
 full-migration drivers are byte-identical, because none of them set
 `\quizconstants`.
 
+### Checkpoints 4I and 4J — shuffling and versions
+
+`\quizshuffleoptions{<seed>}` permutes the five slots of the `\choices`
+interface for every selected record, before rendering, so the answer key is
+correct even in `answerkey` output where no booklet is typeset. A record's
+permutation derives from the seed and the record's declaration index, so it does
+not depend on selection order. `\quizcorrectletter` expands to the effective
+letter, and all sixty worked solutions now use it instead of a hard-coded
+letter.
+
+`\quizdefineversion{<label>}{<recipe>}` and `\quizuseversion{<label>}` give a
+version label a question-level meaning for the first time: a version names its
+selection recipe and its own shuffle seed, and one compile produces one paper.
+This closes the Phase 3 deferral of version-dependent question assignment.
+
+Ten positive drivers, eight expected-failure drivers, a Python checker, and
+`run_physicsquiz_phase4ij_tests.ps1` cover the work. The unshuffled
+full-migration drivers remain byte-identical, and the sixty-solution rewrite
+changes no unshuffled output.
+
 ### Deferred to a later phase
 
-* Choice shuffling within a question.
-* Assigning questions to multiple version labels from a version manifest.
 * Balancing a random paper to a target mark total.
 * Retiring or replacing the legacy `PHY104_Exam revision.tex`.
 * A pagination strategy for long generated answer keys.
@@ -854,14 +875,27 @@ begin in a new chat with the complete class and package set attached.
 * Preserved and excluded the independent modification to
   `examples/studentnotes/Optics.tex`.
 
+### Session 16 — Phase 4I and 4J
+
+* Confirmed that all sixty solutions cited their answer letter once and agreed
+  with the record metadata before rewriting them.
+* Added seeded option shuffling, the effective-letter accessor, and the
+  `choiceoptions` guard.
+* Added the version manifest and made `\quizversion` denote a real paper.
+* Added ten positive drivers, eight expected-failure drivers, a checker, and a
+  runner.
+* Verified reproducibility across output modes and the unchanged unshuffled
+  output.
+* Preserved and excluded the independent modification to
+  `examples/studentnotes/Optics.tex`.
+
 ## Next action
 
-1. Run the Phase 4G suite against the Checkpoint 4H class and confirm both
-   expected closing lines, then commit Checkpoint 4H.
-2. Decide whether `.gitattributes` is adopted now or deferred to Phase 9.
-3. Decide whether choice shuffling and version-dependent question assignment,
-   both deferred out of Phase 3 into the question-bank layer, are added as
-   further Phase 4 checkpoints or moved to a later phase.
+1. Run `tests\run_physicsquiz_phase4ij_tests.ps1` and confirm both expected
+   closing lines, then review `PHY104_versioned_paper.pdf` for versions A and B.
+2. Commit Checkpoints 4I and 4J.
+3. Declare Phase 4 complete: every item deferred out of Phase 3 into the
+   question-bank layer has now been delivered.
 4. Decide whether `physicsquiz.cls` should now carry a semantic version, and
    whether the repository should continue tracking generated example PDFs.
 5. Decide when the legacy `PHY104_Exam revision.tex` is retired.
