@@ -118,16 +118,18 @@ try {
     )
 
     foreach ($test in $expectedFailures) {
-        $name = $test.Name
-        & latexmk -pdf -g "-outdir=$buildDir" "tests\$name.tex" > $null 2>&1
+        $source = "tests\$($test.Name).tex"
+        Write-Host "Building expected-failure test $($test.Name)..." -ForegroundColor Yellow
+        & latexmk -pdf -g "-outdir=$buildDir" $source
         if ($LASTEXITCODE -eq 0) {
-            throw "Expected failure compiled successfully: $name"
+            throw "$source unexpectedly compiled successfully."
         }
-        $log = Join-Path $buildDir "$name.log"
-        if (-not (Select-String -Path $log -SimpleMatch -Pattern $test.Marker)) {
-            throw "$name failed, but not for the intended reason ($($test.Marker) was not recorded)."
+
+        $log = Join-Path $buildDir "$($test.Name).log"
+        if (-not (Select-String -Path $log -SimpleMatch $test.Marker -Quiet)) {
+            throw "$source failed without the expected validation marker: $($test.Marker)"
         }
-        Write-Host "PASS expected failure: $name" -ForegroundColor Yellow
+        Write-Host "PASS expected failure: $($test.Name)" -ForegroundColor Green
     }
 
     $global:LASTEXITCODE = 0
