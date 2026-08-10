@@ -1,0 +1,33 @@
+% Phase 5 cycle witness.
+%
+% otpractice.sty is documented as a companion package, but it borrows the
+% otscibox environment and the OT colour palette from otscience.cls.  It is
+% therefore an ecosystem component rather than an independently loadable
+% package, and this document cannot compile.
+%
+% The failure is deferred and badly signposted: the \usepackage line succeeds,
+% and the error arrives later, naming neither otpractice nor otscience.
+%
+% Checkpoint 5A records that as an expected failure.  Checkpoint 5C moves
+% otscibox into otboxes.sty and this file into the positive list, which is the
+% machine-checkable moment the circular dependency is broken.
+
+\documentclass{article}
+
+\usepackage{otpractice}
+
+\begin{document}
+
+\section*{Standalone companion-package load}
+
+\begin{practice}
+    \qitem State the SI base unit of luminous intensity. \blank
+
+    \qitem Give the dimensions of angular momentum. \blank
+\end{practice}
+
+\begin{drillbox}
+    Reproduce the definition of the deviatoric stress tensor from memory.
+\end{drillbox}
+
+\end{document}

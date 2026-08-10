@@ -21,6 +21,14 @@ LaTeX Workspace Learning and Class Refactoring Project
 
 ## Current phase
 
+**Phase 5 — Shared OT design system — in progress. Checkpoint 5A completed on
+10 August 2026.**
+
+Phase 5 audits duplication across the four classes and the seven companion
+packages and designs a minimal shared-package architecture. Checkpoint 5A added
+the first OT-side regression harness and changed no file under `src/`. Full
+detail is in the "Phase 5 status" section below.
+
 **Phase 4 — Question-bank architecture — completed on 9 August 2026.**
 
 Checkpoints 4A to 4J. Every item that Phase 3 deferred into the question-bank
@@ -226,7 +234,12 @@ LaTeX-Lab/
 │   ├── check_physicsquiz_random_selection.py
 │   ├── check_physicsquiz_migration_pilot.py
 │   ├── check_physicsquiz_full_migration.py
-│   └── run_physicsquiz_phase3d/4c/4d/4e/4f/4g_tests.ps1
+│   ├── run_physicsquiz_phase3d/4c/4d/4e/4f/4g/4ij_tests.ps1
+│   ├── check_ot_baseline.py                (Phase 5A)
+│   ├── ot_baseline_manifest.json           (Phase 5A)
+│   ├── ot_palette_probe_*.tex              (Phase 5A)
+│   ├── otpractice_standalone.tex           (Phase 5A cycle witness)
+│   └── run_ot_phase5_tests.ps1             (Phase 5A)
 │
 └── build/                                  ← generated, git-ignored
 ```
@@ -258,7 +271,18 @@ All four active classes have now been supplied and audited.
 
 These seven packages form the companion package system used by `otscience.cls` and the modular workbook.
 
-They currently depend on colours, boxes, or other interfaces defined by `otscience.cls`. They must therefore be treated as ecosystem components rather than independently loadable general-purpose packages.
+Four of the seven — `otnotation`, `otmath`, `otpractice` and `otfigures` —
+currently depend on colours defined by `otscience.cls`, and `otpractice` also
+depends on its `otscibox` environment. Those four must be treated as ecosystem
+components rather than independently loadable general-purpose packages.
+
+`ottensors`, `otphysics` and `otcoordinates` are already self-contained and
+independently loadable today.
+
+The dependency is a use-time rather than a load-time cycle: the back-references
+resolve when a document uses a command, not when the package loads. So nothing
+breaks in practice, but a standalone load fails later with an error that names
+neither package. Phase 5 Checkpoints 5B and 5C remove the cycle.
 
 ### Legacy source
 
@@ -490,16 +514,33 @@ The canonical repository structure is now supported by the shared Phase 1 class 
 
 ## Decisions still required
 
-* Minimum supported LaTeX kernel or release date
-* Whether support is limited to pdfLaTeX or extended to LuaLaTeX and XeLaTeX
-* How much shared code should move into common OT packages
 * Whether the modular workbook should retain its existing conditional structure or adopt `subfiles`
-* Whether generated PDFs and selected logs should remain version-controlled after the baseline
 * Naming and compatibility policy for public commands
 * Accessibility target for future PDFs
-* Release-versioning and tagging conventions, including whether `physicsquiz.cls`
-  should now carry a semantic version
-* When and how to retire the legacy `PHY104_Exam revision.tex`
+
+## Decisions resolved at the start of Phase 5
+
+* **Minimum supported LaTeX kernel:** 2022-06-01, to be written into each new
+  package as `\NeedsTeXFormat{LaTeX2e}[2022-06-01]`. It guarantees the modern
+  hook management system and stable `expl3` in the kernel, both of which
+  `physicsquiz.cls` already relies on, and is comfortably older than MiKTeX 26.2.
+* **Engine support:** pdfLaTeX is supported. LuaLaTeX and XeLaTeX are expected to
+  work but are untested. Widening the claim later means adding engine loops to
+  the runners rather than changing code, because `park-miller-v1` was written to
+  avoid engine random primitives.
+* **How much shared code moves into common OT packages:** three packages —
+  `ottheme.sty`, `otboxes.sty` and `otcore.sty`. A fourth, `otmath`, was
+  rejected: the name is already held by a live companion package, and there is no
+  identical maths code to justify it.
+* **Semantic version for `physicsquiz.cls`:** yes, applied at Checkpoint 5F
+  alongside the versioning policy for the new packages, together with a public
+  version macro so a document can test for the structured interface.
+* **Retiring the legacy `PHY104_Exam revision.tex`:** at the start of Phase 6.
+  Phase 5 never touches `physicsquiz.cls`, so the legacy quiz costs nothing and
+  remains independent evidence that the untouched side is untouched.
+* **Whether generated example PDFs stay version-controlled:** deferred to the end
+  of Phase 5. The Phase 5 baseline manifest records page counts and rendered-text
+  hashes, which is what comparisons actually use, at a fraction of the weight.
 
 ## Phase 2 status
 
@@ -731,6 +772,118 @@ its history, and any shared-code extraction should start from a coherent concern
 that is genuinely duplicated across classes. Per `ROADMAP.md`, Phase 5 should
 begin in a new chat with the complete class and package set attached.
 
+## Phase 5 status
+
+Phase 5 is in progress. It audits duplication across the four classes and the
+seven companion packages and designs a minimal shared-package architecture.
+
+### What the audit found
+
+Across roughly 3,100 lines of active class and package source, the code that is
+genuinely identical and live in more than one file amounts to about thirty
+lines, and almost all of it sits between `otscience.cls` and
+`otengineering.cls`:
+
+* seven identical `\definecolor` lines, with `OTLight` deliberately divergent;
+* one identical four-key `\hypersetup` block;
+* one identical `geometry` option string, `margin=1in`;
+* three identical `fancyhdr` lines;
+* two identical `autorefname` provisions; and
+* nine `\RequirePackage` lines common to all four classes.
+
+`physicsquiz.cls` and `studentnotes.cls` share no colour value, no box
+definition and no metadata idiom with the OT pair, and no two classes are ever
+loaded into the same document, so none of this duplication is a collision risk.
+It is a maintenance cost only.
+
+The value of Phase 5 is therefore not line reduction. It is severing the
+class-to-package cycle, which is the ecosystem's only structural defect.
+Extraction is the mechanism; the cycle is the reason.
+
+### Target architecture
+
+* `ottheme.sty` — the OT colour palette and the shared hyperlink colour policy.
+  Six files reach for it and it is pure values, so it can move with a provable
+  no-op.
+* `otboxes.sty` — `otscibox` and `otsciboxnosplit`. The only behavioural
+  interface a companion package borrows from a class, so moving it is what
+  actually severs the cycle.
+* `otcore.sty` — shared package loading and page furniture for `otscience.cls`
+  and `otengineering.cls` only. The weakest of the three; sequenced last and
+  treated as optional.
+
+`otmath` as a fourth package is rejected. Not extracted: any `physicsquiz.cls`
+code, the `studentnotes` palette, boxes and theorem environments, the 42
+semantic box wrappers, the 18 metadata setters, all four `\titleformat` blocks,
+the three self-contained companion packages, the `\providecommand` fallback
+block in `00_common_setup.tex`, and `src/legacy/otscience.sty`.
+
+### Checkpoint 5A — the OT-side regression harness
+
+Checkpoint 5A refactors nothing. Phase 5 changes only the side of the ecosystem
+that had no runner, so chaining the accepted `physicsquiz` suites proves nothing
+about a Phase 5 change — it is a guard, not a proof. Building the proof after
+the first extraction would repeat the Phase 4 pattern of a harness shaped to
+agree with the change it was written beside.
+
+`tests/run_ot_phase5_tests.ps1` runs the accepted Phase 4I/4J chain as the
+untouched-side guard, builds eighteen OT documents into the mirrored `build/`
+tree, and records or verifies a baseline through `tests/check_ot_baseline.py`.
+
+The OT side cannot assert zero diagnostics the way the `physicsquiz` runners do,
+because `examples/otengineering/test.tex` carries an accepted underfull box and
+`examples/studentnotes/Optics.tex` emits a `hyperref` warning. The assertion is
+instead no change from the recorded baseline: page counts, per-class diagnostic
+counts and the rendered-text hash are hard failures; PDF byte size is a warning.
+
+### Checkpoint 5A acceptance evidence
+
+* 18 documents baselined, 140 pages, all 18 verified by rendered text.
+* The recorded baseline reproduces itself exactly on an unchanged rebuild.
+* Both palette probes reported their full colour counts, 10 and 8.
+* `otpractice_standalone` failed with `Environment otscibox undefined`, as the
+  cycle witness requires.
+* The accepted Phase 4I/4J chain passed end to end.
+
+### Three defects found by running the harness, not by writing it
+
+1. The runner announced no mode, so an invocation without `-Record` silently
+   verified and failed later with a misleading message.
+2. The baseline parser could not read a real MiKTeX log. TeX hard-wraps log lines
+   at `max_print_line`, and a repository path always wraps the `Output written
+   on` summary line. The synthetic test fixtures used short paths and never
+   reached the wrap — a fixture unrepresentative of production, which is the
+   exact failure mode the harness exists to prevent.
+3. OneDrive stamps a mark-of-the-web on re-hydrated files, and PowerShell then
+   refuses to load the older chained runners. The runner now pre-checks all seven
+   and names `Unblock-File` as the remedy.
+
+Each would otherwise have surfaced mid-extraction wearing the costume of a real
+regression.
+
+### Known limitations of the Phase 5 harness
+
+* Box geometry is only partly covered. A changed `\Needspace` moves a page break
+  and fails on page count, but a changed `arc` or `boxrule` moves neither glyphs
+  nor pages. Checkpoint 5C needs a deliberate visual comparison of one rendered
+  box, as the Phase 4G review did.
+* `examples/studentnotes/Optics.tex` is baselined with its independent
+  uncommitted modification in place. Correct for detecting drift within Phase 5,
+  but the recorded numbers describe the modified file rather than `HEAD`.
+* The combined workbook loads `silence`, so its empty diagnostic record
+  understates what the build reports.
+* The guard roughly doubles the wall-clock time of a full run.
+
+### Remaining Phase 5 checkpoints
+
+* **5B** — `ottheme.sty`. Frees `otnotation`, `otmath` and `otfigures`.
+* **5C** — `otboxes.sty`. Frees `otpractice` and moves `otpractice_standalone`
+  into the positive list, which is the machine-checkable moment the cycle breaks.
+* **5D** — `otengineering.cls` adopts `ottheme`, re-declaring `OTLight` as
+  `#F3F4F6` so the documented divergence becomes deliberate.
+* **5E** — `otcore.sty`, optional.
+* **5F** — governance, including the `physicsquiz.cls` semantic version.
+
 ## Session handover log
 
 ### Session 0 — Project definition
@@ -900,24 +1053,46 @@ begin in a new chat with the complete class and package set attached.
 * Preserved and excluded the independent modification to
   `examples/studentnotes/Optics.tex`.
 
+### Session 17 — Phase 5 audit and Checkpoint 5A
+
+* Completed the read-only duplication and dependency audit of all four classes
+  and all seven companion packages.
+* Established that the genuinely identical live duplication is about thirty
+  lines, almost entirely between `otscience.cls` and `otengineering.cls`.
+* Established that the class-to-package cycle affects four of the seven
+  packages, not all seven, and that it is a use-time rather than a load-time
+  cycle.
+* Agreed the three-package target architecture and rejected a fourth.
+* Resolved the kernel, engine, versioning and legacy-retirement decisions.
+* Added the OT-side regression harness, the baseline manifest, the two palette
+  probes and the cycle witness as Checkpoint 5A, changing no file under `src/`.
+* Fixed three harness defects found by running it: a silent mode, a log parser
+  that could not read a real MiKTeX log, and an unhandled mark-of-the-web.
+* Preserved and excluded the independent modification to
+  `examples/studentnotes/Optics.tex`.
+
 ## Next action
 
-Phase 4 is closed. Before starting Phase 5:
+Checkpoint 5A is closed and its baseline is recorded. Next:
 
-1. Review `build/examples/physicsquiz/PHY104_versioned_paper.pdf` for version A,
-   then rebuild with `\quizuseversion{B}` and confirm the two papers differ in
-   both question set and option order, and that each answer key matches its own
+1. Begin Checkpoint 5B — `ottheme.sty`. It is the first Phase 5 checkpoint that
+   edits a source file, and the palette probes exist to police it.
+2. Carried forward from Phase 4, still outstanding: review
+   `build/examples/physicsquiz/PHY104_versioned_paper.pdf` for version A, then
+   rebuild with `\quizuseversion{B}` and confirm the two papers differ in both
+   question set and option order, and that each answer key matches its own
    solutions. A shuffled booklet is the one output no checker can fully judge.
-2. Decide whether `physicsquiz.cls` should now carry a semantic version.
-3. Decide whether the repository should continue tracking generated example PDFs.
-4. Decide when the legacy `PHY104_Exam revision.tex` is retired. The structured
-   bank and the legacy quiz still describe the same sixty questions.
+   Phase 5 does not touch `physicsquiz.cls`, so this is not a Phase 5 blocker.
 
-Then begin Phase 5 in a new chat, per `ROADMAP.md`. Phase 5 audits duplication
-across all four classes and the seven companion packages and designs a minimal
-shared-package architecture. It must not begin by moving `physicsquiz` code:
-that class has just absorbed the largest addition in its history, and shared-code
-extraction should start from a concern that is genuinely duplicated across
-classes. Attach `MASTER_PROMPT.md`, this file, `CHANGELOG.md`,
-`docs/PUBLIC_INTERFACES.md`, all four classes, all seven companion packages, one
-representative source per class, and a fresh `project-tree.txt`.
+### Line-ending state, confirmed at the close of Checkpoint 5A
+
+`git ls-files --eol` reports `i/lf` for all four classes, all seven companion
+packages and the legacy package. The index is already normalised. The working
+tree still holds CRLF for `otengineering.cls`, `physicsquiz.cls`,
+`studentnotes.cls` and `src/legacy/otscience.sty`; that is cosmetic and resolves
+on the next checkout.
+
+Because the index is uniformly LF, an edit to any of those files produces a
+content-only diff whether the editing tool writes LF or CRLF. The
+`.gitattributes` hazard recorded in Session 15 is therefore closed, and no
+renormalisation commit is required before Checkpoint 5B.

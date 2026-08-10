@@ -1,0 +1,37 @@
+% Phase 5 palette probe - otengineering.cls
+%
+% See tests/ot_palette_probe_science.tex for why this exists.
+%
+% This probe additionally pins the documented divergence: otengineering defines
+% OTLight as #F3F4F6 while otscience defines it as #F9FAFB.  Checkpoint 5D makes
+% otengineering load the shared ottheme palette and then re-declare OTLight to
+% its own value.  If that override is ever dropped, this probe fails and names
+% the exact colour, instead of the engineering notebook quietly changing shade.
+
+\documentclass{otengineering}
+
+\makeatletter
+\newcommand{\otprobeemit}[3]{%
+    \typeout{OT-PALETTE:#3=#1:#2}%
+    \noindent\texttt{#3 = #1 : #2}\par
+}
+\newcommand{\otprobe}[1]{%
+    \extractcolorspec{#1}\otprobe@tmp
+    \expandafter\otprobeemit\otprobe@tmp{#1}%
+}
+\makeatother
+
+\begin{document}
+
+\section*{otengineering palette probe}
+
+\otprobe{OTDark}
+\otprobe{OTMuted}
+\otprobe{OTLight}
+\otprobe{OTBlue}
+\otprobe{OTGreen}
+\otprobe{OTOrange}
+\otprobe{OTRed}
+\otprobe{OTPurple}
+
+\end{document}

@@ -2,6 +2,84 @@
 
 This file records significant changes to the LaTeX Workspace Learning and Class Refactoring Project.
 
+## Phase 5 — Shared OT design system
+
+**In progress. Checkpoint 5A completed: 10 August 2026**
+
+### Decided
+
+* Target architecture: three new packages — `ottheme.sty` for the OT colour
+  palette and hyperlink policy, `otboxes.sty` for `otscibox` and
+  `otsciboxnosplit`, and `otcore.sty` for shared package loading and page
+  furniture across `otscience.cls` and `otengineering.cls`.
+* `MASTER_PROMPT.md`'s suggested fourth package, `otmath`, is rejected. The name
+  is already held by a live, documented companion package with different content,
+  and the audit found essentially no identical maths code among active packages —
+  only conceptual redundancy, which consolidation rather than extraction fixes.
+* Migration order: 5A harness, 5B `ottheme`, 5C `otboxes`, 5D `otengineering`
+  adopts `ottheme`, 5E `otcore` (optional), 5F governance.
+* Minimum supported LaTeX kernel: 2022-06-01. Supported engine: pdfLaTeX, with
+  LuaLaTeX and XeLaTeX expected to work but untested.
+
+### Added (Checkpoint 5A)
+
+* `tests/run_ot_phase5_tests.ps1` — the first regression runner for the
+  `otscience`, `otengineering` and `studentnotes` side of the ecosystem. It
+  chains the accepted Phase 4I/4J suite as an untouched-side guard, builds
+  eighteen OT documents, and verifies them against a recorded baseline.
+* `tests/check_ot_baseline.py` — records and verifies page counts, per-class log
+  diagnostics, and a SHA-256 of the extracted page text for every document.
+* `tests/ot_baseline_manifest.json` — the recorded baseline: 18 documents,
+  140 pages, all 18 verified by rendered text.
+* `tests/ot_palette_probe_science.tex` and
+  `tests/ot_palette_probe_engineering.tex` — colour-value probes. Page counts and
+  text hashes cannot see a colour value, so these print what `xcolor` actually
+  resolves each `OT...` name to, into both the log and the page text.
+* `tests/otpractice_standalone.tex` — the cycle witness. It fails today because
+  `otpractice.sty` borrows `otscibox` and the OT palette from `otscience.cls`.
+  Checkpoint 5C moves it from the expected-failure list into the positive list.
+* `PHASE5_CHECKPOINT_5A.md`.
+
+### Verified (Checkpoint 5A)
+
+* The recorded baseline reproduces itself exactly on an unchanged rebuild.
+* Both palette probes report their full colour count, 10 and 8.
+* `otpractice_standalone` fails with `Environment otscibox undefined`.
+* The accepted Phase 4I/4J → 4G → 4F → 4E → 4D → 4C → 3D chain still passes.
+
+### Recorded rather than suppressed
+
+* Two pre-existing diagnostics are baselined instead of asserted away: one
+  underfull box in `examples/otengineering/test.tex`, already a known issue, and
+  one `hyperref` warning in `examples/studentnotes/Optics.tex`, not previously
+  recorded anywhere. A blanket zero-diagnostic assertion of the kind the
+  `physicsquiz` runners use would have failed on day one for accepted
+  conditions, so the OT assertion is "no change from the recorded baseline".
+* `examples/vector-workbook/00_main_combined_workbook.tex` loads `silence`, so
+  its empty diagnostic record understates what the build actually reports.
+
+### Fixed during Checkpoint 5A
+
+* The runner announced no mode, so an invocation that did not carry `-Record`
+  silently verified and failed several stages later with a message about a
+  missing manifest rather than a wrong invocation. It now prints its resolved
+  mode before doing anything.
+* The baseline parser could not read a real MiKTeX log. TeX hard-wraps log lines
+  at `max_print_line` with no continuation marker, and a repository path is long
+  enough that the `Output written on` summary line always wraps — sometimes
+  inside the filename, a number, or a keyword. The parser now strips wrapping
+  before matching.
+* The runner now pre-checks all seven chained runners for a mark-of-the-web,
+  which OneDrive applies on re-hydration and which makes PowerShell refuse to
+  load them under a `RemoteSigned` policy.
+
+### Unchanged (Checkpoint 5A)
+
+* No file under `src/` was modified.
+* `docs/PUBLIC_INTERFACES.md` is unchanged, because Checkpoint 5A introduces no
+  public interface. The ownership records change at Checkpoints 5B to 5D, when
+  the palette and the base boxes move from a class to a package.
+
 ## Phase 4 — Question-bank architecture
 
 **Completed: 8 August 2026**

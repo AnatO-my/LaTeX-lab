@@ -1,0 +1,43 @@
+% Phase 5 palette probe - otscience.cls
+%
+% Page counts and rendered-text hashes cannot see a colour VALUE.  A mistyped
+% hex digit during Checkpoint 5B would move a colour without moving a single
+% glyph or page break, and the rest of the suite would pass.
+%
+% This probe closes that hole.  \extractcolorspec asks xcolor what a colour name
+% actually resolves to, and the result is written twice:
+%
+%   * to the log as an OT-PALETTE marker, so a failure is human-readable; and
+%   * into the document body, so the recorded text hash covers every value.
+%
+% Any change to any OT colour value therefore fails the checkpoint.
+
+\documentclass{otscience}
+
+\makeatletter
+\newcommand{\otprobeemit}[3]{%
+    \typeout{OT-PALETTE:#3=#1:#2}%
+    \noindent\texttt{#3 = #1 : #2}\par
+}
+\newcommand{\otprobe}[1]{%
+    \extractcolorspec{#1}\otprobe@tmp
+    \expandafter\otprobeemit\otprobe@tmp{#1}%
+}
+\makeatother
+
+\begin{document}
+
+\section*{otscience palette probe}
+
+\otprobe{OTDark}
+\otprobe{OTMuted}
+\otprobe{OTLight}
+\otprobe{OTBlue}
+\otprobe{OTGreen}
+\otprobe{OTOrange}
+\otprobe{OTRed}
+\otprobe{OTPurple}
+\otprobe{OTTeal}
+\otprobe{OTYellow}
+
+\end{document}

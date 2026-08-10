@@ -1,0 +1,119 @@
+{
+  "documents": {
+    "examples/otengineering/test": {
+      "bytes": 88294,
+      "diagnostics": {
+        "Underfull \\hbox": 1
+      },
+      "pages": 4,
+      "text_sha256": "f1911e1dc886f42940cb69801bc732f3cf09768afd215c34ce49d16fb69ba3dc"
+    },
+    "examples/studentnotes/Optics": {
+      "bytes": 339165,
+      "diagnostics": {
+        "Package hyperref Warning:": 1
+      },
+      "pages": 39,
+      "text_sha256": "f663880d0aa3aa866cff3439a366204e44e2a9fd98d7e888f82870cb2020e7c4"
+    },
+    "examples/vector-workbook/00_main_combined_workbook": {
+      "bytes": 404332,
+      "diagnostics": {},
+      "pages": 31,
+      "text_sha256": "e89f0393b4e5f77bfcb3896e4675b235b25cf72724a2644f278757417418d4e1"
+    },
+    "examples/vector-workbook/01_grad_div_curl_vector_fields": {
+      "bytes": 169234,
+      "diagnostics": {},
+      "pages": 6,
+      "text_sha256": "367441a96ccca8b14999f769a550b9094fec6d1b2375f0bdd0c1858a1dc86240"
+    },
+    "examples/vector-workbook/02_coordinate_systems_tensor_operations": {
+      "bytes": 196935,
+      "diagnostics": {},
+      "pages": 5,
+      "text_sha256": "a43610bfec9654fd9c3ea92f4f8ca12ec9bd746da4616f353eefdfa5666f79da"
+    },
+    "examples/vector-workbook/03_index_delta_levicivita": {
+      "bytes": 143116,
+      "diagnostics": {},
+      "pages": 5,
+      "text_sha256": "6f1e3d36ecc7949f52a2efbbadfe5863c34786000815f3f76842cc0a22d8cf25"
+    },
+    "examples/vector-workbook/04_covariant_contravariant_metrics": {
+      "bytes": 157143,
+      "diagnostics": {},
+      "pages": 5,
+      "text_sha256": "4d174915a73e4f434a096148f73aea90ed8851e9dff1f3d31b20f74bef4bd84d"
+    },
+    "examples/vector-workbook/05_symmetric_skew_tensors_invariants": {
+      "bytes": 153626,
+      "diagnostics": {},
+      "pages": 5,
+      "text_sha256": "3970946dc1e2007295062676e62e1bfefc59230c2cb84d54c524a3b9369969d3"
+    },
+    "examples/vector-workbook/06_complex_numbers_hyperbolic_functions": {
+      "bytes": 166893,
+      "diagnostics": {},
+      "pages": 5,
+      "text_sha256": "1d96cf7e13c2225c7e0ea53435b6ac43ce783218b2318269a8dfd6aa8d5effb8"
+    },
+    "examples/vector-workbook/07_final_mixed_practice_bank": {
+      "bytes": 205388,
+      "diagnostics": {},
+      "pages": 6,
+      "text_sha256": "e9a27fe37aff9829353b5f62eade0ffefdd1d7c77291033904c4fd4a865385dc"
+    },
+    "tests/ot_palette_probe_engineering": {
+      "bytes": 49002,
+      "diagnostics": {},
+      "pages": 1,
+      "text_sha256": "05bb1e0fb105fc67c6dc98eb8cdbdc57f9016f31298bb228eece72aee9cf539b"
+    },
+    "tests/ot_palette_probe_science": {
+      "bytes": 41351,
+      "diagnostics": {},
+      "pages": 1,
+      "text_sha256": "6a493b4d02fdabd7f50b3f20e925e353b9d639947c38a27af51d18c873ac5f60"
+    },
+    "tests/otengineering_boxes_compatibility": {
+      "bytes": 108782,
+      "diagnostics": {},
+      "pages": 6,
+      "text_sha256": "ad0e11a55abebb025849c7b6fc40190ded5fc148d5749ceff336dff41c4f3fd2"
+    },
+    "tests/otengineering_helpers_smoke": {
+      "bytes": 87959,
+      "diagnostics": {},
+      "pages": 2,
+      "text_sha256": "a798fe45be9ce467885ad05bcec56674e8db06be457f3aa7094730d99e2ad6b3"
+    },
+    "tests/otscience_boxes_compatibility": {
+      "bytes": 149261,
+      "diagnostics": {},
+      "pages": 7,
+      "text_sha256": "8cd8d4cdde9f1ddddabd0ef8343dcd507dfd49536a516a14ad450935b52bb55c"
+    },
+    "tests/studentnotes_helpers_smoke": {
+      "bytes": 500167,
+      "diagnostics": {},
+      "pages": 2,
+      "text_sha256": "d8a31b0e8fcb584623da8d7e6923785c8aa562d53f4c517fafb4c725fcba700b"
+    },
+    "tests/studentnotes_namedformula_compatibility": {
+      "bytes": 96606,
+      "diagnostics": {},
+      "pages": 1,
+      "text_sha256": "f0522666227ac7eef6664eebaf0a985780559a6fb2679b8f278d93ffe3c8b7e6"
+    },
+    "tests/studentnotes_theorem_notes_compatibility": {
+      "bytes": 149490,
+      "diagnostics": {},
+      "pages": 9,
+      "text_sha256": "d07fcebb17400124e22f6ec9064a0570744b4d31a9a3181ea1131326322d0380"
+    }
+  },
+  "manifest_version": 1,
+  "recorded": "2026-08-10T09:17:42Z",
+  "text_extractor": "pdftotext"
+}

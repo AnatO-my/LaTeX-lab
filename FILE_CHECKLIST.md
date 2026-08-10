@@ -151,6 +151,17 @@ Required:
 
 Include any class such as `otscience.cls`; otherwise shared-code decisions will be incomplete.
 
+Also required from Checkpoint 5A onwards:
+
+- `tests/run_ot_phase5_tests.ps1` and `tests/check_ot_baseline.py`
+- `tests/ot_baseline_manifest.json`
+- `PHASE5_CHECKPOINT_5A.md` and any later `PHASE5_CHECKPOINT_5*.md`
+
+Do not re-record the Phase 5 baseline in a new session. It was recorded against
+unmodified sources; re-recording it after a change would silently bless that
+change and destroy the evidence the phase depends on. Verify against the
+committed manifest instead, and re-record only as a deliberate, documented step.
+
 ---
 
 ## Phase 6 — Modern programming
