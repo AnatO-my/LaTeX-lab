@@ -615,9 +615,10 @@
 \cs_new_protected:Npn \__pq_missing_metadata:n #1
   {
     \typeout{PQ4C-VALIDATION:MISSING-#1}
+    \typeout{PQ6E-HINT:MISSING-METADATA:complete-record}
     \ClassError{physicsquiz}
       {Missing~required~question~metadata:~#1}
-      {Supply the #1 key in the quizquestion option list.}
+      {Supply the #1 key in the quizquestion option list. A complete record starts like \string\begin{quizquestion}[id=waves-001,topic=waves,difficulty=foundation,marks=1,correct=C,tags={waves}].}
   }
 
 \cs_new_protected:Npn \__pq_validate_nonblank:nN #1#2
@@ -639,16 +640,18 @@
           \l__pq_id_tl
           {
             \typeout{PQ4C-VALIDATION:INVALID-ID:\tl_use:N \l__pq_id_tl}
+            \typeout{PQ6E-HINT:INVALID-ID:id=waves-001}
             \ClassError{physicsquiz}
               {Invalid~stable~question~ID:~\tl_use:N \l__pq_id_tl}
-              {Use lowercase letters, digits, and single hyphens.}
+              {Use lowercase letters and digits joined by single hyphens, for example id=waves-001. Avoid spaces, underscores, capitals, and repeated hyphens.}
           }
         \seq_if_in:NVTF \g__pq_question_ids_seq \l__pq_id_tl
           {
             \typeout{PQ4C-VALIDATION:DUPLICATE-ID:\tl_use:N \l__pq_id_tl}
+            \typeout{PQ6E-HINT:DUPLICATE-ID:change-id}
             \ClassError{physicsquiz}
               {Duplicate~stable~question~ID:~\tl_use:N \l__pq_id_tl}
-              {Every quizquestion id must be unique.}
+              {Change this quizquestion id. Each declared question needs one unique stable id so selections, answer keys, and solutions stay aligned.}
           }
           { \seq_gput_right:NV \g__pq_question_ids_seq \l__pq_id_tl }
       }
@@ -660,9 +663,10 @@
           \l__pq_marks_tl
           {
             \typeout{PQ4C-VALIDATION:INVALID-MARKS:\tl_use:N \l__pq_marks_tl}
+            \typeout{PQ6E-HINT:INVALID-MARKS:marks=0.5-or-.5}
             \ClassError{physicsquiz}
               {Invalid~marks~value:~\tl_use:N \l__pq_marks_tl}
-              {Use a positive integer or decimal number.}
+              {Use a positive mark value such as marks=1, marks=1.5, marks=0.5, or marks=.5. Zero and zero-equivalent decimals are rejected.}
           }
       }
 
@@ -673,9 +677,10 @@
         \exp_args:NnV \regex_match:nnF { \A [A-Z] \Z } \l__pq_correct_tl
           {
             \typeout{PQ4C-VALIDATION:INVALID-CORRECT:\tl_use:N \l__pq_correct_tl}
+            \typeout{PQ6E-HINT:INVALID-CORRECT:one-letter}
             \ClassError{physicsquiz}
               {Invalid~correct~option:~\tl_use:N \l__pq_correct_tl}
-              {Use one option letter, for example correct=C.}
+              {Use one option letter, for example correct=C. Lowercase input is accepted and normalized.}
           }
       }
   }
@@ -829,9 +834,10 @@
           \l__pq_filter_difficulty_tl
           {
             \typeout{PQ4D-VALIDATION:INVALID-FILTER-DIFFICULTY:\tl_use:N \l__pq_filter_difficulty_tl}
+            \typeout{PQ6E-HINT:INVALID-FILTER-DIFFICULTY:known-label}
             \ClassError{physicsquiz}
               {Invalid~difficulty~filter:~\tl_use:N \l__pq_filter_difficulty_tl}
-              {Use foundation, applied, or challenge.}
+              {Use exactly one known difficulty label: foundation, applied, or challenge.}
           }
       }
     \tl_if_blank:VF \l__pq_filter_marks_tl
@@ -841,9 +847,10 @@
           \l__pq_filter_marks_tl
           {
             \typeout{PQ4D-VALIDATION:INVALID-FILTER-MARKS:\tl_use:N \l__pq_filter_marks_tl}
+            \typeout{PQ6E-HINT:INVALID-FILTER-MARKS:marks=0.5-or-.5}
             \ClassError{physicsquiz}
               {Invalid~marks~filter:~\tl_use:N \l__pq_filter_marks_tl}
-              {Use a positive integer or decimal number.}
+              {Use a positive mark value such as marks=1, marks=1.5, marks=0.5, or marks=.5. Zero and zero-equivalent decimals are rejected.}
           }
       }
   }
@@ -860,9 +867,10 @@
       }
       {
         \typeout{PQ4D-VALIDATION:EMPTY-FILTER}
+        \typeout{PQ6E-HINT:EMPTY-FILTER:quizselectall-or-filter}
         \ClassError{physicsquiz}
           {No~metadata~filter~was~supplied}
-          {Use \string\quizselectall to select every declared question.}
+          {Use \string\quizselectall to select every declared question, or pass a real filter such as \string\quizselect[topic=waves] or \string\quizselect[marks=0.5].}
       }
   }
 
@@ -949,9 +957,10 @@
     \int_compare:nNnF {\l__pq_filter_match_int} > {0}
       {
         \typeout{PQ4D-VALIDATION:NO-MATCH}
+        \typeout{PQ6E-HINT:NO-MATCH:check-bank-values}
         \ClassError{physicsquiz}
           {No~questions~match~the~metadata~filter}
-          {Check topic, difficulty, marks, and tag values against the bank.}
+          {Check the spelling of topic, difficulty, marks, and tag values against the declared quizquestion records.}
       }
   }
 
@@ -970,18 +979,20 @@
 \cs_new_protected:Npn \__pq_random_invalid_count:n #1
   {
     \typeout{PQ4E-VALIDATION:INVALID-COUNT:#1}
+    \typeout{PQ6E-HINT:INVALID-COUNT:positive-integer}
     \ClassError{physicsquiz}
       {Invalid~random-selection~count:~#1}
-      {Use a positive integer not greater than the number of eligible records.}
+      {Use a positive integer not greater than the number of eligible records, for example \string\quizselectrandom{5}{104}.}
     \int_set:Nn \l__pq_random_count_int {1}
   }
 
 \cs_new_protected:Npn \__pq_random_invalid_seed:n #1
   {
     \typeout{PQ4E-VALIDATION:INVALID-SEED:#1}
+    \typeout{PQ6E-HINT:INVALID-SEED:1-to-2147483646}
     \ClassError{physicsquiz}
       {Invalid~random-selection~seed:~#1}
-      {Use an integer from 1 to 2147483646.}
+      {Use an integer seed from 1 to 2147483646, for example \string\quizselectrandom{5}{104}.}
     \int_set:Nn \l__pq_random_seed_int {1}
   }
 

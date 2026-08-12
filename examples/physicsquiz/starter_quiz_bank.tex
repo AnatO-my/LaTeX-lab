@@ -1,0 +1,68 @@
+\documentclass[student,print,12pt,a4paper]{physicsquiz}
+
+\quiztitle{Starter Quiz Bank}
+\quizcourse{Copyable local template}
+\quizauthor{Course Team}
+\quizversion{Practice}
+
+\begin{document}
+\makequiztitle
+
+\begin{quizbank}
+  \begin{quizquestion}[
+    id=starter-units-001,
+    topic=units,
+    difficulty=foundation,
+    marks=1,
+    correct=B,
+    tags={units,measurement},
+    outcome={Identify a derived SI unit}
+  ]
+    Which unit is equivalent to a newton?
+    \choices
+      {\(\mathrm{kg\,m^{-1}\,s^{-2}}\)}
+      {\(\mathrm{kg\,m\,s^{-2}}\)}
+      {\(\mathrm{kg\,m^2\,s^{-1}}\)}
+      {\(\mathrm{kg\,s^{-2}}\)}
+      {\(\mathrm{m\,s^{-2}}\)}
+  \end{quizquestion}
+  \begin{quizsolution}
+    A newton is the force needed to accelerate one kilogram by one metre per
+    second squared, so the correct unit is \(\mathrm{kg\,m\,s^{-2}}\).
+  \end{quizsolution}
+
+  \begin{quizquestion}[
+    id=starter-waves-001,
+    topic=waves,
+    difficulty=applied,
+    marks=0.5,
+    correct=C,
+    tags={waves,frequency}
+  ]
+    A wave completes 20 oscillations in 5 seconds. What is its frequency?
+    \choices
+      {\(\SI{0.25}{Hz}\)}
+      {\(\SI{2}{Hz}\)}
+      {\(\SI{4}{Hz}\)}
+      {\(\SI{15}{Hz}\)}
+      {\(\SI{25}{Hz}\)}
+  \end{quizquestion}
+  \begin{quizsolution}
+    Frequency is oscillations divided by time: \(20/5=\SI{4}{Hz}\).
+  \end{quizsolution}
+\end{quizbank}
+
+\quizselectall
+
+\begin{quizquestioncontent}
+  \printquizquestions
+\end{quizquestioncontent}
+
+\begin{quizanswerkeycontent}
+  \printquizanswerkey
+\end{quizanswerkeycontent}
+
+\begin{quizsolutioncontent}
+  \printquizsolutions
+\end{quizsolutioncontent}
+\end{document}

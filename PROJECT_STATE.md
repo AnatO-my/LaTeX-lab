@@ -24,7 +24,7 @@ LaTeX Workspace Learning and Class Refactoring Project
 **Phase 6 — Modern LaTeX interface programming — in progress. Checkpoint 6A
 opened on 12 August 2026. Checkpoint 6B implemented on 12 August 2026.
 Checkpoint 6C implemented on 12 August 2026. Checkpoint 6D implemented on
-12 August 2026.**
+12 August 2026. Checkpoint 6E implemented on 12 August 2026.**
 
 Phase 6 uses a conservative modernization model: preserve existing author-facing
 structures unless a modern LaTeX change improves safety, maintainability,
@@ -33,8 +33,9 @@ learning scaffold and no production class or package behaviour changes.
 Checkpoint 6B adds public `physicsquiz.cls` version and structured-interface
 capability markers. Checkpoint 6C adds a source-level namespace guard for the
 existing `physicsquiz.cls` modern-code boundary. Checkpoint 6D resolves marks
-decimal validation so both `0.5` and `.5` work. Full detail is in the "Phase 6
-status" section below.
+decimal validation so both `0.5` and `.5` work. Checkpoint 6E improves
+structured-bank author messages and adds a copyable starter quiz-bank document.
+Full detail is in the "Phase 6 status" section below.
 
 **Phase 5 — Shared OT design system — completed on 12 August 2026.**
 
@@ -568,6 +569,10 @@ The canonical repository structure is now supported by the shared Phase 1 class 
   question metadata and marks filters accept positive integers, whole-number
   decimals such as `1.5`, leading-zero fractional decimals such as `0.5`, and
   leading-dot fractional decimals such as `.5`.
+* **Structured quiz-bank author usability:** improved at Checkpoint 6E. The
+  class keeps the existing syntax but gives more concrete help for common
+  metadata mistakes, and `examples/physicsquiz/starter_quiz_bank.tex` is now a
+  copyable local starting point.
 * **Retiring the legacy `PHY104_Exam revision.tex`:** at the start of Phase 6.
   Phase 5 never touches `physicsquiz.cls`, so the legacy quiz costs nothing and
   remains independent evidence that the untouched side is untouched.
@@ -682,6 +687,42 @@ manifests.
 
 PowerShell parser checks passed for `tests/run_phase6d_tests.ps1`, and the Phase
 6D runner passed with `All Phase 6D tests passed.`
+
+### Checkpoint 6E - physicsquiz author usability pass
+
+Checkpoint 6E combines the planned error-message cleanup and structured
+interface usability pass. It improves what a local author sees while creating or
+debugging a quiz bank, without changing the public quiz syntax.
+
+The class now gives more concrete help for common metadata mistakes:
+
+* missing required question metadata;
+* malformed stable IDs;
+* duplicate stable IDs;
+* invalid marks values;
+* invalid correct-option labels;
+* invalid difficulty filters;
+* invalid marks filters;
+* empty metadata filters;
+* filters that match no questions; and
+* invalid random count or seed values.
+
+The messages include copyable examples such as `id=waves-001`, `marks=0.5`,
+`marks=.5`, `\quizselectall`, and `\quizselect[topic=waves]`. The same failure
+paths emit `PQ6E-HINT:*` log markers so nonstop local builds still leave a plain
+diagnostic trail.
+
+`examples/physicsquiz/starter_quiz_bank.tex` is now a minimal structured
+quiz-bank starter document. It demonstrates title metadata, two question
+records, adjacent solution records, integer and fractional marks, tags, an
+optional outcome, and generated questions, answer key, and solutions.
+
+6E preserves the existing author syntax. No options, commands, environments,
+selection behaviour, shuffling behaviour, record storage, or rendering defaults
+are changed.
+
+PowerShell parser checks passed for `tests/run_phase6e_tests.ps1`, and the Phase
+6E runner passed with `All Phase 6E tests passed.`
 
 ## Phase 2 status
 
@@ -1445,15 +1486,31 @@ is complete. Checkpoint 5F is complete as governance closure.
 * Updated the public-interface record to spell out accepted marks forms.
 * Verified the checkpoint with `All Phase 6D tests passed.`
 
+### Session 27 - Checkpoint 6E physicsquiz author usability pass
+
+* Improved author-facing validation help for missing metadata, invalid IDs,
+  duplicate IDs, invalid marks, invalid correct labels, invalid filters,
+  no-match filters, and invalid random values.
+* Preserved the existing `physicsquiz.cls` author syntax and rendering
+  behaviour.
+* Added `examples/physicsquiz/starter_quiz_bank.tex` as a copyable structured
+  quiz-bank starting point.
+* Added expected-failure author-message fixtures for invalid IDs, invalid marks,
+  and empty filters.
+* Added `tests/run_phase6e_tests.ps1`, chaining the 6D checkpoint before the 6E
+  starter and message checks.
+* Added `PHASE6_CHECKPOINT_6E.md`.
+* Verified the checkpoint with `All Phase 6E tests passed.`
+
 ## Next action
 
 Phase 6 is open. Next:
 
-1. Commit Checkpoint 6D with careful staging so the unrelated versioned-paper
-   edit and loose generated files are not accidentally included.
+1. Commit Checkpoint 6E with careful staging so the unrelated versioned-paper
+   edit, loose generated files, and any line-ending-only class noise are not
+   accidentally included.
 2. Choose the next Phase 6 production target: class-option modernization,
-   error-message consolidation, or a narrower structured-interface usability
-   improvement.
+   versioned-paper visual review, or Phase 6 closure.
 3. Carried forward from Phase 4, still outstanding: review
    `build/examples/physicsquiz/PHY104_versioned_paper.pdf` for version A, then
    rebuild with `\quizuseversion{B}` and confirm the two papers differ in both

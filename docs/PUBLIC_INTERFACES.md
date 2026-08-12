@@ -339,6 +339,11 @@ solutions, and mark totals from those records. It is additive: the manual
 `quizquestions`, `choiceoptions`, `\choices`, and `answerkey` interfaces remain
 fully supported and no existing document requires migration.
 
+Authors who want a small local starting point can copy
+`examples/physicsquiz/starter_quiz_bank.tex`. It declares two questions,
+adjacent solutions, title metadata, integer and fractional marks, tags, an
+optional outcome, and generated questions, answer key, and solutions.
+
 `xsim` provides the storage engine. Raw `xsim` syntax is an implementation
 detail and is not a `physicsquiz` author interface. Both `xsim` and `siunitx`
 must be installed.

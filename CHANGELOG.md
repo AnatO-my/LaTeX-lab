@@ -112,6 +112,32 @@ This file records significant changes to the LaTeX Workspace Learning and Class 
 * The Phase 6D runner passed:
   `All Phase 6D tests passed.`
 
+### Changed (Checkpoint 6E)
+
+* Improved `physicsquiz.cls` author-facing validation help for common
+  structured-bank mistakes: missing metadata, invalid IDs, duplicate IDs,
+  invalid marks, invalid correct labels, invalid filters, no-match filters, and
+  invalid random counts or seeds.
+* Preserved the existing public quiz syntax while making the errors show
+  copyable examples such as `id=waves-001`, `marks=0.5`, `marks=.5`,
+  `\quizselectall`, and `\quizselect[topic=waves]`.
+
+### Added (Checkpoint 6E)
+
+* Added `examples/physicsquiz/starter_quiz_bank.tex`, a minimal copyable
+  structured quiz-bank document.
+* Added expected-failure author-message fixtures for invalid IDs, invalid marks,
+  and empty filters.
+* Added `tests/run_phase6e_tests.ps1`, which reruns 6D, builds the starter
+  document, and checks the new author hints.
+* Added `PHASE6_CHECKPOINT_6E.md`.
+
+### Verification (Checkpoint 6E)
+
+* PowerShell parser checks passed for `tests/run_phase6e_tests.ps1`.
+* The Phase 6E runner passed:
+  `All Phase 6E tests passed.`
+
 ## Phase 5 — Shared OT design system
 
 **Completed: 12 August 2026.**
