@@ -379,7 +379,7 @@ bring in a bank file.
 | `id` | yes | Stable identifier. Lowercase letters, digits, and single hyphens only. Must be unique across the document. |
 | `topic` | yes | Free-form label used by filters and the topic report. |
 | `difficulty` | yes | Exactly one of `foundation`, `applied`, or `challenge`. |
-| `marks` | yes | Positive integer or decimal. Zero is rejected. |
+| `marks` | yes | Positive integer or decimal. Whole-number decimals (`1.5`), leading-zero fractional decimals (`0.5`), and leading-dot fractional decimals (`.5`) are accepted. Zero is rejected. |
 | `correct` | yes | One option letter. Lowercase input is normalised to uppercase. |
 | `tags` | yes | Comma-separated list. |
 | `outcome` | no | Free-form learning outcome. |

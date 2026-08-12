@@ -91,6 +91,27 @@ This file records significant changes to the LaTeX Workspace Learning and Class 
 * The Phase 6C runner passed:
   `All Phase 6C tests passed.`
 
+### Changed (Checkpoint 6D)
+
+* Resolved the carried `physicsquiz.cls` marks-regex question by preserving
+  existing leading-zero decimals such as `0.5` and also accepting leading-dot
+  decimals such as `.5`.
+* Applied the same marks syntax to structured question metadata and marks
+  filters.
+
+### Added (Checkpoint 6D)
+
+* Added `tests/physicsquiz_marks_decimal_smoke.tex`.
+* Added `tests/run_phase6d_tests.ps1`, which reruns 6C and checks the 6D marks
+  decimal smoke.
+* Added `PHASE6_CHECKPOINT_6D.md`.
+
+### Verification (Checkpoint 6D)
+
+* PowerShell parser checks passed for `tests/run_phase6d_tests.ps1`.
+* The Phase 6D runner passed:
+  `All Phase 6D tests passed.`
+
 ## Phase 5 — Shared OT design system
 
 **Completed: 12 August 2026.**

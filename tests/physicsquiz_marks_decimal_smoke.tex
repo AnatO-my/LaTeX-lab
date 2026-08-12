@@ -1,0 +1,75 @@
+\documentclass{physicsquiz}
+
+\begin{document}
+\begin{quizbank}
+  \begin{quizquestion}[
+    id=pq6d-integer,
+    topic=measurement,
+    difficulty=foundation,
+    marks=1,
+    correct=A,
+    tags={phase6,marks}
+  ]
+    Integer-mark question.
+    \choices{Correct}{Second}{Third}{Fourth}{Fifth}
+  \end{quizquestion}
+  \begin{quizsolution}
+    The first option is correct.
+  \end{quizsolution}
+
+  \begin{quizquestion}[
+    id=pq6d-decimal,
+    topic=measurement,
+    difficulty=foundation,
+    marks=1.5,
+    correct=B,
+    tags={phase6,marks}
+  ]
+    Decimal-mark question.
+    \choices{First}{Correct}{Third}{Fourth}{Fifth}
+  \end{quizquestion}
+  \begin{quizsolution}
+    The second option is correct.
+  \end{quizsolution}
+
+  \begin{quizquestion}[
+    id=pq6d-leading-zero,
+    topic=measurement,
+    difficulty=foundation,
+    marks=0.5,
+    correct=C,
+    tags={phase6,marks}
+  ]
+    Leading-zero decimal-mark question.
+    \choices{First}{Second}{Correct}{Fourth}{Fifth}
+  \end{quizquestion}
+  \begin{quizsolution}
+    The third option is correct.
+  \end{quizsolution}
+
+  \begin{quizquestion}[
+    id=pq6d-leading-dot,
+    topic=measurement,
+    difficulty=foundation,
+    marks=.5,
+    correct=D,
+    tags={phase6,marks}
+  ]
+    Leading-dot decimal-mark question.
+    \choices{First}{Second}{Third}{Correct}{Fifth}
+  \end{quizquestion}
+  \begin{quizsolution}
+    The fourth option is correct.
+  \end{quizsolution}
+\end{quizbank}
+
+\quizbankassert{4}{3.5}
+
+\quizselect[marks=0.5]
+\quizselectionassert{2}{1}{pq6d-leading-zero,pq6d-leading-dot}
+
+\quizselect[marks=.5]
+\quizselectionassert{2}{1}{pq6d-leading-zero,pq6d-leading-dot}
+
+Phase 6D marks decimal smoke.
+\end{document}

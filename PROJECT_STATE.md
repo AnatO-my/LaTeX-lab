@@ -23,7 +23,8 @@ LaTeX Workspace Learning and Class Refactoring Project
 
 **Phase 6 — Modern LaTeX interface programming — in progress. Checkpoint 6A
 opened on 12 August 2026. Checkpoint 6B implemented on 12 August 2026.
-Checkpoint 6C implemented on 12 August 2026.**
+Checkpoint 6C implemented on 12 August 2026. Checkpoint 6D implemented on
+12 August 2026.**
 
 Phase 6 uses a conservative modernization model: preserve existing author-facing
 structures unless a modern LaTeX change improves safety, maintainability,
@@ -31,8 +32,9 @@ validation, or local usability. Checkpoint 6A opened the phase with an isolated
 learning scaffold and no production class or package behaviour changes.
 Checkpoint 6B adds public `physicsquiz.cls` version and structured-interface
 capability markers. Checkpoint 6C adds a source-level namespace guard for the
-existing `physicsquiz.cls` modern-code boundary. Full detail is in the
-"Phase 6 status" section below.
+existing `physicsquiz.cls` modern-code boundary. Checkpoint 6D resolves marks
+decimal validation so both `0.5` and `.5` work. Full detail is in the "Phase 6
+status" section below.
 
 **Phase 5 — Shared OT design system — completed on 12 August 2026.**
 
@@ -562,6 +564,10 @@ The canonical repository structure is now supported by the shared Phase 1 class 
   resolved at Checkpoint 6C. Project-local internal functions and variables are
   guarded under the `__pq` module, while public wrappers remain the supported
   author-facing surface.
+* **Structured marks decimal syntax:** resolved at Checkpoint 6D. Structured
+  question metadata and marks filters accept positive integers, whole-number
+  decimals such as `1.5`, leading-zero fractional decimals such as `0.5`, and
+  leading-dot fractional decimals such as `.5`.
 * **Retiring the legacy `PHY104_Exam revision.tex`:** at the start of Phase 6.
   Phase 5 never touches `physicsquiz.cls`, so the legacy quiz costs nothing and
   remains independent evidence that the untouched side is untouched.
@@ -655,6 +661,27 @@ behaviour change. The pre-existing dirty formatting and marks-regex change in
 
 PowerShell parser checks passed for `tests/run_phase6c_tests.ps1`, and the Phase
 6C runner passed with `All Phase 6C tests passed.`
+
+### Checkpoint 6D - marks decimal validation
+
+Checkpoint 6D resolves the carried dirty marks-regex question. It keeps the
+previously accepted leading-zero decimal form, such as `0.5`, and also accepts
+the shorthand leading-dot form, such as `.5`.
+
+Structured question metadata and marks filters now accept:
+
+* integers, such as `1`;
+* whole-number decimals, such as `1.5`;
+* leading-zero fractional decimals, such as `0.5`; and
+* leading-dot fractional decimals, such as `.5`.
+
+Zero and zero-equivalent decimals, such as `0`, `0.0`, and `.0`, remain invalid.
+This is a narrow validation improvement and does not change rendering,
+selection order, shuffling, class options, question-bank storage, or version
+manifests.
+
+PowerShell parser checks passed for `tests/run_phase6d_tests.ps1`, and the Phase
+6D runner passed with `All Phase 6D tests passed.`
 
 ## Phase 2 status
 
@@ -1405,19 +1432,29 @@ is complete. Checkpoint 5F is complete as governance closure.
 * Left the pre-existing dirty marks-regex and formatting change out of scope.
 * Verified the checkpoint with `All Phase 6C tests passed.`
 
+### Session 26 - Checkpoint 6D marks decimal validation
+
+* Resolved the carried marks-regex question by accepting both `0.5` and `.5`
+  fractional marks.
+* Updated both structured question metadata validation and marks-filter
+  validation.
+* Added `tests/physicsquiz_marks_decimal_smoke.tex`.
+* Added `tests/run_phase6d_tests.ps1`, chaining the 6C checkpoint before the 6D
+  marks smoke.
+* Added `PHASE6_CHECKPOINT_6D.md`.
+* Updated the public-interface record to spell out accepted marks forms.
+* Verified the checkpoint with `All Phase 6D tests passed.`
+
 ## Next action
 
 Phase 6 is open. Next:
 
-1. Commit Checkpoint 6C with careful staging so the pre-existing
-   `physicsquiz.cls` marks-regex and formatting changes are not accidentally
-   included.
-2. Decide whether the pre-existing marks-regex change in the dirty
-   `physicsquiz.cls` working tree should be kept, reverted, or isolated.
-3. Choose the next Phase 6 production target: class-option modernization,
+1. Commit Checkpoint 6D with careful staging so the unrelated versioned-paper
+   edit and loose generated files are not accidentally included.
+2. Choose the next Phase 6 production target: class-option modernization,
    error-message consolidation, or a narrower structured-interface usability
    improvement.
-4. Carried forward from Phase 4, still outstanding: review
+3. Carried forward from Phase 4, still outstanding: review
    `build/examples/physicsquiz/PHY104_versioned_paper.pdf` for version A, then
    rebuild with `\quizuseversion{B}` and confirm the two papers differ in both
    question set and option order, and that each answer key matches its own

@@ -656,7 +656,7 @@
     \tl_if_blank:VF \l__pq_marks_tl
       {
         \exp_args:NnV \regex_match:nnF
-          { \A (?: [1-9][0-9]* (?: [.] [0-9]+ )? | 0[.] [0-9]*[1-9][0-9]* ) \Z }
+          { \A (?: [1-9][0-9]* (?: [.] [0-9]+ )? | 0[.] [0-9]*[1-9][0-9]* | [.] [0-9]*[1-9][0-9]* ) \Z }
           \l__pq_marks_tl
           {
             \typeout{PQ4C-VALIDATION:INVALID-MARKS:\tl_use:N \l__pq_marks_tl}
@@ -837,7 +837,7 @@
     \tl_if_blank:VF \l__pq_filter_marks_tl
       {
         \exp_args:NnV \regex_match:nnF
-          { \A (?: [1-9][0-9]* (?: [.] [0-9]+ )? | 0[.] [0-9]*[1-9][0-9]* ) \Z }
+          { \A (?: [1-9][0-9]* (?: [.] [0-9]+ )? | 0[.] [0-9]*[1-9][0-9]* | [.] [0-9]*[1-9][0-9]* ) \Z }
           \l__pq_filter_marks_tl
           {
             \typeout{PQ4D-VALIDATION:INVALID-FILTER-MARKS:\tl_use:N \l__pq_filter_marks_tl}
