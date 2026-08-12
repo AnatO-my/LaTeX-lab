@@ -22,14 +22,17 @@ LaTeX Workspace Learning and Class Refactoring Project
 ## Current phase
 
 **Phase 6 — Modern LaTeX interface programming — in progress. Checkpoint 6A
-opened on 12 August 2026. Checkpoint 6B implemented on 12 August 2026.**
+opened on 12 August 2026. Checkpoint 6B implemented on 12 August 2026.
+Checkpoint 6C implemented on 12 August 2026.**
 
 Phase 6 uses a conservative modernization model: preserve existing author-facing
 structures unless a modern LaTeX change improves safety, maintainability,
 validation, or local usability. Checkpoint 6A opened the phase with an isolated
 learning scaffold and no production class or package behaviour changes.
 Checkpoint 6B adds public `physicsquiz.cls` version and structured-interface
-capability markers. Full detail is in the "Phase 6 status" section below.
+capability markers. Checkpoint 6C adds a source-level namespace guard for the
+existing `physicsquiz.cls` modern-code boundary. Full detail is in the
+"Phase 6 status" section below.
 
 **Phase 5 — Shared OT design system — completed on 12 August 2026.**
 
@@ -555,6 +558,10 @@ The canonical repository structure is now supported by the shared Phase 1 class 
   class now declares `v0.1` and exposes `\physicsquizclassversion`,
   `\physicsquizstructuredinterfaceversion`, and
   `\physicsquizstructuredinterfaceid`.
+* **Namespace discipline for the current `physicsquiz.cls` `expl3` layer:**
+  resolved at Checkpoint 6C. Project-local internal functions and variables are
+  guarded under the `__pq` module, while public wrappers remain the supported
+  author-facing surface.
 * **Retiring the legacy `PHY104_Exam revision.tex`:** at the start of Phase 6.
   Phase 5 never touches `physicsquiz.cls`, so the legacy quiz costs nothing and
   remains independent evidence that the untouched side is untouched.
@@ -626,6 +633,28 @@ runner passed in the normal MiKTeX environment with
 passed after the 6B production marker change:
 `PASS expected failure: physicsquiz_version_already_active` followed by
 `All Phase 4I/4J tests passed.`
+
+### Checkpoint 6C - physicsquiz namespace discipline
+
+Checkpoint 6C adds a source-level guard for the current `physicsquiz.cls`
+modern-code boundary. It checks that:
+
+* the class has one bounded `expl3` region;
+* project-local internal functions and variables use the `__pq` module;
+* public wrappers declared with modern document-command interfaces match the
+  known supported surface;
+* internal key families remain limited to `physicsquiz / question` and
+  `physicsquiz / selection`;
+* the legacy `\pqchoiceoptionsguard` bridge remains exactly one internal bridge;
+  and
+* the Phase 6B capability markers remain declared.
+
+6C preserves existing author syntax and makes no intentional production
+behaviour change. The pre-existing dirty formatting and marks-regex change in
+`src/classes/physicsquiz.cls` remains outside this checkpoint.
+
+PowerShell parser checks passed for `tests/run_phase6c_tests.ps1`, and the Phase
+6C runner passed with `All Phase 6C tests passed.`
 
 ## Phase 2 status
 
@@ -1363,17 +1392,31 @@ is complete. Checkpoint 5F is complete as governance closure.
 * Confirmed the established Phase 4I/4J regression guard still passes after the
   production marker change.
 
+### Session 25 - Checkpoint 6C physicsquiz namespace discipline
+
+* Added `tests/check_physicsquiz_namespace.py`.
+* Added `tests/run_phase6c_tests.ps1`, chaining the 6B checkpoint before the 6C
+  namespace audit.
+* Added `PHASE6_CHECKPOINT_6C.md`.
+* Documented the `physicsquiz.cls` implementation namespace boundary in
+  `docs/PUBLIC_INTERFACES.md`.
+* Preserved the current public author syntax, the `__pq` internal module, and
+  the `\pqchoiceoptionsguard` compatibility bridge.
+* Left the pre-existing dirty marks-regex and formatting change out of scope.
+* Verified the checkpoint with `All Phase 6C tests passed.`
+
 ## Next action
 
 Phase 6 is open. Next:
 
-1. Commit Checkpoints 6A and 6B with careful staging so the pre-existing
+1. Commit Checkpoint 6C with careful staging so the pre-existing
    `physicsquiz.cls` marks-regex and formatting changes are not accidentally
    included.
-2. Audit the existing `physicsquiz.cls` `expl3` layer for namespace consistency
-   before any production refactor.
-3. Decide whether the pre-existing marks-regex change in the dirty
+2. Decide whether the pre-existing marks-regex change in the dirty
    `physicsquiz.cls` working tree should be kept, reverted, or isolated.
+3. Choose the next Phase 6 production target: class-option modernization,
+   error-message consolidation, or a narrower structured-interface usability
+   improvement.
 4. Carried forward from Phase 4, still outstanding: review
    `build/examples/physicsquiz/PHY104_versioned_paper.pdf` for version A, then
    rebuild with `\quizuseversion{B}` and confirm the two papers differ in both

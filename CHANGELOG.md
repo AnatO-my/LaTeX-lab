@@ -64,6 +64,33 @@ This file records significant changes to the LaTeX Workspace Learning and Class 
   `PASS expected failure: physicsquiz_version_already_active` followed by
   `All Phase 4I/4J tests passed.`
 
+### Added (Checkpoint 6C)
+
+* Added `tests/check_physicsquiz_namespace.py`, a source-level guard for the
+  current `physicsquiz.cls` modern-code boundary.
+* Added `tests/run_phase6c_tests.ps1`, which reruns 6B and then checks the 6C
+  namespace markers.
+* Added `PHASE6_CHECKPOINT_6C.md`.
+* Documented the `physicsquiz.cls` implementation namespace boundary in
+  `docs/PUBLIC_INTERFACES.md`.
+
+### Preserved (Checkpoint 6C)
+
+* Preserved the existing author-facing `physicsquiz.cls` commands and
+  environments.
+* Preserved the `__pq` internal `expl3` namespace instead of renaming working
+  internals during the audit.
+* Preserved the legacy `\pqchoiceoptionsguard` bridge as an internal
+  compatibility bridge for the older `choiceoptions` path.
+* Left the pre-existing dirty marks-regex and formatting change outside the
+  checkpoint.
+
+### Verification (Checkpoint 6C)
+
+* PowerShell parser checks passed for `tests/run_phase6c_tests.ps1`.
+* The Phase 6C runner passed:
+  `All Phase 6C tests passed.`
+
 ## Phase 5 — Shared OT design system
 
 **Completed: 12 August 2026.**

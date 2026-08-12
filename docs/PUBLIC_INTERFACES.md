@@ -127,6 +127,17 @@ The structured-interface marker means the class supports the Phase 4
 question-bank layer: `quizbank`, `quizquestion`, `quizsolution`, deterministic
 and random selection, generated outputs, shuffling, and version manifests.
 
+## Implementation namespace boundary
+
+The public `physicsquiz` author interface remains the documented commands and
+environments. The current modern implementation uses `expl3` internally under
+the `__pq` module. Those internal names are not author syntax and may change
+when a later checkpoint improves implementation details.
+
+The legacy bridge `\pqchoiceoptionsguard` exists so the older `choiceoptions`
+path can call the internal shuffling guard. It is an implementation bridge, not
+an ordinary document command.
+
 ### Primary output mode
 
 Exactly one primary output mode may be selected:
@@ -1189,6 +1200,8 @@ This reference does not define contracts for:
 * `expl3` internal functions and variables in the `__pq` namespace, and the
 `PQ4C-` and `PQ4D-` typeout markers, which exist for the automated checkers
 and may change with the tests;
+* the `physicsquiz` legacy bridge `\pqchoiceoptionsguard`, which exists to keep
+the older `choiceoptions` path wired to the internal shuffle guard;
 * raw `xsim` commands, environments, keys, and properties, which back the
 structured question interface as an implementation detail rather than a
 `physicsquiz` author API;
