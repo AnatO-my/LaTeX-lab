@@ -1,0 +1,53 @@
+% ============================================================
+% OT Box Package
+% otboxes.sty
+% Version: 0.2
+% Purpose: Shared science box foundations for OT classes and packages
+% ============================================================
+
+\NeedsTeXFormat{LaTeX2e}[2022-06-01]
+\ProvidesPackage{otboxes}[2026/08/12 v0.2 OT Shared Box Package]
+
+% -----------------------------
+% Required packages
+% -----------------------------
+\RequirePackage{ottheme}
+\RequirePackage{needspace}
+\RequirePackage{tcolorbox}
+\tcbuselibrary{skins,breakable}
+
+% -----------------------------
+% Base science boxes
+% -----------------------------
+\newtcolorbox{otscibox}[2][]{
+  enhanced,
+  breakable,
+  before={\Needspace{8\baselineskip}},
+  colback=OTLight,
+  colframe=#2,
+  boxrule=0.8pt,
+  arc=2mm,
+  left=6pt,
+  right=6pt,
+  top=6pt,
+  bottom=6pt,
+  fonttitle=\bfseries,
+  title={#1}
+}
+
+\newtcolorbox{otsciboxnosplit}[2][]{
+  enhanced,
+  before={\Needspace{12\baselineskip}},
+  colback=OTLight,
+  colframe=#2,
+  boxrule=0.8pt,
+  arc=2mm,
+  left=6pt,
+  right=6pt,
+  top=6pt,
+  bottom=6pt,
+  fonttitle=\bfseries,
+  title={#1}
+}
+
+\endinput

@@ -1,0 +1,60 @@
+% ============================================================
+% OT Core Package
+% otcore.sty
+% Version: 0.2
+% Purpose: Shared OT class setup and page furniture helpers
+% ============================================================
+
+\NeedsTeXFormat{LaTeX2e}[2022-06-01]
+\ProvidesPackage{otcore}[2026/08/12 v0.2 OT Shared Core Package]
+
+% -----------------------------
+% Shared class setup packages
+% -----------------------------
+\RequirePackage[margin=1in]{geometry}
+\RequirePackage{titlesec}
+\RequirePackage{fancyhdr}
+\RequirePackage{enumitem}
+\RequirePackage{tabularx}
+\RequirePackage{array}
+\RequirePackage{datetime2}
+
+% -----------------------------
+% Shared list defaults
+% -----------------------------
+\newcommand{\otcorelistdefaults}{
+  \setlist[itemize]{topsep=3pt,itemsep=2pt}
+  \setlist[enumerate]{topsep=3pt,itemsep=2pt}
+}
+
+% -----------------------------
+% Shared page furniture
+% -----------------------------
+\newcommand{\otcorepagestyle}[3]{
+  \setlength{\headheight}{15pt}
+  \pagestyle{fancy}
+  \fancyhf{}
+  \lhead{#1}
+  \rhead{#2}
+  \cfoot{\thepage}
+  \renewcommand{\headrulewidth}{#3}
+}
+
+% -----------------------------
+% Shared section styling
+% -----------------------------
+\newcommand{\otcoresectionstyles}[2]{
+  \titleformat{\section}
+  {\Large\bfseries\color{OTDark}}
+  {\thesection}{#1}{}
+
+  \titleformat{\subsection}
+  {\large\bfseries\color{OTBlue}}
+  {\thesubsection}{#1}{}
+
+  \titleformat{\subsubsection}
+  {\normalsize\bfseries\color{#2}}
+  {\thesubsubsection}{#1}{}
+}
+
+\endinput

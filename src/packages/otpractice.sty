@@ -6,8 +6,7 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{otpractice}[2026/06/22 OT practice macros]
 
-\RequirePackage{xcolor}
-\RequirePackage{tcolorbox}
+\RequirePackage{otboxes}
 \RequirePackage{enumitem}
 
 % -----------------------------
@@ -49,8 +48,8 @@
 \newcommand{\strategy}[1]{\textbf{Strategy:} #1\par}
 \newcommand{\solutionstep}[1]{\textbf{Step:} #1\par}
 \newcommand{\thereforeanswer}[1]{\[
-\boxed{#1}
-\]}
+    \boxed{#1}
+  \]}
 
 % -----------------------------
 % Spaced repetition card
@@ -72,14 +71,14 @@
 % Exam header
 % -----------------------------
 \newcommand{\examheader}[4]{
-\begin{center}
-{\Large\bfseries #1}\\[2mm]
-#2\\[1mm]
-Time: #3 \qquad Marks: #4
-\end{center}
-\vspace{2mm}
-\hrule
-\vspace{4mm}
+  \begin{center}
+    {\Large\bfseries #1}\\[2mm]
+    #2\\[1mm]
+    Time: #3 \qquad Marks: #4
+  \end{center}
+  \vspace{2mm}
+  \hrule
+  \vspace{4mm}
 }
 
 % -----------------------------

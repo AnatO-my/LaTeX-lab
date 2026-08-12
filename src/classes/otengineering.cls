@@ -17,72 +17,32 @@
 % 2. Required Packages
 % ============================================================
 
-\RequirePackage[margin=1in]{geometry}
-\RequirePackage{xcolor}
+\RequirePackage{otcore}
 \RequirePackage{tcolorbox}
-\RequirePackage{titlesec}
-\RequirePackage{fancyhdr}
-\RequirePackage{hyperref}
-\RequirePackage{enumitem}
-\RequirePackage{tabularx}
-\RequirePackage{array}
-\RequirePackage{datetime2}
 \RequirePackage{amssymb}
 \RequirePackage{amsmath}
+\RequirePackage{ottheme}
+
+% otengineering keeps its slightly darker notebook background while sharing the
+% rest of the OT palette with otscience.
+\definecolor{OTLight}{HTML}{F3F4F6}
 
 \tcbuselibrary{skins,breakable}
-
-% ============================================================
-% 3. Colour System
-% ============================================================
-
-\definecolor{OTDark}{HTML}{1F2937}
-\definecolor{OTMuted}{HTML}{6B7280}
-\definecolor{OTLight}{HTML}{F3F4F6}
-\definecolor{OTBlue}{HTML}{2563EB}
-\definecolor{OTGreen}{HTML}{059669}
-\definecolor{OTOrange}{HTML}{D97706}
-\definecolor{OTRed}{HTML}{DC2626}
-\definecolor{OTPurple}{HTML}{7C3AED}
-
-% ============================================================
-% 4. Hyperlink Setup
-% ============================================================
-
-\hypersetup{
-    colorlinks=true,
-    linkcolor=OTBlue,
-    urlcolor=OTBlue,
-    citecolor=OTGreen
-}
 
 % ============================================================
 % 5. Page Style
 % ============================================================
 
-\pagestyle{fancy}
-\fancyhf{}
-\lhead{\textbf{OT Engineering Notebook}}
-\rhead{\leftmark}
-\cfoot{\thepage}
-
-\setlength{\headheight}{15pt}
+\otcorepagestyle
+    {\textbf{OT Engineering Notebook}}
+    {\leftmark}
+    {0.4pt}
 
 % ============================================================
 % 6. Section Styling
 % ============================================================
 
-\titleformat{\section}
-{\Large\bfseries\color{OTDark}}
-{\thesection}{1em}{}
-
-\titleformat{\subsection}
-{\large\bfseries\color{OTBlue}}
-{\thesubsection}{1em}{}
-
-\titleformat{\subsubsection}
-{\normalsize\bfseries\color{OTMuted}}
-{\thesubsubsection}{1em}{}
+\otcoresectionstyles{1em}{OTMuted}
 
 % ============================================================
 % 7. Project Metadata Commands

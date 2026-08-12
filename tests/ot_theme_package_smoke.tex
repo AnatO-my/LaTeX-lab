@@ -1,0 +1,26 @@
+\documentclass{article}
+
+\usepackage{otnotation}
+\usepackage{otmath}
+\usepackage{otfigures}
+
+\begin{document}
+
+\section*{OT Theme Package Smoke Test}
+
+\typeout{OT5B-SMOKE:OTNOTATION}
+\important{Important text} and \keyterm{key terms} use the shared OT palette.
+
+\typeout{OT5B-SMOKE:OTMATH}
+\begin{identitybox}[Shared palette identity box]
+  \[
+    \curlgradzero{\phi}
+  \]
+\end{identitybox}
+
+\typeout{OT5B-SMOKE:OTFIGURES}
+\begin{center}
+  \vectorfigure{\mathbf{v}}{1}{1}{Theme-coloured vector}
+\end{center}
+
+\end{document}

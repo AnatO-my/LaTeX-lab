@@ -1,16 +1,8 @@
-% Phase 5 cycle witness.
+% Phase 5C standalone otpractice smoke.
 %
-% otpractice.sty is documented as a companion package, but it borrows the
-% otscibox environment and the OT colour palette from otscience.cls.  It is
-% therefore an ecosystem component rather than an independently loadable
-% package, and this document cannot compile.
-%
-% The failure is deferred and badly signposted: the \usepackage line succeeds,
-% and the error arrives later, naming neither otpractice nor otscience.
-%
-% Checkpoint 5A records that as an expected failure.  Checkpoint 5C moves
-% otscibox into otboxes.sty and this file into the positive list, which is the
-% machine-checkable moment the circular dependency is broken.
+% Checkpoint 5A recorded this file as an expected failure because otpractice.sty
+% borrowed otscibox from otscience.cls.  Checkpoint 5C moves otscibox into
+% otboxes.sty and turns this file into a positive standalone package test.
 
 \documentclass{article}
 
@@ -19,6 +11,8 @@
 \begin{document}
 
 \section*{Standalone companion-package load}
+
+\typeout{OT5C-SMOKE:OTPRACTICE}
 
 \begin{practice}
     \qitem State the SI base unit of luminous intensity. \blank

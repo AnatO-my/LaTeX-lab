@@ -9,6 +9,11 @@ This document records the supported public interfaces of:
 * `otengineering.cls`; and
 * `otscience.cls`.
 
+It also records the shared OT ecosystem hooks that these classes and their
+companion packages expose deliberately, including the Phase 5 `ottheme.sty`
+palette package, `otboxes.sty` base boxes, and `otcore.sty` class-support
+helpers.
+
 It describes commands and environments intended for document authors, identifies
 advanced ecosystem hooks, and distinguishes them from internal implementation
 details. It is an interface contract, not a catalogue of every command made
@@ -75,6 +80,18 @@ from claiming broader test coverage than the project has established.
   behaviour remains unchanged.
 * Generic names and shared colour names require a collision audit before reuse in
   another class or package.
+
+## Shared package support policy
+
+The Phase 5 shared OT packages, `ottheme.sty`, `otboxes.sty`, and `otcore.sty`,
+declare package version `v0.2` and require LaTeX2e dated 2022-06-01 or newer.
+pdfLaTeX is the supported engine. LuaLaTeX and XeLaTeX are expected to work, but
+they are not part of the public support claim until the regression runners test
+them directly.
+
+The shared packages are ecosystem hooks. Ordinary documents should still prefer
+the semantic class interfaces unless they are intentionally building a companion
+package, compatibility wrapper, or class-level integration.
 
 # `physicsquiz.cls`
 
@@ -927,7 +944,9 @@ expansions are source-verified.
 
 ## Theme palette
 
-The `otengineering` palette is an advanced theme interface:
+The `otengineering` palette is an advanced theme interface. Since Phase 5B, the
+shared values are supplied by `ottheme.sty`; `otengineering.cls` deliberately
+re-declares `OTLight` to keep its established notebook background.
 
 | Colour | Definition |
 | --- | --- |
@@ -941,8 +960,8 @@ The `otengineering` palette is an advanced theme interface:
 | `OTPurple` | `#7C3AED` |
 
 These names are shared with `otscience`, but the `OTLight` value is not identical
-between the two classes. Code that depends on an exact background must use the value
-belonging to the active class.
+between the two classes. Code that depends on an exact background must use the
+value belonging to the active class.
 
 ## Naming risks
 
@@ -1003,6 +1022,8 @@ regression-verified.
 
 ## Generic ecosystem box interfaces
 
+These interfaces are supplied by `otboxes.sty`.
+
 ```latex
 \begin{otscibox}[<title>]{<frame colour>}
   <content>
@@ -1022,9 +1043,25 @@ box height.
 Ordinary authors should prefer the semantic wrappers. Both generic interfaces and
 their pagination behaviour are regression-verified.
 
+## Shared class-support helpers
+
+`otcore.sty` is a class-support package for shared OT page furniture and setup.
+It is not intended as ordinary author syntax.
+
+The class-facing helper commands are:
+
+```latex
+\otcorelistdefaults
+\otcorepagestyle{<left head>}{<right head>}{<rule width>}
+\otcoresectionstyles{<label separation>}{<subsubsection colour>}
+```
+
+`otscience.cls` and `otengineering.cls` pass different values to these helpers,
+so their established visual identities remain separate.
+
 ## Theme palette
 
-The science palette is an advanced theme interface:
+The science palette is an advanced theme interface supplied by `ottheme.sty`.
 
 | Colour | Definition |
 | --- | --- |
@@ -1039,7 +1076,10 @@ The science palette is an advanced theme interface:
 | `OTTeal` | `#0891B2` |
 | `OTYellow` | `#CA8A04` |
 
-Companion packages and workbook compatibility wrappers may depend on these names.
+Companion packages, shared box packages, and workbook compatibility wrappers may
+depend on these names. Since Checkpoint 5B, `otnotation`, `otmath`, and
+`otfigures` load `ottheme` directly when they need these names. Since Checkpoint
+5C, `otboxes` also loads `ottheme` directly for the base science box palette.
 The science value of `OTLight` (`#F9FAFB`) differs from the engineering value
 (`#F3F4F6`).
 
@@ -1064,8 +1104,8 @@ Other commands supplied by `physics` and `siunitx` remain package-owned interfac
 
 ## Companion-package boundary
 
-`otscience.cls` conditionally loads these companion packages when they are
-available:
+`otscience.cls` loads `otboxes` directly for the shared base science boxes. It
+conditionally loads these companion packages when they are available:
 
 * `otnotation`;
 * `otmath`;
@@ -1079,7 +1119,8 @@ Commands defined by those packages are ecosystem interfaces, not definitions own
 directly by `otscience.cls`. Their detailed APIs belong in separate companion-package
 references. Because loading is conditional, an author must not infer that a
 companion command exists merely from the class name without ensuring that the
-relevant package is installed.
+relevant package is installed. `otnotation`, `otmath`, `otfigures`, `otboxes`,
+and `otpractice` now load their shared dependencies directly.
 
 `\standalonetitle`, `practicebox`, and `practiceboxnosplit` belong to the vector
 workbook's `00_common_setup.tex` compatibility layer. They are not direct
@@ -1103,8 +1144,9 @@ the other classes, but `examplebox`, the two generic base-box names, and the sha
 | `namedformula`, `\formularef` | `studentnotes` | stable | descriptive title remains visually hidden |
 | `\notebox` | `studentnotes` | advanced | semantic margin-note wrappers are preferred |
 | `otbox` | `otengineering` | advanced | semantic engineering wrappers are preferred |
-| `otscibox`, `otsciboxnosplit` | `otscience` | advanced | semantic science wrappers are preferred |
-| `OT...` colours | `otengineering` and `otscience` | advanced | `OTLight` differs between the two classes |
+| `otscibox`, `otsciboxnosplit` | `otboxes` | advanced | semantic science wrappers are preferred |
+| `\otcorelistdefaults`, `\otcorepagestyle`, `\otcoresectionstyles` | `otcore` | advanced | class-support helpers, not ordinary author syntax |
+| `OT...` colours | `ottheme` | advanced | `otengineering.cls` deliberately overrides `OTLight` to preserve its established `#F3F4F6` value |
 | `practicebox`, `practiceboxnosplit` | vector-workbook setup | external to class | defined by `00_common_setup.tex` |
 | `\standalonetitle` | vector-workbook setup | external to class | not defined by `otscience` |
 | OT companion commands | individual `.sty` packages | external to class | loaded conditionally by `otscience` |

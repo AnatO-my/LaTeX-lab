@@ -3,6 +3,7 @@ $ErrorActionPreference = "Stop"
 $repoRoot = (Resolve-Path (Join-Path $PSScriptRoot "..")).Path
 $buildDir = Join-Path $repoRoot "build\tests"
 New-Item -ItemType Directory -Force -Path $buildDir | Out-Null
+. (Join-Path $PSScriptRoot "powershell_log_helpers.ps1")
 
 $positiveTests = @(
     "physicsquiz_mode_default",
@@ -43,7 +44,7 @@ try {
             throw "Expected log was not created: $log"
         }
 
-        $diagnostics = Select-String -Path $log -Pattern @(
+        $diagnostics = Invoke-LogSelectString -Path $log -Pattern @(
             "LaTeX Warning:",
             "Overfull \\hbox",
             "Underfull \\hbox"
@@ -87,7 +88,7 @@ try {
         }
 
         $log = Join-Path $buildDir "$($test.Name).log"
-        if (-not (Select-String -Path $log -SimpleMatch $test.Message -Quiet)) {
+        if (-not (Invoke-LogSelectString -Path $log -SimpleMatch -Pattern $test.Message -Quiet)) {
             throw "$source failed without the expected class error: $($test.Message)"
         }
         Write-Host "PASS expected failure: $($test.Name)" -ForegroundColor Green

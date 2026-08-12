@@ -8,10 +8,11 @@ $fullBank = Join-Path $repoRoot "examples\physicsquiz\banks\phy104_full_question
 $structuredExample = Join-Path $repoRoot "examples\physicsquiz\PHY104_structured_revision.tex"
 New-Item -ItemType Directory -Force -Path $buildDir | Out-Null
 New-Item -ItemType Directory -Force -Path $exampleBuildDir | Out-Null
+. (Join-Path $PSScriptRoot "powershell_log_helpers.ps1")
 
 function Assert-CleanLog {
     param([string]$LogPath)
-    $diagnostics = Select-String -Path $LogPath -SimpleMatch -Pattern @(
+    $diagnostics = Invoke-LogSelectString -Path $LogPath -SimpleMatch -Pattern @(
         "LaTeX Warning:",
         "Package xsim Warning:",
         "Overfull \hbox",

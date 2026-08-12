@@ -3,6 +3,7 @@ $ErrorActionPreference = "Stop"
 $repoRoot = (Resolve-Path (Join-Path $PSScriptRoot "..")).Path
 $buildDir = Join-Path $repoRoot "build\tests"
 New-Item -ItemType Directory -Force -Path $buildDir | Out-Null
+. (Join-Path $PSScriptRoot "powershell_log_helpers.ps1")
 
 Push-Location $repoRoot
 try {
@@ -58,7 +59,7 @@ try {
             }
         }
 
-        $diagnostics = Select-String -Path $log -SimpleMatch -Pattern @(
+        $diagnostics = Invoke-LogSelectString -Path $log -SimpleMatch -Pattern @(
             "LaTeX Warning:",
             "Package xsim Warning:",
             "Overfull \hbox",
@@ -102,7 +103,7 @@ try {
         }
 
         $log = Join-Path $buildDir "$($test.Name).log"
-        if (-not (Select-String -Path $log -SimpleMatch $test.Marker -Quiet)) {
+        if (-not (Invoke-LogSelectString -Path $log -SimpleMatch -Pattern $test.Marker -Quiet)) {
             throw "$source failed without the expected validation marker: $($test.Marker)"
         }
         Write-Host "PASS expected failure: $($test.Name)" -ForegroundColor Green

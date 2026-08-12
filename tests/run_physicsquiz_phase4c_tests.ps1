@@ -3,6 +3,7 @@ $ErrorActionPreference = "Stop"
 $repoRoot = (Resolve-Path (Join-Path $PSScriptRoot "..")).Path
 $buildDir = Join-Path $repoRoot "build\tests"
 New-Item -ItemType Directory -Force -Path $buildDir | Out-Null
+. (Join-Path $PSScriptRoot "powershell_log_helpers.ps1")
 
 Push-Location $repoRoot
 try {
@@ -54,7 +55,7 @@ try {
             }
         }
 
-        $diagnostics = Select-String -Path $log -SimpleMatch -Pattern @(
+        $diagnostics = Invoke-LogSelectString -Path $log -SimpleMatch -Pattern @(
             "LaTeX Warning:",
             "Package xsim Warning:",
             "Overfull \hbox",
@@ -81,14 +82,14 @@ try {
 
     $oneColumnLog = Join-Path $buildDir "physicsquiz_xsim_one_column.log"
     foreach ($marker in @("PQ4C-CONTENT:QUESTIONS", "PQ4C-CONTENT:REFERENCE", "PQ4C-COUNT:4", "PQ4C-TOTAL:8")) {
-        if (-not (Select-String -Path $oneColumnLog -SimpleMatch $marker -Quiet)) {
+        if (-not (Invoke-LogSelectString -Path $oneColumnLog -SimpleMatch -Pattern $marker -Quiet)) {
             throw "The one-column test is missing marker: $marker"
         }
     }
 
     $optionalOutcomeLog = Join-Path $buildDir "physicsquiz_xsim_optional_outcome.log"
     foreach ($marker in @("PQ4C-COUNT:1", "PQ4C-TOTAL:1.5", "PQ4C-ANSWER:optional-outcome=D", "PQ4C-OUTCOME:optional-outcome=NONE")) {
-        if (-not (Select-String -Path $optionalOutcomeLog -SimpleMatch $marker -Quiet)) {
+        if (-not (Invoke-LogSelectString -Path $optionalOutcomeLog -SimpleMatch -Pattern $marker -Quiet)) {
             throw "The optional-outcome test is missing marker: $marker"
         }
     }
@@ -115,7 +116,7 @@ try {
         }
 
         $log = Join-Path $buildDir "$($test.Name).log"
-        if (-not (Select-String -Path $log -SimpleMatch $test.Marker -Quiet)) {
+        if (-not (Invoke-LogSelectString -Path $log -SimpleMatch -Pattern $test.Marker -Quiet)) {
             throw "$source failed without the expected validation marker: $($test.Marker)"
         }
         Write-Host "PASS expected failure: $($test.Name)" -ForegroundColor Green

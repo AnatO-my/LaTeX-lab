@@ -21,13 +21,23 @@ LaTeX Workspace Learning and Class Refactoring Project
 
 ## Current phase
 
-**Phase 5 — Shared OT design system — in progress. Checkpoint 5A completed on
-10 August 2026.**
+**Phase 5 — Shared OT design system — completed on 12 August 2026.**
 
-Phase 5 audits duplication across the four classes and the seven companion
-packages and designs a minimal shared-package architecture. Checkpoint 5A added
-the first OT-side regression harness and changed no file under `src/`. Full
-detail is in the "Phase 5 status" section below.
+Phase 5 audited duplication across the four classes and the seven companion
+packages and implemented a minimal shared-package architecture. Checkpoint 5A
+added the first OT-side regression harness and changed no file under `src/`.
+Checkpoint 5B extracted the shared OT palette into `ottheme.sty` and passed the
+full Phase 5 checkpoint command in the normal MiKTeX environment. Checkpoint 5C
+extracted the shared science boxes into `otboxes.sty` and passed the full Phase
+5 checkpoint command in the normal MiKTeX environment. Checkpoint 5D closed the
+reserved theme and box cleanup stage with no source behavior changes. Checkpoint
+5E extracted shared setup and page furniture helpers into `otcore.sty` and
+passed the full Phase 5 checkpoint command in the normal MiKTeX environment.
+Checkpoint 5F closed the phase governance: the three new shared packages now
+carry the agreed LaTeX kernel floor, the public-interface record names the
+support boundary, generated outputs remain build artifacts, and the
+`physicsquiz.cls` semantic-version item is carried forward outside Phase 5.
+Full detail is in the "Phase 5 status" section below.
 
 **Phase 4 — Question-bank architecture — completed on 9 August 2026.**
 
@@ -271,18 +281,25 @@ All four active classes have now been supplied and audited.
 
 These seven packages form the companion package system used by `otscience.cls` and the modular workbook.
 
+Phase 5 has also introduced shared infrastructure packages:
+
+* `src/packages/ottheme.sty`
+* `src/packages/otboxes.sty`
+* `src/packages/otcore.sty`
+
 Four of the seven — `otnotation`, `otmath`, `otpractice` and `otfigures` —
-currently depend on colours defined by `otscience.cls`, and `otpractice` also
-depends on its `otscibox` environment. Those four must be treated as ecosystem
-components rather than independently loadable general-purpose packages.
+depended on colours defined by `otscience.cls`, and `otpractice` also depended
+on its `otscibox` environment. Checkpoint 5B moved the colour dependency to
+`ottheme.sty` for `otnotation`, `otmath`, and `otfigures`. Checkpoint 5C moves
+the box dependency to `otboxes.sty` for `otpractice`.
 
 `ottensors`, `otphysics` and `otcoordinates` are already self-contained and
 independently loadable today.
 
-The dependency is a use-time rather than a load-time cycle: the back-references
-resolve when a document uses a command, not when the package loads. So nothing
-breaks in practice, but a standalone load fails later with an error that names
-neither package. Phase 5 Checkpoints 5B and 5C remove the cycle.
+Before Checkpoint 5C, the remaining dependency was a use-time rather than a
+load-time cycle: `otpractice`'s back-reference resolved when a document used a
+practice box, not when the package loaded. Checkpoint 5C removes that remaining
+cycle and turns `tests/otpractice_standalone.tex` into a positive smoke test.
 
 ### Legacy source
 
@@ -532,15 +549,17 @@ The canonical repository structure is now supported by the shared Phase 1 class 
   `ottheme.sty`, `otboxes.sty` and `otcore.sty`. A fourth, `otmath`, was
   rejected: the name is already held by a live companion package, and there is no
   identical maths code to justify it.
-* **Semantic version for `physicsquiz.cls`:** yes, applied at Checkpoint 5F
-  alongside the versioning policy for the new packages, together with a public
-  version macro so a document can test for the structured interface.
+* **Semantic version for `physicsquiz.cls`:** carried forward beyond Phase 5.
+  Checkpoint 5F keeps Phase 5 OT-only and does not edit `physicsquiz.cls`; a
+  public version macro for the structured quiz interface belongs with Phase 6 or
+  a dedicated `physicsquiz` governance checkpoint.
 * **Retiring the legacy `PHY104_Exam revision.tex`:** at the start of Phase 6.
   Phase 5 never touches `physicsquiz.cls`, so the legacy quiz costs nothing and
   remains independent evidence that the untouched side is untouched.
-* **Whether generated example PDFs stay version-controlled:** deferred to the end
-  of Phase 5. The Phase 5 baseline manifest records page counts and rendered-text
-  hashes, which is what comparisons actually use, at a fraction of the weight.
+* **Whether generated example PDFs stay version-controlled:** resolved at
+  Checkpoint 5F. Generated PDFs, logs and auxiliary files remain build artifacts;
+  Phase 5 evidence is the source fixtures, baseline manifest, checker output,
+  and package smokes.
 
 ## Phase 2 status
 
@@ -774,8 +793,9 @@ begin in a new chat with the complete class and package set attached.
 
 ## Phase 5 status
 
-Phase 5 is in progress. It audits duplication across the four classes and the
-seven companion packages and designs a minimal shared-package architecture.
+Phase 5 is complete. It audited duplication across the four classes and the
+seven companion packages, then implemented a minimal shared-package architecture
+for the OT side of the ecosystem.
 
 ### What the audit found
 
@@ -803,8 +823,7 @@ Extraction is the mechanism; the cycle is the reason.
 ### Target architecture
 
 * `ottheme.sty` — the OT colour palette and the shared hyperlink colour policy.
-  Six files reach for it and it is pure values, so it can move with a provable
-  no-op.
+  It is pure values and moved first as Checkpoint 5B.
 * `otboxes.sty` — `otscibox` and `otsciboxnosplit`. The only behavioural
   interface a companion package borrows from a class, so moving it is what
   actually severs the cycle.
@@ -845,6 +864,102 @@ counts and the rendered-text hash are hard failures; PDF byte size is a warning.
   cycle witness requires.
 * The accepted Phase 4I/4J chain passed end to end.
 
+### Checkpoint 5B — shared OT theme
+
+Checkpoint 5B introduces `src/packages/ottheme.sty` as the owner of the shared
+OT palette and hyperlink policy. `otscience.cls` now loads this package instead
+of defining those values inline. `otengineering.cls` also loads it, then
+re-declares `OTLight` as `#F3F4F6` so the documented engineering background
+divergence remains deliberate rather than accidental.
+
+`otnotation.sty`, `otmath.sty`, and `otfigures.sty` now load `ottheme`
+directly. This removes their colour dependency on `otscience.cls`. A new
+compile-only smoke fixture, `tests/ot_theme_package_smoke.tex`, loads those
+three packages from an ordinary `article` document and emits `OT5B-SMOKE`
+markers for the runner.
+
+A cross-day rebuild exposed a flaw in the Checkpoint 5A text hash: documents
+using `\today` or `\DTMtoday` changed rendered text merely because the calendar
+date changed from the manifest's recorded date. The checker now keeps the strong
+hash assertion but retries after shifting only the current rendered date back to
+the manifest date. Fixed historical dates remain protected.
+
+Python and PowerShell syntax checks passed in this Codex shell. The full
+checkpoint command also passed in the normal MiKTeX environment, ending with
+`PASS expected failure: otpractice_standalone` and
+`All OT Phase 5 tests passed.`
+
+### Checkpoint 5C — shared OT boxes
+
+Checkpoint 5C introduces `src/packages/otboxes.sty` as the owner of
+`otscibox` and `otsciboxnosplit`. The extracted definitions keep the accepted
+box behaviour: `otscibox` is breakable and asks for eight baseline lines before
+starting, while `otsciboxnosplit` is indivisible and asks for twelve.
+
+`otscience.cls` now loads `otboxes` and keeps the semantic science wrappers
+locally. `otpractice.sty` also loads `otboxes` directly, so its `practice`,
+`drillbox`, `recallbox`, and `examquestion` environments no longer depend on
+`otscience.cls`.
+
+Two compile-only smoke fixtures enforce the new capability:
+`tests/ot_boxes_package_smoke.tex` loads `otboxes` directly and exercises both
+base boxes, while `tests/otpractice_standalone.tex` has moved from expected
+failure to positive standalone package smoke.
+
+Direct MiKTeX smoke builds passed for `tests/ot_boxes_package_smoke.tex` and
+`tests/otpractice_standalone.tex`, emitting `OT5C-SMOKE:OTBOXES` and
+`OT5C-SMOKE:OTPRACTICE`. The full checkpoint command passed in the normal MiKTeX
+environment with `All OT Phase 5 tests passed.`
+
+### Checkpoint 5D — cleanup closure
+
+Checkpoint 5D is closed as a no-op source checkpoint. The originally planned
+work, `otengineering.cls` adopting `ottheme` while preserving
+`OTLight=#F3F4F6`, was completed early in Checkpoint 5B. The remaining
+class-to-package cycle was completed in Checkpoint 5C when `otboxes.sty` became
+the owner of `otscibox` and `otsciboxnosplit`.
+
+No additional class or package extraction is needed for 5D. The remaining
+shared-code question is `otcore.sty`, which concerns package setup and page
+furniture rather than theme or box ownership.
+
+### Checkpoint 5E — shared OT core helpers
+
+Checkpoint 5E introduces `src/packages/otcore.sty` for shared setup and page
+furniture helpers used by `otscience.cls` and `otengineering.cls`. It loads the
+common structural packages: `geometry`, `titlesec`, `fancyhdr`, `enumitem`,
+`tabularx`, `array`, and `datetime2`.
+
+The package also provides three class-facing helpers:
+`\otcorelistdefaults`, `\otcorepagestyle`, and `\otcoresectionstyles`.
+`otscience.cls` and `otengineering.cls` pass their own established values, so
+the two classes keep separate headers, header-rule widths, section label
+spacing, and subsubsection colours.
+
+`tests/ot_core_package_smoke.tex` loads `ottheme` and `otcore`, exercises the
+three helper commands, and emits `OT5E-SMOKE:OTCORE`. PowerShell syntax checks
+passed for the Phase 5 runner, and direct MiKTeX builds passed for the 5E core
+smoke plus the science and engineering box compatibility fixtures. The full
+checkpoint command passed in the normal MiKTeX environment with
+`All OT Phase 5 tests passed.`
+
+### Checkpoint 5F — governance closure
+
+Checkpoint 5F closes Phase 5 without another behavioural extraction. The three
+new shared packages now declare the agreed kernel floor,
+`\NeedsTeXFormat{LaTeX2e}[2022-06-01]`, while retaining semantic package version
+`v0.2`.
+
+The public-interface record now names the shared package support boundary:
+pdfLaTeX is supported, LuaLaTeX and XeLaTeX are expected but untested, and the
+shared packages are ecosystem hooks rather than ordinary document-author syntax.
+
+Two governance decisions are closed. Generated PDFs, logs and auxiliary files
+remain build artifacts rather than Phase 5 source. The `physicsquiz.cls`
+semantic-version idea is carried forward to Phase 6 or a dedicated quiz
+governance checkpoint, because Phase 5 deliberately leaves `physicsquiz.cls`
+untouched and uses the Phase 4 chain only as a guard.
+
 ### Three defects found by running the harness, not by writing it
 
 1. The runner announced no mode, so an invocation without `-Record` silently
@@ -865,8 +980,8 @@ regression.
 
 * Box geometry is only partly covered. A changed `\Needspace` moves a page break
   and fails on page count, but a changed `arc` or `boxrule` moves neither glyphs
-  nor pages. Checkpoint 5C needs a deliberate visual comparison of one rendered
-  box, as the Phase 4G review did.
+  nor pages. Checkpoint 5C adds standalone box smokes; final review should still
+  visually inspect at least one rendered box, as the Phase 4G review did.
 * `examples/studentnotes/Optics.tex` is baselined with its independent
   uncommitted modification in place. Correct for detecting drift within Phase 5,
   but the recorded numbers describe the modified file rather than `HEAD`.
@@ -874,15 +989,23 @@ regression.
   understates what the build reports.
 * The guard roughly doubles the wall-clock time of a full run.
 
-### Remaining Phase 5 checkpoints
+### Completed Phase 5 checkpoints
 
-* **5B** — `ottheme.sty`. Frees `otnotation`, `otmath` and `otfigures`.
-* **5C** — `otboxes.sty`. Frees `otpractice` and moves `otpractice_standalone`
-  into the positive list, which is the machine-checkable moment the cycle breaks.
-* **5D** — `otengineering.cls` adopts `ottheme`, re-declaring `OTLight` as
-  `#F3F4F6` so the documented divergence becomes deliberate.
-* **5E** — `otcore.sty`, optional.
-* **5F** — governance, including the `physicsquiz.cls` semantic version.
+Checkpoint 5B is complete, including the planned `otengineering.cls` adoption
+and `OTLight` override that had originally been listed as 5D. Checkpoint 5C is
+complete. Checkpoint 5D is closed as a no-op source cleanup stage. Checkpoint 5E
+is complete. Checkpoint 5F is complete as governance closure.
+
+* **5B** — `ottheme.sty`. Complete; frees `otnotation`, `otmath` and
+  `otfigures`.
+* **5C** — `otboxes.sty`. Complete; frees `otpractice` and moves
+  `otpractice_standalone` into the positive list.
+* **5D** — cleanup closure. Complete; no additional source behavior changes.
+* **5E** — `otcore.sty`. Complete; shares setup and page-furniture helpers
+  between `otscience.cls` and `otengineering.cls`.
+* **5F** — governance closure. Complete; package support policy, generated-output
+  policy, public-interface finalization and Phase 6 carry-forward decisions are
+  recorded.
 
 ## Session handover log
 
@@ -1071,13 +1194,87 @@ regression.
 * Preserved and excluded the independent modification to
   `examples/studentnotes/Optics.tex`.
 
+### Session 18 — Checkpoint 5B shared theme
+
+* Added `ottheme.sty` as the shared OT palette and hyperlink-policy package.
+* Moved `otscience.cls`, `otengineering.cls`, `otnotation.sty`, `otmath.sty`
+  and `otfigures.sty` onto `ottheme`.
+* Preserved the documented `otengineering.cls` `OTLight=#F3F4F6` divergence
+  with a local override.
+* Added the standalone 5B smoke document for `otnotation`, `otmath` and
+  `otfigures`.
+* Fixed the OT baseline checker so cross-day rebuilds do not fail solely because
+  `\today` or `\DTMtoday` changed.
+* Added a shared PowerShell log-read retry helper after the Phase 4 guard hit a
+  transient Windows lock on `physicsquiz_mode_solutions.log`.
+* Python and PowerShell syntax checks passed in this Codex shell.
+* The full Phase 5 checkpoint command passed in the normal MiKTeX environment,
+  ending with `PASS expected failure: otpractice_standalone` and
+  `All OT Phase 5 tests passed.`
+
+### Session 19 — Checkpoint 5C shared boxes
+
+* Added `otboxes.sty` as the shared owner of `otscibox` and
+  `otsciboxnosplit`.
+* Moved `otscience.cls` onto `otboxes` while preserving the semantic science-box
+  wrappers in the class.
+* Moved `otpractice.sty` onto `otboxes`, removing its dependency on
+  `otscience.cls`.
+* Added a direct `otboxes` standalone smoke fixture and turned
+  `otpractice_standalone` into a positive standalone smoke fixture.
+* Updated the Phase 5 runner to build both 5C smokes and check their markers.
+* Direct MiKTeX smoke builds passed for both 5C fixtures.
+* The full Phase 5 checkpoint command passed in the normal MiKTeX environment.
+
+### Session 20 — Checkpoint 5D cleanup closure
+
+* Audited the post-5B/5C cleanup space.
+* Closed 5D as a no-op source checkpoint because the planned engineering theme
+  adoption happened in 5B and the remaining box cycle was resolved in 5C.
+* Added `PHASE5_CHECKPOINT_5D.md`.
+* Updated stale runner and project wording that still described the
+  `otengineering.cls` `OTLight` override as deferred work.
+
+### Session 21 — Checkpoint 5E shared core helpers
+
+* Added `otcore.sty` for shared setup packages, list defaults, page furniture,
+  and section-style helpers.
+* Moved `otscience.cls` and `otengineering.cls` onto `otcore` while preserving
+  their distinct page headers and heading styles.
+* Added `ot_core_package_smoke.tex` and wired it into the Phase 5 runner with
+  the marker `OT5E-SMOKE:OTCORE`.
+* PowerShell syntax checks passed for the Phase 5 runner.
+* Direct MiKTeX builds passed for the 5E core smoke and the two OT box
+  compatibility fixtures.
+* The full Phase 5 checkpoint command passed in the normal MiKTeX environment.
+
+### Session 22 — Checkpoint 5F governance closure
+
+* Added `PHASE5_CHECKPOINT_5F.md`.
+* Wrote the agreed 2022-06-01 LaTeX kernel floor into `ottheme.sty`,
+  `otboxes.sty`, and `otcore.sty`.
+* Updated the public-interface record with the shared package support policy.
+* Closed the generated-output policy: source fixtures, baseline manifests,
+  checker output and smokes are the Phase 5 evidence; generated PDFs and logs
+  remain build artifacts.
+* Carried the `physicsquiz.cls` semantic-version idea forward to Phase 6 or a
+  dedicated quiz governance checkpoint rather than changing that class inside
+  the OT-only phase.
+* Verified the 5F source change with direct MiKTeX package smokes for
+  `ottheme`, `otboxes`, and `otcore`, plus parser and syntax checks. The full
+  Phase 5 runner was attempted from this tool path after 5F but exceeded the
+  command timeout before returning output.
+* Marked Phase 5 complete.
+
 ## Next action
 
-Checkpoint 5A is closed and its baseline is recorded. Next:
+Phase 5 is closed. Next:
 
-1. Begin Checkpoint 5B — `ottheme.sty`. It is the first Phase 5 checkpoint that
-   edits a source file, and the palette probes exist to police it.
-2. Carried forward from Phase 4, still outstanding: review
+1. Begin Phase 6 planning: modern LaTeX interface programming, with no wholesale
+   rewrite.
+2. Decide whether `physicsquiz.cls` should expose a public semantic version macro
+   for the structured quiz interface.
+3. Carried forward from Phase 4, still outstanding: review
    `build/examples/physicsquiz/PHY104_versioned_paper.pdf` for version A, then
    rebuild with `\quizuseversion{B}` and confirm the two papers differ in both
    question set and option order, and that each answer key matches its own

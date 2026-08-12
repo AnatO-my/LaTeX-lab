@@ -40,6 +40,7 @@ $repoRoot = (Resolve-Path (Join-Path $PSScriptRoot "..")).Path
 $testsBuildDir = Join-Path $repoRoot "build\tests"
 $manifestPath = Join-Path $repoRoot "tests\ot_baseline_manifest.json"
 $jobsPath = Join-Path $testsBuildDir "ot_baseline_jobs.tsv"
+. (Join-Path $PSScriptRoot "powershell_log_helpers.ps1")
 
 # Announce the resolved mode before doing anything.  The first 5A run silently
 # verified when RECORD was intended, and only failed several stages later with a
@@ -60,7 +61,7 @@ $documents = @(
     # Colour VALUES are invisible to page counts and to rendered-text hashes.
     # These two fixtures print what xcolor actually resolves each OT name to,
     # so a mistyped hex digit in Checkpoint 5B or a dropped OTLight override in
-    # Checkpoint 5D fails the suite instead of passing silently.
+    # otengineering fails the suite instead of passing silently.
     [pscustomobject]@{ Key = "tests/ot_palette_probe_science";                  Directory = "tests"; Stem = "ot_palette_probe_science";                  OutputRelative = "build\tests" }
     [pscustomobject]@{ Key = "tests/ot_palette_probe_engineering";              Directory = "tests"; Stem = "ot_palette_probe_engineering";              OutputRelative = "build\tests" }
 
@@ -116,7 +117,19 @@ try {
 
     $witness = "tests\otpractice_standalone.tex"
     if (-not (Test-Path $witness)) {
-        throw "The Phase 5 cycle-witness fixture is missing: $witness"
+        throw "The Phase 5 practice-package smoke fixture is missing: $witness"
+    }
+    $themeSmoke = "tests\ot_theme_package_smoke.tex"
+    if (-not (Test-Path $themeSmoke)) {
+        throw "The Phase 5 theme-package smoke fixture is missing: $themeSmoke"
+    }
+    $boxSmoke = "tests\ot_boxes_package_smoke.tex"
+    if (-not (Test-Path $boxSmoke)) {
+        throw "The Phase 5 box-package smoke fixture is missing: $boxSmoke"
+    }
+    $coreSmoke = "tests\ot_core_package_smoke.tex"
+    if (-not (Test-Path $coreSmoke)) {
+        throw "The Phase 5 core-package smoke fixture is missing: $coreSmoke"
     }
 
     New-Item -ItemType Directory -Force -Path $testsBuildDir | Out-Null
@@ -218,7 +231,7 @@ try {
     }
     foreach ($stem in $expectedMarkers.Keys) {
         $log = Join-Path $testsBuildDir "$stem.log"
-        $found = @(Select-String -Path $log -SimpleMatch "OT-PALETTE:").Count
+        $found = @(Invoke-LogSelectString -Path $log -SimpleMatch -Pattern "OT-PALETTE:").Count
         if ($found -ne $expectedMarkers[$stem]) {
             throw "$stem emitted $found OT-PALETTE markers, expected $($expectedMarkers[$stem]). The palette probe is not measuring what it claims to."
         }
@@ -252,35 +265,112 @@ try {
     }
 
     # ---------------------------------------------------------------------
-    # Expected failures
+    # Checkpoint 5B standalone package smoke
     #
-    # The loop below is the accepted form from
-    # run_physicsquiz_phase4e_tests.ps1, reproduced unchanged.
-    #
-    # otpractice_standalone is the Phase 5 cycle witness.  It fails TODAY
-    # because otpractice.sty borrows otscibox and the OT palette from
-    # otscience.cls and so cannot be loaded on its own.  Checkpoint 5C moves
-    # this entry out of $expectedFailures and into $documents: that move is
-    # the machine-checkable moment the circular dependency is broken.
+    # The rendering baseline proves that documents using otscience and
+    # otengineering did not change.  This smoke proves the new capability:
+    # otnotation, otmath and otfigures can now load without relying on
+    # otscience.cls to define the OT palette first.
     # ---------------------------------------------------------------------
-    $expectedFailures = @(
-        @{ Name = "otpractice_standalone"; Marker = "Environment otscibox undefined" }
-    )
-
-    foreach ($test in $expectedFailures) {
-        $source = "tests\$($test.Name).tex"
-        Write-Host "Building expected-failure test $($test.Name)..." -ForegroundColor Yellow
-        & latexmk -pdf -g "-outdir=$testsBuildDir" $source
-        if ($LASTEXITCODE -eq 0) {
-            throw "$source unexpectedly compiled successfully."
-        }
-
-        $log = Join-Path $testsBuildDir "$($test.Name).log"
-        if (-not (Select-String -Path $log -SimpleMatch $test.Marker -Quiet)) {
-            throw "$source failed without the expected validation marker: $($test.Marker)"
-        }
-        Write-Host "PASS expected failure: $($test.Name)" -ForegroundColor Green
+    Write-Host "Building Checkpoint 5B standalone theme-package smoke..." -ForegroundColor Cyan
+    & latexmk -pdf -g "-outdir=$testsBuildDir" $themeSmoke
+    if ($LASTEXITCODE -ne 0) {
+        throw "LaTeX compilation failed for $themeSmoke"
     }
+
+    $themeSmokeStem = "ot_theme_package_smoke"
+    $themeSmokeLog = Join-Path $testsBuildDir "$themeSmokeStem.log"
+    $themeSmokePdf = Join-Path $testsBuildDir "$themeSmokeStem.pdf"
+    $themeSmokeSynctex = Join-Path $testsBuildDir "$themeSmokeStem.synctex.gz"
+    foreach ($artifact in @($themeSmokeLog, $themeSmokePdf, $themeSmokeSynctex)) {
+        if (-not (Test-Path $artifact)) {
+            throw "Expected build artifact was not created: $artifact"
+        }
+    }
+
+    foreach ($marker in @("OT5B-SMOKE:OTNOTATION", "OT5B-SMOKE:OTMATH", "OT5B-SMOKE:OTFIGURES")) {
+        if (-not (Invoke-LogSelectString -Path $themeSmokeLog -SimpleMatch -Pattern $marker -Quiet)) {
+            throw "$themeSmoke failed to emit expected marker: $marker"
+        }
+    }
+    Write-Host "PASS Checkpoint 5B standalone theme-package smoke." -ForegroundColor Green
+
+    # ---------------------------------------------------------------------
+    # Checkpoint 5C standalone box-package smoke
+    # ---------------------------------------------------------------------
+    Write-Host "Building Checkpoint 5C standalone box-package smoke..." -ForegroundColor Cyan
+    & latexmk -pdf -g "-outdir=$testsBuildDir" $boxSmoke
+    if ($LASTEXITCODE -ne 0) {
+        throw "LaTeX compilation failed for $boxSmoke"
+    }
+
+    $boxSmokeStem = "ot_boxes_package_smoke"
+    $boxSmokeLog = Join-Path $testsBuildDir "$boxSmokeStem.log"
+    $boxSmokePdf = Join-Path $testsBuildDir "$boxSmokeStem.pdf"
+    $boxSmokeSynctex = Join-Path $testsBuildDir "$boxSmokeStem.synctex.gz"
+    foreach ($artifact in @($boxSmokeLog, $boxSmokePdf, $boxSmokeSynctex)) {
+        if (-not (Test-Path $artifact)) {
+            throw "Expected build artifact was not created: $artifact"
+        }
+    }
+    if (-not (Invoke-LogSelectString -Path $boxSmokeLog -SimpleMatch -Pattern "OT5C-SMOKE:OTBOXES" -Quiet)) {
+        throw "$boxSmoke failed to emit expected marker: OT5C-SMOKE:OTBOXES"
+    }
+    Write-Host "PASS Checkpoint 5C standalone box-package smoke." -ForegroundColor Green
+
+    # ---------------------------------------------------------------------
+    # Checkpoint 5C standalone practice-package smoke
+    #
+    # Checkpoint 5A carried otpractice_standalone as an expected failure because
+    # otpractice.sty borrowed otscibox from otscience.cls.  Now otpractice loads
+    # otboxes directly, so this fixture must compile successfully.
+    # ---------------------------------------------------------------------
+    Write-Host "Building Checkpoint 5C standalone practice-package smoke..." -ForegroundColor Cyan
+    & latexmk -pdf -g "-outdir=$testsBuildDir" $witness
+    if ($LASTEXITCODE -ne 0) {
+        throw "LaTeX compilation failed for $witness"
+    }
+
+    $practiceSmokeStem = "otpractice_standalone"
+    $practiceSmokeLog = Join-Path $testsBuildDir "$practiceSmokeStem.log"
+    $practiceSmokePdf = Join-Path $testsBuildDir "$practiceSmokeStem.pdf"
+    $practiceSmokeSynctex = Join-Path $testsBuildDir "$practiceSmokeStem.synctex.gz"
+    foreach ($artifact in @($practiceSmokeLog, $practiceSmokePdf, $practiceSmokeSynctex)) {
+        if (-not (Test-Path $artifact)) {
+            throw "Expected build artifact was not created: $artifact"
+        }
+    }
+    if (-not (Invoke-LogSelectString -Path $practiceSmokeLog -SimpleMatch -Pattern "OT5C-SMOKE:OTPRACTICE" -Quiet)) {
+        throw "$witness failed to emit expected marker: OT5C-SMOKE:OTPRACTICE"
+    }
+    Write-Host "PASS Checkpoint 5C standalone practice-package smoke." -ForegroundColor Green
+
+    # ---------------------------------------------------------------------
+    # Checkpoint 5E standalone core-package smoke
+    #
+    # The baseline proves existing class documents still render the same.  This
+    # smoke proves the extracted class-facing setup helpers can load and execute
+    # outside either OT class.
+    # ---------------------------------------------------------------------
+    Write-Host "Building Checkpoint 5E standalone core-package smoke..." -ForegroundColor Cyan
+    & latexmk -pdf -g "-outdir=$testsBuildDir" $coreSmoke
+    if ($LASTEXITCODE -ne 0) {
+        throw "LaTeX compilation failed for $coreSmoke"
+    }
+
+    $coreSmokeStem = "ot_core_package_smoke"
+    $coreSmokeLog = Join-Path $testsBuildDir "$coreSmokeStem.log"
+    $coreSmokePdf = Join-Path $testsBuildDir "$coreSmokeStem.pdf"
+    $coreSmokeSynctex = Join-Path $testsBuildDir "$coreSmokeStem.synctex.gz"
+    foreach ($artifact in @($coreSmokeLog, $coreSmokePdf, $coreSmokeSynctex)) {
+        if (-not (Test-Path $artifact)) {
+            throw "Expected build artifact was not created: $artifact"
+        }
+    }
+    if (-not (Invoke-LogSelectString -Path $coreSmokeLog -SimpleMatch -Pattern "OT5E-SMOKE:OTCORE" -Quiet)) {
+        throw "$coreSmoke failed to emit expected marker: OT5E-SMOKE:OTCORE"
+    }
+    Write-Host "PASS Checkpoint 5E standalone core-package smoke." -ForegroundColor Green
 
     $global:LASTEXITCODE = 0
     if ($Record) {

@@ -5,6 +5,7 @@ $buildDir = Join-Path $repoRoot "build\tests"
 $legacySource = Join-Path $repoRoot "examples\physicsquiz\PHY104_Exam revision.tex"
 $pilotBank = Join-Path $repoRoot "examples\physicsquiz\banks\phy104_migration_pilot_bank.tex"
 New-Item -ItemType Directory -Force -Path $buildDir | Out-Null
+. (Join-Path $PSScriptRoot "powershell_log_helpers.ps1")
 
 Push-Location $repoRoot
 try {
@@ -59,7 +60,7 @@ try {
             }
         }
 
-        $diagnostics = Select-String -Path $log -SimpleMatch -Pattern @(
+        $diagnostics = Invoke-LogSelectString -Path $log -SimpleMatch -Pattern @(
             "LaTeX Warning:",
             "Package xsim Warning:",
             "Overfull \hbox",

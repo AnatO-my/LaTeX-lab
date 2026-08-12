@@ -40,7 +40,7 @@ import re
 import shutil
 import subprocess
 import sys
-from datetime import datetime, timezone
+from datetime import date, datetime, timezone
 
 MANIFEST_VERSION = 1
 
@@ -142,6 +142,13 @@ def text_extractor() -> str | None:
 
 
 def hash_pdf_text(pdf_path: str) -> str | None:
+    text = extract_pdf_text(pdf_path)
+    if text is None:
+        return None
+    return hashlib.sha256(text).hexdigest()
+
+
+def extract_pdf_text(pdf_path: str) -> bytes | None:
     if text_extractor() is None:
         return None
     try:
@@ -154,7 +161,59 @@ def hash_pdf_text(pdf_path: str) -> str | None:
     except (OSError, subprocess.CalledProcessError) as error:
         print(f"  NOTE  text extraction failed for {pdf_path}: {error}")
         return None
-    return hashlib.sha256(completed.stdout).hexdigest()
+    return completed.stdout
+
+
+def date_text_variants(value: date) -> tuple[str, ...]:
+    month = value.strftime("%B")
+    ordinal_suffix = "th"
+    if value.day % 10 == 1 and value.day != 11:
+        ordinal_suffix = "st"
+    elif value.day % 10 == 2 and value.day != 12:
+        ordinal_suffix = "nd"
+    elif value.day % 10 == 3 and value.day != 13:
+        ordinal_suffix = "rd"
+    return (
+        f"{month} {value.day}, {value.year}",
+        f"{month} {value.day:02d}, {value.year}",
+        f"{value.day} {month} {value.year}",
+        f"{value.day:02d} {month} {value.year}",
+        f"{value.day}{ordinal_suffix} {month} {value.year}",
+        f"{value.year}-{value.month:02d}-{value.day:02d}",
+    )
+
+
+def date_shifted_hash(pdf_path: str, target: date) -> str | None:
+    """Hash extracted text after shifting only today's volatile date.
+
+    Several Phase 5 baseline documents deliberately print ``\\today`` or
+    ``\\DTMtoday``.  A rendering baseline should not fail merely because the
+    suite was rerun two days later, but fixed historical dates in fixture text
+    must remain protected.  So this compatibility pass rewrites only the date
+    corresponding to the current run day back to the manifest's recorded day.
+    """
+    source = date.today()
+    if source == target:
+        return None
+    text = extract_pdf_text(pdf_path)
+    if text is None:
+        return None
+    rendered = text.decode("utf-8", errors="replace")
+    for source_variant, target_variant in zip(
+        date_text_variants(source), date_text_variants(target)
+    ):
+        rendered = rendered.replace(source_variant, target_variant)
+    return hashlib.sha256(rendered.encode("utf-8")).hexdigest()
+
+
+def manifest_recorded_date(manifest: dict) -> date | None:
+    recorded = manifest.get("recorded")
+    if not isinstance(recorded, str):
+        return None
+    try:
+        return datetime.strptime(recorded, "%Y-%m-%dT%H:%M:%SZ").date()
+    except ValueError:
+        return None
 
 
 def load_jobs(path: str) -> list[tuple[str, str, str]]:
@@ -233,7 +292,10 @@ def command_verify(manifest_path: str, jobs_path: str) -> int:
         manifest = json.load(handle)
 
     baseline = manifest.get("documents", {})
-    current = collect(load_jobs(jobs_path))
+    jobs = load_jobs(jobs_path)
+    current = collect(jobs)
+    pdf_by_key = {key: pdf_path for key, _log_path, pdf_path in jobs}
+    recorded_date = manifest_recorded_date(manifest)
 
     failures: list[str] = []
     warnings: list[str] = []
@@ -273,10 +335,14 @@ def command_verify(manifest_path: str, jobs_path: str) -> int:
         have_hash = have.get("text_sha256")
         if want_hash and have_hash:
             if want_hash != have_hash:
-                failures.append(
-                    f"{key}: rendered text changed "
-                    f"({want_hash[:12]}... -> {have_hash[:12]}...)."
-                )
+                shifted_hash = None
+                if recorded_date is not None:
+                    shifted_hash = date_shifted_hash(pdf_by_key[key], recorded_date)
+                if shifted_hash != want_hash:
+                    failures.append(
+                        f"{key}: rendered text changed "
+                        f"({want_hash[:12]}... -> {have_hash[:12]}...)."
+                    )
         elif want_hash and not have_hash:
             warnings.append(
                 f"{key}: baseline has a text hash but this run could not "

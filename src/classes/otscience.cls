@@ -15,8 +15,7 @@
 % -----------------------------
 % Core packages
 % -----------------------------
-\RequirePackage[margin=1in]{geometry}
-\RequirePackage{xcolor}
+\RequirePackage{otcore}
 \RequirePackage{amsmath}
 \RequirePackage{amssymb}
 \RequirePackage{mathtools}
@@ -35,44 +34,14 @@
 \providecommand*{\definitionautorefname}{Definition}
 \providecommand*{\exampleautorefname}{Example}
 \RequirePackage{bm}
-\RequirePackage{tcolorbox}
 \RequirePackage{tikz}
-\RequirePackage{enumitem}
 \RequirePackage{booktabs}
-\RequirePackage{tabularx}
-\RequirePackage{array}
-\RequirePackage{titlesec}
-\RequirePackage{fancyhdr}
 \RequirePackage{needspace}
-\RequirePackage{datetime2}
-\RequirePackage{hyperref}
+\RequirePackage{ottheme}
+\RequirePackage{otboxes}
 \RequirePackage{cleveref}
 
-\tcbuselibrary{skins,breakable,theorems,listings}
-
-% -----------------------------
-% Colour palette
-% -----------------------------
-\definecolor{OTDark}{HTML}{1F2937}
-\definecolor{OTMuted}{HTML}{6B7280}
-\definecolor{OTLight}{HTML}{F9FAFB}
-\definecolor{OTBlue}{HTML}{2563EB}
-\definecolor{OTGreen}{HTML}{059669}
-\definecolor{OTOrange}{HTML}{D97706}
-\definecolor{OTRed}{HTML}{DC2626}
-\definecolor{OTPurple}{HTML}{7C3AED}
-\definecolor{OTTeal}{HTML}{0891B2}
-\definecolor{OTYellow}{HTML}{CA8A04}
-
-% -----------------------------
-% Hyperlinks
-% -----------------------------
-\hypersetup{
-  colorlinks=true,
-  linkcolor=OTBlue,
-  urlcolor=OTBlue,
-  citecolor=OTGreen
-}
+\tcbuselibrary{theorems,listings}
 
 % -----------------------------
 % Global settings
@@ -83,68 +52,20 @@
   detect-all=true
 }
 
-\setlist[itemize]{topsep=3pt,itemsep=2pt}
-\setlist[enumerate]{topsep=3pt,itemsep=2pt}
+\otcorelistdefaults
 
 % -----------------------------
 % Page style
 % -----------------------------
-\setlength{\headheight}{15pt}
-\pagestyle{fancy}
-\fancyhf{}
-\lhead{\textcolor{OTMuted}{OT Science Notes}}
-\rhead{\textcolor{OTMuted}{\leftmark}}
-\cfoot{\thepage}
-\renewcommand{\headrulewidth}{0.3pt}
+\otcorepagestyle
+  {\textcolor{OTMuted}{OT Science Notes}}
+  {\textcolor{OTMuted}{\leftmark}}
+  {0.3pt}
 
 % -----------------------------
 % Section style
 % -----------------------------
-\titleformat{\section}
-{\Large\bfseries\color{OTDark}}
-{\thesection}{0.75em}{}
-
-\titleformat{\subsection}
-{\large\bfseries\color{OTBlue}}
-{\thesubsection}{0.75em}{}
-
-\titleformat{\subsubsection}
-{\normalsize\bfseries\color{OTPurple}}
-{\thesubsubsection}{0.75em}{}
-
-% -----------------------------
-% Base box
-% -----------------------------
-\newtcolorbox{otscibox}[2][]{
-  enhanced,
-  breakable,
-  before={\Needspace{8\baselineskip}},
-  colback=OTLight,
-  colframe=#2,
-  boxrule=0.8pt,
-  arc=2mm,
-  left=6pt,
-  right=6pt,
-  top=6pt,
-  bottom=6pt,
-  fonttitle=\bfseries,
-  title={#1}
-}
-
-\newtcolorbox{otsciboxnosplit}[2][]{
-  enhanced,
-  before={\Needspace{12\baselineskip}},
-  colback=OTLight,
-  colframe=#2,
-  boxrule=0.8pt,
-  arc=2mm,
-  left=6pt,
-  right=6pt,
-  top=6pt,
-  bottom=6pt,
-  fonttitle=\bfseries,
-  title={#1}
-}
+\otcoresectionstyles{0.75em}{OTPurple}
 
 % -----------------------------
 % Standard science boxes

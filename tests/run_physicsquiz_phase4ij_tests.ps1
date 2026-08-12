@@ -7,10 +7,11 @@ $fullBank = Join-Path $repoRoot "examples\physicsquiz\banks\phy104_full_question
 $versionedExample = Join-Path $repoRoot "examples\physicsquiz\PHY104_versioned_paper.tex"
 New-Item -ItemType Directory -Force -Path $buildDir | Out-Null
 New-Item -ItemType Directory -Force -Path $exampleBuildDir | Out-Null
+. (Join-Path $PSScriptRoot "powershell_log_helpers.ps1")
 
 function Assert-CleanLog {
     param([string]$LogPath)
-    $diagnostics = Select-String -Path $LogPath -SimpleMatch -Pattern @(
+    $diagnostics = Invoke-LogSelectString -Path $LogPath -SimpleMatch -Pattern @(
         "LaTeX Warning:",
         "Package xsim Warning:",
         "Overfull \hbox",
@@ -126,7 +127,7 @@ try {
         }
 
         $log = Join-Path $buildDir "$($test.Name).log"
-        if (-not (Select-String -Path $log -SimpleMatch $test.Marker -Quiet)) {
+        if (-not (Invoke-LogSelectString -Path $log -SimpleMatch -Pattern $test.Marker -Quiet)) {
             throw "$source failed without the expected validation marker: $($test.Marker)"
         }
         Write-Host "PASS expected failure: $($test.Name)" -ForegroundColor Green
