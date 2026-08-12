@@ -1,0 +1,45 @@
+\documentclass{physicsquiz}
+
+\quiztitle{Phase 6B Capability Marker Smoke}
+\quizcourse{PHY 104}
+\quizauthor{OT LaTeX Lab}
+
+\begin{document}
+
+\typeout{PQ6B-CAPABILITY:CLASS=\physicsquizclassversion}
+\typeout{PQ6B-CAPABILITY:STRUCTURED=\physicsquizstructuredinterfaceversion}
+\typeout{PQ6B-CAPABILITY:ID=\physicsquizstructuredinterfaceid}
+
+Capability marker smoke:
+\physicsquizclassversion,
+\physicsquizstructuredinterfaceversion,
+\physicsquizstructuredinterfaceid.
+
+\begin{quizbank}
+  \begin{quizquestion}[
+    id=pq6b-capability-001,
+    topic=capability,
+    difficulty=foundation,
+    marks=1,
+    correct=A,
+    tags={phase6,marker}
+  ]
+    Which marker identifies the structured quiz interface?
+    \choices
+      {\physicsquizstructuredinterfaceid}
+      {legacy-only}
+      {unversioned}
+      {external}
+      {unknown}
+  \end{quizquestion}
+  \begin{quizsolution}
+    The class exposes \physicsquizstructuredinterfaceid, so option
+    \textbf{A} is correct.
+  \end{quizsolution}
+\end{quizbank}
+
+\quizselectall
+\quizbankassert{1}{1}
+\quizselectionassert{1}{1}{pq6b-capability-001}
+
+\end{document}

@@ -21,23 +21,24 @@ LaTeX Workspace Learning and Class Refactoring Project
 
 ## Current phase
 
+**Phase 6 — Modern LaTeX interface programming — in progress. Checkpoint 6A
+opened on 12 August 2026. Checkpoint 6B implemented on 12 August 2026.**
+
+Phase 6 uses a conservative modernization model: preserve existing author-facing
+structures unless a modern LaTeX change improves safety, maintainability,
+validation, or local usability. Checkpoint 6A opened the phase with an isolated
+learning scaffold and no production class or package behaviour changes.
+Checkpoint 6B adds public `physicsquiz.cls` version and structured-interface
+capability markers. Full detail is in the "Phase 6 status" section below.
+
 **Phase 5 — Shared OT design system — completed on 12 August 2026.**
 
 Phase 5 audited duplication across the four classes and the seven companion
-packages and implemented a minimal shared-package architecture. Checkpoint 5A
-added the first OT-side regression harness and changed no file under `src/`.
-Checkpoint 5B extracted the shared OT palette into `ottheme.sty` and passed the
-full Phase 5 checkpoint command in the normal MiKTeX environment. Checkpoint 5C
-extracted the shared science boxes into `otboxes.sty` and passed the full Phase
-5 checkpoint command in the normal MiKTeX environment. Checkpoint 5D closed the
-reserved theme and box cleanup stage with no source behavior changes. Checkpoint
-5E extracted shared setup and page furniture helpers into `otcore.sty` and
-passed the full Phase 5 checkpoint command in the normal MiKTeX environment.
-Checkpoint 5F closed the phase governance: the three new shared packages now
-carry the agreed LaTeX kernel floor, the public-interface record names the
-support boundary, generated outputs remain build artifacts, and the
-`physicsquiz.cls` semantic-version item is carried forward outside Phase 5.
-Full detail is in the "Phase 5 status" section below.
+packages and implemented a minimal shared-package architecture. Checkpoint 5F
+closed the phase governance: the three new shared packages carry the agreed
+LaTeX kernel floor, the public-interface record names the support boundary,
+generated outputs remain build artifacts, and the `physicsquiz.cls`
+semantic-version item is carried forward into Phase 6.
 
 **Phase 4 — Question-bank architecture — completed on 9 August 2026.**
 
@@ -481,8 +482,9 @@ The canonical repository structure is now supported by the shared Phase 1 class 
   duplication persists until the legacy source is retired.
 * The class now requires `xsim`. A machine without it cannot compile structured
   documents; the Phase 4 runners fail early and explain this.
-* `\ProvidesClass` carries a date but no semantic version, so a document cannot
-  test for the presence of the structured interface.
+* Checkpoint 6B adds public version and capability markers, so a document can
+  test for the presence of the structured interface without parsing the
+  `\ProvidesClass` date string.
 * Option shuffling supports the five-option `\choices` interface only; a
   `choiceoptions` record raises a class error under shuffling.
 * No option can be pinned to a fixed position, so a bank containing
@@ -549,10 +551,10 @@ The canonical repository structure is now supported by the shared Phase 1 class 
   `ottheme.sty`, `otboxes.sty` and `otcore.sty`. A fourth, `otmath`, was
   rejected: the name is already held by a live companion package, and there is no
   identical maths code to justify it.
-* **Semantic version for `physicsquiz.cls`:** carried forward beyond Phase 5.
-  Checkpoint 5F keeps Phase 5 OT-only and does not edit `physicsquiz.cls`; a
-  public version macro for the structured quiz interface belongs with Phase 6 or
-  a dedicated `physicsquiz` governance checkpoint.
+* **Semantic version for `physicsquiz.cls`:** resolved at Checkpoint 6B. The
+  class now declares `v0.1` and exposes `\physicsquizclassversion`,
+  `\physicsquizstructuredinterfaceversion`, and
+  `\physicsquizstructuredinterfaceid`.
 * **Retiring the legacy `PHY104_Exam revision.tex`:** at the start of Phase 6.
   Phase 5 never touches `physicsquiz.cls`, so the legacy quiz costs nothing and
   remains independent evidence that the untouched side is untouched.
@@ -560,6 +562,70 @@ The canonical repository structure is now supported by the shared Phase 1 class 
   Checkpoint 5F. Generated PDFs, logs and auxiliary files remain build artifacts;
   Phase 5 evidence is the source fixtures, baseline manifest, checker output,
   and package smokes.
+
+## Phase 6 status
+
+Phase 6 is in progress. It teaches and selectively applies modern LaTeX
+interface programming: `\NewDocumentCommand`, argument specifications,
+key-value configuration, selected `expl3` data structures, robust messages, and
+namespace discipline.
+
+The phase follows the conservative modernization model. Existing author-facing
+structures remain valid unless a change produces a practical gain in safety,
+maintainability, validation, or local usability. Meaningful conservation
+decisions should be checked with the user unless changing the preserved structure
+would force a broad breakage audit for little reward.
+
+### Checkpoint 6A — conservative modernization opening
+
+Checkpoint 6A changes no production class or package behaviour. It adds:
+
+* `PHASE6_CHECKPOINT_6A.md`;
+* `tests/phase6_modern_interface_examples.tex`, an isolated learning scaffold
+  for `\NewDocumentCommand`, optional arguments, `expl3` keys, token lists,
+  booleans, and named messages; and
+* `tests/run_phase6a_tests.ps1`, a runner for that scaffold.
+
+PowerShell parser checks passed for the runner, and the Phase 6A runner passed
+in the normal MiKTeX environment with `All Phase 6A tests passed.`
+
+The first production candidates remain explicit decisions for later checkpoints:
+
+1. whether the traditional class-option layer should stay as-is or move to a
+   modern key layer;
+2. whether the current five-option-only shuffling contract should remain;
+3. whether shuffled `choiceoptions` records should stay unsupported; and
+4. what long-term role the legacy PHY104 source should have.
+
+### Checkpoint 6B — physicsquiz capability marker
+
+Checkpoint 6B adds the first production Phase 6 change. `physicsquiz.cls` now
+declares `v0.1` in `\ProvidesClass` and exposes three public expandable markers:
+
+* `\physicsquizclassversion`, currently `0.1`;
+* `\physicsquizstructuredinterfaceversion`, currently `1`; and
+* `\physicsquizstructuredinterfaceid`, currently `physicsquiz-structured-v1`.
+
+These markers let documents and tests check for the structured quiz interface
+without parsing the class date string. The change is additive and does not alter
+rendering, selection, shuffling, metadata validation, or class options.
+
+Checkpoint 6B deliberately preserves the traditional class-option layer, the
+current version-manifest syntax, five-option-only shuffling through `\choices`,
+the `choiceoptions` shuffling guard, and existing metadata validation behaviour.
+Changing any of those would require a broader compatibility audit and remains a
+later design decision.
+
+Before 6B began, `src/classes/physicsquiz.cls` already had a large unstaged
+formatting diff plus a small non-whitespace marks-regex change. Checkpoint 6B
+does not resolve or revert that pre-existing change.
+
+PowerShell parser checks passed for the 6A and 6B runners, and the Phase 6B
+runner passed in the normal MiKTeX environment with
+`All Phase 6B tests passed.` The established Phase 4I/4J regression guard also
+passed after the 6B production marker change:
+`PASS expected failure: physicsquiz_version_already_active` followed by
+`All Phase 4I/4J tests passed.`
 
 ## Phase 2 status
 
@@ -1266,15 +1332,49 @@ is complete. Checkpoint 5F is complete as governance closure.
   command timeout before returning output.
 * Marked Phase 5 complete.
 
+### Session 23 — Checkpoint 6A conservative modernization opening
+
+* Opened Phase 6 under the conservative modernization model.
+* Added `PHASE6_CHECKPOINT_6A.md`.
+* Added an isolated modern-interface learning scaffold,
+  `tests/phase6_modern_interface_examples.tex`.
+* Added `tests/run_phase6a_tests.ps1` to build the scaffold and check its marker
+  lines.
+* Verified the checkpoint in the normal MiKTeX environment:
+  `All Phase 6A tests passed.`
+* Made no production class or package behaviour changes.
+
+### Session 24 — Checkpoint 6B physicsquiz capability marker
+
+* Added public `physicsquiz.cls` version and capability markers:
+  `\physicsquizclassversion`, `\physicsquizstructuredinterfaceversion`, and
+  `\physicsquizstructuredinterfaceid`.
+* Added semantic class version `v0.1` to the `physicsquiz.cls`
+  `\ProvidesClass` line.
+* Added `tests/physicsquiz_capability_marker_smoke.tex`.
+* Added `tests/run_phase6b_tests.ps1`, which reruns 6A and checks the 6B marker
+  smoke.
+* Preserved class options, version-manifest syntax, shuffling behaviour,
+  `choiceoptions` shuffling rejection, and metadata validation behaviour.
+* Recorded the pre-existing dirty `physicsquiz.cls` state: a large formatting
+  diff plus a small marks-regex change that 6B does not resolve.
+* Verified the checkpoint in the normal MiKTeX environment:
+  `All Phase 6B tests passed.`
+* Confirmed the established Phase 4I/4J regression guard still passes after the
+  production marker change.
+
 ## Next action
 
-Phase 5 is closed. Next:
+Phase 6 is open. Next:
 
-1. Begin Phase 6 planning: modern LaTeX interface programming, with no wholesale
-   rewrite.
-2. Decide whether `physicsquiz.cls` should expose a public semantic version macro
-   for the structured quiz interface.
-3. Carried forward from Phase 4, still outstanding: review
+1. Commit Checkpoints 6A and 6B with careful staging so the pre-existing
+   `physicsquiz.cls` marks-regex and formatting changes are not accidentally
+   included.
+2. Audit the existing `physicsquiz.cls` `expl3` layer for namespace consistency
+   before any production refactor.
+3. Decide whether the pre-existing marks-regex change in the dirty
+   `physicsquiz.cls` working tree should be kept, reverted, or isolated.
+4. Carried forward from Phase 4, still outstanding: review
    `build/examples/physicsquiz/PHY104_versioned_paper.pdf` for version A, then
    rebuild with `\quizuseversion{B}` and confirm the two papers differ in both
    question set and option order, and that each answer key matches its own

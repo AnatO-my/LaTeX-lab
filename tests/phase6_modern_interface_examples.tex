@@ -1,0 +1,56 @@
+% Phase 6A isolated modern-interface learning scaffold.
+\documentclass{article}
+
+\ExplSyntaxOn
+
+\tl_new:N \l__pqdemo_title_tl
+\bool_new:N \l__pqdemo_solutions_bool
+
+\keys_define:nn { pqdemo / sheet }
+  {
+    title     .tl_set:N   = \l__pqdemo_title_tl,
+    title     .initial:n  = Untitled~modern-interface~demo,
+    solutions .bool_set:N = \l__pqdemo_solutions_bool,
+    solutions .initial:n  = false,
+  }
+
+\msg_new:nnn { pqdemo } { missing-id }
+  { Missing~demo~record~id. }
+
+\NewDocumentCommand \pqdemoconfigure { m }
+  {
+    \keys_set:nn { pqdemo / sheet } {#1}
+    \typeout{PQ6A-DEMO:KEYS}
+  }
+
+\NewDocumentCommand \pqdemotitle { O{Learning scaffold} }
+  {
+    \section*{#1}
+    \textbf{\tl_use:N \l__pqdemo_title_tl}
+    \par
+    Solutions:
+    \bool_if:NTF \l__pqdemo_solutions_bool { on } { off }
+    \typeout{PQ6A-DEMO:NEWDOCUMENTCOMMAND}
+  }
+
+\NewDocumentCommand \pqdemorecord { m +m }
+  {
+    \tl_if_blank:nTF {#1}
+      { \msg_error:nn { pqdemo } { missing-id } }
+      {
+        \paragraph{Record~#1}
+        #2
+        \typeout{PQ6A-DEMO:EXPL3}
+      }
+  }
+
+\ExplSyntaxOff
+
+\begin{document}
+
+\pqdemoconfigure{title={Phase 6 conservative modernization}, solutions=true}
+\pqdemotitle
+\pqdemorecord{demo-001}{This record proves the learning scaffold compiles
+without touching production class code.}
+
+\end{document}

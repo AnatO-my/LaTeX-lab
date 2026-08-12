@@ -2,6 +2,68 @@
 
 This file records significant changes to the LaTeX Workspace Learning and Class Refactoring Project.
 
+## Phase 6 — Modern LaTeX interface programming
+
+**In progress. Checkpoint 6A opened: 12 August 2026.**
+
+### Decided (Checkpoint 6A)
+
+* Adopted the conservative modernization model: preserve existing author-facing
+  structures unless a modern LaTeX change improves safety, maintainability,
+  validation, or local usability.
+* Added the Phase 6 user check-in rule: meaningful conservation decisions should
+  be checked with the user unless reworking would require a broad breakage audit
+  for little practical gain.
+* Kept Checkpoint 6A production-neutral. It does not change `physicsquiz.cls`,
+  any OT class, or any package.
+
+### Added (Checkpoint 6A)
+
+* Added `PHASE6_CHECKPOINT_6A.md`.
+* Added `tests/phase6_modern_interface_examples.tex`, an isolated learning
+  scaffold for `\NewDocumentCommand`, optional arguments, `expl3` keys, token
+  lists, booleans, and named messages.
+* Added `tests/run_phase6a_tests.ps1`, a small runner that builds the learning
+  scaffold and checks its marker lines.
+
+### Verification (Checkpoint 6A)
+
+* PowerShell parser checks passed for `tests/run_phase6a_tests.ps1`.
+* The Phase 6A runner passed in the normal MiKTeX environment:
+  `All Phase 6A tests passed.`
+
+### Added (Checkpoint 6B)
+
+* Added public `physicsquiz.cls` version and capability markers:
+  `\physicsquizclassversion`, `\physicsquizstructuredinterfaceversion`, and
+  `\physicsquizstructuredinterfaceid`.
+* Added semantic class version `v0.1` to the `physicsquiz.cls`
+  `\ProvidesClass` line.
+* Added `tests/physicsquiz_capability_marker_smoke.tex`, which prints the marker
+  values and verifies that the structured bank interface remains available.
+* Added `tests/run_phase6b_tests.ps1`, which reruns the 6A scaffold and checks
+  the 6B capability smoke markers.
+* Added `PHASE6_CHECKPOINT_6B.md`.
+
+### Preserved (Checkpoint 6B)
+
+* Preserved the traditional `physicsquiz.cls` class-option layer.
+* Preserved `\quizversion`, `\quizdefineversion`, and `\quizuseversion` syntax.
+* Preserved five-option-only shuffling through `\choices`.
+* Preserved the current class error for shuffled `choiceoptions` records.
+* Preserved existing question-bank metadata validation behaviour.
+
+### Verification (Checkpoint 6B)
+
+* PowerShell parser checks passed for `tests/run_phase6a_tests.ps1` and
+  `tests/run_phase6b_tests.ps1`.
+* The Phase 6B runner passed in the normal MiKTeX environment:
+  `All Phase 6B tests passed.`
+* The established Phase 4I/4J regression guard passed after the 6B production
+  marker change:
+  `PASS expected failure: physicsquiz_version_already_active` followed by
+  `All Phase 4I/4J tests passed.`
+
 ## Phase 5 — Shared OT design system
 
 **Completed: 12 August 2026.**

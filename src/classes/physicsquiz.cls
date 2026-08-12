@@ -1,5 +1,12 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{physicsquiz}[2026/08/06 Stylish physics quiz class]
+\ProvidesClass{physicsquiz}[2026/08/12 v0.1 Stylish physics quiz class]
+
+% Public version and capability markers. These are intentionally simple
+% expandable values so documents and tests can check class capabilities without
+% relying on the \ProvidesClass date string.
+\newcommand{\physicsquizclassversion}{0.1}
+\newcommand{\physicsquizstructuredinterfaceversion}{1}
+\newcommand{\physicsquizstructuredinterfaceid}{physicsquiz-structured-v1}
 
 % -------------------------------------------------
 % Primary assessment-output modes

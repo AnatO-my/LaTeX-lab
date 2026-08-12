@@ -105,6 +105,28 @@ package, compatibility wrapper, or class-level integration.
 to the underlying `article` class, so declarations such as
 `\documentclass[12pt,a4paper]{physicsquiz}` remain valid.
 
+## Version and capability markers
+
+```latex
+\physicsquizclassversion
+\physicsquizstructuredinterfaceversion
+\physicsquizstructuredinterfaceid
+```
+
+These expandable markers let documents and tests detect the explicit class
+version and structured quiz capability without parsing the `\ProvidesClass` date
+string.
+
+| Command | Current value | Classification |
+| --- | --- | --- |
+| `\physicsquizclassversion` | `0.1` | stable capability marker |
+| `\physicsquizstructuredinterfaceversion` | `1` | stable capability marker |
+| `\physicsquizstructuredinterfaceid` | `physicsquiz-structured-v1` | stable capability marker |
+
+The structured-interface marker means the class supports the Phase 4
+question-bank layer: `quizbank`, `quizquestion`, `quizsolution`, deterministic
+and random selection, generated outputs, shuffling, and version manifests.
+
 ### Primary output mode
 
 Exactly one primary output mode may be selected:
@@ -1137,6 +1159,7 @@ the other classes, but `examplebox`, the two generic base-box names, and the sha
 
 | Name or family | Owner | Classification | Important qualification |
 | --- | --- | --- | --- |
+| `\physicsquizclassversion`, `\physicsquizstructuredinterfaceversion`, `\physicsquizstructuredinterfaceid` | `physicsquiz` | stable | version and capability markers added in Phase 6B |
 | `choiceoptions`, `\choices` | `physicsquiz` | stable | `\choices` is the five-option compatibility wrapper |
 | `quizquestioncontent`, `quizanswerkeycontent`, `quizsolutioncontent`, `quizteachercontent`, `quizreferencecontent` | `physicsquiz` | stable | section gates controlled by the primary output mode |
 | `\quizversion`, `\quizmarks`, `\quizdifficulty` | `physicsquiz` | stable | display-only Phase 3 metadata and labels; no question storage or mark calculation |
