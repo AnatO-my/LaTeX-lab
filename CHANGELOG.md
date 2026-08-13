@@ -89,6 +89,12 @@ This file records significant changes to the LaTeX Workspace Learning and Class 
 * Full regression suites and branch-protection enforcement remain later
   checkpoints.
 
+### Confirmed (Checkpoint 8F)
+
+* The first pushed `Starter documents` GitHub Actions job passed in 4m 33s.
+* Recorded GitHub's Node.js 20 deprecation warning for the current action
+  versions as a future watch item.
+
 ## Phase 7 — Local author workflow and distribution readiness
 
 **Completed: 13 August 2026.**

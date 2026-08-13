@@ -57,4 +57,13 @@ git diff --check
 powershell -ExecutionPolicy Bypass -File tests\run_phase7c_starter_tests.ps1
 ```
 
-Hosted verification happens after the workflow is pushed to GitHub.
+Hosted verification after push:
+
+```text
+Starter documents passed in 4m 33s.
+```
+
+GitHub reported one warning: Node.js 20 is deprecated for
+`actions/checkout@v4` and `actions/upload-artifact@v4`, and GitHub forced those
+actions to run on Node.js 24. This warning does not block the starter-build
+workflow, but future action-version updates should watch it.

@@ -6,8 +6,9 @@ This checklist defines when GitHub Actions should be added and what the first CI
 workflow should prove.
 
 Checkpoint 8F adds the first workflow at
-`.github/workflows/starter-build.yml`. The workflow is still not a required
-branch-protection check until it has passed consistently on `main`.
+`.github/workflows/starter-build.yml`. Its first pushed run passed on `main`.
+The workflow is still not a required branch-protection check until it has passed
+consistently.
 
 ## 1. Add CI Only After GitHub Push
 
@@ -61,6 +62,11 @@ The first workflow is ready to become a required check only when:
 * logs are available for failed builds; and
 * a failed starter build blocks the pull request only after the workflow has
   passed consistently on `main`.
+
+The first pushed run passed in 4m 33s. GitHub reported a Node.js 20 deprecation
+warning for `actions/checkout@v4` and `actions/upload-artifact@v4` being forced
+to run on Node.js 24. Treat that as a watch item for future action-version
+updates, not as a failed starter-build result.
 
 ## 6. What Stays Local For Now
 

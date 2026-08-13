@@ -38,6 +38,8 @@ Checkpoint 8E records the first branch and pull-request policy while keeping
 GitHub enforcement deferred.
 Checkpoint 8F adds the first starter-build GitHub Actions workflow while
 leaving branch protection and full regression suites deferred.
+The first pushed `Starter documents` job passed in 4m 33s, with one GitHub
+Node.js deprecation warning recorded as a watch item.
 
 **Phase 7 — Local author workflow and distribution readiness — completed on 13
 August 2026.**
@@ -1117,6 +1119,16 @@ prepare release PDFs, prepare an author kit, or enable branch protection.
 Branch protection should wait until the starter-build workflow has passed
 consistently on `main`.
 
+The first pushed run passed:
+
+```text
+Starter documents passed in 4m 33s.
+```
+
+GitHub also reported a Node.js 20 deprecation warning for `actions/checkout@v4`
+and `actions/upload-artifact@v4` being forced onto Node.js 24. This is a future
+action-version watch item, not a failed CI result.
+
 ## Phase 2 status
 
 Phase 2 is complete. It audited, documented, and improved semantic document
@@ -2086,14 +2098,16 @@ is complete. Checkpoint 5F is complete as governance closure.
 * Configured starter PDFs as workflow artifacts, not committed source.
 * Deferred branch protection, full regression suites, release PDFs, and
   author-kit generation to later checkpoints.
+* Confirmed the first pushed `Starter documents` job passed in 4m 33s.
+* Recorded GitHub's Node.js 20 deprecation warning as a future action-version
+  watch item.
 
 ## Next action
 
 Phase 8 is open. Next:
 
-1. push Checkpoint 8F and inspect the first GitHub Actions run;
-2. then choose the next Phase 8 step: release preview PDFs, a source-derived
-   author kit, or branch protection after starter CI is stable.
+1. choose the next Phase 8 step: release preview PDFs, a source-derived author
+   kit, or branch protection after starter CI is stable.
 
 ### Line-ending state, confirmed at the close of Checkpoint 5A
 
