@@ -22,7 +22,7 @@ LaTeX Workspace Learning and Class Refactoring Project
 ## Current phase
 
 **Phase 7 — Local author workflow and distribution readiness — in progress.
-Checkpoint 7A opened on 13 August 2026. Checkpoints 7B through 7F implemented
+Checkpoint 7A opened on 13 August 2026. Checkpoints 7B through 7G implemented
 on 13 August 2026.**
 
 Phase 7 makes the repository easier to use, share, and collaborate on without
@@ -33,7 +33,7 @@ examples and adds a concrete GitHub collaboration checklist. Checkpoint 7C adds
 the missing small starters and a fast starter-only runner. Checkpoint 7D adds
 the first GitHub collaboration packaging files. Checkpoint 7E records the first
 release and author-kit boundary. Checkpoint 7F records the final manual GitHub
-push checklist.
+push checklist. Checkpoint 7G records the author-kit build checklist.
 
 **Phase 6 — Modern LaTeX interface programming — completed on 13 August
 2026.**
@@ -880,6 +880,22 @@ runbook for:
 * giving first collaborators the correct starter and workflow links.
 
 It does not push to GitHub, install a GitHub plugin, or add CI.
+
+### Checkpoint 7G - author kit build checklist
+
+Checkpoint 7G adds `docs/AUTHOR_KIT_BUILD_CHECKLIST.md`, a manual runbook for
+assembling a future source-derived author kit from `docs/AUTHOR_KIT_MANIFEST.md`.
+
+It records how to:
+
+* choose the kit shape;
+* start from a clean committed source state;
+* copy only manifest-approved files;
+* exclude generated and local-only files;
+* verify the copied kit with the Phase 7C starter runner; and
+* attach or share the kit without committing the zip as ordinary source.
+
+It does not create a zip or automate packaging.
 
 ## Phase 2 status
 
@@ -1741,16 +1757,26 @@ is complete. Checkpoint 5F is complete as governance closure.
 * Linked the push checklist from the README, author workflow guide, GitHub
   collaboration checklist, and release-readiness guide.
 
+### Session 36 - Checkpoint 7G author kit build checklist
+
+* Added `docs/AUTHOR_KIT_BUILD_CHECKLIST.md`.
+* Added `PHASE7_CHECKPOINT_7G.md`.
+* Recorded how a future author kit should be assembled from
+  `docs/AUTHOR_KIT_MANIFEST.md`, verified with the Phase 7C starter runner, and
+  shared as a release asset rather than committed as source.
+* Linked the checklist from the README, release-readiness guide, author-kit
+  manifest, and GitHub collaboration checklist.
+
 ## Next action
 
 Phase 7 is open. Next:
 
-1. Verify and commit Checkpoint 7F with careful staging so line-ending-only
+1. Verify and commit Checkpoint 7G with careful staging so line-ending-only
    `physicsquiz.cls` noise and loose generated files are not included.
-2. Decide whether to add a small combined-workbook starter or keep the workbook
+2. Continue through the optional checklists one at a time: release PDFs,
+   GitHub Actions/CI, and combined workbook starter.
+3. Decide whether to add a small combined-workbook starter or keep the workbook
    starter as a standalone module only.
-3. Continue through the optional checklists one at a time: author kit build,
-   release PDFs, GitHub Actions/CI, and combined workbook starter.
 
 ### Line-ending state, confirmed at the close of Checkpoint 5A
 

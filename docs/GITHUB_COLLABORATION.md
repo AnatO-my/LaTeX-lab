@@ -88,6 +88,9 @@ repository itself. A future author kit should be generated from the manifest,
 and optional preview PDFs should be attached to releases rather than committed
 as ordinary source.
 
+Checkpoint 7G adds `docs/AUTHOR_KIT_BUILD_CHECKLIST.md`, which describes how to
+assemble and verify that future kit without maintaining a second copy.
+
 ## Push Checklist
 
 Checkpoint 7F records `docs/GITHUB_PUSH_CHECKLIST.md`. Use it when the project

@@ -84,6 +84,17 @@ This file records significant changes to the LaTeX Workspace Learning and Class 
 * Linked the push checklist from the README, author workflow guide, GitHub
   collaboration checklist, and release-readiness guide.
 
+### Added (Checkpoint 7G)
+
+* Added `docs/AUTHOR_KIT_BUILD_CHECKLIST.md`, a manual checklist for producing a
+  future source-derived author kit from `docs/AUTHOR_KIT_MANIFEST.md`.
+* Added `PHASE7_CHECKPOINT_7G.md`.
+
+### Changed (Checkpoint 7G)
+
+* Linked the author-kit build checklist from the README, release-readiness
+  guide, author-kit manifest, and GitHub collaboration checklist.
+
 ## Phase 6 — Modern LaTeX interface programming
 
 **Completed: 13 August 2026.**

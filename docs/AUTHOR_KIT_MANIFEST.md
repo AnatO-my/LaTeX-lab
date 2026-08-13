@@ -5,6 +5,9 @@
 This manifest lists the files that belong in a future source-derived author kit.
 It is a packaging boundary, not a second copy of the project.
 
+Use `docs/AUTHOR_KIT_BUILD_CHECKLIST.md` for the step-by-step process of
+assembling, verifying, and sharing the kit.
+
 ## Required Files
 
 | Area | Include |
