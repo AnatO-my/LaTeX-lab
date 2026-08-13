@@ -19,39 +19,60 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Install MiKTeX
-        run: choco install miktex --no-progress -y
-
-      - name: Discover MiKTeX
         shell: pwsh
         run: |
-          $candidates = @(
-              "${env:ProgramFiles}\MiKTeX\miktex\bin\x64",
-              "${env:ProgramFiles}\MiKTeX\miktex\bin",
-              "${env:ProgramFiles(x86)}\MiKTeX\miktex\bin\x64",
-              "${env:ProgramFiles(x86)}\MiKTeX\miktex\bin",
-              "${env:ChocolateyInstall}\lib\miktex\tools\miktex\bin\x64",
-              "${env:ChocolateyInstall}\lib\miktex\tools\miktex\bin"
-          ) | Where-Object { $_ -and (Test-Path $_) }
+          $setupRoot = Join-Path $env:RUNNER_TEMP "miktex-setup"
+          $repository = Join-Path $env:RUNNER_TEMP "miktex-repository"
+          $installRoot = Join-Path $env:RUNNER_TEMP "miktex"
+          $configRoot = Join-Path $env:RUNNER_TEMP "miktex-config"
+          $dataRoot = Join-Path $env:RUNNER_TEMP "miktex-data"
+          New-Item -ItemType Directory -Force -Path $setupRoot, $repository, $installRoot, $configRoot, $dataRoot | Out-Null
 
-          $miktexBin = $candidates | Select-Object -First 1
-          if (-not $miktexBin) {
-              Write-Host "Known MiKTeX-like directories:"
-              Get-ChildItem -Path "${env:ProgramFiles}", "${env:ProgramFiles(x86)}", "${env:ChocolateyInstall}\lib" -ErrorAction SilentlyContinue |
-                  Where-Object { $_.FullName -match 'MiKTeX|miktex' } |
-                  Select-Object -ExpandProperty FullName
-              throw "MiKTeX binary directory was not found."
+          $setupZip = Join-Path $setupRoot "miktexsetup.zip"
+          Invoke-WebRequest "https://miktex.org/download/win/miktexsetup-x64.zip" -OutFile $setupZip
+          Expand-Archive -LiteralPath $setupZip -DestinationPath $setupRoot -Force
+
+          $setup = Get-ChildItem -LiteralPath $setupRoot -Recurse -Filter "miktexsetup_standalone.exe" |
+              Select-Object -First 1
+          if (-not $setup) {
+              throw "miktexsetup_standalone.exe was not found after extracting the setup utility."
           }
 
-          Write-Host "Using MiKTeX binary directory: $miktexBin"
-          $miktexBin | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+          & $setup.FullName --quiet --local-package-repository=$repository --package-set=basic download
+          if ($LASTEXITCODE -ne 0) {
+              throw "MiKTeX package download failed with exit code $LASTEXITCODE."
+          }
 
-      - name: Enable MiKTeX package installation
-        shell: pwsh
-        run: |
-          initexmf --admin --set-config-value "[MPM]AutoInstall=1"
+          & $setup.FullName --quiet `
+              --local-package-repository=$repository `
+              --package-set=basic `
+              --shared=no `
+              --user-install=$installRoot `
+              --user-config=$configRoot `
+              --user-data=$dataRoot `
+              --modify-path=no `
+              install
+          if ($LASTEXITCODE -ne 0) {
+              throw "MiKTeX install failed with exit code $LASTEXITCODE."
+          }
+
+          $tools = Get-ChildItem -LiteralPath $installRoot -Recurse -Include "latexmk.exe", "pdflatex.exe" -File
+          $toolDirs = $tools | ForEach-Object { $_.DirectoryName } | Sort-Object -Unique
+          if (-not $toolDirs) {
+              Write-Host "Installed MiKTeX tree:"
+              Get-ChildItem -LiteralPath $installRoot -Recurse -Depth 4 | Select-Object -ExpandProperty FullName
+              throw "MiKTeX tools were not found under $installRoot."
+          }
+
+          $toolDirs | ForEach-Object {
+              Write-Host "Adding TeX tool directory to PATH: $_"
+              $_ | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+          }
+
+          $env:PATH = ($toolDirs -join [System.IO.Path]::PathSeparator) + [System.IO.Path]::PathSeparator + $env:PATH
           initexmf --set-config-value "[MPM]AutoInstall=1"
-          initexmf --admin --update-fndb
           initexmf --update-fndb
+          mpm --install=latexmk
 
       - name: Check TeX tools
         shell: pwsh

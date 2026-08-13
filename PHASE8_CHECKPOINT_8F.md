@@ -76,3 +76,11 @@ MiKTeX binary directory not found: C:\Program Files\MiKTeX\miktex\bin\x64
 
 The workflow was updated to discover MiKTeX from several likely Chocolatey and
 Program Files paths instead of relying on one hardcoded directory.
+
+The next hosted run showed that Chocolatey did not leave any usable MiKTeX-like
+CLI directory on the runner. The workflow was then changed to use MiKTeX's
+standalone setup utility, install into `RUNNER_TEMP`, and add discovered TeX
+tool directories to `GITHUB_PATH`.
+
+The standalone setup step also updates the current step's `PATH` before running
+MiKTeX commands, then installs `latexmk` explicitly.

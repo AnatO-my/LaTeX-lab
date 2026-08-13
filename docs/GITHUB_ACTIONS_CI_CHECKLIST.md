@@ -63,9 +63,11 @@ The first workflow is ready to become a required check only when:
 * a failed starter build blocks the pull request only after the workflow has
   passed consistently on `main`.
 
-The first pushed run passed in 4m 33s. A later run exposed a hosted MiKTeX path
-discovery issue, so the workflow now searches likely Chocolatey and Program
-Files install paths instead of using one hardcoded path.
+The first pushed run passed in 4m 33s. Later runs exposed hosted MiKTeX
+installation and path-discovery issues with Chocolatey. The workflow now uses
+MiKTeX's standalone setup utility, installs into `RUNNER_TEMP`, and adds
+discovered TeX tool directories to `GITHUB_PATH`. It also updates the current
+step's `PATH` before running MiKTeX commands and installs `latexmk` explicitly.
 
 GitHub also reported a Node.js 20 deprecation warning for `actions/checkout@v4`
 and `actions/upload-artifact@v4` being forced to run on Node.js 24. Treat that

@@ -47,6 +47,10 @@ verifies it from its own root, and records the zip hash without committing the
 kit as source.
 A follow-up to Checkpoint 8F fixes hosted MiKTeX path discovery after a later
 GitHub Actions run failed to find `C:\Program Files\MiKTeX\miktex\bin\x64`.
+After Chocolatey still produced no usable MiKTeX-like CLI directory, the
+workflow was switched to MiKTeX's standalone setup utility with a runner-temp
+install root. The setup step also refreshes its current `PATH` before invoking
+MiKTeX commands and installs `latexmk` explicitly.
 
 **Phase 7 — Local author workflow and distribution readiness — completed on 13
 August 2026.**
@@ -1140,6 +1144,12 @@ A later pushed run failed in the MiKTeX PATH step because the workflow assumed
 `C:\Program Files\MiKTeX\miktex\bin\x64`. The workflow now searches likely
 Chocolatey and Program Files MiKTeX locations before updating `GITHUB_PATH`.
 
+The next pushed run still failed because Chocolatey did not leave any usable
+MiKTeX-like CLI directory. The workflow now installs MiKTeX with the standalone
+setup utility into `RUNNER_TEMP` and adds discovered TeX tool directories to
+`GITHUB_PATH`. The install step also refreshes the current step's `PATH` before
+calling MiKTeX tools and installs `latexmk` explicitly.
+
 ### Checkpoint 8G - release preview PDFs
 
 Checkpoint 8G prepares the first local release-preview PDF set.
@@ -2204,6 +2214,17 @@ is complete. Checkpoint 5F is complete as governance closure.
   Program Files and Chocolatey paths.
 * Recorded the path-discovery failure in the Phase 8F checkpoint and CI
   checklist.
+
+### Session 50 - Checkpoint 8F hosted MiKTeX installer fix
+
+* Read the follow-up GitHub Actions failure showing Chocolatey produced no
+  usable MiKTeX-like CLI directory.
+* Replaced the Chocolatey install step with the official MiKTeX standalone setup
+  utility.
+* Configured the workflow to install MiKTeX into `RUNNER_TEMP` and add
+  discovered TeX tool directories to `GITHUB_PATH`.
+* Updated the install step to refresh the current `PATH` before invoking MiKTeX
+  tools and to install `latexmk` explicitly.
 
 ## Next action
 

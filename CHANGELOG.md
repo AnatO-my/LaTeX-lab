@@ -132,6 +132,10 @@ This file records significant changes to the LaTeX Workspace Learning and Class 
 * Updated `.github/workflows/starter-build.yml` to discover the hosted MiKTeX
   binary directory instead of assuming `C:\Program Files\MiKTeX\miktex\bin\x64`.
 * Recorded the hosted path-discovery failure as a CI stabilization item.
+* Replaced the Chocolatey MiKTeX install path with MiKTeX's standalone setup
+  utility after the hosted runner reported no usable MiKTeX-like directories.
+* Updated the workflow install step to refresh its current `PATH` before
+  invoking MiKTeX commands and to install `latexmk` explicitly.
 
 ## Phase 7 — Local author workflow and distribution readiness
 
