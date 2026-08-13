@@ -81,6 +81,18 @@ from claiming broader test coverage than the project has established.
 * Generic names and shared colour names require a collision audit before reuse in
   another class or package.
 
+## Phase 6 modernization policy
+
+Phase 6 closed under a conservative modernization model. Modern LaTeX interfaces
+were added where they improved validation, diagnostics, source discipline, or
+local author usability. Existing author syntax was not replaced.
+
+The traditional `\documentclass[...]` option layer, structured quiz-bank syntax,
+five-option `\choices` shuffling contract, `choiceoptions` shuffle guard,
+version-manifest commands, and established visual-output expectations remain
+stable interfaces. Future class-option modernization should be treated as a
+separate compatibility review rather than an assumed follow-on refactor.
+
 ## Shared package support policy
 
 The Phase 5 shared OT packages, `ottheme.sty`, `otboxes.sty`, and `otcore.sty`,

@@ -4,7 +4,7 @@ This file records significant changes to the LaTeX Workspace Learning and Class 
 
 ## Phase 6 — Modern LaTeX interface programming
 
-**In progress. Checkpoint 6A opened: 12 August 2026.**
+**Completed: 13 August 2026.**
 
 ### Decided (Checkpoint 6A)
 
@@ -159,6 +159,17 @@ This file records significant changes to the LaTeX Workspace Learning and Class 
 * PowerShell parser checks passed for `tests/run_phase6f_tests.ps1`.
 * The Phase 6F runner passed:
   `All Phase 6F tests passed.`
+
+### Closed (Checkpoint 6G)
+
+* Closed Phase 6 under the conservative modernization model.
+* Recorded that the traditional class-option layer, structured quiz-bank syntax,
+  five-option `\choices` shuffling contract, `choiceoptions` shuffle guard,
+  version-manifest syntax, `__pq` internal namespace, and visual output
+  expectations remain preserved.
+* Carried class-option modernization forward only as an optional future
+  compatibility review.
+* Added `PHASE6_CHECKPOINT_6G.md`.
 
 ## Phase 5 — Shared OT design system
 

@@ -21,11 +21,8 @@ LaTeX Workspace Learning and Class Refactoring Project
 
 ## Current phase
 
-**Phase 6 — Modern LaTeX interface programming — in progress. Checkpoint 6A
-opened on 12 August 2026. Checkpoint 6B implemented on 12 August 2026.
-Checkpoint 6C implemented on 12 August 2026. Checkpoint 6D implemented on
-12 August 2026. Checkpoint 6E implemented on 12 August 2026. Checkpoint 6F
-implemented on 13 August 2026.**
+**Phase 6 — Modern LaTeX interface programming — completed on 13 August
+2026.**
 
 Phase 6 uses a conservative modernization model: preserve existing author-facing
 structures unless a modern LaTeX change improves safety, maintainability,
@@ -38,6 +35,7 @@ decimal validation so both `0.5` and `.5` work. Checkpoint 6E improves
 structured-bank author messages and adds a copyable starter quiz-bank document.
 Checkpoint 6F closes the carried versioned-paper review guard with generated
 Version A/B builds and log-level answer-key/solution alignment checks.
+Checkpoint 6G closes the phase governance without production code changes.
 Full detail is in the "Phase 6 status" section below.
 
 **Phase 5 — Shared OT design system — completed on 12 August 2026.**
@@ -586,10 +584,10 @@ The canonical repository structure is now supported by the shared Phase 1 class 
 
 ## Phase 6 status
 
-Phase 6 is in progress. It teaches and selectively applies modern LaTeX
-interface programming: `\NewDocumentCommand`, argument specifications,
-key-value configuration, selected `expl3` data structures, robust messages, and
-namespace discipline.
+Phase 6 is complete. It taught and selectively applied modern LaTeX interface
+programming: `\NewDocumentCommand`, argument specifications, key-value
+configuration, selected `expl3` data structures, robust messages, and namespace
+discipline.
 
 The phase follows the conservative modernization model. Existing author-facing
 structures remain valid unless a change produces a practical gain in safety,
@@ -752,6 +750,30 @@ or PDF layout.
 
 PowerShell parser checks passed for `tests/run_phase6f_tests.ps1`, and the Phase
 6F runner passed with `All Phase 6F tests passed.`
+
+### Checkpoint 6G - closure and governance
+
+Checkpoint 6G closes Phase 6 with no production class or package changes.
+
+The phase delivered practical modernization where it improved safety,
+diagnostics, source discipline, and local author usability:
+
+* a modern-interface learning scaffold;
+* public `physicsquiz.cls` capability markers;
+* a namespace guard for the modern-code boundary;
+* improved marks decimal validation;
+* clearer structured-bank author errors;
+* a copyable starter quiz-bank document; and
+* a generated versioned-paper review guard.
+
+The phase deliberately preserved the traditional class-option layer, the
+structured quiz-bank author syntax, the five-option `\choices` shuffling
+contract, the `choiceoptions` shuffling guard, the version-manifest syntax, the
+`__pq` internal namespace, and the established visual-output expectations.
+
+Class-option modernization remains possible, but it is carried forward only as
+an optional compatibility review because it touches the oldest author-facing
+entry point.
 
 ## Phase 2 status
 
@@ -1543,19 +1565,24 @@ is complete. Checkpoint 5F is complete as governance closure.
 * Added `PHASE6_CHECKPOINT_6F.md`.
 * Verified the checkpoint with `All Phase 6F tests passed.`
 
+### Session 29 - Checkpoint 6G Phase 6 closure
+
+* Closed Phase 6 under the conservative modernization model.
+* Recorded the Phase 6 delivered outcomes and deliberately preserved interfaces.
+* Carried class-option modernization forward only as an optional future
+  compatibility review.
+* Added `PHASE6_CHECKPOINT_6G.md`.
+
 ## Next action
 
-Phase 6 is open. Next:
+Phase 6 is complete. Next:
 
-1. Commit Checkpoint 6F with careful staging so the unrelated versioned-paper
-   edit, loose generated files, and any line-ending-only class noise are not
-   accidentally included.
-2. Choose whether Phase 6 should close here or continue into a class-option
-   modernization review. Under the conservative model, class-option
-   modernization should be explicitly checked before implementation because it
-   would touch the oldest author-facing entry point.
-3. Optional manual visual review remains useful for the generated shuffled
-   PDFs, but the carried automated guard is now closed.
+1. Commit Checkpoint 6G with careful staging so line-ending-only
+   `physicsquiz.cls` noise and loose generated files are not included.
+2. Open the next phase around local author workflow, packaging, or distribution
+   readiness.
+3. Treat class-option modernization as a separate optional compatibility review
+   if it becomes worth touching the oldest author-facing entry point.
 
 ### Line-ending state, confirmed at the close of Checkpoint 5A
 
