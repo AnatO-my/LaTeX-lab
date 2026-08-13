@@ -87,3 +87,9 @@ Checkpoint 7E records `docs/RELEASE_READINESS.md` and
 repository itself. A future author kit should be generated from the manifest,
 and optional preview PDFs should be attached to releases rather than committed
 as ordinary source.
+
+## Push Checklist
+
+Checkpoint 7F records `docs/GITHUB_PUSH_CHECKLIST.md`. Use it when the project
+is ready to create the private GitHub repository, add the `origin` remote, push
+`main`, and inspect the rendered GitHub templates.

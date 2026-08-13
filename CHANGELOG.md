@@ -72,6 +72,18 @@ This file records significant changes to the LaTeX Workspace Learning and Class 
 * Updated the README, contribution guide, author workflow guide, and GitHub
   collaboration checklist to point at the release-readiness boundary.
 
+### Added (Checkpoint 7F)
+
+* Added `docs/GITHUB_PUSH_CHECKLIST.md`, a manual runbook for creating the
+  private GitHub repository, adding the remote, pushing `main`, inspecting
+  templates, and onboarding first collaborators.
+* Added `PHASE7_CHECKPOINT_7F.md`.
+
+### Changed (Checkpoint 7F)
+
+* Linked the push checklist from the README, author workflow guide, GitHub
+  collaboration checklist, and release-readiness guide.
+
 ## Phase 6 — Modern LaTeX interface programming
 
 **Completed: 13 August 2026.**

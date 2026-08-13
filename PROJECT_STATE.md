@@ -22,7 +22,7 @@ LaTeX Workspace Learning and Class Refactoring Project
 ## Current phase
 
 **Phase 7 — Local author workflow and distribution readiness — in progress.
-Checkpoint 7A opened on 13 August 2026. Checkpoints 7B through 7E implemented
+Checkpoint 7A opened on 13 August 2026. Checkpoints 7B through 7F implemented
 on 13 August 2026.**
 
 Phase 7 makes the repository easier to use, share, and collaborate on without
@@ -32,7 +32,8 @@ Phase 7 workstream. Checkpoint 7B inventories starters versus representative
 examples and adds a concrete GitHub collaboration checklist. Checkpoint 7C adds
 the missing small starters and a fast starter-only runner. Checkpoint 7D adds
 the first GitHub collaboration packaging files. Checkpoint 7E records the first
-release and author-kit boundary.
+release and author-kit boundary. Checkpoint 7F records the final manual GitHub
+push checklist.
 
 **Phase 6 — Modern LaTeX interface programming — completed on 13 August
 2026.**
@@ -864,6 +865,21 @@ Checkpoint 7E records how the project should first be shared:
 
 It adds `docs/RELEASE_READINESS.md`, `docs/AUTHOR_KIT_MANIFEST.md`, and
 `PHASE7_CHECKPOINT_7E.md`.
+
+### Checkpoint 7F - GitHub push checklist
+
+Checkpoint 7F adds `docs/GITHUB_PUSH_CHECKLIST.md`, a step-by-step manual
+runbook for:
+
+* confirming local readiness;
+* creating a private GitHub repository;
+* adding the `origin` remote;
+* pushing `main`;
+* inspecting the rendered README, contribution guide, issue templates, and pull
+  request template; and
+* giving first collaborators the correct starter and workflow links.
+
+It does not push to GitHub, install a GitHub plugin, or add CI.
 
 ## Phase 2 status
 
@@ -1715,16 +1731,26 @@ is complete. Checkpoint 5F is complete as governance closure.
 * Recorded that any author kit should be generated from the manifest, not
   maintained as a second hand-edited copy.
 
+### Session 35 - Checkpoint 7F GitHub push checklist
+
+* Added `docs/GITHUB_PUSH_CHECKLIST.md`.
+* Added `PHASE7_CHECKPOINT_7F.md`.
+* Recorded the manual sequence for creating a private GitHub repository, adding
+  `origin`, pushing `main`, inspecting rendered GitHub templates, and onboarding
+  first collaborators.
+* Linked the push checklist from the README, author workflow guide, GitHub
+  collaboration checklist, and release-readiness guide.
+
 ## Next action
 
 Phase 7 is open. Next:
 
-1. Verify and commit Checkpoint 7E with careful staging so line-ending-only
+1. Verify and commit Checkpoint 7F with careful staging so line-ending-only
    `physicsquiz.cls` noise and loose generated files are not included.
 2. Decide whether to add a small combined-workbook starter or keep the workbook
    starter as a standalone module only.
-3. Decide whether Phase 7 should close after the release-readiness boundary or
-   add a small final push checklist for the actual GitHub remote setup.
+3. Continue through the optional checklists one at a time: author kit build,
+   release PDFs, GitHub Actions/CI, and combined workbook starter.
 
 ### Line-ending state, confirmed at the close of Checkpoint 5A
 

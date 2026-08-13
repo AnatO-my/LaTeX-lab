@@ -56,6 +56,8 @@ See `docs/AUTHOR_WORKFLOW.md` for document-starting steps, build commands,
 collaboration notes, and the Phase 7 GitHub-readiness checklist.
 See `docs/RELEASE_READINESS.md` for the first shareable repository boundary and
 future author-kit rules.
+See `docs/GITHUB_PUSH_CHECKLIST.md` before adding a GitHub remote or pushing
+`main`.
 
 ## Collaboration
 

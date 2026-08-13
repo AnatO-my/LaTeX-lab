@@ -87,6 +87,9 @@ Before pushing for collaborators:
 * issue and pull-request templates are present; and
 * any public-interface change is recorded in `docs/PUBLIC_INTERFACES.md`.
 
+Use `docs/GITHUB_PUSH_CHECKLIST.md` for the step-by-step remote creation and
+push runbook.
+
 ## Deferred Automation
 
 GitHub Actions can be added later. The first GitHub push should not depend on
