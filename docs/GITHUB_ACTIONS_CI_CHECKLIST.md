@@ -6,7 +6,8 @@ This checklist defines when GitHub Actions should be added and what the first CI
 workflow should prove.
 
 Checkpoint 8F adds the first workflow at
-`.github/workflows/starter-build.yml`. Its first pushed run passed on `main`.
+`.github/workflows/starter-build.yml`. After hosted MiKTeX setup stabilization,
+commit `f40f051` passed on `main` and produced the `starter-pdfs` artifact.
 The workflow is still not a required branch-protection check until it has passed
 consistently.
 
@@ -73,6 +74,14 @@ GitHub also reported a Node.js 20 deprecation warning for `actions/checkout@v4`
 and `actions/upload-artifact@v4` being forced to run on Node.js 24. Treat that
 as a watch item for future action-version updates, not as a failed starter-build
 result.
+
+Final stabilized run:
+
+```text
+Commit f40f051: Success in 4m 43s.
+Starter documents job passed in 4m 40s.
+Artifact: starter-pdfs, 780 KB.
+```
 
 ## 6. What Stays Local For Now
 

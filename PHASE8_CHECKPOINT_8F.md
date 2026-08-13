@@ -84,3 +84,14 @@ tool directories to `GITHUB_PATH`.
 
 The standalone setup step also updates the current step's `PATH` before running
 MiKTeX commands, then installs `latexmk` explicitly.
+
+Final hosted verification after the standalone setup fix:
+
+```text
+Commit f40f051: Success in 4m 43s.
+Starter documents job passed in 4m 40s.
+Artifact: starter-pdfs, 780 KB.
+```
+
+The remaining annotation is the known Node.js 20 deprecation warning for the
+current GitHub action versions.

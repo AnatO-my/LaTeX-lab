@@ -51,6 +51,8 @@ After Chocolatey still produced no usable MiKTeX-like CLI directory, the
 workflow was switched to MiKTeX's standalone setup utility with a runner-temp
 install root. The setup step also refreshes its current `PATH` before invoking
 MiKTeX commands and installs `latexmk` explicitly.
+Commit `f40f051` then passed the hosted `Starter documents` job in 4m 40s, with
+total workflow duration 4m 43s and a 780 KB `starter-pdfs` artifact.
 
 **Phase 7 — Local author workflow and distribution readiness — completed on 13
 August 2026.**
@@ -1150,6 +1152,17 @@ setup utility into `RUNNER_TEMP` and adds discovered TeX tool directories to
 `GITHUB_PATH`. The install step also refreshes the current step's `PATH` before
 calling MiKTeX tools and installs `latexmk` explicitly.
 
+The stabilized hosted run passed:
+
+```text
+Commit f40f051: Success in 4m 43s.
+Starter documents job passed in 4m 40s.
+Artifact: starter-pdfs, 780 KB.
+```
+
+The remaining annotation is the known Node.js 20 deprecation warning for the
+current GitHub action versions.
+
 ### Checkpoint 8G - release preview PDFs
 
 Checkpoint 8G prepares the first local release-preview PDF set.
@@ -2225,6 +2238,14 @@ is complete. Checkpoint 5F is complete as governance closure.
   discovered TeX tool directories to `GITHUB_PATH`.
 * Updated the install step to refresh the current `PATH` before invoking MiKTeX
   tools and to install `latexmk` explicitly.
+
+### Session 51 - Checkpoint 8F hosted CI stabilization pass
+
+* Confirmed commit `f40f051` passed the hosted `Starter documents` job.
+* Recorded total workflow duration as 4m 43s and job duration as 4m 40s.
+* Recorded the `starter-pdfs` artifact at 780 KB.
+* Kept the Node.js 20 deprecation annotation as a non-blocking future action
+  version watch item.
 
 ## Next action
 

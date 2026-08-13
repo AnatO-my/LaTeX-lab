@@ -137,6 +137,14 @@ This file records significant changes to the LaTeX Workspace Learning and Class 
 * Updated the workflow install step to refresh its current `PATH` before
   invoking MiKTeX commands and to install `latexmk` explicitly.
 
+### Confirmed (Checkpoint 8F follow-up)
+
+* Confirmed commit `f40f051` passed the hosted `Starter documents` job in 4m
+  40s, with total workflow duration 4m 43s.
+* Confirmed GitHub produced the `starter-pdfs` artifact at 780 KB.
+* Left the Node.js 20 deprecation annotation as a non-blocking future action
+  version watch item.
+
 ## Phase 7 — Local author workflow and distribution readiness
 
 **Completed: 13 August 2026.**
