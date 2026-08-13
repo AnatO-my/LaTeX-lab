@@ -28,8 +28,34 @@ jobs:
           $dataRoot = Join-Path $env:RUNNER_TEMP "miktex-data"
           New-Item -ItemType Directory -Force -Path $setupRoot, $repository, $installRoot, $configRoot, $dataRoot | Out-Null
 
+          function Invoke-DownloadWithRetry {
+              param(
+                  [Parameter(Mandatory=$true)][string]$Uri,
+                  [Parameter(Mandatory=$true)][string]$OutFile,
+                  [int]$Attempts = 4,
+                  [int]$DelaySeconds = 15
+              )
+
+              for ($attempt = 1; $attempt -le $Attempts; $attempt++) {
+                  try {
+                      Write-Host "Downloading $Uri (attempt $attempt of $Attempts)"
+                      Invoke-WebRequest -Uri $Uri -OutFile $OutFile -TimeoutSec 120
+                      if ((Test-Path -LiteralPath $OutFile) -and ((Get-Item -LiteralPath $OutFile).Length -gt 0)) {
+                          return
+                      }
+                      throw "Downloaded file is missing or empty: $OutFile"
+                  } catch {
+                      if ($attempt -eq $Attempts) {
+                          throw
+                      }
+                      Write-Warning "Download failed: $($_.Exception.Message)"
+                      Start-Sleep -Seconds ($DelaySeconds * $attempt)
+                  }
+              }
+          }
+
           $setupZip = Join-Path $setupRoot "miktexsetup.zip"
-          Invoke-WebRequest "https://miktex.org/download/win/miktexsetup-x64.zip" -OutFile $setupZip
+          Invoke-DownloadWithRetry -Uri "https://miktex.org/download/win/miktexsetup-x64.zip" -OutFile $setupZip
           Expand-Archive -LiteralPath $setupZip -DestinationPath $setupRoot -Force
 
           $setup = Get-ChildItem -LiteralPath $setupRoot -Recurse -Filter "miktexsetup_standalone.exe" |

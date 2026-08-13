@@ -53,6 +53,8 @@ install root. The setup step also refreshes its current `PATH` before invoking
 MiKTeX commands and installs `latexmk` explicitly.
 Commit `f40f051` then passed the hosted `Starter documents` job in 4m 40s, with
 total workflow duration 4m 43s and a 780 KB `starter-pdfs` artifact.
+A later documentation-only push timed out while downloading the setup zip from
+`miktex.org`; the workflow now retries that download with bounded backoff.
 
 **Phase 7 — Local author workflow and distribution readiness — completed on 13
 August 2026.**
@@ -1163,6 +1165,10 @@ Artifact: starter-pdfs, 780 KB.
 The remaining annotation is the known Node.js 20 deprecation warning for the
 current GitHub action versions.
 
+A later documentation-only push reached the standalone setup download but timed
+out while contacting `miktex.org`. The workflow now wraps the setup zip download
+in bounded retry and backoff before extraction.
+
 ### Checkpoint 8G - release preview PDFs
 
 Checkpoint 8G prepares the first local release-preview PDF set.
@@ -2246,6 +2252,14 @@ is complete. Checkpoint 5F is complete as governance closure.
 * Recorded the `starter-pdfs` artifact at 780 KB.
 * Kept the Node.js 20 deprecation annotation as a non-blocking future action
   version watch item.
+
+### Session 52 - Checkpoint 8F hosted download retry
+
+* Read the follow-up GitHub Actions failure showing `Invoke-WebRequest` timed
+  out while downloading `miktexsetup-x64.zip` from `miktex.org`.
+* Added bounded retry and backoff around the MiKTeX setup zip download.
+* Kept the standalone MiKTeX install strategy unchanged because commit
+  `f40f051` had already proved that path.
 
 ## Next action
 

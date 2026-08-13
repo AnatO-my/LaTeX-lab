@@ -95,3 +95,8 @@ Artifact: starter-pdfs, 780 KB.
 
 The remaining annotation is the known Node.js 20 deprecation warning for the
 current GitHub action versions.
+
+A later documentation-only push reached the same install step but timed out
+while downloading `miktexsetup-x64.zip` from `miktex.org`. The workflow now uses
+bounded retry and backoff for that setup download before extracting the
+standalone installer.

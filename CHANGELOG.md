@@ -136,6 +136,8 @@ This file records significant changes to the LaTeX Workspace Learning and Class 
   utility after the hosted runner reported no usable MiKTeX-like directories.
 * Updated the workflow install step to refresh its current `PATH` before
   invoking MiKTeX commands and to install `latexmk` explicitly.
+* Added bounded retry and backoff to the MiKTeX setup download after a hosted
+  run timed out while contacting `miktex.org`.
 
 ### Confirmed (Checkpoint 8F follow-up)
 

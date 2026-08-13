@@ -49,6 +49,7 @@ Before requiring CI for pull requests, confirm:
 * the selected runner has a reliable LaTeX distribution;
 * required packages such as `xsim` and `siunitx` are available;
 * PowerShell path behaviour is stable;
+* hosted package downloads survive transient network timeouts;
 * builds do not rely on user-local MiKTeX state;
 * generated PDFs land in the expected `build/` paths; and
 * the workflow finishes quickly enough to be useful.
@@ -69,6 +70,8 @@ installation and path-discovery issues with Chocolatey. The workflow now uses
 MiKTeX's standalone setup utility, installs into `RUNNER_TEMP`, and adds
 discovered TeX tool directories to `GITHUB_PATH`. It also updates the current
 step's `PATH` before running MiKTeX commands and installs `latexmk` explicitly.
+After a later documentation-only push timed out while downloading the setup
+zip, the workflow added bounded retry and backoff around that download.
 
 GitHub also reported a Node.js 20 deprecation warning for `actions/checkout@v4`
 and `actions/upload-artifact@v4` being forced to run on Node.js 24. Treat that
