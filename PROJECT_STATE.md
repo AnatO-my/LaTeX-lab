@@ -21,6 +21,14 @@ LaTeX Workspace Learning and Class Refactoring Project
 
 ## Current phase
 
+**Phase 7 — Local author workflow and distribution readiness — in progress.
+Checkpoint 7A opened on 13 August 2026.**
+
+Phase 7 makes the repository easier to use, share, and collaborate on without
+depending on chat context. Checkpoint 7A adds the first user-facing `README.md`,
+opens `docs/AUTHOR_WORKFLOW.md`, and records GitHub collaboration as a real
+Phase 7 workstream.
+
 **Phase 6 — Modern LaTeX interface programming — completed on 13 August
 2026.**
 
@@ -774,6 +782,29 @@ contract, the `choiceoptions` shuffling guard, the version-manifest syntax, the
 Class-option modernization remains possible, but it is carried forward only as
 an optional compatibility review because it touches the oldest author-facing
 entry point.
+
+## Phase 7 status
+
+Phase 7 is in progress. It focuses on local author workflow, starter templates,
+repository hygiene, distribution readiness, and collaboration.
+
+### Checkpoint 7A - workflow and collaboration opening
+
+Checkpoint 7A is documentation-only. It adds:
+
+* `README.md`, the first user-facing repository landing page;
+* `docs/AUTHOR_WORKFLOW.md`, covering local setup, starter choices, build
+  commands, Git hygiene, and GitHub collaboration; and
+* `PHASE7_CHECKPOINT_7A.md`.
+
+The GitHub collaboration question is accepted as part of Phase 7. Before the
+repository is pushed for collaborators, the project should decide repository
+visibility, branch policy, pull-request expectations, artifact policy, issue
+labels, release boundaries, and collaborator setup requirements.
+
+The recommended first shape is private GitHub collaboration, feature branches,
+pull requests once more than one person edits, source-only commits by default,
+and `README.md` plus `docs/AUTHOR_WORKFLOW.md` as the onboarding path.
 
 ## Phase 2 status
 
@@ -1573,16 +1604,24 @@ is complete. Checkpoint 5F is complete as governance closure.
   compatibility review.
 * Added `PHASE6_CHECKPOINT_6G.md`.
 
+### Session 30 - Checkpoint 7A workflow and collaboration opening
+
+* Opened Phase 7 as local author workflow and distribution readiness.
+* Added `README.md`.
+* Added `docs/AUTHOR_WORKFLOW.md`.
+* Added `PHASE7_CHECKPOINT_7A.md`.
+* Accepted GitHub collaboration readiness as a Phase 7 workstream.
+
 ## Next action
 
-Phase 6 is complete. Next:
+Phase 7 is open. Next:
 
-1. Commit Checkpoint 6G with careful staging so line-ending-only
+1. Commit Checkpoint 7A with careful staging so line-ending-only
    `physicsquiz.cls` noise and loose generated files are not included.
-2. Open the next phase around local author workflow, packaging, or distribution
-   readiness.
-3. Treat class-option modernization as a separate optional compatibility review
-   if it becomes worth touching the oldest author-facing entry point.
+2. Add a starter-template inventory and decide which missing starters need to be
+   created rather than reused from examples.
+3. Draft the GitHub collaboration checklist: visibility, branches, pull
+   requests, ignored artifacts, issue templates, and release/artifact policy.
 
 ### Line-ending state, confirmed at the close of Checkpoint 5A
 

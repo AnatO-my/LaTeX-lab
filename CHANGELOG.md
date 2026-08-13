@@ -2,6 +2,24 @@
 
 This file records significant changes to the LaTeX Workspace Learning and Class Refactoring Project.
 
+## Phase 7 — Local author workflow and distribution readiness
+
+**In progress. Checkpoint 7A opened: 13 August 2026.**
+
+### Added (Checkpoint 7A)
+
+* Added `README.md` as the first user-facing repository landing page.
+* Added `docs/AUTHOR_WORKFLOW.md` with local setup, starter choices, build
+  commands, Git hygiene, and GitHub collaboration guidance.
+* Added `PHASE7_CHECKPOINT_7A.md`.
+
+### Decided (Checkpoint 7A)
+
+* Phase 7 will treat GitHub collaboration as part of distribution readiness.
+* The recommended collaboration shape is branch-based work, pull-request review
+  once collaborators are active, generated build artifacts excluded from normal
+  commits, and setup instructions kept in source-controlled docs.
+
 ## Phase 6 — Modern LaTeX interface programming
 
 **Completed: 13 August 2026.**
