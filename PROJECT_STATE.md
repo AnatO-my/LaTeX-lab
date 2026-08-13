@@ -30,6 +30,8 @@ is configured yet, known local-only leftovers remain unstaged, and the next
 manual step is to create the private GitHub repository and add it as `origin`.
 Checkpoint 8B records the first GitHub push: `origin` now points to
 `https://github.com/AnatO-my/LaTeX-lab.git`, and `main` tracks `origin/main`.
+Checkpoint 8C records the first GitHub-side inspection: expected files are
+present, generated output files are absent, and the `build/` folder is absent.
 
 **Phase 7 — Local author workflow and distribution readiness — completed on 13
 August 2026.**
@@ -1034,6 +1036,20 @@ Known local leftovers remain unstaged:
 * `examples/physicsquiz/indent.log`; and
 * `tests/__pycache__/`.
 
+### Checkpoint 8C - GitHub repository inspection
+
+Checkpoint 8C records the first inspection of the pushed GitHub repository.
+
+Confirmed:
+
+* the files are present as expected;
+* no generated output files are present; and
+* no `build/` folder is present.
+
+The source-only launch policy held after the first push. Hosted CI, release
+assets, branch protection, and collaborator onboarding remain separate Phase 8
+choices.
+
 ## Phase 2 status
 
 Phase 2 is complete. It audited, documented, and improved semantic document
@@ -1964,12 +1980,22 @@ is complete. Checkpoint 5F is complete as governance closure.
 * Added `PHASE8_CHECKPOINT_8B.md`.
 * Updated the launch audit and project state with the pushed remote.
 
+### Session 43 - Checkpoint 8C GitHub repository inspection
+
+* Recorded the first GitHub-side inspection after push.
+* Confirmed the repository files are present as expected.
+* Confirmed generated output files are absent.
+* Confirmed the `build/` folder is absent.
+* Added `PHASE8_CHECKPOINT_8C.md`.
+* Updated the launch audit and project state with the inspection result.
+
 ## Next action
 
 Phase 8 is open. Next:
 
-1. inspect the rendered GitHub repository before adding hosted CI or release
-   assets.
+1. choose the next post-inspection Phase 8 step: collaborator onboarding,
+   starter-build GitHub Actions, release preview PDFs, or a source-derived
+   author kit.
 
 ### Line-ending state, confirmed at the close of Checkpoint 5A
 

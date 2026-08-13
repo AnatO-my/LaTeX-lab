@@ -30,6 +30,17 @@ This file records significant changes to the LaTeX Workspace Learning and Class 
 * Recorded that `main` now tracks `origin/main`.
 * Carried GitHub-side repository inspection forward as the next Phase 8 step.
 
+### Added (Checkpoint 8C)
+
+* Added `PHASE8_CHECKPOINT_8C.md`, recording the first GitHub-side repository
+  inspection after push.
+
+### Confirmed (Checkpoint 8C)
+
+* The pushed repository files are present as expected.
+* Generated output files are absent.
+* The `build/` folder is absent.
+
 ## Phase 7 — Local author workflow and distribution readiness
 
 **Completed: 13 August 2026.**

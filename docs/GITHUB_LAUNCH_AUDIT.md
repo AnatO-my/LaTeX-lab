@@ -7,7 +7,8 @@ the bridge between the Phase 7 readiness documents and the actual push process.
 
 ## Current Result
 
-The repository has completed the first GitHub push.
+The repository has completed the first GitHub push and the first GitHub-side
+inspection.
 
 Local state to preserve:
 
@@ -41,13 +42,18 @@ The short sequence is:
 5. Inspect the rendered README, contribution guide, issue templates, pull
    request template, workflow docs, and starter files on GitHub.
 
-Steps 1 through 4 are complete for
-`https://github.com/AnatO-my/LaTeX-lab.git`. The remaining launch step is
-GitHub-side inspection.
+Steps 1 through 5 are complete for
+`https://github.com/AnatO-my/LaTeX-lab.git`.
+
+The GitHub inspection confirmed:
+
+* expected files are present;
+* generated output files are absent; and
+* the `build/` folder is absent.
 
 ## After Push
 
-After the first push is inspected, the next checkpoints can choose whether to:
+After the first push inspection, the next checkpoints can choose whether to:
 
 * onboard first collaborators;
 * add starter-build GitHub Actions;
