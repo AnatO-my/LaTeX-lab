@@ -63,7 +63,11 @@ this checklist automatically when a collaborator opens a pull request.
 
 Checkpoint 8E adds `docs/BRANCH_AND_PR_POLICY.md`, which records the first
 branch and pull-request working agreement. It keeps enforcement manual until at
-least one collaborator pull request has been tried and starter-build CI exists.
+least one collaborator pull request has been tried and starter-build CI is
+stable.
+Checkpoint 8F adds `.github/workflows/starter-build.yml`, the first hosted
+starter-build workflow. Do not require it in branch protection until it has
+passed consistently on `main`.
 
 ## Issue Templates
 
@@ -80,7 +84,6 @@ or starter involved.
 
 These can wait until after the initial collaboration and release boundary:
 
-* whether to add GitHub Actions for LaTeX builds;
 * whether to mirror docs into a hosted site; and
 * whether to support a downstream project template separate from this lab repo.
 

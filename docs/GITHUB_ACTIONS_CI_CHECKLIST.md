@@ -3,13 +3,15 @@
 ## Purpose
 
 This checklist defines when GitHub Actions should be added and what the first CI
-workflow should prove. It is intentionally a checklist, not a workflow file,
-because the repository should be pushed and inspected on GitHub before CI becomes
-part of the merge path.
+workflow should prove.
+
+Checkpoint 8F adds the first workflow at
+`.github/workflows/starter-build.yml`. The workflow is still not a required
+branch-protection check until it has passed consistently on `main`.
 
 ## 1. Add CI Only After GitHub Push
 
-Do not add GitHub Actions before:
+Checkpoint 8F satisfies the preconditions for adding the first workflow:
 
 * the private GitHub repository exists;
 * `main` has been pushed;
@@ -19,14 +21,14 @@ Do not add GitHub Actions before:
 
 ## 2. First CI Scope
 
-The first CI workflow should be narrow:
+The first CI workflow is narrow:
 
 * install or provide a TeX environment;
 * run `git diff --check`;
 * run `tests/run_phase7c_starter_tests.ps1`; and
 * upload starter PDFs only as workflow artifacts, not as source files.
 
-The first workflow should not run the full historical regression suites.
+The first workflow does not run the full historical regression suites.
 
 ## 3. Why Start With Starters
 
@@ -51,7 +53,7 @@ Before requiring CI for pull requests, confirm:
 
 ## 5. CI Pass Criteria
 
-The first workflow is useful when:
+The first workflow is ready to become a required check only when:
 
 * `git diff --check` passes;
 * all Phase 7C starter builds pass;

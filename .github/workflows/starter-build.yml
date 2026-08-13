@@ -1,0 +1,61 @@
+name: Starter Build
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  starters:
+    name: Starter documents
+    runs-on: windows-latest
+
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Install MiKTeX
+        run: choco install miktex --no-progress -y
+
+      - name: Add MiKTeX to PATH
+        shell: pwsh
+        run: |
+          $miktexBin = "${env:ProgramFiles}\MiKTeX\miktex\bin\x64"
+          if (-not (Test-Path $miktexBin)) {
+              throw "MiKTeX binary directory not found: $miktexBin"
+          }
+          $miktexBin | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+
+      - name: Enable MiKTeX package installation
+        shell: pwsh
+        run: |
+          initexmf --admin --set-config-value "[MPM]AutoInstall=1"
+          initexmf --set-config-value "[MPM]AutoInstall=1"
+          initexmf --admin --update-fndb
+          initexmf --update-fndb
+
+      - name: Check TeX tools
+        shell: pwsh
+        run: |
+          latexmk -version
+          pdflatex --version
+
+      - name: Check whitespace
+        shell: pwsh
+        run: git diff --check
+
+      - name: Build starter documents
+        shell: pwsh
+        run: tests\run_phase7c_starter_tests.ps1
+
+      - name: Upload starter PDFs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: starter-pdfs
+          path: build/examples/**/*.pdf
+          if-no-files-found: warn

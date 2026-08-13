@@ -94,12 +94,12 @@ Before pushing for collaborators:
 Use `docs/GITHUB_PUSH_CHECKLIST.md` for the step-by-step remote creation and
 push runbook.
 
-## Deferred Automation
+## Starter Automation
 
-GitHub Actions can be added later. The first GitHub push should not depend on
-CI, because local MiKTeX package availability and Windows path behaviour are
-already documented and verified locally.
-Use `docs/GITHUB_ACTIONS_CI_CHECKLIST.md` before adding a workflow file.
+Checkpoint 8F adds the first GitHub Actions workflow for starter builds. The
+first GitHub push did not depend on CI, and branch protection should still wait
+until the starter-build workflow has passed consistently on `main`.
+Use `docs/GITHUB_ACTIONS_CI_CHECKLIST.md` before expanding hosted checks.
 
-When CI is added, start with the starter runner before attempting the full
-historical regression suites.
+Hosted CI starts with the starter runner before attempting the full historical
+regression suites.

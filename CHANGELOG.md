@@ -67,7 +67,27 @@ This file records significant changes to the LaTeX Workspace Learning and Class 
 * `main` remains the stable branch.
 * Collaborator changes should use short feature branches and pull requests.
 * GitHub branch protection and required checks remain deferred until a
-  collaborator pull request has been tried and starter-build CI exists.
+  collaborator pull request has been tried and starter-build CI is stable.
+
+### Added (Checkpoint 8F)
+
+* Added `.github/workflows/starter-build.yml`, the first GitHub Actions
+  workflow.
+* Added `PHASE8_CHECKPOINT_8F.md`.
+
+### Changed (Checkpoint 8F)
+
+* Updated CI, branch policy, collaboration, onboarding, README, and project
+  state records to treat starter-build CI as present but not yet required.
+
+### Decided (Checkpoint 8F)
+
+* The first hosted workflow runs only `git diff --check` and the Phase 7C
+  starter runner.
+* Starter PDFs may be uploaded as workflow artifacts but remain excluded from
+  ordinary source commits.
+* Full regression suites and branch-protection enforcement remain later
+  checkpoints.
 
 ## Phase 7 — Local author workflow and distribution readiness
 

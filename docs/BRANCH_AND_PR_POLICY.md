@@ -7,7 +7,7 @@ first GitHub launch.
 
 It is a working agreement first. GitHub branch protection and required checks
 should be enabled later, after the first collaborator pull request has been
-tried and starter-build CI exists.
+tried and the starter-build workflow has passed consistently on `main`.
 
 ## Stable Branch
 
@@ -102,7 +102,7 @@ the compatibility risk, and the verification command.
 Do not enable strict branch protection before the first collaborator pull
 request has been tried.
 
-After that trial and after starter-build CI exists, consider:
+After that trial and after the starter-build workflow is stable, consider:
 
 * requiring pull requests before merging into `main`;
 * requiring the starter-build workflow to pass;

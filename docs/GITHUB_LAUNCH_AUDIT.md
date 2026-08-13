@@ -56,6 +56,6 @@ The GitHub inspection confirmed:
 After the first push inspection, the next checkpoints can choose whether to:
 
 * onboard first collaborators;
-* add starter-build GitHub Actions;
+* inspect starter-build GitHub Actions;
 * prepare release preview PDFs; or
 * prepare a source-derived author kit.

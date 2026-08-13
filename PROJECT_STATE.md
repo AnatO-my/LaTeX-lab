@@ -36,6 +36,8 @@ Checkpoint 8D records the first collaborator-onboarding checklist and keeps
 permissions, branch protection, and hosted checks as separate decisions.
 Checkpoint 8E records the first branch and pull-request policy while keeping
 GitHub enforcement deferred.
+Checkpoint 8F adds the first starter-build GitHub Actions workflow while
+leaving branch protection and full regression suites deferred.
 
 **Phase 7 — Local author workflow and distribution readiness — completed on 13
 August 2026.**
@@ -1092,7 +1094,28 @@ The policy is:
 
 GitHub branch protection, required status checks, and review enforcement remain
 deferred until at least one collaborator pull request has been tried and
-starter-build CI exists.
+starter-build CI is stable.
+
+### Checkpoint 8F - starter-build GitHub Actions
+
+Checkpoint 8F adds `.github/workflows/starter-build.yml`, the first hosted
+GitHub Actions workflow.
+
+The workflow runs on pushes to `main`, pull requests targeting `main`, and
+manual dispatch. It:
+
+* checks out source;
+* installs MiKTeX on `windows-latest`;
+* enables MiKTeX package installation;
+* runs `git diff --check`;
+* runs `tests\run_phase7c_starter_tests.ps1`; and
+* uploads starter PDFs as workflow artifacts.
+
+The workflow deliberately does not run the full historical regression suites,
+prepare release PDFs, prepare an author kit, or enable branch protection.
+
+Branch protection should wait until the starter-build workflow has passed
+consistently on `main`.
 
 ## Phase 2 status
 
@@ -2050,16 +2073,27 @@ is complete. Checkpoint 5F is complete as governance closure.
 * Recorded `main` as the stable branch and collaborator changes as
   branch-and-pull-request work.
 * Deferred GitHub branch protection and required checks until after a
-  collaborator pull request has been tried and starter-build CI exists.
+  collaborator pull request has been tried and starter-build CI is stable.
 * Verified the checkpoint with `git diff --check` and the Phase 7C starter
   runner.
+
+### Session 46 - Checkpoint 8F starter-build GitHub Actions
+
+* Added `.github/workflows/starter-build.yml`.
+* Added `PHASE8_CHECKPOINT_8F.md`.
+* Configured the first hosted workflow to run `git diff --check` and the Phase
+  7C starter runner on `windows-latest` with MiKTeX.
+* Configured starter PDFs as workflow artifacts, not committed source.
+* Deferred branch protection, full regression suites, release PDFs, and
+  author-kit generation to later checkpoints.
 
 ## Next action
 
 Phase 8 is open. Next:
 
-1. choose the next Phase 8 step: starter-build GitHub Actions, release preview
-   PDFs, or a source-derived author kit.
+1. push Checkpoint 8F and inspect the first GitHub Actions run;
+2. then choose the next Phase 8 step: release preview PDFs, a source-derived
+   author kit, or branch protection after starter CI is stable.
 
 ### Line-ending state, confirmed at the close of Checkpoint 5A
 

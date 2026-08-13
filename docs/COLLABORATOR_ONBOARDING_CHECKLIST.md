@@ -14,7 +14,8 @@ Recommended first access:
 * keep admin permissions limited to repository maintainers;
 * defer branch protection until the first collaborator workflow is confirmed;
   and
-* defer required CI checks until a starter-build GitHub Actions workflow exists.
+* defer required CI checks until the starter-build GitHub Actions workflow has
+  passed consistently on `main`.
 
 ## First Message to a Collaborator
 

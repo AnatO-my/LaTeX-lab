@@ -100,9 +100,9 @@ After the first collaborator has access, consider enabling:
 
 * pull requests before merging into `main`;
 * no direct pushes to `main`;
-* required status checks later, once CI exists; and
+* required status checks later, once starter CI is stable; and
 * branch deletion after merge.
 
-Do not require CI checks until a GitHub Actions workflow exists and has passed
-on the repository.
+Do not require CI checks until the starter-build GitHub Actions workflow has
+passed consistently on the repository.
 Use `docs/GITHUB_ACTIONS_CI_CHECKLIST.md` before adding that workflow.
