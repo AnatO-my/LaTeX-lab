@@ -55,6 +55,8 @@ Confirmed:
 
 ## Manual Visual Review
 
+Manual visual review was reported successful after the preview PDFs were opened.
+
 Before attaching these PDFs to a GitHub release, manually open each PDF and
 check:
 

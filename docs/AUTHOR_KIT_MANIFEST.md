@@ -14,6 +14,7 @@ assembling, verifying, and sharing the kit.
 | --- | --- |
 | Repository overview | `README.md` |
 | Contribution guide | `CONTRIBUTING.md` |
+| Local build configuration | `.latexmkrc` |
 | Author workflow | `docs/AUTHOR_WORKFLOW.md` |
 | Starter inventory | `docs/STARTER_INVENTORY.md` |
 | Public interface record | `docs/PUBLIC_INTERFACES.md` |

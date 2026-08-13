@@ -42,6 +42,9 @@ The first pushed `Starter documents` job passed in 4m 33s, with one GitHub
 Node.js deprecation warning recorded as a watch item.
 Checkpoint 8G prepares the first local release-preview PDF set under `build/`
 and records hashes without committing generated PDFs as source.
+Checkpoint 8H prepares the first source-derived author kit under `build/`,
+verifies it from its own root, and records the zip hash without committing the
+kit as source.
 
 **Phase 7 — Local author workflow and distribution readiness — completed on 13
 August 2026.**
@@ -1159,6 +1162,40 @@ The PDFs remain generated artifacts under `build/`; they are not committed as
 source. Manual visual review is still required before attaching them to a
 GitHub release.
 
+The manual visual review was later reported successful by the user.
+
+### Checkpoint 8H - source-derived author kit
+
+Checkpoint 8H prepares the first source-derived author kit.
+
+The kit was prepared from source commit `de87e4b` and follows
+`docs/AUTHOR_KIT_MANIFEST.md`. It includes `.latexmkrc`, docs, classes,
+packages, all seven starters, the shared vector-workbook setup, and the starter
+verification runner.
+
+Local artifacts:
+
+```text
+build/author-kit/latex-lab-author-kit-2026-08-13/
+build/author-kit/latex-lab-author-kit-2026-08-13.zip
+```
+
+The zip is `56899` bytes.
+
+SHA256:
+
+```text
+093855b8fbfd9fd2313cd49f674e5c00ffb26bc3faa6f0b499b6d6f16219fe60
+```
+
+The kit was verified from its own root with the Phase 7C starter runner. After
+verification, generated kit-local `build/` outputs were removed before zipping.
+The final kit folder and zip were scanned and exclude `build/`, `.git/`,
+`tests/__pycache__/`, `examples/physicsquiz/indent.log`, and `AGENTS.md`.
+
+The kit remains a generated release asset under `build/`; it is not committed as
+source.
+
 ## Phase 2 status
 
 Phase 2 is complete. It audited, documented, and improved semantic document
@@ -2141,14 +2178,24 @@ is complete. Checkpoint 5F is complete as governance closure.
 * Recorded page counts, byte sizes, and SHA256 hashes.
 * Kept generated PDFs out of source control.
 
+### Session 48 - Checkpoint 8H source-derived author kit
+
+* Reported the manual preview-PDF visual review as successful.
+* Prepared `build/author-kit/latex-lab-author-kit-2026-08-13/`.
+* Prepared `build/author-kit/latex-lab-author-kit-2026-08-13.zip`.
+* Added `.latexmkrc` to the author-kit manifest because copied kits need it to
+  discover local classes and packages.
+* Verified the copied kit from its own root with the Phase 7C starter runner.
+* Removed kit-local generated `build/` outputs before zipping.
+* Added `docs/AUTHOR_KIT_AUDIT.md`.
+* Added `PHASE8_CHECKPOINT_8H.md`.
+
 ## Next action
 
 Phase 8 is open. Next:
 
-1. manually visually review the preview PDFs before attaching them to a GitHub
-   release;
-2. then choose the next Phase 8 step: a source-derived author kit or branch
-   protection after starter CI is stable.
+1. choose the next Phase 8 step: branch protection after starter CI is stable
+   or Phase 8 closure.
 
 ### Line-ending state, confirmed at the close of Checkpoint 5A
 

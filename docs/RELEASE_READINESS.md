@@ -33,11 +33,13 @@ ordinary source commits.
 An author kit can be produced later as a GitHub release asset, but it should be
 derived from source rather than maintained as another hand-edited copy.
 Use `docs/AUTHOR_KIT_BUILD_CHECKLIST.md` when preparing the kit.
+The current local source-derived kit is recorded in `docs/AUTHOR_KIT_AUDIT.md`.
 
 If an author kit is prepared, include:
 
 * `README.md`;
 * `CONTRIBUTING.md`;
+* `.latexmkrc`;
 * `docs/AUTHOR_WORKFLOW.md`;
 * `docs/STARTER_INVENTORY.md`;
 * `docs/PUBLIC_INTERFACES.md`;

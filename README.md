@@ -57,6 +57,7 @@ collaboration notes, and the Phase 7 GitHub-readiness checklist.
 See `docs/RELEASE_READINESS.md` for the first shareable repository boundary and
 future author-kit rules.
 See `docs/AUTHOR_KIT_BUILD_CHECKLIST.md` before creating any author-kit zip.
+See `docs/AUTHOR_KIT_AUDIT.md` for the current local source-derived author kit.
 See `docs/RELEASE_PDF_CHECKLIST.md` before attaching preview PDFs to a release.
 See `docs/RELEASE_PREVIEW_PDF_AUDIT.md` for the current local preview PDF set.
 See `docs/GITHUB_PUSH_CHECKLIST.md` before adding a GitHub remote or pushing

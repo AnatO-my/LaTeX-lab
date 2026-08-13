@@ -107,6 +107,26 @@ This file records significant changes to the LaTeX Workspace Learning and Class 
 * Recorded page counts, byte sizes, and SHA256 hashes for the preview PDFs.
 * Confirmed the PDFs remain generated artifacts and are not committed as source.
 
+### Added (Checkpoint 8H)
+
+* Added `docs/AUTHOR_KIT_AUDIT.md`, recording the first source-derived author
+  kit.
+* Added `PHASE8_CHECKPOINT_8H.md`.
+
+### Changed (Checkpoint 8H)
+
+* Added `.latexmkrc` to the author-kit manifest and release-readiness kit list
+  so copied kits can build from their own root.
+* Updated the author-kit checklist to remove kit-local `build/` outputs before
+  zipping.
+
+### Confirmed (Checkpoint 8H)
+
+* Built and zipped `build/author-kit/latex-lab-author-kit-2026-08-13.zip`.
+* Verified the copied kit from its own root with the Phase 7C starter runner.
+* Confirmed the final kit folder and zip exclude generated outputs and
+  local-only files.
+
 ## Phase 7 — Local author workflow and distribution readiness
 
 **Completed: 13 August 2026.**

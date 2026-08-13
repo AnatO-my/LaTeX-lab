@@ -53,6 +53,7 @@ New-Item -ItemType Directory -Force -Path ..\latex-lab-author-kit-YYYY-MM-DD
 Copy only the required files listed in `docs/AUTHOR_KIT_MANIFEST.md`:
 
 * repository overview and author guides;
+* `.latexmkrc`;
 * `src/classes/`;
 * `src/packages/`;
 * the seven starter documents;
@@ -87,8 +88,9 @@ The kit is usable when all starter builds pass.
 
 ## 7. Package the Kit
 
-After verification, zip the kit folder. Keep the zip outside the source
-repository unless it is intentionally attached to a GitHub release.
+After verification, remove kit-local generated `build/` outputs, then zip the
+kit folder. Keep the zip outside the source repository unless it is
+intentionally attached to a GitHub release.
 
 Recommended zip name:
 
@@ -113,3 +115,5 @@ When a kit is shared, record:
 * whether optional examples were included;
 * whether preview PDFs were attached separately; and
 * verification command result.
+
+Checkpoint 8H records the first source-derived kit in `docs/AUTHOR_KIT_AUDIT.md`.
