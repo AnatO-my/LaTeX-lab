@@ -58,9 +58,23 @@ Each collaborator pull request should say:
 * whether generated artifacts were intentionally excluded; and
 * whether the change needs visual review.
 
+Checkpoint 7D adds `.github/PULL_REQUEST_TEMPLATE.md`, so GitHub will present
+this checklist automatically when a collaborator opens a pull request.
+
+## Issue Templates
+
+Checkpoint 7D adds issue templates for:
+
+* bug reports;
+* starter or example requests; and
+* workflow questions.
+
+Use these to keep support requests tied to an outcome, a command, and the file
+or starter involved.
+
 ## Not Yet Decided
 
-These can wait until after Phase 7 starters:
+These can wait until after the initial collaboration packaging:
 
 * whether to publish an author-kit zip;
 * whether to track release PDFs;

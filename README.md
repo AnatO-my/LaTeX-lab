@@ -57,10 +57,12 @@ collaboration notes, and the Phase 7 GitHub-readiness checklist.
 
 ## Collaboration
 
-The repository is suitable for GitHub collaboration once the Phase 7 workflow
-docs, starter templates, and repository hygiene checks are in place. Do not
-commit generated PDFs, logs, or `build/` outputs unless a checkpoint explicitly
-calls for a tracked baseline artifact.
+The repository is suitable for private-first GitHub collaboration. Read
+`CONTRIBUTING.md` before opening a pull request, and use the GitHub issue
+templates for bug reports, starter/example requests, and workflow questions.
+
+Do not commit generated PDFs, logs, or `build/` outputs unless a checkpoint
+explicitly calls for a tracked baseline artifact.
 
 ## Status
 

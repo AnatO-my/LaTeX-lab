@@ -22,15 +22,16 @@ LaTeX Workspace Learning and Class Refactoring Project
 ## Current phase
 
 **Phase 7 — Local author workflow and distribution readiness — in progress.
-Checkpoint 7A opened on 13 August 2026. Checkpoints 7B and 7C implemented on
-13 August 2026.**
+Checkpoint 7A opened on 13 August 2026. Checkpoints 7B, 7C, and 7D implemented
+on 13 August 2026.**
 
 Phase 7 makes the repository easier to use, share, and collaborate on without
 depending on chat context. Checkpoint 7A adds the first user-facing `README.md`,
 opens `docs/AUTHOR_WORKFLOW.md`, and records GitHub collaboration as a real
 Phase 7 workstream. Checkpoint 7B inventories starters versus representative
 examples and adds a concrete GitHub collaboration checklist. Checkpoint 7C adds
-the missing small starters and a fast starter-only runner.
+the missing small starters and a fast starter-only runner. Checkpoint 7D adds
+the first GitHub collaboration packaging files.
 
 **Phase 6 — Modern LaTeX interface programming — completed on 13 August
 2026.**
@@ -836,6 +837,19 @@ Checkpoint 7C adds a small starter for each major author outcome:
 It also adds `tests/run_phase7c_starter_tests.ps1`, which builds only the starter
 documents and checks their log markers. This gives authors a fast confidence
 check without running the historical regression suites.
+
+### Checkpoint 7D - collaboration packaging
+
+Checkpoint 7D adds the first GitHub-ready collaboration files:
+
+* `CONTRIBUTING.md`;
+* `.github/PULL_REQUEST_TEMPLATE.md`;
+* issue templates for bugs, starter/example requests, and workflow questions;
+  and
+* `PHASE7_CHECKPOINT_7D.md`.
+
+This checkpoint prepares the repository for private-first GitHub collaboration
+without pushing to GitHub, adding CI, or changing class/package behaviour.
 
 ## Phase 2 status
 
@@ -1666,16 +1680,26 @@ is complete. Checkpoint 5F is complete as governance closure.
 * Updated `README.md`, `docs/AUTHOR_WORKFLOW.md`, and
   `docs/STARTER_INVENTORY.md` to distinguish true starters from larger examples.
 
+### Session 33 - Checkpoint 7D collaboration packaging
+
+* Added `CONTRIBUTING.md`.
+* Added `.github/PULL_REQUEST_TEMPLATE.md`.
+* Added GitHub issue templates for bug reports, starter/example requests, and
+  workflow questions.
+* Added `PHASE7_CHECKPOINT_7D.md`.
+* Updated the README, author workflow guide, and GitHub collaboration checklist
+  to reference the new collaboration packaging files.
+
 ## Next action
 
 Phase 7 is open. Next:
 
-1. Verify and commit Checkpoint 7C with careful staging so line-ending-only
+1. Verify and commit Checkpoint 7D with careful staging so line-ending-only
    `physicsquiz.cls` noise and loose generated files are not included.
 2. Decide whether to add a small combined-workbook starter or keep the workbook
    starter as a standalone module only.
-3. After starters pass, decide whether to prepare GitHub issue templates and a
-   pull-request template.
+3. Decide whether Phase 7 should add a release/author-kit checklist or stop at
+   private-first GitHub collaboration readiness.
 
 ### Line-ending state, confirmed at the close of Checkpoint 5A
 

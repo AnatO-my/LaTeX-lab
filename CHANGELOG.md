@@ -46,6 +46,19 @@ This file records significant changes to the LaTeX Workspace Learning and Class 
 * Updated the starter inventory, README, and author workflow guide so the new
   true starters are distinct from larger representative examples.
 
+### Added (Checkpoint 7D)
+
+* Added `CONTRIBUTING.md`.
+* Added a GitHub pull-request template.
+* Added GitHub issue templates for bug reports, starter/example requests, and
+  workflow questions.
+* Added `PHASE7_CHECKPOINT_7D.md`.
+
+### Changed (Checkpoint 7D)
+
+* Updated the README, author workflow guide, and GitHub collaboration checklist
+  to reference the new collaboration packaging files.
+
 ## Phase 6 — Modern LaTeX interface programming
 
 **Completed: 13 August 2026.**
