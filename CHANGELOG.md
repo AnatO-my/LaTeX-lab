@@ -2,6 +2,23 @@
 
 This file records significant changes to the LaTeX Workspace Learning and Class Refactoring Project.
 
+## Phase 8 — GitHub launch and collaborator onboarding
+
+**In progress. Checkpoint 8A opened: 13 August 2026.**
+
+### Added (Checkpoint 8A)
+
+* Added `docs/GITHUB_LAUNCH_AUDIT.md`, recording the local state before the
+  first private GitHub push.
+* Added `PHASE8_CHECKPOINT_8A.md`.
+
+### Decided (Checkpoint 8A)
+
+* Phase 8 begins with a local launch audit before any remote is created or
+  pushed.
+* The first GitHub repository should still be private-first, source-only by
+  default, and inspected manually before hosted CI is added.
+
 ## Phase 7 — Local author workflow and distribution readiness
 
 **Completed: 13 August 2026.**

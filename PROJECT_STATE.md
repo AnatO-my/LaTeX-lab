@@ -21,6 +21,14 @@ LaTeX Workspace Learning and Class Refactoring Project
 
 ## Current phase
 
+**Phase 8 — GitHub launch and collaborator onboarding — in progress.
+Checkpoint 8A opened on 13 August 2026.**
+
+Phase 8 turns the Phase 7 readiness package into a real collaboration launch.
+Checkpoint 8A records the local pre-push audit: the branch is `main`, no remote
+is configured yet, known local-only leftovers remain unstaged, and the next
+manual step is to create the private GitHub repository and add it as `origin`.
+
 **Phase 7 — Local author workflow and distribution readiness — completed on 13
 August 2026.**
 
@@ -977,6 +985,29 @@ Next-phase options are:
 * prepare optional starter preview PDFs; or
 * open a new functionality phase after the distribution path is exercised.
 
+## Phase 8 status
+
+Phase 8 is in progress. It focuses on launching the repository for private-first
+GitHub collaboration, onboarding collaborators, and adding hosted automation
+only after the pushed repository is inspected.
+
+### Checkpoint 8A - GitHub launch audit
+
+Checkpoint 8A is documentation-only. It adds:
+
+* `docs/GITHUB_LAUNCH_AUDIT.md`; and
+* `PHASE8_CHECKPOINT_8A.md`.
+
+The checkpoint confirms the launch boundary:
+
+* the working branch is `main`;
+* no Git remote is configured yet;
+* Phase 7 is closed and committed;
+* known local-only leftovers should remain unstaged;
+* the private GitHub repository should be created without an initial README,
+  `.gitignore`, or license; and
+* hosted CI should wait until after the first push is inspected.
+
 ## Phase 2 status
 
 Phase 2 is complete. It audited, documented, and improved semantic document
@@ -1889,14 +1920,24 @@ is complete. Checkpoint 5F is complete as governance closure.
 * Carried GitHub push, hosted CI, author-kit creation, release PDFs, and new
   functionality work forward as next-phase options.
 
+### Session 41 - Checkpoint 8A GitHub launch audit
+
+* Opened Phase 8 as GitHub launch and collaborator onboarding.
+* Added `docs/GITHUB_LAUNCH_AUDIT.md`.
+* Added `PHASE8_CHECKPOINT_8A.md`.
+* Recorded that no remote is configured yet and the next manual step is private
+  GitHub repository creation followed by `origin` setup.
+* Verified the launch audit with `git diff --check`, `git remote -v`, and the
+  Phase 7C starter runner.
+
 ## Next action
 
-Phase 7 is closed. Next, choose the next phase direction:
+Phase 8 is open. Next:
 
-1. push the private GitHub repository and onboard collaborators;
-2. add starter-build GitHub Actions after push inspection;
-3. prepare source-derived author-kit or starter-preview release assets; or
-4. open a new functionality phase after the distribution path is exercised.
+1. create the private GitHub repository;
+2. add `origin` and push `main`; and
+3. inspect the rendered GitHub repository before adding hosted CI or release
+   assets.
 
 ### Line-ending state, confirmed at the close of Checkpoint 5A
 

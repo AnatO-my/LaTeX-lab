@@ -60,6 +60,7 @@ See `docs/AUTHOR_KIT_BUILD_CHECKLIST.md` before creating any author-kit zip.
 See `docs/RELEASE_PDF_CHECKLIST.md` before attaching preview PDFs to a release.
 See `docs/GITHUB_PUSH_CHECKLIST.md` before adding a GitHub remote or pushing
 `main`.
+See `docs/GITHUB_LAUNCH_AUDIT.md` for the current local pre-push audit.
 See `docs/GITHUB_ACTIONS_CI_CHECKLIST.md` before adding GitHub Actions.
 
 ## Collaboration
@@ -73,6 +74,5 @@ explicitly calls for a tracked baseline artifact.
 
 ## Status
 
-Phase 7 is complete. The repository is ready for private-first GitHub
-collaboration, with source-only commits, copyable starters, local starter
-verification, and manual release/author-kit checklists documented.
+Phase 8 is open as the GitHub launch and collaborator-onboarding phase. Phase 7
+closed the local workflow and distribution-readiness boundary.
