@@ -15,7 +15,8 @@ Read the relevant guide:
 * `docs/AUTHOR_WORKFLOW.md` for local author setup;
 * `docs/STARTER_INVENTORY.md` for copyable starter documents;
 * `docs/PUBLIC_INTERFACES.md` before changing author-facing commands; and
-* `docs/GITHUB_COLLABORATION.md` for the collaboration policy.
+* `docs/GITHUB_COLLABORATION.md` for the collaboration policy; and
+* `docs/RELEASE_READINESS.md` before preparing release assets.
 
 ## Branches
 

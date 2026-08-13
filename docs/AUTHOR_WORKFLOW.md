@@ -124,3 +124,4 @@ Recommended first GitHub shape:
 Phase 7 should prepare this structure before any serious multi-person editing.
 See `docs/GITHUB_COLLABORATION.md` for the working checklist.
 See `CONTRIBUTING.md` before opening a collaborator pull request.
+See `docs/RELEASE_READINESS.md` before preparing a release or author kit.

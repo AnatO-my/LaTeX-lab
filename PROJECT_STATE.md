@@ -22,7 +22,7 @@ LaTeX Workspace Learning and Class Refactoring Project
 ## Current phase
 
 **Phase 7 — Local author workflow and distribution readiness — in progress.
-Checkpoint 7A opened on 13 August 2026. Checkpoints 7B, 7C, and 7D implemented
+Checkpoint 7A opened on 13 August 2026. Checkpoints 7B through 7E implemented
 on 13 August 2026.**
 
 Phase 7 makes the repository easier to use, share, and collaborate on without
@@ -31,7 +31,8 @@ opens `docs/AUTHOR_WORKFLOW.md`, and records GitHub collaboration as a real
 Phase 7 workstream. Checkpoint 7B inventories starters versus representative
 examples and adds a concrete GitHub collaboration checklist. Checkpoint 7C adds
 the missing small starters and a fast starter-only runner. Checkpoint 7D adds
-the first GitHub collaboration packaging files.
+the first GitHub collaboration packaging files. Checkpoint 7E records the first
+release and author-kit boundary.
 
 **Phase 6 — Modern LaTeX interface programming — completed on 13 August
 2026.**
@@ -850,6 +851,19 @@ Checkpoint 7D adds the first GitHub-ready collaboration files:
 
 This checkpoint prepares the repository for private-first GitHub collaboration
 without pushing to GitHub, adding CI, or changing class/package behaviour.
+
+### Checkpoint 7E - release readiness boundary
+
+Checkpoint 7E records how the project should first be shared:
+
+* use the source repository as the first release vehicle;
+* keep generated PDFs/logs out of ordinary commits;
+* attach optional preview PDFs to GitHub releases later;
+* derive any author kit from `docs/AUTHOR_KIT_MANIFEST.md`; and
+* use the Phase 7C starter runner as the first author-kit verification command.
+
+It adds `docs/RELEASE_READINESS.md`, `docs/AUTHOR_KIT_MANIFEST.md`, and
+`PHASE7_CHECKPOINT_7E.md`.
 
 ## Phase 2 status
 
@@ -1690,16 +1704,27 @@ is complete. Checkpoint 5F is complete as governance closure.
 * Updated the README, author workflow guide, and GitHub collaboration checklist
   to reference the new collaboration packaging files.
 
+### Session 34 - Checkpoint 7E release readiness boundary
+
+* Added `docs/RELEASE_READINESS.md`.
+* Added `docs/AUTHOR_KIT_MANIFEST.md`.
+* Added `PHASE7_CHECKPOINT_7E.md`.
+* Recorded the source repository as the first shareable release shape.
+* Recorded that optional release PDFs should be attached to releases rather than
+  committed as ordinary source.
+* Recorded that any author kit should be generated from the manifest, not
+  maintained as a second hand-edited copy.
+
 ## Next action
 
 Phase 7 is open. Next:
 
-1. Verify and commit Checkpoint 7D with careful staging so line-ending-only
+1. Verify and commit Checkpoint 7E with careful staging so line-ending-only
    `physicsquiz.cls` noise and loose generated files are not included.
 2. Decide whether to add a small combined-workbook starter or keep the workbook
    starter as a standalone module only.
-3. Decide whether Phase 7 should add a release/author-kit checklist or stop at
-   private-first GitHub collaboration readiness.
+3. Decide whether Phase 7 should close after the release-readiness boundary or
+   add a small final push checklist for the actual GitHub remote setup.
 
 ### Line-ending state, confirmed at the close of Checkpoint 5A
 

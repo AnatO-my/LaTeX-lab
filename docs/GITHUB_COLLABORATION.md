@@ -32,7 +32,7 @@ Use:
 | Build artifacts | Keep `build/`, logs, and generated auxiliaries out of commits. |
 | PDFs | Generate locally; attach release PDFs only when intentionally publishing. |
 | Issues | Use labels for docs, starters, tests, examples, classes, packages, and workflow. |
-| Releases | Wait until starter and packaging boundaries are clear. |
+| Releases | Use the source repository first; prepare author-kit assets later from a manifest. |
 
 ## Suggested Labels
 
@@ -74,10 +74,16 @@ or starter involved.
 
 ## Not Yet Decided
 
-These can wait until after the initial collaboration packaging:
+These can wait until after the initial collaboration and release boundary:
 
-* whether to publish an author-kit zip;
-* whether to track release PDFs;
 * whether to add GitHub Actions for LaTeX builds;
 * whether to mirror docs into a hosted site; and
 * whether to support a downstream project template separate from this lab repo.
+
+## Release Boundary
+
+Checkpoint 7E records `docs/RELEASE_READINESS.md` and
+`docs/AUTHOR_KIT_MANIFEST.md`. The first shareable form should be the source
+repository itself. A future author kit should be generated from the manifest,
+and optional preview PDFs should be attached to releases rather than committed
+as ordinary source.

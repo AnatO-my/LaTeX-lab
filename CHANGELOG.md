@@ -59,6 +59,19 @@ This file records significant changes to the LaTeX Workspace Learning and Class 
 * Updated the README, author workflow guide, and GitHub collaboration checklist
   to reference the new collaboration packaging files.
 
+### Added (Checkpoint 7E)
+
+* Added `docs/RELEASE_READINESS.md`, defining the first shareable repository
+  boundary, optional release PDFs, and deferred CI.
+* Added `docs/AUTHOR_KIT_MANIFEST.md`, listing the source files that belong in a
+  future author kit.
+* Added `PHASE7_CHECKPOINT_7E.md`.
+
+### Changed (Checkpoint 7E)
+
+* Updated the README, contribution guide, author workflow guide, and GitHub
+  collaboration checklist to point at the release-readiness boundary.
+
 ## Phase 6 — Modern LaTeX interface programming
 
 **Completed: 13 August 2026.**
