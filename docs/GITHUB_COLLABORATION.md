@@ -103,3 +103,21 @@ root.
 Checkpoint 7F records `docs/GITHUB_PUSH_CHECKLIST.md`. Use it when the project
 is ready to create the private GitHub repository, add the `origin` remote, push
 `main`, and inspect the rendered GitHub templates.
+
+## Collaborator Onboarding
+
+Checkpoint 8D adds `docs/COLLABORATOR_ONBOARDING_CHECKLIST.md`. Use it before
+inviting the first collaborators.
+
+The first onboarding packet should include:
+
+* the repository URL;
+* `README.md`;
+* `docs/AUTHOR_WORKFLOW.md`;
+* `CONTRIBUTING.md`;
+* `docs/STARTER_INVENTORY.md`;
+* `docs/COLLABORATOR_ONBOARDING_CHECKLIST.md`; and
+* the starter verification command.
+
+Keep the first collaborator path small: clone the repository, build a starter,
+run the starter guard, then make a small branch-based contribution.

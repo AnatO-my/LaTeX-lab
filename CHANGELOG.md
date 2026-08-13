@@ -41,6 +41,21 @@ This file records significant changes to the LaTeX Workspace Learning and Class 
 * Generated output files are absent.
 * The `build/` folder is absent.
 
+### Added (Checkpoint 8D)
+
+* Added `docs/COLLABORATOR_ONBOARDING_CHECKLIST.md`, defining the first
+  collaborator access packet, first local check, first contribution shape, and
+  branch/pull-request habit.
+* Added `PHASE8_CHECKPOINT_8D.md`.
+
+### Decided (Checkpoint 8D)
+
+* First collaborators should start with the README, author workflow,
+  contribution guide, starter inventory, onboarding checklist, and starter
+  verification command.
+* Admin access, branch protection, required checks, and release permissions
+  remain separate Phase 8 decisions.
+
 ## Phase 7 — Local author workflow and distribution readiness
 
 **Completed: 13 August 2026.**

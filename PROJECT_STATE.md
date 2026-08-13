@@ -32,6 +32,8 @@ Checkpoint 8B records the first GitHub push: `origin` now points to
 `https://github.com/AnatO-my/LaTeX-lab.git`, and `main` tracks `origin/main`.
 Checkpoint 8C records the first GitHub-side inspection: expected files are
 present, generated output files are absent, and the `build/` folder is absent.
+Checkpoint 8D records the first collaborator-onboarding checklist and keeps
+permissions, branch protection, and hosted checks as separate decisions.
 
 **Phase 7 — Local author workflow and distribution readiness — completed on 13
 August 2026.**
@@ -1050,6 +1052,27 @@ The source-only launch policy held after the first push. Hosted CI, release
 assets, branch protection, and collaborator onboarding remain separate Phase 8
 choices.
 
+### Checkpoint 8D - collaborator onboarding
+
+Checkpoint 8D adds `docs/COLLABORATOR_ONBOARDING_CHECKLIST.md`, a first-access
+and first-contribution guide for collaborators.
+
+The onboarding packet is:
+
+* repository URL: `https://github.com/AnatO-my/LaTeX-lab.git`;
+* `README.md`;
+* `docs/AUTHOR_WORKFLOW.md`;
+* `CONTRIBUTING.md`;
+* `docs/STARTER_INVENTORY.md`;
+* `docs/COLLABORATOR_ONBOARDING_CHECKLIST.md`; and
+* `tests/run_phase7c_starter_tests.ps1`.
+
+The first collaborator path is deliberately small: clone, build a starter, run
+the starter guard, then propose a small branch-based contribution.
+
+Admin access, branch protection, required checks, release permissions, and
+hosted CI remain separate Phase 8 decisions.
+
 ## Phase 2 status
 
 Phase 2 is complete. It audited, documented, and improved semantic document
@@ -1989,11 +2012,21 @@ is complete. Checkpoint 5F is complete as governance closure.
 * Added `PHASE8_CHECKPOINT_8C.md`.
 * Updated the launch audit and project state with the inspection result.
 
+### Session 44 - Checkpoint 8D collaborator onboarding
+
+* Added `docs/COLLABORATOR_ONBOARDING_CHECKLIST.md`.
+* Added `PHASE8_CHECKPOINT_8D.md`.
+* Recorded the first collaborator onboarding packet.
+* Recorded that first contributions should be small, branch-based, and verified
+  with the starter runner.
+* Deferred admin access, branch protection, required checks, release
+  permissions, and hosted CI to separate Phase 8 decisions.
+
 ## Next action
 
 Phase 8 is open. Next:
 
-1. choose the next post-inspection Phase 8 step: collaborator onboarding,
+1. choose the next Phase 8 step: branch and pull-request policy,
    starter-build GitHub Actions, release preview PDFs, or a source-derived
    author kit.
 

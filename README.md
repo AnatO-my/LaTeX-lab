@@ -61,6 +61,8 @@ See `docs/RELEASE_PDF_CHECKLIST.md` before attaching preview PDFs to a release.
 See `docs/GITHUB_PUSH_CHECKLIST.md` before adding a GitHub remote or pushing
 `main`.
 See `docs/GITHUB_LAUNCH_AUDIT.md` for the current local pre-push audit.
+See `docs/COLLABORATOR_ONBOARDING_CHECKLIST.md` before inviting first
+collaborators.
 See `docs/GITHUB_ACTIONS_CI_CHECKLIST.md` before adding GitHub Actions.
 
 ## Collaboration
