@@ -90,6 +90,8 @@ as ordinary source.
 
 Checkpoint 7G adds `docs/AUTHOR_KIT_BUILD_CHECKLIST.md`, which describes how to
 assemble and verify that future kit without maintaining a second copy.
+Checkpoint 7H adds `docs/RELEASE_PDF_CHECKLIST.md`, which describes how optional
+preview PDFs should be generated, reviewed, and attached to releases.
 
 ## Push Checklist
 

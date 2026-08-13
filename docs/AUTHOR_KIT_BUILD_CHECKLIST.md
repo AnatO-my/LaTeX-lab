@@ -15,6 +15,8 @@ Before building a kit, decide:
 * whether preview PDFs will be attached separately; and
 * what version or date label should identify the kit.
 
+Use `docs/RELEASE_PDF_CHECKLIST.md` if preview PDFs will be attached separately.
+
 Recommended first kit name:
 
 ```text

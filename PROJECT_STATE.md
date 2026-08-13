@@ -22,7 +22,7 @@ LaTeX Workspace Learning and Class Refactoring Project
 ## Current phase
 
 **Phase 7 — Local author workflow and distribution readiness — in progress.
-Checkpoint 7A opened on 13 August 2026. Checkpoints 7B through 7G implemented
+Checkpoint 7A opened on 13 August 2026. Checkpoints 7B through 7H implemented
 on 13 August 2026.**
 
 Phase 7 makes the repository easier to use, share, and collaborate on without
@@ -34,6 +34,7 @@ the missing small starters and a fast starter-only runner. Checkpoint 7D adds
 the first GitHub collaboration packaging files. Checkpoint 7E records the first
 release and author-kit boundary. Checkpoint 7F records the final manual GitHub
 push checklist. Checkpoint 7G records the author-kit build checklist.
+Checkpoint 7H records the optional release-PDF checklist.
 
 **Phase 6 — Modern LaTeX interface programming — completed on 13 August
 2026.**
@@ -896,6 +897,22 @@ It records how to:
 * attach or share the kit without committing the zip as ordinary source.
 
 It does not create a zip or automate packaging.
+
+### Checkpoint 7H - release PDF checklist
+
+Checkpoint 7H adds `docs/RELEASE_PDF_CHECKLIST.md`, a manual checklist for
+optional starter preview PDFs.
+
+It records:
+
+* when release PDFs are useful;
+* the six starter PDFs that form the first preview set;
+* the Phase 7C starter runner as the build source;
+* visual review expectations before attaching PDFs; and
+* the rule that preview PDFs are attached to GitHub releases rather than
+  committed as ordinary source.
+
+It does not create PDFs or attach release assets.
 
 ## Phase 2 status
 
@@ -1767,14 +1784,24 @@ is complete. Checkpoint 5F is complete as governance closure.
 * Linked the checklist from the README, release-readiness guide, author-kit
   manifest, and GitHub collaboration checklist.
 
+### Session 37 - Checkpoint 7H release PDF checklist
+
+* Added `docs/RELEASE_PDF_CHECKLIST.md`.
+* Added `PHASE7_CHECKPOINT_7H.md`.
+* Recorded when optional release PDFs are useful, which starter PDFs belong in
+  the first preview set, how to visually review them, and how to attach them to
+  a GitHub release without committing them as source.
+* Linked the checklist from the README, release-readiness guide, author-kit
+  build checklist, and GitHub collaboration checklist.
+
 ## Next action
 
 Phase 7 is open. Next:
 
-1. Verify and commit Checkpoint 7G with careful staging so line-ending-only
+1. Verify and commit Checkpoint 7H with careful staging so line-ending-only
    `physicsquiz.cls` noise and loose generated files are not included.
-2. Continue through the optional checklists one at a time: release PDFs,
-   GitHub Actions/CI, and combined workbook starter.
+2. Continue through the optional checklists one at a time: GitHub Actions/CI and
+   combined workbook starter.
 3. Decide whether to add a small combined-workbook starter or keep the workbook
    starter as a standalone module only.
 

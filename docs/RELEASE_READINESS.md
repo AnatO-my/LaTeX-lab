@@ -66,6 +66,7 @@ Do not include:
 Release PDFs are optional. They are useful when a collaborator needs to preview
 the expected visual result without building locally, but they should be attached
 to a GitHub release rather than committed as normal source files.
+Use `docs/RELEASE_PDF_CHECKLIST.md` before creating or attaching preview PDFs.
 
 A first PDF preview set would be:
 
