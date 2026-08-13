@@ -522,6 +522,7 @@
 \DeclareExerciseEnvironmentTemplate{physicsquiz-solution}
   {%
     \typeout{PQ4C-SOLUTION:\GetExerciseProperty{stable-id}=\GetExerciseProperty{correct}}%
+    \typeout{PQ6F-SOLUTION-ANSWER:\GetExerciseProperty{stable-id}=\pq@solutionanswerletter}%
     \begin{tcolorbox}[
       colback=white,
       colframe=QuizBlue,
@@ -1375,6 +1376,12 @@
       { \__pq_property:nn {#1}{correct} }
   }
 \cs_generate_variant:Nn \__pq_effective_letter:n {V}
+
+\cs_new:Npn \__pq_current_answer_letter:
+  {
+    \__pq_effective_letter:V \g__pq_current_id_tl
+  }
+\cs_new_eq:NN \pq@solutionanswerletter \__pq_current_answer_letter:
 
 \cs_new_protected:Npn \__pq_shuffle_one:nn #1#2
   {

@@ -24,7 +24,8 @@ LaTeX Workspace Learning and Class Refactoring Project
 **Phase 6 — Modern LaTeX interface programming — in progress. Checkpoint 6A
 opened on 12 August 2026. Checkpoint 6B implemented on 12 August 2026.
 Checkpoint 6C implemented on 12 August 2026. Checkpoint 6D implemented on
-12 August 2026. Checkpoint 6E implemented on 12 August 2026.**
+12 August 2026. Checkpoint 6E implemented on 12 August 2026. Checkpoint 6F
+implemented on 13 August 2026.**
 
 Phase 6 uses a conservative modernization model: preserve existing author-facing
 structures unless a modern LaTeX change improves safety, maintainability,
@@ -35,6 +36,8 @@ capability markers. Checkpoint 6C adds a source-level namespace guard for the
 existing `physicsquiz.cls` modern-code boundary. Checkpoint 6D resolves marks
 decimal validation so both `0.5` and `.5` work. Checkpoint 6E improves
 structured-bank author messages and adds a copyable starter quiz-bank document.
+Checkpoint 6F closes the carried versioned-paper review guard with generated
+Version A/B builds and log-level answer-key/solution alignment checks.
 Full detail is in the "Phase 6 status" section below.
 
 **Phase 5 — Shared OT design system — completed on 12 August 2026.**
@@ -723,6 +726,32 @@ are changed.
 
 PowerShell parser checks passed for `tests/run_phase6e_tests.ps1`, and the Phase
 6E runner passed with `All Phase 6E tests passed.`
+
+### Checkpoint 6F - versioned-paper review guard
+
+Checkpoint 6F closes the Phase 4 carry-forward item for the representative
+versioned PHY104 paper. It keeps the authored example untouched during
+verification by generating temporary Version A and Version B copies under
+`build/tests/phase6f_versioned`.
+
+The 6F runner proves that:
+
+* both generated papers compile from the same source structure;
+* the intended version recipe is activated for each paper;
+* each generated paper selects 30 records;
+* Version A and Version B differ in selected question set;
+* Version A and Version B differ in option permutations;
+* answer-key markers agree with the answer printed in generated solution
+  headings; and
+* the generated PDFs differ in byte size as a weak rendered-output signal.
+
+`physicsquiz.cls` now emits `PQ6F-SOLUTION-ANSWER:<id>=<letter>` while rendering
+worked solutions. This is a log-level test marker for the already-rendered
+solution heading answer and does not alter author syntax, selection, shuffling,
+or PDF layout.
+
+PowerShell parser checks passed for `tests/run_phase6f_tests.ps1`, and the Phase
+6F runner passed with `All Phase 6F tests passed.`
 
 ## Phase 2 status
 
@@ -1502,21 +1531,31 @@ is complete. Checkpoint 5F is complete as governance closure.
 * Added `PHASE6_CHECKPOINT_6E.md`.
 * Verified the checkpoint with `All Phase 6E tests passed.`
 
+### Session 28 - Checkpoint 6F versioned-paper review guard
+
+* Closed the carried versioned-paper review item from Phase 4.
+* Added generated Version A/B builds for `PHY104_versioned_paper.tex` so the
+  source example does not need to be edited during verification.
+* Added a checker for version activation, selected question-set differences,
+  option-permutation differences, answer-key markers, and solution-heading
+  answer markers.
+* Added the internal `PQ6F-SOLUTION-ANSWER` marker to `physicsquiz.cls`.
+* Added `PHASE6_CHECKPOINT_6F.md`.
+* Verified the checkpoint with `All Phase 6F tests passed.`
+
 ## Next action
 
 Phase 6 is open. Next:
 
-1. Commit Checkpoint 6E with careful staging so the unrelated versioned-paper
+1. Commit Checkpoint 6F with careful staging so the unrelated versioned-paper
    edit, loose generated files, and any line-ending-only class noise are not
    accidentally included.
-2. Choose the next Phase 6 production target: class-option modernization,
-   versioned-paper visual review, or Phase 6 closure.
-3. Carried forward from Phase 4, still outstanding: review
-   `build/examples/physicsquiz/PHY104_versioned_paper.pdf` for version A, then
-   rebuild with `\quizuseversion{B}` and confirm the two papers differ in both
-   question set and option order, and that each answer key matches its own
-   solutions. A shuffled booklet is the one output no checker can fully judge.
-   Phase 5 does not touch `physicsquiz.cls`, so this is not a Phase 5 blocker.
+2. Choose whether Phase 6 should close here or continue into a class-option
+   modernization review. Under the conservative model, class-option
+   modernization should be explicitly checked before implementation because it
+   would touch the oldest author-facing entry point.
+3. Optional manual visual review remains useful for the generated shuffled
+   PDFs, but the carried automated guard is now closed.
 
 ### Line-ending state, confirmed at the close of Checkpoint 5A
 

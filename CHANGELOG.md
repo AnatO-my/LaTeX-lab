@@ -138,6 +138,28 @@ This file records significant changes to the LaTeX Workspace Learning and Class 
 * The Phase 6E runner passed:
   `All Phase 6E tests passed.`
 
+### Added (Checkpoint 6F)
+
+* Added `tests/run_phase6f_tests.ps1`, which builds generated Version A and
+  Version B copies of the representative PHY104 versioned paper without editing
+  the source example.
+* Added `tests/check_physicsquiz_versioned_visual.py`, which verifies version
+  activation, selected question sets, shuffled option differences, answer-key
+  markers, and solution-heading answer markers.
+* Added `PHASE6_CHECKPOINT_6F.md`.
+
+### Changed (Checkpoint 6F)
+
+* Added the internal log marker `PQ6F-SOLUTION-ANSWER:<id>=<letter>` while
+  rendering worked solutions. It mirrors the answer already printed in the
+  solution heading and does not change document output.
+
+### Verification (Checkpoint 6F)
+
+* PowerShell parser checks passed for `tests/run_phase6f_tests.ps1`.
+* The Phase 6F runner passed:
+  `All Phase 6F tests passed.`
+
 ## Phase 5 — Shared OT design system
 
 **Completed: 12 August 2026.**
