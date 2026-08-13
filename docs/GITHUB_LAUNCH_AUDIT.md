@@ -59,3 +59,7 @@ After the first push inspection, the next checkpoints can choose whether to:
 * inspect starter-build GitHub Actions;
 * prepare release preview PDFs; or
 * prepare a source-derived author kit.
+
+Checkpoint 8G prepares the first local release-preview PDF set and records it in
+`docs/RELEASE_PREVIEW_PDF_AUDIT.md`. The PDFs remain under `build/` until they
+are attached manually to a GitHub release.

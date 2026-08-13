@@ -95,6 +95,18 @@ This file records significant changes to the LaTeX Workspace Learning and Class 
 * Recorded GitHub's Node.js 20 deprecation warning for the current action
   versions as a future watch item.
 
+### Added (Checkpoint 8G)
+
+* Added `docs/RELEASE_PREVIEW_PDF_AUDIT.md`, recording the first local
+  release-preview PDF set.
+* Added `PHASE8_CHECKPOINT_8G.md`.
+
+### Confirmed (Checkpoint 8G)
+
+* Generated seven starter preview PDFs under `build/release-preview/2026-08-13/`.
+* Recorded page counts, byte sizes, and SHA256 hashes for the preview PDFs.
+* Confirmed the PDFs remain generated artifacts and are not committed as source.
+
 ## Phase 7 — Local author workflow and distribution readiness
 
 **Completed: 13 August 2026.**

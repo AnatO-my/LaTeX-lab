@@ -40,6 +40,8 @@ Checkpoint 8F adds the first starter-build GitHub Actions workflow while
 leaving branch protection and full regression suites deferred.
 The first pushed `Starter documents` job passed in 4m 33s, with one GitHub
 Node.js deprecation warning recorded as a watch item.
+Checkpoint 8G prepares the first local release-preview PDF set under `build/`
+and records hashes without committing generated PDFs as source.
 
 **Phase 7 — Local author workflow and distribution readiness — completed on 13
 August 2026.**
@@ -1129,6 +1131,34 @@ GitHub also reported a Node.js 20 deprecation warning for `actions/checkout@v4`
 and `actions/upload-artifact@v4` being forced onto Node.js 24. This is a future
 action-version watch item, not a failed CI result.
 
+### Checkpoint 8G - release preview PDFs
+
+Checkpoint 8G prepares the first local release-preview PDF set.
+
+The PDFs were generated from source commit `f51d198` using the Phase 7C starter
+runner. The release-ready copies are under:
+
+```text
+build/release-preview/2026-08-13/
+```
+
+Seven PDFs were prepared:
+
+* starter quiz bank;
+* starter versioned quiz;
+* starter student notes;
+* starter engineering notes;
+* starter science notes;
+* starter workbook module; and
+* starter combined workbook.
+
+`docs/RELEASE_PREVIEW_PDF_AUDIT.md` records filenames, page counts, byte sizes,
+and SHA256 hashes.
+
+The PDFs remain generated artifacts under `build/`; they are not committed as
+source. Manual visual review is still required before attaching them to a
+GitHub release.
+
 ## Phase 2 status
 
 Phase 2 is complete. It audited, documented, and improved semantic document
@@ -2102,12 +2132,23 @@ is complete. Checkpoint 5F is complete as governance closure.
 * Recorded GitHub's Node.js 20 deprecation warning as a future action-version
   watch item.
 
+### Session 47 - Checkpoint 8G release preview PDFs
+
+* Generated the seven starter preview PDFs with the Phase 7C starter runner.
+* Copied release-ready filenames under `build/release-preview/2026-08-13/`.
+* Added `docs/RELEASE_PREVIEW_PDF_AUDIT.md`.
+* Added `PHASE8_CHECKPOINT_8G.md`.
+* Recorded page counts, byte sizes, and SHA256 hashes.
+* Kept generated PDFs out of source control.
+
 ## Next action
 
 Phase 8 is open. Next:
 
-1. choose the next Phase 8 step: release preview PDFs, a source-derived author
-   kit, or branch protection after starter CI is stable.
+1. manually visually review the preview PDFs before attaching them to a GitHub
+   release;
+2. then choose the next Phase 8 step: a source-derived author kit or branch
+   protection after starter CI is stable.
 
 ### Line-ending state, confirmed at the close of Checkpoint 5A
 

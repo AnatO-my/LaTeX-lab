@@ -6,6 +6,9 @@ This checklist defines when and how to create preview PDFs for a GitHub release.
 Preview PDFs help collaborators see the expected output without building
 locally, but they remain release assets rather than ordinary source files.
 
+Checkpoint 8G prepares the first local preview set and records it in
+`docs/RELEASE_PREVIEW_PDF_AUDIT.md`.
+
 ## 1. Decide Whether PDFs Are Needed
 
 Create release PDFs only when at least one of these is true:
