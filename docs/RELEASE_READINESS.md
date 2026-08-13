@@ -49,6 +49,7 @@ If an author kit is prepared, include:
 * `examples/otengineering/starter_engineering_notes.tex`;
 * `examples/otscience/starter_science_notes.tex`;
 * `examples/vector-workbook/starter_module.tex`;
+* `examples/vector-workbook/starter_combined_workbook.tex`;
 * `examples/vector-workbook/00_common_setup.tex`; and
 * `tests/run_phase7c_starter_tests.ps1`.
 
@@ -75,7 +76,8 @@ A first PDF preview set would be:
 * starter student notes;
 * starter engineering notes;
 * starter science notes; and
-* starter workbook module.
+* starter workbook module; and
+* starter combined workbook.
 
 ## Pre-Push Checklist
 

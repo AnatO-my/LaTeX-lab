@@ -42,6 +42,7 @@ The first preview set should come from the Phase 7 starter documents:
 | Starter engineering notes PDF | `examples/otengineering/starter_engineering_notes.tex` |
 | Starter science notes PDF | `examples/otscience/starter_science_notes.tex` |
 | Starter workbook module PDF | `examples/vector-workbook/starter_module.tex` |
+| Starter combined workbook PDF | `examples/vector-workbook/starter_combined_workbook.tex` |
 
 The Phase 7C starter runner already builds these PDFs under `build/examples/`.
 
@@ -70,6 +71,7 @@ latex-lab-starter-student-notes-YYYY-MM-DD.pdf
 latex-lab-starter-engineering-notes-YYYY-MM-DD.pdf
 latex-lab-starter-science-notes-YYYY-MM-DD.pdf
 latex-lab-starter-workbook-module-YYYY-MM-DD.pdf
+latex-lab-starter-combined-workbook-YYYY-MM-DD.pdf
 ```
 
 ## 6. Attach to Release

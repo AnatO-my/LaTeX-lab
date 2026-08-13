@@ -55,7 +55,7 @@ Copy only the required files listed in `docs/AUTHOR_KIT_MANIFEST.md`:
 * repository overview and author guides;
 * `src/classes/`;
 * `src/packages/`;
-* the six starter documents;
+* the seven starter documents;
 * `examples/vector-workbook/00_common_setup.tex`;
 * `tests/run_phase7c_starter_tests.ps1`; and
 * `tests/powershell_log_helpers.ps1`.

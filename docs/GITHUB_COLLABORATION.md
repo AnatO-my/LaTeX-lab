@@ -94,6 +94,9 @@ Checkpoint 7H adds `docs/RELEASE_PDF_CHECKLIST.md`, which describes how optional
 preview PDFs should be generated, reviewed, and attached to releases.
 Checkpoint 7I adds `docs/GITHUB_ACTIONS_CI_CHECKLIST.md`, which describes when
 hosted CI should be added and why it should start with the starter runner.
+Checkpoint 7J adds `docs/COMBINED_WORKBOOK_STARTER_CHECKLIST.md`, which records
+the decision to support both standalone workbook modules and a combined workbook
+root.
 
 ## Push Checklist
 

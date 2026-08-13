@@ -50,6 +50,15 @@ $starters = @(
         Output = "build\examples\vector-workbook"
         Stem = "starter_module"
         Markers = @("OT7C-STARTER:VECTOR-WORKBOOK")
+    },
+    [pscustomobject]@{
+        Source = "examples\vector-workbook\starter_combined_workbook.tex"
+        Output = "build\examples\vector-workbook"
+        Stem = "starter_combined_workbook"
+        Markers = @(
+            "OT7J-STARTER:VECTOR-WORKBOOK-COMBINED",
+            "OT7C-STARTER:VECTOR-WORKBOOK"
+        )
     }
 )
 

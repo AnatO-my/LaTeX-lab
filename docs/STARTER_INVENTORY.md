@@ -21,6 +21,7 @@ course-specific to be the best starting point for a new author document.
 | Engineering headphones document | `examples/otengineering/test.tex` | Representative example | Keep as a larger worked example. |
 | Science notes | `examples/otscience/starter_science_notes.tex` | True starter | Use as the copyable science notes starter. |
 | Vector workbook module | `examples/vector-workbook/starter_module.tex` | True starter | Use as the copyable standalone module starter. |
+| Vector workbook combined root | `examples/vector-workbook/starter_combined_workbook.tex` | True starter | Use as the copyable combined-workbook root. |
 | Vector workbook | `examples/vector-workbook/00_main_combined_workbook.tex` | Representative combined workbook | Keep as the full combined-workbook example. |
 
 ## Starter Acceptance Rules
@@ -45,7 +46,7 @@ The minimum useful starter set is:
 * `examples/otengineering/starter_engineering_notes.tex`;
 * `examples/otscience/starter_science_notes.tex`;
 * `examples/vector-workbook/starter_module.tex`; and
-* optionally, later, `examples/vector-workbook/starter_combined_workbook.tex`.
+* `examples/vector-workbook/starter_combined_workbook.tex`.
 
 ## Verification
 

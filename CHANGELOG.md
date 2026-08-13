@@ -117,6 +117,19 @@ This file records significant changes to the LaTeX Workspace Learning and Class 
 * Linked the CI checklist from the README, release-readiness guide, GitHub
   push checklist, and GitHub collaboration checklist.
 
+### Added (Checkpoint 7J)
+
+* Added `examples/vector-workbook/starter_combined_workbook.tex`.
+* Added `docs/COMBINED_WORKBOOK_STARTER_CHECKLIST.md`.
+* Added `PHASE7_CHECKPOINT_7J.md`.
+
+### Changed (Checkpoint 7J)
+
+* Added the combined workbook starter to the starter runner.
+* Updated the starter inventory, author workflow guide, author-kit manifest,
+  release-readiness guide, release PDF checklist, README, and collaboration
+  checklist to include the combined workbook starter.
+
 ## Phase 6 — Modern LaTeX interface programming
 
 **Completed: 13 August 2026.**

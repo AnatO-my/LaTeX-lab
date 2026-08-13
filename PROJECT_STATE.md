@@ -22,7 +22,7 @@ LaTeX Workspace Learning and Class Refactoring Project
 ## Current phase
 
 **Phase 7 — Local author workflow and distribution readiness — in progress.
-Checkpoint 7A opened on 13 August 2026. Checkpoints 7B through 7I implemented
+Checkpoint 7A opened on 13 August 2026. Checkpoints 7B through 7J implemented
 on 13 August 2026.**
 
 Phase 7 makes the repository easier to use, share, and collaborate on without
@@ -35,7 +35,8 @@ the first GitHub collaboration packaging files. Checkpoint 7E records the first
 release and author-kit boundary. Checkpoint 7F records the final manual GitHub
 push checklist. Checkpoint 7G records the author-kit build checklist.
 Checkpoint 7H records the optional release-PDF checklist. Checkpoint 7I records
-the GitHub Actions/CI checklist.
+the GitHub Actions/CI checklist. Checkpoint 7J resolves the combined-workbook
+starter decision by adding a small combined root.
 
 **Phase 6 — Modern LaTeX interface programming — completed on 13 August
 2026.**
@@ -933,6 +934,19 @@ It records:
 
 It does not add `.github/workflows/` or require CI for pull requests.
 
+### Checkpoint 7J - combined workbook starter
+
+Checkpoint 7J adds `examples/vector-workbook/starter_combined_workbook.tex`.
+The existing `examples/vector-workbook/starter_module.tex` remains the
+standalone module starter.
+
+The decision is to keep both outcomes:
+
+* a standalone workbook module for a single lesson; and
+* a combined workbook root for gathering modules into one PDF.
+
+The Phase 7C starter runner now builds both workbook starters.
+
 ## Phase 2 status
 
 Phase 2 is complete. It audited, documented, and improved semantic document
@@ -1826,16 +1840,25 @@ is complete. Checkpoint 5F is complete as governance closure.
 * Linked the CI checklist from the README, release-readiness guide, GitHub push
   checklist, and GitHub collaboration checklist.
 
+### Session 39 - Checkpoint 7J combined workbook starter
+
+* Added `examples/vector-workbook/starter_combined_workbook.tex`.
+* Added `docs/COMBINED_WORKBOOK_STARTER_CHECKLIST.md`.
+* Added `PHASE7_CHECKPOINT_7J.md`.
+* Updated `tests/run_phase7c_starter_tests.ps1` to build both the standalone
+  workbook module starter and the combined workbook root starter.
+* Updated starter, author-kit, release, workflow, README, changelog, and
+  collaboration records to include the combined workbook starter.
+
 ## Next action
 
 Phase 7 is open. Next:
 
-1. Verify and commit Checkpoint 7I with careful staging so line-ending-only
+1. Verify and commit Checkpoint 7J with careful staging so line-ending-only
    `physicsquiz.cls` noise and loose generated files are not included.
-2. Decide whether to add a small combined-workbook starter or keep the workbook
-   starter as a standalone module only.
-3. Decide whether Phase 7 can close after the combined-workbook starter decision
-   is recorded.
+2. Decide whether Phase 7 can close after the combined-workbook starter passes.
+3. If Phase 7 closes, record a Phase 7 closure checkpoint and next-phase
+   options.
 
 ### Line-ending state, confirmed at the close of Checkpoint 5A
 

@@ -34,6 +34,7 @@ Use these copyable starters:
 | Engineering notes | `examples/otengineering/starter_engineering_notes.tex` |
 | Science notes | `examples/otscience/starter_science_notes.tex` |
 | Vector workbook module | `examples/vector-workbook/starter_module.tex` |
+| Combined vector workbook | `examples/vector-workbook/starter_combined_workbook.tex` |
 
 See `docs/STARTER_INVENTORY.md` for the distinction between true starters and
 representative examples. Larger course-shaped examples remain available when

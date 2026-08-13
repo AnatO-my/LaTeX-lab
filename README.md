@@ -50,7 +50,7 @@ Start with the copyable starter documents in `examples/`, then build from the
 repository root so `.latexmkrc` can discover the project-local classes and
 packages. Phase 7 currently provides starters for quiz banks, versioned quiz
 papers, student notes, engineering notebooks, science notes, and workbook
-modules.
+modules, including a combined workbook root.
 
 See `docs/AUTHOR_WORKFLOW.md` for document-starting steps, build commands,
 collaboration notes, and the Phase 7 GitHub-readiness checklist.

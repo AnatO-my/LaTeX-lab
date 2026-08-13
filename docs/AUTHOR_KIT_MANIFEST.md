@@ -25,6 +25,7 @@ assembling, verifying, and sharing the kit.
 | Engineering notes starter | `examples/otengineering/starter_engineering_notes.tex` |
 | Science notes starter | `examples/otscience/starter_science_notes.tex` |
 | Workbook module starter | `examples/vector-workbook/starter_module.tex` |
+| Combined workbook starter | `examples/vector-workbook/starter_combined_workbook.tex` |
 | Workbook shared setup | `examples/vector-workbook/00_common_setup.tex` |
 | Starter verification | `tests/run_phase7c_starter_tests.ps1` |
 | Log retry helper | `tests/powershell_log_helpers.ps1` |
