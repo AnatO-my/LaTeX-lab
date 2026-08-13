@@ -22,14 +22,15 @@ LaTeX Workspace Learning and Class Refactoring Project
 ## Current phase
 
 **Phase 7 — Local author workflow and distribution readiness — in progress.
-Checkpoint 7A opened on 13 August 2026. Checkpoint 7B implemented on 13 August
-2026.**
+Checkpoint 7A opened on 13 August 2026. Checkpoints 7B and 7C implemented on
+13 August 2026.**
 
 Phase 7 makes the repository easier to use, share, and collaborate on without
 depending on chat context. Checkpoint 7A adds the first user-facing `README.md`,
 opens `docs/AUTHOR_WORKFLOW.md`, and records GitHub collaboration as a real
 Phase 7 workstream. Checkpoint 7B inventories starters versus representative
-examples and adds a concrete GitHub collaboration checklist.
+examples and adds a concrete GitHub collaboration checklist. Checkpoint 7C adds
+the missing small starters and a fast starter-only runner.
 
 **Phase 6 — Modern LaTeX interface programming — completed on 13 August
 2026.**
@@ -818,14 +819,23 @@ Checkpoint 7B is documentation-only. It adds:
   checklist; and
 * `PHASE7_CHECKPOINT_7B.md`.
 
-The starter inventory confirms that `examples/physicsquiz/starter_quiz_bank.tex`
-is the only current true minimal starter. The existing student-notes,
-engineering, versioned-paper, and vector-workbook files are useful examples but
-too large or too course-specific to treat as blank starters. A small
-`otscience` starter is missing entirely.
+The starter inventory confirms that larger course-shaped documents should stay
+as representative examples rather than blank starting points.
 
-The next checkpoint should add the missing minimal starters and a fast starter
-runner.
+### Checkpoint 7C - copyable starter set
+
+Checkpoint 7C adds a small starter for each major author outcome:
+
+* structured quiz bank;
+* versioned quiz paper;
+* student study notes;
+* engineering project notebook;
+* science notes document; and
+* standalone vector-workbook module.
+
+It also adds `tests/run_phase7c_starter_tests.ps1`, which builds only the starter
+documents and checks their log markers. This gives authors a fast confidence
+check without running the historical regression suites.
 
 ## Phase 2 status
 
@@ -1642,13 +1652,28 @@ is complete. Checkpoint 5F is complete as governance closure.
 * Identified the next starter set: versioned quiz, student notes, engineering
   notes, science notes, and vector-workbook module.
 
+### Session 32 - Checkpoint 7C copyable starter set
+
+* Added the missing small starters:
+  `examples/physicsquiz/starter_versioned_quiz.tex`,
+  `examples/studentnotes/starter_notes.tex`,
+  `examples/otengineering/starter_engineering_notes.tex`,
+  `examples/otscience/starter_science_notes.tex`, and
+  `examples/vector-workbook/starter_module.tex`.
+* Added `tests/run_phase7c_starter_tests.ps1`, which builds the starter set and
+  checks starter log markers.
+* Added `PHASE7_CHECKPOINT_7C.md`.
+* Updated `README.md`, `docs/AUTHOR_WORKFLOW.md`, and
+  `docs/STARTER_INVENTORY.md` to distinguish true starters from larger examples.
+
 ## Next action
 
 Phase 7 is open. Next:
 
-1. Commit Checkpoint 7B with careful staging so line-ending-only
+1. Verify and commit Checkpoint 7C with careful staging so line-ending-only
    `physicsquiz.cls` noise and loose generated files are not included.
-2. Add the missing minimal starters and a fast starter-build runner.
+2. Decide whether to add a small combined-workbook starter or keep the workbook
+   starter as a standalone module only.
 3. After starters pass, decide whether to prepare GitHub issue templates and a
    pull-request template.
 

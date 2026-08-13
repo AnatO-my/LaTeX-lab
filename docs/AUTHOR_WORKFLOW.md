@@ -24,20 +24,20 @@ Required local tools:
 
 ## Starting Documents
 
-Use existing examples as source-shaped starters:
+Use these copyable starters:
 
 | Goal | Starter |
 | --- | --- |
 | Structured physics quiz bank | `examples/physicsquiz/starter_quiz_bank.tex` |
-| Full PHY104 structured paper | `examples/physicsquiz/PHY104_structured_revision.tex` |
-| Versioned PHY104 paper | `examples/physicsquiz/PHY104_versioned_paper.tex` |
-| Student notes | `examples/studentnotes/Optics.tex` |
-| Engineering notes | `examples/otengineering/test.tex` |
-| Vector workbook | `examples/vector-workbook/00_main_combined_workbook.tex` |
+| Versioned quiz paper | `examples/physicsquiz/starter_versioned_quiz.tex` |
+| Student notes | `examples/studentnotes/starter_notes.tex` |
+| Engineering notes | `examples/otengineering/starter_engineering_notes.tex` |
+| Science notes | `examples/otscience/starter_science_notes.tex` |
+| Vector workbook module | `examples/vector-workbook/starter_module.tex` |
 
 See `docs/STARTER_INVENTORY.md` for the distinction between true starters and
-representative examples. Several current entries are examples that still need
-smaller Phase 7 starter files.
+representative examples. Larger course-shaped examples remain available when
+you want to study a finished document rather than start a small one.
 
 Copy a starter into a new project folder only after deciding whether the new
 document should remain inside this repository or become a separate downstream
@@ -61,6 +61,12 @@ Run the latest physicsquiz guard:
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File tests\run_phase6f_tests.ps1
+```
+
+Run the fast starter guard:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File tests\run_phase7c_starter_tests.ps1
 ```
 
 Run the OT-side guard:

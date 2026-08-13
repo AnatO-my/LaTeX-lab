@@ -24,6 +24,12 @@ Build a document from the repository root:
 latexmk -pdf examples\physicsquiz\starter_quiz_bank.tex
 ```
 
+Run the fast starter check:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File tests\run_phase7c_starter_tests.ps1
+```
+
 Run the latest accepted Phase 6 guard:
 
 ```powershell
@@ -42,7 +48,9 @@ Generated build outputs belong under `build/` and are not source files.
 
 Start with the copyable starter documents in `examples/`, then build from the
 repository root so `.latexmkrc` can discover the project-local classes and
-packages.
+packages. Phase 7 currently provides starters for quiz banks, versioned quiz
+papers, student notes, engineering notebooks, science notes, and workbook
+modules.
 
 See `docs/AUTHOR_WORKFLOW.md` for document-starting steps, build commands,
 collaboration notes, and the Phase 7 GitHub-readiness checklist.

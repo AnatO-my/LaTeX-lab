@@ -1,0 +1,54 @@
+\ifdefined\OTCOMBINED
+\newcommand{\OTStarterEndDocument}{}
+\else
+\documentclass{otscience}
+\input{00_common_setup.tex}
+\standalonetitle{Starter Workbook Module}{Copyable OT Science workbook part}{\DTMtoday}
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+\newcommand{\OTStarterEndDocument}{\end{document}}
+\fi
+
+\typeout{OT7C-STARTER:VECTOR-WORKBOOK}
+
+\section{Starter Workbook Module}
+\sectionmark{Starter Module}
+
+This starter is a small workbook part. It can build by itself, and it can later
+be included from a combined workbook root.
+
+\begin{definitionboxnosplit}[Core Object]
+  Define the central object of the module here. For example, a vector field maps
+  each point in space to a vector:
+  \[
+    \mathbf{A}(x,y,z)=A_x\ihat+A_y\jhat+A_z\khat.
+  \]
+\end{definitionboxnosplit}
+
+\begin{formulaboxnosplit}[Useful Formula]
+  In Cartesian coordinates,
+  \[
+    \nabla\cdot\mathbf{A}
+    =
+    \frac{\partial A_x}{\partial x}
+    +
+    \frac{\partial A_y}{\partial y}
+    +
+    \frac{\partial A_z}{\partial z}.
+  \]
+\end{formulaboxnosplit}
+
+\begin{practicebox}[Quick Drill]
+  \qitem Write one field whose divergence is zero.
+
+  \qitem Write one field whose divergence is positive.
+\end{practicebox}
+
+\begin{summaryboxnosplit}[Module Summary]
+  End each workbook part with the minimum set of facts the reader should carry
+  into the next module.
+\end{summaryboxnosplit}
+
+\OTStarterEndDocument

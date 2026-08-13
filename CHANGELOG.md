@@ -34,6 +34,18 @@ This file records significant changes to the LaTeX Workspace Learning and Class 
 * Corrected the author workflow guide to reference the existing
   `examples/physicsquiz/PHY104_structured_revision.tex` file.
 
+### Added (Checkpoint 7C)
+
+* Added small copyable starters for versioned quizzes, student notes,
+  engineering notebooks, science notes, and vector-workbook modules.
+* Added `tests/run_phase7c_starter_tests.ps1`, a fast starter-only build guard.
+* Added `PHASE7_CHECKPOINT_7C.md`.
+
+### Changed (Checkpoint 7C)
+
+* Updated the starter inventory, README, and author workflow guide so the new
+  true starters are distinct from larger representative examples.
+
 ## Phase 6 — Modern LaTeX interface programming
 
 **Completed: 13 August 2026.**

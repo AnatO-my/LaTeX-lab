@@ -1,0 +1,104 @@
+\documentclass[full,print,12pt,a4paper]{physicsquiz}
+
+\typeout{OT7C-STARTER:PHYSICSQUIZ-VERSIONED}
+
+\quiztitle{Starter Versioned Quiz}
+\quizcourse{Copyable local template}
+\quizauthor{Course Team}
+\quizinstitution{Department Name}
+\quizinstructions{Choose the best answer. Each version may use a different question set or option order.}
+\quizconstants{\(g=\SI{9.80}{m.s^{-2}}\) if needed.}
+
+\begin{document}
+
+\begin{quizbank}
+  \begin{quizquestion}[
+    id=starter-version-units-001,
+    topic=units,
+    difficulty=foundation,
+    marks=1,
+    correct=B,
+    tags={units,measurement},
+    outcome={Match a physical quantity to its unit}
+  ]
+    Which unit is used for force?
+    \choices
+      {\(\mathrm{J}\)}
+      {\(\mathrm{N}\)}
+      {\(\mathrm{W}\)}
+      {\(\mathrm{Pa}\)}
+      {\(\mathrm{C}\)}
+  \end{quizquestion}
+  \begin{quizsolution}
+    Force is measured in newtons, so the correct answer is \quizcorrectletter.
+  \end{quizsolution}
+
+  \begin{quizquestion}[
+    id=starter-version-waves-001,
+    topic=waves,
+    difficulty=applied,
+    marks=1,
+    correct=C,
+    tags={waves,speed}
+  ]
+    A wave has frequency \(\SI{5}{Hz}\) and wavelength \(\SI{2}{m}\). What is its speed?
+    \choices
+      {\(\SI{2.5}{m.s^{-1}}\)}
+      {\(\SI{7}{m.s^{-1}}\)}
+      {\(\SI{10}{m.s^{-1}}\)}
+      {\(\SI{20}{m.s^{-1}}\)}
+      {\(\SI{25}{m.s^{-1}}\)}
+  \end{quizquestion}
+  \begin{quizsolution}
+    Wave speed is \(v=f\lambda\), so \(v=5\times2=\SI{10}{m.s^{-1}}\).
+    The correct answer is \quizcorrectletter.
+  \end{quizsolution}
+
+  \begin{quizquestion}[
+    id=starter-version-energy-001,
+    topic=energy,
+    difficulty=challenge,
+    marks=1,
+    correct=D,
+    tags={energy,work}
+  ]
+    A constant force of \(\SI{4}{N}\) moves an object \(\SI{3}{m}\) in the direction of the force. What work is done?
+    \choices
+      {\(\SI{1}{J}\)}
+      {\(\SI{4}{J}\)}
+      {\(\SI{7}{J}\)}
+      {\(\SI{12}{J}\)}
+      {\(\SI{24}{J}\)}
+  \end{quizquestion}
+  \begin{quizsolution}
+    Work is force times distance, so \(W=4\times3=\SI{12}{J}\).
+    The correct answer is \quizcorrectletter.
+  \end{quizsolution}
+\end{quizbank}
+
+\quizdefineversion{A}{%
+  \quizselectids{starter-version-units-001,starter-version-waves-001}%
+  \quizshuffleoptions{701}%
+}
+
+\quizdefineversion{B}{%
+  \quizselectids{starter-version-units-001,starter-version-energy-001}%
+  \quizshuffleoptions{702}%
+}
+
+\quizuseversion{A}
+
+\makequiztitle
+\printquizquestions[1]
+
+\begin{quizanswerkeycontent}
+  \clearpage
+  \printquizanswerkey
+\end{quizanswerkeycontent}
+
+\begin{quizsolutioncontent}
+  \clearpage
+  \printquizsolutions
+\end{quizsolutioncontent}
+
+\end{document}
