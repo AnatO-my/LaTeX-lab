@@ -29,11 +29,15 @@ Use existing examples as source-shaped starters:
 | Goal | Starter |
 | --- | --- |
 | Structured physics quiz bank | `examples/physicsquiz/starter_quiz_bank.tex` |
-| Full PHY104 structured paper | `examples/physicsquiz/PHY104_structured_full.tex` |
+| Full PHY104 structured paper | `examples/physicsquiz/PHY104_structured_revision.tex` |
 | Versioned PHY104 paper | `examples/physicsquiz/PHY104_versioned_paper.tex` |
 | Student notes | `examples/studentnotes/Optics.tex` |
 | Engineering notes | `examples/otengineering/test.tex` |
 | Vector workbook | `examples/vector-workbook/00_main_combined_workbook.tex` |
+
+See `docs/STARTER_INVENTORY.md` for the distinction between true starters and
+representative examples. Several current entries are examples that still need
+smaller Phase 7 starter files.
 
 Copy a starter into a new project folder only after deciding whether the new
 document should remain inside this repository or become a separate downstream
@@ -112,3 +116,4 @@ Recommended first GitHub shape:
 * track public author guarantees in `docs/PUBLIC_INTERFACES.md`.
 
 Phase 7 should prepare this structure before any serious multi-person editing.
+See `docs/GITHUB_COLLABORATION.md` for the working checklist.

@@ -22,12 +22,14 @@ LaTeX Workspace Learning and Class Refactoring Project
 ## Current phase
 
 **Phase 7 — Local author workflow and distribution readiness — in progress.
-Checkpoint 7A opened on 13 August 2026.**
+Checkpoint 7A opened on 13 August 2026. Checkpoint 7B implemented on 13 August
+2026.**
 
 Phase 7 makes the repository easier to use, share, and collaborate on without
 depending on chat context. Checkpoint 7A adds the first user-facing `README.md`,
 opens `docs/AUTHOR_WORKFLOW.md`, and records GitHub collaboration as a real
-Phase 7 workstream.
+Phase 7 workstream. Checkpoint 7B inventories starters versus representative
+examples and adds a concrete GitHub collaboration checklist.
 
 **Phase 6 — Modern LaTeX interface programming — completed on 13 August
 2026.**
@@ -805,6 +807,25 @@ labels, release boundaries, and collaborator setup requirements.
 The recommended first shape is private GitHub collaboration, feature branches,
 pull requests once more than one person edits, source-only commits by default,
 and `README.md` plus `docs/AUTHOR_WORKFLOW.md` as the onboarding path.
+
+### Checkpoint 7B - starter inventory and GitHub checklist
+
+Checkpoint 7B is documentation-only. It adds:
+
+* `docs/STARTER_INVENTORY.md`, separating true copyable starters from
+  representative examples;
+* `docs/GITHUB_COLLABORATION.md`, recording the private-first collaboration
+  checklist; and
+* `PHASE7_CHECKPOINT_7B.md`.
+
+The starter inventory confirms that `examples/physicsquiz/starter_quiz_bank.tex`
+is the only current true minimal starter. The existing student-notes,
+engineering, versioned-paper, and vector-workbook files are useful examples but
+too large or too course-specific to treat as blank starters. A small
+`otscience` starter is missing entirely.
+
+The next checkpoint should add the missing minimal starters and a fast starter
+runner.
 
 ## Phase 2 status
 
@@ -1612,16 +1633,24 @@ is complete. Checkpoint 5F is complete as governance closure.
 * Added `PHASE7_CHECKPOINT_7A.md`.
 * Accepted GitHub collaboration readiness as a Phase 7 workstream.
 
+### Session 31 - Checkpoint 7B starter inventory and GitHub checklist
+
+* Added `docs/STARTER_INVENTORY.md`.
+* Added `docs/GITHUB_COLLABORATION.md`.
+* Added `PHASE7_CHECKPOINT_7B.md`.
+* Corrected the author workflow guide's structured PHY104 example path.
+* Identified the next starter set: versioned quiz, student notes, engineering
+  notes, science notes, and vector-workbook module.
+
 ## Next action
 
 Phase 7 is open. Next:
 
-1. Commit Checkpoint 7A with careful staging so line-ending-only
+1. Commit Checkpoint 7B with careful staging so line-ending-only
    `physicsquiz.cls` noise and loose generated files are not included.
-2. Add a starter-template inventory and decide which missing starters need to be
-   created rather than reused from examples.
-3. Draft the GitHub collaboration checklist: visibility, branches, pull
-   requests, ignored artifacts, issue templates, and release/artifact policy.
+2. Add the missing minimal starters and a fast starter-build runner.
+3. After starters pass, decide whether to prepare GitHub issue templates and a
+   pull-request template.
 
 ### Line-ending state, confirmed at the close of Checkpoint 5A
 

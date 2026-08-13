@@ -20,6 +20,20 @@ This file records significant changes to the LaTeX Workspace Learning and Class 
   once collaborators are active, generated build artifacts excluded from normal
   commits, and setup instructions kept in source-controlled docs.
 
+### Added (Checkpoint 7B)
+
+* Added `docs/STARTER_INVENTORY.md`, separating true starters from
+  representative examples and listing the missing starter set.
+* Added `docs/GITHUB_COLLABORATION.md`, a private-first collaboration checklist
+  for repository visibility, branches, pull requests, artifact policy, labels,
+  and release questions.
+* Added `PHASE7_CHECKPOINT_7B.md`.
+
+### Changed (Checkpoint 7B)
+
+* Corrected the author workflow guide to reference the existing
+  `examples/physicsquiz/PHY104_structured_revision.tex` file.
+
 ## Phase 6 — Modern LaTeX interface programming
 
 **Completed: 13 August 2026.**
