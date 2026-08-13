@@ -24,7 +24,8 @@ Send:
 * `README.md`;
 * `docs/AUTHOR_WORKFLOW.md`;
 * `CONTRIBUTING.md`;
-* `docs/STARTER_INVENTORY.md`; and
+* `docs/STARTER_INVENTORY.md`;
+* `docs/BRANCH_AND_PR_POLICY.md`; and
 * this checklist.
 
 Ask them to start by cloning the repository and building one starter document.
@@ -70,6 +71,9 @@ powershell -ExecutionPolicy Bypass -File tests\run_phase7c_starter_tests.ps1
 
 The pull request should say what changed, which command was run, and whether any
 generated artifacts were intentionally excluded.
+
+Use `docs/BRANCH_AND_PR_POLICY.md` for the current branch naming, pull-request,
+and review expectations.
 
 ## Do Not Commit
 

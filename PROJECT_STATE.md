@@ -34,6 +34,8 @@ Checkpoint 8C records the first GitHub-side inspection: expected files are
 present, generated output files are absent, and the `build/` folder is absent.
 Checkpoint 8D records the first collaborator-onboarding checklist and keeps
 permissions, branch protection, and hosted checks as separate decisions.
+Checkpoint 8E records the first branch and pull-request policy while keeping
+GitHub enforcement deferred.
 
 **Phase 7 — Local author workflow and distribution readiness — completed on 13
 August 2026.**
@@ -1073,6 +1075,25 @@ the starter guard, then propose a small branch-based contribution.
 Admin access, branch protection, required checks, release permissions, and
 hosted CI remain separate Phase 8 decisions.
 
+### Checkpoint 8E - branch and pull-request policy
+
+Checkpoint 8E adds `docs/BRANCH_AND_PR_POLICY.md`, a working agreement for
+shared GitHub changes.
+
+The policy is:
+
+* keep `main` as the stable branch;
+* make collaborator changes on short feature branches;
+* open pull requests for collaborator changes;
+* run `git diff --check` before pull requests;
+* run the Phase 7C starter runner for documentation, starter, workflow,
+  packaging, and onboarding changes; and
+* explain broader phase runners for class or package changes.
+
+GitHub branch protection, required status checks, and review enforcement remain
+deferred until at least one collaborator pull request has been tried and
+starter-build CI exists.
+
 ## Phase 2 status
 
 Phase 2 is complete. It audited, documented, and improved semantic document
@@ -2022,13 +2043,23 @@ is complete. Checkpoint 5F is complete as governance closure.
 * Deferred admin access, branch protection, required checks, release
   permissions, and hosted CI to separate Phase 8 decisions.
 
+### Session 45 - Checkpoint 8E branch and pull-request policy
+
+* Added `docs/BRANCH_AND_PR_POLICY.md`.
+* Added `PHASE8_CHECKPOINT_8E.md`.
+* Recorded `main` as the stable branch and collaborator changes as
+  branch-and-pull-request work.
+* Deferred GitHub branch protection and required checks until after a
+  collaborator pull request has been tried and starter-build CI exists.
+* Verified the checkpoint with `git diff --check` and the Phase 7C starter
+  runner.
+
 ## Next action
 
 Phase 8 is open. Next:
 
-1. choose the next Phase 8 step: branch and pull-request policy,
-   starter-build GitHub Actions, release preview PDFs, or a source-derived
-   author kit.
+1. choose the next Phase 8 step: starter-build GitHub Actions, release preview
+   PDFs, or a source-derived author kit.
 
 ### Line-ending state, confirmed at the close of Checkpoint 5A
 

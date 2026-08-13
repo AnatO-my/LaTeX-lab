@@ -63,6 +63,8 @@ See `docs/GITHUB_PUSH_CHECKLIST.md` before adding a GitHub remote or pushing
 See `docs/GITHUB_LAUNCH_AUDIT.md` for the current local pre-push audit.
 See `docs/COLLABORATOR_ONBOARDING_CHECKLIST.md` before inviting first
 collaborators.
+See `docs/BRANCH_AND_PR_POLICY.md` for the branch and pull-request working
+agreement.
 See `docs/GITHUB_ACTIONS_CI_CHECKLIST.md` before adding GitHub Actions.
 
 ## Collaboration

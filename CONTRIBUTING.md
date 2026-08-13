@@ -14,8 +14,9 @@ Read the relevant guide:
 * `README.md` for the repository overview;
 * `docs/AUTHOR_WORKFLOW.md` for local author setup;
 * `docs/STARTER_INVENTORY.md` for copyable starter documents;
-* `docs/PUBLIC_INTERFACES.md` before changing author-facing commands; and
-* `docs/GITHUB_COLLABORATION.md` for the collaboration policy; and
+* `docs/PUBLIC_INTERFACES.md` before changing author-facing commands;
+* `docs/GITHUB_COLLABORATION.md` for the collaboration policy;
+* `docs/BRANCH_AND_PR_POLICY.md` for branch and pull-request expectations; and
 * `docs/RELEASE_READINESS.md` before preparing release assets.
 
 ## Branches
@@ -28,6 +29,9 @@ starter-studentnotes-example
 fix-physicsquiz-selection-message
 docs-author-workflow
 ```
+
+See `docs/BRANCH_AND_PR_POLICY.md` for the current branch and pull-request
+working agreement.
 
 ## Checks
 

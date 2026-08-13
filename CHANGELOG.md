@@ -56,6 +56,19 @@ This file records significant changes to the LaTeX Workspace Learning and Class 
 * Admin access, branch protection, required checks, and release permissions
   remain separate Phase 8 decisions.
 
+### Added (Checkpoint 8E)
+
+* Added `docs/BRANCH_AND_PR_POLICY.md`, defining the first branch naming,
+  pull-request, local-check, artifact, and review expectations.
+* Added `PHASE8_CHECKPOINT_8E.md`.
+
+### Decided (Checkpoint 8E)
+
+* `main` remains the stable branch.
+* Collaborator changes should use short feature branches and pull requests.
+* GitHub branch protection and required checks remain deferred until a
+  collaborator pull request has been tried and starter-build CI exists.
+
 ## Phase 7 — Local author workflow and distribution readiness
 
 **Completed: 13 August 2026.**

@@ -61,6 +61,10 @@ Each collaborator pull request should say:
 Checkpoint 7D adds `.github/PULL_REQUEST_TEMPLATE.md`, so GitHub will present
 this checklist automatically when a collaborator opens a pull request.
 
+Checkpoint 8E adds `docs/BRANCH_AND_PR_POLICY.md`, which records the first
+branch and pull-request working agreement. It keeps enforcement manual until at
+least one collaborator pull request has been tried and starter-build CI exists.
+
 ## Issue Templates
 
 Checkpoint 7D adds issue templates for:
@@ -116,6 +120,7 @@ The first onboarding packet should include:
 * `docs/AUTHOR_WORKFLOW.md`;
 * `CONTRIBUTING.md`;
 * `docs/STARTER_INVENTORY.md`;
+* `docs/BRANCH_AND_PR_POLICY.md`;
 * `docs/COLLABORATOR_ONBOARDING_CHECKLIST.md`; and
 * the starter verification command.
 
