@@ -21,9 +21,8 @@ LaTeX Workspace Learning and Class Refactoring Project
 
 ## Current phase
 
-**Phase 7 — Local author workflow and distribution readiness — in progress.
-Checkpoint 7A opened on 13 August 2026. Checkpoints 7B through 7J implemented
-on 13 August 2026.**
+**Phase 7 — Local author workflow and distribution readiness — completed on 13
+August 2026.**
 
 Phase 7 makes the repository easier to use, share, and collaborate on without
 depending on chat context. Checkpoint 7A adds the first user-facing `README.md`,
@@ -36,7 +35,9 @@ release and author-kit boundary. Checkpoint 7F records the final manual GitHub
 push checklist. Checkpoint 7G records the author-kit build checklist.
 Checkpoint 7H records the optional release-PDF checklist. Checkpoint 7I records
 the GitHub Actions/CI checklist. Checkpoint 7J resolves the combined-workbook
-starter decision by adding a small combined root.
+starter decision by adding a small combined root. Checkpoint 7K closes the
+phase and carries GitHub push, hosted CI, author-kit creation, release PDFs, and
+new functionality work forward as next-phase options.
 
 **Phase 6 — Modern LaTeX interface programming — completed on 13 August
 2026.**
@@ -794,7 +795,7 @@ entry point.
 
 ## Phase 7 status
 
-Phase 7 is in progress. It focuses on local author workflow, starter templates,
+Phase 7 is complete. It focused on local author workflow, starter templates,
 repository hygiene, distribution readiness, and collaboration.
 
 ### Checkpoint 7A - workflow and collaboration opening
@@ -908,7 +909,7 @@ optional starter preview PDFs.
 It records:
 
 * when release PDFs are useful;
-* the six starter PDFs that form the first preview set;
+* the starter PDFs that form the first preview set;
 * the Phase 7C starter runner as the build source;
 * visual review expectations before attaching PDFs; and
 * the rule that preview PDFs are attached to GitHub releases rather than
@@ -946,6 +947,35 @@ The decision is to keep both outcomes:
 * a combined workbook root for gathering modules into one PDF.
 
 The Phase 7C starter runner now builds both workbook starters.
+
+### Checkpoint 7K - closure and next-phase options
+
+Checkpoint 7K closes Phase 7 with no production class or package changes.
+
+The phase delivered:
+
+* a user-facing README;
+* a local author workflow guide;
+* a starter inventory;
+* a fast starter-only build runner;
+* copyable starters for every major author outcome;
+* GitHub collaboration files and templates;
+* private-first push guidance;
+* release-readiness, author-kit, release-PDF, and CI checklists; and
+* the combined workbook starter decision.
+
+The phase deliberately preserved source-only commits as the normal
+collaboration unit, kept generated outputs as artifacts, kept representative
+examples distinct from starters, and deferred hosted CI until after the
+repository is pushed and inspected.
+
+Next-phase options are:
+
+* push the private GitHub repository and onboard collaborators;
+* add the first GitHub Actions starter-build workflow after push inspection;
+* prepare a source-derived author kit;
+* prepare optional starter preview PDFs; or
+* open a new functionality phase after the distribution path is exercised.
 
 ## Phase 2 status
 
@@ -1850,15 +1880,23 @@ is complete. Checkpoint 5F is complete as governance closure.
 * Updated starter, author-kit, release, workflow, README, changelog, and
   collaboration records to include the combined workbook starter.
 
+### Session 40 - Checkpoint 7K Phase 7 closure
+
+* Closed Phase 7 as local author workflow and distribution readiness.
+* Added `PHASE7_CHECKPOINT_7K.md`.
+* Recorded the delivered starter, collaboration, release-readiness, push,
+  author-kit, release-PDF, CI-planning, and combined-workbook outcomes.
+* Carried GitHub push, hosted CI, author-kit creation, release PDFs, and new
+  functionality work forward as next-phase options.
+
 ## Next action
 
-Phase 7 is open. Next:
+Phase 7 is closed. Next, choose the next phase direction:
 
-1. Verify and commit Checkpoint 7J with careful staging so line-ending-only
-   `physicsquiz.cls` noise and loose generated files are not included.
-2. Decide whether Phase 7 can close after the combined-workbook starter passes.
-3. If Phase 7 closes, record a Phase 7 closure checkpoint and next-phase
-   options.
+1. push the private GitHub repository and onboard collaborators;
+2. add starter-build GitHub Actions after push inspection;
+3. prepare source-derived author-kit or starter-preview release assets; or
+4. open a new functionality phase after the distribution path is exercised.
 
 ### Line-ending state, confirmed at the close of Checkpoint 5A
 

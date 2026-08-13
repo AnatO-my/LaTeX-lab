@@ -73,5 +73,6 @@ explicitly calls for a tracked baseline artifact.
 
 ## Status
 
-Phase 6 is complete. Phase 7 opens the local author workflow and distribution
-readiness workstream.
+Phase 7 is complete. The repository is ready for private-first GitHub
+collaboration, with source-only commits, copyable starters, local starter
+verification, and manual release/author-kit checklists documented.

@@ -4,7 +4,7 @@ This file records significant changes to the LaTeX Workspace Learning and Class 
 
 ## Phase 7 — Local author workflow and distribution readiness
 
-**In progress. Checkpoint 7A opened: 13 August 2026.**
+**Completed: 13 August 2026.**
 
 ### Added (Checkpoint 7A)
 
@@ -129,6 +129,14 @@ This file records significant changes to the LaTeX Workspace Learning and Class 
 * Updated the starter inventory, author workflow guide, author-kit manifest,
   release-readiness guide, release PDF checklist, README, and collaboration
   checklist to include the combined workbook starter.
+
+### Closed (Checkpoint 7K)
+
+* Added `PHASE7_CHECKPOINT_7K.md` as the Phase 7 closure record.
+* Recorded Phase 7 as complete after the starter, collaboration, release,
+  author-kit, push, CI-planning, and combined-workbook decisions were captured.
+* Carried GitHub push, hosted CI, author-kit creation, and release PDFs forward
+  as next-phase options rather than source changes inside Phase 7.
 
 ## Phase 6 — Modern LaTeX interface programming
 
