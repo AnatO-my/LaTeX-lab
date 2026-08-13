@@ -105,3 +105,4 @@ After the first collaborator has access, consider enabling:
 
 Do not require CI checks until a GitHub Actions workflow exists and has passed
 on the repository.
+Use `docs/GITHUB_ACTIONS_CI_CHECKLIST.md` before adding that workflow.

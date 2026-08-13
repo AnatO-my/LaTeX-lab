@@ -92,6 +92,8 @@ Checkpoint 7G adds `docs/AUTHOR_KIT_BUILD_CHECKLIST.md`, which describes how to
 assemble and verify that future kit without maintaining a second copy.
 Checkpoint 7H adds `docs/RELEASE_PDF_CHECKLIST.md`, which describes how optional
 preview PDFs should be generated, reviewed, and attached to releases.
+Checkpoint 7I adds `docs/GITHUB_ACTIONS_CI_CHECKLIST.md`, which describes when
+hosted CI should be added and why it should start with the starter runner.
 
 ## Push Checklist
 

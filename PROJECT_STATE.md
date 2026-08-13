@@ -22,7 +22,7 @@ LaTeX Workspace Learning and Class Refactoring Project
 ## Current phase
 
 **Phase 7 — Local author workflow and distribution readiness — in progress.
-Checkpoint 7A opened on 13 August 2026. Checkpoints 7B through 7H implemented
+Checkpoint 7A opened on 13 August 2026. Checkpoints 7B through 7I implemented
 on 13 August 2026.**
 
 Phase 7 makes the repository easier to use, share, and collaborate on without
@@ -34,7 +34,8 @@ the missing small starters and a fast starter-only runner. Checkpoint 7D adds
 the first GitHub collaboration packaging files. Checkpoint 7E records the first
 release and author-kit boundary. Checkpoint 7F records the final manual GitHub
 push checklist. Checkpoint 7G records the author-kit build checklist.
-Checkpoint 7H records the optional release-PDF checklist.
+Checkpoint 7H records the optional release-PDF checklist. Checkpoint 7I records
+the GitHub Actions/CI checklist.
 
 **Phase 6 — Modern LaTeX interface programming — completed on 13 August
 2026.**
@@ -913,6 +914,24 @@ It records:
   committed as ordinary source.
 
 It does not create PDFs or attach release assets.
+
+### Checkpoint 7I - GitHub Actions CI checklist
+
+Checkpoint 7I adds `docs/GITHUB_ACTIONS_CI_CHECKLIST.md`, a checklist for when
+hosted CI should be introduced.
+
+It records:
+
+* CI should wait until after the private GitHub repository is pushed and
+  inspected;
+* the first workflow should run `git diff --check` and the Phase 7C starter
+  runner;
+* starter PDFs may be workflow artifacts but not committed source files;
+* full regression suites, visual review, release PDFs, and author-kit zips stay
+  local until hosted CI is stable; and
+* each hosted-check expansion should be a separate checkpoint.
+
+It does not add `.github/workflows/` or require CI for pull requests.
 
 ## Phase 2 status
 
@@ -1794,16 +1813,29 @@ is complete. Checkpoint 5F is complete as governance closure.
 * Linked the checklist from the README, release-readiness guide, author-kit
   build checklist, and GitHub collaboration checklist.
 
+### Session 38 - Checkpoint 7I GitHub Actions CI checklist
+
+* Added `docs/GITHUB_ACTIONS_CI_CHECKLIST.md`.
+* Added `PHASE7_CHECKPOINT_7I.md`.
+* Recorded that GitHub Actions should be added only after the repository is
+  pushed and inspected on GitHub.
+* Recorded the Phase 7C starter runner plus `git diff --check` as the first
+  hosted CI scope.
+* Recorded that full regression suites, visual review, release PDFs, and
+  author-kit zips should stay local until starter CI is stable.
+* Linked the CI checklist from the README, release-readiness guide, GitHub push
+  checklist, and GitHub collaboration checklist.
+
 ## Next action
 
 Phase 7 is open. Next:
 
-1. Verify and commit Checkpoint 7H with careful staging so line-ending-only
+1. Verify and commit Checkpoint 7I with careful staging so line-ending-only
    `physicsquiz.cls` noise and loose generated files are not included.
-2. Continue through the optional checklists one at a time: GitHub Actions/CI and
-   combined workbook starter.
-3. Decide whether to add a small combined-workbook starter or keep the workbook
+2. Decide whether to add a small combined-workbook starter or keep the workbook
    starter as a standalone module only.
+3. Decide whether Phase 7 can close after the combined-workbook starter decision
+   is recorded.
 
 ### Line-ending state, confirmed at the close of Checkpoint 5A
 
