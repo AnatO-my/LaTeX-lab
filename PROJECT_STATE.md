@@ -45,6 +45,8 @@ and records hashes without committing generated PDFs as source.
 Checkpoint 8H prepares the first source-derived author kit under `build/`,
 verifies it from its own root, and records the zip hash without committing the
 kit as source.
+A follow-up to Checkpoint 8F fixes hosted MiKTeX path discovery after a later
+GitHub Actions run failed to find `C:\Program Files\MiKTeX\miktex\bin\x64`.
 
 **Phase 7 — Local author workflow and distribution readiness — completed on 13
 August 2026.**
@@ -1134,6 +1136,10 @@ GitHub also reported a Node.js 20 deprecation warning for `actions/checkout@v4`
 and `actions/upload-artifact@v4` being forced onto Node.js 24. This is a future
 action-version watch item, not a failed CI result.
 
+A later pushed run failed in the MiKTeX PATH step because the workflow assumed
+`C:\Program Files\MiKTeX\miktex\bin\x64`. The workflow now searches likely
+Chocolatey and Program Files MiKTeX locations before updating `GITHUB_PATH`.
+
 ### Checkpoint 8G - release preview PDFs
 
 Checkpoint 8G prepares the first local release-preview PDF set.
@@ -2189,6 +2195,15 @@ is complete. Checkpoint 5F is complete as governance closure.
 * Removed kit-local generated `build/` outputs before zipping.
 * Added `docs/AUTHOR_KIT_AUDIT.md`.
 * Added `PHASE8_CHECKPOINT_8H.md`.
+
+### Session 49 - Checkpoint 8F hosted MiKTeX path fix
+
+* Read the GitHub Actions failure showing the hardcoded MiKTeX path was absent
+  on the hosted runner.
+* Updated `.github/workflows/starter-build.yml` to discover MiKTeX from likely
+  Program Files and Chocolatey paths.
+* Recorded the path-discovery failure in the Phase 8F checkpoint and CI
+  checklist.
 
 ## Next action
 

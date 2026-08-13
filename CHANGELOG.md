@@ -127,6 +127,12 @@ This file records significant changes to the LaTeX Workspace Learning and Class 
 * Confirmed the final kit folder and zip exclude generated outputs and
   local-only files.
 
+### Fixed (Checkpoint 8F follow-up)
+
+* Updated `.github/workflows/starter-build.yml` to discover the hosted MiKTeX
+  binary directory instead of assuming `C:\Program Files\MiKTeX\miktex\bin\x64`.
+* Recorded the hosted path-discovery failure as a CI stabilization item.
+
 ## Phase 7 — Local author workflow and distribution readiness
 
 **Completed: 13 August 2026.**

@@ -21,13 +21,28 @@ jobs:
       - name: Install MiKTeX
         run: choco install miktex --no-progress -y
 
-      - name: Add MiKTeX to PATH
+      - name: Discover MiKTeX
         shell: pwsh
         run: |
-          $miktexBin = "${env:ProgramFiles}\MiKTeX\miktex\bin\x64"
-          if (-not (Test-Path $miktexBin)) {
-              throw "MiKTeX binary directory not found: $miktexBin"
+          $candidates = @(
+              "${env:ProgramFiles}\MiKTeX\miktex\bin\x64",
+              "${env:ProgramFiles}\MiKTeX\miktex\bin",
+              "${env:ProgramFiles(x86)}\MiKTeX\miktex\bin\x64",
+              "${env:ProgramFiles(x86)}\MiKTeX\miktex\bin",
+              "${env:ChocolateyInstall}\lib\miktex\tools\miktex\bin\x64",
+              "${env:ChocolateyInstall}\lib\miktex\tools\miktex\bin"
+          ) | Where-Object { $_ -and (Test-Path $_) }
+
+          $miktexBin = $candidates | Select-Object -First 1
+          if (-not $miktexBin) {
+              Write-Host "Known MiKTeX-like directories:"
+              Get-ChildItem -Path "${env:ProgramFiles}", "${env:ProgramFiles(x86)}", "${env:ChocolateyInstall}\lib" -ErrorAction SilentlyContinue |
+                  Where-Object { $_.FullName -match 'MiKTeX|miktex' } |
+                  Select-Object -ExpandProperty FullName
+              throw "MiKTeX binary directory was not found."
           }
+
+          Write-Host "Using MiKTeX binary directory: $miktexBin"
           $miktexBin | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
 
       - name: Enable MiKTeX package installation
