@@ -19,6 +19,17 @@ This file records significant changes to the LaTeX Workspace Learning and Class 
 * The first GitHub repository should still be private-first, source-only by
   default, and inspected manually before hosted CI is added.
 
+### Added (Checkpoint 8B)
+
+* Added `PHASE8_CHECKPOINT_8B.md`, recording the first GitHub push.
+
+### Changed (Checkpoint 8B)
+
+* Updated `docs/GITHUB_LAUNCH_AUDIT.md` and `PROJECT_STATE.md` to record
+  `origin` as `https://github.com/AnatO-my/LaTeX-lab.git`.
+* Recorded that `main` now tracks `origin/main`.
+* Carried GitHub-side repository inspection forward as the next Phase 8 step.
+
 ## Phase 7 — Local author workflow and distribution readiness
 
 **Completed: 13 August 2026.**

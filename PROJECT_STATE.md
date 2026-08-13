@@ -28,6 +28,8 @@ Phase 8 turns the Phase 7 readiness package into a real collaboration launch.
 Checkpoint 8A records the local pre-push audit: the branch is `main`, no remote
 is configured yet, known local-only leftovers remain unstaged, and the next
 manual step is to create the private GitHub repository and add it as `origin`.
+Checkpoint 8B records the first GitHub push: `origin` now points to
+`https://github.com/AnatO-my/LaTeX-lab.git`, and `main` tracks `origin/main`.
 
 **Phase 7 — Local author workflow and distribution readiness — completed on 13
 August 2026.**
@@ -1008,6 +1010,30 @@ The checkpoint confirms the launch boundary:
   `.gitignore`, or license; and
 * hosted CI should wait until after the first push is inspected.
 
+### Checkpoint 8B - first GitHub push
+
+Checkpoint 8B records that the first push to GitHub succeeded.
+
+The configured remote is:
+
+```text
+origin  https://github.com/AnatO-my/LaTeX-lab.git
+```
+
+The local `main` branch now tracks `origin/main`.
+
+The checkpoint deliberately does not add GitHub Actions, release assets, branch
+protection, or collaborator permissions. Those require GitHub-side inspection
+first.
+
+Known local leftovers remain unstaged:
+
+* `.vscode/settings.json`;
+* `src/classes/physicsquiz.cls`;
+* `AGENTS.md`;
+* `examples/physicsquiz/indent.log`; and
+* `tests/__pycache__/`.
+
 ## Phase 2 status
 
 Phase 2 is complete. It audited, documented, and improved semantic document
@@ -1930,13 +1956,19 @@ is complete. Checkpoint 5F is complete as governance closure.
 * Verified the launch audit with `git diff --check`, `git remote -v`, and the
   Phase 7C starter runner.
 
+### Session 42 - Checkpoint 8B first GitHub push
+
+* Added `origin` as `https://github.com/AnatO-my/LaTeX-lab.git`.
+* Pushed `main` to GitHub.
+* Confirmed local `main` tracks `origin/main`.
+* Added `PHASE8_CHECKPOINT_8B.md`.
+* Updated the launch audit and project state with the pushed remote.
+
 ## Next action
 
 Phase 8 is open. Next:
 
-1. create the private GitHub repository;
-2. add `origin` and push `main`; and
-3. inspect the rendered GitHub repository before adding hosted CI or release
+1. inspect the rendered GitHub repository before adding hosted CI or release
    assets.
 
 ### Line-ending state, confirmed at the close of Checkpoint 5A

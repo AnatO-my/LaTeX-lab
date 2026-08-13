@@ -7,13 +7,12 @@ the bridge between the Phase 7 readiness documents and the actual push process.
 
 ## Current Result
 
-The repository is ready for the GitHub-side setup step once the current launch
-audit checkpoint is committed.
+The repository has completed the first GitHub push.
 
 Local state to preserve:
 
 * branch: `main`;
-* remote: none configured yet;
+* remote: `origin` points to `https://github.com/AnatO-my/LaTeX-lab.git`;
 * normal commit policy: source files only;
 * generated outputs: excluded from source commits; and
 * first hosted automation: deferred until after the repository is pushed and
@@ -41,6 +40,10 @@ The short sequence is:
 4. Push with `git push -u origin main`.
 5. Inspect the rendered README, contribution guide, issue templates, pull
    request template, workflow docs, and starter files on GitHub.
+
+Steps 1 through 4 are complete for
+`https://github.com/AnatO-my/LaTeX-lab.git`. The remaining launch step is
+GitHub-side inspection.
 
 ## After Push
 
