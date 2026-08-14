@@ -215,6 +215,27 @@ This file records significant changes to the LaTeX Workspace Learning and Class 
 * Recorded the first successful Phase 9A timing baseline: 15.75 seconds total,
   with a stable generated-file inventory before and after the run.
 
+### Added (Checkpoint 9B)
+
+* Added `tests/run_phase9b_generated_hygiene.ps1`, a non-destructive
+  generated-file hygiene reporter.
+* Added `docs/GENERATED_FILE_HYGIENE.md`.
+* Added `PHASE9_CHECKPOINT_9B.md`.
+
+### Changed (Checkpoint 9B)
+
+* Updated `.gitignore` to ignore `indent.log`, `__pycache__/`, and `*.py[cod]`
+  after the hygiene report identified them as visible generated leftovers.
+
+### Verification (Checkpoint 9B)
+
+* The first hygiene run completed and reported 14 tracked generated-looking
+  files, 3 visible generated-looking files, 1292 ignored generated files, and
+  1104 files under `build/`.
+* After the ignore update, the hygiene runner completed with 0 visible
+  generated-looking files, 1297 ignored generated files, and 1106 files under
+  `build/`.
+
 ## Phase 7 — Local author workflow and distribution readiness
 
 **Completed: 13 August 2026.**

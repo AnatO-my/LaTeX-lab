@@ -73,6 +73,8 @@ See `docs/GITHUB_ACTIONS_CI_CHECKLIST.md` for the starter-build GitHub Actions
 boundary.
 See `docs/BUILD_MEASUREMENT_BASELINE.md` for Phase 9 build timing and generated
 file measurement.
+See `docs/GENERATED_FILE_HYGIENE.md` for Phase 9 generated-file hygiene and
+cleanup boundaries.
 
 ## Collaboration
 

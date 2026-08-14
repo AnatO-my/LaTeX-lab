@@ -45,6 +45,14 @@ starter suite 11.01s, structured PHY104 0.90s, StudentNotes optics 0.85s,
 OTEngineering representative 1.07s, and combined vector workbook 1.92s. The
 generated-file inventory stayed stable at 1102 files and 48307557 bytes before
 and after the measured run.
+Checkpoint 9B adds non-destructive generated-file hygiene reporting. Its first
+run found 14 tracked generated-looking files, 3 visible generated-looking files,
+1292 ignored generated files, and 1104 files under `build/`. The visible
+generated leftovers were `examples/physicsquiz/indent.log` and two
+`tests/__pycache__/` Python cache files; `.gitignore` now ignores `indent.log`,
+`__pycache__/`, and `*.py[cod]`.
+After the ignore update, the hygiene runner reported 0 visible generated-looking
+files, 1297 ignored generated files, and 1106 files under `build/`.
 
 **Phase 8 — GitHub launch and collaborator onboarding — completed on 14 August
 2026.**
@@ -1382,6 +1390,56 @@ Baseline timings:
 The generated-file inventory was unchanged by the run: 1102 files and 48307557
 bytes before and after.
 
+### Checkpoint 9B - generated-file hygiene
+
+Checkpoint 9B adds non-destructive generated-file hygiene reporting.
+
+Added:
+
+```text
+tests/run_phase9b_generated_hygiene.ps1
+docs/GENERATED_FILE_HYGIENE.md
+PHASE9_CHECKPOINT_9B.md
+```
+
+The hygiene command is:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File tests\run_phase9b_generated_hygiene.ps1
+```
+
+The first hygiene run reported:
+
+| Item | Count |
+| --- | ---: |
+| tracked generated-looking files | 14 |
+| visible untracked generated-looking files | 3 |
+| ignored generated files | 1292 |
+| `build/` files | 1104 |
+| `build/` bytes | 48322129 |
+
+The visible generated leftovers were `examples/physicsquiz/indent.log` and two
+`tests/__pycache__/` Python cache files. Checkpoint 9B updates `.gitignore` to
+ignore `indent.log`, `__pycache__/`, and `*.py[cod]`.
+
+After the ignore update, the hygiene runner reported:
+
+| Item | Count |
+| --- | ---: |
+| tracked generated-looking files | 14 |
+| visible untracked generated-looking files | 0 |
+| ignored generated files | 1297 |
+| `build/` files | 1106 |
+| `build/` bytes | 48330481 |
+
+The runner writes detailed reports under:
+
+```text
+build/phase9b-generated-hygiene/
+```
+
+The reports are ignored build artifacts and are not committed.
+
 ## Phase 2 status
 
 Phase 2 is complete. It audited, documented, and improved semantic document
@@ -2449,12 +2507,22 @@ is complete. Checkpoint 5F is complete as governance closure.
   15.75 seconds total, with unchanged generated-file inventory before and after
   the run.
 
+### Session 56 - Checkpoint 9B generated-file hygiene
+
+* Added `tests/run_phase9b_generated_hygiene.ps1`, a non-destructive reporter
+  for generated-looking tracked files, visible generated leftovers, ignored
+  outputs, and `build/` size.
+* Added `docs/GENERATED_FILE_HYGIENE.md` and `PHASE9_CHECKPOINT_9B.md`.
+* Ran the hygiene report locally.
+* Updated `.gitignore` for `indent.log`, `__pycache__/`, and `*.py[cod]`.
+* Reran the hygiene report and confirmed visible generated-looking files dropped
+  to 0.
+
 ## Next action
 
 Phase 9 is open. Next:
 
-1. choose the first measured Phase 9B target: generated-file hygiene, build
-   recipe reliability, or starter-suite timing.
+1. choose the next target: build recipe reliability or starter-suite timing.
 
 ### Line-ending state, confirmed at the close of Checkpoint 5A
 

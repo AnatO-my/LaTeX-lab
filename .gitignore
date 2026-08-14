@@ -16,6 +16,13 @@
 *.vrb
 *.xdv
 
+# LaTeX formatter diagnostics
+indent.log
+
+# Python cache files
+__pycache__/
+*.py[cod]
+
 # Future controlled build directories
 build/
 out/
