@@ -53,6 +53,12 @@ The runner syntax was checked successfully, but this shell cannot see the local
 MiKTeX tools. Run the measurement command in the normal MiKTeX PowerShell
 environment to capture the first timing baseline.
 
+First normal-environment feedback showed the representative `physicsquiz`
+measurement compiled into an example-local nested `build/` folder because the
+runner passed a relative `-outdir` while `.latexmkrc` changes into the source
+document directory. The runner now converts measurement output directories to
+absolute paths before calling `latexmk`.
+
 ## Preserved
 
 Checkpoint 9A changes no author-facing document interfaces and no rendering

@@ -45,6 +45,10 @@ build/phase9a-measurement/
 Those reports are intentionally ignored build artifacts. They should not be
 committed as ordinary source.
 
+The measurement runner passes absolute output paths to `latexmk`. This matters
+because the repository `.latexmkrc` builds each root document from its own
+folder.
+
 ## Optimization Rule
 
 Phase 9 changes should be measurement-led.

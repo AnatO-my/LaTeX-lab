@@ -32,7 +32,10 @@ notebook, and the combined vector workbook root. It writes generated reports
 under `build/phase9a-measurement/`, which remains ignored. In this Codex shell,
 the first timing run stopped because `latexmk` was not visible on `PATH`; the
 runner syntax check passed, and the timing baseline should be captured in the
-normal MiKTeX PowerShell environment.
+normal MiKTeX PowerShell environment. First normal-environment feedback showed
+the representative `physicsquiz` measurement writing under an example-local
+nested `build/` folder because the runner passed a relative `-outdir`; the
+runner now passes absolute output paths to `latexmk`.
 
 **Phase 8 — GitHub launch and collaborator onboarding — completed on 14 August
 2026.**
@@ -1335,6 +1338,12 @@ This Codex shell could not complete the timing run because `latexmk` was not on
 baseline should be recorded after running the command in the normal MiKTeX
 PowerShell environment.
 
+The first normal-environment attempt exposed a measurement-script path issue:
+because `.latexmkrc` changes into each source document's directory, the relative
+representative-build output path was interpreted under `examples/physicsquiz/`.
+The runner now converts each representative output directory to an absolute
+path before calling `latexmk`.
+
 ## Phase 2 status
 
 Phase 2 is complete. It audited, documented, and improved semantic document
@@ -2392,6 +2401,8 @@ is complete. Checkpoint 5F is complete as governance closure.
 * Recorded that this Codex shell cannot see `latexmk` on `PATH`, so the first
   timing baseline should be captured in the normal MiKTeX PowerShell
   environment.
+* Fixed representative-build output paths to be absolute before invoking
+  `latexmk`.
 
 ## Next action
 

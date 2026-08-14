@@ -99,13 +99,18 @@ function Invoke-LatexmkBuild {
         throw "Required source is missing: $Source"
     }
 
-    New-Item -ItemType Directory -Force -Path $Output | Out-Null
-    & latexmk -pdf -interaction=nonstopmode -halt-on-error "-outdir=$Output" $Source
+    $outputPath = $Output
+    if (-not [System.IO.Path]::IsPathRooted($outputPath)) {
+        $outputPath = Join-Path $root $outputPath
+    }
+
+    New-Item -ItemType Directory -Force -Path $outputPath | Out-Null
+    & latexmk -pdf -interaction=nonstopmode -halt-on-error "-outdir=$outputPath" $Source
     if ($LASTEXITCODE -ne 0) {
         throw "LaTeX compilation failed for $Source"
     }
 
-    $pdfPath = Join-Path $Output "$Stem.pdf"
+    $pdfPath = Join-Path $outputPath "$Stem.pdf"
     if (-not (Test-Path -LiteralPath $pdfPath)) {
         throw "Expected PDF was not created: $pdfPath"
     }

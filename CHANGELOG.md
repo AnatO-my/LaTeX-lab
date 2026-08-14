@@ -205,6 +205,9 @@ This file records significant changes to the LaTeX Workspace Learning and Class 
 * The first timing run could not complete in this Codex shell because `latexmk`
   was not visible on `PATH`; the command should be run in the normal MiKTeX
   PowerShell environment.
+* Fixed the measurement runner to pass absolute output paths to `latexmk` after
+  normal-environment feedback showed a representative build writing under an
+  example-local nested `build/` folder.
 
 ## Phase 7 — Local author workflow and distribution readiness
 
