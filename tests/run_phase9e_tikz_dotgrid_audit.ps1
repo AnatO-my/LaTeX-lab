@@ -87,8 +87,8 @@ try {
         }
 
         $dotGridInstallCount = Count-RegexMatches $studentNotes "\\AddToShipoutPictureBG"
-        if ($dotGridInstallCount -ne 1) {
-            Add-Finding $findings "warn" "studentnotes dot-grid" "Expected one shipout background installer; found $dotGridInstallCount."
+        if ($dotGridInstallCount -ne 2) {
+            Add-Finding $findings "warn" "studentnotes dot-grid" "Expected two shipout background installers after the image/PDF opt-in path; found $dotGridInstallCount."
         }
 
         $usedotgridDefinition = Count-RegexMatches $studentNotes "\\newcommand\{\\usedotgrid\}"

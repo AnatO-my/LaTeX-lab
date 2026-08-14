@@ -1,0 +1,23 @@
+\documentclass{studentnotes}
+
+\setnotetitle{StudentNotes Dot-Grid Image Fallback Test}
+\setnotecourse{Phase 9F Dot-Grid Verification}
+\setnoteauthor{OT}
+\setnotedate{14 August 2026}
+\setdotgridbackgroundimage{tests/missing-dotgrid-background.pdf}
+\usedotgrid
+\usedotgrid
+
+\begin{document}
+
+\typeout{OT9F-DOTGRID:IMAGE-FALLBACK}
+\typeout{OT9F-DOTGRID:REPEATED-CALL}
+
+\makenotetitle
+
+This fixture opts into an image/PDF dot-grid background path that is deliberately
+absent. The class should warn and fall back to the existing TikZ dot grid.
+
+Calling \verb|\usedotgrid| twice should not install a second page background.
+
+\end{document}

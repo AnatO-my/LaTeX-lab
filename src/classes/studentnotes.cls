@@ -96,7 +96,17 @@
 % ------------------------------------------------
 % DOTTED SQUARE PAPER BACKGROUND
 % ------------------------------------------------
-\newcommand{\dotgridbackground}{
+\makeatletter
+\newif\ifstudentnotes@dotgrid@enabled
+\newif\ifstudentnotes@dotgrid@useimage
+\newcommand{\studentnotes@dotgridimage}{}
+
+\newcommand{\setdotgridbackgroundimage}[1]{%
+    \renewcommand{\studentnotes@dotgridimage}{#1}%
+    \studentnotes@dotgrid@useimagetrue
+}
+
+\newcommand{\studentnotes@tikzdotgridbackground}{
     \AddToShipoutPictureBG{
         \begin{tikzpicture}[remember picture,overlay]
             \foreach \x in {0,0.5,...,21}
@@ -106,8 +116,35 @@
     }
 }
 
+\newcommand{\studentnotes@imagedotgridbackground}{
+    \AddToShipoutPictureBG{%
+        \AtPageLowerLeft{%
+            \includegraphics[width=\paperwidth,height=\paperheight]{\studentnotes@dotgridimage}%
+        }%
+    }
+}
+
+\newcommand{\dotgridbackground}{%
+    \ifstudentnotes@dotgrid@enabled
+        \ClassInfo{studentnotes}{Dot-grid background is already enabled; ignoring repeated request}%
+    \else
+        \studentnotes@dotgrid@enabledtrue
+        \ifstudentnotes@dotgrid@useimage
+            \IfFileExists{\studentnotes@dotgridimage}{%
+                \studentnotes@imagedotgridbackground
+            }{%
+                \ClassWarning{studentnotes}{Dot-grid background image '\studentnotes@dotgridimage' was not found; falling back to TikZ dot grid}%
+                \studentnotes@tikzdotgridbackground
+            }%
+        \else
+            \studentnotes@tikzdotgridbackground
+        \fi
+    \fi
+}
+
 % Turn background on
 \newcommand{\usedotgrid}{\dotgridbackground}
+\makeatother
 
 % ------------------------------------------------
 % QUICK NOTE BOXES

@@ -640,6 +640,7 @@ class-option forwarding interface.
 | `\setnoteauthor{<author>}` | 1 required | Replaces `Name` |
 | `\setnotedate{<date>}` | 1 required | Replaces `\today` |
 | `\makenotetitle` | none | Produces the configured note heading |
+| `\setdotgridbackgroundimage{<path>}` | 1 required | Enables the opt-in image/PDF dot-grid path |
 | `\usedotgrid` | none | Enables the dotted page background |
 
 Example:
@@ -658,9 +659,17 @@ Example:
 \end{document}
 ```
 
+For the image/PDF background path:
+
+```latex
+\setdotgridbackgroundimage{assets/dot-grid-a4.pdf}
+\usedotgrid
+```
+
 The metadata setters, title command, and `\usedotgrid` are representative-use
-verified. `\usedotgrid` should be called at most once: repeated calls can install
-the shipout background repeatedly. The grid is intentionally drawing-intensive.
+verified. `\usedotgrid` is idempotent: repeated calls do not install repeated
+shipout backgrounds. The TikZ grid remains the fallback when no image/PDF path
+is configured or when the configured file is missing.
 
 The commands `\notetitle`, `\notecourse`, `\noteauthor`, and `\notedate` are
 metadata storage. Authors should change them through the corresponding setters.

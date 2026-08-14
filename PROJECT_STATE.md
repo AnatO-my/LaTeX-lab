@@ -63,6 +63,12 @@ Checkpoint 9E adds a TikZ and dot-grid audit. It confirmed that the current
 StudentNotes dot grid remains optional, the representative Optics example keeps
 `\usedotgrid` commented by default, the helper smoke test exercises the command
 once, and the current dot-grid drawing estimate is 2,580 dots per page.
+Checkpoint 9F adds the conservative StudentNotes dot-grid modernization:
+`\setdotgridbackgroundimage{<path>}` opts into a page-sized image/PDF
+background, the original TikZ grid remains the fallback, and repeated
+`\usedotgrid` calls no longer install repeated backgrounds. Source checks passed
+in this Codex shell, and the normal MiKTeX PowerShell run passed the full
+compile verification.
 
 **Phase 8 — GitHub launch and collaborator onboarding — completed on 14 August
 2026.**
@@ -1546,6 +1552,35 @@ exercises the helper once.
 The reusable `otfigures` surface remains small: six figure macros are defined,
 and only `\vectorfigure` is used by the current tests/examples inventory.
 
+### Checkpoint 9F - dot-grid opt-in image path
+
+Checkpoint 9F adds a conservative image/PDF path for the StudentNotes dot-grid
+background.
+
+Added:
+
+```text
+tests/run_phase9f_dotgrid_modernization.ps1
+tests/studentnotes_dotgrid_image_fallback.tex
+docs/DOTGRID_MODERNIZATION.md
+PHASE9_CHECKPOINT_9F.md
+```
+
+Changed:
+
+* `\setdotgridbackgroundimage{<path>}` opts into a page-sized image/PDF
+  background.
+* `\usedotgrid` remains the author-facing command and is now idempotent.
+* The original TikZ dot grid remains the fallback when no image/PDF path is set
+  or when the configured file is missing.
+* The image/PDF method is not the default unless later timing and packaging
+  checks justify that decision.
+
+The Phase 9F source checks passed in this Codex shell. The normal MiKTeX
+PowerShell run passed the full Phase 9F dot-grid modernization check. Phase 9E
+was rerun and passed with 0 warnings and 0 failures. Phase 9C was rerun and
+parsed 22 of 22 PowerShell runners with 0 findings and 0 failures.
+
 ## Phase 2 status
 
 Phase 2 is complete. It audited, documented, and improved semantic document
@@ -2653,12 +2688,25 @@ is complete. Checkpoint 5F is complete as governance closure.
 * Reran the Phase 9C reliability guard; it parsed 21 of 21 PowerShell runners
   and reported 0 findings and 0 failures.
 
+### Session 60 - Checkpoint 9F dot-grid opt-in image path
+
+* Added `\setdotgridbackgroundimage{<path>}` to `studentnotes.cls`.
+* Kept the TikZ dot grid as the fallback.
+* Made repeated `\usedotgrid` calls harmless.
+* Added `tests/studentnotes_dotgrid_image_fallback.tex` and
+  `tests/run_phase9f_dotgrid_modernization.ps1`.
+* Added `docs/DOTGRID_MODERNIZATION.md` and `PHASE9_CHECKPOINT_9F.md`.
+* Confirmed Phase 9F source checks passed in this Codex shell.
+* Confirmed the normal MiKTeX PowerShell run passed the full Phase 9F dot-grid
+  modernization check.
+* Reran Phase 9E and Phase 9C; both passed.
+
 ## Next action
 
 Phase 9 is open. Next:
 
-1. decide whether Phase 9F should add a guarded dot-grid idempotence
-   modernization or move to broader CI measurement.
+1. decide the next Phase 9 checkpoint: image/PDF asset packaging measurement,
+   broader CI measurement, or Phase 9 closure.
 
 ### Line-ending state, confirmed at the close of Checkpoint 5A
 

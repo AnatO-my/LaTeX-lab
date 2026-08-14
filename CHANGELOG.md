@@ -291,6 +291,33 @@ This file records significant changes to the LaTeX Workspace Learning and Class 
 * Reran the Phase 9C reliability guard; it parsed 21 of 21 PowerShell runners
   and reported 0 findings and 0 failures.
 
+### Added (Checkpoint 9F)
+
+* Added `\setdotgridbackgroundimage{<path>}` to `studentnotes.cls`.
+* Added `tests/studentnotes_dotgrid_image_fallback.tex`.
+* Added `tests/run_phase9f_dotgrid_modernization.ps1`.
+* Added `docs/DOTGRID_MODERNIZATION.md`.
+* Added `PHASE9_CHECKPOINT_9F.md`.
+
+### Changed (Checkpoint 9F)
+
+* Kept the original TikZ dot grid as the default fallback.
+* Added an opt-in image/PDF background path for StudentNotes dot-grid pages.
+* Made repeated `\usedotgrid` calls harmless.
+* Updated the Phase 9E audit expectation so the image/PDF installer and TikZ
+  fallback installer are both recognized.
+
+### Verification (Checkpoint 9F)
+
+* The Phase 9F source checks passed in this Codex shell.
+* The Phase 9E TikZ/dot-grid audit still passed with 0 warnings and 0 failures.
+* The Phase 9C reliability guard parsed 22 of 22 PowerShell runners and
+  reported 0 findings and 0 failures.
+* The normal MiKTeX PowerShell run passed the full Phase 9F dot-grid
+  modernization check.
+* The Codex shell cannot see `latexmk` on `PATH`, so it runs source checks only
+  for this checkpoint.
+
 ## Phase 7 — Local author workflow and distribution readiness
 
 **Completed: 13 August 2026.**
