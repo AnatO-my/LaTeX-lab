@@ -37,7 +37,9 @@ the representative `physicsquiz` measurement writing under an example-local
 nested `build/` folder because the runner passed a relative `-outdir`; the
 runner now passes absolute output paths to `latexmk`. Second feedback showed
 build output entering the timing result list; the timing wrapper now displays
-action output without returning it as measurement data.
+action output without returning it as measurement data. Third feedback showed
+final report construction failing under Windows PowerShell; the report now uses
+a plain timing-record array and explicit note properties.
 
 **Phase 8 — GitHub launch and collaborator onboarding — completed on 14 August
 2026.**
@@ -1351,6 +1353,11 @@ wrapper: build output was entering `$results`, so the final `Seconds` total
 could not be calculated. The wrapper now routes action output to the host
 display and returns only the timing record.
 
+The third normal-environment attempt reached final report construction but
+failed with an argument-type mismatch. The runner now converts the generic
+timing list to a plain array and constructs the report with explicit note
+properties for Windows PowerShell compatibility.
+
 ## Phase 2 status
 
 Phase 2 is complete. It audited, documented, and improved semantic document
@@ -2412,6 +2419,8 @@ is complete. Checkpoint 5F is complete as governance closure.
   `latexmk`.
 * Fixed the timing wrapper so build output is not added to the measurement
   result list.
+* Reworked final report construction to avoid the Windows PowerShell
+  argument-type mismatch.
 
 ## Next action
 

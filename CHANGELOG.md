@@ -210,6 +210,8 @@ This file records significant changes to the LaTeX Workspace Learning and Class 
   example-local nested `build/` folder.
 * Fixed the timing wrapper so build output is displayed without entering the
   measurement result list.
+* Reworked final report construction to use a plain timing-record array and
+  explicit note properties for Windows PowerShell compatibility.
 
 ## Phase 7 — Local author workflow and distribution readiness
 

@@ -52,6 +52,9 @@ folder.
 The runner prints build output while keeping the timing result list clean, so
 the final total is calculated only from measurement records.
 
+The final report is built from a plain timing-record array for compatibility
+with the normal Windows PowerShell environment.
+
 ## Optimization Rule
 
 Phase 9 changes should be measurement-led.

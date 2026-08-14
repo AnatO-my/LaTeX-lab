@@ -64,6 +64,10 @@ result collection, which made the final `Seconds` total fail. The timing wrapper
 now sends action output to the host display and returns only one timing record
 per measured step.
 
+Third normal-environment feedback showed the final report object construction
+failing under Windows PowerShell. The runner now converts the timing list to a
+plain array and builds the report with explicit note properties.
+
 ## Preserved
 
 Checkpoint 9A changes no author-facing document interfaces and no rendering

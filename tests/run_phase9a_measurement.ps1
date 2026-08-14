@@ -180,17 +180,17 @@ try {
     }
 
     $inventoryAfter = Get-FileInventory -Path (Join-Path $root "build")
-    $totalSeconds = [math]::Round((($results | ForEach-Object { [double]$_.Seconds } | Measure-Object -Sum).Sum), 2)
+    $resultRecords = @($results.ToArray())
+    $totalSeconds = [math]::Round((($resultRecords | ForEach-Object { [double]$_.Seconds } | Measure-Object -Sum).Sum), 2)
 
-    $report = [pscustomobject]@{
-        CreatedAt = (Get-Date).ToString("s")
-        Root = $root
-        StartersOnly = [bool]$StartersOnly
-        TotalSeconds = $totalSeconds
-        Results = @($results)
-        BuildInventoryBefore = $inventoryBefore
-        BuildInventoryAfter = $inventoryAfter
-    }
+    $report = New-Object psobject
+    $report | Add-Member -MemberType NoteProperty -Name CreatedAt -Value (Get-Date).ToString("s")
+    $report | Add-Member -MemberType NoteProperty -Name Root -Value $root
+    $report | Add-Member -MemberType NoteProperty -Name StartersOnly -Value $StartersOnly.IsPresent
+    $report | Add-Member -MemberType NoteProperty -Name TotalSeconds -Value $totalSeconds
+    $report | Add-Member -MemberType NoteProperty -Name Results -Value $resultRecords
+    $report | Add-Member -MemberType NoteProperty -Name BuildInventoryBefore -Value $inventoryBefore
+    $report | Add-Member -MemberType NoteProperty -Name BuildInventoryAfter -Value $inventoryAfter
 
     $report | ConvertTo-Json -Depth 8 | Set-Content -Path $reportJson -Encoding UTF8
 
@@ -203,7 +203,7 @@ try {
     $lines.Add("")
     $lines.Add("| Target | Status | Seconds |")
     $lines.Add("| --- | --- | ---: |")
-    foreach ($result in $results) {
+    foreach ($result in $resultRecords) {
         $lines.Add("| $($result.Name) | $($result.Status) | $($result.Seconds) |")
     }
     $lines.Add("")
