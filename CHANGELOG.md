@@ -4,7 +4,7 @@ This file records significant changes to the LaTeX Workspace Learning and Class 
 
 ## Phase 8 — GitHub launch and collaborator onboarding
 
-**In progress. Checkpoint 8A opened: 13 August 2026.**
+**Completed: 14 August 2026.**
 
 ### Added (Checkpoint 8A)
 
@@ -163,6 +163,22 @@ This file records significant changes to the LaTeX Workspace Learning and Class 
 * Force pushes and branch deletion should remain blocked.
 * Signed commits, linear history, merge queue, deployment requirements, full
   regression workflows, and no-admin-bypass enforcement remain later decisions.
+
+### Confirmed (Checkpoint 8I)
+
+* Confirmed on GitHub that the `main` branch protection rule currently applies
+  to one branch.
+
+### Closed (Checkpoint 8J)
+
+* Added `PHASE8_CHECKPOINT_8J.md`.
+* Closed Phase 8 after the GitHub launch, repository inspection, collaborator
+  onboarding records, branch and pull-request policy, starter-build CI,
+  release-preview audit, author-kit audit, and protected-`main` rule were in
+  place.
+* Carried the first protected collaborator pull request, GitHub release assets,
+  broader CI, stricter branch protection, and future document capabilities
+  forward as post-Phase-8 work.
 
 ## Phase 7 — Local author workflow and distribution readiness
 

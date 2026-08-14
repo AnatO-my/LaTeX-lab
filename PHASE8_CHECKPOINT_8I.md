@@ -74,3 +74,10 @@ Commit e9374af: Success in 5m 12s.
 Starter documents job passed in 5m 9s.
 Artifact: starter-pdfs, 780 KB.
 ```
+
+GitHub branch-protection confirmation:
+
+```text
+main
+Currently applies to 1 branch
+```

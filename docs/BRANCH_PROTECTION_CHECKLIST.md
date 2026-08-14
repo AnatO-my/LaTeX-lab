@@ -74,6 +74,15 @@ After the rule is saved:
 * stale approvals are cleared when new commits are pushed; and
 * force pushes and branch deletion stay blocked by default.
 
+## Applied Result
+
+The first rule has been applied on GitHub. The branch settings page showed:
+
+```text
+main
+Currently applies to 1 branch
+```
+
 ## Deferred Tightening
 
 Do not add stricter requirements until the first protected collaborator pull

@@ -21,8 +21,8 @@ LaTeX Workspace Learning and Class Refactoring Project
 
 ## Current phase
 
-**Phase 8 — GitHub launch and collaborator onboarding — in progress.
-Checkpoint 8A opened on 13 August 2026.**
+**Phase 8 — GitHub launch and collaborator onboarding — completed on 14 August
+2026.**
 
 Phase 8 turns the Phase 7 readiness package into a real collaboration launch.
 Checkpoint 8A records the local pre-push audit: the branch is `main`, no remote
@@ -60,6 +60,8 @@ workflow duration 5m 12s and a 780 KB `starter-pdfs` artifact. Checkpoint 8I
 records the first protected-`main` branch rule: pull requests, one approval,
 conversation resolution, up-to-date branches, and the `Starter documents`
 required status check.
+GitHub confirmed that the `main` branch protection rule currently applies to one
+branch. Checkpoint 8J closes the phase.
 
 **Phase 7 — Local author workflow and distribution readiness — completed on 13
 August 2026.**
@@ -1263,6 +1265,33 @@ Starter documents job passed in 5m 9s.
 Artifact: starter-pdfs, 780 KB.
 ```
 
+GitHub branch-protection confirmation:
+
+```text
+main
+Currently applies to 1 branch
+```
+
+### Checkpoint 8J - Phase 8 closure
+
+Checkpoint 8J closes Phase 8.
+
+Phase 8 moved the project from local distribution readiness to a private GitHub
+repository with:
+
+* source-only launch hygiene;
+* first GitHub push and repository inspection;
+* collaborator onboarding;
+* branch and pull-request policy;
+* starter-build GitHub Actions;
+* release-preview PDF audit;
+* source-derived author-kit audit; and
+* protected-`main` settings.
+
+The first protected rule requires pull requests, one approval, conversation
+resolution, up-to-date branches, and the `Starter documents` hosted check.
+Generated outputs remain outside ordinary source commits.
+
 ## Phase 2 status
 
 Phase 2 is complete. It audited, documented, and improved semantic document
@@ -2302,13 +2331,21 @@ is complete. Checkpoint 5F is complete as governance closure.
 * Kept full regression workflows and stricter repository controls deferred
   until the first protected collaborator pull request has been tried.
 
+### Session 54 - Checkpoint 8J Phase 8 closure
+
+* Confirmed the GitHub branch settings page showed `main` currently applying to
+  one protected branch rule.
+* Added `PHASE8_CHECKPOINT_8J.md`.
+* Closed Phase 8 after launch, onboarding, starter CI, release-preview,
+  author-kit, and branch-protection records were complete.
+
 ## Next action
 
-Phase 8 is open. Next:
+Phase 8 is complete. Next:
 
-1. apply the `main` branch protection rule from
-   `docs/BRANCH_PROTECTION_CHECKLIST.md` on GitHub; then
-2. close Phase 8.
+1. choose the post-Phase-8 direction: first protected collaborator pull
+   request, GitHub release assets, broader CI, stricter branch protection, or
+   new document capabilities.
 
 ### Line-ending state, confirmed at the close of Checkpoint 5A
 

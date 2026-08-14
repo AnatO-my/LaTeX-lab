@@ -83,5 +83,6 @@ explicitly calls for a tracked baseline artifact.
 
 ## Status
 
-Phase 8 is open as the GitHub launch and collaborator-onboarding phase. Phase 7
-closed the local workflow and distribution-readiness boundary.
+Phase 8 is complete. The project now has the private GitHub launch records,
+starter-build CI, collaborator onboarding docs, release-preview and author-kit
+audits, and protected-`main` branch settings.
