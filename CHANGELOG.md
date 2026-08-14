@@ -208,6 +208,8 @@ This file records significant changes to the LaTeX Workspace Learning and Class 
 * Fixed the measurement runner to pass absolute output paths to `latexmk` after
   normal-environment feedback showed a representative build writing under an
   example-local nested `build/` folder.
+* Fixed the timing wrapper so build output is displayed without entering the
+  measurement result list.
 
 ## Phase 7 — Local author workflow and distribution readiness
 

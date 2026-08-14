@@ -59,6 +59,11 @@ runner passed a relative `-outdir` while `.latexmkrc` changes into the source
 document directory. The runner now converts measurement output directories to
 absolute paths before calling `latexmk`.
 
+Second normal-environment feedback showed build output entering the timing
+result collection, which made the final `Seconds` total fail. The timing wrapper
+now sends action output to the host display and returns only one timing record
+per measured step.
+
 ## Preserved
 
 Checkpoint 9A changes no author-facing document interfaces and no rendering

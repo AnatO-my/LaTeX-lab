@@ -64,7 +64,7 @@ function Invoke-TimedStep {
     $message = ""
 
     try {
-        & $Action
+        & $Action | Out-Host
     } catch {
         $status = "fail"
         $message = $_.Exception.Message
@@ -180,7 +180,7 @@ try {
     }
 
     $inventoryAfter = Get-FileInventory -Path (Join-Path $root "build")
-    $totalSeconds = [math]::Round((($results | Measure-Object -Property Seconds -Sum).Sum), 2)
+    $totalSeconds = [math]::Round((($results | ForEach-Object { [double]$_.Seconds } | Measure-Object -Sum).Sum), 2)
 
     $report = [pscustomobject]@{
         CreatedAt = (Get-Date).ToString("s")

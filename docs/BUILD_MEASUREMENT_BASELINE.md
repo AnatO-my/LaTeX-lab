@@ -49,6 +49,9 @@ The measurement runner passes absolute output paths to `latexmk`. This matters
 because the repository `.latexmkrc` builds each root document from its own
 folder.
 
+The runner prints build output while keeping the timing result list clean, so
+the final total is calculated only from measurement records.
+
 ## Optimization Rule
 
 Phase 9 changes should be measurement-led.

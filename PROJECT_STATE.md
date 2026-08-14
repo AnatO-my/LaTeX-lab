@@ -35,7 +35,9 @@ runner syntax check passed, and the timing baseline should be captured in the
 normal MiKTeX PowerShell environment. First normal-environment feedback showed
 the representative `physicsquiz` measurement writing under an example-local
 nested `build/` folder because the runner passed a relative `-outdir`; the
-runner now passes absolute output paths to `latexmk`.
+runner now passes absolute output paths to `latexmk`. Second feedback showed
+build output entering the timing result list; the timing wrapper now displays
+action output without returning it as measurement data.
 
 **Phase 8 — GitHub launch and collaborator onboarding — completed on 14 August
 2026.**
@@ -1344,6 +1346,11 @@ representative-build output path was interpreted under `examples/physicsquiz/`.
 The runner now converts each representative output directory to an absolute
 path before calling `latexmk`.
 
+The second normal-environment attempt exposed output pollution in the timing
+wrapper: build output was entering `$results`, so the final `Seconds` total
+could not be calculated. The wrapper now routes action output to the host
+display and returns only the timing record.
+
 ## Phase 2 status
 
 Phase 2 is complete. It audited, documented, and improved semantic document
@@ -2403,6 +2410,8 @@ is complete. Checkpoint 5F is complete as governance closure.
   environment.
 * Fixed representative-build output paths to be absolute before invoking
   `latexmk`.
+* Fixed the timing wrapper so build output is not added to the measurement
+  result list.
 
 ## Next action
 
