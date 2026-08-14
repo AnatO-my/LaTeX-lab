@@ -71,6 +71,8 @@ See `docs/BRANCH_PROTECTION_CHECKLIST.md` for the first protected-`main`
 settings.
 See `docs/GITHUB_ACTIONS_CI_CHECKLIST.md` for the starter-build GitHub Actions
 boundary.
+See `docs/BUILD_MEASUREMENT_BASELINE.md` for Phase 9 build timing and generated
+file measurement.
 
 ## Collaboration
 
@@ -83,6 +85,6 @@ explicitly calls for a tracked baseline artifact.
 
 ## Status
 
-Phase 8 is complete. The project now has the private GitHub launch records,
-starter-build CI, collaborator onboarding docs, release-preview and author-kit
-audits, and protected-`main` branch settings.
+Phase 9 is open as the automation and performance phase. Phase 8 closed the
+private GitHub launch, starter-build CI, collaborator onboarding docs,
+release-preview and author-kit audits, and protected-`main` branch settings.

@@ -21,6 +21,19 @@ LaTeX Workspace Learning and Class Refactoring Project
 
 ## Current phase
 
+**Phase 9 — Automation and performance — in progress.
+Checkpoint 9A opened on 14 August 2026.**
+
+Phase 9 begins with measurement before optimization. Checkpoint 9A adds
+`tests/run_phase9a_measurement.ps1` and `docs/BUILD_MEASUREMENT_BASELINE.md`.
+The runner measures the starter suite, the structured PHY104 quiz, the
+representative StudentNotes optics document, the representative OTEngineering
+notebook, and the combined vector workbook root. It writes generated reports
+under `build/phase9a-measurement/`, which remains ignored. In this Codex shell,
+the first timing run stopped because `latexmk` was not visible on `PATH`; the
+runner syntax check passed, and the timing baseline should be captured in the
+normal MiKTeX PowerShell environment.
+
 **Phase 8 — GitHub launch and collaborator onboarding — completed on 14 August
 2026.**
 
@@ -1292,6 +1305,36 @@ The first protected rule requires pull requests, one approval, conversation
 resolution, up-to-date branches, and the `Starter documents` hosted check.
 Generated outputs remain outside ordinary source commits.
 
+### Checkpoint 9A - measurement baseline
+
+Checkpoint 9A opens Phase 9 by adding a build-measurement runner and baseline
+guide.
+
+Added:
+
+```text
+tests/run_phase9a_measurement.ps1
+docs/BUILD_MEASUREMENT_BASELINE.md
+PHASE9_CHECKPOINT_9A.md
+```
+
+The default measurement command is:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File tests\run_phase9a_measurement.ps1
+```
+
+The runner writes generated reports under:
+
+```text
+build/phase9a-measurement/
+```
+
+This Codex shell could not complete the timing run because `latexmk` was not on
+`PATH`. The runner passed PowerShell syntax checking, and the first timing
+baseline should be recorded after running the command in the normal MiKTeX
+PowerShell environment.
+
 ## Phase 2 status
 
 Phase 2 is complete. It audited, documented, and improved semantic document
@@ -2339,13 +2382,25 @@ is complete. Checkpoint 5F is complete as governance closure.
 * Closed Phase 8 after launch, onboarding, starter CI, release-preview,
   author-kit, and branch-protection records were complete.
 
+### Session 55 - Checkpoint 9A measurement baseline
+
+* Opened Phase 9 as automation and performance.
+* Added `tests/run_phase9a_measurement.ps1` to measure the starter suite and
+  representative builds before optimization.
+* Added `docs/BUILD_MEASUREMENT_BASELINE.md` and `PHASE9_CHECKPOINT_9A.md`.
+* Confirmed the measurement runner passes PowerShell syntax checking.
+* Recorded that this Codex shell cannot see `latexmk` on `PATH`, so the first
+  timing baseline should be captured in the normal MiKTeX PowerShell
+  environment.
+
 ## Next action
 
-Phase 8 is complete. Next:
+Phase 9 is open. Next:
 
-1. choose the post-Phase-8 direction: first protected collaborator pull
-   request, GitHub release assets, broader CI, stricter branch protection, or
-   new document capabilities.
+1. run `tests\run_phase9a_measurement.ps1` in the normal MiKTeX PowerShell
+   environment; then
+2. record the first timing baseline and choose the first measured optimization
+   target.
 
 ### Line-ending state, confirmed at the close of Checkpoint 5A
 

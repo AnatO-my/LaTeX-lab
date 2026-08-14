@@ -180,6 +180,32 @@ This file records significant changes to the LaTeX Workspace Learning and Class 
   broader CI, stricter branch protection, and future document capabilities
   forward as post-Phase-8 work.
 
+## Phase 9 — Automation and performance
+
+**In progress. Checkpoint 9A opened: 14 August 2026.**
+
+### Added (Checkpoint 9A)
+
+* Added `tests/run_phase9a_measurement.ps1`, a measurement runner for starter
+  and representative builds.
+* Added `docs/BUILD_MEASUREMENT_BASELINE.md`.
+* Added `PHASE9_CHECKPOINT_9A.md`.
+
+### Decided (Checkpoint 9A)
+
+* Phase 9 begins with measurement, not optimization.
+* Generated timing reports belong under `build/phase9a-measurement/` and remain
+  ignored build artifacts.
+* Class, package, TikZ, dot-grid, and build-recipe changes remain deferred until
+  a measurement shows a clear target.
+
+### Verification (Checkpoint 9A)
+
+* The Phase 9A runner passed PowerShell syntax checking.
+* The first timing run could not complete in this Codex shell because `latexmk`
+  was not visible on `PATH`; the command should be run in the normal MiKTeX
+  PowerShell environment.
+
 ## Phase 7 — Local author workflow and distribution readiness
 
 **Completed: 13 August 2026.**
