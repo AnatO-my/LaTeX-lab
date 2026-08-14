@@ -21,8 +21,7 @@ LaTeX Workspace Learning and Class Refactoring Project
 
 ## Current phase
 
-**Phase 9 — Automation and performance — in progress.
-Checkpoint 9A opened on 14 August 2026.**
+**Phase 9 — Automation and performance — completed on 14 August 2026.**
 
 Phase 9 begins with measurement before optimization. Checkpoint 9A adds
 `tests/run_phase9a_measurement.ps1` and `docs/BUILD_MEASUREMENT_BASELINE.md`.
@@ -69,6 +68,14 @@ background, the original TikZ grid remains the fallback, and repeated
 `\usedotgrid` calls no longer install repeated backgrounds. Source checks passed
 in this Codex shell, and the normal MiKTeX PowerShell run passed the full
 compile verification.
+Checkpoint 9G closes Phase 9 after adding a source-level closeout guard and
+recording Phase 10 carry-forward work.
+
+**Phase 10 — Testing and releases — ready to begin.**
+
+Phase 10 should treat the classes and packages as maintained software: version
+policy, release notes, release assets, broader CI, and a possible small
+`l3build` regression suite.
 
 **Phase 8 — GitHub launch and collaborator onboarding — completed on 14 August
 2026.**
@@ -1581,6 +1588,31 @@ PowerShell run passed the full Phase 9F dot-grid modernization check. Phase 9E
 was rerun and passed with 0 warnings and 0 failures. Phase 9C was rerun and
 parsed 22 of 22 PowerShell runners with 0 findings and 0 failures.
 
+### Checkpoint 9G - closure
+
+Checkpoint 9G closes Phase 9.
+
+Added:
+
+```text
+tests/run_phase9g_phase_closeout.ps1
+docs/PHASE9_CLOSEOUT.md
+PHASE9_CHECKPOINT_9G.md
+```
+
+The closeout command is:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File tests\run_phase9g_phase_closeout.ps1
+```
+
+The closeout guard verifies the Phase 9 checkpoint files, docs, runners, and
+recorded result markers before Phase 10 begins.
+
+The first closeout run passed: 21 required files, 11 required markers, 0
+warnings, and 0 failures. The Phase 9C reliability guard was rerun and parsed
+23 of 23 PowerShell runners with 0 findings and 0 failures.
+
 ## Phase 2 status
 
 Phase 2 is complete. It audited, documented, and improved semantic document
@@ -2701,12 +2733,24 @@ is complete. Checkpoint 5F is complete as governance closure.
   modernization check.
 * Reran Phase 9E and Phase 9C; both passed.
 
+### Session 61 - Checkpoint 9G Phase 9 closure
+
+* Added `tests/run_phase9g_phase_closeout.ps1`.
+* Added `docs/PHASE9_CLOSEOUT.md` and `PHASE9_CHECKPOINT_9G.md`.
+* Marked Phase 9 complete.
+* Confirmed the Phase 9G closeout guard passed with 21 required files, 11
+  required markers, 0 warnings, and 0 failures.
+* Reran Phase 9C; it parsed 23 of 23 PowerShell runners with 0 findings and 0
+  failures.
+* Carried version policy, release assets, broader CI, `l3build` evaluation,
+  packaged dot-grid image/PDF measurement, and first protected pull-request
+  trial forward.
+
 ## Next action
 
-Phase 9 is open. Next:
+Phase 9 is complete. Next:
 
-1. decide the next Phase 9 checkpoint: image/PDF asset packaging measurement,
-   broader CI measurement, or Phase 9 closure.
+1. begin Phase 10 testing and releases.
 
 ### Line-ending state, confirmed at the close of Checkpoint 5A
 

@@ -81,6 +81,8 @@ See `docs/STARTER_SUITE_TIMING.md` for Phase 9 per-starter timing breakdowns.
 See `docs/TIKZ_DOTGRID_AUDIT.md` for Phase 9 TikZ and dot-grid audit results.
 See `docs/DOTGRID_MODERNIZATION.md` for the opt-in StudentNotes image/PDF
 dot-grid path.
+See `docs/PHASE9_CLOSEOUT.md` for the completed Phase 9 outcome and Phase 10
+carry-forward list.
 
 ## Collaboration
 
@@ -93,6 +95,5 @@ explicitly calls for a tracked baseline artifact.
 
 ## Status
 
-Phase 9 is open as the automation and performance phase. Phase 8 closed the
-private GitHub launch, starter-build CI, collaborator onboarding docs,
-release-preview and author-kit audits, and protected-`main` branch settings.
+Phase 9 is complete as the automation and performance phase. Phase 10 is next:
+testing, versioning, release policy, and broader maintained-software practices.

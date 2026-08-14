@@ -318,6 +318,23 @@ This file records significant changes to the LaTeX Workspace Learning and Class 
 * The Codex shell cannot see `latexmk` on `PATH`, so it runs source checks only
   for this checkpoint.
 
+### Closed (Checkpoint 9G)
+
+* Added `tests/run_phase9g_phase_closeout.ps1`, a source-level closeout guard
+  for the Phase 9 file set and recorded verification markers.
+* Added `docs/PHASE9_CLOSEOUT.md`.
+* Added `PHASE9_CHECKPOINT_9G.md`.
+* Closed Phase 9 after measurement, generated-file hygiene, build-recipe
+  reliability, starter timing, TikZ/dot-grid audit, and conservative dot-grid
+  modernization were complete.
+* Verified the Phase 9G closeout guard: 21 required files, 11 required markers,
+  0 warnings, and 0 failures.
+* Reran the Phase 9C reliability guard; it parsed 23 of 23 PowerShell runners
+  and reported 0 findings and 0 failures.
+* Carried version policy, release assets, broader CI, `l3build` evaluation,
+  packaged dot-grid image/PDF measurement, and the first protected pull-request
+  trial forward to Phase 10 or post-Phase-9 work.
+
 ## Phase 7 — Local author workflow and distribution readiness
 
 **Completed: 13 August 2026.**

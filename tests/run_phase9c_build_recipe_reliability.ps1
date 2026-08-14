@@ -44,8 +44,8 @@ try {
         $errors = $null
         [System.Management.Automation.Language.Parser]::ParseFile($script.FullName, [ref]$tokens, [ref]$errors) | Out-Null
         if ($errors.Count -gt 0) {
-            foreach ($error in $errors) {
-                Add-Finding $findings "fail" $script.Name $error.Message
+            foreach ($parseError in $errors) {
+                Add-Finding $findings "fail" $script.Name $parseError.Message
             }
         } else {
             $parsedScripts += 1
