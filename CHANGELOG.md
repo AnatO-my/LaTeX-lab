@@ -273,6 +273,24 @@ This file records significant changes to the LaTeX Workspace Learning and Class 
 * The Codex shell could not run TeX because `latexmk` was not visible on
   `PATH`.
 
+### Added (Checkpoint 9E)
+
+* Added `tests/run_phase9e_tikz_dotgrid_audit.ps1`, a source-level TikZ and
+  dot-grid audit runner.
+* Added `docs/TIKZ_DOTGRID_AUDIT.md`.
+* Added `PHASE9_CHECKPOINT_9E.md`.
+
+### Verification (Checkpoint 9E)
+
+* The Phase 9E runner passed with 0 warnings and 0 failures.
+* Recorded the current dot-grid estimate as 2,580 dots per page.
+* Confirmed the representative Optics example keeps `\usedotgrid` commented by
+  default and the helper smoke test exercises it once.
+* Inventoried reusable `otfigures` macros and TikZ usage across source,
+  examples, and tests.
+* Reran the Phase 9C reliability guard; it parsed 21 of 21 PowerShell runners
+  and reported 0 findings and 0 failures.
+
 ## Phase 7 — Local author workflow and distribution readiness
 
 **Completed: 13 August 2026.**

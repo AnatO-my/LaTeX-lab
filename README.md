@@ -78,6 +78,7 @@ cleanup boundaries.
 See `docs/BUILD_RECIPE_RELIABILITY.md` for Phase 9 build-script and hosted
 workflow reliability checks.
 See `docs/STARTER_SUITE_TIMING.md` for Phase 9 per-starter timing breakdowns.
+See `docs/TIKZ_DOTGRID_AUDIT.md` for Phase 9 TikZ and dot-grid audit results.
 
 ## Collaboration
 

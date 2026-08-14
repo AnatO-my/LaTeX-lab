@@ -57,9 +57,12 @@ Checkpoint 9C adds a build-recipe reliability guard. It parsed 19 of 19
 PowerShell runners, inventoried 75 `latexmk` references, and reported 0
 findings and 0 failures.
 Checkpoint 9D adds per-starter timing. The runner passed PowerShell syntax
-checking in this Codex shell, but the timing run needs the normal MiKTeX
-PowerShell environment because `latexmk` is not visible here. TikZ and dot-grid
-adjustments remain explicitly carried forward to Phase 9E.
+checking in this Codex shell, and the normal MiKTeX PowerShell run passed in
+13.64 seconds.
+Checkpoint 9E adds a TikZ and dot-grid audit. It confirmed that the current
+StudentNotes dot grid remains optional, the representative Optics example keeps
+`\usedotgrid` commented by default, the helper smoke test exercises the command
+once, and the current dot-grid drawing estimate is 2,580 dots per page.
 
 **Phase 8 — GitHub launch and collaborator onboarding — completed on 14 August
 2026.**
@@ -1510,6 +1513,39 @@ ran the timing split successfully in 13.64 seconds and wrote reports under
 
 TikZ and dot-grid adjustments remain carried forward to Phase 9E.
 
+### Checkpoint 9E - TikZ and dot-grid audit
+
+Checkpoint 9E adds a source-level TikZ and dot-grid audit runner.
+
+Added:
+
+```text
+tests/run_phase9e_tikz_dotgrid_audit.ps1
+docs/TIKZ_DOTGRID_AUDIT.md
+PHASE9_CHECKPOINT_9E.md
+```
+
+The audit command is:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File tests\run_phase9e_tikz_dotgrid_audit.ps1
+```
+
+The runner writes ignored reports under:
+
+```text
+build/phase9e-tikz-dotgrid-audit/
+```
+
+The first audit passed with 0 warnings and 0 failures. It recorded 3
+informational notes, including the current dot-grid estimate of 2,580 dots per
+page. It also confirmed that the representative Optics example keeps
+`\usedotgrid` commented by default and that `tests\studentnotes_helpers_smoke.tex`
+exercises the helper once.
+
+The reusable `otfigures` surface remains small: six figure macros are defined,
+and only `\vectorfigure` is used by the current tests/examples inventory.
+
 ## Phase 2 status
 
 Phase 2 is complete. It audited, documented, and improved semantic document
@@ -2606,11 +2642,23 @@ is complete. Checkpoint 5F is complete as governance closure.
   and wrote ignored reports under `build\phase9d-starter-timing\`.
 * Carried TikZ and dot-grid adjustments forward to Phase 9E.
 
+### Session 59 - Checkpoint 9E TikZ and dot-grid audit
+
+* Added `tests/run_phase9e_tikz_dotgrid_audit.ps1`, a source-level audit runner.
+* Added `docs/TIKZ_DOTGRID_AUDIT.md` and `PHASE9_CHECKPOINT_9E.md`.
+* Confirmed the audit passed with 0 warnings and 0 failures.
+* Recorded the dot-grid estimate as 2,580 dots per page.
+* Confirmed the representative Optics example keeps `\usedotgrid` commented by
+  default, while the helper smoke test exercises it once.
+* Reran the Phase 9C reliability guard; it parsed 21 of 21 PowerShell runners
+  and reported 0 findings and 0 failures.
+
 ## Next action
 
 Phase 9 is open. Next:
 
-1. move to Phase 9E TikZ and dot-grid audit.
+1. decide whether Phase 9F should add a guarded dot-grid idempotence
+   modernization or move to broader CI measurement.
 
 ### Line-ending state, confirmed at the close of Checkpoint 5A
 
