@@ -5,9 +5,9 @@
 This policy describes how collaborators should make shared changes after the
 first GitHub launch.
 
-It is a working agreement first. GitHub branch protection and required checks
-should be enabled later, after the first collaborator pull request has been
-tried and the starter-build workflow has passed consistently on `main`.
+It began as a working agreement first. Checkpoint 8I adds
+`docs/BRANCH_PROTECTION_CHECKLIST.md`, which records the first protected-`main`
+settings after the starter-build workflow passed consistently on `main`.
 
 ## Stable Branch
 
@@ -97,15 +97,18 @@ Class, package, public-interface, baseline, and representative-example changes
 need stricter review. The pull request should identify the author-facing impact,
 the compatibility risk, and the verification command.
 
-## Later GitHub Settings
+## GitHub Settings
 
-Do not enable strict branch protection before the first collaborator pull
-request has been tried.
+Use `docs/BRANCH_PROTECTION_CHECKLIST.md` for the first protected-`main` setup.
 
-After that trial and after the starter-build workflow is stable, consider:
+The first rule should:
 
 * requiring pull requests before merging into `main`;
-* requiring the starter-build workflow to pass;
-* requiring at least one approving review;
-* blocking force pushes to `main`; and
-* allowing branch deletion after merge.
+* require the `Starter documents` status check to pass;
+* require at least one approving review;
+* require conversation resolution;
+* clear stale approvals after new commits; and
+* block force pushes and deletion of `main`.
+
+Stricter settings such as signed commits, linear history, merge queue, full
+regression workflows, and removing admin bypass remain later decisions.

@@ -100,3 +100,11 @@ A later documentation-only push reached the same install step but timed out
 while downloading `miktexsetup-x64.zip` from `miktex.org`. The workflow now uses
 bounded retry and backoff for that setup download before extracting the
 standalone installer.
+
+Hosted verification after the download retry:
+
+```text
+Commit e9374af: Success in 5m 12s.
+Starter documents job passed in 5m 9s.
+Artifact: starter-pdfs, 780 KB.
+```

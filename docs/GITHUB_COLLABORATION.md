@@ -68,6 +68,9 @@ stable.
 Checkpoint 8F adds `.github/workflows/starter-build.yml`, the first hosted
 starter-build workflow. Do not require it in branch protection until it has
 passed consistently on `main`.
+Checkpoint 8I adds `docs/BRANCH_PROTECTION_CHECKLIST.md`, which records the
+first protected-`main` settings after the hosted starter workflow passed again
+at commit `e9374af`.
 
 ## Issue Templates
 
@@ -124,6 +127,7 @@ The first onboarding packet should include:
 * `CONTRIBUTING.md`;
 * `docs/STARTER_INVENTORY.md`;
 * `docs/BRANCH_AND_PR_POLICY.md`;
+* `docs/BRANCH_PROTECTION_CHECKLIST.md`;
 * `docs/COLLABORATOR_ONBOARDING_CHECKLIST.md`; and
 * the starter verification command.
 

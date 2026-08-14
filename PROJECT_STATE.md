@@ -55,6 +55,11 @@ Commit `f40f051` then passed the hosted `Starter documents` job in 4m 40s, with
 total workflow duration 4m 43s and a 780 KB `starter-pdfs` artifact.
 A later documentation-only push timed out while downloading the setup zip from
 `miktex.org`; the workflow now retries that download with bounded backoff.
+Commit `e9374af` passed the hosted `Starter documents` job in 5m 9s, with total
+workflow duration 5m 12s and a 780 KB `starter-pdfs` artifact. Checkpoint 8I
+records the first protected-`main` branch rule: pull requests, one approval,
+conversation resolution, up-to-date branches, and the `Starter documents`
+required status check.
 
 **Phase 7 — Local author workflow and distribution readiness — completed on 13
 August 2026.**
@@ -1231,6 +1236,33 @@ The final kit folder and zip were scanned and exclude `build/`, `.git/`,
 The kit remains a generated release asset under `build/`; it is not committed as
 source.
 
+### Checkpoint 8I - branch protection
+
+Checkpoint 8I records the first protected-`main` branch rule.
+
+The settings are defined in:
+
+```text
+docs/BRANCH_PROTECTION_CHECKLIST.md
+```
+
+The rule targets `main` and requires pull requests, one approving review,
+stale-approval dismissal, conversation resolution, required status checks,
+up-to-date branches, and the `Starter documents` status check. Force pushes and
+branch deletion remain blocked.
+
+The checkpoint deliberately leaves stricter controls for later: signed commits,
+linear history, merge queue, deployments, full regression workflows, and
+no-admin-bypass enforcement.
+
+Hosted evidence before enabling the rule:
+
+```text
+Commit e9374af: Success in 5m 12s.
+Starter documents job passed in 5m 9s.
+Artifact: starter-pdfs, 780 KB.
+```
+
 ## Phase 2 status
 
 Phase 2 is complete. It audited, documented, and improved semantic document
@@ -2261,12 +2293,22 @@ is complete. Checkpoint 5F is complete as governance closure.
 * Kept the standalone MiKTeX install strategy unchanged because commit
   `f40f051` had already proved that path.
 
+### Session 53 - Checkpoint 8I branch protection
+
+* Confirmed commit `e9374af` passed the hosted `Starter documents` workflow
+  after the MiKTeX setup download retry was added.
+* Added `docs/BRANCH_PROTECTION_CHECKLIST.md`, defining the first protected
+  `main` settings.
+* Kept full regression workflows and stricter repository controls deferred
+  until the first protected collaborator pull request has been tried.
+
 ## Next action
 
 Phase 8 is open. Next:
 
-1. choose the next Phase 8 step: branch protection after starter CI is stable
-   or Phase 8 closure.
+1. apply the `main` branch protection rule from
+   `docs/BRANCH_PROTECTION_CHECKLIST.md` on GitHub; then
+2. close Phase 8.
 
 ### Line-ending state, confirmed at the close of Checkpoint 5A
 

@@ -8,8 +8,9 @@ workflow should prove.
 Checkpoint 8F adds the first workflow at
 `.github/workflows/starter-build.yml`. After hosted MiKTeX setup stabilization,
 commit `f40f051` passed on `main` and produced the `starter-pdfs` artifact.
-The workflow is still not a required branch-protection check until it has passed
-consistently.
+Commit `e9374af` then passed after the hosted download retry was added.
+Checkpoint 8I promotes the `Starter documents` job into the first required
+branch-protection check for `main`.
 
 ## 1. Add CI Only After GitHub Push
 
@@ -84,6 +85,10 @@ Final stabilized run:
 Commit f40f051: Success in 4m 43s.
 Starter documents job passed in 4m 40s.
 Artifact: starter-pdfs, 780 KB.
+
+Commit e9374af: Success in 5m 12s.
+Starter documents job passed in 5m 9s.
+Artifact: starter-pdfs, 780 KB.
 ```
 
 ## 6. What Stays Local For Now
@@ -96,7 +101,15 @@ Keep these local until CI is stable:
 * release PDF preparation; and
 * author-kit zip creation.
 
-## 7. Later CI Expansion
+## 7. Branch Protection
+
+Checkpoint 8I records the first protected-`main` settings in
+`docs/BRANCH_PROTECTION_CHECKLIST.md`.
+
+Use `Starter documents` as the required status check. Do not require the full
+historical regression suites in branch protection yet.
+
+## 8. Later CI Expansion
 
 After starter CI is stable, consider adding:
 

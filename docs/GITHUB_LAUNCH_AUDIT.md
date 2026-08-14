@@ -16,8 +16,9 @@ Local state to preserve:
 * remote: `origin` points to `https://github.com/AnatO-my/LaTeX-lab.git`;
 * normal commit policy: source files only;
 * generated outputs: excluded from source commits; and
-* first hosted automation: deferred until after the repository is pushed and
-  inspected.
+* first hosted automation: `starter-build.yml` is present and verified; and
+* first branch-protection settings: recorded in
+  `docs/BRANCH_PROTECTION_CHECKLIST.md`.
 
 ## Expected Local Leftovers
 
@@ -63,3 +64,6 @@ After the first push inspection, the next checkpoints can choose whether to:
 Checkpoint 8G prepares the first local release-preview PDF set and records it in
 `docs/RELEASE_PREVIEW_PDF_AUDIT.md`. The PDFs remain under `build/` until they
 are attached manually to a GitHub release.
+
+Checkpoint 8I records the first protected-`main` settings after the hosted
+starter workflow passed again at commit `e9374af`.

@@ -146,6 +146,23 @@ This file records significant changes to the LaTeX Workspace Learning and Class 
 * Confirmed GitHub produced the `starter-pdfs` artifact at 780 KB.
 * Left the Node.js 20 deprecation annotation as a non-blocking future action
   version watch item.
+* Confirmed commit `e9374af` passed the hosted `Starter documents` job in 5m
+  9s, with total workflow duration 5m 12s and the `starter-pdfs` artifact at
+  780 KB.
+
+### Added (Checkpoint 8I)
+
+* Added `docs/BRANCH_PROTECTION_CHECKLIST.md`.
+* Added `PHASE8_CHECKPOINT_8I.md`.
+
+### Decided (Checkpoint 8I)
+
+* The first protected-`main` rule should require pull requests, one approval,
+  conversation resolution, up-to-date branches, and the `Starter documents`
+  hosted status check.
+* Force pushes and branch deletion should remain blocked.
+* Signed commits, linear history, merge queue, deployment requirements, full
+  regression workflows, and no-admin-bypass enforcement remain later decisions.
 
 ## Phase 7 — Local author workflow and distribution readiness
 

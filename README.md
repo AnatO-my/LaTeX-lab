@@ -67,6 +67,8 @@ See `docs/COLLABORATOR_ONBOARDING_CHECKLIST.md` before inviting first
 collaborators.
 See `docs/BRANCH_AND_PR_POLICY.md` for the branch and pull-request working
 agreement.
+See `docs/BRANCH_PROTECTION_CHECKLIST.md` for the first protected-`main`
+settings.
 See `docs/GITHUB_ACTIONS_CI_CHECKLIST.md` for the starter-build GitHub Actions
 boundary.
 

@@ -107,3 +107,8 @@ Use `docs/GITHUB_ACTIONS_CI_CHECKLIST.md` before expanding hosted checks.
 
 Hosted CI starts with the starter runner before attempting the full historical
 regression suites.
+
+Checkpoint 8I records the first protected-`main` settings in
+`docs/BRANCH_PROTECTION_CHECKLIST.md`. The first required hosted check is
+`Starter documents`; full regression workflows remain outside branch protection
+for now.
