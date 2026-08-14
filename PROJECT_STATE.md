@@ -1504,8 +1504,9 @@ build/phase9d-starter-timing/
 ```
 
 This Codex shell verified PowerShell syntax but could not run TeX because
-`latexmk` was not visible on `PATH`. The timing split should be captured in the
-normal MiKTeX PowerShell environment.
+`latexmk` was not visible on `PATH`. The normal MiKTeX PowerShell environment
+ran the timing split successfully in 13.64 seconds and wrote reports under
+`build\phase9d-starter-timing\`.
 
 TikZ and dot-grid adjustments remain carried forward to Phase 9E.
 
@@ -2601,18 +2602,15 @@ is complete. Checkpoint 5F is complete as governance closure.
 * Added `tests/run_phase9d_starter_timing.ps1`, a per-starter timing runner.
 * Added `docs/STARTER_SUITE_TIMING.md` and `PHASE9_CHECKPOINT_9D.md`.
 * Confirmed the runner passes PowerShell syntax checking.
-* Recorded that the timing run needs the normal MiKTeX PowerShell environment
-  because `latexmk` is not visible in this Codex shell.
+* Recorded that the normal MiKTeX PowerShell timing run passed in 13.64 seconds
+  and wrote ignored reports under `build\phase9d-starter-timing\`.
 * Carried TikZ and dot-grid adjustments forward to Phase 9E.
 
 ## Next action
 
 Phase 9 is open. Next:
 
-1. run `tests\run_phase9d_starter_timing.ps1` in the normal MiKTeX PowerShell
-   environment; then
-2. record the per-starter timing split before moving to Phase 9E TikZ and
-   dot-grid audit.
+1. move to Phase 9E TikZ and dot-grid audit.
 
 ### Line-ending state, confirmed at the close of Checkpoint 5A
 

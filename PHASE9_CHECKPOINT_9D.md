@@ -48,6 +48,14 @@ powershell -ExecutionPolicy Bypass -File tests\run_phase9d_starter_timing.ps1
 This Codex shell may not see `latexmk` on `PATH`; use the normal MiKTeX
 PowerShell environment for the timing run.
 
+Result in the normal MiKTeX PowerShell environment:
+
+```text
+Phase 9D starter timing report written to build\phase9d-starter-timing\phase9d_starter_timing.md
+Phase 9D starter timing JSON written to build\phase9d-starter-timing\phase9d_starter_timing.json
+All Phase 9D starter timing checks passed in 13.64 seconds.
+```
+
 Result in this Codex shell:
 
 ```text
@@ -55,7 +63,8 @@ PowerShell syntax OK
 latexmk was not found on PATH.
 ```
 
-The runner is ready for the normal MiKTeX PowerShell timing run.
+The runner is verified; the detailed timing reports remain ignored build
+artifacts.
 
 ## Preserved
 

@@ -268,8 +268,10 @@ This file records significant changes to the LaTeX Workspace Learning and Class 
 ### Verification (Checkpoint 9D)
 
 * The Phase 9D runner passed PowerShell syntax checking.
-* The timing run could not complete in this Codex shell because `latexmk` was
-  not visible on `PATH`; run it in the normal MiKTeX PowerShell environment.
+* The normal MiKTeX PowerShell run passed in 13.64 seconds and wrote ignored
+  reports under `build\phase9d-starter-timing\`.
+* The Codex shell could not run TeX because `latexmk` was not visible on
+  `PATH`.
 
 ## Phase 7 — Local author workflow and distribution readiness
 

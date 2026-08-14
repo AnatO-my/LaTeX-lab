@@ -55,8 +55,17 @@ Phase 9D does not optimize TikZ or dot-grid rendering.
 It labels likely later audit areas so Phase 9E can focus on TikZ-heavy and
 dot-grid-related structures with starter timing data already available.
 
-## First Local Attempt
+## Verified Result
+
+The normal MiKTeX PowerShell run passed:
+
+```text
+Phase 9D starter timing report written to build\phase9d-starter-timing\phase9d_starter_timing.md
+Phase 9D starter timing JSON written to build\phase9d-starter-timing\phase9d_starter_timing.json
+All Phase 9D starter timing checks passed in 13.64 seconds.
+```
+
+## Codex Shell Note
 
 The runner passed PowerShell syntax checking in the Codex shell, but that shell
-could not see `latexmk` on `PATH`. Capture the timing table in the normal MiKTeX
-PowerShell environment.
+could not see `latexmk` on `PATH`.
