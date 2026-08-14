@@ -75,6 +75,8 @@ See `docs/BUILD_MEASUREMENT_BASELINE.md` for Phase 9 build timing and generated
 file measurement.
 See `docs/GENERATED_FILE_HYGIENE.md` for Phase 9 generated-file hygiene and
 cleanup boundaries.
+See `docs/BUILD_RECIPE_RELIABILITY.md` for Phase 9 build-script and hosted
+workflow reliability checks.
 
 ## Collaboration
 

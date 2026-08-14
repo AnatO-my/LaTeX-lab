@@ -236,6 +236,22 @@ This file records significant changes to the LaTeX Workspace Learning and Class 
   generated-looking files, 1297 ignored generated files, and 1106 files under
   `build/`.
 
+### Added (Checkpoint 9C)
+
+* Added `tests/run_phase9c_build_recipe_reliability.ps1`, a structural
+  reliability guard for PowerShell runners, `.latexmkrc`, generated-output
+  ignore patterns, Phase 9A/9B safeguards, the starter runner, and hosted
+  starter workflow markers.
+* Added `docs/BUILD_RECIPE_RELIABILITY.md`.
+* Added `PHASE9_CHECKPOINT_9C.md`.
+
+### Verification (Checkpoint 9C)
+
+* The Phase 9C runner passed.
+* Parsed 19 of 19 PowerShell runners.
+* Inventoried 75 `latexmk` references.
+* Reported 0 findings and 0 failures.
+
 ## Phase 7 — Local author workflow and distribution readiness
 
 **Completed: 13 August 2026.**

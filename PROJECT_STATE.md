@@ -53,6 +53,9 @@ generated leftovers were `examples/physicsquiz/indent.log` and two
 `__pycache__/`, and `*.py[cod]`.
 After the ignore update, the hygiene runner reported 0 visible generated-looking
 files, 1297 ignored generated files, and 1106 files under `build/`.
+Checkpoint 9C adds a build-recipe reliability guard. It parsed 19 of 19
+PowerShell runners, inventoried 75 `latexmk` references, and reported 0
+findings and 0 failures.
 
 **Phase 8 — GitHub launch and collaborator onboarding — completed on 14 August
 2026.**
@@ -1440,6 +1443,37 @@ build/phase9b-generated-hygiene/
 
 The reports are ignored build artifacts and are not committed.
 
+### Checkpoint 9C - build recipe reliability
+
+Checkpoint 9C adds a structural guard for build-script and recipe assumptions.
+
+Added:
+
+```text
+tests/run_phase9c_build_recipe_reliability.ps1
+docs/BUILD_RECIPE_RELIABILITY.md
+PHASE9_CHECKPOINT_9C.md
+```
+
+The reliability command is:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File tests\run_phase9c_build_recipe_reliability.ps1
+```
+
+The first reliability run reported:
+
+| Item | Count |
+| --- | ---: |
+| PowerShell runners parsed | 19 / 19 |
+| `latexmk` references inventoried | 75 |
+| findings | 0 |
+| failures | 0 |
+
+The runner checks PowerShell syntax, key `.latexmkrc` assumptions,
+generated-output ignore patterns, Phase 9A/9B safeguards, Phase 7C output path
+discipline, and hosted starter workflow markers. It does not build documents.
+
 ## Phase 2 status
 
 Phase 2 is complete. It audited, documented, and improved semantic document
@@ -2518,11 +2552,21 @@ is complete. Checkpoint 5F is complete as governance closure.
 * Reran the hygiene report and confirmed visible generated-looking files dropped
   to 0.
 
+### Session 57 - Checkpoint 9C build recipe reliability
+
+* Added `tests/run_phase9c_build_recipe_reliability.ps1`, a structural guard for
+  build-script and recipe assumptions.
+* Added `docs/BUILD_RECIPE_RELIABILITY.md` and `PHASE9_CHECKPOINT_9C.md`.
+* Ran the reliability guard locally.
+* Confirmed 19 of 19 PowerShell runners parsed, 75 `latexmk` references were
+  inventoried, and the guard reported 0 findings and 0 failures.
+
 ## Next action
 
 Phase 9 is open. Next:
 
-1. choose the next target: build recipe reliability or starter-suite timing.
+1. choose the next target: starter-suite timing breakdown or fresh-build
+   measurement.
 
 ### Line-ending state, confirmed at the close of Checkpoint 5A
 
