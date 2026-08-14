@@ -77,6 +77,7 @@ See `docs/GENERATED_FILE_HYGIENE.md` for Phase 9 generated-file hygiene and
 cleanup boundaries.
 See `docs/BUILD_RECIPE_RELIABILITY.md` for Phase 9 build-script and hosted
 workflow reliability checks.
+See `docs/STARTER_SUITE_TIMING.md` for Phase 9 per-starter timing breakdowns.
 
 ## Collaboration
 

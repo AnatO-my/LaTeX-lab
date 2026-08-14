@@ -56,6 +56,10 @@ files, 1297 ignored generated files, and 1106 files under `build/`.
 Checkpoint 9C adds a build-recipe reliability guard. It parsed 19 of 19
 PowerShell runners, inventoried 75 `latexmk` references, and reported 0
 findings and 0 failures.
+Checkpoint 9D adds per-starter timing. The runner passed PowerShell syntax
+checking in this Codex shell, but the timing run needs the normal MiKTeX
+PowerShell environment because `latexmk` is not visible here. TikZ and dot-grid
+adjustments remain explicitly carried forward to Phase 9E.
 
 **Phase 8 — GitHub launch and collaborator onboarding — completed on 14 August
 2026.**
@@ -1474,6 +1478,37 @@ The runner checks PowerShell syntax, key `.latexmkrc` assumptions,
 generated-output ignore patterns, Phase 9A/9B safeguards, Phase 7C output path
 discipline, and hosted starter workflow markers. It does not build documents.
 
+### Checkpoint 9D - starter-suite timing breakdown
+
+Checkpoint 9D adds a per-starter timing runner.
+
+Added:
+
+```text
+tests/run_phase9d_starter_timing.ps1
+docs/STARTER_SUITE_TIMING.md
+PHASE9_CHECKPOINT_9D.md
+```
+
+The timing command is:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File tests\run_phase9d_starter_timing.ps1
+```
+
+The runner times all seven copyable starters independently and keeps the Phase
+7C marker checks. It writes ignored reports under:
+
+```text
+build/phase9d-starter-timing/
+```
+
+This Codex shell verified PowerShell syntax but could not run TeX because
+`latexmk` was not visible on `PATH`. The timing split should be captured in the
+normal MiKTeX PowerShell environment.
+
+TikZ and dot-grid adjustments remain carried forward to Phase 9E.
+
 ## Phase 2 status
 
 Phase 2 is complete. It audited, documented, and improved semantic document
@@ -2561,12 +2596,23 @@ is complete. Checkpoint 5F is complete as governance closure.
 * Confirmed 19 of 19 PowerShell runners parsed, 75 `latexmk` references were
   inventoried, and the guard reported 0 findings and 0 failures.
 
+### Session 58 - Checkpoint 9D starter-suite timing breakdown
+
+* Added `tests/run_phase9d_starter_timing.ps1`, a per-starter timing runner.
+* Added `docs/STARTER_SUITE_TIMING.md` and `PHASE9_CHECKPOINT_9D.md`.
+* Confirmed the runner passes PowerShell syntax checking.
+* Recorded that the timing run needs the normal MiKTeX PowerShell environment
+  because `latexmk` is not visible in this Codex shell.
+* Carried TikZ and dot-grid adjustments forward to Phase 9E.
+
 ## Next action
 
 Phase 9 is open. Next:
 
-1. choose the next target: starter-suite timing breakdown or fresh-build
-   measurement.
+1. run `tests\run_phase9d_starter_timing.ps1` in the normal MiKTeX PowerShell
+   environment; then
+2. record the per-starter timing split before moving to Phase 9E TikZ and
+   dot-grid audit.
 
 ### Line-ending state, confirmed at the close of Checkpoint 5A
 

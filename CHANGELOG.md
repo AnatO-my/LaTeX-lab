@@ -252,6 +252,25 @@ This file records significant changes to the LaTeX Workspace Learning and Class 
 * Inventoried 75 `latexmk` references.
 * Reported 0 findings and 0 failures.
 
+### Added (Checkpoint 9D)
+
+* Added `tests/run_phase9d_starter_timing.ps1`, a per-starter timing runner
+  that preserves the Phase 7C starter marker checks.
+* Added `docs/STARTER_SUITE_TIMING.md`.
+* Added `PHASE9_CHECKPOINT_9D.md`.
+
+### Decided (Checkpoint 9D)
+
+* Phase 9D measures the starter suite before optimization.
+* TikZ and dot-grid adjustments remain deferred to Phase 9E, after the starter
+  timing split is known.
+
+### Verification (Checkpoint 9D)
+
+* The Phase 9D runner passed PowerShell syntax checking.
+* The timing run could not complete in this Codex shell because `latexmk` was
+  not visible on `PATH`; run it in the normal MiKTeX PowerShell environment.
+
 ## Phase 7 — Local author workflow and distribution readiness
 
 **Completed: 13 August 2026.**
