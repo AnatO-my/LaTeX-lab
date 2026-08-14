@@ -40,6 +40,11 @@ build output entering the timing result list; the timing wrapper now displays
 action output without returning it as measurement data. Third feedback showed
 final report construction failing under Windows PowerShell; the report now uses
 a plain timing-record array and explicit note properties.
+The final normal-environment Phase 9A measurement passed in 15.75 seconds:
+starter suite 11.01s, structured PHY104 0.90s, StudentNotes optics 0.85s,
+OTEngineering representative 1.07s, and combined vector workbook 1.92s. The
+generated-file inventory stayed stable at 1102 files and 48307557 bytes before
+and after the measured run.
 
 **Phase 8 — GitHub launch and collaborator onboarding — completed on 14 August
 2026.**
@@ -1358,6 +1363,25 @@ failed with an argument-type mismatch. The runner now converts the generic
 timing list to a plain array and constructs the report with explicit note
 properties for Windows PowerShell compatibility.
 
+The final normal-environment timing run passed:
+
+```text
+All Phase 9A measurements passed in 15.75 seconds.
+```
+
+Baseline timings:
+
+| Target | Seconds |
+| --- | ---: |
+| phase7c-starter-suite | 11.01 |
+| physicsquiz-structured | 0.90 |
+| studentnotes-optics | 0.85 |
+| otengineering-representative | 1.07 |
+| vector-workbook-combined | 1.92 |
+
+The generated-file inventory was unchanged by the run: 1102 files and 48307557
+bytes before and after.
+
 ## Phase 2 status
 
 Phase 2 is complete. It audited, documented, and improved semantic document
@@ -2421,15 +2445,16 @@ is complete. Checkpoint 5F is complete as governance closure.
   result list.
 * Reworked final report construction to avoid the Windows PowerShell
   argument-type mismatch.
+* Recorded the first successful normal-environment Phase 9A measurement:
+  15.75 seconds total, with unchanged generated-file inventory before and after
+  the run.
 
 ## Next action
 
 Phase 9 is open. Next:
 
-1. run `tests\run_phase9a_measurement.ps1` in the normal MiKTeX PowerShell
-   environment; then
-2. record the first timing baseline and choose the first measured optimization
-   target.
+1. choose the first measured Phase 9B target: generated-file hygiene, build
+   recipe reliability, or starter-suite timing.
 
 ### Line-ending state, confirmed at the close of Checkpoint 5A
 

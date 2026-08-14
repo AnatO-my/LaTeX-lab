@@ -35,7 +35,7 @@ build/phase9a-measurement/
 
 The generated reports stay out of ordinary source commits.
 
-## First Local Attempt
+## First Local Result
 
 Measurement command:
 
@@ -67,6 +67,32 @@ per measured step.
 Third normal-environment feedback showed the final report object construction
 failing under Windows PowerShell. The runner now converts the timing list to a
 plain array and builds the report with explicit note properties.
+
+Final normal-environment measurement passed:
+
+```text
+All Phase 9A measurements passed in 15.75 seconds.
+```
+
+Timing table:
+
+| Target | Seconds |
+| --- | ---: |
+| phase7c-starter-suite | 11.01 |
+| physicsquiz-structured | 0.90 |
+| studentnotes-optics | 0.85 |
+| otengineering-representative | 1.07 |
+| vector-workbook-combined | 1.92 |
+
+Generated-file inventory was stable during the run:
+
+| Moment | Files | Bytes |
+| --- | ---: | ---: |
+| Before | 1102 | 48307557 |
+| After | 1102 | 48307557 |
+
+The detailed generated report was written under
+`build/phase9a-measurement/`.
 
 ## Preserved
 

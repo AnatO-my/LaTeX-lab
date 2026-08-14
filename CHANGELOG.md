@@ -212,6 +212,8 @@ This file records significant changes to the LaTeX Workspace Learning and Class 
   measurement result list.
 * Reworked final report construction to use a plain timing-record array and
   explicit note properties for Windows PowerShell compatibility.
+* Recorded the first successful Phase 9A timing baseline: 15.75 seconds total,
+  with a stable generated-file inventory before and after the run.
 
 ## Phase 7 — Local author workflow and distribution readiness
 

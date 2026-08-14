@@ -64,8 +64,19 @@ recipe unless a measurement or repeated failure shows a clear reason.
 
 ## First Baseline
 
-The first default run should be recorded in `PHASE9_CHECKPOINT_9A.md` after the
-measurement command completes locally.
+The first default run is recorded in `PHASE9_CHECKPOINT_9A.md`.
+
+Summary:
+
+| Target | Seconds |
+| --- | ---: |
+| phase7c-starter-suite | 11.01 |
+| physicsquiz-structured | 0.90 |
+| studentnotes-optics | 0.85 |
+| otengineering-representative | 1.07 |
+| vector-workbook-combined | 1.92 |
+
+Total measured time: `15.75` seconds.
 
 If the command reports `latexmk was not found on PATH`, run it from the normal
 MiKTeX PowerShell environment rather than the restricted Codex shell.
