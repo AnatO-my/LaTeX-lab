@@ -21,6 +21,109 @@ LaTeX Workspace Learning and Class Refactoring Project
 
 ## Current phase
 
+**Phase 9 — Automation and performance — completed on 14 August 2026.**
+
+Phase 9 begins with measurement before optimization. Checkpoint 9A adds
+`tests/run_phase9a_measurement.ps1` and `docs/BUILD_MEASUREMENT_BASELINE.md`.
+The runner measures the starter suite, the structured PHY104 quiz, the
+representative StudentNotes optics document, the representative OTEngineering
+notebook, and the combined vector workbook root. It writes generated reports
+under `build/phase9a-measurement/`, which remains ignored. In this Codex shell,
+the first timing run stopped because `latexmk` was not visible on `PATH`; the
+runner syntax check passed, and the timing baseline should be captured in the
+normal MiKTeX PowerShell environment. First normal-environment feedback showed
+the representative `physicsquiz` measurement writing under an example-local
+nested `build/` folder because the runner passed a relative `-outdir`; the
+runner now passes absolute output paths to `latexmk`. Second feedback showed
+build output entering the timing result list; the timing wrapper now displays
+action output without returning it as measurement data. Third feedback showed
+final report construction failing under Windows PowerShell; the report now uses
+a plain timing-record array and explicit note properties.
+The final normal-environment Phase 9A measurement passed in 15.75 seconds:
+starter suite 11.01s, structured PHY104 0.90s, StudentNotes optics 0.85s,
+OTEngineering representative 1.07s, and combined vector workbook 1.92s. The
+generated-file inventory stayed stable at 1102 files and 48307557 bytes before
+and after the measured run.
+Checkpoint 9B adds non-destructive generated-file hygiene reporting. Its first
+run found 14 tracked generated-looking files, 3 visible generated-looking files,
+1292 ignored generated files, and 1104 files under `build/`. The visible
+generated leftovers were `examples/physicsquiz/indent.log` and two
+`tests/__pycache__/` Python cache files; `.gitignore` now ignores `indent.log`,
+`__pycache__/`, and `*.py[cod]`.
+After the ignore update, the hygiene runner reported 0 visible generated-looking
+files, 1297 ignored generated files, and 1106 files under `build/`.
+Checkpoint 9C adds a build-recipe reliability guard. It parsed 19 of 19
+PowerShell runners, inventoried 75 `latexmk` references, and reported 0
+findings and 0 failures.
+Checkpoint 9D adds per-starter timing. The runner passed PowerShell syntax
+checking in this Codex shell, and the normal MiKTeX PowerShell run passed in
+13.64 seconds.
+Checkpoint 9E adds a TikZ and dot-grid audit. It confirmed that the current
+StudentNotes dot grid remains optional, the representative Optics example keeps
+`\usedotgrid` commented by default, the helper smoke test exercises the command
+once, and the current dot-grid drawing estimate is 2,580 dots per page.
+Checkpoint 9F adds the conservative StudentNotes dot-grid modernization:
+`\setdotgridbackgroundimage{<path>}` opts into a page-sized image/PDF
+background, the original TikZ grid remains the fallback, and repeated
+`\usedotgrid` calls no longer install repeated backgrounds. Source checks passed
+in this Codex shell, and the normal MiKTeX PowerShell run passed the full
+compile verification.
+Checkpoint 9G closes Phase 9 after adding a source-level closeout guard and
+recording Phase 10 carry-forward work.
+
+**Phase 10 — Testing and releases — in progress.
+Checkpoint 10A opened on 15 August 2026.**
+
+Phase 10 should treat the classes and packages as maintained software: version
+policy, release notes, release assets, broader CI, and a possible small
+`l3build` regression suite.
+Checkpoint 10A opens Phase 10 and adds `docs/VERSIONING_RELEASE_POLICY.md` and
+`tests/run_phase10a_release_policy.ps1`. It defines repository release labels,
+patch/minor/major meanings, the release-asset boundary, and the public-interface
+update rule before any class/package version bump.
+The Phase 10A guard passed with 1 informational note. It inventoried 15 real
+`\ProvidesClass`/`\ProvidesPackage` declarations, 4 of which include semantic
+version text. The Phase 9C reliability guard was rerun and parsed 24 of 24
+PowerShell runners with 0 findings and 0 failures.
+Checkpoint 10B adds the first release-notes template and a source-level guard
+for its required sections. It keeps release notes separate from actual tags,
+release assets, class/package version bumps, and CI expansion.
+The Phase 10B guard passed with 1 informational note. It checked 10 required
+template sections and 14 required markers. The Phase 9C reliability guard was
+rerun and parsed 25 of 25 PowerShell runners with 0 findings and 0 failures.
+Checkpoint 10C adds a local release checklist and a source-level guard for the
+release gate. It keeps release readiness separate from tags, release assets, CI
+expansion, `l3build`, and class/package version bumps.
+The Phase 10C guard passed with 0 warnings and 2 informational notes after the
+10C source changes were committed locally. It checked 11 required files and 10
+required markers, with 0 failures, and confirmed that only known local-only
+files were visible in ordinary status. The Phase 9C reliability guard was rerun
+and parsed 26 of 26 PowerShell runners with 0 findings and 0 failures.
+Checkpoint 10D adds a release-asset manifest template and a source-level guard
+for optional release PDFs and author-kit zips. It names 9 planned release asset
+ids and keeps every asset optional until a release actually needs it. No tag,
+version bump, generated PDF, zip, GitHub release, or new CI workflow is created.
+The Phase 10D guard passed with 0 warnings and 2 informational notes. It checked
+11 required files, 12 required markers, and 9 planned release asset ids, with 0
+failures. The Phase 10C local release checklist was rerun from the committed 10D
+source state and passed with 0 warnings and 2 informational notes. The Phase 9C
+reliability guard was rerun and parsed 27 of 27 PowerShell runners with 0
+findings and 0 failures.
+Checkpoint 10E adds an l3build pilot decision record and a source-level guard
+for the pilot boundary. It keeps the existing PowerShell runners as the source
+of truth, adds no active root `build.lua`, introduces no `.lvt` or `.tlg`
+fixtures, and does not make `l3build` required for releases.
+The Phase 10E guard passed with 1 expected warning and 1 informational note
+after checking 10 required files and 18 required markers, with 0 failures. The
+warning records that `l3build` is not visible on PATH in this Codex shell.
+The protected-branch pull-request trial then exposed a hosted MiKTeX dependency
+gap: `examples/studentnotes/starter_notes.tex` failed because `amsthm.sty` was
+missing. The starter workflow now installs MiKTeX package `amscls` explicitly
+because that package provides `amsthm.sty`.
+The committed-state cross-checks passed: Phase 10D passed with 0 warnings and 2
+informational notes, Phase 10C passed with 0 warnings and 2 informational notes,
+and Phase 9C parsed 28 of 28 PowerShell runners with 0 findings and 0 failures.
+
 **Phase 8 — GitHub launch and collaborator onboarding — completed on 14 August
 2026.**
 
@@ -1292,6 +1395,271 @@ The first protected rule requires pull requests, one approval, conversation
 resolution, up-to-date branches, and the `Starter documents` hosted check.
 Generated outputs remain outside ordinary source commits.
 
+### Checkpoint 9A - measurement baseline
+
+Checkpoint 9A opens Phase 9 by adding a build-measurement runner and baseline
+guide.
+
+Added:
+
+```text
+tests/run_phase9a_measurement.ps1
+docs/BUILD_MEASUREMENT_BASELINE.md
+PHASE9_CHECKPOINT_9A.md
+```
+
+The default measurement command is:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File tests\run_phase9a_measurement.ps1
+```
+
+The runner writes generated reports under:
+
+```text
+build/phase9a-measurement/
+```
+
+This Codex shell could not complete the timing run because `latexmk` was not on
+`PATH`. The runner passed PowerShell syntax checking, and the first timing
+baseline should be recorded after running the command in the normal MiKTeX
+PowerShell environment.
+
+The first normal-environment attempt exposed a measurement-script path issue:
+because `.latexmkrc` changes into each source document's directory, the relative
+representative-build output path was interpreted under `examples/physicsquiz/`.
+The runner now converts each representative output directory to an absolute
+path before calling `latexmk`.
+
+The second normal-environment attempt exposed output pollution in the timing
+wrapper: build output was entering `$results`, so the final `Seconds` total
+could not be calculated. The wrapper now routes action output to the host
+display and returns only the timing record.
+
+The third normal-environment attempt reached final report construction but
+failed with an argument-type mismatch. The runner now converts the generic
+timing list to a plain array and constructs the report with explicit note
+properties for Windows PowerShell compatibility.
+
+The final normal-environment timing run passed:
+
+```text
+All Phase 9A measurements passed in 15.75 seconds.
+```
+
+Baseline timings:
+
+| Target | Seconds |
+| --- | ---: |
+| phase7c-starter-suite | 11.01 |
+| physicsquiz-structured | 0.90 |
+| studentnotes-optics | 0.85 |
+| otengineering-representative | 1.07 |
+| vector-workbook-combined | 1.92 |
+
+The generated-file inventory was unchanged by the run: 1102 files and 48307557
+bytes before and after.
+
+### Checkpoint 9B - generated-file hygiene
+
+Checkpoint 9B adds non-destructive generated-file hygiene reporting.
+
+Added:
+
+```text
+tests/run_phase9b_generated_hygiene.ps1
+docs/GENERATED_FILE_HYGIENE.md
+PHASE9_CHECKPOINT_9B.md
+```
+
+The hygiene command is:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File tests\run_phase9b_generated_hygiene.ps1
+```
+
+The first hygiene run reported:
+
+| Item | Count |
+| --- | ---: |
+| tracked generated-looking files | 14 |
+| visible untracked generated-looking files | 3 |
+| ignored generated files | 1292 |
+| `build/` files | 1104 |
+| `build/` bytes | 48322129 |
+
+The visible generated leftovers were `examples/physicsquiz/indent.log` and two
+`tests/__pycache__/` Python cache files. Checkpoint 9B updates `.gitignore` to
+ignore `indent.log`, `__pycache__/`, and `*.py[cod]`.
+
+After the ignore update, the hygiene runner reported:
+
+| Item | Count |
+| --- | ---: |
+| tracked generated-looking files | 14 |
+| visible untracked generated-looking files | 0 |
+| ignored generated files | 1297 |
+| `build/` files | 1106 |
+| `build/` bytes | 48330481 |
+
+The runner writes detailed reports under:
+
+```text
+build/phase9b-generated-hygiene/
+```
+
+The reports are ignored build artifacts and are not committed.
+
+### Checkpoint 9C - build recipe reliability
+
+Checkpoint 9C adds a structural guard for build-script and recipe assumptions.
+
+Added:
+
+```text
+tests/run_phase9c_build_recipe_reliability.ps1
+docs/BUILD_RECIPE_RELIABILITY.md
+PHASE9_CHECKPOINT_9C.md
+```
+
+The reliability command is:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File tests\run_phase9c_build_recipe_reliability.ps1
+```
+
+The first reliability run reported:
+
+| Item | Count |
+| --- | ---: |
+| PowerShell runners parsed | 19 / 19 |
+| `latexmk` references inventoried | 75 |
+| findings | 0 |
+| failures | 0 |
+
+The runner checks PowerShell syntax, key `.latexmkrc` assumptions,
+generated-output ignore patterns, Phase 9A/9B safeguards, Phase 7C output path
+discipline, and hosted starter workflow markers. It does not build documents.
+
+### Checkpoint 9D - starter-suite timing breakdown
+
+Checkpoint 9D adds a per-starter timing runner.
+
+Added:
+
+```text
+tests/run_phase9d_starter_timing.ps1
+docs/STARTER_SUITE_TIMING.md
+PHASE9_CHECKPOINT_9D.md
+```
+
+The timing command is:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File tests\run_phase9d_starter_timing.ps1
+```
+
+The runner times all seven copyable starters independently and keeps the Phase
+7C marker checks. It writes ignored reports under:
+
+```text
+build/phase9d-starter-timing/
+```
+
+This Codex shell verified PowerShell syntax but could not run TeX because
+`latexmk` was not visible on `PATH`. The normal MiKTeX PowerShell environment
+ran the timing split successfully in 13.64 seconds and wrote reports under
+`build\phase9d-starter-timing\`.
+
+TikZ and dot-grid adjustments remain carried forward to Phase 9E.
+
+### Checkpoint 9E - TikZ and dot-grid audit
+
+Checkpoint 9E adds a source-level TikZ and dot-grid audit runner.
+
+Added:
+
+```text
+tests/run_phase9e_tikz_dotgrid_audit.ps1
+docs/TIKZ_DOTGRID_AUDIT.md
+PHASE9_CHECKPOINT_9E.md
+```
+
+The audit command is:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File tests\run_phase9e_tikz_dotgrid_audit.ps1
+```
+
+The runner writes ignored reports under:
+
+```text
+build/phase9e-tikz-dotgrid-audit/
+```
+
+The first audit passed with 0 warnings and 0 failures. It recorded 3
+informational notes, including the current dot-grid estimate of 2,580 dots per
+page. It also confirmed that the representative Optics example keeps
+`\usedotgrid` commented by default and that `tests\studentnotes_helpers_smoke.tex`
+exercises the helper once.
+
+The reusable `otfigures` surface remains small: six figure macros are defined,
+and only `\vectorfigure` is used by the current tests/examples inventory.
+
+### Checkpoint 9F - dot-grid opt-in image path
+
+Checkpoint 9F adds a conservative image/PDF path for the StudentNotes dot-grid
+background.
+
+Added:
+
+```text
+tests/run_phase9f_dotgrid_modernization.ps1
+tests/studentnotes_dotgrid_image_fallback.tex
+docs/DOTGRID_MODERNIZATION.md
+PHASE9_CHECKPOINT_9F.md
+```
+
+Changed:
+
+* `\setdotgridbackgroundimage{<path>}` opts into a page-sized image/PDF
+  background.
+* `\usedotgrid` remains the author-facing command and is now idempotent.
+* The original TikZ dot grid remains the fallback when no image/PDF path is set
+  or when the configured file is missing.
+* The image/PDF method is not the default unless later timing and packaging
+  checks justify that decision.
+
+The Phase 9F source checks passed in this Codex shell. The normal MiKTeX
+PowerShell run passed the full Phase 9F dot-grid modernization check. Phase 9E
+was rerun and passed with 0 warnings and 0 failures. Phase 9C was rerun and
+parsed 22 of 22 PowerShell runners with 0 findings and 0 failures.
+
+### Checkpoint 9G - closure
+
+Checkpoint 9G closes Phase 9.
+
+Added:
+
+```text
+tests/run_phase9g_phase_closeout.ps1
+docs/PHASE9_CLOSEOUT.md
+PHASE9_CHECKPOINT_9G.md
+```
+
+The closeout command is:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File tests\run_phase9g_phase_closeout.ps1
+```
+
+The closeout guard verifies the Phase 9 checkpoint files, docs, runners, and
+recorded result markers before Phase 10 begins.
+
+The first closeout run passed: 21 required files, 11 required markers, 0
+warnings, and 0 failures. The Phase 9C reliability guard was rerun and parsed
+23 of 23 PowerShell runners with 0 findings and 0 failures.
+
 ## Phase 2 status
 
 Phase 2 is complete. It audited, documented, and improved semantic document
@@ -2339,13 +2707,172 @@ is complete. Checkpoint 5F is complete as governance closure.
 * Closed Phase 8 after launch, onboarding, starter CI, release-preview,
   author-kit, and branch-protection records were complete.
 
+### Session 55 - Checkpoint 9A measurement baseline
+
+* Opened Phase 9 as automation and performance.
+* Added `tests/run_phase9a_measurement.ps1` to measure the starter suite and
+  representative builds before optimization.
+* Added `docs/BUILD_MEASUREMENT_BASELINE.md` and `PHASE9_CHECKPOINT_9A.md`.
+* Confirmed the measurement runner passes PowerShell syntax checking.
+* Recorded that this Codex shell cannot see `latexmk` on `PATH`, so the first
+  timing baseline should be captured in the normal MiKTeX PowerShell
+  environment.
+* Fixed representative-build output paths to be absolute before invoking
+  `latexmk`.
+* Fixed the timing wrapper so build output is not added to the measurement
+  result list.
+* Reworked final report construction to avoid the Windows PowerShell
+  argument-type mismatch.
+* Recorded the first successful normal-environment Phase 9A measurement:
+  15.75 seconds total, with unchanged generated-file inventory before and after
+  the run.
+
+### Session 56 - Checkpoint 9B generated-file hygiene
+
+* Added `tests/run_phase9b_generated_hygiene.ps1`, a non-destructive reporter
+  for generated-looking tracked files, visible generated leftovers, ignored
+  outputs, and `build/` size.
+* Added `docs/GENERATED_FILE_HYGIENE.md` and `PHASE9_CHECKPOINT_9B.md`.
+* Ran the hygiene report locally.
+* Updated `.gitignore` for `indent.log`, `__pycache__/`, and `*.py[cod]`.
+* Reran the hygiene report and confirmed visible generated-looking files dropped
+  to 0.
+
+### Session 57 - Checkpoint 9C build recipe reliability
+
+* Added `tests/run_phase9c_build_recipe_reliability.ps1`, a structural guard for
+  build-script and recipe assumptions.
+* Added `docs/BUILD_RECIPE_RELIABILITY.md` and `PHASE9_CHECKPOINT_9C.md`.
+* Ran the reliability guard locally.
+* Confirmed 19 of 19 PowerShell runners parsed, 75 `latexmk` references were
+  inventoried, and the guard reported 0 findings and 0 failures.
+
+### Session 58 - Checkpoint 9D starter-suite timing breakdown
+
+* Added `tests/run_phase9d_starter_timing.ps1`, a per-starter timing runner.
+* Added `docs/STARTER_SUITE_TIMING.md` and `PHASE9_CHECKPOINT_9D.md`.
+* Confirmed the runner passes PowerShell syntax checking.
+* Recorded that the normal MiKTeX PowerShell timing run passed in 13.64 seconds
+  and wrote ignored reports under `build\phase9d-starter-timing\`.
+* Carried TikZ and dot-grid adjustments forward to Phase 9E.
+
+### Session 59 - Checkpoint 9E TikZ and dot-grid audit
+
+* Added `tests/run_phase9e_tikz_dotgrid_audit.ps1`, a source-level audit runner.
+* Added `docs/TIKZ_DOTGRID_AUDIT.md` and `PHASE9_CHECKPOINT_9E.md`.
+* Confirmed the audit passed with 0 warnings and 0 failures.
+* Recorded the dot-grid estimate as 2,580 dots per page.
+* Confirmed the representative Optics example keeps `\usedotgrid` commented by
+  default, while the helper smoke test exercises it once.
+* Reran the Phase 9C reliability guard; it parsed 21 of 21 PowerShell runners
+  and reported 0 findings and 0 failures.
+
+### Session 60 - Checkpoint 9F dot-grid opt-in image path
+
+* Added `\setdotgridbackgroundimage{<path>}` to `studentnotes.cls`.
+* Kept the TikZ dot grid as the fallback.
+* Made repeated `\usedotgrid` calls harmless.
+* Added `tests/studentnotes_dotgrid_image_fallback.tex` and
+  `tests/run_phase9f_dotgrid_modernization.ps1`.
+* Added `docs/DOTGRID_MODERNIZATION.md` and `PHASE9_CHECKPOINT_9F.md`.
+* Confirmed Phase 9F source checks passed in this Codex shell.
+* Confirmed the normal MiKTeX PowerShell run passed the full Phase 9F dot-grid
+  modernization check.
+* Reran Phase 9E and Phase 9C; both passed.
+
+### Session 61 - Checkpoint 9G Phase 9 closure
+
+* Added `tests/run_phase9g_phase_closeout.ps1`.
+* Added `docs/PHASE9_CLOSEOUT.md` and `PHASE9_CHECKPOINT_9G.md`.
+* Marked Phase 9 complete.
+* Confirmed the Phase 9G closeout guard passed with 21 required files, 11
+  required markers, 0 warnings, and 0 failures.
+* Reran Phase 9C; it parsed 23 of 23 PowerShell runners with 0 findings and 0
+  failures.
+* Carried version policy, release assets, broader CI, `l3build` evaluation,
+  packaged dot-grid image/PDF measurement, and first protected pull-request
+  trial forward.
+
+### Session 62 - Checkpoint 10A versioning and release policy
+
+* Opened Phase 10 as the testing and releases phase.
+* Added `docs/VERSIONING_RELEASE_POLICY.md`.
+* Added `tests/run_phase10a_release_policy.ps1`.
+* Added `PHASE10_CHECKPOINT_10A.md`.
+* Kept class/package versions unchanged while defining the first release policy.
+* Confirmed the Phase 10A guard passed and inventoried 15 real class/package
+  declarations, with 4 carrying semantic version text.
+* Reran Phase 9C; it parsed 24 of 24 PowerShell runners with 0 findings and 0
+  failures.
+
+### Session 63 - Checkpoint 10B release notes template
+
+* Added `docs/RELEASE_NOTES_TEMPLATE.md`.
+* Added `tests/run_phase10b_release_notes_template.ps1`.
+* Added `PHASE10_CHECKPOINT_10B.md`.
+* Kept release notes as a template and guard only; no tag, release asset, CI
+  expansion, or version bump was created.
+* Confirmed the Phase 10B guard passed after checking 10 required template
+  sections and 14 required markers.
+* Reran Phase 9C; it parsed 25 of 25 PowerShell runners with 0 findings and 0
+  failures.
+
+### Session 64 - Checkpoint 10C local release checklist
+
+* Added `docs/LOCAL_RELEASE_CHECKLIST.md`.
+* Added `tests/run_phase10c_local_release_checklist.ps1`.
+* Added `PHASE10_CHECKPOINT_10C.md`.
+* Kept release readiness as a local source gate; no tag, release asset, CI
+  expansion, `l3build`, or version bump was created.
+* Confirmed the Phase 10C guard passed after checking 11 required files and 10
+  required markers, with 0 warnings and 0 failures.
+* Confirmed that only known local-only files were visible in ordinary status.
+* Reran Phase 9C; it parsed 26 of 26 PowerShell runners with 0 findings and 0
+  failures.
+
+### Session 65 - Checkpoint 10D release asset manifest template
+
+* Added `docs/RELEASE_ASSET_MANIFEST_TEMPLATE.md`.
+* Added `tests/run_phase10d_release_asset_manifest.ps1`.
+* Added `PHASE10_CHECKPOINT_10D.md`.
+* Linked the release-asset manifest template from the README and local release
+  checklist.
+* Kept release assets optional and source-recorded; no tag, version bump,
+  generated PDF, zip, GitHub release, or new CI workflow was created.
+* Confirmed the Phase 10D guard passed after checking 11 required files, 12
+  required markers, and 9 planned release asset ids, with 0 warnings and 0
+  failures.
+* Reran Phase 10C from the committed 10D source state; it passed with 0 warnings
+  and 0 failures.
+* Reran Phase 9C; it parsed 27 of 27 PowerShell runners with 0 findings and 0
+  failures.
+
+### Session 66 - Checkpoint 10E l3build pilot
+
+* Added `docs/L3BUILD_PILOT.md`.
+* Added `tests/run_phase10e_l3build_pilot.ps1`.
+* Added `PHASE10_CHECKPOINT_10E.md`.
+* Kept `l3build` as an evaluation boundary, not an active project-wide release
+  gate.
+* Confirmed no root `build.lua`, `.lvt` fixtures, `.tlg` reference logs, release
+  tag, version bump, generated asset, or new CI requirement was created.
+* Confirmed the Phase 10E guard passed after checking 10 required files and 18
+  required markers, with 1 expected warning and 0 failures.
+* Updated `.github/workflows/starter-build.yml` to install `amscls` explicitly
+  after GitHub Actions failed on missing `amsthm.sty`.
+* Updated `docs/GITHUB_ACTIONS_CI_CHECKLIST.md` with the hosted MiKTeX package
+  note.
+* Reran Phase 10D and Phase 10C from the committed 10E source state; both
+  passed with 0 warnings and 0 failures.
+* Reran Phase 9C; it parsed 28 of 28 PowerShell runners with 0 findings and 0
+  failures.
+
 ## Next action
 
-Phase 8 is complete. Next:
+Phase 10 is open. Next:
 
-1. choose the post-Phase-8 direction: first protected collaborator pull
-   request, GitHub release assets, broader CI, stricter branch protection, or
-   new document capabilities.
+1. verify Checkpoint 10E and then choose between a tiny inactive
+   `tests/l3build-proof/` fixture or broader CI release-gate planning.
 
 ### Line-ending state, confirmed at the close of Checkpoint 5A
 

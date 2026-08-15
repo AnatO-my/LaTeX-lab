@@ -73,6 +73,11 @@ discovered TeX tool directories to `GITHUB_PATH`. It also updates the current
 step's `PATH` before running MiKTeX commands and installs `latexmk` explicitly.
 After a later documentation-only push timed out while downloading the setup
 zip, the workflow added bounded retry and backoff around that download.
+After the protected-branch pull-request trial exposed a missing
+`amsthm.sty` during `examples/studentnotes/starter_notes.tex`, the workflow
+started installing `amscls` explicitly. `amscls` provides `amsthm.sty`, so the
+starter job no longer depends on hosted MiKTeX discovering that package during
+the build.
 
 GitHub also reported a Node.js 20 deprecation warning for `actions/checkout@v4`
 and `actions/upload-artifact@v4` being forced to run on Node.js 24. Treat that

@@ -71,6 +71,26 @@ See `docs/BRANCH_PROTECTION_CHECKLIST.md` for the first protected-`main`
 settings.
 See `docs/GITHUB_ACTIONS_CI_CHECKLIST.md` for the starter-build GitHub Actions
 boundary.
+See `docs/BUILD_MEASUREMENT_BASELINE.md` for Phase 9 build timing and generated
+file measurement.
+See `docs/GENERATED_FILE_HYGIENE.md` for Phase 9 generated-file hygiene and
+cleanup boundaries.
+See `docs/BUILD_RECIPE_RELIABILITY.md` for Phase 9 build-script and hosted
+workflow reliability checks.
+See `docs/STARTER_SUITE_TIMING.md` for Phase 9 per-starter timing breakdowns.
+See `docs/TIKZ_DOTGRID_AUDIT.md` for Phase 9 TikZ and dot-grid audit results.
+See `docs/DOTGRID_MODERNIZATION.md` for the opt-in StudentNotes image/PDF
+dot-grid path.
+See `docs/PHASE9_CLOSEOUT.md` for the completed Phase 9 outcome and Phase 10
+carry-forward list.
+See `docs/VERSIONING_RELEASE_POLICY.md` for the Phase 10 release/versioning
+policy.
+See `docs/RELEASE_NOTES_TEMPLATE.md` when drafting a release record or GitHub
+release notes.
+See `docs/LOCAL_RELEASE_CHECKLIST.md` before choosing a release source commit.
+See `docs/RELEASE_ASSET_MANIFEST_TEMPLATE.md` when a release needs downloadable
+PDFs or an author-kit zip.
+See `docs/L3BUILD_PILOT.md` for the Phase 10 `l3build` evaluation boundary.
 
 ## Collaboration
 
@@ -83,6 +103,7 @@ explicitly calls for a tracked baseline artifact.
 
 ## Status
 
-Phase 8 is complete. The project now has the private GitHub launch records,
-starter-build CI, collaborator onboarding docs, release-preview and author-kit
-audits, and protected-`main` branch settings.
+Phase 10 is open as the testing and releases phase. Checkpoints 10A through 10E
+define release policy, release-note structure, local release readiness, the
+optional release-asset manifest, and the `l3build` pilot boundary without
+changing class/package versions.
