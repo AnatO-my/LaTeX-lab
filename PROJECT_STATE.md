@@ -85,6 +85,12 @@ The Phase 10A guard passed with 1 informational note. It inventoried 15 real
 `\ProvidesClass`/`\ProvidesPackage` declarations, 4 of which include semantic
 version text. The Phase 9C reliability guard was rerun and parsed 24 of 24
 PowerShell runners with 0 findings and 0 failures.
+Checkpoint 10B adds the first release-notes template and a source-level guard
+for its required sections. It keeps release notes separate from actual tags,
+release assets, class/package version bumps, and CI expansion.
+The Phase 10B guard passed with 1 informational note. It checked 10 required
+template sections and 14 required markers. The Phase 9C reliability guard was
+rerun and parsed 25 of 25 PowerShell runners with 0 findings and 0 failures.
 
 **Phase 8 — GitHub launch and collaborator onboarding — completed on 14 August
 2026.**
@@ -2767,12 +2773,24 @@ is complete. Checkpoint 5F is complete as governance closure.
 * Reran Phase 9C; it parsed 24 of 24 PowerShell runners with 0 findings and 0
   failures.
 
+### Session 63 - Checkpoint 10B release notes template
+
+* Added `docs/RELEASE_NOTES_TEMPLATE.md`.
+* Added `tests/run_phase10b_release_notes_template.ps1`.
+* Added `PHASE10_CHECKPOINT_10B.md`.
+* Kept release notes as a template and guard only; no tag, release asset, CI
+  expansion, or version bump was created.
+* Confirmed the Phase 10B guard passed after checking 10 required template
+  sections and 14 required markers.
+* Reran Phase 9C; it parsed 25 of 25 PowerShell runners with 0 findings and 0
+  failures.
+
 ## Next action
 
 Phase 10 is open. Next:
 
-1. verify Checkpoint 10A and then choose between a release-note template, a
-   release checklist runner, or a minimal `l3build` proof.
+1. verify Checkpoint 10B and then choose between a release checklist runner or a
+   minimal `l3build` proof.
 
 ### Line-ending state, confirmed at the close of Checkpoint 5A
 

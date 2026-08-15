@@ -85,6 +85,8 @@ See `docs/PHASE9_CLOSEOUT.md` for the completed Phase 9 outcome and Phase 10
 carry-forward list.
 See `docs/VERSIONING_RELEASE_POLICY.md` for the Phase 10 release/versioning
 policy.
+See `docs/RELEASE_NOTES_TEMPLATE.md` when drafting a release record or GitHub
+release notes.
 
 ## Collaboration
 

@@ -31,6 +31,29 @@
 * Reran the Phase 9C reliability guard; it parsed 24 of 24 PowerShell runners
   and reported 0 findings and 0 failures.
 
+### Added (Checkpoint 10B)
+
+* Added `docs/RELEASE_NOTES_TEMPLATE.md`, the first reusable release-notes
+  template for GitHub releases or local release records.
+* Added `tests/run_phase10b_release_notes_template.ps1`, a source-level guard
+  for the required release-note sections and policy links.
+* Added `PHASE10_CHECKPOINT_10B.md`.
+
+### Decided (Checkpoint 10B)
+
+* Release notes must name the release label, source commit, release type,
+  verification checks, public-interface changes, assets, upgrade notes, and
+  known limitations.
+* Release notes are not a release by themselves; tags, release assets, and
+  version bumps remain separate checkpoint decisions.
+
+### Verification (Checkpoint 10B)
+
+* The Phase 10B release-notes template guard passed with 1 informational note.
+* Checked 10 required template sections and 14 required markers.
+* Reran the Phase 9C reliability guard; it parsed 25 of 25 PowerShell runners
+  and reported 0 findings and 0 failures.
+
 This file records significant changes to the LaTeX Workspace Learning and Class Refactoring Project.
 
 ## Phase 8 — GitHub launch and collaborator onboarding
