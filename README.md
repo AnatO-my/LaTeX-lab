@@ -87,6 +87,7 @@ See `docs/VERSIONING_RELEASE_POLICY.md` for the Phase 10 release/versioning
 policy.
 See `docs/RELEASE_NOTES_TEMPLATE.md` when drafting a release record or GitHub
 release notes.
+See `docs/LOCAL_RELEASE_CHECKLIST.md` before choosing a release source commit.
 
 ## Collaboration
 

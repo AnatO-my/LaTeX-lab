@@ -91,6 +91,14 @@ release assets, class/package version bumps, and CI expansion.
 The Phase 10B guard passed with 1 informational note. It checked 10 required
 template sections and 14 required markers. The Phase 9C reliability guard was
 rerun and parsed 25 of 25 PowerShell runners with 0 findings and 0 failures.
+Checkpoint 10C adds a local release checklist and a source-level guard for the
+release gate. It keeps release readiness separate from tags, release assets, CI
+expansion, `l3build`, and class/package version bumps.
+The Phase 10C guard passed with 0 warnings and 2 informational notes after the
+10C source changes were committed locally. It checked 11 required files and 10
+required markers, with 0 failures, and confirmed that only known local-only
+files were visible in ordinary status. The Phase 9C reliability guard was rerun
+and parsed 26 of 26 PowerShell runners with 0 findings and 0 failures.
 
 **Phase 8 — GitHub launch and collaborator onboarding — completed on 14 August
 2026.**
@@ -2785,12 +2793,25 @@ is complete. Checkpoint 5F is complete as governance closure.
 * Reran Phase 9C; it parsed 25 of 25 PowerShell runners with 0 findings and 0
   failures.
 
+### Session 64 - Checkpoint 10C local release checklist
+
+* Added `docs/LOCAL_RELEASE_CHECKLIST.md`.
+* Added `tests/run_phase10c_local_release_checklist.ps1`.
+* Added `PHASE10_CHECKPOINT_10C.md`.
+* Kept release readiness as a local source gate; no tag, release asset, CI
+  expansion, `l3build`, or version bump was created.
+* Confirmed the Phase 10C guard passed after checking 11 required files and 10
+  required markers, with 0 warnings and 0 failures.
+* Confirmed that only known local-only files were visible in ordinary status.
+* Reran Phase 9C; it parsed 26 of 26 PowerShell runners with 0 findings and 0
+  failures.
+
 ## Next action
 
 Phase 10 is open. Next:
 
-1. verify Checkpoint 10B and then choose between a release checklist runner or a
-   minimal `l3build` proof.
+1. verify Checkpoint 10C and then choose between a minimal `l3build` proof or
+   broader CI planning.
 
 ### Line-ending state, confirmed at the close of Checkpoint 5A
 

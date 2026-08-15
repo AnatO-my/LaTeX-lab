@@ -54,6 +54,32 @@
 * Reran the Phase 9C reliability guard; it parsed 25 of 25 PowerShell runners
   and reported 0 findings and 0 failures.
 
+### Added (Checkpoint 10C)
+
+* Added `docs/LOCAL_RELEASE_CHECKLIST.md`, a source-first checklist for choosing
+  a release source state before tags or assets.
+* Added `tests/run_phase10c_local_release_checklist.ps1`, a source-level guard
+  for release checklist markers and known local-only status.
+* Added `PHASE10_CHECKPOINT_10C.md`.
+
+### Decided (Checkpoint 10C)
+
+* Release readiness should be checked locally before a tag, GitHub release, or
+  asset upload is prepared.
+* The starter build remains the required MiKTeX-side release check before a real
+  release.
+* Generated PDFs, author kits, and preview zips remain optional release assets,
+  not ordinary source.
+
+### Verification (Checkpoint 10C)
+
+* The Phase 10C local release checklist guard passed with 0 warnings and 2
+  informational notes after the 10C source changes were committed locally.
+* Checked 11 required files and 10 required markers, with 0 failures.
+* Confirmed that only known local-only files were visible in ordinary status.
+* Reran the Phase 9C reliability guard; it parsed 26 of 26 PowerShell runners
+  and reported 0 findings and 0 failures.
+
 This file records significant changes to the LaTeX Workspace Learning and Class Refactoring Project.
 
 ## Phase 8 — GitHub launch and collaborator onboarding
