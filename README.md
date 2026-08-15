@@ -91,6 +91,7 @@ See `docs/LOCAL_RELEASE_CHECKLIST.md` before choosing a release source commit.
 See `docs/RELEASE_ASSET_MANIFEST_TEMPLATE.md` when a release needs downloadable
 PDFs or an author-kit zip.
 See `docs/L3BUILD_PILOT.md` for the Phase 10 `l3build` evaluation boundary.
+See `docs/CI_RELEASE_GATE_PLAN.md` for the staged hosted-CI release-gate plan.
 
 ## Collaboration
 
@@ -103,7 +104,7 @@ explicitly calls for a tracked baseline artifact.
 
 ## Status
 
-Phase 10 is open as the testing and releases phase. Checkpoints 10A through 10E
+Phase 10 is open as the testing and releases phase. Checkpoints 10A through 10F
 define release policy, release-note structure, local release readiness, the
-optional release-asset manifest, and the `l3build` pilot boundary without
-changing class/package versions.
+optional release-asset manifest, the `l3build` pilot boundary, and the staged CI
+release-gate plan without changing class/package versions.
