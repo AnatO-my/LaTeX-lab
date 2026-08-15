@@ -94,6 +94,10 @@ See `docs/L3BUILD_PILOT.md` for the Phase 10 `l3build` evaluation boundary.
 See `docs/CI_RELEASE_GATE_PLAN.md` for the staged hosted-CI release-gate plan.
 See `docs/RELEASE_SOURCE_CHECKS_PROMOTION.md` before making `Release source
 checks` a required branch-protection check.
+See `docs/TARGETED_REGRESSION_GATE_PLAN.md` before adding wider hosted
+regression checks.
+See `docs/RELEASE_CANDIDATE_DRY_RUN.md` before rehearsing a source-only release
+candidate.
 
 ## Collaboration
 
@@ -111,4 +115,5 @@ define release policy, release-note structure, local release readiness, the
 optional release-asset manifest, the `l3build` pilot boundary, and the staged CI
 release-gate plan without changing class/package versions. Checkpoints 10G and
 10H add a non-required `Release source checks` workflow and a promotion
-checklist.
+checklist. Checkpoints 10I and 10J add targeted-regression planning and a
+source-only release-candidate dry run.

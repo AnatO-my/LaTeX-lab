@@ -80,6 +80,12 @@ passed on several ordinary PRs.
 
 Status: planned, not active.
 
+Plan:
+
+```text
+docs/TARGETED_REGRESSION_GATE_PLAN.md
+```
+
 Candidate checks:
 
 ```powershell
@@ -107,6 +113,9 @@ Candidate actions:
 * attach assets to a GitHub release.
 
 This level should not run on every pull request.
+
+The first source-only release rehearsal is recorded in
+`docs/RELEASE_CANDIDATE_DRY_RUN.md`.
 
 ## Promotion Rules
 

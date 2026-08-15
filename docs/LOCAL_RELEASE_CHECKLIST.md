@@ -13,6 +13,8 @@ Before a release source commit is chosen:
 * `git status --short --branch` should show only intentional source changes and
   known local-only files;
 * release notes should be drafted from `docs/RELEASE_NOTES_TEMPLATE.md`;
+* release-candidate rehearsal steps should follow
+  `docs/RELEASE_CANDIDATE_DRY_RUN.md`;
 * the version label should follow `docs/VERSIONING_RELEASE_POLICY.md`;
 * public-interface changes should be recorded in `docs/PUBLIC_INTERFACES.md`;
 * generated PDFs, author kits, preview zips, logs, and `build/` outputs should
