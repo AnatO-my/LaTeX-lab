@@ -144,6 +144,35 @@
 * Updated `docs/GITHUB_ACTIONS_CI_CHECKLIST.md` to record why `amscls` is part
   of the hosted starter setup.
 
+### Added (Checkpoint 10F)
+
+* Added `docs/CI_RELEASE_GATE_PLAN.md`, a staged plan for growing hosted CI from
+  the current required starter check into future release-source,
+  targeted-regression, and release-asset gates.
+* Added `tests/run_phase10f_ci_release_gate_plan.ps1`, a source-level guard for
+  the plan, related documentation links, and the no-new-required-workflow
+  boundary.
+* Added `PHASE10_CHECKPOINT_10F.md`.
+
+### Decided (Checkpoint 10F)
+
+* The current protected required check remains `Starter documents`.
+* A future `Release source checks` workflow should be added as non-required
+  first, then promoted only after repeated hosted success.
+* Phase 10F does not create a new GitHub Actions workflow, required status
+  check, release tag, generated asset, package version bump, or `l3build`
+  adoption.
+
+### Verification (Checkpoint 10F)
+
+* The Phase 10F CI release-gate plan guard passed with 0 warnings and 1
+  informational note.
+* Checked 9 required files and 19 required markers, with 0 failures.
+* Reran the Phase 10E `l3build` pilot guard; it passed with 1 expected warning
+  and 1 informational note.
+* Reran the Phase 9C reliability guard; it parsed 29 of 29 PowerShell runners
+  and reported 0 findings and 0 failures.
+
 This file records significant changes to the LaTeX Workspace Learning and Class Refactoring Project.
 
 ## Phase 8 — GitHub launch and collaborator onboarding

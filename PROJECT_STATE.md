@@ -123,6 +123,15 @@ because that package provides `amsthm.sty`.
 The committed-state cross-checks passed: Phase 10D passed with 0 warnings and 2
 informational notes, Phase 10C passed with 0 warnings and 2 informational notes,
 and Phase 9C parsed 28 of 28 PowerShell runners with 0 findings and 0 failures.
+Checkpoint 10F adds a broader CI release-gate plan and a source-level guard for
+that plan. It defines a staged path from the current required `Starter
+documents` check to future release-source, targeted-regression, and release-asset
+gates. It creates no new GitHub Actions workflow, required status check, release
+tag, generated asset, package version bump, or `l3build` adoption.
+The Phase 10F guard passed with 0 warnings and 1 informational note after
+checking 9 required files and 19 required markers, with 0 failures. The Phase
+10E guard still passed with its expected `l3build` availability warning, and
+Phase 9C parsed 29 of 29 PowerShell runners with 0 findings and 0 failures.
 
 **Phase 8 — GitHub launch and collaborator onboarding — completed on 14 August
 2026.**
@@ -2867,12 +2876,28 @@ is complete. Checkpoint 5F is complete as governance closure.
 * Reran Phase 9C; it parsed 28 of 28 PowerShell runners with 0 findings and 0
   failures.
 
+### Session 67 - Checkpoint 10F CI release-gate plan
+
+* Added `docs/CI_RELEASE_GATE_PLAN.md`.
+* Added `tests/run_phase10f_ci_release_gate_plan.ps1`.
+* Added `PHASE10_CHECKPOINT_10F.md`.
+* Linked the CI release-gate plan from the README, local release checklist, and
+  GitHub Actions CI checklist.
+* Kept the current protected required check as `Starter documents`.
+* Kept the future `Release source checks` workflow as a planned, non-required
+  implementation step.
+* Confirmed the Phase 10F guard passed after checking 9 required files and 19
+  required markers, with 0 warnings and 0 failures.
+* Reran Phase 10E; it passed with 1 expected warning and 0 failures.
+* Reran Phase 9C; it parsed 29 of 29 PowerShell runners with 0 findings and 0
+  failures.
+
 ## Next action
 
 Phase 10 is open. Next:
 
-1. verify Checkpoint 10E and then choose between a tiny inactive
-   `tests/l3build-proof/` fixture or broader CI release-gate planning.
+1. verify Checkpoint 10F and then add a non-required `Release source checks`
+   workflow as the first implementation of the staged CI plan.
 
 ### Line-ending state, confirmed at the close of Checkpoint 5A
 

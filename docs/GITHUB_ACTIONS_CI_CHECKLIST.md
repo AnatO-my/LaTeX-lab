@@ -116,6 +116,9 @@ historical regression suites in branch protection yet.
 
 ## 8. Later CI Expansion
 
+Checkpoint 10F records the broader release-gate plan in
+`docs/CI_RELEASE_GATE_PLAN.md`.
+
 After starter CI is stable, consider adding:
 
 * a scheduled full regression job;
