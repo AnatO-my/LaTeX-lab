@@ -1,5 +1,36 @@
 # Changelog
 
+## Phase 10 - Testing and releases
+
+**In progress. Checkpoint 10A opened: 15 August 2026.**
+
+### Added (Checkpoint 10A)
+
+* Added `docs/VERSIONING_RELEASE_POLICY.md`, defining the first repository
+  release-label policy, public-interface update rule, and release-asset
+  boundary.
+* Added `tests/run_phase10a_release_policy.ps1`, a source-level guard that
+  inventories class/package `\Provides...` declarations and verifies the Phase
+  10A policy records.
+* Added `PHASE10_CHECKPOINT_10A.md`.
+
+### Decided (Checkpoint 10A)
+
+* Phase 10 begins with policy and inventory rather than a version bump.
+* Repository releases should use labels such as `v0.1.0`, with patch/minor/major
+  meanings defined in the policy guide.
+* Generated PDFs, author kits, and preview zips remain release assets rather
+  than ordinary source files.
+* Class/package versions and `l3build` adoption remain later Phase 10 decisions.
+
+### Verification (Checkpoint 10A)
+
+* The Phase 10A release policy guard passed with 1 informational note.
+* Inventoried 15 real `\ProvidesClass`/`\ProvidesPackage` declarations; 4
+  include semantic version text.
+* Reran the Phase 9C reliability guard; it parsed 24 of 24 PowerShell runners
+  and reported 0 findings and 0 failures.
+
 This file records significant changes to the LaTeX Workspace Learning and Class Refactoring Project.
 
 ## Phase 8 — GitHub launch and collaborator onboarding

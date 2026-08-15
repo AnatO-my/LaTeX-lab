@@ -83,6 +83,8 @@ See `docs/DOTGRID_MODERNIZATION.md` for the opt-in StudentNotes image/PDF
 dot-grid path.
 See `docs/PHASE9_CLOSEOUT.md` for the completed Phase 9 outcome and Phase 10
 carry-forward list.
+See `docs/VERSIONING_RELEASE_POLICY.md` for the Phase 10 release/versioning
+policy.
 
 ## Collaboration
 
@@ -95,5 +97,5 @@ explicitly calls for a tracked baseline artifact.
 
 ## Status
 
-Phase 9 is complete as the automation and performance phase. Phase 10 is next:
-testing, versioning, release policy, and broader maintained-software practices.
+Phase 10 is open as the testing and releases phase. Checkpoint 10A defines the
+first versioning and release policy without changing class/package versions.

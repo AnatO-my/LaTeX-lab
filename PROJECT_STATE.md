@@ -71,11 +71,20 @@ compile verification.
 Checkpoint 9G closes Phase 9 after adding a source-level closeout guard and
 recording Phase 10 carry-forward work.
 
-**Phase 10 — Testing and releases — ready to begin.**
+**Phase 10 — Testing and releases — in progress.
+Checkpoint 10A opened on 15 August 2026.**
 
 Phase 10 should treat the classes and packages as maintained software: version
 policy, release notes, release assets, broader CI, and a possible small
 `l3build` regression suite.
+Checkpoint 10A opens Phase 10 and adds `docs/VERSIONING_RELEASE_POLICY.md` and
+`tests/run_phase10a_release_policy.ps1`. It defines repository release labels,
+patch/minor/major meanings, the release-asset boundary, and the public-interface
+update rule before any class/package version bump.
+The Phase 10A guard passed with 1 informational note. It inventoried 15 real
+`\ProvidesClass`/`\ProvidesPackage` declarations, 4 of which include semantic
+version text. The Phase 9C reliability guard was rerun and parsed 24 of 24
+PowerShell runners with 0 findings and 0 failures.
 
 **Phase 8 — GitHub launch and collaborator onboarding — completed on 14 August
 2026.**
@@ -2746,11 +2755,24 @@ is complete. Checkpoint 5F is complete as governance closure.
   packaged dot-grid image/PDF measurement, and first protected pull-request
   trial forward.
 
+### Session 62 - Checkpoint 10A versioning and release policy
+
+* Opened Phase 10 as the testing and releases phase.
+* Added `docs/VERSIONING_RELEASE_POLICY.md`.
+* Added `tests/run_phase10a_release_policy.ps1`.
+* Added `PHASE10_CHECKPOINT_10A.md`.
+* Kept class/package versions unchanged while defining the first release policy.
+* Confirmed the Phase 10A guard passed and inventoried 15 real class/package
+  declarations, with 4 carrying semantic version text.
+* Reran Phase 9C; it parsed 24 of 24 PowerShell runners with 0 findings and 0
+  failures.
+
 ## Next action
 
-Phase 9 is complete. Next:
+Phase 10 is open. Next:
 
-1. begin Phase 10 testing and releases.
+1. verify Checkpoint 10A and then choose between a release-note template, a
+   release checklist runner, or a minimal `l3build` proof.
 
 ### Line-ending state, confirmed at the close of Checkpoint 5A
 
