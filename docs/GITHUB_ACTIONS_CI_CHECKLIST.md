@@ -118,6 +118,8 @@ historical regression suites in branch protection yet.
 
 Checkpoint 10F records the broader release-gate plan in
 `docs/CI_RELEASE_GATE_PLAN.md`.
+Checkpoints 10G and 10H add the non-required `Release source checks` workflow
+and its promotion checklist in `docs/RELEASE_SOURCE_CHECKS_PROMOTION.md`.
 
 After starter CI is stable, consider adding:
 

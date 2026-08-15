@@ -93,5 +93,7 @@ Later candidates:
 * require signed commits;
 * require linear history;
 * require full regression workflows;
+* add `Release source checks` after applying
+  `docs/RELEASE_SOURCE_CHECKS_PROMOTION.md`;
 * use repository rulesets if several branches need shared rules; and
 * remove admin bypass only after the recovery path is clear.

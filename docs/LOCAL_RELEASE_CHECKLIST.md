@@ -55,6 +55,8 @@ These remain later Phase 10 decisions:
 
 * broader GitHub Actions workflows;
   see `docs/CI_RELEASE_GATE_PLAN.md` for the staged release-gate plan;
+  see `docs/RELEASE_SOURCE_CHECKS_PROMOTION.md` before making the release-source
+  workflow required;
 * active `l3build` adoption, with the current pilot recorded in
   `docs/L3BUILD_PILOT.md`;
 * class/package version bumps;

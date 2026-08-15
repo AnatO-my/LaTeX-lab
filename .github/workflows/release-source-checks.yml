@@ -1,0 +1,45 @@
+name: Release Source Checks
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  release-source:
+    name: Release source checks
+    runs-on: windows-latest
+
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Check whitespace
+        shell: pwsh
+        run: git diff --check
+
+      - name: Run release source guards
+        shell: pwsh
+        run: |
+          $checks = @(
+              "tests\run_phase10a_release_policy.ps1",
+              "tests\run_phase10b_release_notes_template.ps1",
+              "tests\run_phase10c_local_release_checklist.ps1",
+              "tests\run_phase10d_release_asset_manifest.ps1",
+              "tests\run_phase10e_l3build_pilot.ps1",
+              "tests\run_phase10f_ci_release_gate_plan.ps1",
+              "tests\run_phase10gh_release_source_checks.ps1",
+              "tests\run_phase9c_build_recipe_reliability.ps1"
+          )
+
+          foreach ($check in $checks) {
+              Write-Host "Running $check"
+              powershell -NoProfile -ExecutionPolicy Bypass -File $check
+              if ($LASTEXITCODE -ne 0) {
+                  throw "Release source check failed: $check"
+              }
+          }
