@@ -80,6 +80,33 @@
 * Reran the Phase 9C reliability guard; it parsed 26 of 26 PowerShell runners
   and reported 0 findings and 0 failures.
 
+### Added (Checkpoint 10D)
+
+* Added `docs/RELEASE_ASSET_MANIFEST_TEMPLATE.md`, a source-only template for
+  recording optional release PDFs and author-kit zips.
+* Added `tests/run_phase10d_release_asset_manifest.ps1`, a guard for the
+  manifest template, related release checklist links, and planned asset ids.
+* Added `PHASE10_CHECKPOINT_10D.md`.
+
+### Decided (Checkpoint 10D)
+
+* Release assets should have a simple source record naming their status, source,
+  output name, and `sha256` hash.
+* The release-asset manifest does not create a tag, version bump, generated PDF,
+  zip, GitHub release, or new CI workflow.
+* Assets remain optional; source-only releases can explicitly mark them omitted.
+
+### Verification (Checkpoint 10D)
+
+* The Phase 10D release-asset manifest guard passed with 0 warnings and 2
+  informational notes.
+* Checked 11 required files, 12 required markers, and 9 planned release asset
+  ids, with 0 failures.
+* Reran the Phase 10C local release checklist from the committed 10D source
+  state; it passed with 0 warnings and 2 informational notes.
+* Reran the Phase 9C reliability guard; it parsed 27 of 27 PowerShell runners
+  and reported 0 findings and 0 failures.
+
 This file records significant changes to the LaTeX Workspace Learning and Class Refactoring Project.
 
 ## Phase 8 — GitHub launch and collaborator onboarding

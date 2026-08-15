@@ -42,6 +42,8 @@ Use these only when a release needs assets:
 
 * `docs/RELEASE_PDF_CHECKLIST.md` for preview PDFs;
 * `docs/AUTHOR_KIT_BUILD_CHECKLIST.md` for an author-kit zip; and
+* `docs/RELEASE_ASSET_MANIFEST_TEMPLATE.md` to record asset names, statuses,
+  sources, and hashes;
 * `docs/RELEASE_NOTES_TEMPLATE.md` to record asset names and hashes.
 
 Generated assets should be attached to a GitHub release or recorded locally.

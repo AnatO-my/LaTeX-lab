@@ -88,6 +88,8 @@ policy.
 See `docs/RELEASE_NOTES_TEMPLATE.md` when drafting a release record or GitHub
 release notes.
 See `docs/LOCAL_RELEASE_CHECKLIST.md` before choosing a release source commit.
+See `docs/RELEASE_ASSET_MANIFEST_TEMPLATE.md` when a release needs downloadable
+PDFs or an author-kit zip.
 
 ## Collaboration
 
@@ -100,5 +102,6 @@ explicitly calls for a tracked baseline artifact.
 
 ## Status
 
-Phase 10 is open as the testing and releases phase. Checkpoint 10A defines the
-first versioning and release policy without changing class/package versions.
+Phase 10 is open as the testing and releases phase. Checkpoints 10A through 10D
+define release policy, release-note structure, local release readiness, and the
+optional release-asset manifest without changing class/package versions.

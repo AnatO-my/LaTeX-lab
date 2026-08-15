@@ -99,6 +99,16 @@ The Phase 10C guard passed with 0 warnings and 2 informational notes after the
 required markers, with 0 failures, and confirmed that only known local-only
 files were visible in ordinary status. The Phase 9C reliability guard was rerun
 and parsed 26 of 26 PowerShell runners with 0 findings and 0 failures.
+Checkpoint 10D adds a release-asset manifest template and a source-level guard
+for optional release PDFs and author-kit zips. It names 9 planned release asset
+ids and keeps every asset optional until a release actually needs it. No tag,
+version bump, generated PDF, zip, GitHub release, or new CI workflow is created.
+The Phase 10D guard passed with 0 warnings and 2 informational notes. It checked
+11 required files, 12 required markers, and 9 planned release asset ids, with 0
+failures. The Phase 10C local release checklist was rerun from the committed 10D
+source state and passed with 0 warnings and 2 informational notes. The Phase 9C
+reliability guard was rerun and parsed 27 of 27 PowerShell runners with 0
+findings and 0 failures.
 
 **Phase 8 — GitHub launch and collaborator onboarding — completed on 14 August
 2026.**
@@ -2806,11 +2816,28 @@ is complete. Checkpoint 5F is complete as governance closure.
 * Reran Phase 9C; it parsed 26 of 26 PowerShell runners with 0 findings and 0
   failures.
 
+### Session 65 - Checkpoint 10D release asset manifest template
+
+* Added `docs/RELEASE_ASSET_MANIFEST_TEMPLATE.md`.
+* Added `tests/run_phase10d_release_asset_manifest.ps1`.
+* Added `PHASE10_CHECKPOINT_10D.md`.
+* Linked the release-asset manifest template from the README and local release
+  checklist.
+* Kept release assets optional and source-recorded; no tag, version bump,
+  generated PDF, zip, GitHub release, or new CI workflow was created.
+* Confirmed the Phase 10D guard passed after checking 11 required files, 12
+  required markers, and 9 planned release asset ids, with 0 warnings and 0
+  failures.
+* Reran Phase 10C from the committed 10D source state; it passed with 0 warnings
+  and 0 failures.
+* Reran Phase 9C; it parsed 27 of 27 PowerShell runners with 0 findings and 0
+  failures.
+
 ## Next action
 
 Phase 10 is open. Next:
 
-1. verify Checkpoint 10C and then choose between a minimal `l3build` proof or
+1. verify Checkpoint 10D and then choose between a minimal `l3build` proof or
    broader CI planning.
 
 ### Line-ending state, confirmed at the close of Checkpoint 5A
