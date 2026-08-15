@@ -98,7 +98,17 @@ jobs:
           $env:PATH = ($toolDirs -join [System.IO.Path]::PathSeparator) + [System.IO.Path]::PathSeparator + $env:PATH
           initexmf --set-config-value "[MPM]AutoInstall=1"
           initexmf --update-fndb
-          mpm --install=latexmk
+          $requiredPackages = @(
+              "latexmk",
+              "amscls"
+          )
+          foreach ($package in $requiredPackages) {
+              Write-Host "Installing MiKTeX package: $package"
+              mpm --install=$package
+              if ($LASTEXITCODE -ne 0) {
+                  throw "MiKTeX package install failed for $package with exit code $LASTEXITCODE."
+              }
+          }
 
       - name: Check TeX tools
         shell: pwsh

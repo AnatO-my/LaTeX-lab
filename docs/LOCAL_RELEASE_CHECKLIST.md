@@ -54,7 +54,8 @@ They should not be committed as ordinary source files.
 These remain later Phase 10 decisions:
 
 * broader GitHub Actions workflows;
-* `l3build`;
+* active `l3build` adoption, with the current pilot recorded in
+  `docs/L3BUILD_PILOT.md`;
 * class/package version bumps;
 * publishing a release tag; and
 * making generated assets mandatory for every release.

@@ -107,6 +107,43 @@
 * Reran the Phase 9C reliability guard; it parsed 27 of 27 PowerShell runners
   and reported 0 findings and 0 failures.
 
+### Added (Checkpoint 10E)
+
+* Added `docs/L3BUILD_PILOT.md`, a conservative `l3build` evaluation record.
+* Added `tests/run_phase10e_l3build_pilot.ps1`, a guard for the pilot boundary,
+  required markers, and local `l3build` availability.
+* Added `PHASE10_CHECKPOINT_10E.md`.
+
+### Decided (Checkpoint 10E)
+
+* `l3build` is not adopted as an active root-level release gate yet.
+* Existing PowerShell runners remain the source of truth for current project
+  checks.
+* A future `l3build` proof should start under `tests/l3build-proof/` with one
+  stable package/class smoke test before any broader migration.
+
+### Verification (Checkpoint 10E)
+
+* The Phase 10E `l3build` pilot guard passed with 1 expected warning and 1
+  informational note.
+* Checked 10 required files and 18 required markers, with 0 failures.
+* Confirmed that `l3build` is not visible on PATH in this Codex shell, so the
+  pilot remains non-mandatory.
+* Reran the Phase 10D release-asset manifest guard from the committed 10E source
+  state; it passed with 0 warnings and 2 informational notes.
+* Reran the Phase 10C local release checklist from the committed 10E source
+  state; it passed with 0 warnings and 2 informational notes.
+* Reran the Phase 9C reliability guard; it parsed 28 of 28 PowerShell runners
+  and reported 0 findings and 0 failures.
+
+### Changed (Hosted Starter CI Follow-up)
+
+* Updated `.github/workflows/starter-build.yml` to install the MiKTeX `amscls`
+  package explicitly after the protected-branch pull-request trial failed on
+  missing `amsthm.sty`.
+* Updated `docs/GITHUB_ACTIONS_CI_CHECKLIST.md` to record why `amscls` is part
+  of the hosted starter setup.
+
 This file records significant changes to the LaTeX Workspace Learning and Class Refactoring Project.
 
 ## Phase 8 — GitHub launch and collaborator onboarding

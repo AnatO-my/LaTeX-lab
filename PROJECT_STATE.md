@@ -109,6 +109,20 @@ failures. The Phase 10C local release checklist was rerun from the committed 10D
 source state and passed with 0 warnings and 2 informational notes. The Phase 9C
 reliability guard was rerun and parsed 27 of 27 PowerShell runners with 0
 findings and 0 failures.
+Checkpoint 10E adds an l3build pilot decision record and a source-level guard
+for the pilot boundary. It keeps the existing PowerShell runners as the source
+of truth, adds no active root `build.lua`, introduces no `.lvt` or `.tlg`
+fixtures, and does not make `l3build` required for releases.
+The Phase 10E guard passed with 1 expected warning and 1 informational note
+after checking 10 required files and 18 required markers, with 0 failures. The
+warning records that `l3build` is not visible on PATH in this Codex shell.
+The protected-branch pull-request trial then exposed a hosted MiKTeX dependency
+gap: `examples/studentnotes/starter_notes.tex` failed because `amsthm.sty` was
+missing. The starter workflow now installs MiKTeX package `amscls` explicitly
+because that package provides `amsthm.sty`.
+The committed-state cross-checks passed: Phase 10D passed with 0 warnings and 2
+informational notes, Phase 10C passed with 0 warnings and 2 informational notes,
+and Phase 9C parsed 28 of 28 PowerShell runners with 0 findings and 0 failures.
 
 **Phase 8 — GitHub launch and collaborator onboarding — completed on 14 August
 2026.**
@@ -2833,12 +2847,32 @@ is complete. Checkpoint 5F is complete as governance closure.
 * Reran Phase 9C; it parsed 27 of 27 PowerShell runners with 0 findings and 0
   failures.
 
+### Session 66 - Checkpoint 10E l3build pilot
+
+* Added `docs/L3BUILD_PILOT.md`.
+* Added `tests/run_phase10e_l3build_pilot.ps1`.
+* Added `PHASE10_CHECKPOINT_10E.md`.
+* Kept `l3build` as an evaluation boundary, not an active project-wide release
+  gate.
+* Confirmed no root `build.lua`, `.lvt` fixtures, `.tlg` reference logs, release
+  tag, version bump, generated asset, or new CI requirement was created.
+* Confirmed the Phase 10E guard passed after checking 10 required files and 18
+  required markers, with 1 expected warning and 0 failures.
+* Updated `.github/workflows/starter-build.yml` to install `amscls` explicitly
+  after GitHub Actions failed on missing `amsthm.sty`.
+* Updated `docs/GITHUB_ACTIONS_CI_CHECKLIST.md` with the hosted MiKTeX package
+  note.
+* Reran Phase 10D and Phase 10C from the committed 10E source state; both
+  passed with 0 warnings and 0 failures.
+* Reran Phase 9C; it parsed 28 of 28 PowerShell runners with 0 findings and 0
+  failures.
+
 ## Next action
 
 Phase 10 is open. Next:
 
-1. verify Checkpoint 10D and then choose between a minimal `l3build` proof or
-   broader CI planning.
+1. verify Checkpoint 10E and then choose between a tiny inactive
+   `tests/l3build-proof/` fixture or broader CI release-gate planning.
 
 ### Line-ending state, confirmed at the close of Checkpoint 5A
 
