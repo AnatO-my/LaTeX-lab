@@ -173,6 +173,65 @@
 * Reran the Phase 9C reliability guard; it parsed 29 of 29 PowerShell runners
   and reported 0 findings and 0 failures.
 
+### Added (Checkpoints 10G and 10H)
+
+* Added `.github/workflows/release-source-checks.yml`, a non-required GitHub
+  Actions workflow for source-level release guards.
+* Added `docs/RELEASE_SOURCE_CHECKS_PROMOTION.md`, the checklist for deciding
+  when `Release source checks` may become a required branch-protection check.
+* Added `tests/run_phase10gh_release_source_checks.ps1`, a guard for the
+  workflow scope, promotion checklist, and branch-protection boundary.
+* Added `PHASE10_CHECKPOINT_10G_10H.md`.
+
+### Decided (Checkpoints 10G and 10H)
+
+* `Release source checks` is active as a non-required pull-request workflow.
+* `Starter documents` remains the only required protected-branch check.
+* Promotion to required status is deferred until the new workflow passes on
+  GitHub repeatedly and remains easy to diagnose.
+
+### Verification (Checkpoints 10G and 10H)
+
+* The Phase 10G/H release-source guard passed with 0 warnings and 1
+  informational note.
+* Checked 10 required files and 18 required markers, with 0 failures.
+* Reran the Phase 10F CI release-gate plan guard; it passed with 1 expected
+  warning because the planned release-source workflow now exists.
+* Reran the full local equivalent of the `Release source checks` workflow; all
+  Phase 10 source guards and Phase 9C passed from the committed source state.
+* Reran the Phase 9C reliability guard; it parsed 30 of 30 PowerShell runners
+  and reported 0 findings and 0 failures.
+
+### Added (Checkpoints 10I and 10J)
+
+* Added `docs/TARGETED_REGRESSION_GATE_PLAN.md`, a manual/scheduled path for
+  wider hosted regression checks.
+* Added `docs/RELEASE_CANDIDATE_DRY_RUN.md`, the first source-only release
+  rehearsal guide.
+* Added `tests/run_phase10ij_release_candidate.ps1`, a guard for the targeted
+  regression plan, dry-run guide, and no-release boundary.
+* Added `PHASE10_CHECKPOINT_10I_10J.md`.
+
+### Decided (Checkpoints 10I and 10J)
+
+* Targeted regression checks remain manual or scheduled candidates, not
+  protected pull-request requirements.
+* The first release-candidate label is a rehearsal label,
+  `v0.1.0-rc-dry-run`, not a Git tag.
+* Phase 10I/J creates no targeted-regression workflow, release tag, GitHub
+  release, generated asset, class/package version bump, branch-protection
+  change, or `l3build` adoption.
+
+### Verification (Checkpoints 10I and 10J)
+
+* The Phase 10I/J release-candidate guard passed with 0 warnings and 1
+  informational note.
+* Checked 11 required files and 17 required markers, with 0 failures.
+* Reran the Phase 10G/H release-source guard; it passed with 0 warnings and 1
+  informational note.
+* Reran the Phase 9C reliability guard; it parsed 31 of 31 PowerShell runners
+  and reported 0 findings and 0 failures.
+
 This file records significant changes to the LaTeX Workspace Learning and Class Refactoring Project.
 
 ## Phase 8 — GitHub launch and collaborator onboarding

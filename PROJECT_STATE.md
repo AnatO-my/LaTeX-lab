@@ -132,6 +132,24 @@ The Phase 10F guard passed with 0 warnings and 1 informational note after
 checking 9 required files and 19 required markers, with 0 failures. The Phase
 10E guard still passed with its expected `l3build` availability warning, and
 Phase 9C parsed 29 of 29 PowerShell runners with 0 findings and 0 failures.
+Checkpoints 10G and 10H add the non-required Release source checks workflow and
+its promotion checklist. The workflow runs source-level Phase 10 guards and the
+Phase 9C runner parser on pull requests, while `Starter documents` remains the
+only required protected-branch check.
+The Phase 10G/H guard passed with 0 warnings and 1 informational note after
+checking 10 required files and 18 required markers, with 0 failures. The Phase
+10F guard passed with 1 expected warning because the planned release-source
+workflow now exists. Phase 9C parsed 30 of 30 PowerShell runners with 0 findings
+and 0 failures. The full local equivalent of the `Release source checks`
+workflow passed from the committed source state.
+Checkpoints 10I and 10J add targeted regression planning and a release-candidate dry run.
+Targeted regression checks remain manual or scheduled candidates, and
+the release-candidate dry run uses `v0.1.0-rc-dry-run` as a rehearsal label
+rather than a Git tag.
+The Phase 10I/J guard passed with 0 warnings and 1 informational note after
+checking 11 required files and 17 required markers, with 0 failures. Phase 10G/H
+still passed, and Phase 9C parsed 31 of 31 PowerShell runners with 0 findings
+and 0 failures.
 
 **Phase 8 — GitHub launch and collaborator onboarding — completed on 14 August
 2026.**
@@ -2892,12 +2910,43 @@ is complete. Checkpoint 5F is complete as governance closure.
 * Reran Phase 9C; it parsed 29 of 29 PowerShell runners with 0 findings and 0
   failures.
 
+### Session 68 - Checkpoints 10G and 10H Release source checks
+
+* Added `.github/workflows/release-source-checks.yml`.
+* Added `docs/RELEASE_SOURCE_CHECKS_PROMOTION.md`.
+* Added `tests/run_phase10gh_release_source_checks.ps1`.
+* Added `PHASE10_CHECKPOINT_10G_10H.md`.
+* Kept `Release source checks` non-required.
+* Kept `Starter documents` as the only required protected-branch check.
+* Confirmed the Phase 10G/H guard passed after checking 10 required files and
+  18 required markers, with 0 warnings and 0 failures.
+* Reran Phase 10F; it passed with 1 expected post-implementation warning and 0
+  failures.
+* Reran the full local equivalent of the `Release source checks` workflow from
+  the committed source state.
+* Reran Phase 9C; it parsed 30 of 30 PowerShell runners with 0 findings and 0
+  failures.
+
+### Session 69 - Checkpoints 10I and 10J targeted regression and release candidate
+
+* Added `docs/TARGETED_REGRESSION_GATE_PLAN.md`.
+* Added `docs/RELEASE_CANDIDATE_DRY_RUN.md`.
+* Added `tests/run_phase10ij_release_candidate.ps1`.
+* Added `PHASE10_CHECKPOINT_10I_10J.md`.
+* Kept targeted regression checks out of branch protection.
+* Kept `v0.1.0-rc-dry-run` as a rehearsal label, not a Git tag.
+* Confirmed the Phase 10I/J guard passed after checking 11 required files and
+  17 required markers, with 0 warnings and 0 failures.
+* Reran Phase 10G/H; it passed with 0 warnings and 0 failures.
+* Reran Phase 9C; it parsed 31 of 31 PowerShell runners with 0 findings and 0
+  failures.
+
 ## Next action
 
 Phase 10 is open. Next:
 
-1. verify Checkpoint 10F and then add a non-required `Release source checks`
-   workflow as the first implementation of the staged CI plan.
+1. verify Checkpoints 10I and 10J, then let GitHub prove `Release source checks`
+   before performing the first source-only release-candidate dry run.
 
 ### Line-ending state, confirmed at the close of Checkpoint 5A
 

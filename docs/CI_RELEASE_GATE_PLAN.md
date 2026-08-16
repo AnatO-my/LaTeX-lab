@@ -45,7 +45,13 @@ have proven stable.
 
 ### Level 2 - Release Source Gate
 
-Status: planned, not active.
+Status: active as a non-required workflow.
+
+Workflow:
+
+```text
+.github/workflows/release-source-checks.yml
+```
 
 Candidate checks:
 
@@ -56,6 +62,7 @@ tests\run_phase10c_local_release_checklist.ps1
 tests\run_phase10d_release_asset_manifest.ps1
 tests\run_phase10e_l3build_pilot.ps1
 tests\run_phase9c_build_recipe_reliability.ps1
+tests\run_phase10gh_release_source_checks.ps1
 ```
 
 Purpose:
@@ -66,12 +73,18 @@ Purpose:
 * confirm the `l3build` pilot stays non-mandatory until adoption; and
 * confirm PowerShell runners remain parseable.
 
-This level should run on pull requests first. Do not make it required until it
-has passed on several ordinary PRs.
+This level runs on pull requests first. Do not make it required until it has
+passed on several ordinary PRs.
 
 ### Level 3 - Targeted Regression Gate
 
 Status: planned, not active.
+
+Plan:
+
+```text
+docs/TARGETED_REGRESSION_GATE_PLAN.md
+```
 
 Candidate checks:
 
@@ -100,6 +113,9 @@ Candidate actions:
 * attach assets to a GitHub release.
 
 This level should not run on every pull request.
+
+The first source-only release rehearsal is recorded in
+`docs/RELEASE_CANDIDATE_DRY_RUN.md`.
 
 ## Promotion Rules
 
@@ -132,5 +148,5 @@ Keep admin bypass available while hosted LaTeX behavior is still being hardened.
 Phase 10F creates no new GitHub Actions workflow, required status check,
 release tag, generated asset, package version bump, or `l3build` adoption.
 
-The next implementation checkpoint can add the non-required Level 2 workflow
-after this plan is reviewed.
+Checkpoint 10G adds the non-required Level 2 workflow. Checkpoint 10H records
+the promotion checklist for making it required later.
