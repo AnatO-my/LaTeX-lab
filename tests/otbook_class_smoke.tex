@@ -1,0 +1,57 @@
+\documentclass[12pt]{otbook}
+
+\typeout{OTBOOK-SMOKE:CLASS}
+
+\title{OT Book Smoke Test}
+\booksubtitle{Native chapter handling and OT package loading}
+\author{OT}
+\bookedition{Test draft}
+\date{\today}
+
+\begin{document}
+
+\frontmatter
+\makeotbooktitle
+\tableofcontents
+
+\mainmatter
+
+\chapter{Chapter Interface}
+
+\begin{chaptergoals}
+  \item Verify native book chapters.
+  \item Verify shared OT box wrappers.
+\end{chaptergoals}
+
+\section{Shared Styling}
+
+\begin{definitionbox}[Vector]
+  A vector can be written as \(\vect{v}=v_x\ihat+v_y\jhat\).
+\end{definitionbox}
+
+\begin{formulabox}[Newton's Second Law]
+  \[
+    \NewtonSecond
+  \]
+\end{formulabox}
+
+\begin{identitybox}[Vector Calculus]
+  \[
+    \curlgradzero{\phi}
+  \]
+\end{identitybox}
+
+\begin{reflectionbox}
+  This box checks an `otbook`-specific semantic wrapper.
+\end{reflectionbox}
+
+\backmatter
+
+\chapter{Back Matter}
+
+\begin{summarybox}
+  The book class supports front matter, main matter, back matter, chapters, and
+  the shared OT companion packages.
+\end{summarybox}
+
+\end{document}
