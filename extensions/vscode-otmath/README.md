@@ -8,6 +8,28 @@ This extension connects editor selections to the local `otcalc` CLI.
 - `OT Math: Explain Selection`
 - `OT Math: Insert LaTeX Result`
 - `OT Math: Show Result`
+- `OT Math: Refresh LaTeX Results`
+- `OT Math: Build LaTeX Document`
+- `OT Math: Refresh and View LaTeX PDF`
+- `OT Math: Diagnose Extension`
+
+## LaTeX On Save
+
+By default, saving a `.tex` document that contains `\OTMathCompute` or `\OTMathExplain`
+refreshes its generated OT Math include file. The save hook does not compile the
+document; LaTeX Workshop can keep handling build and view shortcuts.
+
+The document commands detect generated include paths such as
+`\OTMathGeneratedInput{generated/otmath-stress-results.tex}` and pass that path to
+`otcalc latex-build` as `--output`.
+
+When `otmath.otcalcPath` is left as the default `otcalc`, document commands prefer the
+workspace `.venv` Python executable when one exists and run `python -m otcalc.cli`. The
+OT Math output panel prints the exact command before the build starts.
+
+If on-save refresh does not run, execute `OT Math: Diagnose Extension` from the Command
+Palette with the `.tex` file active. If that command is missing, the local extension is
+not installed or the Extension Host is not running the compiled extension.
 
 ## Settings
 
@@ -15,6 +37,8 @@ This extension connects editor selections to the local `otcalc` CLI.
 - `otmath.provider`: provider mode, currently only `none`
 - `otmath.privacyMode`: privacy mode, currently only `localOnly`
 - `otmath.variable`: default variable, default `x`
+- `otmath.latexEngine`: LaTeX engine for document builds, default `pdflatex`
+- `otmath.refreshLatexOnSave`: refresh generated snippets on `.tex` save, default `true`
 
 ## Development
 

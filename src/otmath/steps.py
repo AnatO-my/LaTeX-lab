@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import sympy as sp
 
+from otmath.latex_render import render_latex
 from otmath.models import MathStep
 
 
@@ -21,7 +22,7 @@ def make_step(
 
     output_text = str(output_expression)
     latex = (
-        sp.latex(output_expression)
+        render_latex(output_expression)
         if isinstance(output_expression, sp.Expr)
         else rf"\text{{{output_text}}}"
     )

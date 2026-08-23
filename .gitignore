@@ -32,3 +32,4 @@ otmath.local.toml
 *.fls
 *.synctex.gz
 examples/latex/*.pdf
+examples/latex/__latexindent_temp_*.tex

@@ -1,0 +1,109 @@
+\documentclass{article}
+\usepackage{amsmath}
+\input{../../integrations/latex/otmath.sty}
+\OTMathGeneratedInput{generated/otmath-stress-results.tex}
+
+\begin{document}
+
+\section*{OT Math Stress Document}
+
+This document is a working bench for difficult expressions that should be generated
+before LaTeX compilation:
+
+\begin{verbatim}
+otcalc latex-build examples/latex/stress.tex --compile
+pdflatex -interaction=nonstopmode -halt-on-error stress.tex
+\end{verbatim}
+
+\section*{Current LaTeX Input Coverage}
+
+\subsection*{Factoring with Subscripted Variables}
+
+\OTMathCompute[input=latex; variable=x_{0}]{stress-factor-subscript}{factor}{x_{0}^{4} - 4}
+
+\subsection*{Complex Factorization}
+
+\OTMathCompute[input=latex]{stress-factor-complex}{factor}{x^{4} + 1}
+
+\subsection*{Expansion with Greek Variables}
+
+\OTMathCompute[input=latex]{stress-expand-greek}{expand}{(\Phi + \xi)^{3}}
+
+\OTMathCompute[input=latex]{stress-expand-variant-greek}{expand}{(\varrho + \vartheta)^{2}}
+
+\OTMathCompute[input=latex; variable=\varrho]{stress-solve-varrho}{solve}{\varrho^{2} - 1 = 0}
+
+\subsection*{Expansion with Styled Variables}
+
+\OTMathCompute[input=latex]{stress-expand-styled}{expand}{(\mathcal{A} + \mathbb{R})^{2}}
+
+\OTMathCompute[input=latex; variable=\mathbf{X}]{stress-solve-bold}{solve}{\mathbf{X}^{2} - 1 = 0}
+
+\subsection*{Simplification with Fractions and Square Roots}
+
+\OTMathCompute[input=latex]{stress-simplify-rational}{simplify}{\frac{x^{2} - 1}{x - 1}}
+
+\OTMathCompute[input=latex]{stress-simplify-roots}{simplify}{\sqrt{16} + \sqrt{9}}
+
+\subsection*{Quadratic and Repeated-Root Solving}
+
+\OTMathCompute[input=latex]{stress-solve-quadratic}{solve}{x^{2} - 8x + 6 = 0}
+
+\OTMathCompute[input=latex]{stress-solve-repeated-root}{solve}{x^{2} - 4x + 4 = 0}
+
+\subsection*{Plus-Minus Branching}
+
+\OTMathCompute[input=latex]{stress-expand-plus-minus}{expand}{(x \pm 1)^{2}}
+
+\OTMathCompute[input=latex; variable=x]{stress-solve-plus-minus}{solve}{x = \pm 2}
+
+\OTMathCompute[input=latex]{stress-expand-minus-plus}{expand}{(x \mp 1)^{2}}
+
+\OTMathCompute[input=latex]{stress-expand-paired-signs}{expand}{a \pm b \mp c}
+
+\OTMathCompute[input=latex]{stress-solve-quadratic-formula}{solve}{x = \frac{-b \pm \sqrt{b^{2} - 4ac}}{2a}}
+
+\subsection*{Trigonometric Differentiation}
+
+\OTMathCompute[input=latex]{stress-diff-trig-poly}{differentiate}{\sin{x} + x^{4}}
+
+\subsection*{Integration}
+
+\OTMathCompute[input=latex]{stress-integrate-gaussian}{integrate}{e^{-x^{2}}}
+
+\OTMathCompute[input=latex]{stress-integrate-mixed}{integrate}{2x + \cos{x}}
+
+\OTMathCompute[input=latex]{stress-integrate-notation}{integrate}{\int 2x \, dx}
+
+\subsection*{SymPy-Backed Operators}
+
+\OTMathCompute[input=latex]{stress-sum-squares}{sum}{\sum_{k=1}^{n} k^{2}}
+
+\OTMathCompute[input=latex]{stress-product-factorial}{product}{\prod_{k=1}^{n} k}
+
+\OTMathCompute[input=latex]{stress-limit-sine}{limit}{\lim_{x \to 0} \frac{\sin{x}}{x}}
+
+\OTMathCompute[input=latex]{stress-inequality}{inequality}{x \leq 3}
+
+\subsection*{Greek and Subscripted Solving}
+
+\OTMathCompute[input=latex; variable=\theta_{1}]{stress-solve-theta}{solve}{\theta_{1}^{2} - 4 = 0}
+
+\subsection*{System with Subscripted Variables}
+
+\OTMathCompute[input=latex; variable=x_{0},y_{0}]{stress-system-subscript}{system}{x_{0} + y_{0} = 5; x_{0} - y_{0} = 1}
+
+\subsection*{Explanation Rendering}
+
+\OTMathExplain[input=latex; operation=solve]{stress-explain-solve}{x^{2} - 6x + 6 = 0}
+
+\section*{Next LaTeX Parser Targets}
+
+The following is intentionally listed as ordinary LaTeX, not an executable OT Math
+request yet. It defines the next adapter surface we want to support:
+
+\[
+  a \pm b \pm c
+\]
+
+\end{document}

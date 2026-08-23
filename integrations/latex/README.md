@@ -13,6 +13,7 @@ Use the helpers from a document that can resolve the local path:
 
 Available helpers:
 
+- `\OTMathGeneratedInput{...}` for optional generated include files.
 - `\OTMathInline{...}` for inline math.
 - `\OTMathResult{...}` for display math.
 - `\OTMathEquation{lhs}{rhs}` for numbered equations.
@@ -23,6 +24,7 @@ Available helpers:
 Write requests directly in a `.tex` file:
 
 ```latex
+\OTMathGeneratedInput{generated/otmath-results.tex}
 \OTMathCompute[input=latex]{quadratic}{simplify}{x^{2} - 5x + 6}
 \OTMathCompute[input=latex; variable=x,y]{system-example}{system}{x + y = 5; x - y = 1}
 \OTMathExplain[input=latex; operation=solve]{solve-steps}{x^{2} - 5x + 6 = 0}
@@ -33,6 +35,11 @@ Then generate the include file:
 ```bash
 otcalc latex-build examples/latex/sample.tex
 ```
+
+LaTeX compilation reads the generated include file but does not update it. Run
+`otcalc latex-build` before compiling, or use the VS Code OT Math build shortcuts.
+If a generated include is missing, `\OTMathGeneratedInput{...}` lets the document compile
+with missing-result placeholders until the include is regenerated.
 
 The sample document demonstrates the same pre-generation workflow:
 

@@ -8,12 +8,16 @@ from otmath import (
     expand_expression,
     factor_expression,
     integrate_expression,
+    limit_expression,
+    product_expression,
     render_steps_latex,
     render_steps_text,
     run_request,
     simplify_expression,
+    solve_inequality_expression,
     solve_expression,
     solve_system,
+    summation_expression,
 )
 ```
 
@@ -24,6 +28,10 @@ from otmath import (
 - `simplify_expression(expression: str, variable: str = "x")`
 - `differentiate_expression(expression: str, variable: str = "x")`
 - `integrate_expression(expression: str, variable: str = "x")`
+- `summation_expression(expression: str, variable: str = "k,1,n")`
+- `product_expression(expression: str, variable: str = "k,1,n")`
+- `limit_expression(expression: str, variable: str = "x,0")`
+- `solve_inequality_expression(expression: str, variable: str = "x")`
 - `factor_expression(expression: str, variable: str = "x")`
 - `expand_expression(expression: str, variable: str = "x")`
 - `run_request(request: MathRequest)`
@@ -70,6 +78,8 @@ assumptions, and unsupported operations are rejected before dispatch.
 - `solve_system` substitutes each returned solution into every equation.
 - `simplify`, `expand`, and `factor` compare expression equivalence.
 - `integrate` differentiates the returned integral and compares it with the original expression.
+- `sum`, `product`, and `limit` use deterministic SymPy recomputation.
+- `inequality` returns SymPy's single-variable solution set.
 - `differentiate` currently checks consistency against SymPy's deterministic derivative result; this is not yet an independent proof.
 
 ## Supported Syntax
@@ -79,12 +89,14 @@ The current parser accepts SymPy-style expression syntax, not LaTeX input.
 - Use `**` for powers: `x**2`
 - Use `*` for explicit multiplication: `5*x`
 - Common functions include `sin`, `cos`, `tan`, `log`, `ln`, `exp`, `sqrt`, and `abs`
-- Common constants include `pi` and `E`
+- Common constants include `pi`, `E`, and `I`
 - Unknown symbols such as `x` and `y` are allowed
 - `solve_expression` accepts either an expression treated as equal to zero or a single
   equation with `=`
 - `otcalc latex-build` can adapt a starter subset of LaTeX-style document input before
   dispatching to the deterministic engine
+- `factor_expression` factors over the complex extension, so expressions such as
+  `x**4 - 1` can include factors with `I`
 
 Examples:
 
@@ -95,8 +107,13 @@ solve_system(["x + y = 5", "x - y = 1"], variables=["x", "y"])
 simplify_expression("(x + 1)**2 - x**2")
 differentiate_expression("sin(x)")
 integrate_expression("exp(-x**2)")
+summation_expression("k**2", variable="k,1,n")
+product_expression("k", variable="k,1,n")
+limit_expression("sin(x)/x", variable="x,0,+-")
+solve_inequality_expression("x <= 3")
 expand_expression("(x - 2)*(x - 3)")
 factor_expression("x**2 - 5*x + 6")
+factor_expression("x**4 - 1")
 ```
 
 Unsupported examples:

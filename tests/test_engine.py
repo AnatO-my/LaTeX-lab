@@ -5,12 +5,16 @@ from otmath import (
     expand_expression,
     factor_expression,
     integrate_expression,
+    limit_expression,
+    product_expression,
     render_steps_latex,
     render_steps_text,
     run_request,
     simplify_expression,
     solve_expression,
+    solve_inequality_expression,
     solve_system,
+    summation_expression,
 )
 from otmath.domains import SystemRequest
 from otmath.engine import (
@@ -94,6 +98,38 @@ def test_integrate_expression() -> None:
     assert result.verified is True
 
 
+def test_summation_expression() -> None:
+    result = summation_expression("k**2", variable="k,1,n")
+
+    assert result.answers == ["n**3/3 + n**2/2 + n/6"]
+    assert result.verified is True
+    assert result.metadata["summation_variable"] == "k"
+
+
+def test_product_expression() -> None:
+    result = product_expression("k", variable="k,1,n")
+
+    assert result.answers == ["factorial(n)"]
+    assert result.verified is True
+    assert result.metadata["product_variable"] == "k"
+
+
+def test_limit_expression() -> None:
+    result = limit_expression("sin(x)/x", variable="x,0,+-")
+
+    assert result.answers == ["1"]
+    assert result.verified is True
+    assert result.metadata["direction"] == "+-"
+
+
+def test_solve_inequality_expression() -> None:
+    result = solve_inequality_expression("x <= 3")
+
+    assert result.answers == ["Interval(-oo, 3)"]
+    assert result.verified is True
+    assert result.latex == r"\left(-\infty, 3\right]"
+
+
 def test_factor_expression() -> None:
     result = factor_expression("x**2 - 5*x + 6")
 
@@ -101,6 +137,16 @@ def test_factor_expression() -> None:
         parse_expression(result.answers[0]), parse_expression("x**2 - 5*x + 6")
     )
     assert result.verified is True
+
+
+def test_factor_expression_over_complex_numbers() -> None:
+    result = factor_expression("x**4 - 1")
+
+    assert "(x - I)" in result.answers[0]
+    assert "(x + I)" in result.answers[0]
+    assert expressions_equivalent(parse_expression(result.answers[0]), parse_expression("x**4 - 1"))
+    assert result.verified is True
+    assert result.metadata["domain"] == "complex"
 
 
 def test_expand_expression() -> None:

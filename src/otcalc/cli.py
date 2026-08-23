@@ -29,6 +29,10 @@ _COMMAND_OPERATIONS = {
     "integrate": MathOperation.INTEGRATE,
     "factor": MathOperation.FACTOR,
     "expand": MathOperation.EXPAND,
+    "sum": MathOperation.SUMMATION,
+    "product": MathOperation.PRODUCT,
+    "limit": MathOperation.LIMIT,
+    "inequality": MathOperation.INEQUALITY,
     "latex": MathOperation.SIMPLIFY,
 }
 _COMMAND_HELP = {
@@ -39,6 +43,10 @@ _COMMAND_HELP = {
     "integrate": "Integrate an expression.",
     "factor": "Factor a symbolic expression.",
     "expand": "Expand a symbolic expression.",
+    "sum": "Evaluate a symbolic summation.",
+    "product": "Evaluate a symbolic product.",
+    "limit": "Evaluate a symbolic limit.",
+    "inequality": "Solve a single-variable inequality.",
     "latex": "Render an expression as LaTeX.",
 }
 _EXPLAIN_OPERATIONS = {
@@ -49,6 +57,10 @@ _EXPLAIN_OPERATIONS = {
     "integrate": MathOperation.INTEGRATE,
     "factor": MathOperation.FACTOR,
     "expand": MathOperation.EXPAND,
+    "sum": MathOperation.SUMMATION,
+    "product": MathOperation.PRODUCT,
+    "limit": MathOperation.LIMIT,
+    "inequality": MathOperation.INEQUALITY,
 }
 _PACKAGE_NAME = "ot-math"
 _VERSION_FALLBACK = "0.1.0"
@@ -97,6 +109,26 @@ def _write_history(result: MathResult, history_file: Path) -> None:
     with history_file.open("a", encoding="utf-8") as file:
         file.write(json.dumps(result.as_dict(), sort_keys=True))
         file.write("\n")
+
+
+def _default_variable(command: str) -> str:
+    if command == "system":
+        return "x,y"
+    if command in {"sum", "product"}:
+        return "k,1,n"
+    if command == "limit":
+        return "x,0"
+    return "x"
+
+
+def _variable_help(command: str) -> str:
+    if command == "system":
+        return "Comma-separated variable names, default x,y."
+    if command in {"sum", "product"}:
+        return "Range spec variable,lower,upper. Default: k,1,n."
+    if command == "limit":
+        return "Limit spec variable,point[,direction]. Default: x,0."
+    return "Variable name, default x."
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -162,12 +194,8 @@ def build_parser() -> argparse.ArgumentParser:
             description=_COMMAND_HELP[command],
         )
         command_parser.add_argument("expression")
-        default_variable = "x,y" if command == "system" else "x"
-        variable_help = (
-            "Comma-separated variable names, default x,y."
-            if command == "system"
-            else "Variable name, default x."
-        )
+        default_variable = _default_variable(command)
+        variable_help = _variable_help(command)
         command_parser.add_argument(
             "--variable",
             "-v",

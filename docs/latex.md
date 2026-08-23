@@ -9,7 +9,7 @@ Use `\OTMathCompute` and `\OTMathExplain` in a trusted `.tex` document:
 
 ```latex
 \input{../../integrations/latex/otmath.sty}
-\input{generated/otmath-results.tex}
+\OTMathGeneratedInput{generated/otmath-results.tex}
 
 \OTMathCompute[input=latex]{quadratic}{simplify}{x^{2} - 5x + 6}
 \OTMathCompute[input=latex; variable=x,y]{system-example}{system}{x + y = 5; x - y = 1}
@@ -33,11 +33,22 @@ otcalc latex-build examples/latex/sample.tex --compile
 
 This is pre-generation, not shell escape. The calculator runs before LaTeX compilation.
 
+If a document declares a generated include with `\OTMathGeneratedInput{generated/name.tex}`,
+`latex-build` writes to that declared path by default. Plain LaTeX compilation only reads
+the generated file; it does not run the calculator. Use `otcalc latex-build --compile`,
+the VS Code command palette, or the VS Code on-save refresh when you want edited requests
+to recalculate.
+
+`\OTMathGeneratedInput{...}` keeps the document compilable when the generated include is
+missing. In that case, request markers render placeholder warnings until the include is
+regenerated.
+
 ## Package Helpers
 
 `integrations/latex/otmath.sty` provides small display helpers:
 
 ```latex
+\OTMathGeneratedInput{generated/otmath-results.tex}
 \OTMathInline{x^{2} - 5 x + 6}
 \OTMathResult{x^{2} - 5 x + 6}
 \OTMathEquation{x^{2} - 5 x + 6}{0}
@@ -72,9 +83,21 @@ Supported starter LaTeX input includes:
 - `\sqrt{x}`.
 - `\sin{x}`, `\cos{x}`, `\tan{x}`, `\log{x}`, `\ln{x}`, and `\exp{x}`.
 - `e^{...}` as Euler's constant.
+- Inequalities such as `x \leq 3` and `x \geq 0` for `inequality` requests.
+- Indefinite integral notation such as `\int 2x \, dx` for `integrate` requests.
+- Summation notation such as `\sum_{k=1}^{n} k^{2}` for `sum` requests.
+- Product notation such as `\prod_{k=1}^{n} k` for `product` requests.
+- Limit notation such as `\lim_{x \to 0} \frac{\sin{x}}{x}` for `limit` requests.
+- Plus-minus and minus-plus notation such as `x = \pm 2`, `x = \mp 2`,
+  `(x \pm 1)^{2}`, or `a \pm b \mp c`. The LaTeX builder expands this into
+  explicit sign branches before calling the engine.
 - Common Greek variables such as `\alpha`, `\beta`, `\gamma`, `\theta`,
   `\lambda`, `\mu`, `\sigma`, `\phi`, `\omega`, and uppercase forms
   such as `\Delta`, `\Gamma`, `\Omega`, and `\Sigma`.
+- Variant Greek variables such as `\varrho`, `\vartheta`, `\varepsilon`,
+  `\varphi`, `\varsigma`, and `\varpi`.
+- Styled uppercase variables such as `\mathcal{A}`, `\mathbb{R}`,
+  `\mathfrak{M}`, `\mathsf{Q}`, and `\mathbf{X}`.
 - `\pi` as the mathematical constant.
 
 Unsupported LaTeX should fail at the parser boundary rather than being guessed.
@@ -85,10 +108,21 @@ Variables in options are normalized too. For example:
 \OTMathCompute[input=latex; variable=x_{0}]{roots}{solve}{x_{0}^{2} - 1 = 0}
 \OTMathCompute[input=latex; variable=x_{0},y_{0}]{system}{system}{x_{0} + y_{0} = 5; x_{0} - y_{0} = 1}
 \OTMathCompute[input=latex]{greek}{simplify}{\alpha^{2} + \alpha}
+\OTMathCompute[input=latex]{variant-greek}{expand}{(\varrho + \vartheta)^{2}}
+\OTMathCompute[input=latex]{styled}{expand}{(\mathcal{A} + \mathbb{R})^{2}}
+\OTMathCompute[input=latex; variable=x]{plus-minus}{solve}{x = \pm 2}
+\OTMathCompute[input=latex]{minus-plus}{expand}{a \pm b \mp c}
+\OTMathCompute[input=latex]{sum-squares}{sum}{\sum_{k=1}^{n} k^{2}}
+\OTMathCompute[input=latex]{limit-sine}{limit}{\lim_{x \to 0} \frac{\sin{x}}{x}}
 ```
 
 Internally, names such as `x_{0}` and `\alpha` are normalized to engine-safe symbols
-such as `x_0` and `alpha`. SymPy then renders them back to LaTeX in generated output.
+such as `x_0` and `alpha`; styled names such as `\mathcal{A}` are normalized to
+names such as `mathcal_A`; variant Greek names such as `\varrho` are normalized to
+names such as `var_rho`. SymPy then renders them back to LaTeX in generated output.
+When two solve outputs are exact opposites, generated LaTeX may compact them back to
+`\pm`, such as `\pm 2`. Paired `\pm` and `\mp` inputs are correlated: the first
+branch uses plus/minus, and the second uses minus/plus.
 
 Complex symbol declarations and aliases are not implemented yet. For now, keep variable
 subscripts simple: letters or digits inside the subscript braces.
@@ -114,3 +148,22 @@ OT Math's recommended workflow does not require shell escape.
 The Python test suite includes golden checks for generated LaTeX snippets. A TeX compile
 test may run when a local TeX distribution is available and should skip gracefully when
 TeX is missing.
+
+`examples/latex/stress.tex` is a broader document bench for current hard cases:
+subscripted variables, Greek variables, fractions, roots, solving, systems,
+differentiation, integration, and explanation rendering.
+
+```bash
+otcalc latex-build examples/latex/stress.tex --compile
+cd examples/latex
+pdflatex -interaction=nonstopmode -halt-on-error stress.tex
+```
+
+You can also regenerate the include file with:
+
+```bash
+python examples/latex/generate_stress_results.py
+```
+
+The stress document also lists upcoming parser targets, such as multiple independent
+plus-minus choices, as ordinary LaTeX until the adapter supports them.

@@ -5,9 +5,15 @@ from pathlib import Path
 
 import pytest
 from examples.latex.generate_sample_results import render_sample_results
+from examples.latex.generate_stress_results import render_stress_results
 
 from otcalc.cli import main
-from otcalc.latex_build import LatexBuildError, find_latex_requests, generate_latex_include
+from otcalc.latex_build import (
+    LatexBuildError,
+    detect_generated_include_path,
+    find_latex_requests,
+    generate_latex_include,
+)
 
 
 def test_cli_latex_golden_derivative(capsys: pytest.CaptureFixture[str]) -> None:
@@ -44,6 +50,7 @@ def test_cli_explain_latex_golden_contains_aligned_block(
 def test_latex_package_defines_rendering_helpers() -> None:
     package = Path("integrations/latex/otmath.sty").read_text(encoding="utf-8")
 
+    assert "\\RequirePackage{amssymb}" in package
     assert "\\newcommand{\\OTMathInline}" in package
     assert "\\newcommand{\\OTMathResult}" in package
     assert "\\newcommand{\\OTMathEquation}" in package
@@ -51,6 +58,7 @@ def test_latex_package_defines_rendering_helpers() -> None:
     assert "\\newcommand{\\OTMathCompute}" in package
     assert "\\newcommand{\\OTMathExplain}" in package
     assert "\\newcommand{\\OTMathUse}" in package
+    assert "\\newcommand{\\OTMathGeneratedInput}" in package
 
 
 def test_latex_request_scanner_finds_compute_and_explain_macros() -> None:
@@ -93,10 +101,83 @@ def test_sample_latex_uses_otmath_package() -> None:
     sample = Path("examples/latex/sample.tex").read_text(encoding="utf-8")
 
     assert "\\input{../../integrations/latex/otmath.sty}" in sample
-    assert "\\input{generated/otmath-results.tex}" in sample
+    assert "\\OTMathGeneratedInput{generated/otmath-results.tex}" in sample
     assert "\\OTMathCompute[input=latex]{sample-quadratic}" in sample
     assert "\\OTMathCompute[input=latex; variable=x,y]{sample-system}" in sample
     assert "\\OTMathExplain[input=latex; operation=solve]{sample-solve-steps}" in sample
+
+
+def test_latex_build_detects_declared_generated_include_path() -> None:
+    stress = Path("examples/latex/stress.tex")
+    source = stress.read_text(encoding="utf-8")
+
+    assert detect_generated_include_path(stress, source) == (
+        stress.parent / "generated" / "otmath-stress-results.tex"
+    )
+
+
+def test_latex_build_uses_declared_generated_include_by_default(tmp_path: Path) -> None:
+    tex_file = tmp_path / "scratch.tex"
+    tex_file.write_text(
+        r"\input{../../integrations/latex/otmath.sty}"
+        "\n"
+        r"\OTMathGeneratedInput{generated/custom-results.tex}"
+        "\n"
+        r"\OTMathCompute[input=latex]{quad}{simplify}{x^{2} - 5x + 6}",
+        encoding="utf-8",
+    )
+
+    result = generate_latex_include(tex_file)
+
+    assert result.generated_file == tmp_path / "generated" / "custom-results.tex"
+    assert result.generated_file.exists()
+
+
+def test_stress_latex_document_generates_current_hard_cases(tmp_path: Path) -> None:
+    stress = Path("examples/latex/stress.tex")
+    output_file = tmp_path / "generated" / "otmath-stress-results.tex"
+
+    result = generate_latex_include(stress, output_file=output_file)
+    generated = output_file.read_text(encoding="utf-8")
+
+    assert result.request_count == 27
+    assert r"\csname OTMathGenerated@stress-factor-subscript\endcsname{%" in generated
+    assert r"x_{0}" in generated
+    assert r"\csname OTMathGenerated@stress-factor-complex\endcsname{%" in generated
+    assert "i" in generated
+    assert r"\csname OTMathGenerated@stress-expand-greek\endcsname{%" in generated
+    assert r"\csname OTMathGenerated@stress-expand-variant-greek\endcsname{%" in generated
+    assert r"\varrho^{2}" in generated
+    assert r"\vartheta^{2}" in generated
+    assert r"\csname OTMathGenerated@stress-expand-styled\endcsname{%" in generated
+    assert r"\mathcal{A}^{2}" in generated
+    assert r"\mathbb{R}^{2}" in generated
+    assert r"\csname OTMathGenerated@stress-simplify-roots\endcsname{%" in generated
+    assert "7" in generated
+    assert r"\csname OTMathGenerated@stress-expand-plus-minus\endcsname{%" in generated
+    assert r"\csname OTMathGenerated@stress-solve-plus-minus\endcsname{%" in generated
+    assert r"\csname OTMathGenerated@stress-expand-minus-plus\endcsname{%" in generated
+    assert r"\csname OTMathGenerated@stress-expand-paired-signs\endcsname{%" in generated
+    assert r"\pm 2" in generated
+    assert r"\csname OTMathGenerated@stress-solve-quadratic-formula\endcsname{%" in generated
+    assert r"\operatorname{erf}" in generated
+    assert r"\csname OTMathGenerated@stress-sum-squares\endcsname{%" in generated
+    assert r"\frac{n^{3}}{3}" in generated
+    assert r"\csname OTMathGenerated@stress-product-factorial\endcsname{%" in generated
+    assert r"n!" in generated
+    assert r"\csname OTMathGenerated@stress-limit-sine\endcsname{%" in generated
+    assert r"\csname OTMathGenerated@stress-inequality\endcsname{%" in generated
+    assert r"\left\{ x_{0} = 3, y_{0} = 2 \right\}" in generated
+    assert "\\text{Verify returned solutions}" in generated
+
+
+def test_stress_latex_generated_results_are_deterministic() -> None:
+    generated = render_stress_results()
+
+    assert r"\csname OTMathGenerated@stress-integrate-gaussian\endcsname{%" in generated
+    assert r"\frac{\sqrt{\pi} \operatorname{erf}{\left(x \right)}}{2}" in generated
+    assert r"\csname OTMathGenerated@stress-system-subscript\endcsname{%" in generated
+    assert r"\left\{ x_{0} = 3, y_{0} = 2 \right\}" in generated
 
 
 def test_sample_latex_generated_results_are_deterministic() -> None:
@@ -166,7 +247,7 @@ def test_latex_build_generates_include_with_latex_variable_spec(tmp_path: Path) 
     generated = output_file.read_text(encoding="utf-8")
 
     assert result.request_count == 1
-    assert r"\left[ -1, \  1\right]" in generated
+    assert r"\pm 1" in generated
 
 
 def test_latex_build_generates_include_with_greek_variables(tmp_path: Path) -> None:
@@ -182,6 +263,86 @@ def test_latex_build_generates_include_with_greek_variables(tmp_path: Path) -> N
     generated = output_file.read_text(encoding="utf-8")
 
     assert r"\alpha \left(\alpha + 1\right)" in generated
+
+
+def test_latex_build_restores_variant_greek_variables_in_generated_latex(
+    tmp_path: Path,
+) -> None:
+    tex_file = tmp_path / "scratch.tex"
+    output_file = tmp_path / "generated" / "otmath-results.tex"
+    tex_file.write_text(
+        r"\OTMathCompute[input=latex]{variant}{expand}{(\varrho + \vartheta)^{2}}",
+        encoding="utf-8",
+    )
+
+    result = generate_latex_include(tex_file, output_file=output_file)
+    generated = output_file.read_text(encoding="utf-8")
+
+    assert result.request_count == 1
+    assert r"\varrho^{2}" in generated
+    assert r"\vartheta^{2}" in generated
+
+
+def test_latex_build_restores_styled_variables_in_generated_latex(
+    tmp_path: Path,
+) -> None:
+    tex_file = tmp_path / "scratch.tex"
+    output_file = tmp_path / "generated" / "otmath-results.tex"
+    tex_file.write_text(
+        r"\OTMathCompute[input=latex]{styled}{expand}{(\mathcal{A} + \mathbb{R})^{2}}"
+        "\n"
+        r"\OTMathCompute[input=latex; variable=\mathbf{X}]{styled-solve}{solve}"
+        r"{\mathbf{X}^{2} - 1 = 0}",
+        encoding="utf-8",
+    )
+
+    result = generate_latex_include(tex_file, output_file=output_file)
+    generated = output_file.read_text(encoding="utf-8")
+
+    assert result.request_count == 2
+    assert r"\mathcal{A}^{2}" in generated
+    assert r"\mathbb{R}^{2}" in generated
+    assert r"\pm 1" in generated
+
+
+def test_latex_build_expands_plus_minus_input_branches(tmp_path: Path) -> None:
+    tex_file = tmp_path / "scratch.tex"
+    output_file = tmp_path / "generated" / "otmath-results.tex"
+    tex_file.write_text(
+        r"\OTMathCompute[input=latex]{pm-expand}{expand}{(x \pm 1)^{2}}"
+        "\n"
+        r"\OTMathCompute[input=latex; variable=x]{pm-solve}{solve}{x = \pm 2}",
+        encoding="utf-8",
+    )
+
+    result = generate_latex_include(tex_file, output_file=output_file)
+    generated = output_file.read_text(encoding="utf-8")
+
+    assert result.request_count == 2
+    assert r"\begin{gathered}" in generated
+    assert r"x^{2} - 2 x + 1" in generated
+    assert r"x^{2} + 2 x + 1" in generated
+    assert r"\pm 2" in generated
+
+
+def test_latex_build_expands_minus_plus_input_branches(tmp_path: Path) -> None:
+    tex_file = tmp_path / "scratch.tex"
+    output_file = tmp_path / "generated" / "otmath-results.tex"
+    tex_file.write_text(
+        r"\OTMathCompute[input=latex]{mp-expand}{expand}{(x \mp 1)^{2}}"
+        "\n"
+        r"\OTMathCompute[input=latex]{paired}{expand}{a \pm b \mp c}",
+        encoding="utf-8",
+    )
+
+    result = generate_latex_include(tex_file, output_file=output_file)
+    generated = output_file.read_text(encoding="utf-8")
+
+    assert result.request_count == 2
+    assert r"x^{2} - 2 x + 1" in generated
+    assert r"x^{2} + 2 x + 1" in generated
+    assert "a + b - c" in generated
+    assert "a - b + c" in generated
 
 
 def test_latex_build_generates_system_with_subscript_variables(tmp_path: Path) -> None:
@@ -240,6 +401,47 @@ def test_sample_latex_compiles_when_pdflatex_is_available(tmp_path: Path) -> Non
             sample.name,
         ],
         cwd=sample.parent,
+        text=True,
+        capture_output=True,
+        check=False,
+    )
+
+    assert result.returncode == 0, result.stdout + result.stderr
+
+
+def test_latex_document_compiles_with_missing_generated_include(
+    tmp_path: Path,
+) -> None:
+    pdflatex = shutil.which("pdflatex")
+    if pdflatex is None:
+        pytest.skip("pdflatex is not installed")
+
+    package = Path("integrations/latex/otmath.sty").resolve().as_posix()
+    tex_file = tmp_path / "missing-generated.tex"
+    tex_file.write_text(
+        "\n".join(
+            [
+                r"\documentclass{article}",
+                r"\usepackage{amsmath}",
+                rf"\input{{{package}}}",
+                r"\OTMathGeneratedInput{generated/missing-results.tex}",
+                r"\begin{document}",
+                r"\OTMathCompute[input=latex]{missing}{simplify}{x^{2} - 1}",
+                r"\end{document}",
+            ]
+        ),
+        encoding="utf-8",
+    )
+
+    result = subprocess.run(
+        [
+            pdflatex,
+            "-interaction=nonstopmode",
+            "-halt-on-error",
+            f"-output-directory={tmp_path}",
+            tex_file.name,
+        ],
+        cwd=tex_file.parent,
         text=True,
         capture_output=True,
         check=False,

@@ -1,14 +1,32 @@
 import { execFile } from "node:child_process";
+import * as fs from "node:fs";
+import * as path from "node:path";
 import * as vscode from "vscode";
 
-import { buildOtcalcArgs, OtMathCliCommand } from "./commandBuilder";
+import {
+  buildLatexBuildArgs,
+  buildOtcalcArgs,
+  detectGeneratedLatexOutput,
+  hasOtMathLatexRequests,
+  OtMathCliCommand,
+} from "./commandBuilder";
 
 interface ExtensionSettings {
   otcalcPath: string;
   provider: "none";
   privacyMode: "localOnly";
   variable: string;
+  latexEngine: string;
+  refreshLatexOnSave: boolean;
 }
+
+interface OtcalcInvocation {
+  executable: string;
+  args: string[];
+  cwd?: string;
+}
+
+const latexRefreshesInFlight = new Set<string>();
 
 export function activate(context: vscode.ExtensionContext) {
   const output = vscode.window.createOutputChannel("OT Math");
@@ -24,8 +42,27 @@ export function activate(context: vscode.ExtensionContext) {
     vscode.commands.registerCommand("otmath.insertLatexResult", () =>
       runSelectionCommand("latex", output, { insertResult: true })
     ),
-    vscode.commands.registerCommand("otmath.showResult", () => runSelectionCommand("simplify", output))
+    vscode.commands.registerCommand("otmath.showResult", () =>
+      runSelectionCommand("simplify", output)
+    ),
+    vscode.commands.registerCommand("otmath.refreshLatexResults", () =>
+      runLatexBuildCommand(output)
+    ),
+    vscode.commands.registerCommand("otmath.buildLatexDocument", () =>
+      runLatexBuildCommand(output, { compile: true })
+    ),
+    vscode.commands.registerCommand("otmath.refreshAndViewLatexDocument", () =>
+      runLatexBuildCommand(output, { compile: true, viewPdf: true })
+    ),
+    vscode.commands.registerCommand("otmath.diagnose", () =>
+      diagnoseExtension(context, output)
+    ),
+    vscode.workspace.onDidSaveTextDocument((document) =>
+      refreshLatexResultsOnSave(document, output)
+    )
   );
+
+  output.appendLine("OT Math extension activated.");
 }
 
 function readSettings(): ExtensionSettings {
@@ -35,6 +72,8 @@ function readSettings(): ExtensionSettings {
     provider: config.get("provider", "none"),
     privacyMode: config.get("privacyMode", "localOnly"),
     variable: config.get("variable", "x"),
+    latexEngine: config.get("latexEngine", "pdflatex"),
+    refreshLatexOnSave: config.get("refreshLatexOnSave", true),
   };
 }
 
@@ -67,7 +106,8 @@ async function runSelectionCommand(
       format: command === "explain" ? "text" : undefined,
       explainOperation: options.explainOperation,
     });
-    const result = await runOtcalc(settings.otcalcPath, args);
+    const invocation = resolveOtcalcInvocation(settings, args, editor?.document.uri.fsPath);
+    const result = await runOtcalc(invocation);
 
     if (options.insertResult && editor) {
       await editor.edit((edit) => edit.replace(editor.selection, result.stdout.trim()));
@@ -87,18 +127,290 @@ async function runSelectionCommand(
   }
 }
 
-function runOtcalc(
-  executable: string,
-  args: string[]
-): Promise<{ stdout: string; stderr: string }> {
+function diagnoseExtension(
+  context: vscode.ExtensionContext,
+  output: vscode.OutputChannel
+): void {
+  const settings = readSettings();
+  const editor = vscode.window.activeTextEditor;
+  const document = editor?.document;
+  const sourceText = document?.getText() ?? "";
+  const sourcePath = document?.uri.fsPath;
+  const outputPath =
+    document && sourcePath ? detectGeneratedLatexOutput(sourceText, sourcePath) : undefined;
+  const refreshInvocation =
+    sourcePath && document
+      ? resolveOtcalcInvocation(
+          settings,
+          buildLatexBuildArgs({
+            sourcePath,
+            outputPath,
+          }),
+          sourcePath
+        )
+      : undefined;
+  const buildInvocation =
+    sourcePath && document
+      ? resolveOtcalcInvocation(
+          settings,
+          buildLatexBuildArgs({
+            sourcePath,
+            outputPath,
+            compile: true,
+            engine: settings.latexEngine,
+          }),
+          sourcePath
+        )
+      : undefined;
+
+  output.clear();
+  output.appendLine("OT Math Extension Diagnostics");
+  output.appendLine("");
+  output.appendLine(`Extension mode: ${context.extensionMode}`);
+  output.appendLine(`Extension path: ${context.extensionUri.fsPath}`);
+  output.appendLine(`Workspace folders: ${formatWorkspaceFolders()}`);
+  output.appendLine("");
+  output.appendLine("Settings");
+  output.appendLine(`  otcalcPath: ${settings.otcalcPath}`);
+  output.appendLine(`  provider: ${settings.provider}`);
+  output.appendLine(`  privacyMode: ${settings.privacyMode}`);
+  output.appendLine(`  variable: ${settings.variable}`);
+  output.appendLine(`  latexEngine: ${settings.latexEngine}`);
+  output.appendLine(`  refreshLatexOnSave: ${settings.refreshLatexOnSave}`);
+  output.appendLine("");
+  output.appendLine("Active Document");
+  output.appendLine(`  uri: ${document?.uri.toString() ?? "(none)"}`);
+  output.appendLine(`  fsPath: ${sourcePath ?? "(none)"}`);
+  output.appendLine(`  languageId: ${document?.languageId ?? "(none)"}`);
+  output.appendLine(`  isLocalTexDocument: ${document ? isLocalTexDocument(document) : false}`);
+  output.appendLine(`  contains OT Math requests: ${hasOtMathLatexRequests(sourceText)}`);
+  output.appendLine(`  detected generated include: ${outputPath ?? "(default)"}`);
+  output.appendLine("");
+  output.appendLine("Resolved Commands");
+  output.appendLine(`  refresh: ${refreshInvocation ? formatInvocation(refreshInvocation) : "(none)"}`);
+  if (refreshInvocation?.cwd) {
+    output.appendLine(`  refresh cwd: ${refreshInvocation.cwd}`);
+  }
+  output.appendLine(`  build: ${buildInvocation ? formatInvocation(buildInvocation) : "(none)"}`);
+  if (buildInvocation?.cwd) {
+    output.appendLine(`  build cwd: ${buildInvocation.cwd}`);
+  }
+  output.show(true);
+}
+
+function formatWorkspaceFolders(): string {
+  const folders = vscode.workspace.workspaceFolders ?? [];
+  if (folders.length === 0) {
+    return "(none)";
+  }
+  return folders.map((folder) => folder.uri.fsPath).join("; ");
+}
+
+async function runLatexBuildCommand(
+  output: vscode.OutputChannel,
+  options: { compile?: boolean; viewPdf?: boolean } = {}
+): Promise<void> {
+  const settings = readSettings();
+  if (settings.privacyMode !== "localOnly") {
+    vscode.window.showErrorMessage("OT Math currently supports only local-only privacy mode.");
+    return;
+  }
+
+  const editor = vscode.window.activeTextEditor;
+  if (
+    !editor ||
+    editor.document.uri.scheme !== "file" ||
+    !editor.document.uri.fsPath.toLowerCase().endsWith(".tex")
+  ) {
+    vscode.window.showInformationMessage("Open a .tex document first.");
+    return;
+  }
+
+  if (editor.document.isDirty && !(await editor.document.save())) {
+    vscode.window.showErrorMessage("OT Math could not save the current .tex document.");
+    return;
+  }
+
+  const sourcePath = editor.document.uri.fsPath;
+  await runLatexBuildForDocument(editor.document, output, settings, options, { reveal: true });
+}
+
+async function refreshLatexResultsOnSave(
+  document: vscode.TextDocument,
+  output: vscode.OutputChannel
+): Promise<void> {
+  const settings = readSettings();
+  const timestamp = new Date().toLocaleTimeString();
+  if (isLocalTexDocument(document)) {
+    output.appendLine(`[${timestamp}] save detected: ${document.uri.fsPath}`);
+  }
+
+  if (!settings.refreshLatexOnSave || settings.privacyMode !== "localOnly") {
+    if (isLocalTexDocument(document)) {
+      output.appendLine(
+        `[${timestamp}] save skipped: refreshLatexOnSave=${settings.refreshLatexOnSave}, privacyMode=${settings.privacyMode}`
+      );
+    }
+    return;
+  }
+  if (!isLocalTexDocument(document)) {
+    return;
+  }
+  if (!hasOtMathLatexRequests(document.getText())) {
+    output.appendLine(`[${timestamp}] save skipped: no OT Math requests found.`);
+    return;
+  }
+
+  const sourcePath = document.uri.fsPath;
+  if (latexRefreshesInFlight.has(sourcePath)) {
+    output.appendLine(`[${timestamp}] save skipped: refresh already in flight.`);
+    return;
+  }
+
+  latexRefreshesInFlight.add(sourcePath);
+  try {
+    output.appendLine(`[${timestamp}] save refresh started.`);
+    void vscode.window.setStatusBarMessage(
+      `OT Math refreshing ${path.basename(sourcePath)}...`,
+      3000
+    );
+    await runLatexBuildForDocument(document, output, settings, {}, { reveal: false });
+  } catch (error) {
+    const message = error instanceof Error ? error.message : String(error);
+    output.appendLine(`[${timestamp}] save refresh failed: ${message}`);
+    vscode.window.showWarningMessage(`OT Math LaTeX refresh on save failed: ${message}`);
+  } finally {
+    latexRefreshesInFlight.delete(sourcePath);
+  }
+}
+
+async function runLatexBuildForDocument(
+  document: vscode.TextDocument,
+  output: vscode.OutputChannel,
+  settings: ExtensionSettings,
+  options: { compile?: boolean; viewPdf?: boolean } = {},
+  display: { reveal: boolean } = { reveal: true }
+): Promise<void> {
+  const sourcePath = document.uri.fsPath;
+  const outputPath = detectGeneratedLatexOutput(document.getText(), sourcePath);
+  const args = buildLatexBuildArgs({
+    sourcePath,
+    outputPath,
+    compile: options.compile,
+    engine: options.compile ? settings.latexEngine : undefined,
+  });
+  const invocation = resolveOtcalcInvocation(settings, args, sourcePath);
+
+  if (display.reveal) {
+    output.clear();
+  } else {
+    output.appendLine("");
+  }
+  output.appendLine(`Running: ${formatInvocation(invocation)}`);
+  if (invocation.cwd) {
+    output.appendLine(`Working directory: ${invocation.cwd}`);
+  }
+  output.appendLine("");
+  if (display.reveal) {
+    output.show(true);
+  }
+
+  const result = await runOtcalc(invocation);
+  output.append(result.stdout);
+  if (result.stderr) {
+    output.appendLine("");
+    output.append(result.stderr);
+  }
+
+  const generatedTarget = outputPath ? ` using ${outputPath}` : "";
+  const action = options.compile ? "built" : "refreshed";
+  void vscode.window.setStatusBarMessage(
+    `OT Math ${action} ${path.basename(sourcePath)}${generatedTarget}.`,
+    5000
+  );
+
+  if (options.viewPdf) {
+    await openCompiledPdf(sourcePath);
+  } else if (display.reveal) {
+    output.show(true);
+  }
+}
+
+function isLocalTexDocument(document: vscode.TextDocument): boolean {
+  return document.uri.scheme === "file" && document.uri.fsPath.toLowerCase().endsWith(".tex");
+}
+
+async function openCompiledPdf(sourcePath: string): Promise<void> {
+  const pdfPath = sourcePath.replace(/\.tex$/i, ".pdf");
+  try {
+    await vscode.commands.executeCommand("latex-workshop.view");
+    return;
+  } catch {
+    await vscode.commands.executeCommand(
+      "vscode.open",
+      vscode.Uri.file(pdfPath),
+      vscode.ViewColumn.Beside
+    );
+  }
+}
+
+function resolveOtcalcInvocation(
+  settings: ExtensionSettings,
+  args: string[],
+  contextPath?: string
+): OtcalcInvocation {
+  const configuredPath = settings.otcalcPath.trim();
+  const cwd = contextPath ? path.dirname(contextPath) : undefined;
+  if (configuredPath && configuredPath !== "otcalc") {
+    return { executable: configuredPath, args, cwd };
+  }
+
+  const workspaceFolder = contextPath
+    ? vscode.workspace.getWorkspaceFolder(vscode.Uri.file(contextPath))
+    : vscode.workspace.workspaceFolders?.[0];
+  const workspaceRoot = workspaceFolder?.uri.fsPath;
+  if (workspaceRoot) {
+    const pythonExecutable =
+      process.platform === "win32"
+        ? path.join(workspaceRoot, ".venv", "Scripts", "python.exe")
+        : path.join(workspaceRoot, ".venv", "bin", "python");
+    if (fs.existsSync(pythonExecutable)) {
+      return {
+        executable: pythonExecutable,
+        args: ["-m", "otcalc.cli", ...args],
+        cwd: cwd ?? workspaceRoot,
+      };
+    }
+  }
+
+  return { executable: configuredPath || "otcalc", args, cwd };
+}
+
+function formatInvocation(invocation: OtcalcInvocation): string {
+  return [invocation.executable, ...invocation.args].map(quoteForDisplay).join(" ");
+}
+
+function quoteForDisplay(value: string): string {
+  if (!/[\s"]/u.test(value)) {
+    return value;
+  }
+  return `"${value.replace(/"/g, '\\"')}"`;
+}
+
+function runOtcalc(invocation: OtcalcInvocation): Promise<{ stdout: string; stderr: string }> {
   return new Promise((resolve, reject) => {
-    execFile(executable, args, { windowsHide: true }, (error, stdout, stderr) => {
-      if (error) {
-        reject(new Error(stderr || error.message));
-        return;
+    execFile(
+      invocation.executable,
+      invocation.args,
+      { cwd: invocation.cwd, windowsHide: true },
+      (error, stdout, stderr) => {
+        if (error) {
+          reject(new Error(stderr || error.message));
+          return;
+        }
+        resolve({ stdout, stderr });
       }
-      resolve({ stdout, stderr });
-    });
+    );
   });
 }
 

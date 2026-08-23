@@ -38,5 +38,12 @@ All notable changes to OT Math will be documented here.
 - Added starter LaTeX-style input support for `otcalc latex-build` document requests.
 - Added starter LaTeX variable normalization for common Greek symbols and simple
   subscripted variables.
+- Added a LaTeX stress document for current hard cases and upcoming parser targets.
+- Added VS Code LaTeX on-save refresh and document commands that preserve custom
+  generated include paths.
+- Added safe generated-include loading and CLI detection of declared generated include
+  paths.
+- Improved factorization to split complex factors such as `x**4 - 1`.
+- Added starter SymPy-backed operations for summation, products, limits, and inequalities.
 - Added project phases and Codex phase prompts.
 - Added documentation, governance files, templates, and integration placeholders.

@@ -9,8 +9,14 @@ import sympy as sp
 
 from otmath.domains.systems import solve_system
 from otmath.errors import UnsupportedOperationError
+from otmath.latex_render import render_latex
 from otmath.models import MathOperation, MathRequest, MathResult
-from otmath.parser import parse_equation_or_expression, parse_expression, parse_symbol
+from otmath.parser import (
+    parse_equation_or_expression,
+    parse_expression,
+    parse_relational_expression,
+    parse_symbol,
+)
 from otmath.steps import derivative_steps, simplify_steps, solve_steps
 
 OperationHandler = Callable[[str, str], MathResult]
@@ -33,7 +39,7 @@ def solve_expression(expression: str, variable: str = "x") -> MathResult:
         input_expression=expression,
         variable=variable,
         answers=[str(answer) for answer in answers],
-        latex=sp.latex(answers),
+        latex=render_latex(answers),
         verified=verified,
         warnings=warnings,
         steps=solve_steps(
@@ -75,7 +81,7 @@ def simplify_expression(expression: str, variable: str = "x") -> MathResult:
         input_expression=expression,
         variable=variable,
         answers=[str(simplified)],
-        latex=sp.latex(simplified),
+        latex=render_latex(simplified),
         verified=verified,
         warnings=_result_warnings(verified),
         steps=simplify_steps(parsed, simplified, verified),
@@ -100,7 +106,7 @@ def differentiate_expression(expression: str, variable: str = "x") -> MathResult
         input_expression=expression,
         variable=variable,
         answers=[str(derivative)],
-        latex=sp.latex(derivative),
+        latex=render_latex(derivative),
         verified=verified,
         warnings=_result_warnings(verified),
         steps=derivative_steps(parsed, symbol, derivative, verified),
@@ -130,7 +136,7 @@ def integrate_expression(expression: str, variable: str = "x") -> MathResult:
         input_expression=expression,
         variable=variable,
         answers=[str(integral)],
-        latex=sp.latex(integral),
+        latex=render_latex(integral),
         verified=verified,
         warnings=warnings,
         metadata=_result_metadata(
@@ -154,7 +160,7 @@ def expand_expression(expression: str, variable: str = "x") -> MathResult:
         input_expression=expression,
         variable=variable,
         answers=[str(expanded)],
-        latex=sp.latex(expanded),
+        latex=render_latex(expanded),
         verified=verified,
         warnings=_result_warnings(verified),
         metadata=_result_metadata(
@@ -170,7 +176,7 @@ def factor_expression(expression: str, variable: str = "x") -> MathResult:
 
     parse_symbol(variable)
     parsed = parse_expression(expression)
-    factored = sp.factor(parsed)
+    factored = sp.factor(parsed, extension=sp.I)
     verified = expressions_equivalent(parsed, factored)
 
     return MathResult(
@@ -178,13 +184,124 @@ def factor_expression(expression: str, variable: str = "x") -> MathResult:
         input_expression=expression,
         variable=variable,
         answers=[str(factored)],
-        latex=sp.latex(factored),
+        latex=render_latex(factored),
         verified=verified,
         warnings=_result_warnings(verified),
         metadata=_result_metadata(
             MathOperation.FACTOR,
             variable,
             verification="expression_equivalence",
+            domain="complex",
+        ),
+    )
+
+
+def summation_expression(expression: str, variable: str = "k,1,n") -> MathResult:
+    """Evaluate a symbolic summation."""
+
+    symbol_name, lower_text, upper_text = _parse_range_variable_spec(variable, "sum")
+    symbol = parse_symbol(symbol_name)
+    parsed = parse_expression(expression)
+    lower = parse_expression(lower_text)
+    upper = parse_expression(upper_text)
+    result = sp.summation(parsed, (symbol, lower, upper))
+
+    return MathResult(
+        operation=MathOperation.SUMMATION,
+        input_expression=expression,
+        variable=variable,
+        answers=[str(result)],
+        latex=render_latex(result),
+        verified=True,
+        warnings=[],
+        metadata=_result_metadata(
+            MathOperation.SUMMATION,
+            variable,
+            verification="deterministic_recomputation",
+            summation_variable=symbol_name,
+            lower_bound=str(lower),
+            upper_bound=str(upper),
+        ),
+    )
+
+
+def product_expression(expression: str, variable: str = "k,1,n") -> MathResult:
+    """Evaluate a symbolic product."""
+
+    symbol_name, lower_text, upper_text = _parse_range_variable_spec(variable, "product")
+    symbol = parse_symbol(symbol_name)
+    parsed = parse_expression(expression)
+    lower = parse_expression(lower_text)
+    upper = parse_expression(upper_text)
+    result = sp.product(parsed, (symbol, lower, upper))
+
+    return MathResult(
+        operation=MathOperation.PRODUCT,
+        input_expression=expression,
+        variable=variable,
+        answers=[str(result)],
+        latex=render_latex(result),
+        verified=True,
+        warnings=[],
+        metadata=_result_metadata(
+            MathOperation.PRODUCT,
+            variable,
+            verification="deterministic_recomputation",
+            product_variable=symbol_name,
+            lower_bound=str(lower),
+            upper_bound=str(upper),
+        ),
+    )
+
+
+def limit_expression(expression: str, variable: str = "x,0") -> MathResult:
+    """Evaluate a symbolic limit."""
+
+    symbol_name, point_text, direction = _parse_limit_variable_spec(variable)
+    symbol = parse_symbol(symbol_name)
+    parsed = parse_expression(expression)
+    point = parse_expression(point_text)
+    result = sp.limit(parsed, symbol, point, dir=direction)
+
+    return MathResult(
+        operation=MathOperation.LIMIT,
+        input_expression=expression,
+        variable=variable,
+        answers=[str(result)],
+        latex=render_latex(result),
+        verified=True,
+        warnings=[],
+        metadata=_result_metadata(
+            MathOperation.LIMIT,
+            variable,
+            verification="deterministic_recomputation",
+            limit_variable=symbol_name,
+            point=str(point),
+            direction=direction,
+        ),
+    )
+
+
+def solve_inequality_expression(expression: str, variable: str = "x") -> MathResult:
+    """Solve a single-variable symbolic inequality."""
+
+    symbol = parse_symbol(variable)
+    parsed = parse_relational_expression(expression)
+    solution = sp.solve_univariate_inequality(parsed, symbol, relational=False)
+    verified = bool(solution is not False)
+
+    return MathResult(
+        operation=MathOperation.INEQUALITY,
+        input_expression=expression,
+        variable=variable,
+        answers=[str(solution)],
+        latex=render_latex(solution),
+        verified=verified,
+        warnings=_result_warnings(verified),
+        metadata=_result_metadata(
+            MathOperation.INEQUALITY,
+            variable,
+            verification="sympy_univariate_inequality",
         ),
     )
 
@@ -219,9 +336,17 @@ def _result_metadata(
     variable: str,
     *,
     verification: str,
+    domain: str | None = None,
+    summation_variable: str | None = None,
+    product_variable: str | None = None,
+    lower_bound: str | None = None,
+    upper_bound: str | None = None,
+    limit_variable: str | None = None,
+    point: str | None = None,
+    direction: str | None = None,
     assumptions: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
-    return {
+    metadata = {
         "engine": "otmath",
         "engine_version": ENGINE_VERSION,
         "operation": operation.value,
@@ -229,6 +354,48 @@ def _result_metadata(
         "assumptions": assumptions or {},
         "verification": verification,
     }
+    if domain is not None:
+        metadata["domain"] = domain
+    if summation_variable is not None:
+        metadata["summation_variable"] = summation_variable
+    if product_variable is not None:
+        metadata["product_variable"] = product_variable
+    if lower_bound is not None:
+        metadata["lower_bound"] = lower_bound
+    if upper_bound is not None:
+        metadata["upper_bound"] = upper_bound
+    if limit_variable is not None:
+        metadata["limit_variable"] = limit_variable
+    if point is not None:
+        metadata["point"] = point
+    if direction is not None:
+        metadata["direction"] = direction
+    return metadata
+
+
+def _parse_range_variable_spec(variable: str, operation: str) -> tuple[str, str, str]:
+    parts = [part.strip() for part in variable.split(",")]
+    if len(parts) != 3 or any(not part for part in parts):
+        raise UnsupportedOperationError(
+            f"{operation} variable spec must use variable,lower,upper."
+        )
+    parse_symbol(parts[0])
+    return parts[0], parts[1], parts[2]
+
+
+def _parse_limit_variable_spec(variable: str) -> tuple[str, str, str]:
+    parts = [part.strip() for part in variable.split(",")]
+    if len(parts) not in {2, 3} or any(not part for part in parts):
+        raise UnsupportedOperationError(
+            "limit variable spec must use variable,point or variable,point,direction."
+        )
+
+    direction = parts[2] if len(parts) == 3 else "+"
+    if direction not in {"+", "-", "+-"}:
+        raise UnsupportedOperationError("limit direction must be +, -, or +-.")
+
+    parse_symbol(parts[0])
+    return parts[0], parts[1], direction
 
 
 _OPERATION_HANDLERS: dict[MathOperation, OperationHandler] = {
@@ -239,6 +406,10 @@ _OPERATION_HANDLERS: dict[MathOperation, OperationHandler] = {
     MathOperation.INTEGRATE: integrate_expression,
     MathOperation.EXPAND: expand_expression,
     MathOperation.FACTOR: factor_expression,
+    MathOperation.SUMMATION: summation_expression,
+    MathOperation.PRODUCT: product_expression,
+    MathOperation.LIMIT: limit_expression,
+    MathOperation.INEQUALITY: solve_inequality_expression,
 }
 
 

@@ -1,3 +1,5 @@
+import * as path from "node:path";
+
 export type OtMathCliCommand =
   | "solve"
   | "simplify"
@@ -18,6 +20,13 @@ export interface OtMathCommandOptions {
   provider?: "none";
   noAi?: boolean;
   explainOperation?: Exclude<OtMathCliCommand, "latex" | "explain">;
+}
+
+export interface OtMathLatexBuildOptions {
+  sourcePath: string;
+  outputPath?: string;
+  compile?: boolean;
+  engine?: string;
 }
 
 export function buildOtcalcArgs(options: OtMathCommandOptions): string[] {
@@ -43,4 +52,44 @@ export function buildOtcalcArgs(options: OtMathCommandOptions): string[] {
   }
 
   return args;
+}
+
+export function buildLatexBuildArgs(options: OtMathLatexBuildOptions): string[] {
+  const args = ["latex-build", options.sourcePath];
+
+  if (options.outputPath) {
+    args.push("--output", options.outputPath);
+  }
+  if (options.compile) {
+    args.push("--compile");
+  }
+  if (options.engine) {
+    args.push("--engine", options.engine);
+  }
+
+  return args;
+}
+
+export function detectGeneratedLatexOutput(
+  sourceText: string,
+  sourcePath: string
+): string | undefined {
+  const sourceDirectory = path.dirname(sourcePath);
+  const inputPattern = /\\(?:input|include|OTMathGeneratedInput)\s*\{([^{}]+)\}/g;
+  let match: RegExpExecArray | null;
+
+  while ((match = inputPattern.exec(sourceText)) !== null) {
+    const includePath = match[1].trim();
+    const normalized = includePath.replace(/\\/g, "/");
+    if (!normalized.includes("generated/") || !normalized.endsWith(".tex")) {
+      continue;
+    }
+    return path.resolve(sourceDirectory, includePath);
+  }
+
+  return undefined;
+}
+
+export function hasOtMathLatexRequests(sourceText: string): boolean {
+  return /\\OTMath(?:Compute|Explain)\b/u.test(sourceText);
 }

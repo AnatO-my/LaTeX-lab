@@ -9,6 +9,7 @@ from typing import cast
 import sympy as sp
 
 from otmath.errors import MathRequestError
+from otmath.latex_render import render_latex
 from otmath.models import MathOperation, MathResult
 from otmath.parser import parse_equation_or_expression, parse_symbol
 
@@ -140,9 +141,9 @@ def _format_latex_solutions(
         parts = []
         for symbol in symbols:
             if symbol in solution:
-                parts.append(f"{sp.latex(symbol)} = {sp.latex(solution[symbol])}")
+                parts.append(f"{render_latex(symbol)} = {render_latex(solution[symbol])}")
             else:
-                parts.append(rf"{sp.latex(symbol)} \text{{ free }}")
+                parts.append(rf"{render_latex(symbol)} \text{{ free }}")
         latex_solutions.append(r"\left\{ " + ", ".join(parts) + r" \right\}")
 
     return r" \\ ".join(latex_solutions)

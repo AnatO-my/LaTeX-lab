@@ -11,6 +11,9 @@ OT Math is a beta-track local-first calculator, not a complete computer algebra 
   as `x_{0}`; complex symbol aliases are not implemented yet.
 - Unknown function calls are rejected unless the parser explicitly allows them.
 - Most commands accept expressions only; `solve` and `system` accept equation syntax.
+- Factorization currently prefers complex factors when available.
+- `sum`, `product`, `limit`, and `inequality` are starter symbolic operations backed by
+  SymPy and support single-variable cases first.
 
 ## Verification
 

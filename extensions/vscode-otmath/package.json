@@ -7,12 +7,22 @@
   "engines": {
     "vscode": "^1.90.0"
   },
-  "categories": ["Education", "Other"],
+  "categories": [
+    "Education",
+    "Other"
+  ],
   "activationEvents": [
+    "onStartupFinished",
+    "onLanguage:latex",
+    "workspaceContains:**/*.tex",
     "onCommand:otmath.solveSelection",
     "onCommand:otmath.explainSelection",
     "onCommand:otmath.insertLatexResult",
-    "onCommand:otmath.showResult"
+    "onCommand:otmath.showResult",
+    "onCommand:otmath.refreshLatexResults",
+    "onCommand:otmath.buildLatexDocument",
+    "onCommand:otmath.refreshAndViewLatexDocument",
+    "onCommand:otmath.diagnose"
   ],
   "main": "./out/extension.js",
   "contributes": {
@@ -32,6 +42,22 @@
       {
         "command": "otmath.showResult",
         "title": "OT Math: Show Result"
+      },
+      {
+        "command": "otmath.refreshLatexResults",
+        "title": "OT Math: Refresh LaTeX Results"
+      },
+      {
+        "command": "otmath.buildLatexDocument",
+        "title": "OT Math: Build LaTeX Document"
+      },
+      {
+        "command": "otmath.refreshAndViewLatexDocument",
+        "title": "OT Math: Refresh and View LaTeX PDF"
+      },
+      {
+        "command": "otmath.diagnose",
+        "title": "OT Math: Diagnose Extension"
       }
     ],
     "configuration": {
@@ -40,7 +66,9 @@
         "otmath.provider": {
           "type": "string",
           "default": "none",
-          "enum": ["none"],
+          "enum": [
+            "none"
+          ],
           "description": "AI provider mode."
         },
         "otmath.otcalcPath": {
@@ -51,13 +79,25 @@
         "otmath.privacyMode": {
           "type": "string",
           "default": "localOnly",
-          "enum": ["localOnly"],
+          "enum": [
+            "localOnly"
+          ],
           "description": "Privacy mode. Only local-only execution is supported."
         },
         "otmath.variable": {
           "type": "string",
           "default": "x",
           "description": "Default variable passed to otcalc."
+        },
+        "otmath.latexEngine": {
+          "type": "string",
+          "default": "pdflatex",
+          "description": "LaTeX engine used by OT Math document build commands."
+        },
+        "otmath.refreshLatexOnSave": {
+          "type": "boolean",
+          "default": true,
+          "description": "Refresh generated OT Math LaTeX include files when saving .tex documents that contain OT Math requests."
         }
       }
     }
@@ -69,6 +109,7 @@
   "devDependencies": {
     "@types/node": "^22.0.0",
     "@types/vscode": "^1.90.0",
+    "@vscode/vsce": "^3.9.2",
     "typescript": "^5.5.0"
   }
 }

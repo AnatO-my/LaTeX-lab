@@ -161,6 +161,30 @@ def test_cli_factor() -> None:
     assert "(x - 3)*(x - 2)" in result.stdout
 
 
+def test_cli_factor_complex() -> None:
+    result = run_cli(["factor", "x**4 - 1"])
+
+    assert result.returncode == 0
+    assert "(x - I)" in result.stdout
+    assert "(x + I)" in result.stdout
+
+
+@pytest.mark.parametrize(
+    ("args", "expected"),
+    [
+        (["sum", "k**2", "--variable", "k,1,n"], "n**3/3 + n**2/2 + n/6"),
+        (["product", "k", "--variable", "k,1,n"], "factorial(n)"),
+        (["limit", "sin(x)/x", "--variable", "x,0,+-"], "1"),
+        (["inequality", "x <= 3"], "Interval(-oo, 3)"),
+    ],
+)
+def test_cli_sympy_relative_operations(args: list[str], expected: str) -> None:
+    result = run_cli(args)
+
+    assert result.returncode == 0
+    assert expected in result.stdout
+
+
 @pytest.mark.parametrize(
     ("command", "expression", "expected"),
     [

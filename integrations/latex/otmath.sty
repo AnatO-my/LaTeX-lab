@@ -2,6 +2,15 @@
 \ProvidesPackage{otmath}[2026/08/22 OT Math generated-snippet helpers]
 
 \RequirePackage{amsmath}
+\RequirePackage{amssymb}
+
+\newcommand{\OTMathGeneratedInput}[1]{%
+  \IfFileExists{#1}{%
+    \input{#1}%
+  }{%
+    \PackageWarning{otmath}{Generated OT Math include missing: #1}%
+  }%
+}
 
 \makeatletter
 \newcommand{\OTMathUse}[1]{%

@@ -20,6 +20,10 @@ class MathOperation(StrEnum):
     INTEGRATE = "integrate"
     EXPAND = "expand"
     FACTOR = "factor"
+    SUMMATION = "sum"
+    PRODUCT = "product"
+    LIMIT = "limit"
+    INEQUALITY = "inequality"
 
 
 @dataclass(frozen=True)
@@ -121,4 +125,10 @@ def _is_valid_variable_spec(name: str, operation: MathOperation | str) -> bool:
     if operation == MathOperation.SOLVE_SYSTEM:
         names = [part.strip() for part in name.split(",")]
         return bool(names) and all(_is_valid_symbol_name(part) for part in names)
+    if operation in {MathOperation.SUMMATION, MathOperation.PRODUCT}:
+        parts = [part.strip() for part in name.split(",")]
+        return len(parts) == 3 and bool(parts[0]) and _is_valid_symbol_name(parts[0])
+    if operation == MathOperation.LIMIT:
+        parts = [part.strip() for part in name.split(",")]
+        return len(parts) in {2, 3} and bool(parts[0]) and _is_valid_symbol_name(parts[0])
     return _is_valid_symbol_name(name)

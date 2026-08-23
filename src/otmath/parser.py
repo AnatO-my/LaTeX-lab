@@ -17,6 +17,7 @@ from otmath.errors import MathParseError
 
 _TRANSFORMATIONS = standard_transformations + (implicit_multiplication_application,)
 _CALL_PATTERN = re.compile(r"\b([A-Za-z_]\w*)\s*\(")
+_RELATIONAL_OPERATORS = ("<=", ">=", "!=", "<", ">")
 _ALLOWED_CALL_NAMES = {
     "abs",
     "cos",
@@ -43,6 +44,7 @@ _LOCAL_DICT = {
     "cos": sp.cos,
     "E": sp.E,
     "exp": sp.exp,
+    "I": sp.I,
     "ln": sp.log,
     "log": sp.log,
     "pi": sp.pi,
@@ -95,6 +97,41 @@ def parse_equation_or_expression(expression: str) -> sp.Expr:
         raise MathParseError(f"Equation sides cannot be empty: {expression}")
 
     return parse_expression(left) - parse_expression(right)
+
+
+def parse_relational_expression(expression: str) -> sp.Relational:
+    """Parse a single symbolic inequality or disequality."""
+
+    for operator in _RELATIONAL_OPERATORS:
+        if operator not in expression:
+            continue
+        left, right = _split_single_relational_operator(expression, operator)
+        parsed_left = parse_expression(left)
+        parsed_right = parse_expression(right)
+        if operator == "<=":
+            return sp.Le(parsed_left, parsed_right)
+        if operator == ">=":
+            return sp.Ge(parsed_left, parsed_right)
+        if operator == "!=":
+            return sp.Ne(parsed_left, parsed_right)
+        if operator == "<":
+            return sp.Lt(parsed_left, parsed_right)
+        return sp.Gt(parsed_left, parsed_right)
+
+    raise MathParseError(f"Inequality must contain one relational operator: {expression}")
+
+
+def _split_single_relational_operator(expression: str, operator: str) -> tuple[str, str]:
+    parts = expression.split(operator)
+    if len(parts) != 2:
+        raise MathParseError(
+            f"Inequality must contain exactly one relational operator: {expression}"
+        )
+
+    left, right = (part.strip() for part in parts)
+    if not left or not right:
+        raise MathParseError(f"Inequality sides cannot be empty: {expression}")
+    return left, right
 
 
 def _reject_unsupported_calls(expression: str) -> None:

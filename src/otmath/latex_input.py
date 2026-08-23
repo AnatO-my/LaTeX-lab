@@ -11,51 +11,235 @@ _COMMAND_REPLACEMENTS = {
     r"\times": "*",
     r"\left": "",
     r"\right": "",
+    r"\leq": "<=",
+    r"\le": "<=",
+    r"\geq": ">=",
+    r"\ge": ">=",
+    r"\neq": "!=",
+    r"\ne": "!=",
 }
 _FUNCTIONS = ("sin", "cos", "tan", "log", "ln", "exp")
+_MAX_PLUS_MINUS_BRANCHES = 16
 _SYMBOL_COMMANDS = {
+    r"E": "E",
+    r"H": "H",
+    r"I": "I",
+    r"K": "K",
+    r"M": "M",
+    r"N": "N",
+    r"O": "O",
+    r"P": "P",
+    r"T": "T",
+    r"X": "X",
+    r"Z": "Z",
+    r"\aleph": "aleph",
     r"\alpha": "alpha",
+    r"\Beta": "Beta",
     r"\beta": "beta",
-    r"\gamma": "gamma",
+    r"\beth": "beth",
+    r"\chi": "chi",
+    r"\daleth": "daleth",
+    r"\Delta": "Delta",
     r"\delta": "delta",
     r"\epsilon": "epsilon",
-    r"\varepsilon": "varepsilon",
-    r"\zeta": "zeta",
     r"\eta": "eta",
-    r"\theta": "theta",
-    r"\vartheta": "vartheta",
+    r"\Gamma": "Gamma",
+    r"\gamma": "gamma",
+    r"\gimel": "gimel",
     r"\iota": "iota",
     r"\kappa": "kappa",
+    r"\Lambda": "Lambda",
     r"\lambda": "lambda",
     r"\mu": "mu",
     r"\nu": "nu",
-    r"\xi": "xi",
-    r"\pi": "pi",
-    r"\rho": "rho",
-    r"\varrho": "varrho",
-    r"\sigma": "sigma",
-    r"\varsigma": "varsigma",
-    r"\tau": "tau",
-    r"\upsilon": "upsilon",
-    r"\phi": "phi",
-    r"\varphi": "varphi",
-    r"\chi": "chi",
-    r"\psi": "psi",
-    r"\omega": "omega",
-    r"\Gamma": "Gamma",
-    r"\Delta": "Delta",
-    r"\Theta": "Theta",
-    r"\Lambda": "Lambda",
-    r"\Xi": "Xi",
-    r"\Pi": "Pi",
-    r"\Sigma": "Sigma",
-    r"\Upsilon": "Upsilon",
-    r"\Phi": "Phi",
-    r"\Psi": "Psi",
     r"\Omega": "Omega",
+    r"\omega": "omega",
+    r"\Phi": "Phi",
+    r"\phi": "phi",
+    r"\Pi": "Pi",
+    r"\pi": "pi",
+    r"\Psi": "Psi",
+    r"\psi": "psi",
+    r"\rho": "rho",
+    r"\Sigma": "Sigma",
+    r"\sigma": "sigma",
+    r"\tau": "tau",
+    r"\Theta": "Theta",
+    r"\theta": "theta",
+    r"\Upsilon": "Upsilon",
+    r"\upsilon": "upsilon",
+    r"\varDelta": "varDelta",
+    r"\varepsilon": "varepsilon",
+    r"\varGamma": "varGamma",
+    r"\varphi": "varphi",
+    r"\varPi": "varPi",
+    r"\varPsi": "varPsi",
+    r"\varrho": "varrho",
+    r"\varSigma": "varSigma",
+    r"\varsigma": "varsigma",
+    r"\varTheta": "varTheta",
+    r"\varUpsilon": "varUpsilon",
+    r"\varpi": "varpi",
+    r"\vartheta": "vartheta",
+    r"\Xi": "Xi",
+    r"\xi": "xi",
+    r"\mathcal{A}": "mathcal{A}",
+    r"\mathcal{B}": "mathcal{B}",
+    r"\mathcal{C}": "mathcal{C}",
+    r"\mathcal{D}": "mathcal{D}",
+    r"\mathcal{E}": "mathcal{E}",
+    r"\mathcal{F}": "mathcal{F}",
+    r"\mathcal{G}": "mathcal{G}",
+    r"\mathcal{H}": "mathcal{H}",
+    r"\mathcal{I}": "mathcal{I}",
+    r"\mathcal{J}": "mathcal{J}",
+    r"\mathcal{K}": "mathcal{K}",
+    r"\mathcal{L}": "mathcal{L}",
+    r"\mathcal{M}": "mathcal{M}",
+    r"\mathcal{N}": "mathcal{N}",
+    r"\mathcal{O}": "mathcal{O}",
+    r"\mathcal{P}": "mathcal{P}",
+    r"\mathcal{Q}": "mathcal{Q}",
+    r"\mathcal{R}": "mathcal{R}",
+    r"\mathcal{S}": "mathcal{S}",
+    r"\mathcal{T}": "mathcal{T}",
+    r"\mathcal{U}": "mathcal{U}",
+    r"\mathcal{V}": "mathcal{V}",
+    r"\mathcal{W}": "mathcal{W}",
+    r"\mathcal{X}": "mathcal{X}",
+    r"\mathcal{Y}": "mathcal{Y}",
+    r"\mathcal{Z}": "mathcal{Z}",
+    r"\mathbb{A}": "mathbb{A}",
+    r"\mathbb{B}": "mathbb{B}",
+    r"\mathbb{C}": "mathbb{C}",
+    r"\mathbb{D}": "mathbb{D}",
+    r"\mathbb{E}": "mathbb{E}",
+    r"\mathbb{F}": "mathbb{F}",
+    r"\mathbb{G}": "mathbb{G}",
+    r"\mathbb{H}": "mathbb{H}",
+    r"\mathbb{I}": "mathbb{I}",
+    r"\mathbb{J}": "mathbb{J}",
+    r"\mathbb{K}": "mathbb{K}",
+    r"\mathbb{L}": "mathbb{L}",
+    r"\mathbb{M}": "mathbb{M}",
+    r"\mathbb{N}": "mathbb{N}",
+    r"\mathbb{O}": "mathbb{O}",
+    r"\mathbb{P}": "mathbb{P}",
+    r"\mathbb{Q}": "mathbb{Q}",
+    r"\mathbb{R}": "mathbb{R}",
+    r"\mathbb{S}": "mathbb{S}",
+    r"\mathbb{T}": "mathbb{T}",
+    r"\mathbb{U}": "mathbb{U}",
+    r"\mathbb{V}": "mathbb{V}",
+    r"\mathbb{W}": "mathbb{W}",
+    r"\mathbb{X}": "mathbb{X}",
+    r"\mathbb{Y}": "mathbb{Y}",
+    r"\mathbb{Z}": "mathbb{Z}",
+    r"\mathfrak{A}": "mathfrak{A}",
+    r"\mathfrak{B}": "mathfrak{B}",
+    r"\mathfrak{C}": "mathfrak{C}",
+    r"\mathfrak{D}": "mathfrak{D}",
+    r"\mathfrak{E}": "mathfrak{E}",
+    r"\mathfrak{F}": "mathfrak{F}",
+    r"\mathfrak{G}": "mathfrak{G}",
+    r"\mathfrak{H}": "mathfrak{H}",
+    r"\mathfrak{I}": "mathfrak{I}",
+    r"\mathfrak{J}": "mathfrak{J}",
+    r"\mathfrak{K}": "mathfrak{K}",
+    r"\mathfrak{L}": "mathfrak{L}",
+    r"\mathfrak{M}": "mathfrak{M}",
+    r"\mathfrak{N}": "mathfrak{N}",
+    r"\mathfrak{O}": "mathfrak{O}",
+    r"\mathfrak{P}": "mathfrak{P}",
+    r"\mathfrak{Q}": "mathfrak{Q}",
+    r"\mathfrak{R}": "mathfrak{R}",
+    r"\mathfrak{S}": "mathfrak{S}",
+    r"\mathfrak{T}": "mathfrak{T}",
+    r"\mathfrak{U}": "mathfrak{U}",
+    r"\mathfrak{V}": "mathfrak{V}",
+    r"\mathfrak{W}": "mathfrak{W}",
+    r"\mathfrak{X}": "mathfrak{X}",
+    r"\mathfrak{Y}": "mathfrak{Y}",
+    r"\mathfrak{Z}": "mathfrak{Z}",
+    r"\mathsf{A}": "mathsf{A}",
+    r"\mathsf{B}": "mathsf{B}",
+    r"\mathsf{C}": "mathsf{C}",
+    r"\mathsf{D}": "mathsf{D}",
+    r"\mathsf{E}": "mathsf{E}",
+    r"\mathsf{F}": "mathsf{F}",
+    r"\mathsf{G}": "mathsf{G}",
+    r"\mathsf{H}": "mathsf{H}",
+    r"\mathsf{I}": "mathsf{I}",
+    r"\mathsf{J}": "mathsf{J}",
+    r"\mathsf{K}": "mathsf{K}",
+    r"\mathsf{L}": "mathsf{L}",
+    r"\mathsf{M}": "mathsf{M}",
+    r"\mathsf{N}": "mathsf{N}",
+    r"\mathsf{O}": "mathsf{O}",
+    r"\mathsf{P}": "mathsf{P}",
+    r"\mathsf{Q}": "mathsf{Q}",
+    r"\mathsf{R}": "mathsf{R}",
+    r"\mathsf{S}": "mathsf{S}",
+    r"\mathsf{T}": "mathsf{T}",
+    r"\mathsf{U}": "mathsf{U}",
+    r"\mathsf{V}": "mathsf{V}",
+    r"\mathsf{W}": "mathsf{W}",
+    r"\mathsf{X}": "mathsf{X}",
+    r"\mathsf{Y}": "mathsf{Y}",
+    r"\mathsf{Z}": "mathsf{Z}",
+    r"\mathbf{A}": "mathbf{A}",
+    r"\mathbf{B}": "mathbf{B}",
+    r"\mathbf{C}": "mathbf{C}",
+    r"\mathbf{D}": "mathbf{D}",
+    r"\mathbf{E}": "mathbf{E}",
+    r"\mathbf{F}": "mathbf{F}",
+    r"\mathbf{G}": "mathbf{G}",
+    r"\mathbf{H}": "mathbf{H}",
+    r"\mathbf{I}": "mathbf{I}",
+    r"\mathbf{J}": "mathbf{J}",
+    r"\mathbf{K}": "mathbf{K}",
+    r"\mathbf{L}": "mathbf{L}",
+    r"\mathbf{M}": "mathbf{M}",
+    r"\mathbf{N}": "mathbf{N}",
+    r"\mathbf{O}": "mathbf{O}",
+    r"\mathbf{P}": "mathbf{P}",
+    r"\mathbf{Q}": "mathbf{Q}",
+    r"\mathbf{R}": "mathbf{R}",
+    r"\mathbf{S}": "mathbf{S}",
+    r"\mathbf{T}": "mathbf{T}",
+    r"\mathbf{U}": "mathbf{U}",
+    r"\mathbf{V}": "mathbf{V}",
+    r"\mathbf{W}": "mathbf{W}",
+    r"\mathbf{X}": "mathbf{X}",
+    r"\mathbf{Y}": "mathbf{Y}",
+    r"\mathbf{Z}": "mathbf{Z}",
 }
+for _style in ("mathcal", "mathbb", "mathfrak", "mathsf", "mathbf"):
+    for _letter in "ABCDEFGHIJKLMNOPQRSTUVWXYZ":
+        _SYMBOL_COMMANDS[rf"\{_style}{{{_letter}}}"] = f"{_style}_{_letter}"
+
+_SYMBOL_COMMANDS.update(
+    {
+        r"\varDelta": "var_Delta",
+        r"\varepsilon": "var_epsilon",
+        r"\varGamma": "var_Gamma",
+        r"\varphi": "var_phi",
+        r"\varPi": "var_Pi",
+        r"\varPsi": "var_Psi",
+        r"\varrho": "var_rho",
+        r"\varSigma": "var_Sigma",
+        r"\varsigma": "var_sigma",
+        r"\varTheta": "var_Theta",
+        r"\varUpsilon": "var_Upsilon",
+        r"\varpi": "var_pi",
+        r"\vartheta": "var_theta",
+    }
+)
+
 _POWER_PATTERN = re.compile(r"([A-Za-z0-9_)]+)\s*\^\s*\{([^{}]+)\}")
-_BRACED_SUBSCRIPT_PATTERN = re.compile(r"([A-Za-z][A-Za-z0-9]*)\s*_\s*\{([A-Za-z0-9]+)\}")
+_BRACED_SUBSCRIPT_PATTERN = re.compile(
+    r"([A-Za-z][A-Za-z0-9]*)\s*_\s*\{([A-Za-z0-9]+)\}"
+)
 _PLAIN_SUBSCRIPT_PATTERN = re.compile(r"([A-Za-z][A-Za-z0-9]*)\s*_\s*([A-Za-z0-9]+)")
 
 
@@ -86,7 +270,9 @@ def latex_to_engine_expression(expression: str) -> str:
     converted = re.sub(r"\be\s*(?=\^)", "E", converted)
     converted = _normalize_subscripts(converted)
     converted = _POWER_PATTERN.sub(r"\1**(\2)", converted)
-    converted = re.sub(r"([A-Za-z0-9_)]+)\s*\^\s*([A-Za-z0-9_(]+)", r"\1**\2", converted)
+    converted = re.sub(
+        r"([A-Za-z0-9_)]+)\s*\^\s*([A-Za-z0-9_(]+)", r"\1**\2", converted
+    )
     converted = converted.replace("{", "(").replace("}", ")")
     converted = converted.replace("^", "**")
     converted = re.sub(r"\s+", " ", converted).strip()
@@ -102,6 +288,120 @@ def latex_to_engine_symbol_spec(symbol_spec: str) -> str:
     return ",".join(latex_to_engine_expression(symbol) for symbol in symbols)
 
 
+def latex_plus_minus_branches(expression: str) -> tuple[str, ...]:
+    """Expand LaTeX plus-minus shorthand into explicit plus and minus branches."""
+
+    stripped = expression.strip()
+    if not stripped:
+        raise MathParseError("LaTeX expression cannot be empty.")
+
+    if r"\pm" in stripped and r"\mp" in stripped:
+        return (
+            stripped.replace(r"\pm", "+").replace(r"\mp", "-"),
+            stripped.replace(r"\pm", "-").replace(r"\mp", "+"),
+        )
+
+    branches = [stripped]
+    while any(r"\pm" in branch or r"\mp" in branch for branch in branches):
+        expanded: list[str] = []
+        for branch in branches:
+            plus_minus_index = branch.find(r"\pm")
+            minus_plus_index = branch.find(r"\mp")
+            index = _first_operator_index(plus_minus_index, minus_plus_index)
+            if index == -1:
+                expanded.append(branch)
+                continue
+
+            operator = branch[index : index + len(r"\pm")]
+            before = branch[:index]
+            after = branch[index + len(operator) :]
+            signs = ("+", "-") if operator == r"\pm" else ("-", "+")
+            expanded.extend(f"{before}{sign}{after}" for sign in signs)
+        branches = expanded
+        if len(branches) > _MAX_PLUS_MINUS_BRANCHES:
+            raise MathParseError("LaTeX expression contains too many plus-minus branches.")
+
+    return tuple(branches)
+
+
+def latex_to_engine_expression_branches(expression: str) -> tuple[str, ...]:
+    """Convert a LaTeX expression, expanding plus-minus notation first."""
+
+    return tuple(
+        latex_to_engine_expression(branch)
+        for branch in latex_plus_minus_branches(expression)
+    )
+
+
+def _first_operator_index(first: int, second: int) -> int:
+    indexes = [index for index in (first, second) if index != -1]
+    if not indexes:
+        return -1
+    return min(indexes)
+
+
+def latex_sum_to_engine_parts(expression: str) -> tuple[str, str]:
+    """Convert a LaTeX summation into an engine expression and range spec."""
+
+    return _latex_range_command_to_engine_parts(expression, r"\sum")
+
+
+def latex_product_to_engine_parts(expression: str) -> tuple[str, str]:
+    """Convert a LaTeX product into an engine expression and range spec."""
+
+    return _latex_range_command_to_engine_parts(expression, r"\prod")
+
+
+def latex_limit_to_engine_parts(expression: str) -> tuple[str, str]:
+    """Convert a LaTeX limit into an engine expression and limit spec."""
+
+    converted = expression.strip()
+    if not converted.startswith(r"\lim"):
+        return latex_to_engine_expression(expression), "x,0,+-"
+
+    index = _skip_spaces(converted, len(r"\lim"))
+    if index >= len(converted) or converted[index] != "_":
+        raise MathParseError(r"LaTeX \lim requires a subscript such as _{x \to 0}.")
+
+    target, index = _read_script_group(converted, index + 1, r"\lim")
+    body = converted[index:].strip()
+    if not body:
+        raise MathParseError(r"LaTeX \lim requires an expression body.")
+
+    if r"\to" in target:
+        variable_text, point_text = target.split(r"\to", maxsplit=1)
+    elif r"\rightarrow" in target:
+        variable_text, point_text = target.split(r"\rightarrow", maxsplit=1)
+    else:
+        raise MathParseError(r"LaTeX \lim subscript must use \to.")
+
+    point_text, direction = _extract_limit_direction(point_text.strip())
+    variable = latex_to_engine_expression(variable_text.strip())
+    point = latex_to_engine_expression(point_text)
+    expression_body = latex_to_engine_expression(body)
+    return expression_body, f"{variable},{point},{direction}"
+
+
+def latex_integral_to_engine_parts(
+    expression: str,
+    default_variable: str = "x",
+) -> tuple[str, str]:
+    """Convert a LaTeX indefinite integral into an integrand and variable."""
+
+    converted = expression.strip()
+    if not converted.startswith(r"\int"):
+        return latex_to_engine_expression(expression), latex_to_engine_symbol_spec(
+            default_variable
+        )
+
+    body = converted[len(r"\int") :].strip()
+    if not body:
+        raise MathParseError(r"LaTeX \int requires an integrand.")
+
+    integrand, variable = _split_integral_differential(body, default_variable)
+    return latex_to_engine_expression(integrand), latex_to_engine_expression(variable)
+
+
 def _replace_symbol_commands(source: str) -> str:
     converted = source
     for latex in sorted(_SYMBOL_COMMANDS, key=len, reverse=True):
@@ -112,6 +412,68 @@ def _replace_symbol_commands(source: str) -> str:
 def _normalize_subscripts(source: str) -> str:
     converted = _BRACED_SUBSCRIPT_PATTERN.sub(r"\1_\2", source)
     return _PLAIN_SUBSCRIPT_PATTERN.sub(r"\1_\2", converted)
+
+
+def _latex_range_command_to_engine_parts(
+    expression: str, command: str
+) -> tuple[str, str]:
+    converted = expression.strip()
+    if not converted.startswith(command):
+        return latex_to_engine_expression(expression), "k,1,n"
+
+    index = _skip_spaces(converted, len(command))
+    if index >= len(converted) or converted[index] != "_":
+        raise MathParseError(f"LaTeX {command} requires a lower bound subscript.")
+
+    lower_spec, index = _read_script_group(converted, index + 1, command)
+    index = _skip_spaces(converted, index)
+    if index >= len(converted) or converted[index] != "^":
+        raise MathParseError(f"LaTeX {command} requires an upper bound.")
+
+    upper_spec, index = _read_script_group(converted, index + 1, command)
+    body = converted[index:].strip()
+    if not body:
+        raise MathParseError(f"LaTeX {command} requires an expression body.")
+
+    if "=" not in lower_spec:
+        raise MathParseError(f"LaTeX {command} lower bound must use variable=value.")
+    variable_text, lower_text = (
+        part.strip() for part in lower_spec.split("=", maxsplit=1)
+    )
+    variable = latex_to_engine_expression(variable_text)
+    lower = latex_to_engine_expression(lower_text)
+    upper = latex_to_engine_expression(upper_spec)
+    expression_body = latex_to_engine_expression(body)
+    return expression_body, f"{variable},{lower},{upper}"
+
+
+def _read_script_group(source: str, start: int, command: str) -> tuple[str, int]:
+    index = _skip_spaces(source, start)
+    if index < len(source) and source[index] == "{":
+        return _read_required_group(source, index, command)
+    if index >= len(source):
+        raise MathParseError(f"LaTeX command has an empty script: {command}")
+
+    end = index + 1
+    while end < len(source) and not source[end].isspace() and source[end] not in "_^{}":
+        end += 1
+    return source[index:end], end
+
+
+def _extract_limit_direction(point_text: str) -> tuple[str, str]:
+    stripped = point_text.strip()
+    for marker, direction in (("^{+}", "+"), ("^+", "+"), ("^{-}", "-"), ("^-", "-")):
+        if stripped.endswith(marker):
+            return stripped[: -len(marker)].strip(), direction
+    return stripped, "+-"
+
+
+def _split_integral_differential(body: str, default_variable: str) -> tuple[str, str]:
+    compact = body.replace(r"\,", " ").strip()
+    match = re.fullmatch(r"(.+?)\s*d\s*([A-Za-z](?:_\{[A-Za-z0-9]+\})?)", compact)
+    if match is None:
+        return body, default_variable
+    return match.group(1).strip(), match.group(2).strip()
 
 
 def _replace_command_with_one_group(source: str, command: str, template: str) -> str:

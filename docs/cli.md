@@ -11,6 +11,10 @@ otcalc system "x + y = 5; x - y = 1" --variable "x,y"
 otcalc simplify "(x + 1)**2 - x**2"
 otcalc diff "x**3"
 otcalc integrate "2*x"
+otcalc sum "k**2" --variable "k,1,n"
+otcalc product "k" --variable "k,1,n"
+otcalc limit "sin(x)/x" --variable "x,0,+-"
+otcalc inequality "x <= 3"
 otcalc expand "(x - 2)*(x - 3)"
 otcalc factor "x**2 - 5*x + 6"
 otcalc latex "x**2 - 5*x + 6"
@@ -37,6 +41,15 @@ When no operation is supplied, it explains simplification.
 The `latex-build` command scans a `.tex` file for `\OTMathCompute` and `\OTMathExplain`
 macros, writes a generated include file, and can optionally compile the document with
 `--compile`.
+
+If the document declares `\OTMathGeneratedInput{generated/name.tex}`, `latex-build`
+writes to that declared include path. Otherwise it writes the default
+`generated/otmath-results.tex` next to the source file. Plain LaTeX compilation reads
+the generated include but does not recalculate it.
+
+The `sum` and `product` commands use `--variable variable,lower,upper`. The `limit`
+command uses `--variable variable,point[,direction]`, where direction is `+`, `-`, or
+`+-`.
 
 Text and LaTeX output print non-fatal warnings to stderr. JSON output keeps warnings in
 the `warnings` field and does not print separate warning text.

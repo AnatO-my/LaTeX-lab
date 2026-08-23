@@ -6,19 +6,36 @@ import re
 import shutil
 import subprocess
 from collections.abc import Sequence
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from pathlib import Path
 
-from otmath import MathOperation, MathRequest, render_steps_latex, run_request
+from otmath import MathOperation, MathRequest, MathResult, render_steps_latex, run_request
 from otmath.errors import OTMathError
-from otmath.latex_input import latex_to_engine_expression, latex_to_engine_symbol_spec
+from otmath.latex_input import (
+    latex_integral_to_engine_parts,
+    latex_limit_to_engine_parts,
+    latex_plus_minus_branches,
+    latex_product_to_engine_parts,
+    latex_sum_to_engine_parts,
+    latex_to_engine_expression_branches,
+    latex_to_engine_symbol_spec,
+)
+from otmath.latex_render import render_compact_plus_minus
+from otmath.parser import parse_expression
 
 _REQUEST_ID_PATTERN = re.compile(r"^[A-Za-z][A-Za-z0-9_-]*$")
+_GENERATED_INCLUDE_PATTERN = re.compile(
+    r"\\(?:input|include|OTMathGeneratedInput)\s*\{([^{}]+)\}"
+)
 _OPERATION_ALIASES = {
     "diff": MathOperation.DIFFERENTIATE,
     "differentiate": MathOperation.DIFFERENTIATE,
     "system": MathOperation.SOLVE_SYSTEM,
     "solve_system": MathOperation.SOLVE_SYSTEM,
+    "summation": MathOperation.SUMMATION,
+    "prod": MathOperation.PRODUCT,
+    "inequality": MathOperation.INEQUALITY,
+    "ineq": MathOperation.INEQUALITY,
 }
 
 
@@ -105,10 +122,31 @@ def generate_latex_include(
     if not requests:
         raise LatexBuildError(f"No OT Math generation requests found in {tex_file}.")
 
-    generated_file = output_file or tex_file.parent / "generated" / "otmath-results.tex"
+    generated_file = (
+        output_file
+        or detect_generated_include_path(tex_file, source)
+        or tex_file.parent / "generated" / "otmath-results.tex"
+    )
     generated_file.parent.mkdir(parents=True, exist_ok=True)
     generated_file.write_text(render_latex_include(requests), encoding="utf-8")
     return LatexBuildResult(generated_file=generated_file, request_count=len(requests))
+
+
+def detect_generated_include_path(tex_file: Path, source: str) -> Path | None:
+    """Return a declared generated include path from a LaTeX source, when present."""
+
+    for match in _GENERATED_INCLUDE_PATTERN.finditer(source):
+        include_path = match.group(1).strip()
+        normalized = include_path.replace("\\", "/")
+        if "generated/" not in normalized or not normalized.endswith(".tex"):
+            continue
+
+        path = Path(include_path)
+        if path.is_absolute():
+            return path
+        return tex_file.parent / path
+
+    return None
 
 
 def render_latex_include(requests: Sequence[LatexRequest]) -> str:
@@ -180,25 +218,72 @@ def _render_definition(request: LatexRequest) -> list[str]:
 
 
 def _render_request_content(request: LatexRequest) -> str:
-    expression = (
-        latex_to_engine_expression(request.expression)
-        if request.input_format == "latex"
-        else request.expression
-    )
-    variable = (
-        latex_to_engine_symbol_spec(request.variable)
-        if request.input_format == "latex"
-        else request.variable
-    )
-    math_request = MathRequest(
-        operation=request.operation,
-        expression=expression,
-        variable=variable,
-    )
-    result = run_request(math_request)
+    results = [
+        run_request(
+            MathRequest(
+                operation=request.operation,
+                expression=expression,
+                variable=variable,
+            )
+        )
+        for expression, variable in _normalize_latex_request_branches(request)
+    ]
     if request.kind == "explain":
-        return "\n".join([r"\[", render_steps_latex(result.steps), r"\]"])
-    return result.latex
+        rendered_steps = [render_steps_latex(result.steps) for result in results]
+        return "\n".join([r"\[", _render_branch_latex(rendered_steps), r"\]"])
+
+    compact = _render_compact_branch_answers(results)
+    if compact is not None:
+        return compact
+    return _render_branch_latex([result.latex for result in results])
+
+
+def _normalize_latex_request_branches(request: LatexRequest) -> list[tuple[str, str]]:
+    if request.input_format != "latex":
+        return [(request.expression, request.variable)]
+    return [
+        _normalize_latex_request_parts(replace(request, expression=expression))
+        for expression in latex_plus_minus_branches(request.expression)
+    ]
+
+
+def _normalize_latex_request_parts(request: LatexRequest) -> tuple[str, str]:
+    if request.input_format != "latex":
+        return request.expression, request.variable
+    stripped_expression = request.expression.strip()
+    if request.operation == MathOperation.SUMMATION and stripped_expression.startswith(r"\sum"):
+        return latex_sum_to_engine_parts(request.expression)
+    if request.operation == MathOperation.PRODUCT and stripped_expression.startswith(r"\prod"):
+        return latex_product_to_engine_parts(request.expression)
+    if request.operation == MathOperation.LIMIT and stripped_expression.startswith(r"\lim"):
+        return latex_limit_to_engine_parts(request.expression)
+    if request.operation == MathOperation.INTEGRATE:
+        return latex_integral_to_engine_parts(request.expression, request.variable)
+    expressions = latex_to_engine_expression_branches(request.expression)
+    if len(expressions) != 1:
+        raise LatexBuildError(r"Internal error: plus-minus branches were not expanded.")
+    return (expressions[0], latex_to_engine_symbol_spec(request.variable))
+
+
+def _render_compact_branch_answers(results: Sequence[MathResult]) -> str | None:
+    if len(results) != 2:
+        return None
+
+    answers: list[object] = []
+    for result in results:
+        if len(result.answers) != 1:
+            return None
+        try:
+            answers.append(parse_expression(result.answers[0]))
+        except OTMathError:
+            return None
+    return render_compact_plus_minus(answers)
+
+
+def _render_branch_latex(items: Sequence[str]) -> str:
+    if len(items) == 1:
+        return items[0]
+    return "\\begin{gathered}\n" + " \\\\\n".join(items) + "\n\\end{gathered}"
 
 
 def _parse_options(options: str) -> dict[str, str]:
@@ -310,6 +395,10 @@ def _parse_input_format(input_format: str) -> str:
 def _default_variable(operation: MathOperation) -> str:
     if operation == MathOperation.SOLVE_SYSTEM:
         return "x,y"
+    if operation in {MathOperation.SUMMATION, MathOperation.PRODUCT}:
+        return "k,1,n"
+    if operation == MathOperation.LIMIT:
+        return "x,0,+-"
     return "x"
 
 

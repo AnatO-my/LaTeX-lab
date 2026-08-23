@@ -1,6 +1,12 @@
 import * as assert from "node:assert/strict";
+import * as path from "node:path";
 
-import { buildOtcalcArgs } from "./commandBuilder";
+import {
+  buildLatexBuildArgs,
+  buildOtcalcArgs,
+  detectGeneratedLatexOutput,
+  hasOtMathLatexRequests,
+} from "./commandBuilder";
 
 assert.deepEqual(
   buildOtcalcArgs({
@@ -32,3 +38,52 @@ assert.deepEqual(
   }),
   ["explain", "x**3", "--operation", "diff"]
 );
+
+assert.deepEqual(
+  buildLatexBuildArgs({
+    sourcePath: "examples/latex/stress.tex",
+    outputPath: "examples/latex/generated/otmath-stress-results.tex",
+    compile: true,
+    engine: "pdflatex",
+  }),
+  [
+    "latex-build",
+    "examples/latex/stress.tex",
+    "--output",
+    "examples/latex/generated/otmath-stress-results.tex",
+    "--compile",
+    "--engine",
+    "pdflatex",
+  ]
+);
+
+assert.deepEqual(
+  buildLatexBuildArgs({
+    sourcePath: "examples/latex/stress.tex",
+    outputPath: "examples/latex/generated/otmath-stress-results.tex",
+  }),
+  [
+    "latex-build",
+    "examples/latex/stress.tex",
+    "--output",
+    "examples/latex/generated/otmath-stress-results.tex",
+  ]
+);
+
+{
+  const sourcePath = path.resolve("examples", "latex", "stress.tex");
+  const detected = detectGeneratedLatexOutput(
+    String.raw`\input{../../integrations/latex/otmath.sty}
+\OTMathGeneratedInput{generated/otmath-stress-results.tex}`,
+    sourcePath
+  );
+
+  assert.equal(
+    detected,
+    path.resolve(path.dirname(sourcePath), "generated", "otmath-stress-results.tex")
+  );
+}
+
+assert.equal(hasOtMathLatexRequests(String.raw`\OTMathCompute[input=latex]{id}{simplify}{x}`), true);
+assert.equal(hasOtMathLatexRequests(String.raw`\OTMathExplain[input=latex]{id}{x}`), true);
+assert.equal(hasOtMathLatexRequests(String.raw`\OTMathGeneratedInput{generated/results.tex}`), false);
