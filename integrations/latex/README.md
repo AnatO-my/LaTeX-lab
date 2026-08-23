@@ -23,9 +23,9 @@ Available helpers:
 Write requests directly in a `.tex` file:
 
 ```latex
-\OTMathCompute{quadratic}{simplify}{x**2 - 5*x + 6}
-\OTMathCompute[variable=x,y]{system-example}{system}{x + y = 5; x - y = 1}
-\OTMathExplain[operation=solve]{solve-steps}{x**2 - 5*x + 6 = 0}
+\OTMathCompute[input=latex]{quadratic}{simplify}{x^{2} - 5x + 6}
+\OTMathCompute[input=latex; variable=x,y]{system-example}{system}{x + y = 5; x - y = 1}
+\OTMathExplain[input=latex; operation=solve]{solve-steps}{x^{2} - 5x + 6 = 0}
 ```
 
 Then generate the include file:

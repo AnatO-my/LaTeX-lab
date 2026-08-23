@@ -11,21 +11,9 @@ from pathlib import Path
 
 from otmath import MathOperation, MathRequest, render_steps_latex, run_request
 from otmath.errors import OTMathError
+from otmath.latex_input import latex_to_engine_expression
 
 _REQUEST_ID_PATTERN = re.compile(r"^[A-Za-z][A-Za-z0-9_-]*$")
-_COMPUTE_PATTERN = re.compile(
-    r"\\OTMathCompute"
-    r"(?:\[(?P<options>[^\]]*)\])?"
-    r"\{(?P<id>[^{}]+)\}"
-    r"\{(?P<operation>[^{}]+)\}"
-    r"\{(?P<expression>[^{}]+)\}"
-)
-_EXPLAIN_PATTERN = re.compile(
-    r"\\OTMathExplain"
-    r"(?:\[(?P<options>[^\]]*)\])?"
-    r"\{(?P<id>[^{}]+)\}"
-    r"\{(?P<expression>[^{}]+)\}"
-)
 _OPERATION_ALIASES = {
     "diff": MathOperation.DIFFERENTIATE,
     "differentiate": MathOperation.DIFFERENTIATE,
@@ -47,6 +35,7 @@ class LatexRequest:
     operation: MathOperation
     variable: str
     kind: str
+    input_format: str = "engine"
 
 
 @dataclass(frozen=True)
@@ -63,36 +52,38 @@ def find_latex_requests(source: str) -> list[LatexRequest]:
 
     matches: list[tuple[int, LatexRequest]] = []
 
-    for match in _COMPUTE_PATTERN.finditer(source):
-        options = _parse_options(match.group("options") or "")
-        operation = _parse_operation(match.group("operation"))
+    for invocation in _find_macro_invocations(source, "OTMathCompute", argument_count=3):
+        options = _parse_options(invocation.options)
+        operation = _parse_operation(invocation.arguments[1])
         variable = options.get("variable", _default_variable(operation))
         matches.append(
             (
-                match.start(),
+                invocation.start,
                 LatexRequest(
-                    request_id=_validate_request_id(match.group("id")),
-                    expression=match.group("expression").strip(),
+                    request_id=_validate_request_id(invocation.arguments[0]),
+                    expression=invocation.arguments[2].strip(),
                     operation=operation,
                     variable=variable,
                     kind="compute",
+                    input_format=_parse_input_format(options.get("input", "engine")),
                 ),
             )
         )
 
-    for match in _EXPLAIN_PATTERN.finditer(source):
-        options = _parse_options(match.group("options") or "")
+    for invocation in _find_macro_invocations(source, "OTMathExplain", argument_count=2):
+        options = _parse_options(invocation.options)
         operation = _parse_operation(options.get("operation", "simplify"))
         variable = options.get("variable", _default_variable(operation))
         matches.append(
             (
-                match.start(),
+                invocation.start,
                 LatexRequest(
-                    request_id=_validate_request_id(match.group("id")),
-                    expression=match.group("expression").strip(),
+                    request_id=_validate_request_id(invocation.arguments[0]),
+                    expression=invocation.arguments[1].strip(),
                     operation=operation,
                     variable=variable,
                     kind="explain",
+                    input_format=_parse_input_format(options.get("input", "engine")),
                 ),
             )
         )
@@ -189,9 +180,14 @@ def _render_definition(request: LatexRequest) -> list[str]:
 
 
 def _render_request_content(request: LatexRequest) -> str:
+    expression = (
+        latex_to_engine_expression(request.expression)
+        if request.input_format == "latex"
+        else request.expression
+    )
     math_request = MathRequest(
         operation=request.operation,
-        expression=request.expression,
+        expression=expression,
         variable=request.variable,
     )
     result = run_request(math_request)
@@ -215,6 +211,80 @@ def _parse_options(options: str) -> dict[str, str]:
     return parsed
 
 
+@dataclass(frozen=True)
+class _MacroInvocation:
+    start: int
+    options: str
+    arguments: tuple[str, ...]
+
+
+def _find_macro_invocations(
+    source: str,
+    macro_name: str,
+    *,
+    argument_count: int,
+) -> list[_MacroInvocation]:
+    invocations: list[_MacroInvocation] = []
+    needle = f"\\{macro_name}"
+    search_from = 0
+    while True:
+        start = source.find(needle, search_from)
+        if start == -1:
+            return invocations
+
+        index = _skip_spaces(source, start + len(needle))
+        options, index = _read_optional_options(source, index)
+        arguments: list[str] = []
+        for _ in range(argument_count):
+            argument, index = _read_latex_group(source, index, macro_name)
+            arguments.append(argument)
+
+        invocations.append(
+            _MacroInvocation(
+                start=start,
+                options=options,
+                arguments=tuple(arguments),
+            )
+        )
+        search_from = index
+
+
+def _read_optional_options(source: str, start: int) -> tuple[str, int]:
+    index = _skip_spaces(source, start)
+    if index >= len(source) or source[index] != "[":
+        return "", index
+
+    end = source.find("]", index + 1)
+    if end == -1:
+        raise LatexBuildError("Unclosed OT Math option block.")
+    return source[index + 1 : end], end + 1
+
+
+def _read_latex_group(source: str, start: int, macro_name: str) -> tuple[str, int]:
+    index = _skip_spaces(source, start)
+    if index >= len(source) or source[index] != "{":
+        raise LatexBuildError(f"Expected braced argument for \\{macro_name}.")
+
+    depth = 0
+    for position in range(index, len(source)):
+        char = source[position]
+        if char == "{":
+            depth += 1
+        elif char == "}":
+            depth -= 1
+            if depth == 0:
+                return source[index + 1 : position], position + 1
+
+    raise LatexBuildError(f"Unclosed braced argument for \\{macro_name}.")
+
+
+def _skip_spaces(source: str, start: int) -> int:
+    index = start
+    while index < len(source) and source[index].isspace():
+        index += 1
+    return index
+
+
 def _parse_operation(operation: str) -> MathOperation:
     normalized = operation.strip()
     if normalized in _OPERATION_ALIASES:
@@ -223,6 +293,13 @@ def _parse_operation(operation: str) -> MathOperation:
         return MathOperation(normalized)
     except ValueError as exc:
         raise LatexBuildError(f"Unsupported OT Math operation in LaTeX: {operation}") from exc
+
+
+def _parse_input_format(input_format: str) -> str:
+    normalized = input_format.strip()
+    if normalized not in {"engine", "latex"}:
+        raise LatexBuildError(f"Unsupported OT Math input format: {input_format}")
+    return normalized
 
 
 def _default_variable(operation: MathOperation) -> str:

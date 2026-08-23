@@ -9,14 +9,14 @@
 
 Generated snippets from local OT Math commands can be included directly:
 
-\OTMathCompute{sample-quadratic}{simplify}{x**2 - 5*x + 6}
+\OTMathCompute[input=latex]{sample-quadratic}{simplify}{x^{2} - 5x + 6}
 
 \OTMathEquation{\OTMathUse{sample-quadratic}}{0}
 
 \subsection*{System of equations}
 
-\OTMathCompute[variable=x,y]{sample-system}{system}{x + y = 5; x - y = 1}
+\OTMathCompute[input=latex; variable=x,y]{sample-system}{system}{x + y = 5; x - y = 1}
 
-\OTMathExplain[operation=solve]{sample-solve-steps}{x**2 - 5*x + 6 = 0}
+\OTMathExplain[input=latex; operation=solve]{sample-solve-steps}{x^{2} - 5x + 6 = 0}
 
 \end{document}

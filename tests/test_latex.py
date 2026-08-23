@@ -55,7 +55,7 @@ def test_latex_package_defines_rendering_helpers() -> None:
 
 def test_latex_request_scanner_finds_compute_and_explain_macros() -> None:
     source = (
-        r"\OTMathCompute{quad}{simplify}{x**2 - 5*x + 6}"
+        r"\OTMathCompute[input=latex]{quad}{simplify}{x^{2} - 5x + 6}"
         "\n"
         r"\OTMathCompute[variable=x,y]{sys}{system}{x + y = 5; x - y = 1}"
         "\n"
@@ -66,6 +66,8 @@ def test_latex_request_scanner_finds_compute_and_explain_macros() -> None:
 
     assert [request.request_id for request in requests] == ["quad", "sys", "steps"]
     assert [request.kind for request in requests] == ["compute", "compute", "explain"]
+    assert requests[0].expression == "x^{2} - 5x + 6"
+    assert requests[0].input_format == "latex"
     assert requests[1].variable == "x,y"
 
 
@@ -92,9 +94,9 @@ def test_sample_latex_uses_otmath_package() -> None:
 
     assert "\\input{../../integrations/latex/otmath.sty}" in sample
     assert "\\input{generated/otmath-results.tex}" in sample
-    assert "\\OTMathCompute{sample-quadratic}" in sample
-    assert "\\OTMathCompute[variable=x,y]{sample-system}" in sample
-    assert "\\OTMathExplain[operation=solve]{sample-solve-steps}" in sample
+    assert "\\OTMathCompute[input=latex]{sample-quadratic}" in sample
+    assert "\\OTMathCompute[input=latex; variable=x,y]{sample-system}" in sample
+    assert "\\OTMathExplain[input=latex; operation=solve]{sample-solve-steps}" in sample
 
 
 def test_sample_latex_generated_results_are_deterministic() -> None:
@@ -135,6 +137,20 @@ def test_latex_build_command_generates_include(tmp_path: Path) -> None:
 
     assert result.request_count == 1
     assert result.generated_file == output_file
+    assert "x^{2} - 5 x + 6" in output_file.read_text(encoding="utf-8")
+
+
+def test_latex_build_command_generates_include_from_latex_input(tmp_path: Path) -> None:
+    tex_file = tmp_path / "scratch.tex"
+    output_file = tmp_path / "generated" / "otmath-results.tex"
+    tex_file.write_text(
+        r"\OTMathCompute[input=latex]{quad}{simplify}{x^{2} - 5x + 6}",
+        encoding="utf-8",
+    )
+
+    result = generate_latex_include(tex_file, output_file=output_file)
+
+    assert result.request_count == 1
     assert "x^{2} - 5 x + 6" in output_file.read_text(encoding="utf-8")
 
 

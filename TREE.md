@@ -73,6 +73,7 @@ ot-math/
 |       |-- __init__.py
 |       |-- engine.py
 |       |-- errors.py
+|       |-- latex_input.py
 |       |-- models.py
 |       |-- parser.py
 |       \-- steps.py
@@ -82,6 +83,7 @@ ot-math/
 |   |-- test_cli.py
 |   |-- test_config.py
 |   |-- test_engine.py
+|   |-- test_latex_input.py
 |   \-- test_latex.py
 |-- .env.example
 |-- .gitattributes

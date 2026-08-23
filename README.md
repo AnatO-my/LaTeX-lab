@@ -60,6 +60,7 @@ This is a starter scaffold. It includes:
 - A starter systems-of-equations domain.
 - A CLI for text, JSON, and LaTeX output.
 - A safe LaTeX pre-generation workflow with document-native `\OTMathCompute` requests.
+- Starter LaTeX-style input for document requests such as `x^{2} - 5x + 6`.
 - Typed request/result models with verification status, warnings, steps, and metadata.
 - Optional AI adapter interfaces with `provider=none` by default and no network calls.
 - Documentation and governance files.

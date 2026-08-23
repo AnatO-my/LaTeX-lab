@@ -83,6 +83,8 @@ The current parser accepts SymPy-style expression syntax, not LaTeX input.
 - Unknown symbols such as `x` and `y` are allowed
 - `solve_expression` accepts either an expression treated as equal to zero or a single
   equation with `=`
+- `otcalc latex-build` can adapt a starter subset of LaTeX-style document input before
+  dispatching to the deterministic engine
 
 Examples:
 
