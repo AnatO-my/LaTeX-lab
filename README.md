@@ -43,6 +43,7 @@ Important starting points:
 - [docs/example-gallery.md](docs/example-gallery.md): copyable beta examples.
 - [docs/known-limitations.md](docs/known-limitations.md): current parser, domain, verification, and integration limits.
 - [docs/manual-qa.md](docs/manual-qa.md): human verification checklist for editor and document workflows.
+- [docs/manual-qa-log.md](docs/manual-qa-log.md): recorded manual QA results for beta readiness.
 - [docs/community.md](docs/community.md): contributor onboarding and triage process.
 - [docs/math-domains/systems.md](docs/math-domains/systems.md): systems-of-equations domain syntax and examples.
 - [CONTRIBUTING.md](CONTRIBUTING.md): contribution workflow and review standards.

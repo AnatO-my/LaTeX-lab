@@ -20,7 +20,11 @@ def make_step(
     """Build a serializable math step from symbolic or string expressions."""
 
     output_text = str(output_expression)
-    latex = sp.latex(output_expression) if isinstance(output_expression, sp.Expr) else output_text
+    latex = (
+        sp.latex(output_expression)
+        if isinstance(output_expression, sp.Expr)
+        else rf"\text{{{output_text}}}"
+    )
     return MathStep(
         kind=kind,
         title=title,
@@ -125,5 +129,5 @@ def render_steps_latex(steps: list[MathStep]) -> str:
 
     if not steps:
         return r"\text{No explanation steps are available.}"
-    lines = [rf"\text{{{step.title}}} & {step.latex}" for step in steps]
-    return "\\begin{aligned}\n" + r" \\".join(lines) + "\n\\end{aligned}"
+    lines = [rf"\text{{{step.title}}} &: \quad {step.latex}" for step in steps]
+    return "\\begin{aligned}\n" + " \\\\\n".join(lines) + "\n\\end{aligned}"

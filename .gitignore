@@ -23,6 +23,7 @@ out/
 .env.*
 !.env.example
 otmath.local.toml
+.otmath_history.jsonl
 
 # Generated
 *.log
