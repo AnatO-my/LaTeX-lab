@@ -11,7 +11,7 @@ from pathlib import Path
 
 from otmath import MathOperation, MathRequest, render_steps_latex, run_request
 from otmath.errors import OTMathError
-from otmath.latex_input import latex_to_engine_expression
+from otmath.latex_input import latex_to_engine_expression, latex_to_engine_symbol_spec
 
 _REQUEST_ID_PATTERN = re.compile(r"^[A-Za-z][A-Za-z0-9_-]*$")
 _OPERATION_ALIASES = {
@@ -185,10 +185,15 @@ def _render_request_content(request: LatexRequest) -> str:
         if request.input_format == "latex"
         else request.expression
     )
+    variable = (
+        latex_to_engine_symbol_spec(request.variable)
+        if request.input_format == "latex"
+        else request.variable
+    )
     math_request = MathRequest(
         operation=request.operation,
         expression=expression,
-        variable=request.variable,
+        variable=variable,
     )
     result = run_request(math_request)
     if request.kind == "explain":

@@ -36,5 +36,7 @@ All notable changes to OT Math will be documented here.
   and `\OTMathExplain` authoring macros.
 - Added manual QA checklist for VS Code Extension Host and LaTeX PDF review.
 - Added starter LaTeX-style input support for `otcalc latex-build` document requests.
+- Added starter LaTeX variable normalization for common Greek symbols and simple
+  subscripted variables.
 - Added project phases and Codex phase prompts.
 - Added documentation, governance files, templates, and integration placeholders.

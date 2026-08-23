@@ -154,6 +154,52 @@ def test_latex_build_command_generates_include_from_latex_input(tmp_path: Path) 
     assert "x^{2} - 5 x + 6" in output_file.read_text(encoding="utf-8")
 
 
+def test_latex_build_generates_include_with_latex_variable_spec(tmp_path: Path) -> None:
+    tex_file = tmp_path / "scratch.tex"
+    output_file = tmp_path / "generated" / "otmath-results.tex"
+    tex_file.write_text(
+        r"\OTMathCompute[input=latex; variable=x_{0}]{roots}{solve}{x_{0}^{2} - 1 = 0}",
+        encoding="utf-8",
+    )
+
+    result = generate_latex_include(tex_file, output_file=output_file)
+    generated = output_file.read_text(encoding="utf-8")
+
+    assert result.request_count == 1
+    assert r"\left[ -1, \  1\right]" in generated
+
+
+def test_latex_build_generates_include_with_greek_variables(tmp_path: Path) -> None:
+    tex_file = tmp_path / "scratch.tex"
+    output_file = tmp_path / "generated" / "otmath-results.tex"
+    tex_file.write_text(
+        r"\OTMathCompute[input=latex]{greek}{simplify}{\alpha^{2} + \alpha}",
+        encoding="utf-8",
+    )
+
+    generate_latex_include(tex_file, output_file=output_file)
+
+    generated = output_file.read_text(encoding="utf-8")
+
+    assert r"\alpha \left(\alpha + 1\right)" in generated
+
+
+def test_latex_build_generates_system_with_subscript_variables(tmp_path: Path) -> None:
+    tex_file = tmp_path / "scratch.tex"
+    output_file = tmp_path / "generated" / "otmath-results.tex"
+    tex_file.write_text(
+        r"\OTMathCompute[input=latex; variable=x_{0},y_{0}]{system}{system}"
+        r"{x_{0} + y_{0} = 5; x_{0} - y_{0} = 1}",
+        encoding="utf-8",
+    )
+
+    generate_latex_include(tex_file, output_file=output_file)
+    generated = output_file.read_text(encoding="utf-8")
+
+    assert r"x_{0} = 3" in generated
+    assert r"y_{0} = 2" in generated
+
+
 def test_latex_build_rejects_documents_without_requests(tmp_path: Path) -> None:
     tex_file = tmp_path / "empty.tex"
     tex_file.write_text(r"\documentclass{article}", encoding="utf-8")

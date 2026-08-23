@@ -66,13 +66,32 @@ Supported starter LaTeX input includes:
 
 - Powers such as `x^{2}`.
 - Implicit multiplication such as `5x`.
+- Simple subscript variables such as `x_{0}` and `\theta_{1}`.
 - Equations such as `x^{2} - 5x + 6 = 0`.
 - `\frac{a}{b}`.
 - `\sqrt{x}`.
 - `\sin{x}`, `\cos{x}`, `\tan{x}`, `\log{x}`, `\ln{x}`, and `\exp{x}`.
 - `e^{...}` as Euler's constant.
+- Common Greek variables such as `\alpha`, `\beta`, `\gamma`, `\theta`,
+  `\lambda`, `\mu`, `\sigma`, `\phi`, `\omega`, and uppercase forms
+  such as `\Delta`, `\Gamma`, `\Omega`, and `\Sigma`.
+- `\pi` as the mathematical constant.
 
 Unsupported LaTeX should fail at the parser boundary rather than being guessed.
+
+Variables in options are normalized too. For example:
+
+```latex
+\OTMathCompute[input=latex; variable=x_{0}]{roots}{solve}{x_{0}^{2} - 1 = 0}
+\OTMathCompute[input=latex; variable=x_{0},y_{0}]{system}{system}{x_{0} + y_{0} = 5; x_{0} - y_{0} = 1}
+\OTMathCompute[input=latex]{greek}{simplify}{\alpha^{2} + \alpha}
+```
+
+Internally, names such as `x_{0}` and `\alpha` are normalized to engine-safe symbols
+such as `x_0` and `alpha`. SymPy then renders them back to LaTeX in generated output.
+
+Complex symbol declarations and aliases are not implemented yet. For now, keep variable
+subscripts simple: letters or digits inside the subscript braces.
 
 ## Manual Snippets
 

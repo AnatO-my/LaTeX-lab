@@ -7,6 +7,8 @@ OT Math is a beta-track local-first calculator, not a complete computer algebra 
 - The core parser accepts SymPy-style input.
 - `otcalc latex-build` has a starter `input=latex` adapter for common document syntax.
 - Use `**` for powers and explicit multiplication such as `5*x`.
+- LaTeX variable normalization supports common Greek symbols and simple subscripts such
+  as `x_{0}`; complex symbol aliases are not implemented yet.
 - Unknown function calls are rejected unless the parser explicitly allows them.
 - Most commands accept expressions only; `solve` and `system` accept equation syntax.
 
