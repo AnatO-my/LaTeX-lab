@@ -1,0 +1,22 @@
+\documentclass{article}
+\usepackage{amsmath}
+\input{../../integrations/latex/otmath.sty}
+\input{generated/otmath-results.tex}
+
+\begin{document}
+
+\section*{OT Math Example}
+
+Generated snippets from local OT Math commands can be included directly:
+
+\OTMathCompute{sample-quadratic}{simplify}{x**2 - 5*x + 6}
+
+\OTMathEquation{\OTMathUse{sample-quadratic}}{0}
+
+\subsection*{System of equations}
+
+\OTMathCompute[variable=x,y]{sample-system}{system}{x + y = 5; x - y = 1}
+
+\OTMathExplain[operation=solve]{sample-solve-steps}{x**2 - 5*x + 6 = 0}
+
+\end{document}

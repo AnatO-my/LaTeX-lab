@@ -1,0 +1,229 @@
+import pytest
+
+from otmath import (
+    differentiate_expression,
+    expand_expression,
+    factor_expression,
+    integrate_expression,
+    render_steps_latex,
+    render_steps_text,
+    run_request,
+    simplify_expression,
+    solve_expression,
+    solve_system,
+)
+from otmath.domains import SystemRequest
+from otmath.engine import (
+    expressions_equivalent,
+)
+from otmath.errors import MathParseError, MathRequestError, UnsupportedOperationError
+from otmath.models import MathOperation, MathRequest
+from otmath.parser import parse_expression
+
+
+def test_solve_quadratic() -> None:
+    result = solve_expression("x**2 - 5*x + 6")
+
+    assert result.answers == ["2", "3"]
+    assert result.verified is True
+    assert result.metadata["engine"] == "otmath"
+    assert result.metadata["operation"] == "solve"
+    assert result.metadata["verification"] == "solution_substitution"
+    assert [step.kind for step in result.steps] == ["normalize", "solve", "verify"]
+    assert result.as_dict()["steps"][0]["kind"] == "normalize"
+
+
+def test_solve_quadratic_equation() -> None:
+    result = solve_expression("x**2 - 5*x + 6 = 0")
+
+    assert result.answers == ["2", "3"]
+    assert result.verified is True
+
+
+def test_solve_equation_with_expression_on_both_sides() -> None:
+    result = solve_expression("2*x + 1 = 7")
+
+    assert result.answers == ["3"]
+    assert result.verified is True
+
+
+def test_solve_system_linear_equations() -> None:
+    result = solve_system(["x + y = 5", "x - y = 1"], variables=["x", "y"])
+
+    assert result.answers == ["x = 3, y = 2"]
+    assert result.verified is True
+    assert result.operation is MathOperation.SOLVE_SYSTEM
+    assert result.metadata["verification"] == "system_solution_substitution"
+    assert result.metadata["variables"] == ["x", "y"]
+
+
+def test_solve_system_accepts_cli_style_strings() -> None:
+    result = solve_system("x + y = 5; x - y = 1", variables="x,y")
+
+    assert result.answers == ["x = 3, y = 2"]
+    assert result.verified is True
+
+
+def test_system_request_rejects_empty_items() -> None:
+    with pytest.raises(MathRequestError):
+        SystemRequest.from_values("x + y = 5; ", "x,y")
+
+
+def test_simplify_expression() -> None:
+    result = simplify_expression("(x + 1)**2 - x**2")
+
+    assert result.answers == ["2*x + 1"]
+    assert result.verified is True
+    assert result.steps[0].kind == "simplify"
+    assert result.steps[0].rule == "sympy_simplify"
+
+
+def test_differentiate_expression() -> None:
+    result = differentiate_expression("x**3")
+
+    assert result.answers == ["3*x**2"]
+    assert result.verified is True
+    assert result.steps[0].kind == "differentiate"
+    assert result.steps[0].rule == "sympy_diff"
+
+
+def test_integrate_expression() -> None:
+    result = integrate_expression("2*x")
+
+    assert result.answers == ["x**2"]
+    assert result.verified is True
+
+
+def test_factor_expression() -> None:
+    result = factor_expression("x**2 - 5*x + 6")
+
+    assert expressions_equivalent(
+        parse_expression(result.answers[0]), parse_expression("x**2 - 5*x + 6")
+    )
+    assert result.verified is True
+
+
+def test_expand_expression() -> None:
+    result = expand_expression("(x - 2)*(x - 3)")
+
+    assert result.answers == ["x**2 - 5*x + 6"]
+    assert result.verified is True
+
+
+def test_rejects_invalid_expression() -> None:
+    with pytest.raises(MathParseError):
+        simplify_expression("__import__('os').system('dir')")
+
+
+def test_rejects_unknown_function_call() -> None:
+    with pytest.raises(MathParseError):
+        simplify_expression("madeup(x)")
+
+
+def test_rejects_empty_expression() -> None:
+    with pytest.raises(MathParseError):
+        simplify_expression("   ")
+
+
+def test_rejects_invalid_variable_name() -> None:
+    with pytest.raises(MathParseError):
+        solve_expression("x**2 - 1", variable="class")
+
+
+def test_rejects_malformed_equation() -> None:
+    with pytest.raises(MathParseError):
+        solve_expression("x = = 2")
+
+
+def test_non_solve_operations_reject_equation_input() -> None:
+    with pytest.raises(MathParseError):
+        simplify_expression("x + 1 = 2")
+
+
+def test_math_request_accepts_operation_strings() -> None:
+    request = MathRequest(operation="factor", expression="x**2 - 1")
+
+    assert request.operation is MathOperation.FACTOR
+
+
+def test_math_request_accepts_system_variable_spec() -> None:
+    request = MathRequest(
+        operation=MathOperation.SOLVE_SYSTEM,
+        expression="x + y = 5; x - y = 1",
+        variable="x,y",
+    )
+
+    assert request.variable == "x,y"
+
+
+def test_math_request_rejects_empty_expression() -> None:
+    with pytest.raises(MathRequestError):
+        MathRequest(operation=MathOperation.SIMPLIFY, expression="")
+
+
+def test_math_request_rejects_invalid_variable_name() -> None:
+    with pytest.raises(MathRequestError):
+        MathRequest(operation=MathOperation.SOLVE, expression="x**2 - 1", variable="for")
+
+
+def test_run_request_dispatches_factor() -> None:
+    request = MathRequest(
+        operation=MathOperation.FACTOR,
+        expression="x**2 - 5*x + 6",
+        assumptions={"domain": "real"},
+    )
+
+    result = run_request(request)
+
+    assert expressions_equivalent(
+        parse_expression(result.answers[0]),
+        parse_expression("x**2 - 5*x + 6"),
+    )
+    assert result.verified is True
+    assert result.metadata["assumptions"] == {"domain": "real"}
+
+
+def test_run_request_dispatches_system() -> None:
+    request = MathRequest(
+        operation=MathOperation.SOLVE_SYSTEM,
+        expression="x + y = 5; x - y = 1",
+        variable="x,y",
+    )
+
+    result = run_request(request)
+
+    assert result.answers == ["x = 3, y = 2"]
+    assert result.verified is True
+
+
+def test_run_request_rejects_unsupported_operation() -> None:
+    with pytest.raises(UnsupportedOperationError):
+        MathRequest(
+            operation="unknown",
+            expression="x",
+        )
+
+
+def test_solve_warns_when_no_solutions_are_returned() -> None:
+    result = solve_expression("x - x - 1")
+
+    assert result.answers == []
+    assert result.verified is False
+    assert result.warnings == [
+        "Result could not be verified by the deterministic engine.",
+        "No solutions were returned for the selected variable.",
+    ]
+
+
+def test_step_renderers() -> None:
+    result = simplify_expression("(x + 1)**2 - x**2")
+
+    assert "Simplify the expression" in render_steps_text(result.steps)
+    assert "\\begin{aligned}" in render_steps_latex(result.steps)
+
+
+def test_step_renderers_handle_empty_steps() -> None:
+    result = factor_expression("x**2 - 5*x + 6")
+
+    assert result.steps == []
+    assert render_steps_text(result.steps) == "No explanation steps are available."

@@ -1,0 +1,51 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{otmath}[2026/08/22 OT Math generated-snippet helpers]
+
+\RequirePackage{amsmath}
+
+\makeatletter
+\newcommand{\OTMathUse}[1]{%
+  \@ifundefined{OTMathGenerated@#1}{%
+    \PackageWarning{otmath}{Missing generated OT Math result `#1'}%
+    \text{[OT Math result missing: #1]}%
+  }{%
+    \csname OTMathGenerated@#1\endcsname%
+  }%
+}
+\makeatother
+
+\newcommand{\OTMathInline}[1]{%
+  \(#1\)%
+}
+
+\newcommand{\OTMathResult}[1]{%
+  \[
+    #1
+  \]
+}
+
+\newcommand{\OTMathEquation}[2]{%
+  \begin{equation}
+    #1 = #2
+  \end{equation}
+}
+
+\newenvironment{OTMathSteps}{%
+  \[
+  \begin{aligned}
+}{%
+  \end{aligned}
+  \]
+}
+
+\newcommand{\OTMathStep}[2]{%
+  \text{#1} & #2 \\
+}
+
+\newcommand{\OTMathCompute}[4][]{%
+  \OTMathResult{\OTMathUse{#2}}%
+}
+
+\newcommand{\OTMathExplain}[3][]{%
+  \OTMathUse{#2}%
+}

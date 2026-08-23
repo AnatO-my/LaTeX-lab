@@ -1,0 +1,17 @@
+otcalc --version
+otcalc config show --format json
+otcalc solve "x**2 - 5*x + 6"
+otcalc --no-ai solve "x**2 - 5*x + 6"
+otcalc solve "x**2 - 5*x + 6 = 0"
+otcalc system "x + y = 5; x - y = 1" --variable "x,y"
+otcalc simplify "(x + 1)**2 - x**2" --format json
+otcalc diff "x**3" --format latex
+otcalc latex "x**2 - 5*x + 6"
+otcalc explain "x**2 - 5*x + 6 = 0" --operation solve
+otcalc explain "x**3" --operation diff --format latex
+otcalc integrate "exp(-x**2)"
+otcalc expand "(x - 2)*(x - 3)"
+otcalc factor "x**2 - 5*x + 6"
+otcalc solve "x - x - 1" --format json
+otcalc --quiet solve "x - x - 1"
+otcalc --history --history-file .otmath_history.jsonl solve "x**2 - 5*x + 6"

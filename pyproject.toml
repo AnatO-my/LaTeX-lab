@@ -1,0 +1,69 @@
+[build-system]
+requires = ["hatchling>=1.25"]
+build-backend = "hatchling.build"
+
+[project]
+name = "ot-math"
+version = "0.1.0"
+description = "Local-first deterministic math assistant with optional AI interpretation."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [
+  { name = "OT Math Contributors" }
+]
+keywords = ["math", "sympy", "cli", "local-first", "latex", "education"]
+classifiers = [
+  "Development Status :: 2 - Pre-Alpha",
+  "Intended Audience :: Education",
+  "Intended Audience :: Science/Research",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Topic :: Scientific/Engineering :: Mathematics"
+]
+dependencies = [
+  "sympy>=1.13"
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.0",
+  "ruff>=0.6",
+  "mypy>=1.10",
+  "build>=1.2"
+]
+ai = []
+docs = []
+
+[project.scripts]
+otcalc = "otcalc.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/otmath/ot-math"
+Issues = "https://github.com/otmath/ot-math/issues"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/otmath", "src/otcalc"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+packages = ["otmath", "otcalc"]
+
+[[tool.mypy.overrides]]
+module = ["sympy", "sympy.*"]
+ignore_missing_imports = true

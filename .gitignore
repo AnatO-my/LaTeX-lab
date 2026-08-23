@@ -1,0 +1,33 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+dist/
+build/
+
+# Node
+node_modules/
+out/
+*.vsix
+
+# Editors
+.vscode/
+.idea/
+
+# Secrets and local config
+.env
+.env.*
+!.env.example
+otmath.local.toml
+
+# Generated
+*.log
+*.aux
+*.fdb_latexmk
+*.fls
+*.synctex.gz
+examples/latex/*.pdf

@@ -1,0 +1,26 @@
+name: Feature request
+description: Suggest a capability or improvement.
+title: "[Feature]: "
+labels: ["enhancement", "needs-triage"]
+body:
+  - type: textarea
+    id: goal
+    attributes:
+      label: Goal
+      description: What should OT Math help users do?
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: Suggested scope
+      description: Which phase or component does this belong to?
+    validations:
+      required: false
+  - type: textarea
+    id: privacy
+    attributes:
+      label: Security or privacy notes
+      description: Does this send data outside the user's machine or require secrets?
+    validations:
+      required: false

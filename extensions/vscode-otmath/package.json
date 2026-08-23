@@ -1,0 +1,74 @@
+{
+  "name": "vscode-otmath",
+  "displayName": "OT Math",
+  "description": "Local-first OT Math integration for VS Code.",
+  "version": "0.0.1",
+  "publisher": "otmath",
+  "engines": {
+    "vscode": "^1.90.0"
+  },
+  "categories": ["Education", "Other"],
+  "activationEvents": [
+    "onCommand:otmath.solveSelection",
+    "onCommand:otmath.explainSelection",
+    "onCommand:otmath.insertLatexResult",
+    "onCommand:otmath.showResult"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "otmath.solveSelection",
+        "title": "OT Math: Solve Selection"
+      },
+      {
+        "command": "otmath.explainSelection",
+        "title": "OT Math: Explain Selection"
+      },
+      {
+        "command": "otmath.insertLatexResult",
+        "title": "OT Math: Insert LaTeX Result"
+      },
+      {
+        "command": "otmath.showResult",
+        "title": "OT Math: Show Result"
+      }
+    ],
+    "configuration": {
+      "title": "OT Math",
+      "properties": {
+        "otmath.provider": {
+          "type": "string",
+          "default": "none",
+          "enum": ["none"],
+          "description": "AI provider mode."
+        },
+        "otmath.otcalcPath": {
+          "type": "string",
+          "default": "otcalc",
+          "description": "Path to the local otcalc command."
+        },
+        "otmath.privacyMode": {
+          "type": "string",
+          "default": "localOnly",
+          "enum": ["localOnly"],
+          "description": "Privacy mode. Only local-only execution is supported."
+        },
+        "otmath.variable": {
+          "type": "string",
+          "default": "x",
+          "description": "Default variable passed to otcalc."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "compile": "tsc -p ./",
+    "test": "npm run compile && node ./out/commandBuilder.test.js"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@types/vscode": "^1.90.0",
+    "typescript": "^5.5.0"
+  }
+}
