@@ -94,7 +94,9 @@ Supported starter LaTeX input includes:
 - Limit notation such as `\lim_{x \to 0} \frac{\sin{x}}{x}` for `limit` requests.
 - Matrix environments such as `bmatrix` and `pmatrix` for `det`, `order`, `rank`,
   `trace`, `inverse`, `mpow`, `transpose`, `conjugate`, `adjoint`, `rref`,
-  `eigenvals`, and `diagonalize` requests.
+  `msolve`, `nullspace`, `columnspace`, `rowspace`, `eigenvals`, `eigenvectors`,
+  `diagonalize`, `lu`, `qr`, and `cholesky` requests. Matrix solving accepts an
+  `A; b` pair, where both sides may be LaTeX matrix environments.
 - Plus-minus and minus-plus notation such as `x = \pm 2`, `x = \mp 2`,
   `(x \pm 1)^{2}`, `a \pm b \mp c`, or `a \pm b \pm c`. The LaTeX builder
   expands this into explicit sign branches before calling the engine.
@@ -129,7 +131,12 @@ Variables in options are normalized too. For example:
 \OTMathCompute[input=latex; variable=3]{matrix-power}{mpow}{\begin{bmatrix}1 & 1 \\ 0 & 1\end{bmatrix}}
 \OTMathCompute[input=latex]{matrix-transpose}{transpose}{\begin{bmatrix}1 & 2 \\ 3 & 4\end{bmatrix}}
 \OTMathCompute[input=latex]{matrix-adjoint}{adjoint}{\begin{bmatrix}1 + \mathrm{i} & 2 \\ 3 & 4 - \mathrm{i}\end{bmatrix}}
+\OTMathCompute[input=latex]{matrix-solve}{msolve}{\begin{bmatrix}2 & 1 \\ 1 & -1\end{bmatrix}; \begin{bmatrix}5 \\ 1\end{bmatrix}}
+\OTMathCompute[input=latex]{matrix-nullspace}{nullspace}{\begin{bmatrix}1 & 2 & 3 \\ 2 & 4 & 6\end{bmatrix}}
+\OTMathCompute[input=latex]{matrix-eigenvectors}{eigenvectors}{\begin{bmatrix}2 & 0 \\ 0 & 3\end{bmatrix}}
 \OTMathCompute[input=latex]{matrix-diagonalize}{diagonalize}{\begin{bmatrix}2 & 0 \\ 0 & 3\end{bmatrix}}
+\OTMathCompute[input=latex]{matrix-lu}{lu}{\begin{bmatrix}2 & 1 \\ 4 & 3\end{bmatrix}}
+\OTMathCompute[input=latex]{matrix-cholesky}{cholesky}{\begin{bmatrix}4 & 2 \\ 2 & 3\end{bmatrix}}
 \OTMathCompute[input=latex]{sum-squares}{sum}{\sum_{k=1}^{n} k^{2}}
 \OTMathCompute[input=latex]{limit-sine}{limit}{\lim_{x \to 0} \frac{\sin{x}}{x}}
 ```

@@ -7,15 +7,23 @@ from otmath import (
     integrate_expression,
     limit_expression,
     matrix_adjoint,
+    matrix_cholesky_decomposition,
+    matrix_columnspace,
     matrix_conjugate,
     matrix_determinant,
     matrix_diagonalize,
     matrix_eigenvalues,
+    matrix_eigenvectors,
     matrix_inverse,
+    matrix_lu_decomposition,
+    matrix_nullspace,
     matrix_order,
     matrix_power,
+    matrix_qr_decomposition,
     matrix_rank,
+    matrix_rowspace,
     matrix_rref,
+    matrix_solve,
     matrix_trace,
     matrix_transpose,
     product_expression,
@@ -29,7 +37,7 @@ from otmath import (
     summation_expression,
 )
 from otmath.domains import SystemRequest
-from otmath.domains.matrices import parse_matrix
+from otmath.domains.matrices import parse_matrix, parse_matrix_pair
 from otmath.engine import (
     expressions_equivalent,
 )
@@ -126,6 +134,13 @@ def test_parse_matrix_accepts_symbolic_entries() -> None:
     assert str(matrix[1, 1]) == "x + 1"
 
 
+def test_parse_matrix_pair_accepts_linear_system_input() -> None:
+    matrix, rhs = parse_matrix_pair("[[2, 1], [1, -1]]; [[5], [1]]")
+
+    assert matrix.shape == (2, 2)
+    assert rhs.shape == (2, 1)
+
+
 def test_matrix_determinant() -> None:
     result = matrix_determinant("[[1, 2], [3, 4]]")
 
@@ -200,10 +215,53 @@ def test_matrix_rref() -> None:
     assert result.metadata["pivots"] == [0, 1]
 
 
+def test_matrix_solve() -> None:
+    result = matrix_solve("[[2, 1], [1, -1]]; [[5], [1]]")
+
+    assert result.answers == ["Matrix([[2], [1]])"]
+    assert result.verified is True
+    assert result.metadata["solution_rows"] == 2
+    assert result.metadata["solution_columns"] == 1
+
+
+def test_matrix_nullspace() -> None:
+    result = matrix_nullspace("[[1, 2, 3], [2, 4, 6]]")
+
+    assert result.answers == [
+        "Matrix([[-2], [1], [0]])",
+        "Matrix([[-3], [0], [1]])",
+    ]
+    assert result.metadata["space_dimension"] == 2
+
+
+def test_matrix_columnspace() -> None:
+    result = matrix_columnspace("[[1, 2, 3], [2, 4, 6]]")
+
+    assert result.answers == ["Matrix([[1], [2]])"]
+    assert result.metadata["space_dimension"] == 1
+
+
+def test_matrix_rowspace() -> None:
+    result = matrix_rowspace("[[1, 2, 3], [2, 4, 6]]")
+
+    assert result.answers == ["Matrix([[1, 2, 3]])"]
+    assert result.metadata["space_dimension"] == 1
+
+
 def test_matrix_eigenvalues() -> None:
     result = matrix_eigenvalues("[[2, 0], [0, 3]]")
 
     assert result.answers == ["2 (multiplicity 1)", "3 (multiplicity 1)"]
+    assert result.verified is True
+
+
+def test_matrix_eigenvectors() -> None:
+    result = matrix_eigenvectors("[[2, 0], [0, 3]]")
+
+    assert result.answers == [
+        "lambda = 2 (multiplicity 1): Matrix([[1], [0]])",
+        "lambda = 3 (multiplicity 1): Matrix([[0], [1]])",
+    ]
     assert result.verified is True
 
 
@@ -215,6 +273,32 @@ def test_matrix_diagonalize() -> None:
         "D = Matrix([[2, 0], [0, 3]])",
     ]
     assert "D =" in result.latex
+    assert result.verified is True
+
+
+def test_matrix_lu_decomposition() -> None:
+    result = matrix_lu_decomposition("[[2, 1], [4, 3]]")
+
+    assert result.answers == [
+        "L = Matrix([[1, 0], [2, 1]])",
+        "U = Matrix([[2, 1], [0, 1]])",
+        "swaps = []",
+    ]
+    assert result.verified is True
+
+
+def test_matrix_qr_decomposition() -> None:
+    result = matrix_qr_decomposition("[[1, 0], [1, 1]]")
+
+    assert result.answers[0].startswith("Q = Matrix(")
+    assert result.answers[1].startswith("R = Matrix(")
+    assert result.verified is True
+
+
+def test_matrix_cholesky_decomposition() -> None:
+    result = matrix_cholesky_decomposition("[[4, 2], [2, 3]]")
+
+    assert result.answers == ["L = Matrix([[2, 0], [1, sqrt(2)]])"]
     assert result.verified is True
 
 

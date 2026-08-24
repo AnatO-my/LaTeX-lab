@@ -447,29 +447,62 @@ def latex_matrix_to_engine_expression(expression: str) -> str:
     """Convert a simple LaTeX matrix environment into an engine matrix literal."""
 
     converted = expression.strip()
+    replaced = _replace_latex_matrix_environments(converted)
+    if replaced != converted:
+        return replaced
+
+    return latex_to_engine_expression(expression)
+
+
+def _replace_latex_matrix_environments(source: str) -> str:
+    result = source
+    search_from = 0
+    while True:
+        match = _find_next_matrix_environment(result, search_from)
+        if match is None:
+            return result
+
+        start, body_start, end, environment = match
+        matrix_literal = _convert_latex_matrix_body(result[body_start:end])
+        full_end = end + len(rf"\end{{{environment}}}")
+        result = result[:start] + matrix_literal + result[full_end:]
+        search_from = start + len(matrix_literal)
+
+
+def _find_next_matrix_environment(
+    source: str,
+    search_from: int,
+) -> tuple[int, int, int, str] | None:
+    best: tuple[int, int, int, str] | None = None
     for environment in _MATRIX_ENVIRONMENTS:
         begin = rf"\begin{{{environment}}}"
         end = rf"\end{{{environment}}}"
-        if converted.startswith(begin) and converted.endswith(end):
-            body = converted[len(begin) : -len(end)].strip()
-            rows = [
-                row.strip()
-                for row in re.split(r"\\\\", body)
-                if row.strip()
-            ]
-            if not rows:
-                raise MathParseError("LaTeX matrix must contain at least one row.")
-            converted_rows = []
-            for row in rows:
-                cells = [cell.strip() for cell in row.split("&")]
-                if any(not cell for cell in cells):
-                    raise MathParseError("LaTeX matrix contains an empty cell.")
-                converted_rows.append(
-                    "[" + ", ".join(latex_to_engine_expression(cell) for cell in cells) + "]"
-                )
-            return "[" + ", ".join(converted_rows) + "]"
+        start = source.find(begin, search_from)
+        if start == -1:
+            continue
+        body_start = start + len(begin)
+        body_end = source.find(end, body_start)
+        if body_end == -1:
+            raise MathParseError(f"Unclosed LaTeX matrix environment: {environment}")
+        candidate = (start, body_start, body_end, environment)
+        if best is None or start < best[0]:
+            best = candidate
+    return best
 
-    return latex_to_engine_expression(expression)
+
+def _convert_latex_matrix_body(body: str) -> str:
+    rows = [row.strip() for row in re.split(r"\\\\", body.strip()) if row.strip()]
+    if not rows:
+        raise MathParseError("LaTeX matrix must contain at least one row.")
+    converted_rows = []
+    for row in rows:
+        cells = [cell.strip() for cell in row.split("&")]
+        if any(not cell for cell in cells):
+            raise MathParseError("LaTeX matrix contains an empty cell.")
+        converted_rows.append(
+            "[" + ", ".join(latex_to_engine_expression(cell) for cell in cells) + "]"
+        )
+    return "[" + ", ".join(converted_rows) + "]"
 
 
 def _replace_symbol_commands(source: str) -> str:

@@ -184,8 +184,16 @@ def test_cli_factor_complex() -> None:
         (["transpose", "[[1, 2], [3, 4]]"], "Matrix([[1, 3], [2, 4]])"),
         (["conjugate", "[[1 + I, 2], [3, 4 - I]]"], "Matrix([[1 - I, 2], [3, 4 + I]])"),
         (["adjoint", "[[1 + I, 2], [3, 4 - I]]"], "Matrix([[1 - I, 3], [2, 4 + I]])"),
+        (["msolve", "[[2, 1], [1, -1]]; [[5], [1]]"], "Matrix([[2], [1]])"),
+        (["nullspace", "[[1, 2, 3], [2, 4, 6]]"], "Matrix([[-2], [1], [0]])"),
+        (["columnspace", "[[1, 2, 3], [2, 4, 6]]"], "Matrix([[1], [2]])"),
+        (["rowspace", "[[1, 2, 3], [2, 4, 6]]"], "Matrix([[1, 2, 3]])"),
         (["eigenvals", "[[2, 0], [0, 3]]"], "2 (multiplicity 1)"),
+        (["eigenvectors", "[[2, 0], [0, 3]]"], "lambda = 2"),
         (["diagonalize", "[[2, 0], [0, 3]]"], "D = Matrix([[2, 0], [0, 3]])"),
+        (["lu", "[[2, 1], [4, 3]]"], "L = Matrix([[1, 0], [2, 1]])"),
+        (["qr", "[[1, 0], [1, 1]]"], "Q = Matrix("),
+        (["cholesky", "[[4, 2], [2, 3]]"], "L = Matrix([[2, 0], [1, sqrt(2)]])"),
     ],
 )
 def test_cli_sympy_relative_operations(args: list[str], expected: str) -> None:

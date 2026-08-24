@@ -43,8 +43,16 @@ _COMMAND_OPERATIONS = {
     "conjugate": MathOperation.MATRIX_CONJUGATE,
     "adjoint": MathOperation.MATRIX_ADJOINT,
     "rref": MathOperation.MATRIX_RREF,
+    "msolve": MathOperation.MATRIX_SOLVE,
+    "nullspace": MathOperation.MATRIX_NULLSPACE,
+    "columnspace": MathOperation.MATRIX_COLUMNSPACE,
+    "rowspace": MathOperation.MATRIX_ROWSPACE,
     "eigenvals": MathOperation.MATRIX_EIGENVALUES,
+    "eigenvectors": MathOperation.MATRIX_EIGENVECTORS,
     "diagonalize": MathOperation.MATRIX_DIAGONALIZE,
+    "lu": MathOperation.MATRIX_LU,
+    "qr": MathOperation.MATRIX_QR,
+    "cholesky": MathOperation.MATRIX_CHOLESKY,
     "latex": MathOperation.SIMPLIFY,
 }
 _COMMAND_HELP = {
@@ -69,8 +77,16 @@ _COMMAND_HELP = {
     "conjugate": "Compute an elementwise complex matrix conjugate.",
     "adjoint": "Compute a matrix adjoint, also called conjugate transpose.",
     "rref": "Compute a matrix reduced row echelon form.",
+    "msolve": "Solve A*x = b from an A; b matrix pair.",
+    "nullspace": "Compute a matrix null-space basis.",
+    "columnspace": "Compute a matrix column-space basis.",
+    "rowspace": "Compute a matrix row-space basis.",
     "eigenvals": "Compute matrix eigenvalues with multiplicities.",
+    "eigenvectors": "Compute matrix eigenvectors.",
     "diagonalize": "Compute a matrix diagonalization when possible.",
+    "lu": "Compute a matrix LU decomposition.",
+    "qr": "Compute a matrix QR decomposition.",
+    "cholesky": "Compute a matrix Cholesky decomposition.",
     "latex": "Render an expression as LaTeX.",
 }
 _EXPLAIN_OPERATIONS = {
@@ -95,8 +111,16 @@ _EXPLAIN_OPERATIONS = {
     "conjugate": MathOperation.MATRIX_CONJUGATE,
     "adjoint": MathOperation.MATRIX_ADJOINT,
     "rref": MathOperation.MATRIX_RREF,
+    "msolve": MathOperation.MATRIX_SOLVE,
+    "nullspace": MathOperation.MATRIX_NULLSPACE,
+    "columnspace": MathOperation.MATRIX_COLUMNSPACE,
+    "rowspace": MathOperation.MATRIX_ROWSPACE,
     "eigenvals": MathOperation.MATRIX_EIGENVALUES,
+    "eigenvectors": MathOperation.MATRIX_EIGENVECTORS,
     "diagonalize": MathOperation.MATRIX_DIAGONALIZE,
+    "lu": MathOperation.MATRIX_LU,
+    "qr": MathOperation.MATRIX_QR,
+    "cholesky": MathOperation.MATRIX_CHOLESKY,
 }
 _PACKAGE_NAME = "ot-math"
 _VERSION_FALLBACK = "0.1.0"

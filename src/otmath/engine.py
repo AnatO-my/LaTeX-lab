@@ -9,15 +9,23 @@ import sympy as sp
 
 from otmath.domains.matrices import (
     matrix_adjoint,
+    matrix_cholesky_decomposition,
+    matrix_columnspace,
     matrix_conjugate,
     matrix_determinant,
     matrix_diagonalize,
     matrix_eigenvalues,
+    matrix_eigenvectors,
     matrix_inverse,
+    matrix_lu_decomposition,
+    matrix_nullspace,
     matrix_order,
     matrix_power,
+    matrix_qr_decomposition,
     matrix_rank,
+    matrix_rowspace,
     matrix_rref,
+    matrix_solve,
     matrix_trace,
     matrix_transpose,
 )
@@ -465,8 +473,16 @@ _OPERATION_HANDLERS: dict[MathOperation, OperationHandler] = {
     MathOperation.MATRIX_CONJUGATE: matrix_conjugate,
     MathOperation.MATRIX_ADJOINT: matrix_adjoint,
     MathOperation.MATRIX_RREF: matrix_rref,
+    MathOperation.MATRIX_SOLVE: matrix_solve,
+    MathOperation.MATRIX_NULLSPACE: matrix_nullspace,
+    MathOperation.MATRIX_COLUMNSPACE: matrix_columnspace,
+    MathOperation.MATRIX_ROWSPACE: matrix_rowspace,
     MathOperation.MATRIX_EIGENVALUES: matrix_eigenvalues,
+    MathOperation.MATRIX_EIGENVECTORS: matrix_eigenvectors,
     MathOperation.MATRIX_DIAGONALIZE: matrix_diagonalize,
+    MathOperation.MATRIX_LU: matrix_lu_decomposition,
+    MathOperation.MATRIX_QR: matrix_qr_decomposition,
+    MathOperation.MATRIX_CHOLESKY: matrix_cholesky_decomposition,
 }
 
 

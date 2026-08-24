@@ -140,7 +140,7 @@ def test_stress_latex_document_generates_current_hard_cases(tmp_path: Path) -> N
     result = generate_latex_include(stress, output_file=output_file)
     generated = output_file.read_text(encoding="utf-8")
 
-    assert result.request_count == 47
+    assert result.request_count == 55
     assert r"\csname OTMathGenerated@stress-factor-subscript\endcsname{%" in generated
     assert r"x_{0}" in generated
     assert r"\csname OTMathGenerated@stress-factor-complex\endcsname{%" in generated
@@ -188,7 +188,16 @@ def test_stress_latex_document_generates_current_hard_cases(tmp_path: Path) -> N
     assert r"\csname OTMathGenerated@stress-matrix-conjugate\endcsname{%" in generated
     assert r"\csname OTMathGenerated@stress-matrix-adjoint\endcsname{%" in generated
     assert r"\csname OTMathGenerated@stress-matrix-eigenvals\endcsname{%" in generated
+    assert r"\csname OTMathGenerated@stress-matrix-eigenvectors\endcsname{%" in generated
     assert r"\csname OTMathGenerated@stress-matrix-diagonalize\endcsname{%" in generated
+    assert r"\csname OTMathGenerated@stress-matrix-solve\endcsname{%" in generated
+    assert r"\left[\begin{matrix}2\\1\end{matrix}\right]" in generated
+    assert r"\csname OTMathGenerated@stress-matrix-nullspace\endcsname{%" in generated
+    assert r"\csname OTMathGenerated@stress-matrix-columnspace\endcsname{%" in generated
+    assert r"\csname OTMathGenerated@stress-matrix-rowspace\endcsname{%" in generated
+    assert r"\csname OTMathGenerated@stress-matrix-lu\endcsname{%" in generated
+    assert r"\csname OTMathGenerated@stress-matrix-qr\endcsname{%" in generated
+    assert r"\csname OTMathGenerated@stress-matrix-cholesky\endcsname{%" in generated
     assert r"P =" in generated
     assert r"D =" in generated
     assert r"\left\{ x_{0} = 3, y_{0} = 2 \right\}" in generated
@@ -399,17 +408,21 @@ def test_latex_build_generates_matrix_results_from_latex_input(tmp_path: Path) -
         r"{\begin{bmatrix}1 & 2 \\ 3 & 4\end{bmatrix}}"
         "\n"
         r"\OTMathCompute[input=latex]{conjugate}{conjugate}"
-        r"{\begin{bmatrix}1 + \mathrm{i} & 0 \\ 0 & 1 - \mathrm{i}\end{bmatrix}}",
+        r"{\begin{bmatrix}1 + \mathrm{i} & 0 \\ 0 & 1 - \mathrm{i}\end{bmatrix}}"
+        "\n"
+        r"\OTMathCompute[input=latex]{msolve}{msolve}"
+        r"{\begin{bmatrix}2 & 1 \\ 1 & -1\end{bmatrix}; \begin{bmatrix}5 \\ 1\end{bmatrix}}",
         encoding="utf-8",
     )
 
     result = generate_latex_include(tex_file, output_file=output_file)
     generated = output_file.read_text(encoding="utf-8")
 
-    assert result.request_count == 3
+    assert result.request_count == 4
     assert "-2" in generated
     assert r"\left[\begin{matrix}1 & 3\\2 & 4\end{matrix}\right]" in generated
     assert r"\left[\begin{matrix}1 - i & 0\\0 & 1 + i\end{matrix}\right]" in generated
+    assert r"\left[\begin{matrix}2\\1\end{matrix}\right]" in generated
 
 
 def test_latex_build_generates_system_with_subscript_variables(tmp_path: Path) -> None:

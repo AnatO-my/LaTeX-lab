@@ -146,8 +146,38 @@ n!
 \expandafter\gdef\csname OTMathGenerated@stress-matrix-eigenvals\endcsname{%
 \left\{ 2 : 1, \  3 : 1\right\}
 }
+\expandafter\gdef\csname OTMathGenerated@stress-matrix-eigenvectors\endcsname{%
+\begin{gathered}
+\lambda = 2\ \left(m=1\right): \left[\begin{matrix}1\\0\end{matrix}\right] \\
+\lambda = 3\ \left(m=1\right): \left[\begin{matrix}0\\1\end{matrix}\right]
+\end{gathered}
+}
 \expandafter\gdef\csname OTMathGenerated@stress-matrix-diagonalize\endcsname{%
 P = \left[\begin{matrix}1 & 0\\0 & 1\end{matrix}\right],\quad D = \left[\begin{matrix}2 & 0\\0 & 3\end{matrix}\right]
+}
+\expandafter\gdef\csname OTMathGenerated@stress-matrix-solve\endcsname{%
+\left[\begin{matrix}2\\1\end{matrix}\right]
+}
+\expandafter\gdef\csname OTMathGenerated@stress-matrix-nullspace\endcsname{%
+\begin{gathered}
+\left[\begin{matrix}-2\\1\\0\end{matrix}\right] \\
+\left[\begin{matrix}-3\\0\\1\end{matrix}\right]
+\end{gathered}
+}
+\expandafter\gdef\csname OTMathGenerated@stress-matrix-columnspace\endcsname{%
+\left[\begin{matrix}1\\2\end{matrix}\right]
+}
+\expandafter\gdef\csname OTMathGenerated@stress-matrix-rowspace\endcsname{%
+\left[\begin{matrix}1 & 2 & 3\end{matrix}\right]
+}
+\expandafter\gdef\csname OTMathGenerated@stress-matrix-lu\endcsname{%
+L = \left[\begin{matrix}1 & 0\\2 & 1\end{matrix}\right],\quad U = \left[\begin{matrix}2 & 1\\0 & 1\end{matrix}\right],\quad swaps = []
+}
+\expandafter\gdef\csname OTMathGenerated@stress-matrix-qr\endcsname{%
+Q = \left[\begin{matrix}\frac{\sqrt{2}}{2} & - \frac{\sqrt{2}}{2}\\\frac{\sqrt{2}}{2} & \frac{\sqrt{2}}{2}\end{matrix}\right],\quad R = \left[\begin{matrix}\sqrt{2} & \frac{\sqrt{2}}{2}\\0 & \frac{\sqrt{2}}{2}\end{matrix}\right]
+}
+\expandafter\gdef\csname OTMathGenerated@stress-matrix-cholesky\endcsname{%
+L = \left[\begin{matrix}2 & 0\\1 & \sqrt{2}\end{matrix}\right]
 }
 \expandafter\gdef\csname OTMathGenerated@stress-solve-theta\endcsname{%
 \pm 2

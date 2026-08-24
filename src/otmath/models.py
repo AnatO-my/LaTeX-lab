@@ -34,8 +34,16 @@ class MathOperation(StrEnum):
     MATRIX_CONJUGATE = "matrix_conjugate"
     MATRIX_ADJOINT = "matrix_adjoint"
     MATRIX_RREF = "matrix_rref"
+    MATRIX_SOLVE = "matrix_solve"
+    MATRIX_NULLSPACE = "matrix_nullspace"
+    MATRIX_COLUMNSPACE = "matrix_columnspace"
+    MATRIX_ROWSPACE = "matrix_rowspace"
     MATRIX_EIGENVALUES = "matrix_eigenvals"
+    MATRIX_EIGENVECTORS = "matrix_eigenvectors"
     MATRIX_DIAGONALIZE = "matrix_diagonalize"
+    MATRIX_LU = "matrix_lu"
+    MATRIX_QR = "matrix_qr"
+    MATRIX_CHOLESKY = "matrix_cholesky"
 
 
 @dataclass(frozen=True)

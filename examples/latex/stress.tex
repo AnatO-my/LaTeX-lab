@@ -125,7 +125,23 @@ pdflatex -interaction=nonstopmode -halt-on-error stress.tex
 
 \OTMathCompute[input=latex]{stress-matrix-eigenvals}{eigenvals}{\begin{bmatrix}2 & 0 \\ 0 & 3\end{bmatrix}}
 
+\OTMathCompute[input=latex]{stress-matrix-eigenvectors}{eigenvectors}{\begin{bmatrix}2 & 0 \\ 0 & 3\end{bmatrix}}
+
 \OTMathCompute[input=latex]{stress-matrix-diagonalize}{diagonalize}{\begin{bmatrix}2 & 0 \\ 0 & 3\end{bmatrix}}
+
+\OTMathCompute[input=latex]{stress-matrix-solve}{msolve}{\begin{bmatrix}2 & 1 \\ 1 & -1\end{bmatrix}; \begin{bmatrix}5 \\ 1\end{bmatrix}}
+
+\OTMathCompute[input=latex]{stress-matrix-nullspace}{nullspace}{\begin{bmatrix}1 & 2 & 3 \\ 2 & 4 & 6\end{bmatrix}}
+
+\OTMathCompute[input=latex]{stress-matrix-columnspace}{columnspace}{\begin{bmatrix}1 & 2 & 3 \\ 2 & 4 & 6\end{bmatrix}}
+
+\OTMathCompute[input=latex]{stress-matrix-rowspace}{rowspace}{\begin{bmatrix}1 & 2 & 3 \\ 2 & 4 & 6\end{bmatrix}}
+
+\OTMathCompute[input=latex]{stress-matrix-lu}{lu}{\begin{bmatrix}2 & 1 \\ 4 & 3\end{bmatrix}}
+
+\OTMathCompute[input=latex]{stress-matrix-qr}{qr}{\begin{bmatrix}1 & 0 \\ 1 & 1\end{bmatrix}}
+
+\OTMathCompute[input=latex]{stress-matrix-cholesky}{cholesky}{\begin{bmatrix}4 & 2 \\ 2 & 3\end{bmatrix}}
 
 \subsection*{Greek and Subscripted Solving}
 

@@ -194,6 +194,84 @@ def matrix_rref(expression: str, variable: str = "x") -> MathResult:
     )
 
 
+def matrix_solve(expression: str, variable: str = "x") -> MathResult:
+    """Solve a linear matrix equation A*x = b from an A; b request."""
+
+    coefficient_matrix, rhs = parse_matrix_pair(expression)
+    if coefficient_matrix.rows != rhs.rows:
+        raise UnsupportedOperationError(
+            "Matrix solve requires A and b to have the same number of rows."
+        )
+
+    try:
+        solution, parameters = coefficient_matrix.gauss_jordan_solve(rhs)
+    except ValueError as exc:
+        raise UnsupportedOperationError("Matrix system has no solution.") from exc
+    verified = bool((coefficient_matrix * solution - rhs).applyfunc(sp.simplify).is_zero_matrix)
+
+    return _matrix_result(
+        MathOperation.MATRIX_SOLVE,
+        expression,
+        variable,
+        solution,
+        verification="sympy_matrix_gauss_jordan_solve",
+        shape=coefficient_matrix.shape,
+        verified=verified,
+        warnings=_matrix_warnings(verified),
+        solution_rows=solution.rows,
+        solution_columns=solution.cols,
+        parameter_count=parameters.rows,
+    )
+
+
+def matrix_nullspace(expression: str, variable: str = "x") -> MathResult:
+    """Compute a basis for the null space of a matrix."""
+
+    matrix = parse_matrix(expression)
+    basis = matrix.nullspace()
+    return _matrix_sequence_result(
+        MathOperation.MATRIX_NULLSPACE,
+        expression,
+        variable,
+        basis,
+        verification="sympy_matrix_nullspace",
+        shape=matrix.shape,
+        space_dimension=len(basis),
+    )
+
+
+def matrix_columnspace(expression: str, variable: str = "x") -> MathResult:
+    """Compute a basis for the column space of a matrix."""
+
+    matrix = parse_matrix(expression)
+    basis = matrix.columnspace()
+    return _matrix_sequence_result(
+        MathOperation.MATRIX_COLUMNSPACE,
+        expression,
+        variable,
+        basis,
+        verification="sympy_matrix_columnspace",
+        shape=matrix.shape,
+        space_dimension=len(basis),
+    )
+
+
+def matrix_rowspace(expression: str, variable: str = "x") -> MathResult:
+    """Compute a basis for the row space of a matrix."""
+
+    matrix = parse_matrix(expression)
+    basis = matrix.rowspace()
+    return _matrix_sequence_result(
+        MathOperation.MATRIX_ROWSPACE,
+        expression,
+        variable,
+        basis,
+        verification="sympy_matrix_rowspace",
+        shape=matrix.shape,
+        space_dimension=len(basis),
+    )
+
+
 def matrix_eigenvalues(expression: str, variable: str = "x") -> MathResult:
     """Compute eigenvalues and algebraic multiplicities for a square matrix."""
 
@@ -217,6 +295,41 @@ def matrix_eigenvalues(expression: str, variable: str = "x") -> MathResult:
         verification="sympy_matrix_eigenvals",
         shape=matrix.shape,
         answers=answers,
+    )
+
+
+def matrix_eigenvectors(expression: str, variable: str = "x") -> MathResult:
+    """Compute eigenvalues, multiplicities, and eigenvector bases."""
+
+    matrix = parse_matrix(expression)
+    try:
+        eigenvectors = matrix.eigenvects()
+    except NonSquareMatrixError as exc:
+        raise UnsupportedOperationError("Eigenvectors require a square matrix.") from exc
+
+    ordered = sorted(eigenvectors, key=lambda item: sp.default_sort_key(item[0]))
+    answers = [
+        _format_eigenvector_answer(value, multiplicity, vectors)
+        for value, multiplicity, vectors in ordered
+    ]
+    latex = _joined_latex(
+        [
+            rf"\lambda = {render_latex(value)}"
+            rf"\ \left(m={multiplicity}\right): "
+            + _joined_latex([render_latex(vector) for vector in vectors])
+            for value, multiplicity, vectors in ordered
+        ]
+    )
+
+    return _matrix_result(
+        MathOperation.MATRIX_EIGENVECTORS,
+        expression,
+        variable,
+        eigenvectors,
+        verification="sympy_matrix_eigenvects",
+        shape=matrix.shape,
+        answers=answers,
+        latex=latex,
     )
 
 
@@ -249,6 +362,81 @@ def matrix_diagonalize(expression: str, variable: str = "x") -> MathResult:
     )
 
 
+def matrix_lu_decomposition(expression: str, variable: str = "x") -> MathResult:
+    """Compute an LU decomposition."""
+
+    matrix = parse_matrix(expression)
+    try:
+        lower, upper, swaps = matrix.LUdecomposition()
+    except ValueError as exc:
+        raise UnsupportedOperationError("Matrix LU decomposition failed.") from exc
+
+    latex = (
+        r"L = "
+        + render_latex(lower)
+        + r",\quad U = "
+        + render_latex(upper)
+        + rf",\quad swaps = {swaps}"
+    )
+    return _matrix_result(
+        MathOperation.MATRIX_LU,
+        expression,
+        variable,
+        upper,
+        verification="sympy_matrix_lu_decomposition",
+        shape=matrix.shape,
+        answers=[f"L = {lower}", f"U = {upper}", f"swaps = {swaps}"],
+        latex=latex,
+    )
+
+
+def matrix_qr_decomposition(expression: str, variable: str = "x") -> MathResult:
+    """Compute a QR decomposition."""
+
+    matrix = parse_matrix(expression)
+    try:
+        orthogonal, upper = matrix.QRdecomposition()
+    except ValueError as exc:
+        raise UnsupportedOperationError("Matrix QR decomposition failed.") from exc
+
+    latex = r"Q = " + render_latex(orthogonal) + r",\quad R = " + render_latex(upper)
+    return _matrix_result(
+        MathOperation.MATRIX_QR,
+        expression,
+        variable,
+        upper,
+        verification="sympy_matrix_qr_decomposition",
+        shape=matrix.shape,
+        answers=[f"Q = {orthogonal}", f"R = {upper}"],
+        latex=latex,
+    )
+
+
+def matrix_cholesky_decomposition(expression: str, variable: str = "x") -> MathResult:
+    """Compute a Cholesky decomposition."""
+
+    matrix = parse_matrix(expression)
+    try:
+        lower = matrix.cholesky()
+    except NonSquareMatrixError as exc:
+        raise UnsupportedOperationError("Cholesky decomposition requires a square matrix.") from exc
+    except (MatrixError, ValueError) as exc:
+        raise UnsupportedOperationError(
+            "Cholesky decomposition requires a positive-definite matrix."
+        ) from exc
+
+    return _matrix_result(
+        MathOperation.MATRIX_CHOLESKY,
+        expression,
+        variable,
+        lower,
+        verification="sympy_matrix_cholesky",
+        shape=matrix.shape,
+        answers=[f"L = {lower}"],
+        latex=r"L = " + render_latex(lower),
+    )
+
+
 def parse_matrix(expression: str) -> sp.Matrix:
     """Parse an engine-style matrix literal such as [[1, 2], [3, 4]]."""
 
@@ -270,6 +458,15 @@ def parse_matrix(expression: str) -> sp.Matrix:
         raise MathParseError("Matrix rows must all have the same number of columns.")
 
     return sp.Matrix(rows)
+
+
+def parse_matrix_pair(expression: str) -> tuple[sp.Matrix, sp.Matrix]:
+    """Parse a pair of matrix literals separated by a top-level semicolon."""
+
+    parts = _split_top_level(expression, delimiter=";")
+    if len(parts) != 2:
+        raise MathParseError("Matrix pair expression must use A; b syntax.")
+    return parse_matrix(parts[0]), parse_matrix(parts[1])
 
 
 def _parse_matrix_row(row_text: str) -> list[sp.Expr]:
@@ -317,6 +514,59 @@ def _parse_matrix_power_exponent(exponent_text: str) -> int:
         raise UnsupportedOperationError("Matrix power exponent must be an integer.") from exc
 
 
+def _format_eigenvector_answer(
+    value: sp.Expr,
+    multiplicity: int,
+    vectors: Sequence[sp.Matrix],
+) -> str:
+    vector_text = ", ".join(str(vector) for vector in vectors)
+    return f"lambda = {sp.sstr(value)} (multiplicity {multiplicity}): {vector_text}"
+
+
+def _matrix_sequence_result(
+    operation: MathOperation,
+    expression: str,
+    variable: str,
+    items: Sequence[object],
+    *,
+    verification: str,
+    shape: tuple[int, int],
+    space_dimension: int | None = None,
+) -> MathResult:
+    answers = [str(item) for item in items]
+    if not answers:
+        answers = ["[]"]
+    metadata_extra: dict[str, Any] = {}
+    if space_dimension is not None:
+        metadata_extra["space_dimension"] = space_dimension
+
+    return _matrix_result(
+        operation,
+        expression,
+        variable,
+        list(items),
+        verification=verification,
+        shape=shape,
+        answers=answers,
+        latex=_joined_latex([render_latex(item) for item in items]),
+        metadata_extra=metadata_extra,
+    )
+
+
+def _joined_latex(items: Sequence[str]) -> str:
+    if not items:
+        return r"\left\{ \right\}"
+    if len(items) == 1:
+        return items[0]
+    return "\\begin{gathered}\n" + " \\\\\n".join(items) + "\n\\end{gathered}"
+
+
+def _matrix_warnings(verified: bool) -> list[str]:
+    if verified:
+        return []
+    return ["Result could not be verified by the deterministic engine."]
+
+
 def _matrix_result(
     operation: MathOperation,
     expression: str,
@@ -329,6 +579,12 @@ def _matrix_result(
     exponent: int | None = None,
     answers: list[str] | None = None,
     latex: str | None = None,
+    verified: bool = True,
+    warnings: list[str] | None = None,
+    solution_rows: int | None = None,
+    solution_columns: int | None = None,
+    parameter_count: int | None = None,
+    metadata_extra: dict[str, Any] | None = None,
 ) -> MathResult:
     metadata: dict[str, Any] = {
         "engine": "otmath",
@@ -344,6 +600,14 @@ def _matrix_result(
         metadata["pivots"] = list(pivots)
     if exponent is not None:
         metadata["exponent"] = exponent
+    if solution_rows is not None:
+        metadata["solution_rows"] = solution_rows
+    if solution_columns is not None:
+        metadata["solution_columns"] = solution_columns
+    if parameter_count is not None:
+        metadata["parameter_count"] = parameter_count
+    if metadata_extra is not None:
+        metadata.update(metadata_extra)
 
     return MathResult(
         operation=operation,
@@ -351,7 +615,7 @@ def _matrix_result(
         variable=variable,
         answers=answers or [str(result)],
         latex=latex or render_latex(result),
-        verified=True,
-        warnings=[],
+        verified=verified,
+        warnings=warnings or [],
         metadata=metadata,
     )

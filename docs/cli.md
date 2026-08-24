@@ -25,8 +25,16 @@ otcalc transpose "[[1, 2], [3, 4]]"
 otcalc conjugate "[[1 + I, 2], [3, 4 - I]]"
 otcalc adjoint "[[1 + I, 2], [3, 4 - I]]"
 otcalc rref "[[1, 2], [3, 4]]"
+otcalc msolve "[[2, 1], [1, -1]]; [[5], [1]]"
+otcalc nullspace "[[1, 2, 3], [2, 4, 6]]"
+otcalc columnspace "[[1, 2, 3], [2, 4, 6]]"
+otcalc rowspace "[[1, 2, 3], [2, 4, 6]]"
 otcalc eigenvals "[[2, 0], [0, 3]]"
+otcalc eigenvectors "[[2, 0], [0, 3]]"
 otcalc diagonalize "[[2, 0], [0, 3]]"
+otcalc lu "[[2, 1], [4, 3]]"
+otcalc qr "[[1, 0], [1, 1]]"
+otcalc cholesky "[[4, 2], [2, 3]]"
 otcalc expand "(x - 2)*(x - 3)"
 otcalc factor "x**2 - 5*x + 6"
 otcalc latex "x**2 - 5*x + 6"
@@ -65,7 +73,8 @@ command uses `--variable variable,point[,direction]`, where direction is `+`, `-
 
 The matrix commands accept engine-style matrix literals such as
 `[[1, 2], [3, 4]]`. The `mpow` command uses `--variable` as an integer exponent
-until matrix-specific CLI options are introduced.
+until matrix-specific CLI options are introduced. The `msolve` command accepts an
+`A; b` pair for linear systems in matrix form.
 
 Text and LaTeX output print non-fatal warnings to stderr. JSON output keeps warnings in
 the `warnings` field and does not print separate warning text.
