@@ -92,8 +92,9 @@ Supported starter LaTeX input includes:
 - Summation notation such as `\sum_{k=1}^{n} k^{2}` for `sum` requests.
 - Product notation such as `\prod_{k=1}^{n} k` for `product` requests.
 - Limit notation such as `\lim_{x \to 0} \frac{\sin{x}}{x}` for `limit` requests.
-- Matrix environments such as `bmatrix` and `pmatrix` for `det`, `inverse`,
-  `transpose`, and `rref` requests.
+- Matrix environments such as `bmatrix` and `pmatrix` for `det`, `order`, `rank`,
+  `trace`, `inverse`, `mpow`, `transpose`, `conjugate`, `adjoint`, `rref`,
+  `eigenvals`, and `diagonalize` requests.
 - Plus-minus and minus-plus notation such as `x = \pm 2`, `x = \mp 2`,
   `(x \pm 1)^{2}`, `a \pm b \mp c`, or `a \pm b \pm c`. The LaTeX builder
   expands this into explicit sign branches before calling the engine.
@@ -124,7 +125,11 @@ Variables in options are normalized too. For example:
 \OTMathCompute[input=latex]{tan-integral}{integrate}{\int \tan{x} \, dx}
 \OTMathCompute[input=latex]{theta-integral}{integrate}{\int \theta^{2} \, d\theta}
 \OTMathCompute[input=latex]{matrix-det}{det}{\begin{bmatrix}1 & 2 \\ 3 & 4\end{bmatrix}}
+\OTMathCompute[input=latex]{matrix-rank}{rank}{\begin{bmatrix}1 & 2 & 3 \\ 2 & 4 & 6 \\ 1 & 0 & 1\end{bmatrix}}
+\OTMathCompute[input=latex; variable=3]{matrix-power}{mpow}{\begin{bmatrix}1 & 1 \\ 0 & 1\end{bmatrix}}
 \OTMathCompute[input=latex]{matrix-transpose}{transpose}{\begin{bmatrix}1 & 2 \\ 3 & 4\end{bmatrix}}
+\OTMathCompute[input=latex]{matrix-adjoint}{adjoint}{\begin{bmatrix}1 + \mathrm{i} & 2 \\ 3 & 4 - \mathrm{i}\end{bmatrix}}
+\OTMathCompute[input=latex]{matrix-diagonalize}{diagonalize}{\begin{bmatrix}2 & 0 \\ 0 & 3\end{bmatrix}}
 \OTMathCompute[input=latex]{sum-squares}{sum}{\sum_{k=1}^{n} k^{2}}
 \OTMathCompute[input=latex]{limit-sine}{limit}{\lim_{x \to 0} \frac{\sin{x}}{x}}
 ```
@@ -138,8 +143,9 @@ When two solve outputs are exact opposites, generated LaTeX may compact them bac
 branch uses plus/minus, and the second uses minus/plus.
 Repeated `\pm` inputs without `\mp` are treated as independent choices.
 
-Complex symbol declarations and aliases are not implemented yet. For now, keep variable
-subscripts simple: letters or digits inside the subscript braces.
+Complex symbol declarations and aliases are not implemented yet. For now, use
+`\mathrm{i}` for the imaginary unit in LaTeX matrix input, and keep variable subscripts
+simple: letters or digits inside the subscript braces.
 
 ## Manual Snippets
 
@@ -165,7 +171,7 @@ TeX is missing.
 
 `examples/latex/stress.tex` is a broader document bench for current hard cases:
 subscripted variables, Greek variables, fractions, roots, solving, systems,
-differentiation, integration, and explanation rendering.
+differentiation, integration, matrix operations, and explanation rendering.
 
 ```bash
 otcalc latex-build examples/latex/stress.tex --compile

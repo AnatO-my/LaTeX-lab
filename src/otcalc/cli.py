@@ -34,9 +34,17 @@ _COMMAND_OPERATIONS = {
     "limit": MathOperation.LIMIT,
     "inequality": MathOperation.INEQUALITY,
     "det": MathOperation.MATRIX_DETERMINANT,
+    "order": MathOperation.MATRIX_ORDER,
+    "rank": MathOperation.MATRIX_RANK,
+    "trace": MathOperation.MATRIX_TRACE,
     "inverse": MathOperation.MATRIX_INVERSE,
+    "mpow": MathOperation.MATRIX_POWER,
     "transpose": MathOperation.MATRIX_TRANSPOSE,
+    "conjugate": MathOperation.MATRIX_CONJUGATE,
+    "adjoint": MathOperation.MATRIX_ADJOINT,
     "rref": MathOperation.MATRIX_RREF,
+    "eigenvals": MathOperation.MATRIX_EIGENVALUES,
+    "diagonalize": MathOperation.MATRIX_DIAGONALIZE,
     "latex": MathOperation.SIMPLIFY,
 }
 _COMMAND_HELP = {
@@ -52,9 +60,17 @@ _COMMAND_HELP = {
     "limit": "Evaluate a symbolic limit.",
     "inequality": "Solve a single-variable inequality.",
     "det": "Compute a matrix determinant.",
+    "order": "Return a matrix order as rows by columns.",
+    "rank": "Compute a matrix rank.",
+    "trace": "Compute a matrix trace.",
     "inverse": "Compute a matrix inverse.",
+    "mpow": "Raise a matrix to an integer power.",
     "transpose": "Compute a matrix transpose.",
+    "conjugate": "Compute an elementwise complex matrix conjugate.",
+    "adjoint": "Compute a matrix adjoint, also called conjugate transpose.",
     "rref": "Compute a matrix reduced row echelon form.",
+    "eigenvals": "Compute matrix eigenvalues with multiplicities.",
+    "diagonalize": "Compute a matrix diagonalization when possible.",
     "latex": "Render an expression as LaTeX.",
 }
 _EXPLAIN_OPERATIONS = {
@@ -70,9 +86,17 @@ _EXPLAIN_OPERATIONS = {
     "limit": MathOperation.LIMIT,
     "inequality": MathOperation.INEQUALITY,
     "det": MathOperation.MATRIX_DETERMINANT,
+    "order": MathOperation.MATRIX_ORDER,
+    "rank": MathOperation.MATRIX_RANK,
+    "trace": MathOperation.MATRIX_TRACE,
     "inverse": MathOperation.MATRIX_INVERSE,
+    "mpow": MathOperation.MATRIX_POWER,
     "transpose": MathOperation.MATRIX_TRANSPOSE,
+    "conjugate": MathOperation.MATRIX_CONJUGATE,
+    "adjoint": MathOperation.MATRIX_ADJOINT,
     "rref": MathOperation.MATRIX_RREF,
+    "eigenvals": MathOperation.MATRIX_EIGENVALUES,
+    "diagonalize": MathOperation.MATRIX_DIAGONALIZE,
 }
 _PACKAGE_NAME = "ot-math"
 _VERSION_FALLBACK = "0.1.0"
@@ -130,6 +154,8 @@ def _default_variable(command: str) -> str:
         return "k,1,n"
     if command == "limit":
         return "x,0"
+    if command == "mpow":
+        return "2"
     return "x"
 
 
@@ -140,6 +166,8 @@ def _variable_help(command: str) -> str:
         return "Range spec variable,lower,upper. Default: k,1,n."
     if command == "limit":
         return "Limit spec variable,point[,direction]. Default: x,0."
+    if command == "mpow":
+        return "Integer exponent, default 2."
     return "Variable name, default x."
 
 

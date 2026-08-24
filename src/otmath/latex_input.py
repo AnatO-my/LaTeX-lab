@@ -32,6 +32,7 @@ _FUNCTION_COMMANDS = {
 _MAX_PLUS_MINUS_BRANCHES = 16
 _MATRIX_ENVIRONMENTS = ("bmatrix", "pmatrix", "matrix")
 _SYMBOL_COMMANDS = {
+    r"\mathrm{i}": "I",
     r"E": "E",
     r"H": "H",
     r"I": "I",

@@ -6,9 +6,17 @@ from otmath import (
     factor_expression,
     integrate_expression,
     limit_expression,
+    matrix_adjoint,
+    matrix_conjugate,
     matrix_determinant,
+    matrix_diagonalize,
+    matrix_eigenvalues,
     matrix_inverse,
+    matrix_order,
+    matrix_power,
+    matrix_rank,
     matrix_rref,
+    matrix_trace,
     matrix_transpose,
     product_expression,
     render_steps_latex,
@@ -127,11 +135,41 @@ def test_matrix_determinant() -> None:
     assert result.metadata["columns"] == 2
 
 
+def test_matrix_order() -> None:
+    result = matrix_order("[[1, 2, 3], [4, 5, 6]]")
+
+    assert result.answers == ["2x3"]
+    assert result.latex == r"2 \times 3"
+    assert result.metadata["rows"] == 2
+    assert result.metadata["columns"] == 3
+
+
+def test_matrix_rank() -> None:
+    result = matrix_rank("[[1, 2, 3], [2, 4, 6], [1, 0, 1]]")
+
+    assert result.answers == ["2"]
+    assert result.verified is True
+
+
+def test_matrix_trace() -> None:
+    result = matrix_trace("[[1, 2], [3, 4]]")
+
+    assert result.answers == ["5"]
+    assert result.metadata["verification"] == "sympy_matrix_trace"
+
+
 def test_matrix_inverse() -> None:
     result = matrix_inverse("[[1, 2], [3, 4]]")
 
     assert "Matrix([[-2, 1], [3/2, -1/2]])" in result.answers
     assert result.verified is True
+
+
+def test_matrix_power() -> None:
+    result = matrix_power("[[1, 1], [0, 1]]", variable="3")
+
+    assert result.answers == ["Matrix([[1, 3], [0, 1]])"]
+    assert result.metadata["exponent"] == 3
 
 
 def test_matrix_transpose() -> None:
@@ -141,11 +179,43 @@ def test_matrix_transpose() -> None:
     assert result.verified is True
 
 
+def test_matrix_conjugate() -> None:
+    result = matrix_conjugate("[[1 + I, 2], [3, 4 - I]]")
+
+    assert result.answers == ["Matrix([[1 - I, 2], [3, 4 + I]])"]
+    assert result.verified is True
+
+
+def test_matrix_adjoint() -> None:
+    result = matrix_adjoint("[[1 + I, 2], [3, 4 - I]]")
+
+    assert result.answers == ["Matrix([[1 - I, 3], [2, 4 + I]])"]
+    assert result.verified is True
+
+
 def test_matrix_rref() -> None:
     result = matrix_rref("[[1, 2], [3, 4]]")
 
     assert result.answers == ["Matrix([[1, 0], [0, 1]])"]
     assert result.metadata["pivots"] == [0, 1]
+
+
+def test_matrix_eigenvalues() -> None:
+    result = matrix_eigenvalues("[[2, 0], [0, 3]]")
+
+    assert result.answers == ["2 (multiplicity 1)", "3 (multiplicity 1)"]
+    assert result.verified is True
+
+
+def test_matrix_diagonalize() -> None:
+    result = matrix_diagonalize("[[2, 0], [0, 3]]")
+
+    assert result.answers == [
+        "P = Matrix([[1, 0], [0, 1]])",
+        "D = Matrix([[2, 0], [0, 3]])",
+    ]
+    assert "D =" in result.latex
+    assert result.verified is True
 
 
 def test_summation_expression() -> None:

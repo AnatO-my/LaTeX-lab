@@ -9,9 +9,17 @@ from otmath import (
     factor_expression,
     integrate_expression,
     limit_expression,
+    matrix_adjoint,
+    matrix_conjugate,
+    matrix_diagonalize,
     matrix_determinant,
+    matrix_eigenvalues,
     matrix_inverse,
+    matrix_order,
+    matrix_power,
+    matrix_rank,
     matrix_rref,
+    matrix_trace,
     matrix_transpose,
     product_expression,
     render_steps_latex,
@@ -37,9 +45,17 @@ from otmath import (
 - `limit_expression(expression: str, variable: str = "x,0")`
 - `solve_inequality_expression(expression: str, variable: str = "x")`
 - `matrix_determinant(expression: str, variable: str = "x")`
+- `matrix_order(expression: str, variable: str = "x")`
+- `matrix_rank(expression: str, variable: str = "x")`
+- `matrix_trace(expression: str, variable: str = "x")`
 - `matrix_inverse(expression: str, variable: str = "x")`
+- `matrix_power(expression: str, variable: str = "2")`
 - `matrix_transpose(expression: str, variable: str = "x")`
+- `matrix_conjugate(expression: str, variable: str = "x")`
+- `matrix_adjoint(expression: str, variable: str = "x")`
 - `matrix_rref(expression: str, variable: str = "x")`
+- `matrix_eigenvalues(expression: str, variable: str = "x")`
+- `matrix_diagonalize(expression: str, variable: str = "x")`
 - `factor_expression(expression: str, variable: str = "x")`
 - `expand_expression(expression: str, variable: str = "x")`
 - `run_request(request: MathRequest)`
@@ -123,9 +139,17 @@ product_expression("k", variable="k,1,n")
 limit_expression("sin(x)/x", variable="x,0,+-")
 solve_inequality_expression("x <= 3")
 matrix_determinant("[[1, 2], [3, 4]]")
+matrix_order("[[1, 2, 3], [4, 5, 6]]")
+matrix_rank("[[1, 2, 3], [2, 4, 6], [1, 0, 1]]")
+matrix_trace("[[1, 2], [3, 4]]")
 matrix_inverse("[[1, 2], [3, 4]]")
+matrix_power("[[1, 1], [0, 1]]", variable="3")
 matrix_transpose("[[1, 2], [3, 4]]")
+matrix_conjugate("[[1 + I, 2], [3, 4 - I]]")
+matrix_adjoint("[[1 + I, 2], [3, 4 - I]]")
 matrix_rref("[[1, 2], [3, 4]]")
+matrix_eigenvalues("[[2, 0], [0, 3]]")
+matrix_diagonalize("[[2, 0], [0, 3]]")
 expand_expression("(x - 2)*(x - 3)")
 factor_expression("x**2 - 5*x + 6")
 factor_expression("x**4 - 1")
@@ -148,4 +172,5 @@ solve_expression("x = = 2")
   default scalar expression parser.
 - Expression parsing is still starter-level and should be expanded carefully.
 - Request assumptions are currently metadata only.
-- Advanced domain coverage currently starts with systems of equations.
+- Advanced domain coverage currently starts with systems of equations and matrix
+  operations.

@@ -16,9 +16,17 @@ otcalc product "k" --variable "k,1,n"
 otcalc limit "sin(x)/x" --variable "x,0,+-"
 otcalc inequality "x <= 3"
 otcalc det "[[1, 2], [3, 4]]"
+otcalc order "[[1, 2, 3], [4, 5, 6]]"
+otcalc rank "[[1, 2, 3], [2, 4, 6], [1, 0, 1]]"
+otcalc trace "[[1, 2], [3, 4]]"
 otcalc inverse "[[1, 2], [3, 4]]"
+otcalc mpow "[[1, 1], [0, 1]]" --variable 3
 otcalc transpose "[[1, 2], [3, 4]]"
+otcalc conjugate "[[1 + I, 2], [3, 4 - I]]"
+otcalc adjoint "[[1 + I, 2], [3, 4 - I]]"
 otcalc rref "[[1, 2], [3, 4]]"
+otcalc eigenvals "[[2, 0], [0, 3]]"
+otcalc diagonalize "[[2, 0], [0, 3]]"
 otcalc expand "(x - 2)*(x - 3)"
 otcalc factor "x**2 - 5*x + 6"
 otcalc latex "x**2 - 5*x + 6"
@@ -56,7 +64,8 @@ command uses `--variable variable,point[,direction]`, where direction is `+`, `-
 `+-`.
 
 The matrix commands accept engine-style matrix literals such as
-`[[1, 2], [3, 4]]`.
+`[[1, 2], [3, 4]]`. The `mpow` command uses `--variable` as an integer exponent
+until matrix-specific CLI options are introduced.
 
 Text and LaTeX output print non-fatal warnings to stderr. JSON output keeps warnings in
 the `warnings` field and does not print separate warning text.

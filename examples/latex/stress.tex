@@ -111,6 +111,22 @@ pdflatex -interaction=nonstopmode -halt-on-error stress.tex
 
 \OTMathCompute[input=latex]{stress-matrix-rref}{rref}{\begin{bmatrix}1 & 2 \\ 3 & 4\end{bmatrix}}
 
+\OTMathCompute[input=latex]{stress-matrix-order}{order}{\begin{bmatrix}1 & 2 & 3 \\ 4 & 5 & 6\end{bmatrix}}
+
+\OTMathCompute[input=latex]{stress-matrix-rank}{rank}{\begin{bmatrix}1 & 2 & 3 \\ 2 & 4 & 6 \\ 1 & 0 & 1\end{bmatrix}}
+
+\OTMathCompute[input=latex]{stress-matrix-trace}{trace}{\begin{bmatrix}1 & 2 \\ 3 & 4\end{bmatrix}}
+
+\OTMathCompute[input=latex; variable=3]{stress-matrix-power}{mpow}{\begin{bmatrix}1 & 1 \\ 0 & 1\end{bmatrix}}
+
+\OTMathCompute[input=latex]{stress-matrix-conjugate}{conjugate}{\begin{bmatrix}1 + \mathrm{i} & 2 \\ 3 & 4 - \mathrm{i}\end{bmatrix}}
+
+\OTMathCompute[input=latex]{stress-matrix-adjoint}{adjoint}{\begin{bmatrix}1 + \mathrm{i} & 2 \\ 3 & 4 - \mathrm{i}\end{bmatrix}}
+
+\OTMathCompute[input=latex]{stress-matrix-eigenvals}{eigenvals}{\begin{bmatrix}2 & 0 \\ 0 & 3\end{bmatrix}}
+
+\OTMathCompute[input=latex]{stress-matrix-diagonalize}{diagonalize}{\begin{bmatrix}2 & 0 \\ 0 & 3\end{bmatrix}}
+
 \subsection*{Greek and Subscripted Solving}
 
 \OTMathCompute[input=latex; variable=\theta_{1}]{stress-solve-theta}{solve}{\theta_{1}^{2} - 4 = 0}

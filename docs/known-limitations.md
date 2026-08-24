@@ -14,7 +14,8 @@ OT Math is a beta-track local-first calculator, not a complete computer algebra 
 - Factorization currently prefers complex factors when available.
 - `sum`, `product`, `limit`, and `inequality` are starter symbolic operations backed by
   SymPy and support single-variable cases first.
-- Matrix support is a starter domain covering determinant, inverse, transpose, and RREF.
+- Matrix support covers order, determinant, rank, trace, inverse, powers, transpose,
+  conjugate, adjoint, RREF, eigenvalues, and diagonalization for SymPy-supported cases.
 
 ## Verification
 
@@ -33,6 +34,8 @@ OT Math is a beta-track local-first calculator, not a complete computer algebra 
 
 - Supported advanced domain coverage currently starts with systems of equations.
 - Numeric solving, statistics, units, and richer assumptions are planned but not complete.
+- Larger linear algebra workflows such as LU/QR decompositions, norms, null spaces, and
+  matrix equation solving are not implemented yet.
 - Underdetermined systems may contain free variables and should be reviewed carefully.
 
 ## Integrations

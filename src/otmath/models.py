@@ -25,9 +25,17 @@ class MathOperation(StrEnum):
     LIMIT = "limit"
     INEQUALITY = "inequality"
     MATRIX_DETERMINANT = "matrix_det"
+    MATRIX_ORDER = "matrix_order"
+    MATRIX_RANK = "matrix_rank"
+    MATRIX_TRACE = "matrix_trace"
     MATRIX_INVERSE = "matrix_inverse"
+    MATRIX_POWER = "matrix_power"
     MATRIX_TRANSPOSE = "matrix_transpose"
+    MATRIX_CONJUGATE = "matrix_conjugate"
+    MATRIX_ADJOINT = "matrix_adjoint"
     MATRIX_RREF = "matrix_rref"
+    MATRIX_EIGENVALUES = "matrix_eigenvals"
+    MATRIX_DIAGONALIZE = "matrix_diagonalize"
 
 
 @dataclass(frozen=True)
@@ -145,4 +153,13 @@ def _is_valid_variable_spec(name: str, operation: MathOperation | str) -> bool:
             and parts[1].isdigit()
             and int(parts[1]) >= 1
         )
+    if operation == MathOperation.MATRIX_POWER:
+        return _is_valid_integer(name)
     return _is_valid_symbol_name(name)
+
+
+def _is_valid_integer(value: str) -> bool:
+    stripped = value.strip()
+    if stripped.startswith("-"):
+        stripped = stripped[1:]
+    return bool(stripped) and stripped.isdigit()

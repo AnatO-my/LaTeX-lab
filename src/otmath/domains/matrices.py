@@ -6,7 +6,7 @@ from collections.abc import Sequence
 from typing import Any
 
 import sympy as sp
-from sympy.matrices.exceptions import NonInvertibleMatrixError, NonSquareMatrixError
+from sympy.matrices.exceptions import MatrixError, NonInvertibleMatrixError, NonSquareMatrixError
 
 from otmath.errors import MathParseError, UnsupportedOperationError
 from otmath.latex_render import render_latex
@@ -35,6 +35,58 @@ def matrix_determinant(expression: str, variable: str = "x") -> MathResult:
     )
 
 
+def matrix_order(expression: str, variable: str = "x") -> MathResult:
+    """Return the row-by-column order of a matrix."""
+
+    matrix = parse_matrix(expression)
+    rows, columns = matrix.shape
+    result = f"{rows}x{columns}"
+
+    return _matrix_result(
+        MathOperation.MATRIX_ORDER,
+        expression,
+        variable,
+        result,
+        verification="sympy_matrix_shape",
+        shape=matrix.shape,
+        latex=rf"{rows} \times {columns}",
+    )
+
+
+def matrix_rank(expression: str, variable: str = "x") -> MathResult:
+    """Compute the rank of a matrix."""
+
+    matrix = parse_matrix(expression)
+    result = matrix.rank()
+    return _matrix_result(
+        MathOperation.MATRIX_RANK,
+        expression,
+        variable,
+        result,
+        verification="sympy_matrix_rank",
+        shape=matrix.shape,
+    )
+
+
+def matrix_trace(expression: str, variable: str = "x") -> MathResult:
+    """Compute the trace of a square matrix."""
+
+    matrix = parse_matrix(expression)
+    try:
+        result = matrix.trace()
+    except NonSquareMatrixError as exc:
+        raise UnsupportedOperationError("Matrix trace requires a square matrix.") from exc
+
+    return _matrix_result(
+        MathOperation.MATRIX_TRACE,
+        expression,
+        variable,
+        result,
+        verification="sympy_matrix_trace",
+        shape=matrix.shape,
+    )
+
+
 def matrix_inverse(expression: str, variable: str = "x") -> MathResult:
     """Compute the inverse of a square matrix."""
 
@@ -56,6 +108,31 @@ def matrix_inverse(expression: str, variable: str = "x") -> MathResult:
     )
 
 
+def matrix_power(expression: str, variable: str = "2") -> MathResult:
+    """Raise a square matrix to an integer power."""
+
+    matrix = parse_matrix(expression)
+    exponent = _parse_matrix_power_exponent(variable)
+    try:
+        result = matrix**exponent
+    except NonSquareMatrixError as exc:
+        raise UnsupportedOperationError("Matrix powers require a square matrix.") from exc
+    except NonInvertibleMatrixError as exc:
+        raise UnsupportedOperationError(
+            "Negative matrix powers require an invertible matrix."
+        ) from exc
+
+    return _matrix_result(
+        MathOperation.MATRIX_POWER,
+        expression,
+        variable,
+        result,
+        verification="sympy_matrix_power",
+        shape=matrix.shape,
+        exponent=exponent,
+    )
+
+
 def matrix_transpose(expression: str, variable: str = "x") -> MathResult:
     """Compute the transpose of a matrix."""
 
@@ -67,6 +144,36 @@ def matrix_transpose(expression: str, variable: str = "x") -> MathResult:
         variable,
         result,
         verification="sympy_matrix_transpose",
+        shape=matrix.shape,
+    )
+
+
+def matrix_conjugate(expression: str, variable: str = "x") -> MathResult:
+    """Compute the elementwise complex conjugate of a matrix."""
+
+    matrix = parse_matrix(expression)
+    result = matrix.conjugate()
+    return _matrix_result(
+        MathOperation.MATRIX_CONJUGATE,
+        expression,
+        variable,
+        result,
+        verification="sympy_matrix_conjugate",
+        shape=matrix.shape,
+    )
+
+
+def matrix_adjoint(expression: str, variable: str = "x") -> MathResult:
+    """Compute the conjugate transpose of a matrix."""
+
+    matrix = parse_matrix(expression)
+    result = matrix.adjoint()
+    return _matrix_result(
+        MathOperation.MATRIX_ADJOINT,
+        expression,
+        variable,
+        result,
+        verification="sympy_matrix_adjoint",
         shape=matrix.shape,
     )
 
@@ -84,6 +191,61 @@ def matrix_rref(expression: str, variable: str = "x") -> MathResult:
         verification="sympy_matrix_rref",
         shape=matrix.shape,
         pivots=list(pivots),
+    )
+
+
+def matrix_eigenvalues(expression: str, variable: str = "x") -> MathResult:
+    """Compute eigenvalues and algebraic multiplicities for a square matrix."""
+
+    matrix = parse_matrix(expression)
+    try:
+        eigenvalues = matrix.eigenvals()
+    except NonSquareMatrixError as exc:
+        raise UnsupportedOperationError("Eigenvalues require a square matrix.") from exc
+
+    ordered = sorted(eigenvalues.items(), key=lambda item: sp.default_sort_key(item[0]))
+    answers = [
+        f"{sp.sstr(value)} (multiplicity {multiplicity})"
+        for value, multiplicity in ordered
+    ]
+
+    return _matrix_result(
+        MathOperation.MATRIX_EIGENVALUES,
+        expression,
+        variable,
+        eigenvalues,
+        verification="sympy_matrix_eigenvals",
+        shape=matrix.shape,
+        answers=answers,
+    )
+
+
+def matrix_diagonalize(expression: str, variable: str = "x") -> MathResult:
+    """Compute P and D such that A = P*D*P**-1 when possible."""
+
+    matrix = parse_matrix(expression)
+    try:
+        modal_matrix, diagonal_matrix = matrix.diagonalize()
+    except NonSquareMatrixError as exc:
+        raise UnsupportedOperationError("Diagonalization requires a square matrix.") from exc
+    except (MatrixError, ValueError) as exc:
+        raise UnsupportedOperationError("Matrix is not diagonalizable.") from exc
+
+    latex = (
+        r"P = "
+        + render_latex(modal_matrix)
+        + r",\quad D = "
+        + render_latex(diagonal_matrix)
+    )
+    return _matrix_result(
+        MathOperation.MATRIX_DIAGONALIZE,
+        expression,
+        variable,
+        diagonal_matrix,
+        verification="sympy_matrix_diagonalize",
+        shape=matrix.shape,
+        answers=[f"P = {modal_matrix}", f"D = {diagonal_matrix}"],
+        latex=latex,
     )
 
 
@@ -147,15 +309,26 @@ def _split_top_level(source: str, *, delimiter: str) -> list[str]:
     return parts
 
 
+def _parse_matrix_power_exponent(exponent_text: str) -> int:
+    stripped = exponent_text.strip()
+    try:
+        return int(stripped)
+    except ValueError as exc:
+        raise UnsupportedOperationError("Matrix power exponent must be an integer.") from exc
+
+
 def _matrix_result(
     operation: MathOperation,
     expression: str,
     variable: str,
-    result: sp.Basic,
+    result: object,
     *,
     verification: str,
     shape: tuple[int, int],
     pivots: Sequence[int] | None = None,
+    exponent: int | None = None,
+    answers: list[str] | None = None,
+    latex: str | None = None,
 ) -> MathResult:
     metadata: dict[str, Any] = {
         "engine": "otmath",
@@ -169,13 +342,15 @@ def _matrix_result(
     }
     if pivots is not None:
         metadata["pivots"] = list(pivots)
+    if exponent is not None:
+        metadata["exponent"] = exponent
 
     return MathResult(
         operation=operation,
         input_expression=expression,
         variable=variable,
-        answers=[str(result)],
-        latex=render_latex(result),
+        answers=answers or [str(result)],
+        latex=latex or render_latex(result),
         verified=True,
         warnings=[],
         metadata=metadata,

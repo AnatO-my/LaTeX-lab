@@ -163,6 +163,9 @@ def test_latex_input_converts_matrix_environment() -> None:
     assert latex_matrix_to_engine_expression(
         r"\begin{pmatrix}x & \theta \\ 0 & 1\end{pmatrix}"
     ) == "[[x, theta], [0, 1]]"
+    assert latex_matrix_to_engine_expression(
+        r"\begin{bmatrix}1 + \mathrm{i} & 0 \\ 0 & 1 - \mathrm{i}\end{bmatrix}"
+    ) == "[[1 + I, 0], [0, 1 - I]]"
 
 
 def test_latex_input_converts_inequality_operators() -> None:

@@ -177,7 +177,15 @@ def test_cli_factor_complex() -> None:
         (["limit", "sin(x)/x", "--variable", "x,0,+-"], "1"),
         (["inequality", "x <= 3"], "Interval(-oo, 3)"),
         (["det", "[[1, 2], [3, 4]]"], "-2"),
+        (["order", "[[1, 2, 3], [4, 5, 6]]"], "2x3"),
+        (["rank", "[[1, 2, 3], [2, 4, 6], [1, 0, 1]]"], "2"),
+        (["trace", "[[1, 2], [3, 4]]"], "5"),
+        (["mpow", "[[1, 1], [0, 1]]", "--variable", "3"], "Matrix([[1, 3], [0, 1]])"),
         (["transpose", "[[1, 2], [3, 4]]"], "Matrix([[1, 3], [2, 4]])"),
+        (["conjugate", "[[1 + I, 2], [3, 4 - I]]"], "Matrix([[1 - I, 2], [3, 4 + I]])"),
+        (["adjoint", "[[1 + I, 2], [3, 4 - I]]"], "Matrix([[1 - I, 3], [2, 4 + I]])"),
+        (["eigenvals", "[[2, 0], [0, 3]]"], "2 (multiplicity 1)"),
+        (["diagonalize", "[[2, 0], [0, 3]]"], "D = Matrix([[2, 0], [0, 3]])"),
     ],
 )
 def test_cli_sympy_relative_operations(args: list[str], expected: str) -> None:

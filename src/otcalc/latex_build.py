@@ -40,12 +40,31 @@ _OPERATION_ALIASES = {
     "ineq": MathOperation.INEQUALITY,
     "det": MathOperation.MATRIX_DETERMINANT,
     "matrix_det": MathOperation.MATRIX_DETERMINANT,
+    "order": MathOperation.MATRIX_ORDER,
+    "shape": MathOperation.MATRIX_ORDER,
+    "matrix_order": MathOperation.MATRIX_ORDER,
+    "rank": MathOperation.MATRIX_RANK,
+    "matrix_rank": MathOperation.MATRIX_RANK,
+    "trace": MathOperation.MATRIX_TRACE,
+    "matrix_trace": MathOperation.MATRIX_TRACE,
     "inverse": MathOperation.MATRIX_INVERSE,
     "matrix_inverse": MathOperation.MATRIX_INVERSE,
+    "mpow": MathOperation.MATRIX_POWER,
+    "matrix_power": MathOperation.MATRIX_POWER,
     "transpose": MathOperation.MATRIX_TRANSPOSE,
     "matrix_transpose": MathOperation.MATRIX_TRANSPOSE,
+    "conjugate": MathOperation.MATRIX_CONJUGATE,
+    "matrix_conjugate": MathOperation.MATRIX_CONJUGATE,
+    "adjoint": MathOperation.MATRIX_ADJOINT,
+    "matrix_adjoint": MathOperation.MATRIX_ADJOINT,
     "rref": MathOperation.MATRIX_RREF,
     "matrix_rref": MathOperation.MATRIX_RREF,
+    "eigenvals": MathOperation.MATRIX_EIGENVALUES,
+    "eigenvalues": MathOperation.MATRIX_EIGENVALUES,
+    "matrix_eigenvals": MathOperation.MATRIX_EIGENVALUES,
+    "diagonalize": MathOperation.MATRIX_DIAGONALIZE,
+    "diagonalise": MathOperation.MATRIX_DIAGONALIZE,
+    "matrix_diagonalize": MathOperation.MATRIX_DIAGONALIZE,
 }
 
 
@@ -408,9 +427,17 @@ def _parse_input_format(input_format: str) -> str:
 
 _MATRIX_OPERATIONS = {
     MathOperation.MATRIX_DETERMINANT,
+    MathOperation.MATRIX_ORDER,
+    MathOperation.MATRIX_RANK,
+    MathOperation.MATRIX_TRACE,
     MathOperation.MATRIX_INVERSE,
+    MathOperation.MATRIX_POWER,
     MathOperation.MATRIX_TRANSPOSE,
+    MathOperation.MATRIX_CONJUGATE,
+    MathOperation.MATRIX_ADJOINT,
     MathOperation.MATRIX_RREF,
+    MathOperation.MATRIX_EIGENVALUES,
+    MathOperation.MATRIX_DIAGONALIZE,
 }
 
 
@@ -421,6 +448,8 @@ def _default_variable(operation: MathOperation) -> str:
         return "k,1,n"
     if operation == MathOperation.LIMIT:
         return "x,0,+-"
+    if operation == MathOperation.MATRIX_POWER:
+        return "2"
     return "x"
 
 

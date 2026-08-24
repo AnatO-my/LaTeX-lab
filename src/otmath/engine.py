@@ -8,9 +8,17 @@ from typing import Any
 import sympy as sp
 
 from otmath.domains.matrices import (
+    matrix_adjoint,
+    matrix_conjugate,
     matrix_determinant,
+    matrix_diagonalize,
+    matrix_eigenvalues,
     matrix_inverse,
+    matrix_order,
+    matrix_power,
+    matrix_rank,
     matrix_rref,
+    matrix_trace,
     matrix_transpose,
 )
 from otmath.domains.systems import solve_system
@@ -448,9 +456,17 @@ _OPERATION_HANDLERS: dict[MathOperation, OperationHandler] = {
     MathOperation.LIMIT: limit_expression,
     MathOperation.INEQUALITY: solve_inequality_expression,
     MathOperation.MATRIX_DETERMINANT: matrix_determinant,
+    MathOperation.MATRIX_ORDER: matrix_order,
+    MathOperation.MATRIX_RANK: matrix_rank,
+    MathOperation.MATRIX_TRACE: matrix_trace,
     MathOperation.MATRIX_INVERSE: matrix_inverse,
+    MathOperation.MATRIX_POWER: matrix_power,
     MathOperation.MATRIX_TRANSPOSE: matrix_transpose,
+    MathOperation.MATRIX_CONJUGATE: matrix_conjugate,
+    MathOperation.MATRIX_ADJOINT: matrix_adjoint,
     MathOperation.MATRIX_RREF: matrix_rref,
+    MathOperation.MATRIX_EIGENVALUES: matrix_eigenvalues,
+    MathOperation.MATRIX_DIAGONALIZE: matrix_diagonalize,
 }
 
 
