@@ -155,6 +155,15 @@ def test_latex_input_expands_minus_plus_branches() -> None:
     )
 
 
+def test_latex_input_expands_independent_plus_minus_branches() -> None:
+    assert latex_to_engine_expression_branches(r"a \pm b \pm c") == (
+        "a + b + c",
+        "a + b - c",
+        "a - b + c",
+        "a - b - c",
+    )
+
+
 def test_latex_input_rejects_empty_expression() -> None:
     with pytest.raises(MathParseError, match="LaTeX expression cannot be empty"):
         latex_to_engine_expression(" ")

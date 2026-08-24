@@ -90,8 +90,8 @@ Supported starter LaTeX input includes:
 - Product notation such as `\prod_{k=1}^{n} k` for `product` requests.
 - Limit notation such as `\lim_{x \to 0} \frac{\sin{x}}{x}` for `limit` requests.
 - Plus-minus and minus-plus notation such as `x = \pm 2`, `x = \mp 2`,
-  `(x \pm 1)^{2}`, or `a \pm b \mp c`. The LaTeX builder expands this into
-  explicit sign branches before calling the engine.
+  `(x \pm 1)^{2}`, `a \pm b \mp c`, or `a \pm b \pm c`. The LaTeX builder
+  expands this into explicit sign branches before calling the engine.
 - Common Greek variables such as `\alpha`, `\beta`, `\gamma`, `\theta`,
   `\lambda`, `\mu`, `\sigma`, `\phi`, `\omega`, and uppercase forms
   such as `\Delta`, `\Gamma`, `\Omega`, and `\Sigma`.
@@ -113,6 +113,7 @@ Variables in options are normalized too. For example:
 \OTMathCompute[input=latex]{styled}{expand}{(\mathcal{A} + \mathbb{R})^{2}}
 \OTMathCompute[input=latex; variable=x]{plus-minus}{solve}{x = \pm 2}
 \OTMathCompute[input=latex]{minus-plus}{expand}{a \pm b \mp c}
+\OTMathCompute[input=latex]{independent-signs}{expand}{a \pm b \pm c}
 \OTMathCompute[input=latex]{tan-integral}{integrate}{\int \tan{x} \, dx}
 \OTMathCompute[input=latex]{theta-integral}{integrate}{\int \theta^{2} \, d\theta}
 \OTMathCompute[input=latex]{sum-squares}{sum}{\sum_{k=1}^{n} k^{2}}
@@ -126,6 +127,7 @@ names such as `var_rho`. SymPy then renders them back to LaTeX in generated outp
 When two solve outputs are exact opposites, generated LaTeX may compact them back to
 `\pm`, such as `\pm 2`. Paired `\pm` and `\mp` inputs are correlated: the first
 branch uses plus/minus, and the second uses minus/plus.
+Repeated `\pm` inputs without `\mp` are treated as independent choices.
 
 Complex symbol declarations and aliases are not implemented yet. For now, keep variable
 subscripts simple: letters or digits inside the subscript braces.
@@ -168,5 +170,5 @@ You can also regenerate the include file with:
 python examples/latex/generate_stress_results.py
 ```
 
-The stress document also lists upcoming parser targets, such as multiple independent
-plus-minus choices, as ordinary LaTeX until the adapter supports them.
+The stress document also lists upcoming parser targets, such as derivative notation, as
+ordinary LaTeX until the adapter supports them.

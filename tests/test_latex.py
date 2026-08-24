@@ -140,7 +140,7 @@ def test_stress_latex_document_generates_current_hard_cases(tmp_path: Path) -> N
     result = generate_latex_include(stress, output_file=output_file)
     generated = output_file.read_text(encoding="utf-8")
 
-    assert result.request_count == 30
+    assert result.request_count == 31
     assert r"\csname OTMathGenerated@stress-factor-subscript\endcsname{%" in generated
     assert r"x_{0}" in generated
     assert r"\csname OTMathGenerated@stress-factor-complex\endcsname{%" in generated
@@ -158,6 +158,7 @@ def test_stress_latex_document_generates_current_hard_cases(tmp_path: Path) -> N
     assert r"\csname OTMathGenerated@stress-solve-plus-minus\endcsname{%" in generated
     assert r"\csname OTMathGenerated@stress-expand-minus-plus\endcsname{%" in generated
     assert r"\csname OTMathGenerated@stress-expand-paired-signs\endcsname{%" in generated
+    assert r"\csname OTMathGenerated@stress-expand-independent-signs\endcsname{%" in generated
     assert r"\pm 2" in generated
     assert r"\csname OTMathGenerated@stress-solve-quadratic-formula\endcsname{%" in generated
     assert r"\csname OTMathGenerated@stress-diff-arctan\endcsname{%" in generated
@@ -346,6 +347,26 @@ def test_latex_build_expands_minus_plus_input_branches(tmp_path: Path) -> None:
     assert r"x^{2} + 2 x + 1" in generated
     assert "a + b - c" in generated
     assert "a - b + c" in generated
+
+
+def test_latex_build_expands_independent_plus_minus_input_branches(
+    tmp_path: Path,
+) -> None:
+    tex_file = tmp_path / "scratch.tex"
+    output_file = tmp_path / "generated" / "otmath-results.tex"
+    tex_file.write_text(
+        r"\OTMathCompute[input=latex]{independent}{expand}{a \pm b \pm c}",
+        encoding="utf-8",
+    )
+
+    result = generate_latex_include(tex_file, output_file=output_file)
+    generated = output_file.read_text(encoding="utf-8")
+
+    assert result.request_count == 1
+    assert "a + b + c" in generated
+    assert "a + b - c" in generated
+    assert "a - b + c" in generated
+    assert "a - b - c" in generated
 
 
 def test_latex_build_generates_system_with_subscript_variables(tmp_path: Path) -> None:

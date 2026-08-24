@@ -61,6 +61,8 @@ pdflatex -interaction=nonstopmode -halt-on-error stress.tex
 
 \OTMathCompute[input=latex]{stress-expand-paired-signs}{expand}{a \pm b \mp c}
 
+\OTMathCompute[input=latex]{stress-expand-independent-signs}{expand}{a \pm b \pm c}
+
 \OTMathCompute[input=latex]{stress-solve-quadratic-formula}{solve}{x = \frac{-b \pm \sqrt{b^{2} - 4ac}}{2a}}
 
 \subsection*{Trigonometric Differentiation}
@@ -109,7 +111,7 @@ The following is intentionally listed as ordinary LaTeX, not an executable OT Ma
 request yet. It defines the next adapter surface we want to support:
 
 \[
-  a \pm b \pm c
+  \frac{d}{dx}\left(\sin{x}\right)
 \]
 
 \end{document}

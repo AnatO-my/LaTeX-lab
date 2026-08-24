@@ -54,6 +54,14 @@ a + b - c \\
 a - b + c
 \end{gathered}
 }
+\expandafter\gdef\csname OTMathGenerated@stress-expand-independent-signs\endcsname{%
+\begin{gathered}
+a + b + c \\
+a + b - c \\
+a - b + c \\
+a - b - c
+\end{gathered}
+}
 \expandafter\gdef\csname OTMathGenerated@stress-solve-quadratic-formula\endcsname{%
 \begin{gathered}
 \left[ \frac{- b + \sqrt{- 4 a c + b^{2}}}{2 a}\right] \\
