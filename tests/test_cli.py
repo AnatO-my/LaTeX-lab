@@ -176,6 +176,8 @@ def test_cli_factor_complex() -> None:
         (["product", "k", "--variable", "k,1,n"], "factorial(n)"),
         (["limit", "sin(x)/x", "--variable", "x,0,+-"], "1"),
         (["inequality", "x <= 3"], "Interval(-oo, 3)"),
+        (["det", "[[1, 2], [3, 4]]"], "-2"),
+        (["transpose", "[[1, 2], [3, 4]]"], "Matrix([[1, 3], [2, 4]])"),
     ],
 )
 def test_cli_sympy_relative_operations(args: list[str], expected: str) -> None:
@@ -183,6 +185,20 @@ def test_cli_sympy_relative_operations(args: list[str], expected: str) -> None:
 
     assert result.returncode == 0
     assert expected in result.stdout
+
+
+def test_cli_matrix_inverse() -> None:
+    result = run_cli(["inverse", "[[1, 2], [3, 4]]"])
+
+    assert result.returncode == 0
+    assert "Matrix([[-2, 1], [3/2, -1/2]])" in result.stdout
+
+
+def test_cli_matrix_rref() -> None:
+    result = run_cli(["rref", "[[1, 2], [3, 4]]"])
+
+    assert result.returncode == 0
+    assert "Matrix([[1, 0], [0, 1]])" in result.stdout
 
 
 @pytest.mark.parametrize(

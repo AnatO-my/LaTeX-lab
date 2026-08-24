@@ -6,6 +6,7 @@ from otmath.latex_input import (
     latex_derivative_to_engine_parts,
     latex_integral_to_engine_parts,
     latex_limit_to_engine_parts,
+    latex_matrix_to_engine_expression,
     latex_product_to_engine_parts,
     latex_sum_to_engine_parts,
     latex_to_engine_expression,
@@ -153,6 +154,15 @@ def test_latex_input_extracts_higher_order_derivative_parts() -> None:
 def test_latex_input_rejects_mismatched_derivative_orders() -> None:
     with pytest.raises(MathParseError, match="orders must match"):
         latex_derivative_to_engine_parts(r"\frac{d^{2}}{dx^{3}}\sin{x}")
+
+
+def test_latex_input_converts_matrix_environment() -> None:
+    assert latex_matrix_to_engine_expression(
+        r"\begin{bmatrix}1 & 2 \\ 3 & 4\end{bmatrix}"
+    ) == "[[1, 2], [3, 4]]"
+    assert latex_matrix_to_engine_expression(
+        r"\begin{pmatrix}x & \theta \\ 0 & 1\end{pmatrix}"
+    ) == "[[x, theta], [0, 1]]"
 
 
 def test_latex_input_converts_inequality_operators() -> None:

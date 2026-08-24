@@ -15,6 +15,10 @@ otcalc sum "k**2" --variable "k,1,n"
 otcalc product "k" --variable "k,1,n"
 otcalc limit "sin(x)/x" --variable "x,0,+-"
 otcalc inequality "x <= 3"
+otcalc det "[[1, 2], [3, 4]]"
+otcalc inverse "[[1, 2], [3, 4]]"
+otcalc transpose "[[1, 2], [3, 4]]"
+otcalc rref "[[1, 2], [3, 4]]"
 otcalc expand "(x - 2)*(x - 3)"
 otcalc factor "x**2 - 5*x + 6"
 otcalc latex "x**2 - 5*x + 6"
@@ -50,6 +54,9 @@ the generated include but does not recalculate it.
 The `sum` and `product` commands use `--variable variable,lower,upper`. The `limit`
 command uses `--variable variable,point[,direction]`, where direction is `+`, `-`, or
 `+-`.
+
+The matrix commands accept engine-style matrix literals such as
+`[[1, 2], [3, 4]]`.
 
 Text and LaTeX output print non-fatal warnings to stderr. JSON output keeps warnings in
 the `warnings` field and does not print separate warning text.
@@ -91,12 +98,13 @@ The starter CLI accepts SymPy-style expressions:
 - Supported common functions include `sin`, `cos`, `tan`, `asin`, `acos`,
   `atan`, `log`, `ln`, `exp`, `sqrt`, and `abs`.
 - Supported constants include `pi` and `E`.
+- Matrix commands accept rectangular literals such as `[[1, 2], [3, 4]]`.
 - `solve` accepts either an expression treated as equal to zero or one explicit equation
   with `=`.
 - `system` accepts equations separated by semicolons and variables separated by commas.
 - Other commands accept expressions only, not equation input.
 
-LaTeX input such as `e^{-x^{2}}` or `\int e^{-x^{2}}\,dx` is planned for a later adapter and is not accepted by the default parser yet.
+LaTeX document input is supported through `otcalc latex-build` with `input=latex`.
 
 ## Shell Quoting
 

@@ -33,6 +33,10 @@ _COMMAND_OPERATIONS = {
     "product": MathOperation.PRODUCT,
     "limit": MathOperation.LIMIT,
     "inequality": MathOperation.INEQUALITY,
+    "det": MathOperation.MATRIX_DETERMINANT,
+    "inverse": MathOperation.MATRIX_INVERSE,
+    "transpose": MathOperation.MATRIX_TRANSPOSE,
+    "rref": MathOperation.MATRIX_RREF,
     "latex": MathOperation.SIMPLIFY,
 }
 _COMMAND_HELP = {
@@ -47,6 +51,10 @@ _COMMAND_HELP = {
     "product": "Evaluate a symbolic product.",
     "limit": "Evaluate a symbolic limit.",
     "inequality": "Solve a single-variable inequality.",
+    "det": "Compute a matrix determinant.",
+    "inverse": "Compute a matrix inverse.",
+    "transpose": "Compute a matrix transpose.",
+    "rref": "Compute a matrix reduced row echelon form.",
     "latex": "Render an expression as LaTeX.",
 }
 _EXPLAIN_OPERATIONS = {
@@ -61,6 +69,10 @@ _EXPLAIN_OPERATIONS = {
     "product": MathOperation.PRODUCT,
     "limit": MathOperation.LIMIT,
     "inequality": MathOperation.INEQUALITY,
+    "det": MathOperation.MATRIX_DETERMINANT,
+    "inverse": MathOperation.MATRIX_INVERSE,
+    "transpose": MathOperation.MATRIX_TRANSPOSE,
+    "rref": MathOperation.MATRIX_RREF,
 }
 _PACKAGE_NAME = "ot-math"
 _VERSION_FALLBACK = "0.1.0"

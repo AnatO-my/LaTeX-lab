@@ -24,6 +24,10 @@ class MathOperation(StrEnum):
     PRODUCT = "product"
     LIMIT = "limit"
     INEQUALITY = "inequality"
+    MATRIX_DETERMINANT = "matrix_det"
+    MATRIX_INVERSE = "matrix_inverse"
+    MATRIX_TRANSPOSE = "matrix_transpose"
+    MATRIX_RREF = "matrix_rref"
 
 
 @dataclass(frozen=True)

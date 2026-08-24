@@ -9,6 +9,10 @@ from otmath import (
     factor_expression,
     integrate_expression,
     limit_expression,
+    matrix_determinant,
+    matrix_inverse,
+    matrix_rref,
+    matrix_transpose,
     product_expression,
     render_steps_latex,
     render_steps_text,
@@ -32,6 +36,10 @@ from otmath import (
 - `product_expression(expression: str, variable: str = "k,1,n")`
 - `limit_expression(expression: str, variable: str = "x,0")`
 - `solve_inequality_expression(expression: str, variable: str = "x")`
+- `matrix_determinant(expression: str, variable: str = "x")`
+- `matrix_inverse(expression: str, variable: str = "x")`
+- `matrix_transpose(expression: str, variable: str = "x")`
+- `matrix_rref(expression: str, variable: str = "x")`
 - `factor_expression(expression: str, variable: str = "x")`
 - `expand_expression(expression: str, variable: str = "x")`
 - `run_request(request: MathRequest)`
@@ -80,6 +88,7 @@ assumptions, and unsupported operations are rejected before dispatch.
 - `integrate` differentiates the returned integral and compares it with the original expression.
 - `sum`, `product`, and `limit` use deterministic SymPy recomputation.
 - `inequality` returns SymPy's single-variable solution set.
+- Matrix operations are deterministic SymPy matrix operations.
 - `differentiate` currently checks consistency against SymPy's deterministic derivative result; this is not yet an independent proof.
 
 ## Supported Syntax
@@ -92,6 +101,7 @@ The current parser accepts SymPy-style expression syntax, not LaTeX input.
   `ln`, `exp`, `sqrt`, and `abs`
 - Common constants include `pi`, `E`, and `I`
 - Unknown symbols such as `x` and `y` are allowed
+- Matrix operations accept matrix literals such as `[[1, 2], [3, 4]]`
 - `solve_expression` accepts either an expression treated as equal to zero or a single
   equation with `=`
 - `otcalc latex-build` can adapt a starter subset of LaTeX-style document input before
@@ -112,6 +122,10 @@ summation_expression("k**2", variable="k,1,n")
 product_expression("k", variable="k,1,n")
 limit_expression("sin(x)/x", variable="x,0,+-")
 solve_inequality_expression("x <= 3")
+matrix_determinant("[[1, 2], [3, 4]]")
+matrix_inverse("[[1, 2], [3, 4]]")
+matrix_transpose("[[1, 2], [3, 4]]")
+matrix_rref("[[1, 2], [3, 4]]")
 expand_expression("(x - 2)*(x - 3)")
 factor_expression("x**2 - 5*x + 6")
 factor_expression("x**4 - 1")
@@ -130,7 +144,8 @@ solve_expression("x = = 2")
 ## Current Limitations
 
 - Step generation is partial and not available for every operation yet.
-- LaTeX input parsing is not implemented yet.
+- LaTeX input parsing is available through the generated-document workflow, not the
+  default scalar expression parser.
 - Expression parsing is still starter-level and should be expanded carefully.
 - Request assumptions are currently metadata only.
 - Advanced domain coverage currently starts with systems of equations.

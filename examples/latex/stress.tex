@@ -101,6 +101,16 @@ pdflatex -interaction=nonstopmode -halt-on-error stress.tex
 
 \OTMathCompute[input=latex]{stress-inequality}{inequality}{x \leq 3}
 
+\subsection*{Matrices}
+
+\OTMathCompute[input=latex]{stress-matrix-det}{det}{\begin{bmatrix}1 & 2 \\ 3 & 4\end{bmatrix}}
+
+\OTMathCompute[input=latex]{stress-matrix-inverse}{inverse}{\begin{bmatrix}1 & 2 \\ 3 & 4\end{bmatrix}}
+
+\OTMathCompute[input=latex]{stress-matrix-transpose}{transpose}{\begin{bmatrix}1 & 2 \\ 3 & 4\end{bmatrix}}
+
+\OTMathCompute[input=latex]{stress-matrix-rref}{rref}{\begin{bmatrix}1 & 2 \\ 3 & 4\end{bmatrix}}
+
 \subsection*{Greek and Subscripted Solving}
 
 \OTMathCompute[input=latex; variable=\theta_{1}]{stress-solve-theta}{solve}{\theta_{1}^{2} - 4 = 0}
@@ -119,7 +129,7 @@ The following is intentionally listed as ordinary LaTeX, not an executable OT Ma
 request yet. It defines the next adapter surface we want to support:
 
 \[
-  \begin{bmatrix}
+  \det\begin{bmatrix}
     1 & 2 \\
     3 & 4
   \end{bmatrix}

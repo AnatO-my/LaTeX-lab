@@ -30,6 +30,7 @@ _FUNCTION_COMMANDS = {
     r"\tan": "tan",
 }
 _MAX_PLUS_MINUS_BRANCHES = 16
+_MATRIX_ENVIRONMENTS = ("bmatrix", "pmatrix", "matrix")
 _SYMBOL_COMMANDS = {
     r"E": "E",
     r"H": "H",
@@ -439,6 +440,35 @@ def latex_derivative_to_engine_parts(
         latex_to_engine_expression(_strip_wrapping_group(body)),
         latex_to_engine_expression(variable),
     )
+
+
+def latex_matrix_to_engine_expression(expression: str) -> str:
+    """Convert a simple LaTeX matrix environment into an engine matrix literal."""
+
+    converted = expression.strip()
+    for environment in _MATRIX_ENVIRONMENTS:
+        begin = rf"\begin{{{environment}}}"
+        end = rf"\end{{{environment}}}"
+        if converted.startswith(begin) and converted.endswith(end):
+            body = converted[len(begin) : -len(end)].strip()
+            rows = [
+                row.strip()
+                for row in re.split(r"\\\\", body)
+                if row.strip()
+            ]
+            if not rows:
+                raise MathParseError("LaTeX matrix must contain at least one row.")
+            converted_rows = []
+            for row in rows:
+                cells = [cell.strip() for cell in row.split("&")]
+                if any(not cell for cell in cells):
+                    raise MathParseError("LaTeX matrix contains an empty cell.")
+                converted_rows.append(
+                    "[" + ", ".join(latex_to_engine_expression(cell) for cell in cells) + "]"
+                )
+            return "[" + ", ".join(converted_rows) + "]"
+
+    return latex_to_engine_expression(expression)
 
 
 def _replace_symbol_commands(source: str) -> str:

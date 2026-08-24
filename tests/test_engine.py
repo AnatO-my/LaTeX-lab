@@ -6,6 +6,10 @@ from otmath import (
     factor_expression,
     integrate_expression,
     limit_expression,
+    matrix_determinant,
+    matrix_inverse,
+    matrix_rref,
+    matrix_transpose,
     product_expression,
     render_steps_latex,
     render_steps_text,
@@ -17,6 +21,7 @@ from otmath import (
     summation_expression,
 )
 from otmath.domains import SystemRequest
+from otmath.domains.matrices import parse_matrix
 from otmath.engine import (
     expressions_equivalent,
 )
@@ -104,6 +109,43 @@ def test_integrate_expression() -> None:
 
     assert result.answers == ["x**2"]
     assert result.verified is True
+
+
+def test_parse_matrix_accepts_symbolic_entries() -> None:
+    matrix = parse_matrix("[[x, 1], [2, x + 1]]")
+
+    assert matrix.shape == (2, 2)
+    assert str(matrix[1, 1]) == "x + 1"
+
+
+def test_matrix_determinant() -> None:
+    result = matrix_determinant("[[1, 2], [3, 4]]")
+
+    assert result.answers == ["-2"]
+    assert result.verified is True
+    assert result.metadata["rows"] == 2
+    assert result.metadata["columns"] == 2
+
+
+def test_matrix_inverse() -> None:
+    result = matrix_inverse("[[1, 2], [3, 4]]")
+
+    assert "Matrix([[-2, 1], [3/2, -1/2]])" in result.answers
+    assert result.verified is True
+
+
+def test_matrix_transpose() -> None:
+    result = matrix_transpose("[[1, 2], [3, 4]]")
+
+    assert result.answers == ["Matrix([[1, 3], [2, 4]])"]
+    assert result.verified is True
+
+
+def test_matrix_rref() -> None:
+    result = matrix_rref("[[1, 2], [3, 4]]")
+
+    assert result.answers == ["Matrix([[1, 0], [0, 1]])"]
+    assert result.metadata["pivots"] == [0, 1]
 
 
 def test_summation_expression() -> None:

@@ -15,6 +15,7 @@ from otmath.latex_input import (
     latex_derivative_to_engine_parts,
     latex_integral_to_engine_parts,
     latex_limit_to_engine_parts,
+    latex_matrix_to_engine_expression,
     latex_plus_minus_branches,
     latex_product_to_engine_parts,
     latex_sum_to_engine_parts,
@@ -37,6 +38,14 @@ _OPERATION_ALIASES = {
     "prod": MathOperation.PRODUCT,
     "inequality": MathOperation.INEQUALITY,
     "ineq": MathOperation.INEQUALITY,
+    "det": MathOperation.MATRIX_DETERMINANT,
+    "matrix_det": MathOperation.MATRIX_DETERMINANT,
+    "inverse": MathOperation.MATRIX_INVERSE,
+    "matrix_inverse": MathOperation.MATRIX_INVERSE,
+    "transpose": MathOperation.MATRIX_TRANSPOSE,
+    "matrix_transpose": MathOperation.MATRIX_TRANSPOSE,
+    "rref": MathOperation.MATRIX_RREF,
+    "matrix_rref": MathOperation.MATRIX_RREF,
 }
 
 
@@ -262,6 +271,8 @@ def _normalize_latex_request_parts(request: LatexRequest) -> tuple[str, str]:
         return latex_derivative_to_engine_parts(request.expression, request.variable)
     if request.operation == MathOperation.INTEGRATE:
         return latex_integral_to_engine_parts(request.expression, request.variable)
+    if request.operation in _MATRIX_OPERATIONS:
+        return latex_matrix_to_engine_expression(request.expression), request.variable
     expressions = latex_to_engine_expression_branches(request.expression)
     if len(expressions) != 1:
         raise LatexBuildError(r"Internal error: plus-minus branches were not expanded.")
@@ -393,6 +404,14 @@ def _parse_input_format(input_format: str) -> str:
     if normalized not in {"engine", "latex"}:
         raise LatexBuildError(f"Unsupported OT Math input format: {input_format}")
     return normalized
+
+
+_MATRIX_OPERATIONS = {
+    MathOperation.MATRIX_DETERMINANT,
+    MathOperation.MATRIX_INVERSE,
+    MathOperation.MATRIX_TRANSPOSE,
+    MathOperation.MATRIX_RREF,
+}
 
 
 def _default_variable(operation: MathOperation) -> str:

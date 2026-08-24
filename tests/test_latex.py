@@ -140,7 +140,7 @@ def test_stress_latex_document_generates_current_hard_cases(tmp_path: Path) -> N
     result = generate_latex_include(stress, output_file=output_file)
     generated = output_file.read_text(encoding="utf-8")
 
-    assert result.request_count == 35
+    assert result.request_count == 39
     assert r"\csname OTMathGenerated@stress-factor-subscript\endcsname{%" in generated
     assert r"x_{0}" in generated
     assert r"\csname OTMathGenerated@stress-factor-complex\endcsname{%" in generated
@@ -175,6 +175,10 @@ def test_stress_latex_document_generates_current_hard_cases(tmp_path: Path) -> N
     assert r"n!" in generated
     assert r"\csname OTMathGenerated@stress-limit-sine\endcsname{%" in generated
     assert r"\csname OTMathGenerated@stress-inequality\endcsname{%" in generated
+    assert r"\csname OTMathGenerated@stress-matrix-det\endcsname{%" in generated
+    assert r"\csname OTMathGenerated@stress-matrix-inverse\endcsname{%" in generated
+    assert r"\csname OTMathGenerated@stress-matrix-transpose\endcsname{%" in generated
+    assert r"\csname OTMathGenerated@stress-matrix-rref\endcsname{%" in generated
     assert r"\left\{ x_{0} = 3, y_{0} = 2 \right\}" in generated
     assert "\\text{Verify returned solutions}" in generated
 
@@ -371,6 +375,25 @@ def test_latex_build_expands_independent_plus_minus_input_branches(
     assert "a + b - c" in generated
     assert "a - b + c" in generated
     assert "a - b - c" in generated
+
+
+def test_latex_build_generates_matrix_results_from_latex_input(tmp_path: Path) -> None:
+    tex_file = tmp_path / "scratch.tex"
+    output_file = tmp_path / "generated" / "otmath-results.tex"
+    tex_file.write_text(
+        r"\OTMathCompute[input=latex]{det}{det}{\begin{bmatrix}1 & 2 \\ 3 & 4\end{bmatrix}}"
+        "\n"
+        r"\OTMathCompute[input=latex]{transpose}{transpose}"
+        r"{\begin{bmatrix}1 & 2 \\ 3 & 4\end{bmatrix}}",
+        encoding="utf-8",
+    )
+
+    result = generate_latex_include(tex_file, output_file=output_file)
+    generated = output_file.read_text(encoding="utf-8")
+
+    assert result.request_count == 2
+    assert "-2" in generated
+    assert r"\left[\begin{matrix}1 & 3\\2 & 4\end{matrix}\right]" in generated
 
 
 def test_latex_build_generates_system_with_subscript_variables(tmp_path: Path) -> None:

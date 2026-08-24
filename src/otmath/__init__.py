@@ -1,6 +1,14 @@
 """Public API for the OT Math deterministic engine."""
 
-from otmath.domains import SystemRequest, solve_system
+from otmath.domains import (
+    SystemRequest,
+    matrix_determinant,
+    matrix_inverse,
+    matrix_rref,
+    matrix_transpose,
+    parse_matrix,
+    solve_system,
+)
 from otmath.engine import (
     differentiate_expression,
     expand_expression,
@@ -28,6 +36,11 @@ __all__ = [
     "factor_expression",
     "integrate_expression",
     "limit_expression",
+    "matrix_determinant",
+    "matrix_inverse",
+    "matrix_rref",
+    "matrix_transpose",
+    "parse_matrix",
     "product_expression",
     "render_steps_latex",
     "render_steps_text",

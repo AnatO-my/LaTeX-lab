@@ -7,6 +7,12 @@ from typing import Any
 
 import sympy as sp
 
+from otmath.domains.matrices import (
+    matrix_determinant,
+    matrix_inverse,
+    matrix_rref,
+    matrix_transpose,
+)
 from otmath.domains.systems import solve_system
 from otmath.errors import UnsupportedOperationError
 from otmath.latex_render import render_latex
@@ -441,6 +447,10 @@ _OPERATION_HANDLERS: dict[MathOperation, OperationHandler] = {
     MathOperation.PRODUCT: product_expression,
     MathOperation.LIMIT: limit_expression,
     MathOperation.INEQUALITY: solve_inequality_expression,
+    MathOperation.MATRIX_DETERMINANT: matrix_determinant,
+    MathOperation.MATRIX_INVERSE: matrix_inverse,
+    MathOperation.MATRIX_TRANSPOSE: matrix_transpose,
+    MathOperation.MATRIX_RREF: matrix_rref,
 }
 
 

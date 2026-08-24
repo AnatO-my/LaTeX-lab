@@ -92,6 +92,8 @@ Supported starter LaTeX input includes:
 - Summation notation such as `\sum_{k=1}^{n} k^{2}` for `sum` requests.
 - Product notation such as `\prod_{k=1}^{n} k` for `product` requests.
 - Limit notation such as `\lim_{x \to 0} \frac{\sin{x}}{x}` for `limit` requests.
+- Matrix environments such as `bmatrix` and `pmatrix` for `det`, `inverse`,
+  `transpose`, and `rref` requests.
 - Plus-minus and minus-plus notation such as `x = \pm 2`, `x = \mp 2`,
   `(x \pm 1)^{2}`, `a \pm b \mp c`, or `a \pm b \pm c`. The LaTeX builder
   expands this into explicit sign branches before calling the engine.
@@ -121,6 +123,8 @@ Variables in options are normalized too. For example:
 \OTMathCompute[input=latex]{second-derivative}{differentiate}{\frac{d^{2}}{dx^{2}}\left(\sin{x}\right)}
 \OTMathCompute[input=latex]{tan-integral}{integrate}{\int \tan{x} \, dx}
 \OTMathCompute[input=latex]{theta-integral}{integrate}{\int \theta^{2} \, d\theta}
+\OTMathCompute[input=latex]{matrix-det}{det}{\begin{bmatrix}1 & 2 \\ 3 & 4\end{bmatrix}}
+\OTMathCompute[input=latex]{matrix-transpose}{transpose}{\begin{bmatrix}1 & 2 \\ 3 & 4\end{bmatrix}}
 \OTMathCompute[input=latex]{sum-squares}{sum}{\sum_{k=1}^{n} k^{2}}
 \OTMathCompute[input=latex]{limit-sine}{limit}{\lim_{x \to 0} \frac{\sin{x}}{x}}
 ```
@@ -175,5 +179,5 @@ You can also regenerate the include file with:
 python examples/latex/generate_stress_results.py
 ```
 
-The stress document also lists upcoming parser targets, such as matrix notation, as
-ordinary LaTeX until the adapter supports them.
+The stress document also lists upcoming parser targets, such as determinant notation
+applied directly to a matrix, as ordinary LaTeX until the adapter supports them.
