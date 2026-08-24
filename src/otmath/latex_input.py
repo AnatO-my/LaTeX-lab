@@ -18,7 +18,17 @@ _COMMAND_REPLACEMENTS = {
     r"\neq": "!=",
     r"\ne": "!=",
 }
-_FUNCTIONS = ("sin", "cos", "tan", "log", "ln", "exp")
+_FUNCTION_COMMANDS = {
+    r"\arccos": "acos",
+    r"\arcsin": "asin",
+    r"\arctan": "atan",
+    r"\cos": "cos",
+    r"\exp": "exp",
+    r"\ln": "ln",
+    r"\log": "log",
+    r"\sin": "sin",
+    r"\tan": "tan",
+}
 _MAX_PLUS_MINUS_BRANCHES = 16
 _SYMBOL_COMMANDS = {
     r"E": "E",
@@ -260,10 +270,14 @@ def latex_to_engine_expression(expression: str) -> str:
 
     converted = _replace_command_with_two_groups(converted, r"\frac", "({0})/({1})")
     converted = _replace_command_with_one_group(converted, r"\sqrt", "sqrt({0})")
-    for function in _FUNCTIONS:
+    for command, function in sorted(
+        _FUNCTION_COMMANDS.items(),
+        key=lambda item: len(item[0]),
+        reverse=True,
+    ):
         converted = _replace_command_with_one_group(
             converted,
-            rf"\{function}",
+            command,
             f"{function}({{0}})",
         )
 
@@ -469,11 +483,19 @@ def _extract_limit_direction(point_text: str) -> tuple[str, str]:
 
 
 def _split_integral_differential(body: str, default_variable: str) -> tuple[str, str]:
-    compact = body.replace(r"\,", " ").strip()
-    match = re.fullmatch(r"(.+?)\s*d\s*([A-Za-z](?:_\{[A-Za-z0-9]+\})?)", compact)
+    compact = _normalize_latex_spacing(body)
+    variable_pattern = r"(\\[A-Za-z]+(?:_\{[A-Za-z0-9]+\})?|[A-Za-z](?:_\{[A-Za-z0-9]+\})?)"
+    match = re.fullmatch(rf"(.+?)\s*d\s*{variable_pattern}", compact)
     if match is None:
         return body, default_variable
     return match.group(1).strip(), match.group(2).strip()
+
+
+def _normalize_latex_spacing(source: str) -> str:
+    converted = source
+    for command in (r"\,", r"\;", r"\:", r"\!", r"\quad", r"\qquad"):
+        converted = converted.replace(command, " ")
+    return re.sub(r"\s+", " ", converted).strip()
 
 
 def _replace_command_with_one_group(source: str, command: str, template: str) -> str:

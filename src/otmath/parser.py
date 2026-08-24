@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import keyword
 import re
+from tokenize import TokenError
 
 import sympy as sp
 from sympy.core.function import AppliedUndef
@@ -20,6 +21,9 @@ _CALL_PATTERN = re.compile(r"\b([A-Za-z_]\w*)\s*\(")
 _RELATIONAL_OPERATORS = ("<=", ">=", "!=", "<", ">")
 _ALLOWED_CALL_NAMES = {
     "abs",
+    "acos",
+    "asin",
+    "atan",
     "cos",
     "exp",
     "Float",
@@ -41,6 +45,9 @@ _GLOBAL_DICT = {
 }
 _LOCAL_DICT = {
     "abs": sp.Abs,
+    "acos": sp.acos,
+    "asin": sp.asin,
+    "atan": sp.atan,
     "cos": sp.cos,
     "E": sp.E,
     "exp": sp.exp,
@@ -71,7 +78,7 @@ def parse_expression(expression: str) -> sp.Expr:
             transformations=_TRANSFORMATIONS,
             evaluate=True,
         )
-    except (SyntaxError, TypeError, ValueError, NameError) as exc:
+    except (SyntaxError, TokenError, TypeError, ValueError, NameError) as exc:
         raise MathParseError(f"Could not parse expression: {expression}") from exc
 
     if not isinstance(parsed, sp.Expr):

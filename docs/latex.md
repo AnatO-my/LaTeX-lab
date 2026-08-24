@@ -82,6 +82,7 @@ Supported starter LaTeX input includes:
 - `\frac{a}{b}`.
 - `\sqrt{x}`.
 - `\sin{x}`, `\cos{x}`, `\tan{x}`, `\log{x}`, `\ln{x}`, and `\exp{x}`.
+- Standard inverse trig commands `\arcsin{x}`, `\arccos{x}`, and `\arctan{x}`.
 - `e^{...}` as Euler's constant.
 - Inequalities such as `x \leq 3` and `x \geq 0` for `inequality` requests.
 - Indefinite integral notation such as `\int 2x \, dx` for `integrate` requests.
@@ -112,6 +113,8 @@ Variables in options are normalized too. For example:
 \OTMathCompute[input=latex]{styled}{expand}{(\mathcal{A} + \mathbb{R})^{2}}
 \OTMathCompute[input=latex; variable=x]{plus-minus}{solve}{x = \pm 2}
 \OTMathCompute[input=latex]{minus-plus}{expand}{a \pm b \mp c}
+\OTMathCompute[input=latex]{tan-integral}{integrate}{\int \tan{x} \, dx}
+\OTMathCompute[input=latex]{theta-integral}{integrate}{\int \theta^{2} \, d\theta}
 \OTMathCompute[input=latex]{sum-squares}{sum}{\sum_{k=1}^{n} k^{2}}
 \OTMathCompute[input=latex]{limit-sine}{limit}{\lim_{x \to 0} \frac{\sin{x}}{x}}
 ```

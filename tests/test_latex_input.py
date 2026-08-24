@@ -33,6 +33,23 @@ def test_latex_input_converts_common_functions_and_e_constant() -> None:
     assert_latex_equivalent(r"\sin{x} + e^{-x^{2}}", "sin(x) + E**(-x**2)")
 
 
+def test_latex_input_converts_grouped_function_arguments() -> None:
+    assert_latex_equivalent(r"\tan{x^{-1}}", "tan(x**-1)")
+    assert_latex_equivalent(r"\tan{x^2 + 1}", "tan(x**2 + 1)")
+    assert_latex_equivalent(r"\tan{\frac{1}{x}}", "tan(1/x)")
+
+
+def test_latex_input_converts_standard_inverse_trig_functions() -> None:
+    assert_latex_equivalent(r"\arctan{x}", "atan(x)")
+    assert_latex_equivalent(r"\arcsin{x}", "asin(x)")
+    assert_latex_equivalent(r"\arccos{x}", "acos(x)")
+
+
+def test_latex_input_does_not_accept_inverse_trig_aliases() -> None:
+    with pytest.raises(MathParseError):
+        parse_expression(latex_to_engine_expression(r"\atan{x}"))
+
+
 def test_latex_input_converts_subscripted_variables() -> None:
     assert_latex_equivalent(r"x_{0}^{2} - 2x_{0}", "x_0**2 - 2*x_0")
 
@@ -91,6 +108,25 @@ def test_latex_input_extracts_limit_parts() -> None:
 
 def test_latex_input_extracts_integral_parts() -> None:
     assert latex_integral_to_engine_parts(r"\int 2x \, dx") == ("2x", "x")
+
+
+def test_latex_input_extracts_integral_parts_with_grouped_integrands() -> None:
+    assert latex_integral_to_engine_parts(r"\int \tan{x^{-1}} \, dx") == (
+        "tan(x**(-1))",
+        "x",
+    )
+    assert latex_integral_to_engine_parts(r"\int{\sin{x+\pi}} \, dx") == (
+        "(sin(x+pi))",
+        "x",
+    )
+
+
+def test_latex_input_extracts_integral_parts_with_latex_differentials() -> None:
+    assert latex_integral_to_engine_parts(r"\int \theta^{2} \, d\theta") == (
+        "theta**(2)",
+        "theta",
+    )
+    assert latex_integral_to_engine_parts(r"\int t^{2} \, dt") == ("t**(2)", "t")
 
 
 def test_latex_input_converts_inequality_operators() -> None:

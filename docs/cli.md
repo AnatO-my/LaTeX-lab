@@ -88,7 +88,8 @@ The starter CLI accepts SymPy-style expressions:
 
 - Powers use `**`, as in `x**2`.
 - Multiplication should be explicit, as in `5*x`.
-- Supported common functions include `sin`, `cos`, `tan`, `log`, `ln`, `exp`, `sqrt`, and `abs`.
+- Supported common functions include `sin`, `cos`, `tan`, `asin`, `acos`,
+  `atan`, `log`, `ln`, `exp`, `sqrt`, and `abs`.
 - Supported constants include `pi` and `E`.
 - `solve` accepts either an expression treated as equal to zero or one explicit equation
   with `=`.

@@ -67,13 +67,19 @@ pdflatex -interaction=nonstopmode -halt-on-error stress.tex
 
 \OTMathCompute[input=latex]{stress-diff-trig-poly}{differentiate}{\sin{x} + x^{4}}
 
+\OTMathCompute[input=latex]{stress-diff-arctan}{differentiate}{\arctan{x}}
+
 \subsection*{Integration}
 
 \OTMathCompute[input=latex]{stress-integrate-gaussian}{integrate}{e^{-x^{2}}}
 
 \OTMathCompute[input=latex]{stress-integrate-mixed}{integrate}{2x + \cos{x}}
 
-\OTMathCompute[input=latex]{stress-integrate-notation}{integrate}{\int 2x \, dx}
+\OTMathCompute[input=latex]{stress-integrate-tan}{integrate}{\int \tan{x} \, dx}
+
+\OTMathCompute[input=latex]{stress-integrate-notation}{integrate}{\int{sin{x+\pi}} \, dx}
+
+\OTMathCompute[input=latex]{stress-integrate-theta}{integrate}{\int \theta^{2} \, d\theta}
 
 \subsection*{SymPy-Backed Operators}
 

@@ -88,7 +88,8 @@ The current parser accepts SymPy-style expression syntax, not LaTeX input.
 
 - Use `**` for powers: `x**2`
 - Use `*` for explicit multiplication: `5*x`
-- Common functions include `sin`, `cos`, `tan`, `log`, `ln`, `exp`, `sqrt`, and `abs`
+- Common functions include `sin`, `cos`, `tan`, `asin`, `acos`, `atan`, `log`,
+  `ln`, `exp`, `sqrt`, and `abs`
 - Common constants include `pi`, `E`, and `I`
 - Unknown symbols such as `x` and `y` are allowed
 - `solve_expression` accepts either an expression treated as equal to zero or a single
