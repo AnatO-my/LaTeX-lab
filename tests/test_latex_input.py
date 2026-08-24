@@ -3,6 +3,7 @@ import pytest
 from otmath.engine import expressions_equivalent
 from otmath.errors import MathParseError
 from otmath.latex_input import (
+    latex_derivative_to_engine_parts,
     latex_integral_to_engine_parts,
     latex_limit_to_engine_parts,
     latex_product_to_engine_parts,
@@ -127,6 +128,16 @@ def test_latex_input_extracts_integral_parts_with_latex_differentials() -> None:
         "theta",
     )
     assert latex_integral_to_engine_parts(r"\int t^{2} \, dt") == ("t**(2)", "t")
+
+
+def test_latex_input_extracts_derivative_parts() -> None:
+    assert latex_derivative_to_engine_parts(
+        r"\frac{d}{dx}\left(\sin{x}\right)"
+    ) == ("sin(x)", "x")
+    assert latex_derivative_to_engine_parts(r"\frac{d}{d\theta}\theta^{2}") == (
+        "theta**(2)",
+        "theta",
+    )
 
 
 def test_latex_input_converts_inequality_operators() -> None:

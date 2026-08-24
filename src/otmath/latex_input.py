@@ -416,6 +416,31 @@ def latex_integral_to_engine_parts(
     return latex_to_engine_expression(integrand), latex_to_engine_expression(variable)
 
 
+def latex_derivative_to_engine_parts(
+    expression: str,
+    default_variable: str = "x",
+) -> tuple[str, str]:
+    """Convert simple Leibniz derivative notation into an expression and variable."""
+
+    converted = expression.strip()
+    if not converted.startswith(r"\frac"):
+        return latex_to_engine_expression(expression), latex_to_engine_symbol_spec(
+            default_variable
+        )
+
+    numerator, first_end = _read_required_group(converted, len(r"\frac"), r"\frac")
+    denominator, second_end = _read_required_group(converted, first_end, r"\frac")
+    variable = _derivative_variable_from_fraction(numerator, denominator)
+    body = converted[second_end:].strip()
+    if not body:
+        raise MathParseError(r"LaTeX derivative notation requires an expression body.")
+
+    return (
+        latex_to_engine_expression(_strip_wrapping_group(body)),
+        latex_to_engine_expression(variable),
+    )
+
+
 def _replace_symbol_commands(source: str) -> str:
     converted = source
     for latex in sorted(_SYMBOL_COMMANDS, key=len, reverse=True):
@@ -489,6 +514,30 @@ def _split_integral_differential(body: str, default_variable: str) -> tuple[str,
     if match is None:
         return body, default_variable
     return match.group(1).strip(), match.group(2).strip()
+
+
+def _derivative_variable_from_fraction(numerator: str, denominator: str) -> str:
+    if numerator.strip() != "d":
+        raise MathParseError(r"LaTeX derivative numerator must be d.")
+
+    stripped = denominator.strip()
+    if not stripped.startswith("d"):
+        raise MathParseError(r"LaTeX derivative denominator must start with d.")
+
+    variable = stripped[1:].strip()
+    if not variable:
+        raise MathParseError(r"LaTeX derivative denominator must include a variable.")
+    return variable
+
+
+def _strip_wrapping_group(source: str) -> str:
+    stripped = source.replace(r"\left", "").replace(r"\right", "").strip()
+    while (
+        (stripped.startswith("(") and stripped.endswith(")"))
+        or (stripped.startswith("{") and stripped.endswith("}"))
+    ):
+        stripped = stripped[1:-1].strip()
+    return stripped
 
 
 def _normalize_latex_spacing(source: str) -> str:

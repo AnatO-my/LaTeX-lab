@@ -12,6 +12,7 @@ from pathlib import Path
 from otmath import MathOperation, MathRequest, MathResult, render_steps_latex, run_request
 from otmath.errors import OTMathError
 from otmath.latex_input import (
+    latex_derivative_to_engine_parts,
     latex_integral_to_engine_parts,
     latex_limit_to_engine_parts,
     latex_plus_minus_branches,
@@ -257,6 +258,8 @@ def _normalize_latex_request_parts(request: LatexRequest) -> tuple[str, str]:
         return latex_product_to_engine_parts(request.expression)
     if request.operation == MathOperation.LIMIT and stripped_expression.startswith(r"\lim"):
         return latex_limit_to_engine_parts(request.expression)
+    if request.operation == MathOperation.DIFFERENTIATE:
+        return latex_derivative_to_engine_parts(request.expression, request.variable)
     if request.operation == MathOperation.INTEGRATE:
         return latex_integral_to_engine_parts(request.expression, request.variable)
     expressions = latex_to_engine_expression_branches(request.expression)
