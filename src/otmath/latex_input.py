@@ -517,17 +517,56 @@ def _split_integral_differential(body: str, default_variable: str) -> tuple[str,
 
 
 def _derivative_variable_from_fraction(numerator: str, denominator: str) -> str:
-    if numerator.strip() != "d":
-        raise MathParseError(r"LaTeX derivative numerator must be d.")
+    order = _derivative_order_from_numerator(numerator)
+    variable, denominator_order = _derivative_variable_and_order_from_denominator(
+        denominator
+    )
+    if denominator_order != order:
+        raise MathParseError("LaTeX derivative orders must match.")
+    if order == 1:
+        return variable
+    return f"{variable},{order}"
 
+
+def _derivative_order_from_numerator(numerator: str) -> int:
+    stripped = numerator.strip()
+    if stripped == "d":
+        return 1
+    if not stripped.startswith("d^"):
+        raise MathParseError(r"LaTeX derivative numerator must be d.")
+    return _parse_positive_integer_script(stripped[2:])
+
+
+def _derivative_variable_and_order_from_denominator(denominator: str) -> tuple[str, int]:
     stripped = denominator.strip()
     if not stripped.startswith("d"):
         raise MathParseError(r"LaTeX derivative denominator must start with d.")
 
-    variable = stripped[1:].strip()
+    body = stripped[1:].strip()
+    variable, order_text = _split_derivative_denominator_body(body)
     if not variable:
         raise MathParseError(r"LaTeX derivative denominator must include a variable.")
-    return variable
+    order = _parse_positive_integer_script(order_text) if order_text is not None else 1
+    return variable, order
+
+
+def _split_derivative_denominator_body(body: str) -> tuple[str, str | None]:
+    if "^" not in body:
+        return body.strip(), None
+    variable, order_text = body.split("^", maxsplit=1)
+    return variable.strip(), order_text.strip()
+
+
+def _parse_positive_integer_script(script: str) -> int:
+    stripped = script.strip()
+    if stripped.startswith("{") and stripped.endswith("}"):
+        stripped = stripped[1:-1].strip()
+    if not stripped.isdigit():
+        raise MathParseError("LaTeX derivative order must be a positive integer.")
+    order = int(stripped)
+    if order < 1:
+        raise MathParseError("LaTeX derivative order must be at least 1.")
+    return order
 
 
 def _strip_wrapping_group(source: str) -> str:

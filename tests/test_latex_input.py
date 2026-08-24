@@ -140,6 +140,21 @@ def test_latex_input_extracts_derivative_parts() -> None:
     )
 
 
+def test_latex_input_extracts_higher_order_derivative_parts() -> None:
+    assert latex_derivative_to_engine_parts(
+        r"\frac{d^{2}}{dx^{2}}\left(\sin{x}\right)"
+    ) == ("sin(x)", "x,2")
+    assert latex_derivative_to_engine_parts(r"\frac{d^3}{dt^3}t^{5}") == (
+        "t**(5)",
+        "t,3",
+    )
+
+
+def test_latex_input_rejects_mismatched_derivative_orders() -> None:
+    with pytest.raises(MathParseError, match="orders must match"):
+        latex_derivative_to_engine_parts(r"\frac{d^{2}}{dx^{3}}\sin{x}")
+
+
 def test_latex_input_converts_inequality_operators() -> None:
     assert latex_to_engine_expression(r"x \leq 3") == "x <= 3"
 

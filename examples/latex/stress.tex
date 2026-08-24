@@ -75,6 +75,10 @@ pdflatex -interaction=nonstopmode -halt-on-error stress.tex
 
 \OTMathCompute[input=latex]{stress-diff-theta-notation}{differentiate}{\frac{d}{d\theta}\theta^{2}}
 
+\OTMathCompute[input=latex]{stress-diff-second-notation}{differentiate}{\frac{d^{2}}{dx^{2}}\left(\sin{x}\right)}
+
+\OTMathCompute[input=latex]{stress-diff-third-notation}{differentiate}{\frac{d^{3}}{dt^{3}}t^{5}}
+
 \subsection*{Integration}
 
 \OTMathCompute[input=latex]{stress-integrate-gaussian}{integrate}{e^{-x^{2}}}
@@ -115,7 +119,10 @@ The following is intentionally listed as ordinary LaTeX, not an executable OT Ma
 request yet. It defines the next adapter surface we want to support:
 
 \[
-  \frac{d^{2}}{dx^{2}}\left(\sin{x}\right)
+  \begin{bmatrix}
+    1 & 2 \\
+    3 & 4
+  \end{bmatrix}
 \]
 
 \end{document}

@@ -86,7 +86,8 @@ Supported starter LaTeX input includes:
 - `e^{...}` as Euler's constant.
 - Inequalities such as `x \leq 3` and `x \geq 0` for `inequality` requests.
 - Derivative notation such as `\frac{d}{dx}\left(\sin{x}\right)` for
-  `differentiate` requests.
+  `differentiate` requests. Higher-order derivative notation such as
+  `\frac{d^{2}}{dx^{2}}\left(\sin{x}\right)` is supported when the orders match.
 - Indefinite integral notation such as `\int 2x \, dx` for `integrate` requests.
 - Summation notation such as `\sum_{k=1}^{n} k^{2}` for `sum` requests.
 - Product notation such as `\prod_{k=1}^{n} k` for `product` requests.
@@ -117,6 +118,7 @@ Variables in options are normalized too. For example:
 \OTMathCompute[input=latex]{minus-plus}{expand}{a \pm b \mp c}
 \OTMathCompute[input=latex]{independent-signs}{expand}{a \pm b \pm c}
 \OTMathCompute[input=latex]{derivative-notation}{differentiate}{\frac{d}{dx}\left(\sin{x}\right)}
+\OTMathCompute[input=latex]{second-derivative}{differentiate}{\frac{d^{2}}{dx^{2}}\left(\sin{x}\right)}
 \OTMathCompute[input=latex]{tan-integral}{integrate}{\int \tan{x} \, dx}
 \OTMathCompute[input=latex]{theta-integral}{integrate}{\int \theta^{2} \, d\theta}
 \OTMathCompute[input=latex]{sum-squares}{sum}{\sum_{k=1}^{n} k^{2}}
@@ -173,5 +175,5 @@ You can also regenerate the include file with:
 python examples/latex/generate_stress_results.py
 ```
 
-The stress document also lists upcoming parser targets, such as higher-order derivative
-notation, as ordinary LaTeX until the adapter supports them.
+The stress document also lists upcoming parser targets, such as matrix notation, as
+ordinary LaTeX until the adapter supports them.

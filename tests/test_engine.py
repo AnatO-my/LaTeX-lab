@@ -91,6 +91,14 @@ def test_differentiate_expression() -> None:
     assert result.steps[0].rule == "sympy_diff"
 
 
+def test_differentiate_expression_accepts_ordered_variable_spec() -> None:
+    result = differentiate_expression("sin(x)", variable="x,2")
+
+    assert result.answers == ["-sin(x)"]
+    assert result.verified is True
+    assert result.metadata["derivative_order"] == 2
+
+
 def test_integrate_expression() -> None:
     result = integrate_expression("2*x")
 

@@ -96,10 +96,11 @@ def simplify_expression(expression: str, variable: str = "x") -> MathResult:
 def differentiate_expression(expression: str, variable: str = "x") -> MathResult:
     """Differentiate an expression with respect to a variable."""
 
-    symbol = parse_symbol(variable)
+    variable_name, order = _parse_derivative_variable_spec(variable)
+    symbol = parse_symbol(variable_name)
     parsed = parse_expression(expression)
-    derivative = sp.diff(parsed, symbol)
-    verified = verify_derivative(parsed, symbol, derivative)
+    derivative = sp.diff(parsed, symbol, order)
+    verified = verify_derivative(parsed, symbol, derivative, order)
 
     return MathResult(
         operation=MathOperation.DIFFERENTIATE,
@@ -114,6 +115,8 @@ def differentiate_expression(expression: str, variable: str = "x") -> MathResult
             MathOperation.DIFFERENTIATE,
             variable,
             verification="deterministic_recomputation",
+            derivative_variable=variable_name,
+            derivative_order=order,
         ),
     )
 
@@ -316,13 +319,14 @@ def verify_derivative(
     expression: sp.Expr,
     symbol: sp.Symbol,
     derivative: sp.Expr,
+    order: int = 1,
 ) -> bool:
     """Verify derivative output against SymPy's deterministic derivative result.
 
     This is a consistency check, not an independent proof.
     """
 
-    return expressions_equivalent(derivative, sp.diff(expression, symbol))
+    return expressions_equivalent(derivative, sp.diff(expression, symbol, order))
 
 
 def _result_warnings(verified: bool) -> list[str]:
@@ -344,9 +348,11 @@ def _result_metadata(
     limit_variable: str | None = None,
     point: str | None = None,
     direction: str | None = None,
+    derivative_variable: str | None = None,
+    derivative_order: int | None = None,
     assumptions: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
-    metadata = {
+    metadata: dict[str, Any] = {
         "engine": "otmath",
         "engine_version": ENGINE_VERSION,
         "operation": operation.value,
@@ -370,6 +376,10 @@ def _result_metadata(
         metadata["point"] = point
     if direction is not None:
         metadata["direction"] = direction
+    if derivative_variable is not None:
+        metadata["derivative_variable"] = derivative_variable
+    if derivative_order is not None:
+        metadata["derivative_order"] = derivative_order
     return metadata
 
 
@@ -396,6 +406,27 @@ def _parse_limit_variable_spec(variable: str) -> tuple[str, str, str]:
 
     parse_symbol(parts[0])
     return parts[0], parts[1], direction
+
+
+def _parse_derivative_variable_spec(variable: str) -> tuple[str, int]:
+    parts = [part.strip() for part in variable.split(",")]
+    if len(parts) == 1:
+        parse_symbol(parts[0])
+        return parts[0], 1
+    if len(parts) != 2 or any(not part for part in parts):
+        raise UnsupportedOperationError(
+            "differentiate variable spec must use variable or variable,order."
+        )
+
+    try:
+        order = int(parts[1])
+    except ValueError as exc:
+        raise UnsupportedOperationError("derivative order must be an integer.") from exc
+    if order < 1:
+        raise UnsupportedOperationError("derivative order must be at least 1.")
+
+    parse_symbol(parts[0])
+    return parts[0], order
 
 
 _OPERATION_HANDLERS: dict[MathOperation, OperationHandler] = {

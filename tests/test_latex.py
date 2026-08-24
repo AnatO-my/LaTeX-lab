@@ -140,7 +140,7 @@ def test_stress_latex_document_generates_current_hard_cases(tmp_path: Path) -> N
     result = generate_latex_include(stress, output_file=output_file)
     generated = output_file.read_text(encoding="utf-8")
 
-    assert result.request_count == 33
+    assert result.request_count == 35
     assert r"\csname OTMathGenerated@stress-factor-subscript\endcsname{%" in generated
     assert r"x_{0}" in generated
     assert r"\csname OTMathGenerated@stress-factor-complex\endcsname{%" in generated
@@ -164,6 +164,8 @@ def test_stress_latex_document_generates_current_hard_cases(tmp_path: Path) -> N
     assert r"\csname OTMathGenerated@stress-diff-arctan\endcsname{%" in generated
     assert r"\csname OTMathGenerated@stress-diff-notation\endcsname{%" in generated
     assert r"\csname OTMathGenerated@stress-diff-theta-notation\endcsname{%" in generated
+    assert r"\csname OTMathGenerated@stress-diff-second-notation\endcsname{%" in generated
+    assert r"\csname OTMathGenerated@stress-diff-third-notation\endcsname{%" in generated
     assert r"\csname OTMathGenerated@stress-integrate-tan\endcsname{%" in generated
     assert r"\csname OTMathGenerated@stress-integrate-theta\endcsname{%" in generated
     assert r"\operatorname{erf}" in generated
