@@ -25,9 +25,11 @@ The first explanation layer supports:
 - systems: normalize equations, solve, verify returned solutions
 - simplification: before/after simplification
 - differentiation: deterministic derivative output and selected variable
-- integration: integrate, then verify by differentiating the result
-- expansion and factorization: deterministic before/after transformations
-- matrix operations: a deterministic operation step with the matrix result
+- integration: identify the integrand, integrate, then verify by differentiating the result
+- expansion and factorization: deterministic before/after transformations, then
+  expression-equivalence verification
+- matrix operations: a deterministic operation step with the matrix result, then a
+  verification/status step
 
 Operations without a dedicated explanation still degrade gracefully with an empty step
 list.

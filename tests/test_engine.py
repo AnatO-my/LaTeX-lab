@@ -151,7 +151,7 @@ def test_integrate_expression() -> None:
 
     assert result.answers == ["x**2"]
     assert result.verified is True
-    assert [step.kind for step in result.steps] == ["integrate", "verify"]
+    assert [step.kind for step in result.steps] == ["normalize", "integrate", "verify"]
 
 
 def test_parse_matrix_accepts_symbolic_entries() -> None:
@@ -177,6 +177,7 @@ def test_matrix_determinant() -> None:
     assert result.metadata["columns"] == 2
     assert result.steps[0].kind == "matrix_det"
     assert result.steps[0].title == "Compute the matrix determinant"
+    assert result.steps[1].kind == "verify"
 
 
 def test_matrix_order() -> None:
@@ -457,6 +458,7 @@ def test_expand_expression() -> None:
     assert result.verified is True
     assert result.steps[0].kind == "expand"
     assert result.steps[0].rule == "sympy_expand"
+    assert result.steps[1].kind == "verify"
 
 
 def test_rejects_invalid_expression() -> None:
@@ -590,4 +592,5 @@ def test_factor_expression_has_steps() -> None:
 
     assert result.steps[0].kind == "factor"
     assert result.steps[0].rule == "sympy_factor_complex"
+    assert result.steps[1].kind == "verify"
     assert "Factor the expression" in render_steps_text(result.steps)

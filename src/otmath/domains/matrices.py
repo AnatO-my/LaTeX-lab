@@ -674,7 +674,15 @@ def _matrix_result(
                 output_expression=result if step_output is None else step_output,
                 rule=verification,
                 verified=verified,
-            )
+            ),
+            make_step(
+                kind="verify",
+                title="Record matrix verification",
+                input_expression=expression,
+                output_expression="verified" if verified else "not verified",
+                rule=verification,
+                verified=verified,
+            ),
         ],
         metadata=metadata,
     )

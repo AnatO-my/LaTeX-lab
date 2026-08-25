@@ -105,7 +105,7 @@ def transform_steps(
     verified: bool,
     metadata: dict[str, str] | None = None,
 ) -> list[MathStep]:
-    """Generate a one-step deterministic transformation explanation."""
+    """Generate deterministic transformation and verification steps."""
 
     return [
         make_step(
@@ -116,7 +116,15 @@ def transform_steps(
             rule=rule,
             verified=verified,
             metadata=metadata,
-        )
+        ),
+        make_step(
+            kind="verify",
+            title="Verify expression equivalence",
+            input_expression=result,
+            output_expression="verified" if verified else "not verified",
+            rule="expression_equivalence",
+            verified=verified,
+        ),
     ]
 
 
@@ -150,6 +158,15 @@ def integral_steps(
     """Generate deterministic integral steps."""
 
     return [
+        make_step(
+            kind="normalize",
+            title="Identify the integrand",
+            input_expression=original,
+            output_expression=original,
+            rule="parse_integrand",
+            verified=True,
+            metadata={"variable": str(symbol)},
+        ),
         make_step(
             kind="integrate",
             title=f"Integrate with respect to {symbol}",
