@@ -29,6 +29,7 @@ from otmath import (
     matrix_solve,
     matrix_trace,
     matrix_transpose,
+    numeric_solve_expression,
     product_expression,
     render_steps_latex,
     render_steps_text,
@@ -44,6 +45,7 @@ from otmath import (
 ## Functions
 
 - `solve_expression(expression: str, variable: str = "x")`
+- `numeric_solve_expression(expression: str, variable: str = "x,1")`
 - `solve_system(equations: Sequence[str] | str, variables: Sequence[str] | str = ("x", "y"))`
 - `simplify_expression(expression: str, variable: str = "x")`
 - `differentiate_expression(expression: str, variable: str = "x")`
@@ -115,6 +117,7 @@ assumptions, and unsupported operations are rejected before dispatch.
 `MathResult.verified` records whether the deterministic engine checked the returned result.
 
 - `solve` substitutes each returned solution into the original expression.
+- `nsolve` checks the numeric residual against a small tolerance.
 - `solve_system` substitutes each returned solution into every equation.
 - `simplify`, `expand`, and `factor` compare expression equivalence.
 - `integrate` differentiates the returned integral and compares it with the original expression.
@@ -138,6 +141,8 @@ The current parser accepts SymPy-style expression syntax, not LaTeX input.
   `[[2, 1], [1, -1]]; [[5], [1]]`
 - `solve_expression` accepts either an expression treated as equal to zero or a single
   equation with `=`
+- `numeric_solve_expression` accepts the same solve target style and uses
+  `variable,initial_guess`, such as `x,0.5`
 - `otcalc latex-build` can adapt a starter subset of LaTeX-style document input before
   dispatching to the deterministic engine
 - `factor_expression` factors over the complex extension, so expressions such as
@@ -148,6 +153,7 @@ Examples:
 ```python
 solve_expression("x**2 - 5*x + 6")
 solve_expression("x**2 - 5*x + 6 = 0")
+numeric_solve_expression("cos(x) - x", variable="x,0.5")
 solve_system(["x + y = 5", "x - y = 1"], variables=["x", "y"])
 simplify_expression("(x + 1)**2 - x**2")
 differentiate_expression("sin(x)")
@@ -200,4 +206,5 @@ solve_expression("x = = 2")
 - Expression parsing is still starter-level and should be expanded carefully.
 - Request assumptions are currently metadata only.
 - Advanced domain coverage currently starts with systems of equations and matrix
-  operations.
+  operations, plus starter single-variable numeric solving.
+- Numeric solving is initial-guess sensitive and currently returns one solution.

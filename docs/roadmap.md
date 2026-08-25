@@ -16,7 +16,7 @@
 
 ## Long Term
 
-- Add statistics, numeric solving, units, and deeper numerical linear algebra.
+- Add statistics, units, broader numerical methods, and deeper numerical linear algebra.
 - Add document and notebook workflows.
 - Support external contributors with clear beginner issues.
 - Prepare a beta release.

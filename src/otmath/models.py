@@ -14,6 +14,7 @@ class MathOperation(StrEnum):
     """Supported starter operations."""
 
     SOLVE = "solve"
+    NUMERIC_SOLVE = "nsolve"
     SOLVE_SYSTEM = "solve_system"
     SIMPLIFY = "simplify"
     DIFFERENTIATE = "differentiate"
@@ -145,6 +146,11 @@ def _is_valid_variable_spec(name: str, operation: MathOperation | str) -> bool:
     if operation == MathOperation.SOLVE_SYSTEM:
         names = [part.strip() for part in name.split(",")]
         return bool(names) and all(_is_valid_symbol_name(part) for part in names)
+    if operation == MathOperation.NUMERIC_SOLVE:
+        parts = [part.strip() for part in name.split(",")]
+        if len(parts) == 1:
+            return _is_valid_symbol_name(parts[0])
+        return len(parts) == 2 and _is_valid_symbol_name(parts[0]) and bool(parts[1])
     if operation in {MathOperation.SUMMATION, MathOperation.PRODUCT}:
         parts = [part.strip() for part in name.split(",")]
         return len(parts) == 3 and bool(parts[0]) and _is_valid_symbol_name(parts[0])

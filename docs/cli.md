@@ -7,6 +7,7 @@
 ```bash
 otcalc solve "x**2 - 5*x + 6"
 otcalc solve "x**2 - 5*x + 6 = 0"
+otcalc nsolve "cos(x) - x" --variable "x,0.5"
 otcalc system "x + y = 5; x - y = 1" --variable "x,y"
 otcalc simplify "(x + 1)**2 - x**2"
 otcalc diff "x**3"
@@ -68,6 +69,8 @@ writes to that declared include path. Otherwise it writes the default
 `generated/otmath-results.tex` next to the source file. Plain LaTeX compilation reads
 the generated include but does not recalculate it.
 
+The `nsolve` command uses `--variable variable,initial_guess`; the default is `x,1`.
+It returns one numeric solution near the supplied initial guess when SymPy can converge.
 The `sum` and `product` commands use `--variable variable,lower,upper`. The `limit`
 command uses `--variable variable,point[,direction]`, where direction is `+`, `-`, or
 `+-`.
@@ -120,6 +123,7 @@ The starter CLI accepts SymPy-style expressions:
 - Matrix commands accept rectangular literals such as `[[1, 2], [3, 4]]`.
 - `solve` accepts either an expression treated as equal to zero or one explicit equation
   with `=`.
+- `nsolve` accepts the same expression or equation style and requires a starting guess.
 - `system` accepts equations separated by semicolons and variables separated by commas.
 - Other commands accept expressions only, not equation input.
 
@@ -133,6 +137,7 @@ PowerShell:
 
 ```powershell
 otcalc solve "x**2 - 5*x + 6 = 0"
+otcalc nsolve "cos(x) - x" --variable "x,0.5"
 otcalc integrate "exp(-x**2)"
 ```
 
@@ -140,6 +145,7 @@ Bash or zsh:
 
 ```bash
 otcalc solve 'x**2 - 5*x + 6 = 0'
+otcalc nsolve 'cos(x) - x' --variable 'x,0.5'
 otcalc integrate 'exp(-x**2)'
 ```
 

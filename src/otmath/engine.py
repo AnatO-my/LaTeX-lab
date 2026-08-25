@@ -42,6 +42,7 @@ from otmath.parser import (
 from otmath.steps import (
     derivative_steps,
     integral_steps,
+    make_step,
     simplify_steps,
     solve_steps,
     transform_steps,
@@ -80,6 +81,76 @@ def solve_expression(expression: str, variable: str = "x") -> MathResult:
             MathOperation.SOLVE,
             variable,
             verification="solution_substitution",
+        ),
+    )
+
+
+def numeric_solve_expression(expression: str, variable: str = "x,1") -> MathResult:
+    """Find a numeric solution from a single-variable initial guess."""
+
+    variable_name, guess_text = _parse_numeric_solve_variable_spec(variable)
+    symbol = parse_symbol(variable_name)
+    parsed = parse_equation_or_expression(expression)
+    guess = parse_expression(guess_text)
+
+    try:
+        solution = sp.nsolve(parsed, symbol, guess)
+    except (TypeError, ValueError, ZeroDivisionError) as exc:
+        raise UnsupportedOperationError(
+            "Numeric solve failed from the supplied initial guess."
+        ) from exc
+
+    residual = _numeric_residual_magnitude(parsed.subs(symbol, solution))
+    tolerance = 1e-10
+    verified = residual <= tolerance
+    warnings = _result_warnings(verified)
+    if not verified:
+        warnings.append("Numeric solve residual exceeded the verification tolerance.")
+
+    return MathResult(
+        operation=MathOperation.NUMERIC_SOLVE,
+        input_expression=expression,
+        variable=variable,
+        answers=[_format_numeric_solution(solution)],
+        latex=render_latex(solution),
+        verified=verified,
+        warnings=warnings,
+        steps=[
+            make_step(
+                kind="normalize",
+                title="Normalize the numeric solve target",
+                input_expression=expression,
+                output_expression=parsed,
+                rule="equation_to_zero_form",
+                verified=True,
+            ),
+            make_step(
+                kind="nsolve",
+                title=f"Numerically solve from initial guess {guess_text}",
+                input_expression=parsed,
+                output_expression=solution,
+                rule="sympy_nsolve",
+                verified=True,
+                metadata={"variable": variable_name, "initial_guess": guess_text},
+            ),
+            make_step(
+                kind="verify",
+                title="Verify numeric residual",
+                input_expression=parsed,
+                output_expression="verified" if verified else f"residual = {residual}",
+                rule="numeric_residual",
+                verified=verified,
+                metadata={"residual": str(residual), "tolerance": str(tolerance)},
+            ),
+        ],
+        metadata=_result_metadata(
+            MathOperation.NUMERIC_SOLVE,
+            variable,
+            verification="numeric_residual",
+            numeric_variable=variable_name,
+            initial_guess=guess_text,
+            residual=str(residual),
+            tolerance=str(tolerance),
         ),
     )
 
@@ -396,6 +467,10 @@ def _result_metadata(
     direction: str | None = None,
     derivative_variable: str | None = None,
     derivative_order: int | None = None,
+    numeric_variable: str | None = None,
+    initial_guess: str | None = None,
+    residual: str | None = None,
+    tolerance: str | None = None,
     assumptions: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     metadata: dict[str, Any] = {
@@ -426,6 +501,14 @@ def _result_metadata(
         metadata["derivative_variable"] = derivative_variable
     if derivative_order is not None:
         metadata["derivative_order"] = derivative_order
+    if numeric_variable is not None:
+        metadata["numeric_variable"] = numeric_variable
+    if initial_guess is not None:
+        metadata["initial_guess"] = initial_guess
+    if residual is not None:
+        metadata["residual"] = residual
+    if tolerance is not None:
+        metadata["tolerance"] = tolerance
     return metadata
 
 
@@ -454,6 +537,20 @@ def _parse_limit_variable_spec(variable: str) -> tuple[str, str, str]:
     return parts[0], parts[1], direction
 
 
+def _parse_numeric_solve_variable_spec(variable: str) -> tuple[str, str]:
+    parts = [part.strip() for part in variable.split(",")]
+    if len(parts) == 1:
+        parse_symbol(parts[0])
+        return parts[0], "1"
+    if len(parts) != 2 or any(not part for part in parts):
+        raise UnsupportedOperationError(
+            "nsolve variable spec must use variable or variable,initial_guess."
+        )
+
+    parse_symbol(parts[0])
+    return parts[0], parts[1]
+
+
 def _parse_derivative_variable_spec(variable: str) -> tuple[str, int]:
     parts = [part.strip() for part in variable.split(",")]
     if len(parts) == 1:
@@ -475,8 +572,21 @@ def _parse_derivative_variable_spec(variable: str) -> tuple[str, int]:
     return parts[0], order
 
 
+def _format_numeric_solution(solution: sp.Expr) -> str:
+    return str(sp.N(solution, 15))
+
+
+def _numeric_residual_magnitude(value: sp.Expr) -> float:
+    evaluated = sp.N(value, 30)
+    try:
+        return float(abs(complex(evaluated)))
+    except (TypeError, ValueError):
+        return float(abs(evaluated))
+
+
 _OPERATION_HANDLERS: dict[MathOperation, OperationHandler] = {
     MathOperation.SOLVE: solve_expression,
+    MathOperation.NUMERIC_SOLVE: numeric_solve_expression,
     MathOperation.SOLVE_SYSTEM: solve_system,
     MathOperation.SIMPLIFY: simplify_expression,
     MathOperation.DIFFERENTIATE: differentiate_expression,

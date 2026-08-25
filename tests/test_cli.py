@@ -79,6 +79,7 @@ def test_cli_json(capsys: pytest.CaptureFixture[str]) -> None:
     ("command", "expression", "operation"),
     [
         ("solve", "x**2 - 5*x + 6", "solve"),
+        ("nsolve", "cos(x) - x", "nsolve"),
         ("system", "x + y = 5; x - y = 1", "solve_system"),
         ("simplify", "(x + 1)**2 - x**2", "simplify"),
         ("diff", "x**3", "differentiate"),
@@ -176,6 +177,7 @@ def test_cli_factor_complex() -> None:
         (["product", "k", "--variable", "k,1,n"], "factorial(n)"),
         (["limit", "sin(x)/x", "--variable", "x,0,+-"], "1"),
         (["inequality", "x <= 3"], "Interval(-oo, 3)"),
+        (["nsolve", "cos(x) - x", "--variable", "x,0.5"], "0.739085133215161"),
         (["det", "[[1, 2], [3, 4]]"], "-2"),
         (["order", "[[1, 2, 3], [4, 5, 6]]"], "2x3"),
         (["rank", "[[1, 2, 3], [2, 4, 6], [1, 0, 1]]"], "2"),
@@ -221,6 +223,7 @@ def test_cli_matrix_rref() -> None:
     ("command", "expression", "expected"),
     [
         ("solve", "x**2 - 5*x + 6", "2"),
+        ("nsolve", "cos(x) - x", "0.739085133215161"),
         ("system", "x + y = 5; x - y = 1", "x = 3, y = 2"),
         ("simplify", "(x + 1)**2 - x**2", "2*x + 1"),
         ("diff", "x**3", "3*x**2"),

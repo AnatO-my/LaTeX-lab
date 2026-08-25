@@ -30,6 +30,8 @@ _GENERATED_INCLUDE_PATTERN = re.compile(
     r"\\(?:input|include|OTMathGeneratedInput)\s*\{([^{}]+)\}"
 )
 _OPERATION_ALIASES = {
+    "nsolve": MathOperation.NUMERIC_SOLVE,
+    "numeric_solve": MathOperation.NUMERIC_SOLVE,
     "diff": MathOperation.DIFFERENTIATE,
     "differentiate": MathOperation.DIFFERENTIATE,
     "system": MathOperation.SOLVE_SYSTEM,
@@ -470,6 +472,8 @@ _MATRIX_OPERATIONS = {
 def _default_variable(operation: MathOperation) -> str:
     if operation == MathOperation.SOLVE_SYSTEM:
         return "x,y"
+    if operation == MathOperation.NUMERIC_SOLVE:
+        return "x,1"
     if operation in {MathOperation.SUMMATION, MathOperation.PRODUCT}:
         return "k,1,n"
     if operation == MathOperation.LIMIT:

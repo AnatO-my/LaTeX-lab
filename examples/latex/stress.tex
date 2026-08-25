@@ -51,6 +51,10 @@ pdflatex -interaction=nonstopmode -halt-on-error stress.tex
 
 \OTMathCompute[input=latex]{stress-solve-repeated-root}{solve}{x^{2} - 4x + 4 = 0}
 
+\subsection*{Numeric Solving}
+
+\OTMathCompute[input=latex; variable=x,0.5]{stress-nsolve-fixed-point}{nsolve}{\cos{x} - x}
+
 \subsection*{Plus-Minus Branching}
 
 \OTMathCompute[input=latex]{stress-expand-plus-minus}{expand}{(x \pm 1)^{2}}

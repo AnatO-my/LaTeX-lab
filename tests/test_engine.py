@@ -26,6 +26,7 @@ from otmath import (
     matrix_solve,
     matrix_trace,
     matrix_transpose,
+    numeric_solve_expression,
     product_expression,
     render_steps_latex,
     render_steps_text,
@@ -69,6 +70,23 @@ def test_solve_equation_with_expression_on_both_sides() -> None:
     result = solve_expression("2*x + 1 = 7")
 
     assert result.answers == ["3"]
+    assert result.verified is True
+
+
+def test_numeric_solve_expression() -> None:
+    result = numeric_solve_expression("cos(x) - x", variable="x,0.5")
+
+    assert float(result.answers[0]) == pytest.approx(0.739085133215161)
+    assert result.verified is True
+    assert result.metadata["verification"] == "numeric_residual"
+    assert result.metadata["initial_guess"] == "0.5"
+    assert [step.kind for step in result.steps] == ["normalize", "nsolve", "verify"]
+
+
+def test_numeric_solve_accepts_equation_input() -> None:
+    result = numeric_solve_expression("x**2 = 2", variable="x,1")
+
+    assert float(result.answers[0]) == pytest.approx(2**0.5)
     assert result.verified is True
 
 
@@ -414,6 +432,16 @@ def test_math_request_accepts_system_variable_spec() -> None:
     )
 
     assert request.variable == "x,y"
+
+
+def test_math_request_accepts_numeric_solve_variable_spec() -> None:
+    request = MathRequest(
+        operation=MathOperation.NUMERIC_SOLVE,
+        expression="cos(x) - x",
+        variable="x,0.5",
+    )
+
+    assert request.variable == "x,0.5"
 
 
 def test_math_request_rejects_empty_expression() -> None:

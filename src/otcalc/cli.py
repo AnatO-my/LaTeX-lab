@@ -23,6 +23,7 @@ from otmath.models import MathResult
 
 _COMMAND_OPERATIONS = {
     "solve": MathOperation.SOLVE,
+    "nsolve": MathOperation.NUMERIC_SOLVE,
     "system": MathOperation.SOLVE_SYSTEM,
     "simplify": MathOperation.SIMPLIFY,
     "diff": MathOperation.DIFFERENTIATE,
@@ -57,6 +58,7 @@ _COMMAND_OPERATIONS = {
 }
 _COMMAND_HELP = {
     "solve": "Solve an expression equal to zero or a single equation.",
+    "nsolve": "Find one numeric solution from an initial guess.",
     "system": "Solve a semicolon-separated system of equations.",
     "simplify": "Simplify a symbolic expression.",
     "diff": "Differentiate an expression.",
@@ -91,6 +93,7 @@ _COMMAND_HELP = {
 }
 _EXPLAIN_OPERATIONS = {
     "solve": MathOperation.SOLVE,
+    "nsolve": MathOperation.NUMERIC_SOLVE,
     "system": MathOperation.SOLVE_SYSTEM,
     "simplify": MathOperation.SIMPLIFY,
     "diff": MathOperation.DIFFERENTIATE,
@@ -174,6 +177,8 @@ def _write_history(result: MathResult, history_file: Path) -> None:
 def _default_variable(command: str) -> str:
     if command == "system":
         return "x,y"
+    if command == "nsolve":
+        return "x,1"
     if command in {"sum", "product"}:
         return "k,1,n"
     if command == "limit":
@@ -186,6 +191,8 @@ def _default_variable(command: str) -> str:
 def _variable_help(command: str) -> str:
     if command == "system":
         return "Comma-separated variable names, default x,y."
+    if command == "nsolve":
+        return "Numeric solve spec variable,initial_guess. Default: x,1."
     if command in {"sum", "product"}:
         return "Range spec variable,lower,upper. Default: k,1,n."
     if command == "limit":

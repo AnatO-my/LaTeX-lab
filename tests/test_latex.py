@@ -140,7 +140,7 @@ def test_stress_latex_document_generates_current_hard_cases(tmp_path: Path) -> N
     result = generate_latex_include(stress, output_file=output_file)
     generated = output_file.read_text(encoding="utf-8")
 
-    assert result.request_count == 56
+    assert result.request_count == 57
     assert r"\csname OTMathGenerated@stress-factor-subscript\endcsname{%" in generated
     assert r"x_{0}" in generated
     assert r"\csname OTMathGenerated@stress-factor-complex\endcsname{%" in generated
@@ -161,6 +161,8 @@ def test_stress_latex_document_generates_current_hard_cases(tmp_path: Path) -> N
     assert r"\csname OTMathGenerated@stress-expand-independent-signs\endcsname{%" in generated
     assert r"\pm 2" in generated
     assert r"\csname OTMathGenerated@stress-solve-quadratic-formula\endcsname{%" in generated
+    assert r"\csname OTMathGenerated@stress-nsolve-fixed-point\endcsname{%" in generated
+    assert "0.739085133215161" in generated
     assert r"\csname OTMathGenerated@stress-diff-arctan\endcsname{%" in generated
     assert r"\csname OTMathGenerated@stress-diff-notation\endcsname{%" in generated
     assert r"\csname OTMathGenerated@stress-diff-theta-notation\endcsname{%" in generated
@@ -283,6 +285,21 @@ def test_latex_build_generates_include_with_latex_variable_spec(tmp_path: Path) 
 
     assert result.request_count == 1
     assert r"\pm 1" in generated
+
+
+def test_latex_build_generates_numeric_solve_from_latex_input(tmp_path: Path) -> None:
+    tex_file = tmp_path / "scratch.tex"
+    output_file = tmp_path / "generated" / "otmath-results.tex"
+    tex_file.write_text(
+        r"\OTMathCompute[input=latex; variable=x,0.5]{fixed-point}{nsolve}{\cos{x} - x}",
+        encoding="utf-8",
+    )
+
+    result = generate_latex_include(tex_file, output_file=output_file)
+    generated = output_file.read_text(encoding="utf-8")
+
+    assert result.request_count == 1
+    assert "0.739085133215161" in generated
 
 
 def test_latex_build_generates_include_with_greek_variables(tmp_path: Path) -> None:
