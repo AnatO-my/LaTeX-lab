@@ -22,10 +22,15 @@ Each step includes:
 The first explanation layer supports:
 
 - solving: normalize target, solve, verify returned solutions
+- systems: normalize equations, solve, verify returned solutions
 - simplification: before/after simplification
 - differentiation: deterministic derivative output and selected variable
+- integration: integrate, then verify by differentiating the result
+- expansion and factorization: deterministic before/after transformations
+- matrix operations: a deterministic operation step with the matrix result
 
-Other operations degrade gracefully with an empty step list.
+Operations without a dedicated explanation still degrade gracefully with an empty step
+list.
 
 ## CLI
 
@@ -35,6 +40,7 @@ Use `otcalc explain` to render steps:
 otcalc explain "x**2 - 5*x + 6 = 0" --operation solve
 otcalc explain "(x + 1)**2 - x**2" --operation simplify --format json
 otcalc explain "x**3" --operation diff --format latex
+otcalc explain "x**2 - 5*x + 6" --operation factor
 ```
 
 The `--operation` option accepts `solve`, `simplify`, `diff`, `integrate`, `factor`, and

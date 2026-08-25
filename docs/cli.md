@@ -55,8 +55,9 @@ otcalc latex-build examples/latex/sample.tex
 - `--history`: append successful results to a local JSON Lines history file.
 - `--history-file PATH`: choose the history file path used with `--history`.
 
-The `explain` command also accepts `--operation solve|system|simplify|diff|integrate|factor|expand`.
-When no operation is supplied, it explains simplification.
+The `explain` command accepts the same deterministic operation names as the calculator
+commands, including symbolic, system, and matrix operations. When no operation is
+supplied, it explains simplification.
 
 The `latex-build` command scans a `.tex` file for `\OTMathCompute` and `\OTMathExplain`
 macros, writes a generated include file, and can optionally compile the document with

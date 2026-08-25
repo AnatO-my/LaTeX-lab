@@ -12,6 +12,7 @@ from otmath.errors import MathRequestError
 from otmath.latex_render import render_latex
 from otmath.models import MathOperation, MathResult
 from otmath.parser import parse_equation_or_expression, parse_symbol
+from otmath.steps import system_steps
 
 ENGINE_VERSION = "0.1.0"
 
@@ -71,6 +72,12 @@ def solve_system(
         latex=_format_latex_solutions(solutions, symbols),
         verified=verified,
         warnings=warnings,
+        steps=system_steps(
+            original_equations=request.equations,
+            normalized_equations=parsed_equations,
+            solution_text=[_format_solution(solution, symbols) for solution in solutions],
+            verified=verified,
+        ),
         metadata={
             "engine": "otmath",
             "engine_version": ENGINE_VERSION,

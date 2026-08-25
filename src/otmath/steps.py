@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from collections.abc import Sequence
+
 import sympy as sp
 
 from otmath.latex_render import render_latex
@@ -12,8 +14,8 @@ def make_step(
     *,
     kind: str,
     title: str,
-    input_expression: sp.Expr | str,
-    output_expression: sp.Expr | str,
+    input_expression: object,
+    output_expression: object,
     rule: str,
     verified: bool,
     metadata: dict[str, str] | None = None,
@@ -22,9 +24,9 @@ def make_step(
 
     output_text = str(output_expression)
     latex = (
-        render_latex(output_expression)
-        if isinstance(output_expression, sp.Expr)
-        else rf"\text{{{output_text}}}"
+        rf"\text{{{output_text}}}"
+        if isinstance(output_expression, str)
+        else render_latex(output_expression)
     )
     return MathStep(
         kind=kind,
@@ -93,6 +95,31 @@ def simplify_steps(original: sp.Expr, simplified: sp.Expr, verified: bool) -> li
     ]
 
 
+def transform_steps(
+    *,
+    kind: str,
+    title: str,
+    original: object,
+    result: object,
+    rule: str,
+    verified: bool,
+    metadata: dict[str, str] | None = None,
+) -> list[MathStep]:
+    """Generate a one-step deterministic transformation explanation."""
+
+    return [
+        make_step(
+            kind=kind,
+            title=title,
+            input_expression=original,
+            output_expression=result,
+            rule=rule,
+            verified=verified,
+            metadata=metadata,
+        )
+    ]
+
+
 def derivative_steps(
     original: sp.Expr,
     symbol: sp.Symbol,
@@ -111,6 +138,73 @@ def derivative_steps(
             verified=verified,
             metadata={"variable": str(symbol)},
         )
+    ]
+
+
+def integral_steps(
+    original: sp.Expr,
+    symbol: sp.Symbol,
+    integral: sp.Expr,
+    verified: bool,
+) -> list[MathStep]:
+    """Generate deterministic integral steps."""
+
+    return [
+        make_step(
+            kind="integrate",
+            title=f"Integrate with respect to {symbol}",
+            input_expression=original,
+            output_expression=integral,
+            rule="sympy_integrate",
+            verified=True,
+            metadata={"variable": str(symbol)},
+        ),
+        make_step(
+            kind="verify",
+            title="Verify by differentiating the result",
+            input_expression=integral,
+            output_expression="verified" if verified else "not verified",
+            rule="differentiate_integral",
+            verified=verified,
+        ),
+    ]
+
+
+def system_steps(
+    *,
+    original_equations: Sequence[str],
+    normalized_equations: Sequence[sp.Expr],
+    solution_text: Sequence[str],
+    verified: bool,
+) -> list[MathStep]:
+    """Generate deterministic system-solving steps."""
+
+    normalized = sp.Tuple(*normalized_equations)
+    return [
+        make_step(
+            kind="normalize",
+            title="Normalize each system equation",
+            input_expression="; ".join(original_equations),
+            output_expression=normalized,
+            rule="equations_to_zero_form",
+            verified=True,
+        ),
+        make_step(
+            kind="solve",
+            title="Solve the system for selected variables",
+            input_expression=normalized,
+            output_expression="; ".join(solution_text) if solution_text else "no solutions",
+            rule="sympy_solve_system",
+            verified=bool(solution_text),
+        ),
+        make_step(
+            kind="verify",
+            title="Verify returned system solutions",
+            input_expression=normalized,
+            output_expression="verified" if verified else "not verified",
+            rule="system_solution_substitution",
+            verified=verified,
+        ),
     ]
 
 

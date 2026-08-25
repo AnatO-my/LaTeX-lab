@@ -193,7 +193,8 @@ solve_expression("x = = 2")
 
 ## Current Limitations
 
-- Step generation is partial and not available for every operation yet.
+- Step generation is available for the main symbolic and matrix operations, but remains
+  rule-light for several advanced cases.
 - LaTeX input parsing is available through the generated-document workflow, not the
   default scalar expression parser.
 - Expression parsing is still starter-level and should be expanded carefully.

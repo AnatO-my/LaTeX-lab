@@ -39,7 +39,13 @@ from otmath.parser import (
     parse_relational_expression,
     parse_symbol,
 )
-from otmath.steps import derivative_steps, simplify_steps, solve_steps
+from otmath.steps import (
+    derivative_steps,
+    integral_steps,
+    simplify_steps,
+    solve_steps,
+    transform_steps,
+)
 
 OperationHandler = Callable[[str, str], MathResult]
 ENGINE_VERSION = "0.1.0"
@@ -164,6 +170,7 @@ def integrate_expression(expression: str, variable: str = "x") -> MathResult:
         latex=render_latex(integral),
         verified=verified,
         warnings=warnings,
+        steps=integral_steps(parsed, symbol, integral, verified),
         metadata=_result_metadata(
             MathOperation.INTEGRATE,
             variable,
@@ -188,6 +195,14 @@ def expand_expression(expression: str, variable: str = "x") -> MathResult:
         latex=render_latex(expanded),
         verified=verified,
         warnings=_result_warnings(verified),
+        steps=transform_steps(
+            kind="expand",
+            title="Expand the expression",
+            original=parsed,
+            result=expanded,
+            rule="sympy_expand",
+            verified=verified,
+        ),
         metadata=_result_metadata(
             MathOperation.EXPAND,
             variable,
@@ -212,6 +227,15 @@ def factor_expression(expression: str, variable: str = "x") -> MathResult:
         latex=render_latex(factored),
         verified=verified,
         warnings=_result_warnings(verified),
+        steps=transform_steps(
+            kind="factor",
+            title="Factor the expression",
+            original=parsed,
+            result=factored,
+            rule="sympy_factor_complex",
+            verified=verified,
+            metadata={"domain": "complex"},
+        ),
         metadata=_result_metadata(
             MathOperation.FACTOR,
             variable,

@@ -12,6 +12,7 @@ from otmath.errors import MathParseError, UnsupportedOperationError
 from otmath.latex_render import render_latex
 from otmath.models import MathOperation, MathResult
 from otmath.parser import parse_expression
+from otmath.steps import make_step
 
 ENGINE_VERSION = "0.1.0"
 
@@ -359,6 +360,7 @@ def matrix_diagonalize(expression: str, variable: str = "x") -> MathResult:
         shape=matrix.shape,
         answers=[f"P = {modal_matrix}", f"D = {diagonal_matrix}"],
         latex=latex,
+        step_output=f"P = {modal_matrix}; D = {diagonal_matrix}",
     )
 
 
@@ -387,6 +389,7 @@ def matrix_lu_decomposition(expression: str, variable: str = "x") -> MathResult:
         shape=matrix.shape,
         answers=[f"L = {lower}", f"U = {upper}", f"swaps = {swaps}"],
         latex=latex,
+        step_output=f"L = {lower}; U = {upper}; swaps = {swaps}",
     )
 
 
@@ -409,6 +412,7 @@ def matrix_qr_decomposition(expression: str, variable: str = "x") -> MathResult:
         shape=matrix.shape,
         answers=[f"Q = {orthogonal}", f"R = {upper}"],
         latex=latex,
+        step_output=f"Q = {orthogonal}; R = {upper}",
     )
 
 
@@ -567,6 +571,32 @@ def _matrix_warnings(verified: bool) -> list[str]:
     return ["Result could not be verified by the deterministic engine."]
 
 
+def _matrix_step_title(operation: MathOperation) -> str:
+    titles = {
+        MathOperation.MATRIX_DETERMINANT: "Compute the matrix determinant",
+        MathOperation.MATRIX_ORDER: "Read the matrix order",
+        MathOperation.MATRIX_RANK: "Compute the matrix rank",
+        MathOperation.MATRIX_TRACE: "Compute the matrix trace",
+        MathOperation.MATRIX_INVERSE: "Compute the matrix inverse",
+        MathOperation.MATRIX_POWER: "Raise the matrix to the selected power",
+        MathOperation.MATRIX_TRANSPOSE: "Transpose the matrix",
+        MathOperation.MATRIX_CONJUGATE: "Conjugate each matrix entry",
+        MathOperation.MATRIX_ADJOINT: "Compute the conjugate transpose",
+        MathOperation.MATRIX_RREF: "Reduce the matrix to RREF",
+        MathOperation.MATRIX_SOLVE: "Solve the matrix equation",
+        MathOperation.MATRIX_NULLSPACE: "Compute a null-space basis",
+        MathOperation.MATRIX_COLUMNSPACE: "Compute a column-space basis",
+        MathOperation.MATRIX_ROWSPACE: "Compute a row-space basis",
+        MathOperation.MATRIX_EIGENVALUES: "Compute matrix eigenvalues",
+        MathOperation.MATRIX_EIGENVECTORS: "Compute matrix eigenvectors",
+        MathOperation.MATRIX_DIAGONALIZE: "Diagonalize the matrix",
+        MathOperation.MATRIX_LU: "Compute an LU decomposition",
+        MathOperation.MATRIX_QR: "Compute a QR decomposition",
+        MathOperation.MATRIX_CHOLESKY: "Compute a Cholesky decomposition",
+    }
+    return titles.get(operation, "Run the matrix operation")
+
+
 def _matrix_result(
     operation: MathOperation,
     expression: str,
@@ -585,6 +615,7 @@ def _matrix_result(
     solution_columns: int | None = None,
     parameter_count: int | None = None,
     metadata_extra: dict[str, Any] | None = None,
+    step_output: object | None = None,
 ) -> MathResult:
     metadata: dict[str, Any] = {
         "engine": "otmath",
@@ -617,5 +648,15 @@ def _matrix_result(
         latex=latex or render_latex(result),
         verified=verified,
         warnings=warnings or [],
+        steps=[
+            make_step(
+                kind=operation.value,
+                title=_matrix_step_title(operation),
+                input_expression=expression,
+                output_expression=result if step_output is None else step_output,
+                rule=verification,
+                verified=verified,
+            )
+        ],
         metadata=metadata,
     )

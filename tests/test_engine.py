@@ -80,6 +80,7 @@ def test_solve_system_linear_equations() -> None:
     assert result.operation is MathOperation.SOLVE_SYSTEM
     assert result.metadata["verification"] == "system_solution_substitution"
     assert result.metadata["variables"] == ["x", "y"]
+    assert [step.kind for step in result.steps] == ["normalize", "solve", "verify"]
 
 
 def test_solve_system_accepts_cli_style_strings() -> None:
@@ -125,6 +126,7 @@ def test_integrate_expression() -> None:
 
     assert result.answers == ["x**2"]
     assert result.verified is True
+    assert [step.kind for step in result.steps] == ["integrate", "verify"]
 
 
 def test_parse_matrix_accepts_symbolic_entries() -> None:
@@ -148,6 +150,8 @@ def test_matrix_determinant() -> None:
     assert result.verified is True
     assert result.metadata["rows"] == 2
     assert result.metadata["columns"] == 2
+    assert result.steps[0].kind == "matrix_det"
+    assert result.steps[0].title == "Compute the matrix determinant"
 
 
 def test_matrix_order() -> None:
@@ -358,6 +362,8 @@ def test_expand_expression() -> None:
 
     assert result.answers == ["x**2 - 5*x + 6"]
     assert result.verified is True
+    assert result.steps[0].kind == "expand"
+    assert result.steps[0].rule == "sympy_expand"
 
 
 def test_rejects_invalid_expression() -> None:
@@ -473,7 +479,12 @@ def test_step_renderers() -> None:
 
 
 def test_step_renderers_handle_empty_steps() -> None:
+    assert render_steps_text([]) == "No explanation steps are available."
+
+
+def test_factor_expression_has_steps() -> None:
     result = factor_expression("x**2 - 5*x + 6")
 
-    assert result.steps == []
-    assert render_steps_text(result.steps) == "No explanation steps are available."
+    assert result.steps[0].kind == "factor"
+    assert result.steps[0].rule == "sympy_factor_complex"
+    assert "Factor the expression" in render_steps_text(result.steps)

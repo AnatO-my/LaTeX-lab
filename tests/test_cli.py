@@ -285,11 +285,12 @@ def test_cli_explain_latex() -> None:
     assert "3 x^{2}" in result.stdout
 
 
-def test_cli_explain_fallback_for_unavailable_steps() -> None:
+def test_cli_explain_factor() -> None:
     result = run_cli(["explain", "x**2 - 5*x + 6", "--operation", "factor"])
 
     assert result.returncode == 0
-    assert "No explanation steps are available." in result.stdout
+    assert "Factor the expression" in result.stdout
+    assert "sympy_factor_complex" in result.stdout
 
 
 def test_cli_expand() -> None:

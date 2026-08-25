@@ -29,8 +29,10 @@ OT Math is a beta-track local-first calculator, not a complete computer algebra 
 
 ## Explanations
 
-- Structured steps are available for selected solve, simplify, and derivative paths.
-- Factor, expand, integrate, and systems currently fall back to no detailed steps.
+- Structured steps are available for solve, systems, simplify, differentiate,
+  integrate, factor, expand, and matrix operations.
+- Current steps are deterministic and rule-light; they are not yet full textbook-style
+  derivations for every operation.
 
 ## Domains
 

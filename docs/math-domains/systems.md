@@ -32,6 +32,7 @@ parsed equation and checking that each equation simplifies to zero.
 
 ## Limits
 
-- Explanation steps are not generated for systems yet.
+- Explanation steps are generated for normalization, solving, and verification, but they
+  are still rule-light.
 - The first version focuses on exact symbolic solving through SymPy.
 - Underdetermined systems may include free variables and may not verify as fully resolved.

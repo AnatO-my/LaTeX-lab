@@ -10,7 +10,7 @@
 ## Middle Term
 
 - Add local provider support.
-- Add richer explanation steps for factor, expand, integrate, and systems.
+- Deepen explanation steps from rule-light summaries into richer derivations.
 - Add LaTeX input adapter research and parser spike.
 - Add more advanced math domains with focused test coverage.
 
