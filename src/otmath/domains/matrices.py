@@ -345,11 +345,11 @@ def matrix_diagonalize(expression: str, variable: str = "x") -> MathResult:
     except (MatrixError, ValueError) as exc:
         raise UnsupportedOperationError("Matrix is not diagonalizable.") from exc
 
-    latex = (
-        r"P = "
-        + render_latex(modal_matrix)
-        + r",\quad D = "
-        + render_latex(diagonal_matrix)
+    latex = _labeled_latex_lines(
+        [
+            ("P", modal_matrix),
+            ("D", diagonal_matrix),
+        ]
     )
     return _matrix_result(
         MathOperation.MATRIX_DIAGONALIZE,
@@ -373,12 +373,12 @@ def matrix_lu_decomposition(expression: str, variable: str = "x") -> MathResult:
     except ValueError as exc:
         raise UnsupportedOperationError("Matrix LU decomposition failed.") from exc
 
-    latex = (
-        r"L = "
-        + render_latex(lower)
-        + r",\quad U = "
-        + render_latex(upper)
-        + rf",\quad swaps = {swaps}"
+    latex = _labeled_latex_lines(
+        [
+            ("L", lower),
+            ("U", upper),
+            (r"\mathrm{swaps}", swaps),
+        ]
     )
     return _matrix_result(
         MathOperation.MATRIX_LU,
@@ -402,7 +402,12 @@ def matrix_qr_decomposition(expression: str, variable: str = "x") -> MathResult:
     except ValueError as exc:
         raise UnsupportedOperationError("Matrix QR decomposition failed.") from exc
 
-    latex = r"Q = " + render_latex(orthogonal) + r",\quad R = " + render_latex(upper)
+    latex = _labeled_latex_lines(
+        [
+            ("Q", orthogonal),
+            ("R", upper),
+        ]
+    )
     return _matrix_result(
         MathOperation.MATRIX_QR,
         expression,
@@ -437,7 +442,7 @@ def matrix_cholesky_decomposition(expression: str, variable: str = "x") -> MathR
         verification="sympy_matrix_cholesky",
         shape=matrix.shape,
         answers=[f"L = {lower}"],
-        latex=r"L = " + render_latex(lower),
+        latex=_labeled_latex_lines([("L", lower)]),
     )
 
 
@@ -563,6 +568,19 @@ def _joined_latex(items: Sequence[str]) -> str:
     if len(items) == 1:
         return items[0]
     return "\\begin{gathered}\n" + " \\\\\n".join(items) + "\n\\end{gathered}"
+
+
+def _labeled_latex_lines(items: Sequence[tuple[str, object]]) -> str:
+    lines = [rf"{label} &= {_render_labeled_latex_value(value)}" for label, value in items]
+    if len(lines) == 1:
+        return lines[0].replace("&=", "=")
+    return "\\begin{aligned}\n" + " \\\\\n".join(lines) + "\n\\end{aligned}"
+
+
+def _render_labeled_latex_value(value: object) -> str:
+    if value == []:
+        return r"\varnothing"
+    return render_latex(value)
 
 
 def _matrix_warnings(verified: bool) -> list[str]:

@@ -199,8 +199,9 @@ def test_stress_latex_document_generates_current_hard_cases(tmp_path: Path) -> N
     assert r"\csname OTMathGenerated@stress-matrix-qr\endcsname{%" in generated
     assert r"\csname OTMathGenerated@stress-matrix-cholesky\endcsname{%" in generated
     assert r"\csname OTMathGenerated@stress-matrix-direct-det\endcsname{%" in generated
-    assert r"P =" in generated
-    assert r"D =" in generated
+    assert r"P &=" in generated
+    assert r"D &=" in generated
+    assert r"\mathrm{swaps} &=" in generated
     assert r"\left\{ x_{0} = 3, y_{0} = 2 \right\}" in generated
     assert "\\text{Verify returned solutions}" in generated
 

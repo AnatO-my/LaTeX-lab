@@ -153,7 +153,10 @@ n!
 \end{gathered}
 }
 \expandafter\gdef\csname OTMathGenerated@stress-matrix-diagonalize\endcsname{%
-P = \left[\begin{matrix}1 & 0\\0 & 1\end{matrix}\right],\quad D = \left[\begin{matrix}2 & 0\\0 & 3\end{matrix}\right]
+\begin{aligned}
+P &= \left[\begin{matrix}1 & 0\\0 & 1\end{matrix}\right] \\
+D &= \left[\begin{matrix}2 & 0\\0 & 3\end{matrix}\right]
+\end{aligned}
 }
 \expandafter\gdef\csname OTMathGenerated@stress-matrix-solve\endcsname{%
 \left[\begin{matrix}2\\1\end{matrix}\right]
@@ -171,10 +174,17 @@ P = \left[\begin{matrix}1 & 0\\0 & 1\end{matrix}\right],\quad D = \left[\begin{m
 \left[\begin{matrix}1 & 2 & 3\end{matrix}\right]
 }
 \expandafter\gdef\csname OTMathGenerated@stress-matrix-lu\endcsname{%
-L = \left[\begin{matrix}1 & 0\\2 & 1\end{matrix}\right],\quad U = \left[\begin{matrix}2 & 1\\0 & 1\end{matrix}\right],\quad swaps = []
+\begin{aligned}
+L &= \left[\begin{matrix}1 & 0\\2 & 1\end{matrix}\right] \\
+U &= \left[\begin{matrix}2 & 1\\0 & 1\end{matrix}\right] \\
+\mathrm{swaps} &= \varnothing
+\end{aligned}
 }
 \expandafter\gdef\csname OTMathGenerated@stress-matrix-qr\endcsname{%
-Q = \left[\begin{matrix}\frac{\sqrt{2}}{2} & - \frac{\sqrt{2}}{2}\\\frac{\sqrt{2}}{2} & \frac{\sqrt{2}}{2}\end{matrix}\right],\quad R = \left[\begin{matrix}\sqrt{2} & \frac{\sqrt{2}}{2}\\0 & \frac{\sqrt{2}}{2}\end{matrix}\right]
+\begin{aligned}
+Q &= \left[\begin{matrix}\frac{\sqrt{2}}{2} & - \frac{\sqrt{2}}{2}\\\frac{\sqrt{2}}{2} & \frac{\sqrt{2}}{2}\end{matrix}\right] \\
+R &= \left[\begin{matrix}\sqrt{2} & \frac{\sqrt{2}}{2}\\0 & \frac{\sqrt{2}}{2}\end{matrix}\right]
+\end{aligned}
 }
 \expandafter\gdef\csname OTMathGenerated@stress-matrix-cholesky\endcsname{%
 L = \left[\begin{matrix}2 & 0\\1 & \sqrt{2}\end{matrix}\right]

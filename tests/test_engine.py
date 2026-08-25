@@ -276,7 +276,8 @@ def test_matrix_diagonalize() -> None:
         "P = Matrix([[1, 0], [0, 1]])",
         "D = Matrix([[2, 0], [0, 3]])",
     ]
-    assert "D =" in result.latex
+    assert r"\begin{aligned}" in result.latex
+    assert "D &=" in result.latex
     assert result.verified is True
 
 
@@ -288,6 +289,8 @@ def test_matrix_lu_decomposition() -> None:
         "U = Matrix([[2, 1], [0, 1]])",
         "swaps = []",
     ]
+    assert r"\mathrm{swaps} &=" in result.latex
+    assert r"\varnothing" in result.latex
     assert result.verified is True
 
 
@@ -296,6 +299,7 @@ def test_matrix_qr_decomposition() -> None:
 
     assert result.answers[0].startswith("Q = Matrix(")
     assert result.answers[1].startswith("R = Matrix(")
+    assert r"\begin{aligned}" in result.latex
     assert result.verified is True
 
 

@@ -65,6 +65,8 @@ LaTeX compilation.
 
 `\OTMathCompute` and `\OTMathExplain` are authoring markers. They render generated
 results through `\OTMathUse{id}` after `otcalc latex-build` has written the include file.
+Multi-part matrix results, such as diagonalization and LU/QR decompositions, render as
+aligned labeled lines in generated LaTeX.
 
 ## Input Syntax
 
