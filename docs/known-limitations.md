@@ -18,6 +18,8 @@ OT Math is a beta-track local-first calculator, not a complete computer algebra 
   supplied initial guess.
 - Descriptive statistics cover finite datasets for mean, median, variance, and standard
   deviation.
+- Unit conversion covers a curated vocabulary for common length, time, mass, force,
+  energy, and power units.
 - Matrix support covers order, determinant, rank, trace, inverse, powers, transpose,
   conjugate, adjoint, RREF, matrix solving, null space, column space, row space,
   eigenvalues, eigenvectors, diagonalization, LU, QR, and Cholesky decomposition for
@@ -30,6 +32,7 @@ OT Math is a beta-track local-first calculator, not a complete computer algebra 
 - Numeric solving is verified by checking the residual against a fixed tolerance.
 - Descriptive statistics operations are deterministic arithmetic checks, not statistical
   inference.
+- Unit conversion is delegated to SymPy's deterministic unit conversion.
 - Systems of equations are verified by substitution into every equation.
 - Some symbolic outputs can be mathematically correct but formatted differently from a
   user's expected string.
@@ -44,9 +47,10 @@ OT Math is a beta-track local-first calculator, not a complete computer algebra 
 ## Domains
 
 - Supported advanced domain coverage currently starts with systems of equations,
-  matrices, starter numeric solving, and starter descriptive statistics.
-- Units, broader numerical methods, probability distributions, statistical inference, and
-  richer assumptions are planned but not complete.
+  matrices, starter numeric solving, starter descriptive statistics, and starter unit
+  conversion.
+- Broader numerical methods, probability distributions, statistical inference, full unit
+  dimensional analysis, and richer assumptions are planned but not complete.
 - Larger linear algebra workflows such as norms, condition numbers, singular value
   decomposition, least-squares solving, and matrix equation families are not implemented
   yet.

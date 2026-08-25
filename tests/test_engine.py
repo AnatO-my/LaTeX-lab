@@ -1,6 +1,7 @@
 import pytest
 
 from otmath import (
+    convert_units,
     differentiate_expression,
     expand_expression,
     factor_expression,
@@ -28,6 +29,7 @@ from otmath import (
     matrix_transpose,
     numeric_solve_expression,
     parse_dataset,
+    parse_unit_expression,
     product_expression,
     render_steps_latex,
     render_steps_text,
@@ -374,6 +376,27 @@ def test_statistics_stdev() -> None:
 def test_statistics_sample_variance_requires_two_values() -> None:
     with pytest.raises(UnsupportedOperationError):
         statistics_variance("1")
+
+
+def test_parse_unit_expression_rejects_unknown_units() -> None:
+    with pytest.raises(MathParseError):
+        parse_unit_expression("1*banana")
+
+
+def test_convert_units_length() -> None:
+    result = convert_units("1000*meter", variable="kilometer")
+
+    assert result.answers == ["kilometer"]
+    assert result.latex == r"\text{km}"
+    assert result.metadata["target_unit"] == "kilometer"
+    assert result.steps[0].kind == "unit"
+
+
+def test_convert_units_compound_speed() -> None:
+    result = convert_units("10*meter/second", variable="kilometer/hour")
+
+    assert result.answers == ["36*kilometer/hour"]
+    assert result.verified is True
 
 
 def test_summation_expression() -> None:

@@ -32,9 +32,11 @@ from otmath.domains.statistics import (
     statistics_variance,
 )
 from otmath.domains.systems import SystemRequest, solve_system
+from otmath.domains.units import convert_units, parse_unit_expression
 
 __all__ = [
     "SystemRequest",
+    "convert_units",
     "matrix_adjoint",
     "matrix_cholesky_decomposition",
     "matrix_columnspace",
@@ -58,6 +60,7 @@ __all__ = [
     "parse_dataset",
     "parse_matrix",
     "parse_matrix_pair",
+    "parse_unit_expression",
     "solve_system",
     "statistics_mean",
     "statistics_median",

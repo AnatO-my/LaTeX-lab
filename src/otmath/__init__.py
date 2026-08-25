@@ -2,6 +2,7 @@
 
 from otmath.domains import (
     SystemRequest,
+    convert_units,
     matrix_adjoint,
     matrix_cholesky_decomposition,
     matrix_columnspace,
@@ -25,6 +26,7 @@ from otmath.domains import (
     parse_dataset,
     parse_matrix,
     parse_matrix_pair,
+    parse_unit_expression,
     solve_system,
     statistics_mean,
     statistics_median,
@@ -54,6 +56,7 @@ __all__ = [
     "MathResult",
     "MathStep",
     "SystemRequest",
+    "convert_units",
     "differentiate_expression",
     "expand_expression",
     "factor_expression",
@@ -83,6 +86,7 @@ __all__ = [
     "parse_dataset",
     "parse_matrix",
     "parse_matrix_pair",
+    "parse_unit_expression",
     "product_expression",
     "render_steps_latex",
     "render_steps_text",

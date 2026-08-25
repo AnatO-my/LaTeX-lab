@@ -16,8 +16,8 @@
 
 ## Long Term
 
-- Add units, broader numerical methods, probability/statistical inference, and deeper
-  numerical linear algebra.
+- Add broader numerical methods, probability/statistical inference, full unit workflows,
+  and deeper numerical linear algebra.
 - Add document and notebook workflows.
 - Support external contributors with clear beginner issues.
 - Prepare a beta release.

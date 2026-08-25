@@ -90,6 +90,7 @@ def test_cli_json(capsys: pytest.CaptureFixture[str]) -> None:
         ("median", "[1, 10, 2, 20]", "median"),
         ("variance", "1, 2, 3", "variance"),
         ("stdev", "1, 2, 3", "stdev"),
+        ("unit", "1000*meter", "unit"),
         ("latex", "x**2 - 5*x + 6", "simplify"),
     ],
 )
@@ -187,6 +188,11 @@ def test_cli_factor_complex() -> None:
         (["variance", "1, 2, 3"], "1"),
         (["variance", "1, 2, 3", "--variable", "population"], "2/3"),
         (["stdev", "1, 2, 3"], "1"),
+        (["unit", "1000*meter", "--variable", "kilometer"], "kilometer"),
+        (
+            ["unit", "10*meter/second", "--variable", "kilometer/hour"],
+            "36*kilometer/hour",
+        ),
         (["det", "[[1, 2], [3, 4]]"], "-2"),
         (["order", "[[1, 2, 3], [4, 5, 6]]"], "2x3"),
         (["rank", "[[1, 2, 3], [2, 4, 6], [1, 0, 1]]"], "2"),
@@ -243,6 +249,7 @@ def test_cli_matrix_rref() -> None:
         ("median", "[1, 10, 2, 20]", "6"),
         ("variance", "1, 2, 3", "1"),
         ("stdev", "1, 2, 3", "1"),
+        ("unit", "1000*meter", "meter"),
     ],
 )
 def test_cli_text_output_for_each_command(

@@ -29,6 +29,7 @@ class MathOperation(StrEnum):
     STAT_MEDIAN = "median"
     STAT_VARIANCE = "variance"
     STAT_STDEV = "stdev"
+    UNIT_CONVERT = "unit"
     MATRIX_DETERMINANT = "matrix_det"
     MATRIX_ORDER = "matrix_order"
     MATRIX_RANK = "matrix_rank"
@@ -173,6 +174,8 @@ def _is_valid_variable_spec(name: str, operation: MathOperation | str) -> bool:
         )
     if operation == MathOperation.MATRIX_POWER:
         return _is_valid_integer(name)
+    if operation == MathOperation.UNIT_CONVERT:
+        return bool(name.strip()) and "__" not in name
     return _is_valid_symbol_name(name)
 
 

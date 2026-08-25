@@ -21,6 +21,8 @@ otcalc median "[1, 10, 2, 20]"
 otcalc variance "1, 2, 3"
 otcalc variance "1, 2, 3" --variable population
 otcalc stdev "1, 2, 3"
+otcalc unit "1000*meter" --variable kilometer
+otcalc unit "10*meter/second" --variable "kilometer/hour"
 otcalc det "[[1, 2], [3, 4]]"
 otcalc order "[[1, 2, 3], [4, 5, 6]]"
 otcalc rank "[[1, 2, 3], [2, 4, 6], [1, 0, 1]]"
@@ -78,6 +80,7 @@ The `nsolve` command uses `--variable variable,initial_guess`; the default is `x
 It returns one numeric solution near the supplied initial guess when SymPy can converge.
 The `variance` and `stdev` commands use `--variable sample|population`; the default is
 `sample`.
+The `unit` command uses `--variable target_unit`; the default is `meter`.
 The `sum` and `product` commands use `--variable variable,lower,upper`. The `limit`
 command uses `--variable variable,point[,direction]`, where direction is `+`, `-`, or
 `+-`.
@@ -134,6 +137,8 @@ The starter CLI accepts SymPy-style expressions:
 - `system` accepts equations separated by semicolons and variables separated by commas.
 - `mean`, `median`, `variance`, and `stdev` accept comma-separated datasets or simple
   list literals.
+- `unit` accepts a curated unit vocabulary, including common length, time, mass, force,
+  energy, and power units.
 - Other commands accept expressions only, not equation input.
 
 LaTeX document input is supported through `otcalc latex-build` with `input=latex`.

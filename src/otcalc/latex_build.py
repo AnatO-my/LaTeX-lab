@@ -43,6 +43,9 @@ _OPERATION_ALIASES = {
     "average": MathOperation.STAT_MEAN,
     "var": MathOperation.STAT_VARIANCE,
     "stddev": MathOperation.STAT_STDEV,
+    "units": MathOperation.UNIT_CONVERT,
+    "convert_unit": MathOperation.UNIT_CONVERT,
+    "convert_units": MathOperation.UNIT_CONVERT,
     "det": MathOperation.MATRIX_DETERMINANT,
     "matrix_det": MathOperation.MATRIX_DETERMINANT,
     "order": MathOperation.MATRIX_ORDER,
@@ -485,6 +488,8 @@ def _default_variable(operation: MathOperation) -> str:
         return "2"
     if operation in {MathOperation.STAT_VARIANCE, MathOperation.STAT_STDEV}:
         return "sample"
+    if operation == MathOperation.UNIT_CONVERT:
+        return "meter"
     return "x"
 
 

@@ -30,6 +30,7 @@ from otmath import (
     matrix_trace,
     matrix_transpose,
     numeric_solve_expression,
+    convert_units,
     statistics_mean,
     statistics_median,
     statistics_stdev,
@@ -62,6 +63,7 @@ from otmath import (
 - `statistics_median(expression: str, variable: str = "x")`
 - `statistics_variance(expression: str, variable: str = "sample")`
 - `statistics_stdev(expression: str, variable: str = "sample")`
+- `convert_units(expression: str, variable: str = "meter")`
 - `matrix_determinant(expression: str, variable: str = "x")`
 - `matrix_order(expression: str, variable: str = "x")`
 - `matrix_rank(expression: str, variable: str = "x")`
@@ -132,6 +134,7 @@ assumptions, and unsupported operations are rejected before dispatch.
 - `sum`, `product`, and `limit` use deterministic SymPy recomputation.
 - `inequality` returns SymPy's single-variable solution set.
 - Statistics operations use deterministic SymPy arithmetic over the parsed dataset.
+- `unit` uses SymPy unit conversion for a curated unit dictionary.
 - Matrix operations are deterministic SymPy matrix operations.
 - `differentiate` currently checks consistency against SymPy's deterministic derivative result; this is not yet an independent proof.
 
@@ -148,6 +151,8 @@ The current parser accepts SymPy-style expression syntax, not LaTeX input.
 - Statistics operations accept comma-separated datasets such as `1, 2, 3` or list
   literals such as `[1, 2, 3]`. `variance` and `stdev` use `variable="sample"` by
   default and also accept `variable="population"`.
+- Unit conversion accepts expressions such as `1000*meter` or `10*meter/second` and
+  target units through `variable`, such as `kilometer` or `kilometer/hour`.
 - Matrix operations accept matrix literals such as `[[1, 2], [3, 4]]`
 - Matrix solving accepts an `A; b` pair such as
   `[[2, 1], [1, -1]]; [[5], [1]]`
@@ -179,6 +184,8 @@ statistics_median("[1, 10, 2, 20]")
 statistics_variance("1, 2, 3")
 statistics_variance("1, 2, 3", variable="population")
 statistics_stdev("1, 2, 3")
+convert_units("1000*meter", variable="kilometer")
+convert_units("10*meter/second", variable="kilometer/hour")
 matrix_determinant("[[1, 2], [3, 4]]")
 matrix_order("[[1, 2, 3], [4, 5, 6]]")
 matrix_rank("[[1, 2, 3], [2, 4, 6], [1, 0, 1]]")
@@ -223,6 +230,9 @@ solve_expression("x = = 2")
 - Expression parsing is still starter-level and should be expanded carefully.
 - Request assumptions are currently metadata only.
 - Advanced domain coverage currently starts with systems of equations and matrix
-  operations, plus starter single-variable numeric solving and descriptive statistics.
+  operations, plus starter single-variable numeric solving, descriptive statistics, and
+  unit conversion.
 - Numeric solving is initial-guess sensitive and currently returns one solution.
 - Statistics support currently focuses on finite descriptive datasets.
+- Unit conversion currently uses a curated set of common length, time, mass, force,
+  energy, and power units.

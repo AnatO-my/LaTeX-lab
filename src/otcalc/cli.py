@@ -38,6 +38,7 @@ _COMMAND_OPERATIONS = {
     "median": MathOperation.STAT_MEDIAN,
     "variance": MathOperation.STAT_VARIANCE,
     "stdev": MathOperation.STAT_STDEV,
+    "unit": MathOperation.UNIT_CONVERT,
     "det": MathOperation.MATRIX_DETERMINANT,
     "order": MathOperation.MATRIX_ORDER,
     "rank": MathOperation.MATRIX_RANK,
@@ -77,6 +78,7 @@ _COMMAND_HELP = {
     "median": "Compute the median of a dataset.",
     "variance": "Compute sample or population variance of a dataset.",
     "stdev": "Compute sample or population standard deviation of a dataset.",
+    "unit": "Convert a numeric unit expression to a target unit.",
     "det": "Compute a matrix determinant.",
     "order": "Return a matrix order as rows by columns.",
     "rank": "Compute a matrix rank.",
@@ -116,6 +118,7 @@ _EXPLAIN_OPERATIONS = {
     "median": MathOperation.STAT_MEDIAN,
     "variance": MathOperation.STAT_VARIANCE,
     "stdev": MathOperation.STAT_STDEV,
+    "unit": MathOperation.UNIT_CONVERT,
     "det": MathOperation.MATRIX_DETERMINANT,
     "order": MathOperation.MATRIX_ORDER,
     "rank": MathOperation.MATRIX_RANK,
@@ -199,6 +202,8 @@ def _default_variable(command: str) -> str:
         return "2"
     if command in {"variance", "stdev"}:
         return "sample"
+    if command == "unit":
+        return "meter"
     return "x"
 
 
@@ -215,6 +220,8 @@ def _variable_help(command: str) -> str:
         return "Integer exponent, default 2."
     if command in {"variance", "stdev"}:
         return "Statistics mode sample or population. Default: sample."
+    if command == "unit":
+        return "Target unit expression, default meter."
     return "Variable name, default x."
 
 

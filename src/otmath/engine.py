@@ -36,6 +36,7 @@ from otmath.domains.statistics import (
     statistics_variance,
 )
 from otmath.domains.systems import solve_system
+from otmath.domains.units import convert_units
 from otmath.errors import UnsupportedOperationError
 from otmath.latex_render import render_latex
 from otmath.models import MathOperation, MathRequest, MathResult
@@ -607,6 +608,7 @@ _OPERATION_HANDLERS: dict[MathOperation, OperationHandler] = {
     MathOperation.STAT_MEDIAN: statistics_median,
     MathOperation.STAT_VARIANCE: statistics_variance,
     MathOperation.STAT_STDEV: statistics_stdev,
+    MathOperation.UNIT_CONVERT: convert_units,
     MathOperation.MATRIX_DETERMINANT: matrix_determinant,
     MathOperation.MATRIX_ORDER: matrix_order,
     MathOperation.MATRIX_RANK: matrix_rank,
