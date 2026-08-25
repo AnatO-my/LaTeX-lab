@@ -86,6 +86,10 @@ def test_cli_json(capsys: pytest.CaptureFixture[str]) -> None:
         ("integrate", "2*x", "integrate"),
         ("factor", "x**2 - 5*x + 6", "factor"),
         ("expand", "(x - 2)*(x - 3)", "expand"),
+        ("mean", "1, 2, 3, 4", "mean"),
+        ("median", "[1, 10, 2, 20]", "median"),
+        ("variance", "1, 2, 3", "variance"),
+        ("stdev", "1, 2, 3", "stdev"),
         ("latex", "x**2 - 5*x + 6", "simplify"),
     ],
 )
@@ -178,6 +182,11 @@ def test_cli_factor_complex() -> None:
         (["limit", "sin(x)/x", "--variable", "x,0,+-"], "1"),
         (["inequality", "x <= 3"], "Interval(-oo, 3)"),
         (["nsolve", "cos(x) - x", "--variable", "x,0.5"], "0.739085133215161"),
+        (["mean", "1, 2, 3, 4"], "5/2"),
+        (["median", "[1, 10, 2, 20]"], "6"),
+        (["variance", "1, 2, 3"], "1"),
+        (["variance", "1, 2, 3", "--variable", "population"], "2/3"),
+        (["stdev", "1, 2, 3"], "1"),
         (["det", "[[1, 2], [3, 4]]"], "-2"),
         (["order", "[[1, 2, 3], [4, 5, 6]]"], "2x3"),
         (["rank", "[[1, 2, 3], [2, 4, 6], [1, 0, 1]]"], "2"),
@@ -230,6 +239,10 @@ def test_cli_matrix_rref() -> None:
         ("integrate", "2*x", "x**2"),
         ("factor", "x**2 - 5*x + 6", "(x - 3)*(x - 2)"),
         ("expand", "(x - 2)*(x - 3)", "x**2 - 5*x + 6"),
+        ("mean", "1, 2, 3, 4", "5/2"),
+        ("median", "[1, 10, 2, 20]", "6"),
+        ("variance", "1, 2, 3", "1"),
+        ("stdev", "1, 2, 3", "1"),
     ],
 )
 def test_cli_text_output_for_each_command(

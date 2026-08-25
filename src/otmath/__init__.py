@@ -22,9 +22,14 @@ from otmath.domains import (
     matrix_solve,
     matrix_trace,
     matrix_transpose,
+    parse_dataset,
     parse_matrix,
     parse_matrix_pair,
     solve_system,
+    statistics_mean,
+    statistics_median,
+    statistics_stdev,
+    statistics_variance,
 )
 from otmath.engine import (
     differentiate_expression,
@@ -75,6 +80,7 @@ __all__ = [
     "matrix_trace",
     "matrix_transpose",
     "numeric_solve_expression",
+    "parse_dataset",
     "parse_matrix",
     "parse_matrix_pair",
     "product_expression",
@@ -85,5 +91,9 @@ __all__ = [
     "solve_inequality_expression",
     "solve_expression",
     "solve_system",
+    "statistics_mean",
+    "statistics_median",
+    "statistics_stdev",
+    "statistics_variance",
     "summation_expression",
 ]

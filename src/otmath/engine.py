@@ -29,6 +29,12 @@ from otmath.domains.matrices import (
     matrix_trace,
     matrix_transpose,
 )
+from otmath.domains.statistics import (
+    statistics_mean,
+    statistics_median,
+    statistics_stdev,
+    statistics_variance,
+)
 from otmath.domains.systems import solve_system
 from otmath.errors import UnsupportedOperationError
 from otmath.latex_render import render_latex
@@ -597,6 +603,10 @@ _OPERATION_HANDLERS: dict[MathOperation, OperationHandler] = {
     MathOperation.PRODUCT: product_expression,
     MathOperation.LIMIT: limit_expression,
     MathOperation.INEQUALITY: solve_inequality_expression,
+    MathOperation.STAT_MEAN: statistics_mean,
+    MathOperation.STAT_MEDIAN: statistics_median,
+    MathOperation.STAT_VARIANCE: statistics_variance,
+    MathOperation.STAT_STDEV: statistics_stdev,
     MathOperation.MATRIX_DETERMINANT: matrix_determinant,
     MathOperation.MATRIX_ORDER: matrix_order,
     MathOperation.MATRIX_RANK: matrix_rank,

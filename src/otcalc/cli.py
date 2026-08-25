@@ -34,6 +34,10 @@ _COMMAND_OPERATIONS = {
     "product": MathOperation.PRODUCT,
     "limit": MathOperation.LIMIT,
     "inequality": MathOperation.INEQUALITY,
+    "mean": MathOperation.STAT_MEAN,
+    "median": MathOperation.STAT_MEDIAN,
+    "variance": MathOperation.STAT_VARIANCE,
+    "stdev": MathOperation.STAT_STDEV,
     "det": MathOperation.MATRIX_DETERMINANT,
     "order": MathOperation.MATRIX_ORDER,
     "rank": MathOperation.MATRIX_RANK,
@@ -69,6 +73,10 @@ _COMMAND_HELP = {
     "product": "Evaluate a symbolic product.",
     "limit": "Evaluate a symbolic limit.",
     "inequality": "Solve a single-variable inequality.",
+    "mean": "Compute the arithmetic mean of a dataset.",
+    "median": "Compute the median of a dataset.",
+    "variance": "Compute sample or population variance of a dataset.",
+    "stdev": "Compute sample or population standard deviation of a dataset.",
     "det": "Compute a matrix determinant.",
     "order": "Return a matrix order as rows by columns.",
     "rank": "Compute a matrix rank.",
@@ -104,6 +112,10 @@ _EXPLAIN_OPERATIONS = {
     "product": MathOperation.PRODUCT,
     "limit": MathOperation.LIMIT,
     "inequality": MathOperation.INEQUALITY,
+    "mean": MathOperation.STAT_MEAN,
+    "median": MathOperation.STAT_MEDIAN,
+    "variance": MathOperation.STAT_VARIANCE,
+    "stdev": MathOperation.STAT_STDEV,
     "det": MathOperation.MATRIX_DETERMINANT,
     "order": MathOperation.MATRIX_ORDER,
     "rank": MathOperation.MATRIX_RANK,
@@ -185,6 +197,8 @@ def _default_variable(command: str) -> str:
         return "x,0"
     if command == "mpow":
         return "2"
+    if command in {"variance", "stdev"}:
+        return "sample"
     return "x"
 
 
@@ -199,6 +213,8 @@ def _variable_help(command: str) -> str:
         return "Limit spec variable,point[,direction]. Default: x,0."
     if command == "mpow":
         return "Integer exponent, default 2."
+    if command in {"variance", "stdev"}:
+        return "Statistics mode sample or population. Default: sample."
     return "Variable name, default x."
 
 

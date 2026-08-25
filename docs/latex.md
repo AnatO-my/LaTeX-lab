@@ -13,6 +13,7 @@ Use `\OTMathCompute` and `\OTMathExplain` in a trusted `.tex` document:
 
 \OTMathCompute[input=latex]{quadratic}{simplify}{x^{2} - 5x + 6}
 \OTMathCompute[input=latex; variable=x,0.5]{fixed-point}{nsolve}{\cos{x} - x}
+\OTMathCompute[input=latex]{mean-example}{mean}{1, 2, 3, 4}
 \OTMathCompute[input=latex; variable=x,y]{system-example}{system}{x + y = 5; x - y = 1}
 \OTMathExplain[input=latex; operation=solve]{solve-steps}{x^{2} - 5x + 6 = 0}
 ```
@@ -84,6 +85,8 @@ Supported starter LaTeX input includes:
 - Equations such as `x^{2} - 5x + 6 = 0`.
 - Numeric solving with `nsolve` and a `variable,initial_guess` option, such as
   `variable=x,0.5`.
+- Descriptive statistics requests `mean`, `median`, `variance`, and `stdev` with
+  comma-separated datasets such as `1, 2, 3, 4`.
 - `\frac{a}{b}`.
 - `\sqrt{x}`.
 - `\sin{x}`, `\cos{x}`, `\tan{x}`, `\log{x}`, `\ln{x}`, and `\exp{x}`.
@@ -128,6 +131,8 @@ Variables in options are normalized too. For example:
 \OTMathCompute[input=latex]{styled}{expand}{(\mathcal{A} + \mathbb{R})^{2}}
 \OTMathCompute[input=latex; variable=x]{plus-minus}{solve}{x = \pm 2}
 \OTMathCompute[input=latex; variable=x,0.5]{fixed-point}{nsolve}{\cos{x} - x}
+\OTMathCompute[input=latex]{mean-example}{mean}{1, 2, 3, 4}
+\OTMathCompute[input=latex; variable=population]{variance-example}{variance}{1, 2, 3}
 \OTMathCompute[input=latex]{minus-plus}{expand}{a \pm b \mp c}
 \OTMathCompute[input=latex]{independent-signs}{expand}{a \pm b \pm c}
 \OTMathCompute[input=latex]{derivative-notation}{differentiate}{\frac{d}{dx}\left(\sin{x}\right)}
@@ -160,6 +165,8 @@ branch uses plus/minus, and the second uses minus/plus.
 Repeated `\pm` inputs without `\mp` are treated as independent choices.
 Numeric solve requests are initial-guess sensitive and currently return one converged
 solution.
+Statistics requests currently focus on finite descriptive datasets. `variance` and
+`stdev` use sample mode by default and accept `variable=population` for population mode.
 
 Complex symbol declarations and aliases are not implemented yet. For now, use
 `\mathrm{i}` for the imaginary unit in LaTeX matrix input, and keep variable subscripts
@@ -189,8 +196,8 @@ TeX is missing.
 
 `examples/latex/stress.tex` is a broader document bench for current hard cases:
 subscripted variables, Greek variables, fractions, roots, solving, systems,
-differentiation, integration, numeric solving, matrix operations, and explanation
-rendering.
+differentiation, integration, numeric solving, descriptive statistics, matrix operations,
+and explanation rendering.
 
 ```bash
 otcalc latex-build examples/latex/stress.tex --compile

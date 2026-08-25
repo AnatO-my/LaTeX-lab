@@ -55,6 +55,16 @@ pdflatex -interaction=nonstopmode -halt-on-error stress.tex
 
 \OTMathCompute[input=latex; variable=x,0.5]{stress-nsolve-fixed-point}{nsolve}{\cos{x} - x}
 
+\subsection*{Statistics}
+
+\OTMathCompute[input=latex]{stress-stat-mean}{mean}{1, 2, 3, 4}
+
+\OTMathCompute[input=latex]{stress-stat-median}{median}{1, 10, 2, 20}
+
+\OTMathCompute[input=latex]{stress-stat-variance}{variance}{1, 2, 3}
+
+\OTMathCompute[input=latex]{stress-stat-stdev}{stdev}{1, 2, 3}
+
 \subsection*{Plus-Minus Branching}
 
 \OTMathCompute[input=latex]{stress-expand-plus-minus}{expand}{(x \pm 1)^{2}}

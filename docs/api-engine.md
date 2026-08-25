@@ -30,6 +30,10 @@ from otmath import (
     matrix_trace,
     matrix_transpose,
     numeric_solve_expression,
+    statistics_mean,
+    statistics_median,
+    statistics_stdev,
+    statistics_variance,
     product_expression,
     render_steps_latex,
     render_steps_text,
@@ -54,6 +58,10 @@ from otmath import (
 - `product_expression(expression: str, variable: str = "k,1,n")`
 - `limit_expression(expression: str, variable: str = "x,0")`
 - `solve_inequality_expression(expression: str, variable: str = "x")`
+- `statistics_mean(expression: str, variable: str = "x")`
+- `statistics_median(expression: str, variable: str = "x")`
+- `statistics_variance(expression: str, variable: str = "sample")`
+- `statistics_stdev(expression: str, variable: str = "sample")`
 - `matrix_determinant(expression: str, variable: str = "x")`
 - `matrix_order(expression: str, variable: str = "x")`
 - `matrix_rank(expression: str, variable: str = "x")`
@@ -123,6 +131,7 @@ assumptions, and unsupported operations are rejected before dispatch.
 - `integrate` differentiates the returned integral and compares it with the original expression.
 - `sum`, `product`, and `limit` use deterministic SymPy recomputation.
 - `inequality` returns SymPy's single-variable solution set.
+- Statistics operations use deterministic SymPy arithmetic over the parsed dataset.
 - Matrix operations are deterministic SymPy matrix operations.
 - `differentiate` currently checks consistency against SymPy's deterministic derivative result; this is not yet an independent proof.
 
@@ -136,6 +145,9 @@ The current parser accepts SymPy-style expression syntax, not LaTeX input.
   `ln`, `exp`, `sqrt`, and `abs`
 - Common constants include `pi`, `E`, and `I`
 - Unknown symbols such as `x` and `y` are allowed
+- Statistics operations accept comma-separated datasets such as `1, 2, 3` or list
+  literals such as `[1, 2, 3]`. `variance` and `stdev` use `variable="sample"` by
+  default and also accept `variable="population"`.
 - Matrix operations accept matrix literals such as `[[1, 2], [3, 4]]`
 - Matrix solving accepts an `A; b` pair such as
   `[[2, 1], [1, -1]]; [[5], [1]]`
@@ -162,6 +174,11 @@ summation_expression("k**2", variable="k,1,n")
 product_expression("k", variable="k,1,n")
 limit_expression("sin(x)/x", variable="x,0,+-")
 solve_inequality_expression("x <= 3")
+statistics_mean("1, 2, 3, 4")
+statistics_median("[1, 10, 2, 20]")
+statistics_variance("1, 2, 3")
+statistics_variance("1, 2, 3", variable="population")
+statistics_stdev("1, 2, 3")
 matrix_determinant("[[1, 2], [3, 4]]")
 matrix_order("[[1, 2, 3], [4, 5, 6]]")
 matrix_rank("[[1, 2, 3], [2, 4, 6], [1, 0, 1]]")
@@ -206,5 +223,6 @@ solve_expression("x = = 2")
 - Expression parsing is still starter-level and should be expanded carefully.
 - Request assumptions are currently metadata only.
 - Advanced domain coverage currently starts with systems of equations and matrix
-  operations, plus starter single-variable numeric solving.
+  operations, plus starter single-variable numeric solving and descriptive statistics.
 - Numeric solving is initial-guess sensitive and currently returns one solution.
+- Statistics support currently focuses on finite descriptive datasets.

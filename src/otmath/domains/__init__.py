@@ -24,6 +24,13 @@ from otmath.domains.matrices import (
     parse_matrix,
     parse_matrix_pair,
 )
+from otmath.domains.statistics import (
+    parse_dataset,
+    statistics_mean,
+    statistics_median,
+    statistics_stdev,
+    statistics_variance,
+)
 from otmath.domains.systems import SystemRequest, solve_system
 
 __all__ = [
@@ -48,7 +55,12 @@ __all__ = [
     "matrix_solve",
     "matrix_trace",
     "matrix_transpose",
+    "parse_dataset",
     "parse_matrix",
     "parse_matrix_pair",
     "solve_system",
+    "statistics_mean",
+    "statistics_median",
+    "statistics_stdev",
+    "statistics_variance",
 ]

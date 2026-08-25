@@ -16,6 +16,11 @@ otcalc sum "k**2" --variable "k,1,n"
 otcalc product "k" --variable "k,1,n"
 otcalc limit "sin(x)/x" --variable "x,0,+-"
 otcalc inequality "x <= 3"
+otcalc mean "1, 2, 3, 4"
+otcalc median "[1, 10, 2, 20]"
+otcalc variance "1, 2, 3"
+otcalc variance "1, 2, 3" --variable population
+otcalc stdev "1, 2, 3"
 otcalc det "[[1, 2], [3, 4]]"
 otcalc order "[[1, 2, 3], [4, 5, 6]]"
 otcalc rank "[[1, 2, 3], [2, 4, 6], [1, 0, 1]]"
@@ -71,6 +76,8 @@ the generated include but does not recalculate it.
 
 The `nsolve` command uses `--variable variable,initial_guess`; the default is `x,1`.
 It returns one numeric solution near the supplied initial guess when SymPy can converge.
+The `variance` and `stdev` commands use `--variable sample|population`; the default is
+`sample`.
 The `sum` and `product` commands use `--variable variable,lower,upper`. The `limit`
 command uses `--variable variable,point[,direction]`, where direction is `+`, `-`, or
 `+-`.
@@ -125,6 +132,8 @@ The starter CLI accepts SymPy-style expressions:
   with `=`.
 - `nsolve` accepts the same expression or equation style and requires a starting guess.
 - `system` accepts equations separated by semicolons and variables separated by commas.
+- `mean`, `median`, `variance`, and `stdev` accept comma-separated datasets or simple
+  list literals.
 - Other commands accept expressions only, not equation input.
 
 LaTeX document input is supported through `otcalc latex-build` with `input=latex`.

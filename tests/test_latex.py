@@ -140,7 +140,7 @@ def test_stress_latex_document_generates_current_hard_cases(tmp_path: Path) -> N
     result = generate_latex_include(stress, output_file=output_file)
     generated = output_file.read_text(encoding="utf-8")
 
-    assert result.request_count == 57
+    assert result.request_count == 61
     assert r"\csname OTMathGenerated@stress-factor-subscript\endcsname{%" in generated
     assert r"x_{0}" in generated
     assert r"\csname OTMathGenerated@stress-factor-complex\endcsname{%" in generated
@@ -163,6 +163,11 @@ def test_stress_latex_document_generates_current_hard_cases(tmp_path: Path) -> N
     assert r"\csname OTMathGenerated@stress-solve-quadratic-formula\endcsname{%" in generated
     assert r"\csname OTMathGenerated@stress-nsolve-fixed-point\endcsname{%" in generated
     assert "0.739085133215161" in generated
+    assert r"\csname OTMathGenerated@stress-stat-mean\endcsname{%" in generated
+    assert r"\frac{5}{2}" in generated
+    assert r"\csname OTMathGenerated@stress-stat-median\endcsname{%" in generated
+    assert r"\csname OTMathGenerated@stress-stat-variance\endcsname{%" in generated
+    assert r"\csname OTMathGenerated@stress-stat-stdev\endcsname{%" in generated
     assert r"\csname OTMathGenerated@stress-diff-arctan\endcsname{%" in generated
     assert r"\csname OTMathGenerated@stress-diff-notation\endcsname{%" in generated
     assert r"\csname OTMathGenerated@stress-diff-theta-notation\endcsname{%" in generated
@@ -300,6 +305,24 @@ def test_latex_build_generates_numeric_solve_from_latex_input(tmp_path: Path) ->
 
     assert result.request_count == 1
     assert "0.739085133215161" in generated
+
+
+def test_latex_build_generates_statistics_from_latex_input(tmp_path: Path) -> None:
+    tex_file = tmp_path / "scratch.tex"
+    output_file = tmp_path / "generated" / "otmath-results.tex"
+    tex_file.write_text(
+        r"\OTMathCompute[input=latex]{mean}{mean}{1, 2, 3, 4}"
+        "\n"
+        r"\OTMathCompute[input=latex]{variance}{variance}{1, 2, 3}",
+        encoding="utf-8",
+    )
+
+    result = generate_latex_include(tex_file, output_file=output_file)
+    generated = output_file.read_text(encoding="utf-8")
+
+    assert result.request_count == 2
+    assert r"\frac{5}{2}" in generated
+    assert r"\csname OTMathGenerated@variance\endcsname{%" in generated
 
 
 def test_latex_build_generates_include_with_greek_variables(tmp_path: Path) -> None:

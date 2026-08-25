@@ -40,6 +40,9 @@ _OPERATION_ALIASES = {
     "prod": MathOperation.PRODUCT,
     "inequality": MathOperation.INEQUALITY,
     "ineq": MathOperation.INEQUALITY,
+    "average": MathOperation.STAT_MEAN,
+    "var": MathOperation.STAT_VARIANCE,
+    "stddev": MathOperation.STAT_STDEV,
     "det": MathOperation.MATRIX_DETERMINANT,
     "matrix_det": MathOperation.MATRIX_DETERMINANT,
     "order": MathOperation.MATRIX_ORDER,
@@ -480,6 +483,8 @@ def _default_variable(operation: MathOperation) -> str:
         return "x,0,+-"
     if operation == MathOperation.MATRIX_POWER:
         return "2"
+    if operation in {MathOperation.STAT_VARIANCE, MathOperation.STAT_STDEV}:
+        return "sample"
     return "x"
 
 

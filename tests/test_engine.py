@@ -27,6 +27,7 @@ from otmath import (
     matrix_trace,
     matrix_transpose,
     numeric_solve_expression,
+    parse_dataset,
     product_expression,
     render_steps_latex,
     render_steps_text,
@@ -35,6 +36,10 @@ from otmath import (
     solve_expression,
     solve_inequality_expression,
     solve_system,
+    statistics_mean,
+    statistics_median,
+    statistics_stdev,
+    statistics_variance,
     summation_expression,
 )
 from otmath.domains import SystemRequest
@@ -326,6 +331,49 @@ def test_matrix_cholesky_decomposition() -> None:
 
     assert result.answers == ["L = Matrix([[2, 0], [1, sqrt(2)]])"]
     assert result.verified is True
+
+
+def test_parse_dataset_accepts_list_and_comma_input() -> None:
+    assert parse_dataset("[1, 2, sqrt(9)]") == [1, 2, 3]
+    assert parse_dataset("1, 2, 3") == [1, 2, 3]
+
+
+def test_statistics_mean() -> None:
+    result = statistics_mean("1, 2, 3, 4")
+
+    assert result.answers == ["5/2"]
+    assert result.latex == r"\frac{5}{2}"
+    assert result.metadata["count"] == 4
+    assert result.steps[0].kind == "mean"
+
+
+def test_statistics_median() -> None:
+    result = statistics_median("[1, 10, 2, 20]")
+
+    assert result.answers == ["6"]
+    assert result.verified is True
+
+
+def test_statistics_variance_sample_and_population() -> None:
+    sample = statistics_variance("1, 2, 3")
+    population = statistics_variance("1, 2, 3", variable="population")
+
+    assert sample.answers == ["1"]
+    assert sample.metadata["mode"] == "sample"
+    assert population.answers == ["2/3"]
+    assert population.metadata["mode"] == "population"
+
+
+def test_statistics_stdev() -> None:
+    result = statistics_stdev("1, 2, 3")
+
+    assert result.answers == ["1"]
+    assert result.verified is True
+
+
+def test_statistics_sample_variance_requires_two_values() -> None:
+    with pytest.raises(UnsupportedOperationError):
+        statistics_variance("1")
 
 
 def test_summation_expression() -> None:
