@@ -31,6 +31,7 @@ _FUNCTION_COMMANDS = {
 }
 _MAX_PLUS_MINUS_BRANCHES = 16
 _MATRIX_ENVIRONMENTS = ("bmatrix", "pmatrix", "matrix")
+_MATRIX_UNARY_PREFIXES = (r"\operatorname{det}", r"\det")
 _SYMBOL_COMMANDS = {
     r"\mathrm{i}": "I",
     r"E": "E",
@@ -449,7 +450,7 @@ def latex_matrix_to_engine_expression(expression: str) -> str:
     converted = expression.strip()
     replaced = _replace_latex_matrix_environments(converted)
     if replaced != converted:
-        return replaced
+        return _strip_matrix_unary_prefix(replaced)
 
     return latex_to_engine_expression(expression)
 
@@ -503,6 +504,17 @@ def _convert_latex_matrix_body(body: str) -> str:
             "[" + ", ".join(latex_to_engine_expression(cell) for cell in cells) + "]"
         )
     return "[" + ", ".join(converted_rows) + "]"
+
+
+def _strip_matrix_unary_prefix(source: str) -> str:
+    stripped = source.strip()
+    for prefix in _MATRIX_UNARY_PREFIXES:
+        if not stripped.startswith(prefix):
+            continue
+        body = stripped[len(prefix) :].strip()
+        if body.startswith("["):
+            return body
+    return stripped
 
 
 def _replace_symbol_commands(source: str) -> str:

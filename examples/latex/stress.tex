@@ -155,16 +155,8 @@ pdflatex -interaction=nonstopmode -halt-on-error stress.tex
 
 \OTMathExplain[input=latex; operation=solve]{stress-explain-solve}{x^{2} - 6x + 6 = 0}
 
-\section*{Next LaTeX Parser Targets}
+\subsection*{Direct Matrix Notation}
 
-The following is intentionally listed as ordinary LaTeX, not an executable OT Math
-request yet. It defines the next adapter surface we want to support:
-
-\[
-  \det\begin{bmatrix}
-    1 & 2 \\
-    3 & 4
-  \end{bmatrix}
-\]
+\OTMathCompute[input=latex]{stress-matrix-direct-det}{det}{\det\begin{bmatrix}1 & 2 \\ 3 & 4\end{bmatrix}}
 
 \end{document}

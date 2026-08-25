@@ -170,6 +170,12 @@ def test_latex_input_converts_matrix_environment() -> None:
         r"\begin{bmatrix}2 & 1 \\ 1 & -1\end{bmatrix}; "
         r"\begin{bmatrix}5 \\ 1\end{bmatrix}"
     ) == "[[2, 1], [1, -1]]; [[5], [1]]"
+    assert latex_matrix_to_engine_expression(
+        r"\det\begin{bmatrix}1 & 2 \\ 3 & 4\end{bmatrix}"
+    ) == "[[1, 2], [3, 4]]"
+    assert latex_matrix_to_engine_expression(
+        r"\operatorname{det}\begin{bmatrix}1 & 2 \\ 3 & 4\end{bmatrix}"
+    ) == "[[1, 2], [3, 4]]"
 
 
 def test_latex_input_converts_inequality_operators() -> None:

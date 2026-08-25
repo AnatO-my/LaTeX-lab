@@ -140,7 +140,7 @@ def test_stress_latex_document_generates_current_hard_cases(tmp_path: Path) -> N
     result = generate_latex_include(stress, output_file=output_file)
     generated = output_file.read_text(encoding="utf-8")
 
-    assert result.request_count == 55
+    assert result.request_count == 56
     assert r"\csname OTMathGenerated@stress-factor-subscript\endcsname{%" in generated
     assert r"x_{0}" in generated
     assert r"\csname OTMathGenerated@stress-factor-complex\endcsname{%" in generated
@@ -198,6 +198,7 @@ def test_stress_latex_document_generates_current_hard_cases(tmp_path: Path) -> N
     assert r"\csname OTMathGenerated@stress-matrix-lu\endcsname{%" in generated
     assert r"\csname OTMathGenerated@stress-matrix-qr\endcsname{%" in generated
     assert r"\csname OTMathGenerated@stress-matrix-cholesky\endcsname{%" in generated
+    assert r"\csname OTMathGenerated@stress-matrix-direct-det\endcsname{%" in generated
     assert r"P =" in generated
     assert r"D =" in generated
     assert r"\left\{ x_{0} = 3, y_{0} = 2 \right\}" in generated
@@ -423,6 +424,22 @@ def test_latex_build_generates_matrix_results_from_latex_input(tmp_path: Path) -
     assert r"\left[\begin{matrix}1 & 3\\2 & 4\end{matrix}\right]" in generated
     assert r"\left[\begin{matrix}1 - i & 0\\0 & 1 + i\end{matrix}\right]" in generated
     assert r"\left[\begin{matrix}2\\1\end{matrix}\right]" in generated
+
+
+def test_latex_build_accepts_direct_determinant_matrix_notation(tmp_path: Path) -> None:
+    tex_file = tmp_path / "scratch.tex"
+    output_file = tmp_path / "generated" / "otmath-results.tex"
+    tex_file.write_text(
+        r"\OTMathCompute[input=latex]{direct-det}{det}"
+        r"{\det\begin{bmatrix}1 & 2 \\ 3 & 4\end{bmatrix}}",
+        encoding="utf-8",
+    )
+
+    result = generate_latex_include(tex_file, output_file=output_file)
+    generated = output_file.read_text(encoding="utf-8")
+
+    assert result.request_count == 1
+    assert "-2" in generated
 
 
 def test_latex_build_generates_system_with_subscript_variables(tmp_path: Path) -> None:

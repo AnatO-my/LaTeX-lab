@@ -97,6 +97,8 @@ Supported starter LaTeX input includes:
   `msolve`, `nullspace`, `columnspace`, `rowspace`, `eigenvals`, `eigenvectors`,
   `diagonalize`, `lu`, `qr`, and `cholesky` requests. Matrix solving accepts an
   `A; b` pair, where both sides may be LaTeX matrix environments.
+- Direct determinant notation such as
+  `\det\begin{bmatrix}1 & 2 \\ 3 & 4\end{bmatrix}` inside a `det` request.
 - Plus-minus and minus-plus notation such as `x = \pm 2`, `x = \mp 2`,
   `(x \pm 1)^{2}`, `a \pm b \mp c`, or `a \pm b \pm c`. The LaTeX builder
   expands this into explicit sign branches before calling the engine.
@@ -127,6 +129,7 @@ Variables in options are normalized too. For example:
 \OTMathCompute[input=latex]{tan-integral}{integrate}{\int \tan{x} \, dx}
 \OTMathCompute[input=latex]{theta-integral}{integrate}{\int \theta^{2} \, d\theta}
 \OTMathCompute[input=latex]{matrix-det}{det}{\begin{bmatrix}1 & 2 \\ 3 & 4\end{bmatrix}}
+\OTMathCompute[input=latex]{matrix-direct-det}{det}{\det\begin{bmatrix}1 & 2 \\ 3 & 4\end{bmatrix}}
 \OTMathCompute[input=latex]{matrix-rank}{rank}{\begin{bmatrix}1 & 2 & 3 \\ 2 & 4 & 6 \\ 1 & 0 & 1\end{bmatrix}}
 \OTMathCompute[input=latex; variable=3]{matrix-power}{mpow}{\begin{bmatrix}1 & 1 \\ 0 & 1\end{bmatrix}}
 \OTMathCompute[input=latex]{matrix-transpose}{transpose}{\begin{bmatrix}1 & 2 \\ 3 & 4\end{bmatrix}}
@@ -192,5 +195,5 @@ You can also regenerate the include file with:
 python examples/latex/generate_stress_results.py
 ```
 
-The stress document also lists upcoming parser targets, such as determinant notation
-applied directly to a matrix, as ordinary LaTeX until the adapter supports them.
+The stress document also lists and exercises current parser targets, including direct
+determinant notation applied to a matrix.
