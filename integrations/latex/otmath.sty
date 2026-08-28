@@ -3,6 +3,16 @@
 
 \RequirePackage{amsmath}
 \RequirePackage{amssymb}
+\RequirePackage{xcolor}
+
+\definecolor{OTMathFrame}{RGB}{46, 95, 142}
+\definecolor{OTMathBackground}{RGB}{247, 250, 253}
+
+\newif\ifOTMathStyledResults
+\OTMathStyledResultstrue
+
+\newcommand{\OTMathUseStyledResults}{\OTMathStyledResultstrue}
+\newcommand{\OTMathUsePlainResults}{\OTMathStyledResultsfalse}
 
 \newcommand{\OTMathGeneratedInput}[1]{%
   \IfFileExists{#1}{%
@@ -28,9 +38,24 @@
 }
 
 \newcommand{\OTMathResult}[1]{%
-  \[
-    #1
-  \]
+  \ifOTMathStyledResults
+    \par\smallskip
+    \noindent\begingroup
+    \setlength{\fboxsep}{0.65em}%
+    \setlength{\fboxrule}{0.4pt}%
+    \fcolorbox{OTMathFrame}{OTMathBackground}{%
+      \begin{minipage}{\dimexpr\linewidth-2\fboxsep-2\fboxrule\relax}
+        \[
+          #1
+        \]
+      \end{minipage}%
+    }%
+    \endgroup\par\smallskip
+  \else
+    \[
+      #1
+    \]
+  \fi
 }
 
 \newcommand{\OTMathEquation}[2]{%

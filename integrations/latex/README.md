@@ -15,7 +15,8 @@ Available helpers:
 
 - `\OTMathGeneratedInput{...}` for optional generated include files.
 - `\OTMathInline{...}` for inline math.
-- `\OTMathResult{...}` for display math.
+- `\OTMathResult{...}` for styled display math.
+- `\OTMathUsePlainResults` and `\OTMathUseStyledResults` for switching result styling.
 - `\OTMathEquation{lhs}{rhs}` for numbered equations.
 - `OTMathSteps` plus `\OTMathStep{label}{math}` for aligned step displays.
 
@@ -40,6 +41,10 @@ LaTeX compilation reads the generated include file but does not update it. Run
 `otcalc latex-build` before compiling, or use the VS Code OT Math build shortcuts.
 If a generated include is missing, `\OTMathGeneratedInput{...}` lets the document compile
 with missing-result placeholders until the include is regenerated.
+
+Generated compute results are styled with a light framed display by default. Place
+`\OTMathUsePlainResults` before a group of requests to use the older plain display-math
+rendering, then `\OTMathUseStyledResults` to switch the framed result style back on.
 
 The sample document demonstrates the same pre-generation workflow:
 

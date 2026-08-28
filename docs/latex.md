@@ -54,6 +54,8 @@ regenerated.
 \OTMathGeneratedInput{generated/otmath-results.tex}
 \OTMathInline{x^{2} - 5 x + 6}
 \OTMathResult{x^{2} - 5 x + 6}
+\OTMathUsePlainResults
+\OTMathUseStyledResults
 \OTMathEquation{x^{2} - 5 x + 6}{0}
 \OTMathCompute[input=latex]{id}{simplify}{x^{2} - 5x + 6}
 \OTMathExplain[input=latex; operation=solve]{id-steps}{x^{2} - 5x + 6 = 0}
@@ -70,6 +72,10 @@ LaTeX compilation.
 results through `\OTMathUse{id}` after `otcalc latex-build` has written the include file.
 Multi-part matrix results, such as diagonalization and LU/QR decompositions, render as
 aligned labeled lines in generated LaTeX.
+
+Generated compute results use a light framed display by default. Use
+`\OTMathUsePlainResults` before requests that should render as ordinary display math,
+and `\OTMathUseStyledResults` to turn the framed result style back on.
 
 ## Input Syntax
 

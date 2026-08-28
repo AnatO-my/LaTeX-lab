@@ -51,9 +51,12 @@ def test_latex_package_defines_rendering_helpers() -> None:
     package = Path("integrations/latex/otmath.sty").read_text(encoding="utf-8")
 
     assert "\\RequirePackage{amssymb}" in package
+    assert "\\RequirePackage{xcolor}" in package
     assert "\\newcommand{\\OTMathInline}" in package
     assert "\\newcommand{\\OTMathResult}" in package
     assert "\\newcommand{\\OTMathEquation}" in package
+    assert "\\newcommand{\\OTMathUseStyledResults}" in package
+    assert "\\newcommand{\\OTMathUsePlainResults}" in package
     assert "\\newenvironment{OTMathSteps}" in package
     assert "\\newcommand{\\OTMathCompute}" in package
     assert "\\newcommand{\\OTMathExplain}" in package
