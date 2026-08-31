@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 2005 2005" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:1.5;">
+    <g transform="matrix(1,0,0,1,2.083333,2.083333)">
+        <path d="M2000,94.118L2000,1905.882C2000,1957.827 1957.827,2000 1905.882,2000L94.118,2000C42.173,2000 0,1957.827 0,1905.882L0,94.118C0,42.173 42.173,0 94.118,0L1905.882,0C1957.827,0 2000,42.173 2000,94.118Z" style="fill:white;stroke:black;stroke-width:4.17px;"/>
+        <g transform="matrix(0.838736,0,0,0.838736,-37.195678,262.840759)">
+            <g transform="matrix(336.406884,0,0,336.406884,2242.643026,1000)">
+            </g>
+            <text x="224.202px" y="1000px" style="font-family:'JetBrainsMonoRoman-Regular', 'JetBrains Mono', monospace;font-size:336.407px;">calcula+or</text>
+        </g>
+        <g transform="matrix(0.838736,0,0,0.838736,-186.510647,22.045014)">
+            <g transform="matrix(336.406884,0,0,336.406884,1233.422374,1000)">
+            </g>
+            <text x="224.202px" y="1000px" style="font-family:'JetBrainsMonoRoman-Regular', 'JetBrains Mono', monospace;font-size:336.407px;">latex</text>
+        </g>
+    </g>
+</svg>
