@@ -2,13 +2,87 @@ import * as path from "node:path";
 
 export type OtMathCliCommand =
   | "solve"
+  | "nsolve"
+  | "system"
   | "simplify"
   | "diff"
   | "integrate"
   | "factor"
   | "expand"
+  | "sum"
+  | "product"
+  | "limit"
+  | "inequality"
+  | "mean"
+  | "median"
+  | "variance"
+  | "stdev"
+  | "unit"
+  | "det"
+  | "order"
+  | "rank"
+  | "trace"
+  | "inverse"
+  | "mpow"
+  | "transpose"
+  | "conjugate"
+  | "adjoint"
+  | "rref"
+  | "msolve"
+  | "nullspace"
+  | "columnspace"
+  | "rowspace"
+  | "eigenvals"
+  | "eigenvectors"
+  | "diagonalize"
+  | "lu"
+  | "qr"
+  | "cholesky"
   | "latex"
   | "explain";
+
+export const SUPPORTED_SELECTION_COMMANDS: readonly Exclude<
+  OtMathCliCommand,
+  "latex" | "explain"
+>[] = [
+  "solve",
+  "nsolve",
+  "system",
+  "simplify",
+  "diff",
+  "integrate",
+  "factor",
+  "expand",
+  "sum",
+  "product",
+  "limit",
+  "inequality",
+  "mean",
+  "median",
+  "variance",
+  "stdev",
+  "unit",
+  "det",
+  "order",
+  "rank",
+  "trace",
+  "inverse",
+  "mpow",
+  "transpose",
+  "conjugate",
+  "adjoint",
+  "rref",
+  "msolve",
+  "nullspace",
+  "columnspace",
+  "rowspace",
+  "eigenvals",
+  "eigenvectors",
+  "diagonalize",
+  "lu",
+  "qr",
+  "cholesky",
+];
 
 export type OtMathOutputFormat = "text" | "json" | "latex";
 

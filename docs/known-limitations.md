@@ -58,8 +58,8 @@ OT Math is a beta-track local-first calculator, not a complete computer algebra 
 
 ## Integrations
 
-- The VS Code extension has automated command-builder tests, but command-palette and
-  editor replacement flows still need manual Extension Host QA before release.
+- The VS Code extension has automated command-builder tests and beta smoke-check notes,
+  but editor replacement flows should still be manually reviewed before public release.
 - The LaTeX integration currently favors generated snippets. Shell escape workflows are
   advanced and should only be used with trusted documents.
 

@@ -41,8 +41,8 @@ docs = []
 otcalc = "otcalc.cli:main"
 
 [project.urls]
-Homepage = "https://github.com/otmath/ot-math"
-Issues = "https://github.com/otmath/ot-math/issues"
+Homepage = "https://github.com/AnatO-my/LaTeX-lab"
+Issues = "https://github.com/AnatO-my/LaTeX-lab/issues"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/otmath", "src/otcalc"]

@@ -20,6 +20,10 @@ Then open the extension in a VS Code Extension Host and verify:
 - `OT Math: Explain Selection` displays deterministic steps.
 - `OT Math: Insert LaTeX Result` replaces the selected expression with LaTeX output.
 - `OT Math: Show Result` opens output without mutating the document.
+- `OT Math: Run Selected Operation` runs at least one newer domain command from the
+  picker, such as `nsolve`, `mean`, or `unit`.
+- `OT Math: Diagnose Extension` reports the active document, resolved commands, and
+  local `otcalc --version` probe.
 - Paths with spaces work when `otmath.otcalcPath` points to the local command.
 - The extension works with `provider=none` and without network access.
 

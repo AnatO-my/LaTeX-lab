@@ -6,6 +6,7 @@ import {
   buildOtcalcArgs,
   detectGeneratedLatexOutput,
   hasOtMathLatexRequests,
+  SUPPORTED_SELECTION_COMMANDS,
 } from "./commandBuilder";
 
 assert.deepEqual(
@@ -37,6 +38,19 @@ assert.deepEqual(
     explainOperation: "diff",
   }),
   ["explain", "x**3", "--operation", "diff"]
+);
+
+assert.ok(SUPPORTED_SELECTION_COMMANDS.includes("nsolve"));
+assert.ok(SUPPORTED_SELECTION_COMMANDS.includes("mean"));
+assert.ok(SUPPORTED_SELECTION_COMMANDS.includes("unit"));
+
+assert.deepEqual(
+  buildOtcalcArgs({
+    command: "nsolve",
+    expression: "cos(x) - x",
+    variable: "x,0.5",
+  }),
+  ["nsolve", "cos(x) - x", "--variable", "x,0.5"]
 );
 
 assert.deepEqual(

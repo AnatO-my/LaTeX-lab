@@ -30,3 +30,38 @@ VS Code notes:
 - `OT Math: Explain Selection` passed.
 - `OT Math: Insert LaTeX Result` passed.
 - `OT Math: Show Result` passed.
+
+## 2026-08-31
+
+Environment:
+
+- OS: Windows
+- VS Code: 1.135.0
+- Extension: OT Math 0.1.0 beta-track local Extension Host
+
+Checks:
+
+- Extension command-builder compile/test: passed.
+- `OT Math: Run Selected Operation` command is contributed and activation is declared.
+- Installed `vscode-otmath-0.1.0.vsix` locally and confirmed VS Code shows OT Math
+  version `0.1.0` from a VSIX source.
+- Command Palette smoke check confirmed `OT Math: Run Selected Operation` is visible.
+- Supported-operation picker covers symbolic, numeric, statistics, unit, system, and
+  matrix CLI commands.
+- `OT Math: Diagnose Extension` includes active document data, resolved commands, and a
+  local `otcalc --version` probe.
+- Local VSIX packaging passed with only runtime files, README, package metadata, and
+  license included.
+- Release verification passed:
+  `.venv\Scripts\python.exe -m ruff check .`,
+  `.venv\Scripts\python.exe -m mypy src`,
+  `.venv\Scripts\python.exe -m pytest`,
+  `python -m build`, and `npm test`.
+
+Notes:
+
+- On-save LaTeX refresh had already been verified from the OT Math output panel after
+  the local extension was activated.
+- Diagnostic command implementation was covered by TypeScript compile and command
+  contribution checks; the live command-palette smoke check was limited to visibility
+  because the window-control layer reported focus-safety interruptions during execution.

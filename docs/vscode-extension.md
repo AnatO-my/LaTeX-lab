@@ -8,6 +8,7 @@ The VS Code extension should connect editor selections to the local OT Math engi
 - Explain selected expression.
 - Insert LaTeX result.
 - Show result in an output panel.
+- Run any supported selected operation from a picker.
 - Refresh generated LaTeX results for the current `.tex` document.
 - Build the current `.tex` document.
 - Refresh and view the current `.tex` document's PDF.
@@ -39,7 +40,8 @@ starts.
 If on-save refresh does not run, execute `OT Math: Diagnose Extension` from the Command
 Palette with the `.tex` file active. If that command is missing, the local extension is
 not installed or the Extension Host is not running the compiled extension. If it appears,
-copy the OT Math output panel diagnostics for debugging.
+copy the OT Math output panel diagnostics for debugging. Diagnostics include a local
+`otcalc --version` probe so the active CLI path can be checked quickly.
 
 ## Settings
 
@@ -59,6 +61,8 @@ for the release checklist.
 - `OT Math: Solve Selection` shows a result for selected text.
 - `OT Math: Explain Selection` shows deterministic steps.
 - `OT Math: Insert LaTeX Result` replaces selection with LaTeX.
+- `OT Math: Run Selected Operation` can run at least one newer domain command, such as
+  `nsolve`, `mean`, or `unit`.
 - `OT Math: Diagnose Extension` reports the active document and resolved CLI commands.
 - Saving a `.tex` file with OT Math requests refreshes the generated include.
 - `OT Math: Build LaTeX Document` refreshes generated snippets and compiles the active `.tex` file.

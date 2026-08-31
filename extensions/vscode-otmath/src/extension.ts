@@ -9,6 +9,7 @@ import {
   detectGeneratedLatexOutput,
   hasOtMathLatexRequests,
   OtMathCliCommand,
+  SUPPORTED_SELECTION_COMMANDS,
 } from "./commandBuilder";
 
 interface ExtensionSettings {
@@ -27,6 +28,9 @@ interface OtcalcInvocation {
 }
 
 const latexRefreshesInFlight = new Set<string>();
+type SelectionOperation = Exclude<OtMathCliCommand, "latex" | "explain">;
+const RANGE_OPERATIONS = new Set<SelectionOperation>(["sum", "product"]);
+const STAT_SAMPLE_OPERATIONS = new Set<SelectionOperation>(["variance", "stdev"]);
 
 export function activate(context: vscode.ExtensionContext) {
   const output = vscode.window.createOutputChannel("OT Math");
@@ -44,6 +48,9 @@ export function activate(context: vscode.ExtensionContext) {
     ),
     vscode.commands.registerCommand("otmath.showResult", () =>
       runSelectionCommand("simplify", output)
+    ),
+    vscode.commands.registerCommand("otmath.runSelectedOperation", () =>
+      runSelectedOperation(output)
     ),
     vscode.commands.registerCommand("otmath.refreshLatexResults", () =>
       runLatexBuildCommand(output)
@@ -80,7 +87,11 @@ function readSettings(): ExtensionSettings {
 async function runSelectionCommand(
   command: OtMathCliCommand,
   output: vscode.OutputChannel,
-  options: { insertResult?: boolean; explainOperation?: "solve" } = {}
+  options: {
+    insertResult?: boolean;
+    explainOperation?: SelectionOperation;
+    variableOverride?: string;
+  } = {}
 ): Promise<void> {
   const settings = readSettings();
   if (settings.privacyMode !== "localOnly") {
@@ -100,7 +111,7 @@ async function runSelectionCommand(
     const args = buildOtcalcArgs({
       command,
       expression: selection,
-      variable: settings.variable,
+      variable: options.variableOverride ?? settings.variable,
       provider: settings.provider,
       noAi: true,
       format: command === "explain" ? "text" : undefined,
@@ -127,10 +138,38 @@ async function runSelectionCommand(
   }
 }
 
-function diagnoseExtension(
+async function runSelectedOperation(output: vscode.OutputChannel): Promise<void> {
+  const operation = await vscode.window.showQuickPick(
+    SUPPORTED_SELECTION_COMMANDS.map((command) => ({
+      label: operationLabel(command),
+      description: command,
+      command,
+    })),
+    { placeHolder: "Choose an OT Math operation for the selected expression." }
+  );
+  if (!operation) {
+    return;
+  }
+
+  const settings = readSettings();
+  const defaultVariable = defaultVariableForOperation(operation.command, settings.variable);
+  const variable = await vscode.window.showInputBox({
+    prompt: "Variable, mode, range, exponent, or target unit.",
+    value: defaultVariable,
+  });
+  if (variable === undefined) {
+    return;
+  }
+
+  await runSelectionCommand(operation.command, output, {
+    variableOverride: variable.trim() || defaultVariable,
+  });
+}
+
+async function diagnoseExtension(
   context: vscode.ExtensionContext,
   output: vscode.OutputChannel
-): void {
+): Promise<void> {
   const settings = readSettings();
   const editor = vscode.window.activeTextEditor;
   const document = editor?.document;
@@ -195,7 +234,54 @@ function diagnoseExtension(
   if (buildInvocation?.cwd) {
     output.appendLine(`  build cwd: ${buildInvocation.cwd}`);
   }
+  output.appendLine("");
+  output.appendLine("CLI Probe");
+  const probeInvocation = resolveOtcalcInvocation(settings, ["--version"], sourcePath);
+  output.appendLine(`  version command: ${formatInvocation(probeInvocation)}`);
+  try {
+    const probe = await runOtcalc(probeInvocation);
+    output.appendLine(`  version output: ${probe.stdout.trim() || "(empty)"}`);
+    if (probe.stderr) {
+      output.appendLine(`  version stderr: ${probe.stderr.trim()}`);
+    }
+  } catch (error) {
+    const message = error instanceof Error ? error.message : String(error);
+    output.appendLine(`  version failed: ${message}`);
+  }
   output.show(true);
+}
+
+function operationLabel(command: SelectionOperation): string {
+  return command
+    .split("_")
+    .flatMap((part) => part.split(/(?=[A-Z])/u))
+    .join(" ")
+    .replace(/\b\w/gu, (letter) => letter.toUpperCase());
+}
+
+function defaultVariableForOperation(command: SelectionOperation, configuredVariable: string): string {
+  if (command === "system") {
+    return "x,y";
+  }
+  if (command === "nsolve") {
+    return "x,1";
+  }
+  if (RANGE_OPERATIONS.has(command)) {
+    return "k,1,n";
+  }
+  if (command === "limit") {
+    return "x,0,+-";
+  }
+  if (command === "mpow") {
+    return "2";
+  }
+  if (STAT_SAMPLE_OPERATIONS.has(command)) {
+    return "sample";
+  }
+  if (command === "unit") {
+    return "meter";
+  }
+  return configuredVariable;
 }
 
 function formatWorkspaceFolders(): string {

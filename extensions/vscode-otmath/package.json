@@ -2,8 +2,14 @@
   "name": "vscode-otmath",
   "displayName": "OT Math",
   "description": "Local-first OT Math integration for VS Code.",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "publisher": "otmath",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AnatO-my/LaTeX-lab.git",
+    "directory": "extensions/vscode-otmath"
+  },
   "engines": {
     "vscode": "^1.90.0"
   },
@@ -19,6 +25,7 @@
     "onCommand:otmath.explainSelection",
     "onCommand:otmath.insertLatexResult",
     "onCommand:otmath.showResult",
+    "onCommand:otmath.runSelectedOperation",
     "onCommand:otmath.refreshLatexResults",
     "onCommand:otmath.buildLatexDocument",
     "onCommand:otmath.refreshAndViewLatexDocument",
@@ -42,6 +49,10 @@
       {
         "command": "otmath.showResult",
         "title": "OT Math: Show Result"
+      },
+      {
+        "command": "otmath.runSelectedOperation",
+        "title": "OT Math: Run Selected Operation"
       },
       {
         "command": "otmath.refreshLatexResults",

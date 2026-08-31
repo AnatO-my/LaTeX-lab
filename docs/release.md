@@ -1,6 +1,7 @@
 # Release Process
 
-This project is pre-alpha. The release process should become stricter before publishing packages.
+This project is beta-track. The release process should stay strict before publishing
+packages or sharing packaged editor builds.
 
 ## Checklist
 
@@ -11,6 +12,7 @@ This project is pre-alpha. The release process should become stricter before pub
 - Version number is updated.
 - Package builds locally.
 - Optional extension package builds if included in the release.
+- Extension Host QA is recorded for command-palette, selection, and LaTeX refresh flows.
 - Security and privacy notes are current.
 - No secrets are required for normal pull request CI.
 - Optional toolchains either run successfully or skip clearly.
@@ -37,11 +39,13 @@ npm test
 The Python package version is currently declared in `pyproject.toml`. The VS Code
 extension version is declared in `extensions/vscode-otmath/package.json`.
 
-Until beta, use `0.x.y` versions:
+During beta, use `0.x.y` versions:
 
 - Patch changes for fixes and documentation-only release polish.
 - Minor changes for new CLI, engine, extension, or integration capabilities.
 - Avoid publishing if tests, type checks, or package builds fail.
+
+For local beta tags, prefer `v0.x.y-beta.n` until the first public package is ready.
 
 ## Release Notes
 

@@ -2,7 +2,7 @@
 
 All notable changes to OT Math will be documented here.
 
-## 0.1.0 - Unreleased
+## 0.1.0 - 2026-08-31
 
 - Created local-first repository scaffold.
 - Added starter deterministic math engine.
@@ -45,5 +45,12 @@ All notable changes to OT Math will be documented here.
   paths.
 - Improved factorization to split complex factors such as `x**4 - 1`.
 - Added starter SymPy-backed operations for summation, products, limits, and inequalities.
+- Added starter numeric solving, descriptive statistics, and unit conversion domains.
+- Added matrix operations for order, determinant, rank, trace, inverse, powers, transpose,
+  conjugate, adjoint, RREF, solving, spaces, eigen data, diagonalization, and
+  decompositions.
+- Added styled LaTeX result blocks for generated document output.
+- Polished the VS Code beta bridge with a supported-operation picker and stronger
+  diagnostics, including a local CLI version probe.
 - Added project phases and Codex phase prompts.
 - Added documentation, governance files, templates, and integration placeholders.
