@@ -61,6 +61,9 @@ export function activate(context: vscode.ExtensionContext) {
     vscode.commands.registerCommand("otmath.refreshAndViewLatexDocument", () =>
       runLatexBuildCommand(output, { compile: true, viewPdf: true })
     ),
+    vscode.commands.registerCommand("otmath.installLatexMacros", () =>
+      installLatexMacros(context, output)
+    ),
     vscode.commands.registerCommand("otmath.diagnose", () =>
       diagnoseExtension(context, output)
     ),
@@ -209,6 +212,11 @@ async function diagnoseExtension(
   output.appendLine(`Extension path: ${context.extensionUri.fsPath}`);
   output.appendLine(`Workspace folders: ${formatWorkspaceFolders()}`);
   output.appendLine("");
+  output.appendLine("Bundled LaTeX Macros");
+  const bundledMacrosPath = context.asAbsolutePath(path.join("latex", "otmath.sty"));
+  output.appendLine(`  path: ${bundledMacrosPath}`);
+  output.appendLine(`  exists: ${fs.existsSync(bundledMacrosPath)}`);
+  output.appendLine("");
   output.appendLine("Settings");
   output.appendLine(`  otcalcPath: ${settings.otcalcPath}`);
   output.appendLine(`  provider: ${settings.provider}`);
@@ -319,6 +327,49 @@ async function runLatexBuildCommand(
 
   const sourcePath = editor.document.uri.fsPath;
   await runLatexBuildForDocument(editor.document, output, settings, options, { reveal: true });
+}
+
+async function installLatexMacros(
+  context: vscode.ExtensionContext,
+  output: vscode.OutputChannel
+): Promise<void> {
+  const sourcePath = context.asAbsolutePath(path.join("latex", "otmath.sty"));
+  if (!fs.existsSync(sourcePath)) {
+    vscode.window.showErrorMessage("OT Math bundled LaTeX macros are missing from this extension.");
+    return;
+  }
+
+  const targetDirectory = resolveLatexMacroInstallDirectory();
+  if (!targetDirectory) {
+    vscode.window.showInformationMessage("Open a .tex document or workspace first.");
+    return;
+  }
+
+  const targetPath = path.join(targetDirectory, "otmath.sty");
+  if (fs.existsSync(targetPath)) {
+    const choice = await vscode.window.showWarningMessage(
+      `otmath.sty already exists in ${targetDirectory}. Replace it with the bundled copy?`,
+      { modal: true },
+      "Replace"
+    );
+    if (choice !== "Replace") {
+      return;
+    }
+  }
+
+  await fs.promises.copyFile(sourcePath, targetPath);
+  output.appendLine(`Installed bundled LaTeX macros: ${targetPath}`);
+  output.show(true);
+  vscode.window.showInformationMessage(`Installed OT Math LaTeX macros to ${targetPath}`);
+}
+
+function resolveLatexMacroInstallDirectory(): string | undefined {
+  const editor = vscode.window.activeTextEditor;
+  const activeDocument = editor?.document;
+  if (activeDocument && isLocalTexDocument(activeDocument)) {
+    return path.dirname(activeDocument.uri.fsPath);
+  }
+  return vscode.workspace.workspaceFolders?.[0]?.uri.fsPath;
 }
 
 async function refreshLatexResultsOnSave(

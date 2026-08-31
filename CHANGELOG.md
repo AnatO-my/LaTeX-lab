@@ -52,5 +52,7 @@ All notable changes to OT Math will be documented here.
 - Added styled LaTeX result blocks for generated document output.
 - Polished the VS Code beta bridge with a supported-operation picker and stronger
   diagnostics, including a local CLI version probe.
+- Bundled synced LaTeX macros with the VS Code extension and added a command to install
+  `otmath.sty` into a document folder or workspace.
 - Added project phases and Codex phase prompts.
 - Added documentation, governance files, templates, and integration placeholders.

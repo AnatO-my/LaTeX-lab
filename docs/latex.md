@@ -68,6 +68,13 @@ regenerated.
 These macros only render already generated content. They do not call `otcalc` during
 LaTeX compilation.
 
+The VS Code extension also bundles a synced copy of this file at
+`extensions/vscode-otmath/latex/otmath.sty`. In VS Code, run
+`OT Math: Install LaTeX Macros Into Workspace` to copy `otmath.sty` beside the active
+`.tex` file or into the first workspace folder. The source of truth remains
+`integrations/latex/otmath.sty`; the extension copy is refreshed by the extension's
+`npm test`/compile workflow before packaging.
+
 `\OTMathCompute` and `\OTMathExplain` are authoring markers. They render generated
 results through `\OTMathUse{id}` after `otcalc latex-build` has written the include file.
 Multi-part matrix results, such as diagonalization and LU/QR decompositions, render as

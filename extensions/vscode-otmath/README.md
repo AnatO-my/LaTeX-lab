@@ -12,6 +12,7 @@ This extension connects editor selections to the local `otcalc` CLI.
 - `OT Math: Refresh LaTeX Results`
 - `OT Math: Build LaTeX Document`
 - `OT Math: Refresh and View LaTeX PDF`
+- `OT Math: Install LaTeX Macros Into Workspace`
 - `OT Math: Diagnose Extension`
 
 ## LaTeX On Save
@@ -36,6 +37,10 @@ not installed or the Extension Host is not running the compiled extension.
 including symbolic, numeric, statistics, unit, system, and matrix commands. It then asks
 for the variable, range, mode, exponent, or target unit before running the selection.
 
+The extension bundles `latex/otmath.sty` from the repository's source macro file. Use
+`OT Math: Install LaTeX Macros Into Workspace` to copy `otmath.sty` beside the active
+`.tex` document, or into the first workspace folder when no `.tex` file is active.
+
 ## Settings
 
 - `otmath.otcalcPath`: path to the local `otcalc` command, default `otcalc`
@@ -52,8 +57,9 @@ npm install
 npm test
 ```
 
-The test script compiles TypeScript and runs command assembly tests. Record Extension
-Host smoke checks in `docs/manual-qa-log.md` before tagging a beta.
+The test script syncs the bundled LaTeX macros, compiles TypeScript, and runs command
+assembly tests. Record Extension Host smoke checks in `docs/manual-qa-log.md` before
+tagging a beta.
 
 ## Privacy
 

@@ -52,6 +52,10 @@ Checks:
   local `otcalc --version` probe.
 - Local VSIX packaging passed with only runtime files, README, package metadata, and
   license included.
+- Bundled LaTeX macro follow-up passed:
+  `npm test` synced `integrations/latex/otmath.sty` into
+  `extensions/vscode-otmath/latex/otmath.sty`, and VSIX packaging included
+  `latex/otmath.sty`.
 - Release verification passed:
   `.venv\Scripts\python.exe -m ruff check .`,
   `.venv\Scripts\python.exe -m mypy src`,

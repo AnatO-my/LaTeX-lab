@@ -24,6 +24,8 @@ Then open the extension in a VS Code Extension Host and verify:
   picker, such as `nsolve`, `mean`, or `unit`.
 - `OT Math: Diagnose Extension` reports the active document, resolved commands, and
   local `otcalc --version` probe.
+- `OT Math: Install LaTeX Macros Into Workspace` copies the bundled `otmath.sty` into
+  the active document folder or workspace and asks before overwriting.
 - Paths with spaces work when `otmath.otcalcPath` points to the local command.
 - The extension works with `provider=none` and without network access.
 

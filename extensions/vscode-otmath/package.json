@@ -30,6 +30,7 @@
     "onCommand:otmath.refreshLatexResults",
     "onCommand:otmath.buildLatexDocument",
     "onCommand:otmath.refreshAndViewLatexDocument",
+    "onCommand:otmath.installLatexMacros",
     "onCommand:otmath.diagnose"
   ],
   "main": "./out/extension.js",
@@ -66,6 +67,10 @@
       {
         "command": "otmath.refreshAndViewLatexDocument",
         "title": "OT Math: Refresh and View LaTeX PDF"
+      },
+      {
+        "command": "otmath.installLatexMacros",
+        "title": "OT Math: Install LaTeX Macros Into Workspace"
       },
       {
         "command": "otmath.diagnose",
@@ -115,7 +120,8 @@
     }
   },
   "scripts": {
-    "compile": "tsc -p ./",
+    "sync-latex-macros": "node ./scripts/syncLatexMacros.js",
+    "compile": "npm run sync-latex-macros && tsc -p ./",
     "test": "npm run compile && node ./out/commandBuilder.test.js"
   },
   "devDependencies": {

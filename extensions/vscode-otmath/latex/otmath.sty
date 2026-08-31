@@ -1,0 +1,85 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{otmath}[2026/08/22 OT Math generated-snippet helpers]
+
+\RequirePackage{amsmath}
+\RequirePackage{amssymb}
+\RequirePackage{xcolor}
+
+\definecolor{OTMathFrame}{RGB}{46, 95, 142}
+\definecolor{OTMathBackground}{RGB}{247, 250, 253}
+
+\newif\ifOTMathStyledResults
+\OTMathStyledResultstrue
+
+\newcommand{\OTMathUseStyledResults}{\OTMathStyledResultstrue}
+\newcommand{\OTMathUsePlainResults}{\OTMathStyledResultsfalse}
+
+\newcommand{\OTMathGeneratedInput}[1]{%
+  \IfFileExists{#1}{%
+    \input{#1}%
+  }{%
+    \PackageWarning{otmath}{Generated OT Math include missing: #1}%
+  }%
+}
+
+\makeatletter
+\newcommand{\OTMathUse}[1]{%
+  \@ifundefined{OTMathGenerated@#1}{%
+    \PackageWarning{otmath}{Missing generated OT Math result `#1'}%
+    \text{[OT Math result missing: #1]}%
+  }{%
+    \csname OTMathGenerated@#1\endcsname%
+  }%
+}
+\makeatother
+
+\newcommand{\OTMathInline}[1]{%
+  \(#1\)%
+}
+
+\newcommand{\OTMathResult}[1]{%
+  \ifOTMathStyledResults
+    \par\smallskip
+    \noindent\begingroup
+    \setlength{\fboxsep}{0.65em}%
+    \setlength{\fboxrule}{0.4pt}%
+    \fcolorbox{OTMathFrame}{OTMathBackground}{%
+      \begin{minipage}{\dimexpr\linewidth-2\fboxsep-2\fboxrule\relax}
+        \[
+          #1
+        \]
+      \end{minipage}%
+    }%
+    \endgroup\par\smallskip
+  \else
+    \[
+      #1
+    \]
+  \fi
+}
+
+\newcommand{\OTMathEquation}[2]{%
+  \begin{equation}
+    #1 = #2
+  \end{equation}
+}
+
+\newenvironment{OTMathSteps}{%
+  \[
+  \begin{aligned}
+}{%
+  \end{aligned}
+  \]
+}
+
+\newcommand{\OTMathStep}[2]{%
+  \text{#1} & #2 \\
+}
+
+\newcommand{\OTMathCompute}[4][]{%
+  \OTMathResult{\OTMathUse{#2}}%
+}
+
+\newcommand{\OTMathExplain}[3][]{%
+  \OTMathUse{#2}%
+}

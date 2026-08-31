@@ -12,6 +12,7 @@ The VS Code extension should connect editor selections to the local OT Math engi
 - Refresh generated LaTeX results for the current `.tex` document.
 - Build the current `.tex` document.
 - Refresh and view the current `.tex` document's PDF.
+- Install the bundled `otmath.sty` macros into the active document folder or workspace.
 - Diagnose extension activation, settings, generated include detection, and resolved CLI commands.
 
 ## LaTeX On Save
@@ -43,6 +44,12 @@ not installed or the Extension Host is not running the compiled extension. If it
 copy the OT Math output panel diagnostics for debugging. Diagnostics include a local
 `otcalc --version` probe so the active CLI path can be checked quickly.
 
+The extension packages a synced copy of `integrations/latex/otmath.sty` at
+`latex/otmath.sty`. Use `OT Math: Install LaTeX Macros Into Workspace` to copy that
+file beside the active `.tex` document, or into the first workspace folder when no
+`.tex` file is active. Existing `otmath.sty` files require confirmation before
+replacement.
+
 ## Settings
 
 - `otmath.otcalcPath`: path to `otcalc`
@@ -67,6 +74,8 @@ for the release checklist.
 - Saving a `.tex` file with OT Math requests refreshes the generated include.
 - `OT Math: Build LaTeX Document` refreshes generated snippets and compiles the active `.tex` file.
 - `OT Math: Refresh and View LaTeX PDF` refreshes generated snippets and opens the compiled PDF.
+- `OT Math: Install LaTeX Macros Into Workspace` copies `otmath.sty` to the expected
+  local document or workspace folder and asks before overwriting.
 - Paths with spaces work when `otmath.otcalcPath` points to the local command.
 
 ## Privacy
