@@ -669,7 +669,7 @@ def _replace_command_with_one_group(source: str, command: str, template: str) ->
         if index == -1:
             return result
         start = index + len(command)
-        group, end = _read_required_group(result, start, command)
+        group, end = _read_command_argument(result, start, command)
         result = result[:index] + template.format(group) + result[end:]
 
 
@@ -701,6 +701,60 @@ def _read_required_group(source: str, start: int, command: str) -> tuple[str, in
                 return source[index + 1 : position], position + 1
 
     raise MathParseError(f"Unclosed LaTeX group for command: {command}")
+
+
+def _read_command_argument(source: str, start: int, command: str) -> tuple[str, int]:
+    index = _skip_spaces(source, start)
+    if index >= len(source):
+        raise MathParseError(f"LaTeX command requires an argument: {command}")
+    if source[index] == "{":
+        return _read_required_group(source, index, command)
+    if source[index] == "(":
+        return _read_parenthesized_group(source, index, command)
+    return _read_simple_command_argument(source, index, command)
+
+
+def _read_parenthesized_group(source: str, start: int, command: str) -> tuple[str, int]:
+    depth = 0
+    for position in range(start, len(source)):
+        char = source[position]
+        if char == "(":
+            depth += 1
+        elif char == ")":
+            depth -= 1
+            if depth == 0:
+                return source[start + 1 : position], position + 1
+
+    raise MathParseError(f"Unclosed LaTeX parenthesized argument for command: {command}")
+
+
+def _read_simple_command_argument(source: str, start: int, command: str) -> tuple[str, int]:
+    end = start
+    if source[end] == "\\":
+        end += 1
+        while end < len(source) and source[end].isalpha():
+            end += 1
+    else:
+        while end < len(source) and (source[end].isalnum() or source[end] == "_"):
+            end += 1
+
+    if end == start:
+        raise MathParseError(f"LaTeX command requires an argument: {command}")
+
+    end = _consume_simple_scripts(source, end)
+    return source[start:end], end
+
+
+def _consume_simple_scripts(source: str, start: int) -> int:
+    index = start
+    while index < len(source) and source[index] in "_^":
+        index += 1
+        if index < len(source) and source[index] == "{":
+            _, index = _read_required_group(source, index, "script")
+            continue
+        while index < len(source) and (source[index].isalnum() or source[index] in "_\\"):
+            index += 1
+    return index
 
 
 def _skip_spaces(source: str, start: int) -> int:

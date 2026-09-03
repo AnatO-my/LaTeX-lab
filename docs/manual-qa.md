@@ -26,6 +26,10 @@ Then open the extension in a VS Code Extension Host and verify:
   local `otcalc --version` probe.
 - `OT Math: Install LaTeX Macros Into Workspace` copies the bundled `otmath.sty` into
   the active document folder or workspace and asks before overwriting.
+- `OT Math: Insert LaTeX Setup Snippet` inserts `\input{otmath.sty}` and
+  `\OTMathGeneratedInput{generated/otmath-results.tex}` into an active `.tex` document.
+- `OT Math: Check Setup` reports bundled macros, local macros, active document, and CLI
+  version status.
 - Paths with spaces work when `otmath.otcalcPath` points to the local command.
 - The extension works with `provider=none` and without network access.
 

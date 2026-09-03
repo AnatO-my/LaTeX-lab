@@ -43,6 +43,8 @@ assert.deepEqual(
 assert.ok(SUPPORTED_SELECTION_COMMANDS.includes("nsolve"));
 assert.ok(SUPPORTED_SELECTION_COMMANDS.includes("mean"));
 assert.ok(SUPPORTED_SELECTION_COMMANDS.includes("unit"));
+assert.ok(SUPPORTED_SELECTION_COMMANDS.includes("norm"));
+assert.ok(SUPPORTED_SELECTION_COMMANDS.includes("cond"));
 
 assert.deepEqual(
   buildOtcalcArgs({

@@ -69,3 +69,26 @@ Notes:
 - Diagnostic command implementation was covered by TypeScript compile and command
   contribution checks; the live command-palette smoke check was limited to visibility
   because the window-control layer reported focus-safety interruptions during execution.
+
+## 2026-09-03
+
+Environment:
+
+- OS: Windows
+- Extension: OT Math 0.1.0 beta-track local VSIX build
+
+Checks:
+
+- Parser follow-up passed for braced, parenthesized, and simple one-token LaTeX
+  function arguments.
+- Matrix domain follow-up passed for `norm` and `cond` through engine, CLI, LaTeX
+  builder, and VS Code operation picker coverage.
+- LaTeX workflow follow-up passed for `OT Math: Check Setup` and
+  `OT Math: Insert LaTeX Setup Snippet` TypeScript compile coverage.
+- Bundled macro sync passed and kept `extensions/vscode-otmath/latex/otmath.sty`
+  aligned with `integrations/latex/otmath.sty`.
+- Release verification passed:
+  `.venv\Scripts\python.exe -m ruff check .`,
+  `.venv\Scripts\python.exe -m mypy src`,
+  `.venv\Scripts\python.exe -m pytest`,
+  `python -m build`, `npm test`, and VSIX packaging.

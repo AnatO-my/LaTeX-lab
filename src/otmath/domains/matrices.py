@@ -109,6 +109,44 @@ def matrix_inverse(expression: str, variable: str = "x") -> MathResult:
     )
 
 
+def matrix_norm(expression: str, variable: str = "fro") -> MathResult:
+    """Compute a matrix norm."""
+
+    matrix = parse_matrix(expression)
+    norm_order = _parse_matrix_norm_order(variable)
+    result = matrix.norm(norm_order)
+    return _matrix_result(
+        MathOperation.MATRIX_NORM,
+        expression,
+        variable,
+        result,
+        verification="sympy_matrix_norm",
+        shape=matrix.shape,
+        metadata_extra={"norm_order": "fro" if norm_order is None else str(norm_order)},
+    )
+
+
+def matrix_condition_number(expression: str, variable: str = "x") -> MathResult:
+    """Compute a matrix condition number."""
+
+    matrix = parse_matrix(expression)
+    try:
+        result = matrix.condition_number()
+    except NonSquareMatrixError as exc:
+        raise UnsupportedOperationError("Condition number requires a square matrix.") from exc
+    except NonInvertibleMatrixError as exc:
+        raise UnsupportedOperationError("Condition number requires an invertible matrix.") from exc
+
+    return _matrix_result(
+        MathOperation.MATRIX_CONDITION_NUMBER,
+        expression,
+        variable,
+        result,
+        verification="sympy_matrix_condition_number",
+        shape=matrix.shape,
+    )
+
+
 def matrix_power(expression: str, variable: str = "2") -> MathResult:
     """Raise a square matrix to an integer power."""
 
@@ -523,6 +561,22 @@ def _parse_matrix_power_exponent(exponent_text: str) -> int:
         raise UnsupportedOperationError("Matrix power exponent must be an integer.") from exc
 
 
+def _parse_matrix_norm_order(order_text: str) -> int | sp.Expr | None:
+    stripped = order_text.strip().lower()
+    if stripped in {"", "fro", "frob", "frobenius"}:
+        return None
+    if stripped in {"oo", "inf", "infinity"}:
+        return sp.oo
+    if stripped == "-oo":
+        return -sp.oo
+    try:
+        return int(stripped)
+    except ValueError as exc:
+        raise UnsupportedOperationError(
+            "Matrix norm order must be fro, 1, 2, -1, oo, or -oo."
+        ) from exc
+
+
 def _format_eigenvector_answer(
     value: sp.Expr,
     multiplicity: int,
@@ -596,6 +650,8 @@ def _matrix_step_title(operation: MathOperation) -> str:
         MathOperation.MATRIX_RANK: "Compute the matrix rank",
         MathOperation.MATRIX_TRACE: "Compute the matrix trace",
         MathOperation.MATRIX_INVERSE: "Compute the matrix inverse",
+        MathOperation.MATRIX_NORM: "Compute the matrix norm",
+        MathOperation.MATRIX_CONDITION_NUMBER: "Compute the matrix condition number",
         MathOperation.MATRIX_POWER: "Raise the matrix to the selected power",
         MathOperation.MATRIX_TRANSPOSE: "Transpose the matrix",
         MathOperation.MATRIX_CONJUGATE: "Conjugate each matrix entry",

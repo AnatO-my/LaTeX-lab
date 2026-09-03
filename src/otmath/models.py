@@ -35,6 +35,8 @@ class MathOperation(StrEnum):
     MATRIX_RANK = "matrix_rank"
     MATRIX_TRACE = "matrix_trace"
     MATRIX_INVERSE = "matrix_inverse"
+    MATRIX_NORM = "matrix_norm"
+    MATRIX_CONDITION_NUMBER = "matrix_condition_number"
     MATRIX_POWER = "matrix_power"
     MATRIX_TRANSPOSE = "matrix_transpose"
     MATRIX_CONJUGATE = "matrix_conjugate"
@@ -174,6 +176,8 @@ def _is_valid_variable_spec(name: str, operation: MathOperation | str) -> bool:
         )
     if operation == MathOperation.MATRIX_POWER:
         return _is_valid_integer(name)
+    if operation == MathOperation.MATRIX_NORM:
+        return _is_valid_matrix_norm_order(name)
     if operation == MathOperation.UNIT_CONVERT:
         return bool(name.strip()) and "__" not in name
     return _is_valid_symbol_name(name)
@@ -184,3 +188,10 @@ def _is_valid_integer(value: str) -> bool:
     if stripped.startswith("-"):
         stripped = stripped[1:]
     return bool(stripped) and stripped.isdigit()
+
+
+def _is_valid_matrix_norm_order(value: str) -> bool:
+    stripped = value.strip().lower()
+    if stripped in {"fro", "frob", "frobenius", "oo", "inf", "infinity", "-oo"}:
+        return True
+    return _is_valid_integer(stripped)

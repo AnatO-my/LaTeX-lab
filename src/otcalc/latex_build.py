@@ -57,6 +57,12 @@ _OPERATION_ALIASES = {
     "matrix_trace": MathOperation.MATRIX_TRACE,
     "inverse": MathOperation.MATRIX_INVERSE,
     "matrix_inverse": MathOperation.MATRIX_INVERSE,
+    "norm": MathOperation.MATRIX_NORM,
+    "matrix_norm": MathOperation.MATRIX_NORM,
+    "cond": MathOperation.MATRIX_CONDITION_NUMBER,
+    "condition": MathOperation.MATRIX_CONDITION_NUMBER,
+    "condition_number": MathOperation.MATRIX_CONDITION_NUMBER,
+    "matrix_condition_number": MathOperation.MATRIX_CONDITION_NUMBER,
     "mpow": MathOperation.MATRIX_POWER,
     "matrix_power": MathOperation.MATRIX_POWER,
     "transpose": MathOperation.MATRIX_TRANSPOSE,
@@ -457,6 +463,8 @@ _MATRIX_OPERATIONS = {
     MathOperation.MATRIX_RANK,
     MathOperation.MATRIX_TRACE,
     MathOperation.MATRIX_INVERSE,
+    MathOperation.MATRIX_NORM,
+    MathOperation.MATRIX_CONDITION_NUMBER,
     MathOperation.MATRIX_POWER,
     MathOperation.MATRIX_TRANSPOSE,
     MathOperation.MATRIX_CONJUGATE,
@@ -486,6 +494,8 @@ def _default_variable(operation: MathOperation) -> str:
         return "x,0,+-"
     if operation == MathOperation.MATRIX_POWER:
         return "2"
+    if operation == MathOperation.MATRIX_NORM:
+        return "fro"
     if operation in {MathOperation.STAT_VARIANCE, MathOperation.STAT_STDEV}:
         return "sample"
     if operation == MathOperation.UNIT_CONVERT:

@@ -143,7 +143,7 @@ def test_stress_latex_document_generates_current_hard_cases(tmp_path: Path) -> N
     result = generate_latex_include(stress, output_file=output_file)
     generated = output_file.read_text(encoding="utf-8")
 
-    assert result.request_count == 63
+    assert result.request_count == 65
     assert r"\csname OTMathGenerated@stress-factor-subscript\endcsname{%" in generated
     assert r"x_{0}" in generated
     assert r"\csname OTMathGenerated@stress-factor-complex\endcsname{%" in generated
@@ -191,6 +191,8 @@ def test_stress_latex_document_generates_current_hard_cases(tmp_path: Path) -> N
     assert r"\csname OTMathGenerated@stress-inequality\endcsname{%" in generated
     assert r"\csname OTMathGenerated@stress-matrix-det\endcsname{%" in generated
     assert r"\csname OTMathGenerated@stress-matrix-inverse\endcsname{%" in generated
+    assert r"\csname OTMathGenerated@stress-matrix-norm\endcsname{%" in generated
+    assert r"\csname OTMathGenerated@stress-matrix-cond\endcsname{%" in generated
     assert r"\csname OTMathGenerated@stress-matrix-transpose\endcsname{%" in generated
     assert r"\csname OTMathGenerated@stress-matrix-rref\endcsname{%" in generated
     assert r"\csname OTMathGenerated@stress-matrix-order\endcsname{%" in generated
@@ -471,6 +473,10 @@ def test_latex_build_generates_matrix_results_from_latex_input(tmp_path: Path) -
     tex_file.write_text(
         r"\OTMathCompute[input=latex]{det}{det}{\begin{bmatrix}1 & 2 \\ 3 & 4\end{bmatrix}}"
         "\n"
+        r"\OTMathCompute[input=latex]{norm}{norm}{\begin{bmatrix}2 & 0 \\ 0 & 4\end{bmatrix}}"
+        "\n"
+        r"\OTMathCompute[input=latex]{cond}{cond}{\begin{bmatrix}2 & 0 \\ 0 & 4\end{bmatrix}}"
+        "\n"
         r"\OTMathCompute[input=latex]{transpose}{transpose}"
         r"{\begin{bmatrix}1 & 2 \\ 3 & 4\end{bmatrix}}"
         "\n"
@@ -485,8 +491,9 @@ def test_latex_build_generates_matrix_results_from_latex_input(tmp_path: Path) -
     result = generate_latex_include(tex_file, output_file=output_file)
     generated = output_file.read_text(encoding="utf-8")
 
-    assert result.request_count == 4
+    assert result.request_count == 6
     assert "-2" in generated
+    assert r"2 \sqrt{5}" in generated
     assert r"\left[\begin{matrix}1 & 3\\2 & 4\end{matrix}\right]" in generated
     assert r"\left[\begin{matrix}1 - i & 0\\0 & 1 + i\end{matrix}\right]" in generated
     assert r"\left[\begin{matrix}2\\1\end{matrix}\right]" in generated

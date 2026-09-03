@@ -10,6 +10,7 @@ from otmath import (
     matrix_adjoint,
     matrix_cholesky_decomposition,
     matrix_columnspace,
+    matrix_condition_number,
     matrix_conjugate,
     matrix_determinant,
     matrix_diagonalize,
@@ -17,6 +18,7 @@ from otmath import (
     matrix_eigenvectors,
     matrix_inverse,
     matrix_lu_decomposition,
+    matrix_norm,
     matrix_nullspace,
     matrix_order,
     matrix_power,
@@ -208,6 +210,18 @@ def test_matrix_inverse() -> None:
 
     assert "Matrix([[-2, 1], [3/2, -1/2]])" in result.answers
     assert result.verified is True
+
+
+def test_matrix_norm_and_condition_number() -> None:
+    norm = matrix_norm("[[2, 0], [0, 4]]")
+    one_norm = matrix_norm("[[2, 0], [0, 4]]", variable="1")
+    condition = matrix_condition_number("[[2, 0], [0, 4]]")
+
+    assert norm.answers == ["2*sqrt(5)"]
+    assert norm.metadata["norm_order"] == "fro"
+    assert one_norm.answers == ["4"]
+    assert condition.answers == ["2"]
+    assert condition.metadata["verification"] == "sympy_matrix_condition_number"
 
 
 def test_matrix_power() -> None:
@@ -515,6 +529,16 @@ def test_math_request_accepts_numeric_solve_variable_spec() -> None:
     )
 
     assert request.variable == "x,0.5"
+
+
+def test_math_request_accepts_matrix_norm_order_spec() -> None:
+    request = MathRequest(
+        operation=MathOperation.MATRIX_NORM,
+        expression="[[1, 2], [3, 4]]",
+        variable="oo",
+    )
+
+    assert request.variable == "oo"
 
 
 def test_math_request_rejects_empty_expression() -> None:

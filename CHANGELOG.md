@@ -49,10 +49,13 @@ All notable changes to OT Math will be documented here.
 - Added matrix operations for order, determinant, rank, trace, inverse, powers, transpose,
   conjugate, adjoint, RREF, solving, spaces, eigen data, diagonalization, and
   decompositions.
+- Added matrix norms and condition numbers.
 - Added styled LaTeX result blocks for generated document output.
 - Polished the VS Code beta bridge with a supported-operation picker and stronger
   diagnostics, including a local CLI version probe.
 - Bundled synced LaTeX macros with the VS Code extension and added a command to install
   `otmath.sty` into a document folder or workspace.
+- Added VS Code first-run setup checks and a command to insert the OT Math LaTeX setup
+  snippet.
 - Added project phases and Codex phase prompts.
 - Added documentation, governance files, templates, and integration placeholders.

@@ -39,6 +39,9 @@ def test_latex_input_converts_grouped_function_arguments() -> None:
     assert_latex_equivalent(r"\tan{x^{-1}}", "tan(x**-1)")
     assert_latex_equivalent(r"\tan{x^2 + 1}", "tan(x**2 + 1)")
     assert_latex_equivalent(r"\tan{\frac{1}{x}}", "tan(1/x)")
+    assert_latex_equivalent(r"\sin(x + 1)", "sin(x + 1)")
+    assert_latex_equivalent(r"\cos x", "cos(x)")
+    assert_latex_equivalent(r"\exp x^{2}", "exp(x**2)")
 
 
 def test_latex_input_converts_standard_inverse_trig_functions() -> None:

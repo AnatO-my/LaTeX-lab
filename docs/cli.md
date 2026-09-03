@@ -28,6 +28,9 @@ otcalc order "[[1, 2, 3], [4, 5, 6]]"
 otcalc rank "[[1, 2, 3], [2, 4, 6], [1, 0, 1]]"
 otcalc trace "[[1, 2], [3, 4]]"
 otcalc inverse "[[1, 2], [3, 4]]"
+otcalc norm "[[2, 0], [0, 4]]"
+otcalc norm "[[2, 0], [0, 4]]" --variable 1
+otcalc cond "[[2, 0], [0, 4]]"
 otcalc mpow "[[1, 1], [0, 1]]" --variable 3
 otcalc transpose "[[1, 2], [3, 4]]"
 otcalc conjugate "[[1 + I, 2], [3, 4 - I]]"
@@ -86,9 +89,9 @@ command uses `--variable variable,point[,direction]`, where direction is `+`, `-
 `+-`.
 
 The matrix commands accept engine-style matrix literals such as
-`[[1, 2], [3, 4]]`. The `mpow` command uses `--variable` as an integer exponent
-until matrix-specific CLI options are introduced. The `msolve` command accepts an
-`A; b` pair for linear systems in matrix form.
+`[[1, 2], [3, 4]]`. The `mpow` command uses `--variable` as an integer exponent,
+and `norm` uses `--variable` as the norm order: `fro`, `1`, `2`, `-1`, `oo`, or
+`-oo`. The `msolve` command accepts an `A; b` pair for linear systems in matrix form.
 
 Text and LaTeX output print non-fatal warnings to stderr. JSON output keeps warnings in
 the `warnings` field and does not print separate warning text.

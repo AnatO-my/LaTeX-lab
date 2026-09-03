@@ -106,6 +106,8 @@ Supported starter LaTeX input includes:
 - `\frac{a}{b}`.
 - `\sqrt{x}`.
 - `\sin{x}`, `\cos{x}`, `\tan{x}`, `\log{x}`, `\ln{x}`, and `\exp{x}`.
+  Parenthesized and simple one-token arguments are also accepted, such as
+  `\sin(x + 1)`, `\cos x`, and `\exp x^{2}`.
 - Standard inverse trig commands `\arcsin{x}`, `\arccos{x}`, and `\arctan{x}`.
 - `e^{...}` as Euler's constant.
 - Inequalities such as `x \leq 3` and `x \geq 0` for `inequality` requests.
@@ -117,7 +119,7 @@ Supported starter LaTeX input includes:
 - Product notation such as `\prod_{k=1}^{n} k` for `product` requests.
 - Limit notation such as `\lim_{x \to 0} \frac{\sin{x}}{x}` for `limit` requests.
 - Matrix environments such as `bmatrix` and `pmatrix` for `det`, `order`, `rank`,
-  `trace`, `inverse`, `mpow`, `transpose`, `conjugate`, `adjoint`, `rref`,
+  `trace`, `inverse`, `norm`, `cond`, `mpow`, `transpose`, `conjugate`, `adjoint`, `rref`,
   `msolve`, `nullspace`, `columnspace`, `rowspace`, `eigenvals`, `eigenvectors`,
   `diagonalize`, `lu`, `qr`, and `cholesky` requests. Matrix solving accepts an
   `A; b` pair, where both sides may be LaTeX matrix environments.
@@ -160,6 +162,8 @@ Variables in options are normalized too. For example:
 \OTMathCompute[input=latex]{matrix-det}{det}{\begin{bmatrix}1 & 2 \\ 3 & 4\end{bmatrix}}
 \OTMathCompute[input=latex]{matrix-direct-det}{det}{\det\begin{bmatrix}1 & 2 \\ 3 & 4\end{bmatrix}}
 \OTMathCompute[input=latex]{matrix-rank}{rank}{\begin{bmatrix}1 & 2 & 3 \\ 2 & 4 & 6 \\ 1 & 0 & 1\end{bmatrix}}
+\OTMathCompute[input=latex]{matrix-norm}{norm}{\begin{bmatrix}2 & 0 \\ 0 & 4\end{bmatrix}}
+\OTMathCompute[input=latex]{matrix-cond}{cond}{\begin{bmatrix}2 & 0 \\ 0 & 4\end{bmatrix}}
 \OTMathCompute[input=latex; variable=3]{matrix-power}{mpow}{\begin{bmatrix}1 & 1 \\ 0 & 1\end{bmatrix}}
 \OTMathCompute[input=latex]{matrix-transpose}{transpose}{\begin{bmatrix}1 & 2 \\ 3 & 4\end{bmatrix}}
 \OTMathCompute[input=latex]{matrix-adjoint}{adjoint}{\begin{bmatrix}1 + \mathrm{i} & 2 \\ 3 & 4 - \mathrm{i}\end{bmatrix}}

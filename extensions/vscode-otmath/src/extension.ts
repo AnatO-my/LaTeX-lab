@@ -64,6 +64,12 @@ export function activate(context: vscode.ExtensionContext) {
     vscode.commands.registerCommand("otmath.installLatexMacros", () =>
       installLatexMacros(context, output)
     ),
+    vscode.commands.registerCommand("otmath.insertLatexSetupSnippet", () =>
+      insertLatexSetupSnippet()
+    ),
+    vscode.commands.registerCommand("otmath.checkSetup", () =>
+      checkSetup(context, output)
+    ),
     vscode.commands.registerCommand("otmath.diagnose", () =>
       diagnoseExtension(context, output)
     ),
@@ -283,6 +289,9 @@ function defaultVariableForOperation(command: SelectionOperation, configuredVari
   if (command === "mpow") {
     return "2";
   }
+  if (command === "norm") {
+    return "fro";
+  }
   if (STAT_SAMPLE_OPERATIONS.has(command)) {
     return "sample";
   }
@@ -361,6 +370,60 @@ async function installLatexMacros(
   output.appendLine(`Installed bundled LaTeX macros: ${targetPath}`);
   output.show(true);
   vscode.window.showInformationMessage(`Installed OT Math LaTeX macros to ${targetPath}`);
+}
+
+async function insertLatexSetupSnippet(): Promise<void> {
+  const editor = vscode.window.activeTextEditor;
+  if (!editor || !isLocalTexDocument(editor.document)) {
+    vscode.window.showInformationMessage("Open a .tex document first.");
+    return;
+  }
+
+  const source = editor.document.getText();
+  if (source.includes("otmath.sty") && source.includes("\\OTMathGeneratedInput")) {
+    vscode.window.showInformationMessage("This document already appears to contain OT Math setup.");
+    return;
+  }
+
+  const snippet = "\\input{otmath.sty}\n\\OTMathGeneratedInput{generated/otmath-results.tex}\n\n";
+  const beginDocument = source.indexOf("\\begin{document}");
+  const position =
+    beginDocument === -1
+      ? editor.selection.active
+      : editor.document.positionAt(beginDocument);
+
+  await editor.edit((edit) => edit.insert(position, snippet));
+  vscode.window.showInformationMessage("Inserted OT Math LaTeX setup snippet.");
+}
+
+async function checkSetup(
+  context: vscode.ExtensionContext,
+  output: vscode.OutputChannel
+): Promise<void> {
+  const settings = readSettings();
+  const editor = vscode.window.activeTextEditor;
+  const document = editor?.document;
+  const sourcePath = document?.uri.fsPath;
+  const bundledMacrosPath = context.asAbsolutePath(path.join("latex", "otmath.sty"));
+  const targetDirectory = resolveLatexMacroInstallDirectory();
+  const localMacrosPath = targetDirectory ? path.join(targetDirectory, "otmath.sty") : undefined;
+  const probeInvocation = resolveOtcalcInvocation(settings, ["--version"], sourcePath);
+
+  output.clear();
+  output.appendLine("OT Math Setup Check");
+  output.appendLine("");
+  output.appendLine(`Bundled macros: ${fs.existsSync(bundledMacrosPath) ? "found" : "missing"}`);
+  output.appendLine(`Local macros: ${localMacrosPath && fs.existsSync(localMacrosPath) ? "found" : "missing"}`);
+  output.appendLine(`Active document: ${sourcePath ?? "(none)"}`);
+  output.appendLine(`CLI command: ${formatInvocation(probeInvocation)}`);
+  try {
+    const probe = await runOtcalc(probeInvocation);
+    output.appendLine(`CLI version: ${probe.stdout.trim() || "(empty)"}`);
+  } catch (error) {
+    const message = error instanceof Error ? error.message : String(error);
+    output.appendLine(`CLI version: failed - ${message}`);
+  }
+  output.show(true);
 }
 
 function resolveLatexMacroInstallDirectory(): string | undefined {

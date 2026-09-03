@@ -13,6 +13,7 @@ from otmath import (
     matrix_cholesky_decomposition,
     matrix_columnspace,
     matrix_conjugate,
+    matrix_condition_number,
     matrix_diagonalize,
     matrix_determinant,
     matrix_eigenvalues,
@@ -20,6 +21,7 @@ from otmath import (
     matrix_inverse,
     matrix_lu_decomposition,
     matrix_nullspace,
+    matrix_norm,
     matrix_order,
     matrix_power,
     matrix_qr_decomposition,
@@ -69,6 +71,8 @@ from otmath import (
 - `matrix_rank(expression: str, variable: str = "x")`
 - `matrix_trace(expression: str, variable: str = "x")`
 - `matrix_inverse(expression: str, variable: str = "x")`
+- `matrix_norm(expression: str, variable: str = "fro")`
+- `matrix_condition_number(expression: str, variable: str = "x")`
 - `matrix_power(expression: str, variable: str = "2")`
 - `matrix_transpose(expression: str, variable: str = "x")`
 - `matrix_conjugate(expression: str, variable: str = "x")`
@@ -191,6 +195,9 @@ matrix_order("[[1, 2, 3], [4, 5, 6]]")
 matrix_rank("[[1, 2, 3], [2, 4, 6], [1, 0, 1]]")
 matrix_trace("[[1, 2], [3, 4]]")
 matrix_inverse("[[1, 2], [3, 4]]")
+matrix_norm("[[2, 0], [0, 4]]")
+matrix_norm("[[2, 0], [0, 4]]", variable="1")
+matrix_condition_number("[[2, 0], [0, 4]]")
 matrix_power("[[1, 1], [0, 1]]", variable="3")
 matrix_transpose("[[1, 2], [3, 4]]")
 matrix_conjugate("[[1 + I, 2], [3, 4 - I]]")

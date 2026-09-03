@@ -31,6 +31,8 @@
     "onCommand:otmath.buildLatexDocument",
     "onCommand:otmath.refreshAndViewLatexDocument",
     "onCommand:otmath.installLatexMacros",
+    "onCommand:otmath.insertLatexSetupSnippet",
+    "onCommand:otmath.checkSetup",
     "onCommand:otmath.diagnose"
   ],
   "main": "./out/extension.js",
@@ -71,6 +73,14 @@
       {
         "command": "otmath.installLatexMacros",
         "title": "OT Math: Install LaTeX Macros Into Workspace"
+      },
+      {
+        "command": "otmath.insertLatexSetupSnippet",
+        "title": "OT Math: Insert LaTeX Setup Snippet"
+      },
+      {
+        "command": "otmath.checkSetup",
+        "title": "OT Math: Check Setup"
       },
       {
         "command": "otmath.diagnose",

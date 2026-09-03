@@ -13,6 +13,8 @@ This extension connects editor selections to the local `otcalc` CLI.
 - `OT Math: Build LaTeX Document`
 - `OT Math: Refresh and View LaTeX PDF`
 - `OT Math: Install LaTeX Macros Into Workspace`
+- `OT Math: Insert LaTeX Setup Snippet`
+- `OT Math: Check Setup`
 - `OT Math: Diagnose Extension`
 
 ## LaTeX On Save
@@ -40,6 +42,9 @@ for the variable, range, mode, exponent, or target unit before running the selec
 The extension bundles `latex/otmath.sty` from the repository's source macro file. Use
 `OT Math: Install LaTeX Macros Into Workspace` to copy `otmath.sty` beside the active
 `.tex` document, or into the first workspace folder when no `.tex` file is active.
+Use `OT Math: Insert LaTeX Setup Snippet` to add the local macro input and generated
+include line to a `.tex` document. Use `OT Math: Check Setup` for a quick first-run
+check of macros, active document, and the local `otcalc` command.
 
 ## Settings
 

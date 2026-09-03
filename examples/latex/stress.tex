@@ -127,6 +127,10 @@ pdflatex -interaction=nonstopmode -halt-on-error stress.tex
 
 \OTMathCompute[input=latex]{stress-matrix-inverse}{inverse}{\begin{bmatrix}1 & 2 \\ 3 & 4\end{bmatrix}}
 
+\OTMathCompute[input=latex]{stress-matrix-norm}{norm}{\begin{bmatrix}2 & 0 \\ 0 & 4\end{bmatrix}}
+
+\OTMathCompute[input=latex]{stress-matrix-cond}{cond}{\begin{bmatrix}2 & 0 \\ 0 & 4\end{bmatrix}}
+
 \OTMathCompute[input=latex]{stress-matrix-transpose}{transpose}{\begin{bmatrix}1 & 2 \\ 3 & 4\end{bmatrix}}
 
 \OTMathCompute[input=latex]{stress-matrix-rref}{rref}{\begin{bmatrix}1 & 2 \\ 3 & 4\end{bmatrix}}

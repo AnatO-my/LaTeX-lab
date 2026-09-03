@@ -44,6 +44,8 @@ _COMMAND_OPERATIONS = {
     "rank": MathOperation.MATRIX_RANK,
     "trace": MathOperation.MATRIX_TRACE,
     "inverse": MathOperation.MATRIX_INVERSE,
+    "norm": MathOperation.MATRIX_NORM,
+    "cond": MathOperation.MATRIX_CONDITION_NUMBER,
     "mpow": MathOperation.MATRIX_POWER,
     "transpose": MathOperation.MATRIX_TRANSPOSE,
     "conjugate": MathOperation.MATRIX_CONJUGATE,
@@ -84,6 +86,8 @@ _COMMAND_HELP = {
     "rank": "Compute a matrix rank.",
     "trace": "Compute a matrix trace.",
     "inverse": "Compute a matrix inverse.",
+    "norm": "Compute a matrix norm.",
+    "cond": "Compute a matrix condition number.",
     "mpow": "Raise a matrix to an integer power.",
     "transpose": "Compute a matrix transpose.",
     "conjugate": "Compute an elementwise complex matrix conjugate.",
@@ -124,6 +128,8 @@ _EXPLAIN_OPERATIONS = {
     "rank": MathOperation.MATRIX_RANK,
     "trace": MathOperation.MATRIX_TRACE,
     "inverse": MathOperation.MATRIX_INVERSE,
+    "norm": MathOperation.MATRIX_NORM,
+    "cond": MathOperation.MATRIX_CONDITION_NUMBER,
     "mpow": MathOperation.MATRIX_POWER,
     "transpose": MathOperation.MATRIX_TRANSPOSE,
     "conjugate": MathOperation.MATRIX_CONJUGATE,
@@ -200,6 +206,8 @@ def _default_variable(command: str) -> str:
         return "x,0"
     if command == "mpow":
         return "2"
+    if command == "norm":
+        return "fro"
     if command in {"variance", "stdev"}:
         return "sample"
     if command == "unit":
@@ -218,6 +226,8 @@ def _variable_help(command: str) -> str:
         return "Limit spec variable,point[,direction]. Default: x,0."
     if command == "mpow":
         return "Integer exponent, default 2."
+    if command == "norm":
+        return "Matrix norm order: fro, 1, 2, -1, oo, or -oo. Default: fro."
     if command in {"variance", "stdev"}:
         return "Statistics mode sample or population. Default: sample."
     if command == "unit":

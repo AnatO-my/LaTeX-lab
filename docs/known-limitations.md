@@ -22,8 +22,8 @@ OT Math is a beta-track local-first calculator, not a complete computer algebra 
   energy, and power units.
 - Matrix support covers order, determinant, rank, trace, inverse, powers, transpose,
   conjugate, adjoint, RREF, matrix solving, null space, column space, row space,
-  eigenvalues, eigenvectors, diagonalization, LU, QR, and Cholesky decomposition for
-  SymPy-supported cases.
+  eigenvalues, eigenvectors, diagonalization, LU, QR, Cholesky decomposition, norms,
+  and condition numbers for SymPy-supported cases.
 
 ## Verification
 
@@ -51,9 +51,8 @@ OT Math is a beta-track local-first calculator, not a complete computer algebra 
   conversion.
 - Broader numerical methods, probability distributions, statistical inference, full unit
   dimensional analysis, and richer assumptions are planned but not complete.
-- Larger linear algebra workflows such as norms, condition numbers, singular value
-  decomposition, least-squares solving, and matrix equation families are not implemented
-  yet.
+- Larger linear algebra workflows such as singular value decomposition, least-squares
+  solving, and matrix equation families are not implemented yet.
 - Underdetermined systems may contain free variables and should be reviewed carefully.
 
 ## Integrations

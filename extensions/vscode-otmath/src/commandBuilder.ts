@@ -23,6 +23,8 @@ export type OtMathCliCommand =
   | "rank"
   | "trace"
   | "inverse"
+  | "norm"
+  | "cond"
   | "mpow"
   | "transpose"
   | "conjugate"
@@ -67,6 +69,8 @@ export const SUPPORTED_SELECTION_COMMANDS: readonly Exclude<
   "rank",
   "trace",
   "inverse",
+  "norm",
+  "cond",
   "mpow",
   "transpose",
   "conjugate",

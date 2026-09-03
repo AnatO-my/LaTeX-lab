@@ -13,6 +13,8 @@ The VS Code extension should connect editor selections to the local OT Math engi
 - Build the current `.tex` document.
 - Refresh and view the current `.tex` document's PDF.
 - Install the bundled `otmath.sty` macros into the active document folder or workspace.
+- Insert a minimal OT Math LaTeX setup snippet into the active `.tex` document.
+- Check local setup, bundled macros, local macros, active document, and CLI version.
 - Diagnose extension activation, settings, generated include detection, and resolved CLI commands.
 
 ## LaTeX On Save

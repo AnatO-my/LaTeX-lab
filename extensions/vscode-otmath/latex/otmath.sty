@@ -13,6 +13,8 @@
 
 \newcommand{\OTMathUseStyledResults}{\OTMathStyledResultstrue}
 \newcommand{\OTMathUsePlainResults}{\OTMathStyledResultsfalse}
+\newsavebox{\OTMathResultBox}
+\newlength{\OTMathResultInnerWidth}
 
 \newcommand{\OTMathGeneratedInput}[1]{%
   \IfFileExists{#1}{%
@@ -43,13 +45,23 @@
     \noindent\begingroup
     \setlength{\fboxsep}{0.65em}%
     \setlength{\fboxrule}{0.4pt}%
-    \fcolorbox{OTMathFrame}{OTMathBackground}{%
-      \begin{minipage}{\dimexpr\linewidth-2\fboxsep-2\fboxrule\relax}
-        \[
-          #1
-        \]
-      \end{minipage}%
-    }%
+    \setlength{\OTMathResultInnerWidth}{\dimexpr\linewidth-2\fboxsep-2\fboxrule\relax}%
+    \sbox{\OTMathResultBox}{\(\displaystyle #1\)}%
+    \ifdim\wd\OTMathResultBox>\OTMathResultInnerWidth
+      \fcolorbox{OTMathFrame}{OTMathBackground}{%
+        \begin{minipage}{\OTMathResultInnerWidth}
+          \[
+            #1
+          \]
+        \end{minipage}%
+      }%
+    \else
+      \makebox[\linewidth][c]{%
+        \fcolorbox{OTMathFrame}{OTMathBackground}{%
+          \usebox{\OTMathResultBox}%
+        }%
+      }%
+    \fi
     \endgroup\par\smallskip
   \else
     \[
