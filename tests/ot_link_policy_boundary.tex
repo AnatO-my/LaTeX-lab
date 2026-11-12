@@ -1,0 +1,22 @@
+\documentclass{article}
+
+% Plan decision 7: capability packages depend on the colour tokens only, so
+% loading them does not load hyperref or apply OT link styling.
+\usepackage{otboxes}
+\usepackage{otsciboxes}
+\usepackage{otnotation}
+\usepackage{otmath}
+\usepackage{otfigures}
+\usepackage{otpractice}
+
+\makeatletter
+\AtBeginDocument{%
+  \@ifpackageloaded{hyperref}{%
+    \PackageError{ot-link-policy-boundary}%
+      {a capability package loaded hyperref}{}}{}}
+\makeatother
+
+\begin{document}
+\typeout{OTREFACTOR-D7:LINK-POLICY-BOUNDARY}
+\begin{definitionbox}Boxes and notation work without hyperref: $\vect{v}$.\end{definitionbox}
+\end{document}

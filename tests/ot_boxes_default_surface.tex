@@ -1,0 +1,34 @@
+\documentclass{article}
+
+% Refactor Phase B guard: loading otboxes (directly or through otpractice)
+% must NOT define the semantic science-box names. Authors who define their
+% own boxes with these common names must keep compiling.
+\usepackage{otboxes}
+\usepackage{otpractice}
+
+\makeatletter
+\@for\ot@name:={definitionbox,theorembox,lawbox,formulabox,derivationbox,%
+  examplebox,warningbox,intuitionbox,summarybox,experimentbox,%
+  exampleboxnosplit,summaryboxnosplit}\do{%
+  \@ifundefined{\ot@name}{}{%
+    \PackageError{ot-boxes-default-surface}%
+      {otboxes/otpractice unexpectedly define \ot@name}{}}}
+\makeatother
+
+\newenvironment{examplebox}{\par\textbf{Author example:}\ }{\par}
+\newenvironment{summarybox}{\par\textbf{Author summary:}\ }{\par}
+\newenvironment{definitionbox}{\par\textbf{Author definition:}\ }{\par}
+
+\begin{document}
+
+\typeout{OTREFACTOR-B:DEFAULT-SURFACE}
+
+\begin{examplebox}An author-defined box with a common name.\end{examplebox}
+\begin{summarybox}Another one.\end{summarybox}
+\begin{definitionbox}And another.\end{definitionbox}
+
+\begin{otscibox}[Shared primitive still available]{OTBlue}
+  Body.
+\end{otscibox}
+
+\end{document}

@@ -1,32 +1,21 @@
 % ============================================================
 % OT Theme Package (Colours and Hyperlinks)
 % ottheme.sty
-% Version: 0.2
+% Version: 0.3
 % Purpose: Shared colour palette and hyperlink configuration
 % ============================================================
 
 \NeedsTeXFormat{LaTeX2e}[2022-06-01]
-\ProvidesPackage{ottheme}[2026/08/10 v0.2 OT Shared Theme Package]
+\ProvidesPackage{ottheme}[2026/11/11 v0.3 OT Shared Theme Package]
 
 % -----------------------------
 % Required packages
 % -----------------------------
-\RequirePackage{xcolor}
+% Since v0.3 the palette lives in otcolors.sty; this package is the
+% compatibility facade that adds the OT hyperlink policy. Capability packages
+% require otcolors only, so loading them no longer loads hyperref.
+\RequirePackage{otcolors}
 \RequirePackage{hyperref}
-
-% -----------------------------
-% Colour palette
-% -----------------------------
-\definecolor{OTDark}{HTML}{1F2937}
-\definecolor{OTMuted}{HTML}{6B7280}
-\definecolor{OTLight}{HTML}{F9FAFB}
-\definecolor{OTBlue}{HTML}{2563EB}
-\definecolor{OTGreen}{HTML}{059669}
-\definecolor{OTOrange}{HTML}{D97706}
-\definecolor{OTRed}{HTML}{DC2626}
-\definecolor{OTPurple}{HTML}{7C3AED}
-\definecolor{OTTeal}{HTML}{0891B2}
-\definecolor{OTYellow}{HTML}{CA8A04}
 
 % -----------------------------
 % Hyperlink policy

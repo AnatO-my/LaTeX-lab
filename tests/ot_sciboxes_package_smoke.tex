@@ -1,0 +1,34 @@
+\documentclass{article}
+
+% Refactor Phase B: the semantic science-box family is owned by otsciboxes
+% and must work in a standard class without any OT document class.
+\usepackage{otsciboxes}
+
+\begin{document}
+
+\section*{OT Semantic Science Box Smoke Test}
+
+\typeout{OTREFACTOR-B:OTSCIBOXES-SMOKE}
+
+\begin{definitionbox}Definition body.\end{definitionbox}
+\begin{definitionboxnosplit}[Custom definition]Definition body.\end{definitionboxnosplit}
+\begin{theorembox}Theorem body.\end{theorembox}
+\begin{theoremboxnosplit}Theorem body.\end{theoremboxnosplit}
+\begin{lawbox}Law body.\end{lawbox}
+\begin{lawboxnosplit}Law body.\end{lawboxnosplit}
+\begin{formulabox}[Formula: $E = mc^2$]Formula body.\end{formulabox}
+\begin{formulaboxnosplit}Formula body.\end{formulaboxnosplit}
+\begin{derivationbox}Derivation body.\end{derivationbox}
+\begin{derivationboxnosplit}Derivation body.\end{derivationboxnosplit}
+\begin{examplebox}Example body.\end{examplebox}
+\begin{exampleboxnosplit}Example body.\end{exampleboxnosplit}
+\begin{warningbox}Warning body.\end{warningbox}
+\begin{warningboxnosplit}Warning body.\end{warningboxnosplit}
+\begin{intuitionbox}Intuition body.\end{intuitionbox}
+\begin{intuitionboxnosplit}Intuition body.\end{intuitionboxnosplit}
+\begin{summarybox}Summary body.\end{summarybox}
+\begin{summaryboxnosplit}Summary body.\end{summaryboxnosplit}
+\begin{experimentbox}Experiment body.\end{experimentbox}
+\begin{experimentboxnosplit}Experiment body.\end{experimentboxnosplit}
+
+\end{document}

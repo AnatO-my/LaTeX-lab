@@ -106,6 +106,25 @@ The shared packages are ecosystem hooks. Ordinary documents should still prefer
 the semantic class interfaces unless they are intentionally building a companion
 package, compatibility wrapper, or class-level integration.
 
+### Colour tokens and link policy (since 11 November 2026)
+
+| Package | Supplies | Side effects |
+| --- | --- | --- |
+| `otcolors.sty` (v0.1) | the `OT...` colour names | loads `xcolor` only |
+| `ottheme.sty` (v0.3) | `otcolors` plus the OT hyperlink policy | loads `hyperref` and sets `colorlinks=true`, `linkcolor=OTBlue`, `urlcolor=OTBlue`, `citecolor=OTGreen` |
+
+The OT document classes load `ottheme`, so their link styling is unchanged.
+Capability packages (`otboxes`, `otsciboxes`, `otnotation`, `otmath`,
+`otfigures`, `otcode`, `otcircuits`, `otplots`, `otindex`, `otforms`,
+`otsymbols`, `otreproduce`, `otaccess`, `otbib`, `otpractice`) require only
+`otcolors`. Loading one of them in a standard class therefore no longer loads
+`hyperref` or applies OT link colours.
+
+**Migration:** a standalone document that relied on those links arriving through
+a capability package adds `\usepackage{ottheme}`, or loads `hyperref` itself.
+`tests/ot_link_policy_boundary.tex` and `tests/ot_link_policy_optin.tex` guard
+both sides of this contract.
+
 # `physicsquiz.cls`
 
 ## Class declaration and output options
@@ -1004,9 +1023,10 @@ expansions are source-verified.
 
 ## Theme palette
 
-The `otengineering` palette is an advanced theme interface. Since Phase 5B, the
-shared values are supplied by `ottheme.sty`; `otengineering.cls` deliberately
-re-declares `OTLight` to keep its established notebook background.
+The `otengineering` palette is an advanced theme interface. All values,
+including `OTLight`, are supplied by `otcolors.sty` (through `ottheme.sty`).
+Since `otcolors` v0.2 (12 November 2026), every OT class uses the same
+`OTLight` value, `#F3F4F6`. The class no longer needs to re-declare it.
 
 | Colour | Definition |
 | --- | --- |
@@ -1019,9 +1039,8 @@ re-declares `OTLight` to keep its established notebook background.
 | `OTRed` | `#DC2626` |
 | `OTPurple` | `#7C3AED` |
 
-These names are shared with `otscience`, but the `OTLight` value is not identical
-between the two classes. Code that depends on an exact background must use the
-value belonging to the active class.
+These names and values are identical in `otscience`, `otbook` and
+`otengineering`. Before 12 November 2026 the science `OTLight` was `#F9FAFB`.
 
 ## Naming risks
 
@@ -1038,10 +1057,28 @@ or package without a deliberate namespace policy.
 \documentclass{otscience}
 ```
 
-The class uses fixed 11-point A4 `article` settings. It does not currently expose a
-class-option forwarding interface or class-owned title-metadata commands.
+The class uses fixed 11-point A4 `article` settings. It does not forward options
+to `article` or define class-owned title-metadata commands.
+
+Since class version 0.3 it accepts one option:
+
+```latex
+\documentclass[minimal]{otscience}
+```
+
+`minimal` skips the companion-package bundle described under
+[Companion-package boundary](#companion-package-boundary). The class foundations,
+including the semantic boxes, are still loaded. Any other option keeps its
+previous behaviour: it is not passed to `article`, but remains visible to
+packages as a global option.
 
 ## Semantic box families
+
+Since class version 0.3 these environments are owned by the companion package
+`otsciboxes.sty`, which the class loads. They are unchanged in name, syntax,
+defaults, colour and pagination. The package can also be used with a standard
+class (`\usepackage{otsciboxes}`), and is covered by
+`tests/ot_sciboxes_package_smoke.tex`.
 
 Every semantic environment accepts an optional replacement title.
 
@@ -1103,10 +1140,26 @@ box height.
 Ordinary authors should prefer the semantic wrappers. Both generic interfaces and
 their pagination behaviour are regression-verified.
 
+Loading `otboxes` (directly or through `otpractice`) defines only these two
+primitives. It does not define the semantic box names, so a document can define
+its own `examplebox` or `summarybox` alongside it;
+`tests/ot_boxes_default_surface.tex` guards this contract.
+
 ## Shared class-support helpers
 
 `otcore.sty` is a class-support package for shared OT page furniture and setup.
 It is not intended as ordinary author syntax.
+
+Since `otcore` v0.3 (12 November 2026) it is a compatibility facade. It loads
+`otcolors`, `otlayout`, `tabularx`, `array`, and `datetime2`. The helpers below
+are owned by `otlayout.sty` and keep their names and behaviour.
+
+`otlayout` applies the OT default of one-inch margins only if `geometry` is not
+already loaded. A class or document that needs different page geometry has two
+options. It can load `geometry` with its own options *before* `otlayout` or
+`otcore`; that no longer raises an option clash. Or it can adjust afterwards
+with `\geometry{...}`, as `otbook` does. `tests/otlayout_default_geometry.tex`
+and `tests/otlayout_geometry_precedence.tex` guard this contract.
 
 The class-facing helper commands are:
 
@@ -1119,15 +1172,21 @@ The class-facing helper commands are:
 `otscience.cls` and `otengineering.cls` pass different values to these helpers,
 so their established visual identities remain separate.
 
+`otscience` and `otbook` share the preset `otscience-theme.sty`. It sets the
+`siunitx` formatting, list spacing and `OTPurple` heading styles, and provides
+`\otsciencepagestyle{<left-head label>}` for the muted running head. It can also
+be used with a standard class; `tests/otscience_theme_preset_smoke.tex` covers that.
+
 ## Theme palette
 
-The science palette is an advanced theme interface supplied by `ottheme.sty`.
+The science palette is an advanced theme interface supplied by `otcolors.sty`
+and re-exported by `ottheme.sty`.
 
 | Colour | Definition |
 | --- | --- |
 | `OTDark` | `#1F2937` |
 | `OTMuted` | `#6B7280` |
-| `OTLight` | `#F9FAFB` |
+| `OTLight` | `#F3F4F6` |
 | `OTBlue` | `#2563EB` |
 | `OTGreen` | `#059669` |
 | `OTOrange` | `#D97706` |
@@ -1138,10 +1197,13 @@ The science palette is an advanced theme interface supplied by `ottheme.sty`.
 
 Companion packages, shared box packages, and workbook compatibility wrappers may
 depend on these names. Since Checkpoint 5B, `otnotation`, `otmath`, and
-`otfigures` load `ottheme` directly when they need these names. Since Checkpoint
-5C, `otboxes` also loads `ottheme` directly for the base science box palette.
-The science value of `OTLight` (`#F9FAFB`) differs from the engineering value
-(`#F3F4F6`).
+`otfigures` load the palette directly when they need these names, and since
+Checkpoint 5C so does `otboxes`. Since 11 November 2026 they load `otcolors`
+rather than `ottheme`; see
+[Colour tokens and link policy](#colour-tokens-and-link-policy-since-11-november-2026).
+Since `otcolors` v0.2 the science and engineering palettes are identical;
+`OTLight` is `#F3F4F6` for both (the science value was `#F9FAFB` before
+12 November 2026).
 
 ## `physics` and `siunitx` quantity compatibility
 
@@ -1164,8 +1226,8 @@ Other commands supplied by `physics` and `siunitx` remain package-owned interfac
 
 ## Companion-package boundary
 
-`otscience.cls` loads `otboxes` directly for the shared base science boxes. It
-conditionally loads these companion packages when they are available:
+`otscience.cls` loads `otboxes` and `otsciboxes` directly for the shared science
+boxes. Unless the `minimal` option is given, it also loads this companion bundle:
 
 * `otnotation`;
 * `otmath`;
@@ -1177,10 +1239,14 @@ conditionally loads these companion packages when they are available:
 
 Commands defined by those packages are ecosystem interfaces, not definitions owned
 directly by `otscience.cls`. Their detailed APIs belong in separate companion-package
-references. Because loading is conditional, an author must not infer that a
-companion command exists merely from the class name without ensuring that the
-relevant package is installed. `otnotation`, `otmath`, `otfigures`, `otboxes`,
-and `otpractice` now load their shared dependencies directly.
+references; `docs/INTERFACE_INVENTORY.md` lists every name each package defines.
+
+Since class version 0.3 the bundle is loaded unconditionally. Before that, each
+package was loaded only if the file happened to be found, so an incomplete
+installation silently lost commands. A missing companion now stops with a
+"File not found" error. With `minimal`, load the companions you need yourself,
+for example `\usepackage{otphysics}`. `otnotation`, `otmath`, `otfigures`,
+`otboxes`, and `otpractice` load their shared dependencies directly.
 
 `\standalonetitle`, `practicebox`, and `practiceboxnosplit` belong to the vector
 workbook's `00_common_setup.tex` compatibility layer. They are not direct
@@ -1203,8 +1269,11 @@ the other classes, but `examplebox`, the two generic base-box names, and the sha
 % \documentclass[12pt]{otbook}
 ```
 
-Version 0.2 is based on native LaTeX `book`, with 11pt, A4, and one-sided
-defaults. Options are forwarded to `book`. The shared `otcore` setup supplies
+Version 0.3 is based on native LaTeX `book`, with 11pt, A4, and one-sided
+defaults. Options other than `chaptertheorems` and `minimal` are forwarded to
+`book`. `minimal` skips the companion-package bundle described under
+[Shared packages and compatibility](#shared-packages-and-compatibility) while
+keeping the class foundations and semantic boxes. The shared `otcore` setup supplies
 one-inch margins. Native `\part`, `\chapter`, section numbering, contents,
 `\frontmatter`, `\mainmatter`, `\appendix`, and `\backmatter` retain their
 book roles; OT supplies the heading and page styling.
@@ -1241,8 +1310,8 @@ anchors around title and dedication pages, as shown in the starter and template.
 
 ## Semantic boxes
 
-The book class defines the same ten semantic box families, default titles,
-and colours listed for `otscience`: `definitionbox`, `theorembox`, `lawbox`,
+The book class provides the same ten semantic box families, default titles,
+and colours listed for `otscience`, from the same owner, `otsciboxes.sty`: `definitionbox`, `theorembox`, `lawbox`,
 `formulabox`, `derivationbox`, `examplebox`, `warningbox`, `intuitionbox`,
 `summarybox`, and `experimentbox`. Each accepts an optional replacement title
 and has a corresponding `nosplit` environment. Their shared bases are
@@ -1277,11 +1346,19 @@ chapters do not change those package-owned counters to chapter-based ones.
 
 ## Shared packages and compatibility
 
-The class requires `otcore`, `ottheme`, and `otboxes`. It conditionally loads
-`otnotation`, `otmath`, `ottensors`, `otphysics`, `otcoordinates`, `otpractice`,
-and `otfigures` when available. Their commands remain package-owned. A missing
-conditional package can leave its commands unavailable, so distribute the
-complete package tree with the class. Workbook setup commands such as
+The class requires `otcore`, `ottheme`, `otboxes`, and `otsciboxes`. Unless
+the `minimal` option is given, it also loads this companion bundle
+unconditionally: `otnotation`, `otmath`, `ottensors`, `otphysics`,
+`otcoordinates`, `otpractice`, `otfigures`, `otcircuits`, `otplots`, `otcode`,
+`otsymbols`, `otprofiles`, `otbib`, `otindex`, and `otaccess`. Their commands
+remain package-owned. A missing companion stops with a "File not found" error
+rather than silently removing commands, so distribute the complete package tree
+with the class.
+
+The bundle is deliberately larger than `otscience`'s: the extra eight packages
+(circuits, plots, code listings, nomenclature, profiles, bibliography, index,
+and accessibility) serve long-form book production. They are not added to
+`otscience`, because doing so would change existing `otscience` documents. Workbook setup commands such as
 `\standalonetitle` and `practicebox` are not book-class interfaces.
 
 As in `otscience`, `\qty` is deliberately copied from `siunitx`'s `\SI` at
@@ -1305,6 +1382,85 @@ Version 0.2 does not supply a book-specific print mode, bibliography setup,
 index, glossary, or chapter-numbered theorem policy. These are follow-up items,
 not features provided by this documentation integration.
 
+# Notation packages: canonical names and options
+
+Since 12 November 2026 (PLAN.md Phase E), the notation and practice packages
+follow these rules.
+
+* **Canonical names are namespaced.** They use the repository's existing
+  lowercase `\ot...` convention. Each established short name is an exact
+  compatibility copy of its canonical name.
+* **Presentation is separate.** Prose emphasis and boxed environments live in
+  their own packages. The notation packages load them by default, and an
+  option turns that off.
+* **Load-order contract (decision 8).** Where a short name is commonly
+  defined by another package, the short name keeps any earlier definition,
+  and the canonical name always has the OT meaning.
+
+| Canonical | Short alias | Package | Short name defers to an earlier definition? |
+| --- | --- | --- | --- |
+| `\otimportant`, `\otkeyterm`, `\otconcept`, `\otresult` | `\important`, `\keyterm`, `\concept`, `\result` | `otemphasis` | no |
+| `\otmean{x}` | `\mean` | `otnotation` | no |
+| `\otdiff` | `\dd` | `otnotation` | yes; `physics` wins under `otscience`/`otbook` |
+| `\otgrad` | `\grad` | `otnotation` | yes; `physics` wins |
+| `\ottrace` | `\tr` | `otnotation` | yes; `physics` wins |
+| `\otrank` | `\rank` | `otnotation` | yes; `physics` wins |
+| `\otinverse{A}` | `\inv` | `otmath` | no |
+| `\otforce` | `\force` | `otphysics` | no |
+| `\otgiven{text}` | `\given` | `otpractice` | no |
+| `\otblank[w]`, `\otbigblank`, `\otlongblank`, `\otcomponentblank` | `\blank`, `\bigblank`, `\longblank`, `\componentblank` | `otpractice` | yes; `xsim` defines `\blank` |
+| `\otmarks{n}` | none (`\marks` is a TeX primitive) | `otpractice` | n/a |
+
+`\N`, `\Z`, `\Q`, `\R` and `\C` deliberately defer to an earlier definition
+and have no canonical name. `\unit` is `siunitx`'s; `otnotation`'s former
+fallback never took effect and was removed.
+
+| Package option | Effect |
+| --- | --- |
+| `\usepackage[noemphasis]{otnotation}` | does not load `otemphasis`; `otnotation` then loads no OT colour or presentation code |
+| `\usepackage[noboxes]{otmath}` (or `boxes=false`) | does not load `otmathboxes` (`proofbox`, `identitybox`); `otmath` then loads no `tcolorbox` or OT colours |
+
+`otphysics`, `otcoordinates` and `ottensors` were already free of OT visual
+policy. `tests/ot_notation_neutral_loading.tex` checks that all five notation
+packages load in `article` without `otcolors`, `ottheme`, `tcolorbox` or
+`hyperref`. `tests/ot_notation_canonical_names.tex` checks the aliases and the
+deferral to `physics`.
+
+`otmath`'s `otplaindesignrule` (unboxed, numbered with the theorem counter) and
+`otbook`'s `designrule` (boxed, own counter) are deliberately separate
+interfaces.
+
+The remaining short names in the notation packages keep their current
+behaviour. Each is listed in `docs/INTERFACE_INVENTORY.md`; it gains a canonical
+name when a collision is found. The collision scan covered `physics`, `siunitx`,
+`mathtools`, `amssymb`, `bm`, `braket`, `derivative`, `commath`, `diffcoeff`,
+`tensor`, `cancel`, `nicematrix`, `xsim`, `glossaries`, `amsthm`, `thmtools`,
+`upgreek`, `hyperref` and `cleveref`.
+
+# Class composition
+
+Each OT class is a composition root. It selects a base class, foundations, a
+preset, and optional bundles; it does not re-implement shared rules.
+
+| Class | Base class | Foundations | Preset | Boxes | Bundle |
+| --- | --- | --- | --- | --- | --- |
+| `otscience` | `article` | `otcore` (`otcolors` + `otlayout`), `ottheme` | `otscience-theme` | `otboxes`, `otsciboxes` | 7 companions; `minimal` skips |
+| `otbook` | `book` | `otcore`, `ottheme` | `otscience-theme`, plus book chapter headings and margin-note geometry | `otboxes`, `otsciboxes`, book boxes | 15 companions; `minimal` skips |
+| `otengineering` | `article` or `extbook` | `otcore`, `ottheme` | none yet (engineering styling is in the class) | own `otbox` family | none; explicit `\usepackage` |
+| `studentnotes` | `article` | none | self-contained | own note boxes | none |
+| `physicsquiz` | `article` | none | self-contained | own quiz boxes | none |
+
+`studentnotes` and `physicsquiz` stay self-contained by decision, not by
+omission:
+
+* each has its own palette (`NoteBlue`/`Soft...`; `Quiz...` with a greyscale
+  print mode);
+* each has its own `geometry`; and
+* `physicsquiz` carries the project's largest regression suite.
+
+Moving either onto the shared layers would change its output for little reuse.
+Revisit this if a shared need appears, for example common margin-note helpers.
+
 # Cross-class ownership and collision notes
 
 | Name or family | Owner | Classification | Important qualification |
@@ -1318,11 +1474,16 @@ not features provided by this documentation integration.
 | `\notebox` | `studentnotes` | advanced | semantic margin-note wrappers are preferred |
 | `otbox` | `otengineering` | advanced | semantic engineering wrappers are preferred |
 | `otscibox`, `otsciboxnosplit` | `otboxes` | advanced | semantic science wrappers are preferred |
-| `\otcorelistdefaults`, `\otcorepagestyle`, `\otcoresectionstyles` | `otcore` | advanced | class-support helpers, not ordinary author syntax |
-| `OT...` colours | `ottheme` | advanced | `otengineering.cls` deliberately overrides `OTLight` to preserve its established `#F3F4F6` value |
+| `definitionbox` ... `experimentbox` and their `nosplit` variants | `otsciboxes` | stable | loaded by `otscience` and `otbook`; usable with standard classes; not defined by plain `otboxes` |
+| `minimal` class option | `otscience`, `otbook` | stable | skips the companion bundle only |
+| OT hyperlink policy | `ottheme` | advanced | applied by every OT class; not applied by capability packages |
+| `\otmarks{<n>}` | `otpractice` | stable | right-aligned "[n marks]" label; replaces `\marks`, which never worked because it is a TeX primitive |
+| `\otcorelistdefaults`, `\otcorepagestyle`, `\otcoresectionstyles` | `otlayout` (re-exported by `otcore`) | advanced | class-support helpers, not ordinary author syntax |
+| `\otsciencepagestyle`, science heading/list/`siunitx` settings | `otscience-theme` | advanced | preset shared by `otscience` and `otbook` |
+| `OT...` colours | `otcolors` (re-exported by `ottheme`) | advanced | one palette for all OT classes; `OTLight` is `#F3F4F6` everywhere since `otcolors` v0.2 |
 | `practicebox`, `practiceboxnosplit` | vector-workbook setup | external to class | defined by `00_common_setup.tex` |
 | `\standalonetitle` | vector-workbook setup | external to class | not defined by `otscience` |
-| OT companion commands | individual `.sty` packages | external to class | loaded conditionally by `otscience` and `otbook` |
+| OT companion commands | individual `.sty` packages | external to class | loaded as a fixed bundle by `otscience` and `otbook`, unless `minimal` is given |
 | `\qty` in `otscience` and `otbook` | compatibility rule | stable behaviour | resolves to the `siunitx`/`\SI` meaning at document start |
 | `\booksubtitle`, `\bookedition`, `\makeotbooktitle`, `\makeotbookdedication`, `\otbookepigraph`, `chaptergoals`, `chapteroverview`, `reflectionbox` | `otbook` | author interface | source-verified v0.2 book interface |
 
@@ -1333,7 +1494,8 @@ This reference does not define contracts for:
 * commands inherited unchanged from `article` or `book`;
 * commands supplied by third-party packages, except where a class explicitly
   resolves a collision such as `otscience`'s `\qty` behaviour;
-* detailed APIs in the seven OT companion packages;
+* detailed APIs in the OT companion packages, whose definitions are listed
+  (without contracts) in the generated `docs/INTERFACE_INVENTORY.md`;
 * workbook-only wrappers in `00_common_setup.tex`;
 * internal counters and hyperlink-anchor commands;
 * uppercase or otherwise class-private metadata-storage commands;

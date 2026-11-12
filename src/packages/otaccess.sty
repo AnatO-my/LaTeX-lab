@@ -8,7 +8,7 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{otaccess}[2026/09/11 v0.2 OT Accessibility]
 
-\RequirePackage{ottheme}
+\RequirePackage{otcolors}
 \RequirePackage{iftex}
 
 % -----------------------------
@@ -34,10 +34,17 @@
     \IfFileExists{tagpdf.sty}{
       \RequirePackage{tagpdf}
       \tagpdfsetup{activate-all}
-    }{}
+    }{%
+      \PackageWarning{otaccess}{%
+        \string\otenabletagging\space requested, but tagpdf.sty\MessageBreak
+        was not found; the PDF will not be tagged}%
+    }
   \else
     % pdfLaTeX tagging via 'accessibility' is often unstable.
     % We omit it by default to avoid breaking fancyhdr/amsthm.
+    \PackageInfo{otaccess}{%
+      \string\otenabletagging\space has no effect under this engine;\MessageBreak
+      structure tagging is applied only with LuaLaTeX}%
   \fi
 }
 

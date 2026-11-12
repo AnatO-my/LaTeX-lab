@@ -1,0 +1,32 @@
+\documentclass{article}
+
+% PLAN.md Phase E / decision 8: canonical \ot... names always carry the OT
+% meaning; short names are aliases, and the load-order-sensitive ones defer
+% to an earlier definition (here, the physics package).
+\usepackage{physics}
+\usepackage{otnotation}
+\usepackage{otmath}
+\usepackage{otphysics}
+\usepackage{otpractice}
+
+\makeatletter
+\newcommand\ot@expectsame[2]{%
+  \ifx#1#2\else\PackageError{ot-canonical}{\string#1 is not a copy of \string#2}{}\fi}
+\AtBeginDocument{%
+  % physics defined these first, so the short names must NOT be OT's
+  \ifx\dd\otdiff \PackageError{ot-canonical}{\string\dd\space overrode physics}{}\fi
+  \ifx\grad\otgrad \PackageError{ot-canonical}{\string\grad\space overrode physics}{}\fi
+}
+\makeatother
+
+\begin{document}
+\typeout{OTREFACTOR-E:CANONICAL-NAMES}
+Emphasis: \otimportant{a} \important{a}; \otkeyterm{b} \keyterm{b};
+\otconcept{c} \concept{c}; \otresult{d} \result{d}.
+
+Notation: $\otmean{x} = \mean{x}$, $\otinverse{A} = \inv{A}$,
+$\otforce = \force$, $\otdiff x$ vs physics $\dd{x}$.
+
+\otgiven{mass $m$} \given{mass $m$}
+Blanks: \otblank \blank[2cm] \otbigblank \otlongblank \otcomponentblank
+\end{document}

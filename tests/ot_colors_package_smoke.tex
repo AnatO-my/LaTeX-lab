@@ -1,0 +1,19 @@
+\documentclass{article}
+
+% Plan decision 7: otcolors supplies the OT palette with no other side
+% effects. In particular it must not load hyperref.
+\usepackage{otcolors}
+
+\makeatletter
+\AtBeginDocument{%
+  \@ifpackageloaded{hyperref}{%
+    \PackageError{ot-colors-smoke}{otcolors loaded hyperref}{}}{}}
+\makeatother
+
+\begin{document}
+\typeout{OTREFACTOR-D7:OTCOLORS-SMOKE}
+\textcolor{OTDark}{Dark} \textcolor{OTMuted}{Muted} \textcolor{OTBlue}{Blue}
+\textcolor{OTGreen}{Green} \textcolor{OTOrange}{Orange} \textcolor{OTRed}{Red}
+\textcolor{OTPurple}{Purple} \textcolor{OTTeal}{Teal} \textcolor{OTYellow}{Yellow}
+\colorbox{OTLight}{Light}
+\end{document}

@@ -1,0 +1,33 @@
+% ============================================================
+% OT Emphasis Package
+% otemphasis.sty
+% Version: 0.1
+% Purpose: Theme-dependent prose emphasis (presentation, not notation)
+% ============================================================
+%
+% Coloured bold emphasis for key ideas in prose. These commands are visual
+% pedagogy and depend on the OT colour tokens, so they live here rather than
+% in the neutral otnotation package (PLAN.md Phase E). otnotation still loads
+% this package by default for compatibility; \usepackage[noemphasis]{otnotation}
+% gives notation without it.
+%
+% Canonical names are namespaced (\ot...); the short names are compatibility
+% aliases with identical behaviour.
+
+\NeedsTeXFormat{LaTeX2e}[2022-06-01]
+\ProvidesPackage{otemphasis}[2026/11/12 v0.1 OT Prose Emphasis]
+
+\RequirePackage{otcolors}
+
+\newcommand{\otimportant}[1]{\textbf{\color{OTRed}#1}}
+\newcommand{\otkeyterm}[1]{\textbf{\color{OTBlue}#1}}
+\newcommand{\otconcept}[1]{\textbf{\color{OTPurple}#1}}
+\newcommand{\otresult}[1]{\textbf{\color{OTGreen}#1}}
+
+% Compatibility aliases
+\NewCommandCopy{\important}{\otimportant}
+\NewCommandCopy{\keyterm}{\otkeyterm}
+\NewCommandCopy{\concept}{\otconcept}
+\NewCommandCopy{\result}{\otresult}
+
+\endinput

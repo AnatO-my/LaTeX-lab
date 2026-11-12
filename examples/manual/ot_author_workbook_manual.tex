@@ -65,6 +65,23 @@
 
 This manual is for a new author choosing among the active LaTeX-lab classes and modules. It is source-derived from the current working tree. Every catalog row gives a file and line number in the form \src{path}{line}. The line number points to the declaration or package-load line inspected in the source.
 
+\subsection{What Changed in the 2026 Architecture Refactor}
+
+Existing documents keep compiling unchanged. Two changes are visible:
+\begin{itemize}
+  \item \code{OTLight} is \code{F3F4F6} in every OT class, so science box backgrounds are slightly darker.
+  \item In a standard class, the OT packages no longer load \pkg{hyperref}; add \code{\usepackage{ottheme}} for OT link styling.
+\end{itemize}
+
+What is new for authors:
+\begin{itemize}
+  \item The \code{minimal} option of \pkg{otscience.cls} and \pkg{otbook.cls} skips the companion bundle.
+  \item Namespaced canonical commands such as \code{\otmean}, \code{\otinverse}, \code{\otforce}, \code{\otgiven}, and \code{\otimportant}. The old short names still work.
+  \item \code{\otmarks} replaces \code{\marks}, which never worked.
+\end{itemize}
+
+The full old-to-new table is in \path{docs/MIGRATION_GUIDE.md}.
+
 \subsection{Decision Guide}
 
 \begin{longtable}{p{0.26\textwidth}p{0.32\textwidth}p{0.32\textwidth}}
@@ -73,7 +90,7 @@ This manual is for a new author choosing among the active LaTeX-lab classes and 
   \midrule
   Quiz paper, answer key, teacher copy, or solution booklet & \code{\documentclass{physicsquiz}}                                           & Owns quiz modes, structured question banks, deterministic selection, option shuffling, answer keys, and solutions.                                             \\
   Personal student notes                                    & \code{\documentclass{studentnotes}}                                          & Provides note metadata, dot-grid backgrounds, note boxes, theorem environments, named formulas, margin notes, and arrow helpers.                               \\
-  Science notes or vector workbook modules                  & \code{\documentclass{otscience}}                                             & Provides science note boxes and conditionally loads notation, math, tensor, physics, coordinate, practice, and figure helpers when those packages are present. \\
+  Science notes or vector workbook modules                  & \code{\documentclass{otscience}}                                             & Provides science note boxes and loads notation, math, tensor, physics, coordinate, practice, and figure helpers; the \code{minimal} option skips them. \\
   Engineering notebook, project log, or R\&D journal        & \code{\documentclass{otengineering}}                                         & Provides project dashboard metadata, engineering decision/failure/risk boxes, ratings, fields, and sketch placeholders.                                        \\
   Chaptered personal books, handbooks, or long notes        & \code{\documentclass{otbook}}                                                & Provides native book parts, chapters, front/main/back matter, and margin notes.                                               \\
   Only theme colors or shared boxes inside another class    & Load \pkg{ottheme}, \pkg{otboxes}, or another companion package deliberately & These are ecosystem modules. Use directly only when building a class, package, workbook, or standalone module that needs that surface.                         \\
@@ -100,8 +117,14 @@ This manual is for a new author choosing among the active LaTeX-lab classes and 
   \toprule
   Package                 & Provides                                                                                 & Use directly when                                                                                                \\
   \midrule
-  \pkg{otcore.sty}        & Shared class infrastructure: list defaults, page styles, section styles                  & Writing or maintaining OT classes, not ordinary author documents.                                                \\
-  \pkg{ottheme.sty}       & Shared OT color palette and hyperlink policy                                             & A standalone module needs OT colors without a full class.                                                        \\
+  \pkg{otcore.sty}        & Compatibility facade: loads \pkg{otcolors}, \pkg{otlayout}, and table/date packages     & Writing or maintaining OT classes, not ordinary author documents.                                                \\
+  \pkg{otlayout.sty}      & One-inch default geometry (only if geometry is not yet loaded), list defaults, page and section styles & Building a class or preset on OT layout.                                                                         \\
+  \pkg{otcolors.sty}      & OT colour palette only; no hyperref                                                      & A standalone module needs OT colors without OT link styling.                                                     \\
+  \pkg{ottheme.sty}       & OT palette plus OT hyperlink policy (loads hyperref)                                     & A standalone document wants OT link styling.                                                                     \\
+  \pkg{otscience-theme.sty} & Science preset: siunitx formatting, list spacing, heading styles, \code{\otsciencepagestyle} & Building a science-styled document on a standard class.                                                          \\
+  \pkg{otsciboxes.sty}    & The ten semantic science boxes and their nosplit variants                                & Using \code{definitionbox} and friends outside \pkg{otscience.cls} or \pkg{otbook.cls}.                        \\
+  \pkg{otemphasis.sty}    & Coloured prose emphasis (\code{\otimportant}, \code{\otkeyterm}, \code{\otconcept}, \code{\otresult}) & Emphasis without the rest of \pkg{otnotation.sty}.                                                              \\
+  \pkg{otmathboxes.sty}   & \code{proofbox} and \code{identitybox}                                                     & Boxed proofs without the rest of \pkg{otmath.sty}.                                                              \\
   \pkg{otboxes.sty}       & Generic science-style tcolorboxes                                                        & A workbook/package needs base boxes; ordinary science notes should prefer \pkg{otscience.cls} semantic wrappers. \\
   \pkg{otmath.sty}        & Theorem-like environments, proof/identity boxes, algebra/calculus/vector helpers         & A math module wants these helpers outside \pkg{otscience.cls}.                                                   \\
   \pkg{otnotation.sty}    & Sets, vector/tensor notation, basis vectors, operators, differentials, delimiters, units & A module needs notation macros only.                                                                             \\
@@ -374,7 +397,7 @@ Use \pkg{otbook.cls} for material that genuinely needs chapters. It is built on 
 \subsection{Options}
 
 \begin{featuretable}
-\feature{chaptertheorems}{Opts into chapter-based numbering for theorems and equations (e.g., Theorem 1.1).}{\documentclass[chaptertheorems]{otbook}}{src/classes/otbook.cls}{11}
+\feature{chaptertheorems}{Opts into chapter-based numbering for theorems and equations (e.g., Theorem 1.1).}{\documentclass[chaptertheorems]{otbook}}{src/classes/otbook.cls}{25}
 \feature{oneside}{Default; single-sided layout.}{\documentclass[oneside]{otbook}}{book}{13}
 \feature{twoside}{Two-sided layout; margin notes appear in the outer margin.}{\documentclass[twoside]{otbook}}{book}{14}
 \end{featuretable}
@@ -382,19 +405,19 @@ Use \pkg{otbook.cls} for material that genuinely needs chapters. It is built on 
 \subsection{Feature Catalog}
 
 \begin{featuretable}
-\feature{\makeotbooktitle}{Renders the OT book title page with subtitle and edition.}{\makeotbooktitle}{src/classes/otbook.cls}{88}
-\feature{\booksubtitle{text}}{Sets the book subtitle.}{\booksubtitle{A Study in Vector Fields}}{src/classes/otbook.cls}{85}
-\feature{\bookedition{text}}{Sets the book edition.}{\bookedition{First Edition}}{src/classes/otbook.cls}{86}
-\feature{\makeotbookdedication{text}}{Creates an unnumbered dedication page.}{\makeotbookdedication{To my mentors}}{src/classes/otbook.cls}{113}
-\feature{\otbookepigraph{quote}{author}}{Adds a chapter epigraph.}{\otbookepigraph{Begin at the beginning.}{L. Carroll}}{src/classes/otbook.cls}{122}
-\feature{chapteroverview}{Box for chapter context and destination.}{\begin{chapteroverview}...\end{chapteroverview}}{src/classes/otbook.cls}{220}
-\feature{chaptergoals}{Box owning an itemized list of goals.}{\begin{chaptergoals}\item Goal 1\end{chaptergoals}}{src/classes/otbook.cls}{216}
-\feature{reflectionbox}{Orange box for personal connection or note to self.}{\begin{reflectionbox}...\end{reflectionbox}}{src/classes/otbook.cls}{213}
-\feature{designrule}{Purple box for engineering or design principles.}{\begin{designrule}...\end{designrule}}{src/classes/otbook.cls}{223}
-\feature{\otremark{text}}{Blue informative margin note.}{\otremark{Check consistency}}{src/classes/otbook.cls}{239}
-\feature{\otcaveat{text}}{Orange warning or personal connection margin note.}{\otcaveat{Check constraints}}{src/classes/otbook.cls}{240}
-\feature{\otsideinfo{text}}{Dark reference or symbol explanation margin note.}{\otsideinfo{$\nabla$: Del operator}}{src/classes/otbook.cls}{241}
-\feature{\otpracticehint{text}}{Teal practice or recall cue margin note.}{\otpracticehint{Use Green's Theorem}}{src/classes/otbook.cls}{242}
+\feature{\makeotbooktitle}{Renders the OT book title page with subtitle and edition.}{\makeotbooktitle}{src/classes/otbook.cls}{110}
+\feature{\booksubtitle{text}}{Sets the book subtitle.}{\booksubtitle{A Study in Vector Fields}}{src/classes/otbook.cls}{107}
+\feature{\bookedition{text}}{Sets the book edition.}{\bookedition{First Edition}}{src/classes/otbook.cls}{108}
+\feature{\makeotbookdedication{text}}{Creates an unnumbered dedication page.}{\makeotbookdedication{To my mentors}}{src/classes/otbook.cls}{136}
+\feature{\otbookepigraph{quote}{author}}{Adds a chapter epigraph.}{\otbookepigraph{Begin at the beginning.}{L. Carroll}}{src/classes/otbook.cls}{145}
+\feature{chapteroverview}{Box for chapter context and destination.}{\begin{chapteroverview}...\end{chapteroverview}}{src/classes/otbook.cls}{169}
+\feature{chaptergoals}{Box owning an itemized list of goals.}{\begin{chaptergoals}\item Goal 1\end{chaptergoals}}{src/classes/otbook.cls}{165}
+\feature{reflectionbox}{Orange box for personal connection or note to self.}{\begin{reflectionbox}...\end{reflectionbox}}{src/classes/otbook.cls}{162}
+\feature{designrule}{Purple box for engineering or design principles.}{\begin{designrule}...\end{designrule}}{src/classes/otbook.cls}{184}
+\feature{\otremark{text}}{Blue informative margin note.}{\otremark{Check consistency}}{src/classes/otbook.cls}{206}
+\feature{\otcaveat{text}}{Orange warning or personal connection margin note.}{\otcaveat{Check constraints}}{src/classes/otbook.cls}{207}
+\feature{\otsideinfo{text}}{Dark reference or symbol explanation margin note.}{\otsideinfo{$\nabla$: Del operator}}{src/classes/otbook.cls}{208}
+\feature{\otpracticehint{text}}{Teal practice or recall cue margin note.}{\otpracticehint{Use Green's Theorem}}{src/classes/otbook.cls}{209}
 \end{featuretable}
 
 \section{studentnotes.cls}
@@ -456,29 +479,29 @@ Use \pkg{studentnotes.cls} for hand-study notes with compact page furniture, opt
 Use \pkg{otscience.cls} for science notes and workbook modules. It supplies semantic science boxes directly and conditionally loads the companion packages when they are available. In this repository they are available under \path{src/packages}.
 
 \begin{featuretable}
-  \feature{\qty compatibility}{At document start, \code{\qty} is restored to the \pkg{siunitx}/\code{\SI} meaning after \pkg{physics} loads.}{\qty{9.81}{\metre\per\second\squared}}{src/classes/otscience.cls}{30}
-  \feature{\definitionautorefname}{Hyperref/autoref compatibility label.}{\autoref{def:one}}{src/classes/otscience.cls}{34}
-  \feature{\exampleautorefname}{Hyperref/autoref compatibility label.}{\autoref{ex:one}}{src/classes/otscience.cls}{35}
-  \feature{definitionbox}{Breakable semantic definition box.}{\begin{definitionbox}...\end{definitionbox}}{src/classes/otscience.cls}{73}
-  \feature{definitionboxnosplit}{Non-splitting definition box.}{\begin{definitionboxnosplit}...\end{definitionboxnosplit}}{src/classes/otscience.cls}{76}
-  \feature{theorembox}{Breakable theorem box.}{\begin{theorembox}...\end{theorembox}}{src/classes/otscience.cls}{79}
-  \feature{theoremboxnosplit}{Non-splitting theorem box.}{\begin{theoremboxnosplit}...\end{theoremboxnosplit}}{src/classes/otscience.cls}{82}
-  \feature{lawbox}{Breakable law/principle box.}{\begin{lawbox}...\end{lawbox}}{src/classes/otscience.cls}{85}
-  \feature{lawboxnosplit}{Non-splitting law/principle box.}{\begin{lawboxnosplit}...\end{lawboxnosplit}}{src/classes/otscience.cls}{88}
-  \feature{formulabox}{Breakable formula box.}{\begin{formulabox}...\end{formulabox}}{src/classes/otscience.cls}{91}
-  \feature{formulaboxnosplit}{Non-splitting formula box.}{\begin{formulaboxnosplit}...\end{formulaboxnosplit}}{src/classes/otscience.cls}{94}
-  \feature{derivationbox}{Breakable derivation box.}{\begin{derivationbox}...\end{derivationbox}}{src/classes/otscience.cls}{97}
-  \feature{derivationboxnosplit}{Non-splitting derivation box.}{\begin{derivationboxnosplit}...\end{derivationboxnosplit}}{src/classes/otscience.cls}{100}
-  \feature{examplebox}{Breakable worked-example box.}{\begin{examplebox}...\end{examplebox}}{src/classes/otscience.cls}{103}
-  \feature{exampleboxnosplit}{Non-splitting worked-example box.}{\begin{exampleboxnosplit}...\end{exampleboxnosplit}}{src/classes/otscience.cls}{106}
-  \feature{warningbox}{Breakable common-mistake box.}{\begin{warningbox}...\end{warningbox}}{src/classes/otscience.cls}{109}
-  \feature{warningboxnosplit}{Non-splitting common-mistake box.}{\begin{warningboxnosplit}...\end{warningboxnosplit}}{src/classes/otscience.cls}{112}
-  \feature{intuitionbox}{Breakable intuition box.}{\begin{intuitionbox}...\end{intuitionbox}}{src/classes/otscience.cls}{115}
-  \feature{intuitionboxnosplit}{Non-splitting intuition box.}{\begin{intuitionboxnosplit}...\end{intuitionboxnosplit}}{src/classes/otscience.cls}{118}
-  \feature{summarybox}{Breakable key-summary box.}{\begin{summarybox}...\end{summarybox}}{src/classes/otscience.cls}{121}
-  \feature{summaryboxnosplit}{Non-splitting key-summary box.}{\begin{summaryboxnosplit}...\end{summaryboxnosplit}}{src/classes/otscience.cls}{124}
-  \feature{experimentbox}{Breakable experiment/observation box.}{\begin{experimentbox}...\end{experimentbox}}{src/classes/otscience.cls}{127}
-  \feature{experimentboxnosplit}{Non-splitting experiment/observation box.}{\begin{experimentboxnosplit}...\end{experimentboxnosplit}}{src/classes/otscience.cls}{130}
+  \feature{\qty compatibility}{At document start, \code{\qty} is restored to the \pkg{siunitx}/\code{\SI} meaning after \pkg{physics} loads.}{\qty{9.81}{\metre\per\second\squared}}{src/classes/otscience.cls}{49}
+  \feature{\definitionautorefname}{Hyperref/autoref compatibility label.}{\autoref{def:one}}{src/classes/otscience.cls}{53}
+  \feature{\exampleautorefname}{Hyperref/autoref compatibility label.}{\autoref{ex:one}}{src/classes/otscience.cls}{54}
+  \feature{definitionbox}{Breakable semantic definition box.}{\begin{definitionbox}...\end{definitionbox}}{src/packages/otsciboxes.sty}{25}
+  \feature{definitionboxnosplit}{Non-splitting definition box.}{\begin{definitionboxnosplit}...\end{definitionboxnosplit}}{src/packages/otsciboxes.sty}{28}
+  \feature{theorembox}{Breakable theorem box.}{\begin{theorembox}...\end{theorembox}}{src/packages/otsciboxes.sty}{31}
+  \feature{theoremboxnosplit}{Non-splitting theorem box.}{\begin{theoremboxnosplit}...\end{theoremboxnosplit}}{src/packages/otsciboxes.sty}{34}
+  \feature{lawbox}{Breakable law/principle box.}{\begin{lawbox}...\end{lawbox}}{src/packages/otsciboxes.sty}{37}
+  \feature{lawboxnosplit}{Non-splitting law/principle box.}{\begin{lawboxnosplit}...\end{lawboxnosplit}}{src/packages/otsciboxes.sty}{40}
+  \feature{formulabox}{Breakable formula box.}{\begin{formulabox}...\end{formulabox}}{src/packages/otsciboxes.sty}{43}
+  \feature{formulaboxnosplit}{Non-splitting formula box.}{\begin{formulaboxnosplit}...\end{formulaboxnosplit}}{src/packages/otsciboxes.sty}{46}
+  \feature{derivationbox}{Breakable derivation box.}{\begin{derivationbox}...\end{derivationbox}}{src/packages/otsciboxes.sty}{49}
+  \feature{derivationboxnosplit}{Non-splitting derivation box.}{\begin{derivationboxnosplit}...\end{derivationboxnosplit}}{src/packages/otsciboxes.sty}{52}
+  \feature{examplebox}{Breakable worked-example box.}{\begin{examplebox}...\end{examplebox}}{src/packages/otsciboxes.sty}{55}
+  \feature{exampleboxnosplit}{Non-splitting worked-example box.}{\begin{exampleboxnosplit}...\end{exampleboxnosplit}}{src/packages/otsciboxes.sty}{58}
+  \feature{warningbox}{Breakable common-mistake box.}{\begin{warningbox}...\end{warningbox}}{src/packages/otsciboxes.sty}{61}
+  \feature{warningboxnosplit}{Non-splitting common-mistake box.}{\begin{warningboxnosplit}...\end{warningboxnosplit}}{src/packages/otsciboxes.sty}{64}
+  \feature{intuitionbox}{Breakable intuition box.}{\begin{intuitionbox}...\end{intuitionbox}}{src/packages/otsciboxes.sty}{67}
+  \feature{intuitionboxnosplit}{Non-splitting intuition box.}{\begin{intuitionboxnosplit}...\end{intuitionboxnosplit}}{src/packages/otsciboxes.sty}{70}
+  \feature{summarybox}{Breakable key-summary box.}{\begin{summarybox}...\end{summarybox}}{src/packages/otsciboxes.sty}{73}
+  \feature{summaryboxnosplit}{Non-splitting key-summary box.}{\begin{summaryboxnosplit}...\end{summaryboxnosplit}}{src/packages/otsciboxes.sty}{76}
+  \feature{experimentbox}{Breakable experiment/observation box.}{\begin{experimentbox}...\end{experimentbox}}{src/packages/otsciboxes.sty}{79}
+  \feature{experimentboxnosplit}{Non-splitting experiment/observation box.}{\begin{experimentboxnosplit}...\end{experimentboxnosplit}}{src/packages/otsciboxes.sty}{82}
 \end{featuretable}
 
 \section{otengineering.cls}
@@ -488,54 +511,54 @@ Use \pkg{otscience.cls} for science notes and workbook modules. It supplies sema
 Use \pkg{otengineering.cls} for engineering notebooks and R\&D logs. It has a fixed 11pt A4 article base and does not expose its own class-option forwarding layer.
 
 \begin{featuretable}
-  \feature{\projectname{text}}{Sets project name.}{\projectname{Solar Charger}}{src/classes/otengineering.cls}{51}
-  \feature{\projectid{text}}{Sets project id.}{\projectid{ENG-001}}{src/classes/otengineering.cls}{52}
-  \feature{\projectversion{text}}{Sets project version.}{\projectversion{0.2}}{src/classes/otengineering.cls}{53}
-  \feature{\projectstatus{text}}{Sets project status.}{\projectstatus{\statusprototype}}{src/classes/otengineering.cls}{54}
-  \feature{\projectcategory{text}}{Sets project category.}{\projectcategory{Power}}{src/classes/otengineering.cls}{55}
-  \feature{\projectstarted{text}}{Sets start date.}{\projectstarted{1 Aug 2026}}{src/classes/otengineering.cls}{56}
-  \feature{\projectupdated{text}}{Sets update date.}{\projectupdated{\today}}{src/classes/otengineering.cls}{57}
-  \feature{\makeprojectdashboard}{Prints the metadata dashboard.}{\makeprojectdashboard}{src/classes/otengineering.cls}{71}
-  \feature{otbox}{Generic breakable engineering box; prefer semantic wrappers.}{\begin{otbox}[Title]{OTBlue}...\end{otbox}}{src/classes/otengineering.cls}{96}
-  \feature{idea}{Idea box.}{\begin{idea}...\end{idea}}{src/classes/otengineering.cls}{111}
-  \feature{questionbox}{Engineering question box.}{\begin{questionbox}...\end{questionbox}}{src/classes/otengineering.cls}{115}
-  \feature{decision}{Design decision box.}{\begin{decision}...\end{decision}}{src/classes/otengineering.cls}{119}
-  \feature{experiment}{Experiment box.}{\begin{experiment}...\end{experiment}}{src/classes/otengineering.cls}{123}
-  \feature{failure}{Failure/problem box.}{\begin{failure}...\end{failure}}{src/classes/otengineering.cls}{127}
-  \feature{discovery}{Discovery box.}{\begin{discovery}...\end{discovery}}{src/classes/otengineering.cls}{131}
-  \feature{lesson}{Lesson learned box.}{\begin{lesson}...\end{lesson}}{src/classes/otengineering.cls}{135}
-  \feature{futurememo}{Future-self note box.}{\begin{futurememo}...\end{futurememo}}{src/classes/otengineering.cls}{139}
-  \feature{thought}{Random thought box.}{\begin{thought}...\end{thought}}{src/classes/otengineering.cls}{147}
-  \feature{rabbithole}{Rabbit-hole tracker box; name is historical and author-facing.}{\begin{rabbithole}...\end{rabbithole}}{src/classes/otengineering.cls}{151}
-  \feature{researchqueue}{Future research queue box.}{\begin{researchqueue}...\end{researchqueue}}{src/classes/otengineering.cls}{155}
-  \feature{wisdom}{Retrospective wisdom box.}{\begin{wisdom}...\end{wisdom}}{src/classes/otengineering.cls}{159}
-  \feature{risk}{Risk register entry box.}{\begin{risk}...\end{risk}}{src/classes/otengineering.cls}{167}
-  \feature{assumption}{Assumption tracker box.}{\begin{assumption}...\end{assumption}}{src/classes/otengineering.cls}{171}
-  \feature{calculation}{Engineering calculation box.}{\begin{calculation}...\end{calculation}}{src/classes/otengineering.cls}{179}
-  \feature{\calcfield{label}{content}}{Bold labelled calculation field.}{\calcfield{Given}{V=12 V}}{src/classes/otengineering.cls}{183}
-  \feature{\sketchbox[height]{content}}{Fixed-title sketch placeholder box; default height 6cm.}{\sketchbox{motor sketch}}{src/classes/otengineering.cls}{191}
-  \feature{\statusseed}{Bold status label.}{\projectstatus{\statusseed}}{src/classes/otengineering.cls}{209}
-  \feature{\statusconcept}{Bold status label.}{\projectstatus{\statusconcept}}{src/classes/otengineering.cls}{210}
-  \feature{\statusdesign}{Bold status label.}{\projectstatus{\statusdesign}}{src/classes/otengineering.cls}{211}
-  \feature{\statusprototype}{Bold status label.}{\projectstatus{\statusprototype}}{src/classes/otengineering.cls}{212}
-  \feature{\statustesting}{Bold status label.}{\projectstatus{\statustesting}}{src/classes/otengineering.cls}{213}
-  \feature{\statusdeployment}{Bold status label.}{\projectstatus{\statusdeployment}}{src/classes/otengineering.cls}{214}
-  \feature{\statusarchived}{Bold status label.}{\projectstatus{\statusarchived}}{src/classes/otengineering.cls}{215}
-  \feature{\successrating{n}}{Formats success rating as n/10; does not validate.}{\successrating{8}}{src/classes/otengineering.cls}{221}
-  \feature{\confidencerating{n}}{Formats confidence rating as n/10; does not validate.}{\confidencerating{6}}{src/classes/otengineering.cls}{222}
-  \feature{\pursuerating{text}}{Formats worth-pursuing label.}{\pursuerating{Revisit}}{src/classes/otengineering.cls}{223}
-  \feature{\entrydate{text}}{Bold Date field.}{\entrydate{\today}}{src/classes/otengineering.cls}{229}
-  \feature{\context{text}}{Bold Context field.}{\context{Prototype test}}{src/classes/otengineering.cls}{230}
-  \feature{\observation{text}}{Bold Observation field.}{\observation{Voltage sag}}{src/classes/otengineering.cls}{231}
-  \feature{\reason{text}}{Bold Reason field.}{\reason{Load spike}}{src/classes/otengineering.cls}{232}
-  \feature{\tradeoff{text}}{Bold Trade-off field.}{\tradeoff{Cost vs heat}}{src/classes/otengineering.cls}{233}
-  \feature{\nextstep{text}}{Bold Next Step field.}{\nextstep{Measure again}}{src/classes/otengineering.cls}{234}
-  \feature{\linkedproject{text}}{Bold Linked Project field.}{\linkedproject{ENG-002}}{src/classes/otengineering.cls}{235}
-  \feature{\makeotengtitle}{Prints title plus dashboard.}{\makeotengtitle}{src/classes/otengineering.cls}{260}
-  \feature{OTLight override}{Engineering class overrides shared OTLight to a darker notebook background.}{\color{OTLight}text}{src/classes/otengineering.cls}{28}
-  \feature{\printprojectdecisionlog}{Prints the automatic log of all decision environments.}{\printprojectdecisionlog}{src/classes/otengineering.cls}{281}
-  \feature{\printprojectriskregister}{Prints the automatic log of all risk environments.}{\printprojectriskregister}{src/classes/otengineering.cls}{294}
-  \feature{\makeprojectstatusreport}{High-level status summary for the dashboard.}{\makeprojectstatusreport}{src/classes/otengineering.cls}{306}
+  \feature{\projectname{text}}{Sets project name.}{\projectname{Solar Charger}}{src/classes/otengineering.cls}{74}
+  \feature{\projectid{text}}{Sets project id.}{\projectid{ENG-001}}{src/classes/otengineering.cls}{75}
+  \feature{\projectversion{text}}{Sets project version.}{\projectversion{0.2}}{src/classes/otengineering.cls}{76}
+  \feature{\projectstatus{text}}{Sets project status.}{\projectstatus{\statusprototype}}{src/classes/otengineering.cls}{77}
+  \feature{\projectcategory{text}}{Sets project category.}{\projectcategory{Power}}{src/classes/otengineering.cls}{78}
+  \feature{\projectstarted{text}}{Sets start date.}{\projectstarted{1 Aug 2026}}{src/classes/otengineering.cls}{79}
+  \feature{\projectupdated{text}}{Sets update date.}{\projectupdated{\today}}{src/classes/otengineering.cls}{80}
+  \feature{\makeprojectdashboard}{Prints the metadata dashboard.}{\makeprojectdashboard}{src/classes/otengineering.cls}{94}
+  \feature{otbox}{Generic breakable engineering box; prefer semantic wrappers.}{\begin{otbox}[Title]{OTBlue}...\end{otbox}}{src/classes/otengineering.cls}{155}
+  \feature{idea}{Idea box.}{\begin{idea}...\end{idea}}{src/classes/otengineering.cls}{188}
+  \feature{questionbox}{Engineering question box.}{\begin{questionbox}...\end{questionbox}}{src/classes/otengineering.cls}{192}
+  \feature{decision}{Design decision box.}{\begin{decision}...\end{decision}}{src/classes/otengineering.cls}{196}
+  \feature{experiment}{Experiment box.}{\begin{experiment}...\end{experiment}}{src/classes/otengineering.cls}{204}
+  \feature{failure}{Failure/problem box.}{\begin{failure}...\end{failure}}{src/classes/otengineering.cls}{208}
+  \feature{discovery}{Discovery box.}{\begin{discovery}...\end{discovery}}{src/classes/otengineering.cls}{212}
+  \feature{lesson}{Lesson learned box.}{\begin{lesson}...\end{lesson}}{src/classes/otengineering.cls}{216}
+  \feature{futurememo}{Future-self note box.}{\begin{futurememo}...\end{futurememo}}{src/classes/otengineering.cls}{220}
+  \feature{thought}{Random thought box.}{\begin{thought}...\end{thought}}{src/classes/otengineering.cls}{228}
+  \feature{rabbithole}{Rabbit-hole tracker box; name is historical and author-facing.}{\begin{rabbithole}...\end{rabbithole}}{src/classes/otengineering.cls}{232}
+  \feature{researchqueue}{Future research queue box.}{\begin{researchqueue}...\end{researchqueue}}{src/classes/otengineering.cls}{236}
+  \feature{wisdom}{Retrospective wisdom box.}{\begin{wisdom}...\end{wisdom}}{src/classes/otengineering.cls}{240}
+  \feature{risk}{Risk register entry box.}{\begin{risk}...\end{risk}}{src/classes/otengineering.cls}{248}
+  \feature{assumption}{Assumption tracker box.}{\begin{assumption}...\end{assumption}}{src/classes/otengineering.cls}{256}
+  \feature{calculation}{Engineering calculation box.}{\begin{calculation}...\end{calculation}}{src/classes/otengineering.cls}{264}
+  \feature{\calcfield{label}{content}}{Bold labelled calculation field.}{\calcfield{Given}{V=12 V}}{src/classes/otengineering.cls}{268}
+  \feature{\sketchbox[height]{content}}{Fixed-title sketch placeholder box; default height 6cm.}{\sketchbox{motor sketch}}{src/classes/otengineering.cls}{276}
+  \feature{\statusseed}{Bold status label.}{\projectstatus{\statusseed}}{src/classes/otengineering.cls}{294}
+  \feature{\statusconcept}{Bold status label.}{\projectstatus{\statusconcept}}{src/classes/otengineering.cls}{295}
+  \feature{\statusdesign}{Bold status label.}{\projectstatus{\statusdesign}}{src/classes/otengineering.cls}{296}
+  \feature{\statusprototype}{Bold status label.}{\projectstatus{\statusprototype}}{src/classes/otengineering.cls}{297}
+  \feature{\statustesting}{Bold status label.}{\projectstatus{\statustesting}}{src/classes/otengineering.cls}{298}
+  \feature{\statusdeployment}{Bold status label.}{\projectstatus{\statusdeployment}}{src/classes/otengineering.cls}{299}
+  \feature{\statusarchived}{Bold status label.}{\projectstatus{\statusarchived}}{src/classes/otengineering.cls}{300}
+  \feature{\successrating{n}}{Formats success rating as n/10; does not validate.}{\successrating{8}}{src/classes/otengineering.cls}{306}
+  \feature{\confidencerating{n}}{Formats confidence rating as n/10; does not validate.}{\confidencerating{6}}{src/classes/otengineering.cls}{307}
+  \feature{\pursuerating{text}}{Formats worth-pursuing label.}{\pursuerating{Revisit}}{src/classes/otengineering.cls}{308}
+  \feature{\entrydate{text}}{Bold Date field.}{\entrydate{\today}}{src/classes/otengineering.cls}{314}
+  \feature{\context{text}}{Bold Context field.}{\context{Prototype test}}{src/classes/otengineering.cls}{315}
+  \feature{\observation{text}}{Bold Observation field.}{\observation{Voltage sag}}{src/classes/otengineering.cls}{316}
+  \feature{\reason{text}}{Bold Reason field.}{\reason{Load spike}}{src/classes/otengineering.cls}{317}
+  \feature{\tradeoff{text}}{Bold Trade-off field.}{\tradeoff{Cost vs heat}}{src/classes/otengineering.cls}{318}
+  \feature{\nextstep{text}}{Bold Next Step field.}{\nextstep{Measure again}}{src/classes/otengineering.cls}{319}
+  \feature{\linkedproject{text}}{Bold Linked Project field.}{\linkedproject{ENG-002}}{src/classes/otengineering.cls}{320}
+  \feature{\makeotengtitle}{Prints title plus dashboard.}{\makeotengtitle}{src/classes/otengineering.cls}{326}
+  \feature{OTLight}{Uses the shared OTLight (F3F4F6), the same value as every OT class since \pkg{otcolors.sty} v0.2.}{\color{OTLight}text}{src/packages/otcolors.sty}{24}
+  \feature{\printprojectdecisionlog}{Prints the automatic log of all decision environments.}{\printprojectdecisionlog}{src/classes/otengineering.cls}{349}
+  \feature{\printprojectriskregister}{Prints the automatic log of all risk environments.}{\printprojectriskregister}{src/classes/otengineering.cls}{361}
+  \feature{\makeprojectstatusreport}{High-level status summary for the dashboard.}{\makeprojectstatusreport}{src/classes/otengineering.cls}{373}
 \end{featuretable}
 
 \section{Shared Packages}
@@ -545,27 +568,27 @@ Use \pkg{otengineering.cls} for engineering notebooks and R\&D logs. It has a fi
 \pkg{otcore.sty} is shared class infrastructure. It is not ordinary author syntax, but class authors use it to keep page furniture consistent.
 
 \begin{featuretable}
-  \feature{\otcorelistdefaults}{Sets default itemize/enumerate left margins.}{\otcorelistdefaults}{src/packages/otcore.sty}{25}
-  \feature{\otcorepagestyle{left}{right}{rule}}{Configures fancyhdr left/right heads and rule width.}{\otcorepagestyle{Left}{Right}{0.3pt}}{src/packages/otcore.sty}{33}
-  \feature{\otcoresectionstyles{sep}{color}}{Configures section and subsection title styles.}{\otcoresectionstyles{0.75em}{OTPurple}}{src/packages/otcore.sty}{46}
+  \feature{\otcorelistdefaults}{Sets default itemize/enumerate left margins.}{\otcorelistdefaults}{src/packages/otlayout.sty}{39}
+  \feature{\otcorepagestyle{left}{right}{rule}}{Configures fancyhdr left/right heads and rule width.}{\otcorepagestyle{Left}{Right}{0.3pt}}{src/packages/otlayout.sty}{47}
+  \feature{\otcoresectionstyles{sep}{color}}{Configures section and subsection title styles.}{\otcoresectionstyles{0.75em}{OTPurple}}{src/packages/otlayout.sty}{60}
 \end{featuretable}
 
 \subsection{ottheme.sty}
 
-\pkg{ottheme.sty} provides shared OT colors and hyperlink policy.
+\pkg{ottheme.sty} provides the shared OT colors (from \pkg{otcolors.sty}) and the OT hyperlink policy. Packages that only need the colors load \pkg{otcolors.sty} and do not load \pkg{hyperref}.
 
 \begin{featuretable}
-  \feature{OTDark}{Dark text/frame color, HTML 1F2937.}{\color{OTDark}text}{src/packages/ottheme.sty}{20}
-  \feature{OTMuted}{Muted gray, HTML 6B7280.}{\color{OTMuted}text}{src/packages/ottheme.sty}{21}
-  \feature{OTLight}{Light background, HTML F9FAFB.}{\color{OTLight}text}{src/packages/ottheme.sty}{22}
-  \feature{OTBlue}{Blue accent, HTML 2563EB.}{\color{OTBlue}text}{src/packages/ottheme.sty}{23}
-  \feature{OTGreen}{Green accent, HTML 059669.}{\color{OTGreen}text}{src/packages/ottheme.sty}{24}
-  \feature{OTOrange}{Orange accent, HTML D97706.}{\color{OTOrange}text}{src/packages/ottheme.sty}{25}
-  \feature{OTRed}{Red accent, HTML DC2626.}{\color{OTRed}text}{src/packages/ottheme.sty}{26}
-  \feature{OTPurple}{Purple accent, HTML 7C3AED.}{\color{OTPurple}text}{src/packages/ottheme.sty}{27}
-  \feature{OTTeal}{Teal accent, HTML 0891B2.}{\color{OTTeal}text}{src/packages/ottheme.sty}{28}
-  \feature{OTYellow}{Yellow accent, HTML CA8A04.}{\color{OTYellow}text}{src/packages/ottheme.sty}{29}
-  \feature{hyperlink policy}{Sets colored link/url/cite colors.}{\usepackage{ottheme}}{src/packages/ottheme.sty}{34}
+  \feature{OTDark}{Dark text/frame color, HTML 1F2937.}{\color{OTDark}text}{src/packages/otcolors.sty}{21}
+  \feature{OTMuted}{Muted gray, HTML 6B7280.}{\color{OTMuted}text}{src/packages/otcolors.sty}{22}
+  \feature{OTLight}{Light background, HTML F3F4F6 (all OT classes).}{\color{OTLight}text}{src/packages/otcolors.sty}{24}
+  \feature{OTBlue}{Blue accent, HTML 2563EB.}{\color{OTBlue}text}{src/packages/otcolors.sty}{25}
+  \feature{OTGreen}{Green accent, HTML 059669.}{\color{OTGreen}text}{src/packages/otcolors.sty}{26}
+  \feature{OTOrange}{Orange accent, HTML D97706.}{\color{OTOrange}text}{src/packages/otcolors.sty}{27}
+  \feature{OTRed}{Red accent, HTML DC2626.}{\color{OTRed}text}{src/packages/otcolors.sty}{28}
+  \feature{OTPurple}{Purple accent, HTML 7C3AED.}{\color{OTPurple}text}{src/packages/otcolors.sty}{29}
+  \feature{OTTeal}{Teal accent, HTML 0891B2.}{\color{OTTeal}text}{src/packages/otcolors.sty}{30}
+  \feature{OTYellow}{Yellow accent, HTML CA8A04.}{\color{OTYellow}text}{src/packages/otcolors.sty}{31}
+  \feature{hyperlink policy}{Sets colored link/url/cite colors.}{\usepackage{ottheme}}{src/packages/ottheme.sty}{23}
 \end{featuretable}
 
 \subsection{otboxes.sty}
@@ -578,78 +601,78 @@ Use \pkg{otengineering.cls} for engineering notebooks and R\&D logs. It has a fi
 \subsection{otmath.sty}
 
 \begin{featuretable}
-  \feature{otplainthm}{Plain theorem environment, section-numbered.}{\begin{otplainthm}...\end{otplainthm}}{src/packages/otmath.sty}{20}
-  \feature{otplainlemma}{Lemma sharing \code{otplainthm} counter.}{\begin{otplainlemma}...\end{otplainlemma}}{src/packages/otmath.sty}{21}
-  \feature{otplainprop}{Proposition sharing theorem counter.}{\begin{otplainprop}...\end{otplainprop}}{src/packages/otmath.sty}{22}
-  \feature{otplaincor}{Corollary sharing theorem counter.}{\begin{otplaincor}...\end{otplaincor}}{src/packages/otmath.sty}{23}
-  \feature{otplaindef}{Definition sharing theorem counter.}{\begin{otplaindef}...\end{otplaindef}}{src/packages/otmath.sty}{26}
-  \feature{otplainex}{Example sharing theorem counter.}{\begin{otplainex}...\end{otplainex}}{src/packages/otmath.sty}{27}
-  \feature{otplainexer}{Exercise sharing theorem counter.}{\begin{otplainexer}...\end{otplainexer}}{src/packages/otmath.sty}{28}
-  \feature{proofbox}{Breakable proof tcolorbox.}{\begin{proofbox}...\end{proofbox}}{src/packages/otmath.sty}{33}
-  \feature{identitybox}{Breakable identity tcolorbox.}{\begin{identitybox}...\end{identitybox}}{src/packages/otmath.sty}{42}
-  \feature{\inv{x}}{Formats inverse.}{\inv{A}}{src/packages/otmath.sty}{54}
-  \feature{\transpose{x}}{Formats transpose.}{\transpose{A}}{src/packages/otmath.sty}{55}
-  \feature{\adj{x}}{Formats adjoint/star.}{\adj{A}}{src/packages/otmath.sty}{56}
-  \feature{\conj{x}}{Formats complex conjugate.}{\conj{z}}{src/packages/otmath.sty}{57}
-  \feature{\realpart}{Real-part operator.}{\realpart z}{src/packages/otmath.sty}{58}
-  \feature{\imagpart}{Imaginary-part operator.}{\imagpart z}{src/packages/otmath.sty}{59}
-  \feature{\evalat{expr}{point}}{Evaluation bar.}{\evalat{f}{0}}{src/packages/otmath.sty}{64}
-  \feature{\limto{x}{a}}{Limit shorthand.}{\limto{x}{0} f(x)}{src/packages/otmath.sty}{65}
-  \feature{\series{i}{1}{n}}{Summation shorthand.}{\series{i}{1}{n} i}{src/packages/otmath.sty}{66}
-  \feature{\intab{a}{b}{f}{x}}{Definite integral shorthand.}{\intab{0}{1}{x^2}{x}}{src/packages/otmath.sty}{67}
-  \feature{\partialop{i}}{Partial derivative index.}{\partialop{i}}{src/packages/otmath.sty}{68}
-  \feature{\gradf{f}}{Gradient expression.}{\gradf{\phi}}{src/packages/otmath.sty}{73}
-  \feature{\divv{A}}{Divergence expression.}{\divv{\mathbf A}}{src/packages/otmath.sty}{74}
-  \feature{\curlv{A}}{Curl expression.}{\curlv{\mathbf A}}{src/packages/otmath.sty}{75}
-  \feature{\lapf{f}}{Laplacian expression.}{\lapf{\phi}}{src/packages/otmath.sty}{76}
-  \feature{\dirder{v}{f}}{Directional derivative notation.}{\dirder{\mathbf v}{f}}{src/packages/otmath.sty}{78}
-  \feature{\hessian{f}}{Hessian/Laplacian-style second derivative notation.}{\hessian{f}}{src/packages/otmath.sty}{79}
-  \feature{\dotp{a}{b}}{Dot product.}{\dotp{\mathbf a}{\mathbf b}}{src/packages/otmath.sty}{84}
-  \feature{\crossp{a}{b}}{Cross product.}{\crossp{\mathbf a}{\mathbf b}}{src/packages/otmath.sty}{85}
-  \feature{\outerp{a}{b}}{Tensor/outer product.}{\outerp{\mathbf a}{\mathbf b}}{src/packages/otmath.sty}{86}
-  \feature{\doublecontract}{Double-contraction colon operator.}{A\doublecontract B}{src/packages/otmath.sty}{87}
-  \feature{\innerp{a}{b}}{Angle-bracket inner product.}{\innerp{u}{v}}{src/packages/otmath.sty}{88}
-  \feature{\curlgradzero{f}}{Common vector identity display helper.}{\curlgradzero{\phi}}{src/packages/otmath.sty}{93}
-  \feature{\divcurlzero{A}}{Common vector identity display helper.}{\divcurlzero{\mathbf A}}{src/packages/otmath.sty}{94}
-  \feature{\curlcurlid{A}}{Curl-curl identity helper.}{\curlcurlid{\mathbf A}}{src/packages/otmath.sty}{95}
+  \feature{otplainthm}{Plain theorem environment, section-numbered.}{\begin{otplainthm}...\end{otplainthm}}{src/packages/otmath.sty}{31}
+  \feature{otplainlemma}{Lemma sharing \code{otplainthm} counter.}{\begin{otplainlemma}...\end{otplainlemma}}{src/packages/otmath.sty}{47}
+  \feature{otplainprop}{Proposition sharing theorem counter.}{\begin{otplainprop}...\end{otplainprop}}{src/packages/otmath.sty}{48}
+  \feature{otplaincor}{Corollary sharing theorem counter.}{\begin{otplaincor}...\end{otplaincor}}{src/packages/otmath.sty}{49}
+  \feature{otplaindef}{Definition sharing theorem counter.}{\begin{otplaindef}...\end{otplaindef}}{src/packages/otmath.sty}{52}
+  \feature{otplainex}{Example sharing theorem counter.}{\begin{otplainex}...\end{otplainex}}{src/packages/otmath.sty}{53}
+  \feature{otplainexer}{Exercise sharing theorem counter.}{\begin{otplainexer}...\end{otplainexer}}{src/packages/otmath.sty}{54}
+  \feature{proofbox}{Breakable proof tcolorbox.}{\begin{proofbox}...\end{proofbox}}{src/packages/otmathboxes.sty}{20}
+  \feature{identitybox}{Breakable identity tcolorbox.}{\begin{identitybox}...\end{identitybox}}{src/packages/otmathboxes.sty}{29}
+  \feature{\inv{x}}{Formats inverse.}{\inv{A}}{src/packages/otmath.sty}{73}
+  \feature{\transpose{x}}{Formats transpose.}{\transpose{A}}{src/packages/otmath.sty}{74}
+  \feature{\adj{x}}{Formats adjoint/star.}{\adj{A}}{src/packages/otmath.sty}{75}
+  \feature{\conj{x}}{Formats complex conjugate.}{\conj{z}}{src/packages/otmath.sty}{76}
+  \feature{\realpart}{Real-part operator.}{\realpart z}{src/packages/otmath.sty}{77}
+  \feature{\imagpart}{Imaginary-part operator.}{\imagpart z}{src/packages/otmath.sty}{78}
+  \feature{\evalat{expr}{point}}{Evaluation bar.}{\evalat{f}{0}}{src/packages/otmath.sty}{83}
+  \feature{\limto{x}{a}}{Limit shorthand.}{\limto{x}{0} f(x)}{src/packages/otmath.sty}{84}
+  \feature{\series{i}{1}{n}}{Summation shorthand.}{\series{i}{1}{n} i}{src/packages/otmath.sty}{85}
+  \feature{\intab{a}{b}{f}{x}}{Definite integral shorthand.}{\intab{0}{1}{x^2}{x}}{src/packages/otmath.sty}{86}
+  \feature{\partialop{i}}{Partial derivative index.}{\partialop{i}}{src/packages/otmath.sty}{87}
+  \feature{\gradf{f}}{Gradient expression.}{\gradf{\phi}}{src/packages/otmath.sty}{92}
+  \feature{\divv{A}}{Divergence expression.}{\divv{\mathbf A}}{src/packages/otmath.sty}{93}
+  \feature{\curlv{A}}{Curl expression.}{\curlv{\mathbf A}}{src/packages/otmath.sty}{94}
+  \feature{\lapf{f}}{Laplacian expression.}{\lapf{\phi}}{src/packages/otmath.sty}{95}
+  \feature{\dirder{v}{f}}{Directional derivative notation.}{\dirder{\mathbf v}{f}}{src/packages/otmath.sty}{97}
+  \feature{\hessian{f}}{Hessian/Laplacian-style second derivative notation.}{\hessian{f}}{src/packages/otmath.sty}{98}
+  \feature{\dotp{a}{b}}{Dot product.}{\dotp{\mathbf a}{\mathbf b}}{src/packages/otmath.sty}{103}
+  \feature{\crossp{a}{b}}{Cross product.}{\crossp{\mathbf a}{\mathbf b}}{src/packages/otmath.sty}{104}
+  \feature{\outerp{a}{b}}{Tensor/outer product.}{\outerp{\mathbf a}{\mathbf b}}{src/packages/otmath.sty}{105}
+  \feature{\doublecontract}{Double-contraction colon operator.}{A\doublecontract B}{src/packages/otmath.sty}{106}
+  \feature{\innerp{a}{b}}{Angle-bracket inner product.}{\innerp{u}{v}}{src/packages/otmath.sty}{107}
+  \feature{\curlgradzero{f}}{Common vector identity display helper.}{\curlgradzero{\phi}}{src/packages/otmath.sty}{112}
+  \feature{\divcurlzero{A}}{Common vector identity display helper.}{\divcurlzero{\mathbf A}}{src/packages/otmath.sty}{113}
+  \feature{\curlcurlid{A}}{Curl-curl identity helper.}{\curlcurlid{\mathbf A}}{src/packages/otmath.sty}{114}
 \end{featuretable}
 
 \subsection{otnotation.sty}
 
 \begin{featuretable}
-  \feature{\N, \Z, \Q, \R, \C}{Number-set shortcuts.}{x\in\R}{src/packages/otnotation.sty}{18}
-  \feature{\important{text}}{Red bold emphasis.}{\important{warning}}{src/packages/otnotation.sty}{27}
-  \feature{\keyterm{text}}{Blue bold emphasis.}{\keyterm{basis}}{src/packages/otnotation.sty}{28}
-  \feature{\concept{text}}{Purple bold emphasis.}{\concept{duality}}{src/packages/otnotation.sty}{29}
-  \feature{\result{text}}{Green bold emphasis.}{\result{done}}{src/packages/otnotation.sty}{30}
-  \feature{\vect{x}}{Bold math vector.}{\vect{v}}{src/packages/otnotation.sty}{35}
-  \feature{\uvect{x}}{Unit vector with hat.}{\uvect{e}_r}{src/packages/otnotation.sty}{36}
-  \feature{\mat{A}}{Bold matrix.}{\mat{A}}{src/packages/otnotation.sty}{37}
-  \feature{\ten{T}}{Bold sans tensor.}{\ten{T}}{src/packages/otnotation.sty}{38}
-  \feature{\idten}{Identity tensor using \code{\ten{I}}.}{\idten}{src/packages/otnotation.sty}{39}
-  \feature{\vectorq{x}}{Legacy vector alias.}{\vectorq{F}}{src/packages/otnotation.sty}{42}
-  \feature{\ihat, \jhat, \khat}{Cartesian unit-vector shortcuts.}{\ihat+\jhat}{src/packages/otnotation.sty}{47}
-  \feature{\er, \etheta, \ephi, \erho, \ez}{Curvilinear basis-vector shortcuts.}{\er+\etheta}{src/packages/otnotation.sty}{51}
-  \feature{\tr}{Trace operator if not already defined.}{\tr A}{src/packages/otnotation.sty}{60}
-  \feature{\diag}{Diagonal operator.}{\diag(1,2)}{src/packages/otnotation.sty}{61}
-  \feature{\rank}{Rank operator if not already defined.}{\rank A}{src/packages/otnotation.sty}{62}
-  \feature{\spanop}{Span operator.}{\spanop\{v\}}{src/packages/otnotation.sty}{63}
-  \feature{\im}{Image operator.}{\im T}{src/packages/otnotation.sty}{64}
-  \feature{\kernel}{Kernel operator.}{\kernel T}{src/packages/otnotation.sty}{65}
-  \feature{\sgn}{Sign operator.}{\sgn x}{src/packages/otnotation.sty}{66}
-  \feature{\dd}{Differential spacing helper.}{\int f\,\dd x}{src/packages/otnotation.sty}{71}
-  \feature{\ddx{x}}{Derivative operator.}{\ddx{x}}{src/packages/otnotation.sty}{72}
-  \feature{\dvx{y}{x}}{Ordinary derivative fraction.}{\dvx{y}{x}}{src/packages/otnotation.sty}{73}
-  \feature{\pdvx{f}{x}}{Partial derivative fraction.}{\pdvx{f}{x}}{src/packages/otnotation.sty}{74}
-  \feature{\pdd{x}{f}}{Partial operator applied to expression.}{\pdd{x}{f}}{src/packages/otnotation.sty}{75}
-  \feature{\grad}{Gradient symbol if not already defined.}{\grad f}{src/packages/otnotation.sty}{76}
-  \feature{\lap}{Laplacian symbol.}{\lap f}{src/packages/otnotation.sty}{77}
-  \feature{\paren{x}, \bracket{x}, \bracee{x}}{Auto-sized delimiters.}{\paren{x+1}}{src/packages/otnotation.sty}{82}
-  \feature{\absval{x}}{Auto-sized absolute value.}{\absval{x}}{src/packages/otnotation.sty}{85}
-  \feature{\normval{x}}{Auto-sized norm.}{\normval{v}}{src/packages/otnotation.sty}{86}
-  \feature{\mean{x}}{Angle-bracket mean.}{\mean{x}}{src/packages/otnotation.sty}{87}
-  \feature{\unit{unit}}{Thin-space SI unit helper via \pkg{siunitx}.}{3\unit{m}}{src/packages/otnotation.sty}{92}
-  \feature{\const}{Roman const. helper.}{C=\const}{src/packages/otnotation.sty}{93}
+  \feature{\N, \Z, \Q, \R, \C}{Number-set shortcuts.}{x\in\R}{src/packages/otnotation.sty}{27}
+  \feature{\important{text}}{Red bold emphasis.}{\important{warning}}{src/packages/otemphasis.sty}{28}
+  \feature{\keyterm{text}}{Blue bold emphasis.}{\keyterm{basis}}{src/packages/otemphasis.sty}{29}
+  \feature{\concept{text}}{Purple bold emphasis.}{\concept{duality}}{src/packages/otemphasis.sty}{30}
+  \feature{\result{text}}{Green bold emphasis.}{\result{done}}{src/packages/otemphasis.sty}{31}
+  \feature{\vect{x}}{Bold math vector.}{\vect{v}}{src/packages/otnotation.sty}{45}
+  \feature{\uvect{x}}{Unit vector with hat.}{\uvect{e}_r}{src/packages/otnotation.sty}{46}
+  \feature{\mat{A}}{Bold matrix.}{\mat{A}}{src/packages/otnotation.sty}{47}
+  \feature{\ten{T}}{Bold sans tensor.}{\ten{T}}{src/packages/otnotation.sty}{48}
+  \feature{\idten}{Identity tensor using \code{\ten{I}}.}{\idten}{src/packages/otnotation.sty}{49}
+  \feature{\vectorq{x}}{Legacy vector alias.}{\vectorq{F}}{src/packages/otnotation.sty}{52}
+  \feature{\ihat, \jhat, \khat}{Cartesian unit-vector shortcuts.}{\ihat+\jhat}{src/packages/otnotation.sty}{57}
+  \feature{\er, \etheta, \ephi, \erho, \ez}{Curvilinear basis-vector shortcuts.}{\er+\etheta}{src/packages/otnotation.sty}{61}
+  \feature{\tr}{Trace operator if not already defined.}{\tr A}{src/packages/otnotation.sty}{76}
+  \feature{\diag}{Diagonal operator.}{\diag(1,2)}{src/packages/otnotation.sty}{77}
+  \feature{\rank}{Rank operator if not already defined.}{\rank A}{src/packages/otnotation.sty}{78}
+  \feature{\spanop}{Span operator.}{\spanop\{v\}}{src/packages/otnotation.sty}{79}
+  \feature{\im}{Image operator.}{\im T}{src/packages/otnotation.sty}{80}
+  \feature{\kernel}{Kernel operator.}{\kernel T}{src/packages/otnotation.sty}{81}
+  \feature{\sgn}{Sign operator.}{\sgn x}{src/packages/otnotation.sty}{82}
+  \feature{\dd}{Differential spacing helper.}{\int f\,\dd x}{src/packages/otnotation.sty}{88}
+  \feature{\ddx{x}}{Derivative operator.}{\ddx{x}}{src/packages/otnotation.sty}{89}
+  \feature{\dvx{y}{x}}{Ordinary derivative fraction.}{\dvx{y}{x}}{src/packages/otnotation.sty}{90}
+  \feature{\pdvx{f}{x}}{Partial derivative fraction.}{\pdvx{f}{x}}{src/packages/otnotation.sty}{91}
+  \feature{\pdd{x}{f}}{Partial operator applied to expression.}{\pdd{x}{f}}{src/packages/otnotation.sty}{92}
+  \feature{\grad}{Gradient symbol if not already defined.}{\grad f}{src/packages/otnotation.sty}{94}
+  \feature{\lap}{Laplacian symbol.}{\lap f}{src/packages/otnotation.sty}{95}
+  \feature{\paren{x}, \bracket{x}, \bracee{x}}{Auto-sized delimiters.}{\paren{x+1}}{src/packages/otnotation.sty}{100}
+  \feature{\absval{x}}{Auto-sized absolute value.}{\absval{x}}{src/packages/otnotation.sty}{103}
+  \feature{\normval{x}}{Auto-sized norm.}{\normval{v}}{src/packages/otnotation.sty}{104}
+  \feature{\mean{x}}{Angle-bracket mean.}{\mean{x}}{src/packages/otnotation.sty}{106}
+  \feature{\unit{unit}}{Supplied by \pkg{siunitx}, which \pkg{otnotation.sty} loads; the package's own fallback never took effect and was removed.}{3\unit{m}}{src/packages/otnotation.sty}{111}
+  \feature{\const}{Roman const. helper.}{C=\const}{src/packages/otnotation.sty}{113}
 \end{featuretable}
 
 \subsection{ottensors.sty}
@@ -697,35 +720,35 @@ Use \pkg{otengineering.cls} for engineering notebooks and R\&D logs. It has a fi
 
 \begin{featuretable}
   \feature{\position, \velocity, \accel, \force}{Basic mechanics vector symbols.}{\position,\velocity,\accel,\force}{src/packages/otphysics.sty}{17}
-  \feature{\netforce}{Net force sum.}{\netforce}{src/packages/otphysics.sty}{21}
-  \feature{\momentum}{Momentum definition.}{\momentum}{src/packages/otphysics.sty}{22}
-  \feature{\angmomentum}{Angular momentum definition.}{\angmomentum}{src/packages/otphysics.sty}{23}
-  \feature{\torque}{Torque definition.}{\torque}{src/packages/otphysics.sty}{24}
-  \feature{\ke}{Kinetic energy formula.}{\ke}{src/packages/otphysics.sty}{26}
-  \feature{\gpe}{Gravitational potential energy formula.}{\gpe}{src/packages/otphysics.sty}{27}
-  \feature{\Hooke}{Hooke's law vector formula.}{\Hooke}{src/packages/otphysics.sty}{28}
-  \feature{\NewtonSecond}{Newton's second law formula.}{\NewtonSecond}{src/packages/otphysics.sty}{29}
-  \feature{\angvel, \angaccel}{Angular velocity and acceleration symbols.}{\angvel,\angaccel}{src/packages/otphysics.sty}{34}
-  \feature{\rotke}{Rotational kinetic energy formula.}{\rotke}{src/packages/otphysics.sty}{36}
-  \feature{\rolling}{Rolling relation.}{\rolling}{src/packages/otphysics.sty}{37}
-  \feature{\Efield, \Bfield, \Dfield, \Hfield}{EM field symbols.}{\Efield,\Bfield,\Dfield,\Hfield}{src/packages/otphysics.sty}{42}
-  \feature{\Jcurrent, \rhocharge}{Current-density and charge-density symbols.}{\Jcurrent,\rhocharge}{src/packages/otphysics.sty}{46}
-  \feature{\GaussE}{Gauss law for electric field.}{\GaussE}{src/packages/otphysics.sty}{49}
-  \feature{\GaussB}{Gauss law for magnetic field.}{\GaussB}{src/packages/otphysics.sty}{50}
-  \feature{\Faraday}{Faraday law.}{\Faraday}{src/packages/otphysics.sty}{51}
-  \feature{\AmpereMaxwell}{Ampere-Maxwell law.}{\AmpereMaxwell}{src/packages/otphysics.sty}{52}
-  \feature{\LorentzForce}{Lorentz force formula.}{\LorentzForce}{src/packages/otphysics.sty}{54}
-  \feature{\FirstLaw}{First law of thermodynamics.}{\FirstLaw}{src/packages/otphysics.sty}{59}
-  \feature{\IdealGas}{Ideal gas law.}{\IdealGas}{src/packages/otphysics.sty}{60}
-  \feature{\entropydef}{Entropy differential definition.}{\entropydef}{src/packages/otphysics.sty}{61}
-  \feature{\enthalpy}{Enthalpy definition.}{\enthalpy}{src/packages/otphysics.sty}{62}
-  \feature{\gibbs}{Gibbs free energy definition.}{\gibbs}{src/packages/otphysics.sty}{63}
-  \feature{\helmholtz}{Helmholtz free energy definition.}{\helmholtz}{src/packages/otphysics.sty}{64}
-  \feature{\lightspeed}{Speed-of-light symbol.}{\lightspeed}{src/packages/otphysics.sty}{69}
-  \feature{\lorentzfactor}{Lorentz factor formula.}{\lorentzfactor}{src/packages/otphysics.sty}{70}
-  \feature{\spacetimeinterval}{Flat spacetime interval formula.}{\spacetimeinterval}{src/packages/otphysics.sty}{71}
-  \feature{\energymass}{Mass-energy relation.}{\energymass}{src/packages/otphysics.sty}{72}
-  \feature{\relenergy}{Relativistic energy relation.}{\relenergy}{src/packages/otphysics.sty}{73}
+  \feature{\netforce}{Net force sum.}{\netforce}{src/packages/otphysics.sty}{22}
+  \feature{\momentum}{Momentum definition.}{\momentum}{src/packages/otphysics.sty}{23}
+  \feature{\angmomentum}{Angular momentum definition.}{\angmomentum}{src/packages/otphysics.sty}{24}
+  \feature{\torque}{Torque definition.}{\torque}{src/packages/otphysics.sty}{25}
+  \feature{\ke}{Kinetic energy formula.}{\ke}{src/packages/otphysics.sty}{27}
+  \feature{\gpe}{Gravitational potential energy formula.}{\gpe}{src/packages/otphysics.sty}{28}
+  \feature{\Hooke}{Hooke's law vector formula.}{\Hooke}{src/packages/otphysics.sty}{29}
+  \feature{\NewtonSecond}{Newton's second law formula.}{\NewtonSecond}{src/packages/otphysics.sty}{30}
+  \feature{\angvel, \angaccel}{Angular velocity and acceleration symbols.}{\angvel,\angaccel}{src/packages/otphysics.sty}{35}
+  \feature{\rotke}{Rotational kinetic energy formula.}{\rotke}{src/packages/otphysics.sty}{37}
+  \feature{\rolling}{Rolling relation.}{\rolling}{src/packages/otphysics.sty}{38}
+  \feature{\Efield, \Bfield, \Dfield, \Hfield}{EM field symbols.}{\Efield,\Bfield,\Dfield,\Hfield}{src/packages/otphysics.sty}{43}
+  \feature{\Jcurrent, \rhocharge}{Current-density and charge-density symbols.}{\Jcurrent,\rhocharge}{src/packages/otphysics.sty}{47}
+  \feature{\GaussE}{Gauss law for electric field.}{\GaussE}{src/packages/otphysics.sty}{50}
+  \feature{\GaussB}{Gauss law for magnetic field.}{\GaussB}{src/packages/otphysics.sty}{51}
+  \feature{\Faraday}{Faraday law.}{\Faraday}{src/packages/otphysics.sty}{52}
+  \feature{\AmpereMaxwell}{Ampere-Maxwell law.}{\AmpereMaxwell}{src/packages/otphysics.sty}{53}
+  \feature{\LorentzForce}{Lorentz force formula.}{\LorentzForce}{src/packages/otphysics.sty}{55}
+  \feature{\FirstLaw}{First law of thermodynamics.}{\FirstLaw}{src/packages/otphysics.sty}{60}
+  \feature{\IdealGas}{Ideal gas law.}{\IdealGas}{src/packages/otphysics.sty}{61}
+  \feature{\entropydef}{Entropy differential definition.}{\entropydef}{src/packages/otphysics.sty}{62}
+  \feature{\enthalpy}{Enthalpy definition.}{\enthalpy}{src/packages/otphysics.sty}{63}
+  \feature{\gibbs}{Gibbs free energy definition.}{\gibbs}{src/packages/otphysics.sty}{64}
+  \feature{\helmholtz}{Helmholtz free energy definition.}{\helmholtz}{src/packages/otphysics.sty}{65}
+  \feature{\lightspeed}{Speed-of-light symbol.}{\lightspeed}{src/packages/otphysics.sty}{70}
+  \feature{\lorentzfactor}{Lorentz factor formula.}{\lorentzfactor}{src/packages/otphysics.sty}{71}
+  \feature{\spacetimeinterval}{Flat spacetime interval formula.}{\spacetimeinterval}{src/packages/otphysics.sty}{72}
+  \feature{\energymass}{Mass-energy relation.}{\energymass}{src/packages/otphysics.sty}{73}
+  \feature{\relenergy}{Relativistic energy relation.}{\relenergy}{src/packages/otphysics.sty}{74}
 \end{featuretable}
 
 \subsection{otcoordinates.sty}
@@ -765,27 +788,27 @@ Use \pkg{otengineering.cls} for engineering notebooks and R\&D logs. It has a fi
 \subsection{otpractice.sty}
 
 \begin{featuretable}
-  \feature{\blank[length]}{Fill-in line; default 3cm.}{\blank[4cm]}{src/packages/otpractice.sty}{15}
-  \feature{\bigblank}{7cm fill-in line.}{\bigblank}{src/packages/otpractice.sty}{16}
-  \feature{\longblank}{11cm fill-in line.}{\longblank}{src/packages/otpractice.sty}{17}
-  \feature{\componentblank}{2.5cm fill-in line.}{\componentblank}{src/packages/otpractice.sty}{18}
-  \feature{otquestion counter}{Question counter backing \code{\qitem}.}{\qitem}{src/packages/otpractice.sty}{23}
-  \feature{\qitem}{Increments and prints Q-number prefix.}{\qitem State Gauss law.}{src/packages/otpractice.sty}{24}
-  \feature{\resetquestions}{Resets practice question counter.}{\resetquestions}{src/packages/otpractice.sty}{25}
-  \feature{practice}{Practice box that resets question counter.}{\begin{practice}...\end{practice}}{src/packages/otpractice.sty}{27}
-  \feature{drillbox}{Formula drill box.}{\begin{drillbox}...\end{drillbox}}{src/packages/otpractice.sty}{31}
-  \feature{recallbox}{Recall-without-looking box.}{\begin{recallbox}...\end{recallbox}}{src/packages/otpractice.sty}{35}
-  \feature{examquestion}{Exam question box.}{\begin{examquestion}...\end{examquestion}}{src/packages/otpractice.sty}{39}
-  \feature{\given{text}}{Worked-solution Given field.}{\given{m=2 kg}}{src/packages/otpractice.sty}{46}
-  \feature{\find{text}}{Worked-solution Find field.}{\find{speed}}{src/packages/otpractice.sty}{47}
-  \feature{\strategy{text}}{Worked-solution Strategy field.}{\strategy{Use energy}}{src/packages/otpractice.sty}{48}
-  \feature{\solutionstep{text}}{Worked-solution Step field.}{\solutionstep{Substitute}}{src/packages/otpractice.sty}{49}
-  \feature{\thereforeanswer{text}}{Displays boxed final answer.}{\thereforeanswer{v=3 m/s}}{src/packages/otpractice.sty}{50}
-  \feature{flashcard}{Breakable flashcard tcolorbox with required title.}{\begin{flashcard}{Flux}...\end{flashcard}}{src/packages/otpractice.sty}{57}
-  \feature{\front{text}}{Flashcard front label.}{\front{Question}}{src/packages/otpractice.sty}{67}
-  \feature{\back{text}}{Flashcard back label.}{\back{Answer}}{src/packages/otpractice.sty}{68}
-  \feature{\examheader{name}{course}{time}{marks}}{Centered exam header block.}{\examheader{Quiz}{PHY}{30 min}{20}}{src/packages/otpractice.sty}{73}
-  \feature{\marks{n}}{Right-aligned marks label if not already defined.}{\marks{4}}{src/packages/otpractice.sty}{87}
+  \feature{\blank[length]}{Fill-in line; default 3cm.}{\blank[4cm]}{src/packages/otpractice.sty}{22}
+  \feature{\bigblank}{7cm fill-in line.}{\bigblank}{src/packages/otpractice.sty}{23}
+  \feature{\longblank}{11cm fill-in line.}{\longblank}{src/packages/otpractice.sty}{24}
+  \feature{\componentblank}{2.5cm fill-in line.}{\componentblank}{src/packages/otpractice.sty}{25}
+  \feature{otquestion counter}{Question counter backing \code{\qitem}.}{\qitem}{src/packages/otpractice.sty}{30}
+  \feature{\qitem}{Increments and prints Q-number prefix.}{\qitem State Gauss law.}{src/packages/otpractice.sty}{31}
+  \feature{\resetquestions}{Resets practice question counter.}{\resetquestions}{src/packages/otpractice.sty}{32}
+  \feature{practice}{Practice box that resets question counter.}{\begin{practice}...\end{practice}}{src/packages/otpractice.sty}{34}
+  \feature{drillbox}{Formula drill box.}{\begin{drillbox}...\end{drillbox}}{src/packages/otpractice.sty}{38}
+  \feature{recallbox}{Recall-without-looking box.}{\begin{recallbox}...\end{recallbox}}{src/packages/otpractice.sty}{42}
+  \feature{examquestion}{Exam question box.}{\begin{examquestion}...\end{examquestion}}{src/packages/otpractice.sty}{46}
+  \feature{\given{text}}{Worked-solution Given field.}{\given{m=2 kg}}{src/packages/otpractice.sty}{54}
+  \feature{\find{text}}{Worked-solution Find field.}{\find{speed}}{src/packages/otpractice.sty}{55}
+  \feature{\strategy{text}}{Worked-solution Strategy field.}{\strategy{Use energy}}{src/packages/otpractice.sty}{56}
+  \feature{\solutionstep{text}}{Worked-solution Step field.}{\solutionstep{Substitute}}{src/packages/otpractice.sty}{57}
+  \feature{\thereforeanswer{text}}{Displays boxed final answer.}{\thereforeanswer{v=3 m/s}}{src/packages/otpractice.sty}{58}
+  \feature{flashcard}{Breakable flashcard tcolorbox with required title.}{\begin{flashcard}{Flux}...\end{flashcard}}{src/packages/otpractice.sty}{69}
+  \feature{\front{text}}{Flashcard front label.}{\front{Question}}{src/packages/otpractice.sty}{79}
+  \feature{\back{text}}{Flashcard back label.}{\back{Answer}}{src/packages/otpractice.sty}{80}
+  \feature{\examheader{name}{course}{time}{marks}}{Centered exam header block.}{\examheader{Quiz}{PHY}{30 min}{20}}{src/packages/otpractice.sty}{85}
+  \feature{\otmarks{n}}{Right-aligned marks label. Replaces the old marks helper, whose name clashed with a TeX primitive so it never worked.}{\otmarks{4}}{src/packages/otpractice.sty}{104}
 \end{featuretable}
 
 \subsection{otfigures.sty}
@@ -822,62 +845,62 @@ Use \pkg{otengineering.cls} for engineering notebooks and R\&D logs. It has a fi
 \subsection{otcode.sty}
 
 \begin{featuretable}
-\feature{otcode}{Source code environment with OT syntax highlighting and line numbers.}{\begin{otcode}[language=Python]{Title}...\end{otcode}}{src/packages/otcode.sty}{63}
-\feature{otterminal}{Terminal / CLI box with dark background.}{\begin{otterminal}[Session]...\end{otterminal}}{src/packages/otcode.sty}{77}
-\feature{otalgorithm}{Stylized box for pseudocode or algorithms.}{\begin{otalgorithm}[Search]...\end{otalgorithm}}{src/packages/otcode.sty}{89}
-\feature{\otinputcode[opt]{file}{title}}{Includes an external source file with OT styling.}{\otinputcode{main.py}{Source}}{src/packages/otcode.sty}{100}
+\feature{otcode}{Source code environment with OT syntax highlighting and line numbers.}{\begin{otcode}[language=Python]{Title}...\end{otcode}}{src/packages/otcode.sty}{69}
+\feature{otterminal}{Terminal / CLI box with dark background.}{\begin{otterminal}[Session]...\end{otterminal}}{src/packages/otcode.sty}{118}
+\feature{otalgorithm}{Stylized box for pseudocode or algorithms.}{\begin{otalgorithm}[Search]...\end{otalgorithm}}{src/packages/otcode.sty}{131}
+\feature{\otinputcode[opt]{file}{title}}{Includes an external source file with OT styling.}{\otinputcode{main.py}{Source}}{src/packages/otcode.sty}{143}
 \end{featuretable}
 
 \subsection{otsymbols.sty}
 
 \begin{featuretable}
-\feature{\otdefinesymbol{key}{sym}{name}{unit}{desc}}{Defines a physical symbol with metadata.}{\otdefinesymbol{rho}{\rho}{Density}{kg/m^3}{...}}{src/packages/otsymbols.sty}{55}
-\feature{\otdefineacronym{key}{sh}{lo}{desc}}{Defines an acronym with description.}{\otdefineacronym{ota}{OTA}{Original Tech Author}{...}}{src/packages/otsymbols.sty}{63}
-\feature{\sym{key}}{Displays the symbol for the given key; tracks usage.}{\sym{rho}}{src/packages/otsymbols.sty}{69}
-\feature{\acr{key}}{Displays the acronym; handles first-use expansion.}{\acr{ota}}{src/packages/otsymbols.sty}{70}
-\feature{\printotnomenclature[title]}{Prints the 4-column Table of Symbols and Abbreviations.}{\printotnomenclature}{src/packages/otsymbols.sty}{73}
+\feature{\otdefinesymbol{key}{sym}{name}{unit}{desc}}{Defines a physical symbol with metadata.}{\otdefinesymbol{rho}{\rho}{Density}{kg/m^3}{...}}{src/packages/otsymbols.sty}{62}
+\feature{\otdefineacronym{key}{sh}{lo}{desc}}{Defines an acronym with description.}{\otdefineacronym{ota}{OTA}{Original Tech Author}{...}}{src/packages/otsymbols.sty}{71}
+\feature{\sym{key}}{Displays the symbol for the given key; tracks usage.}{\sym{rho}}{src/packages/otsymbols.sty}{78}
+\feature{\acr{key}}{Displays the acronym; handles first-use expansion.}{\acr{ota}}{src/packages/otsymbols.sty}{79}
+\feature{\printotnomenclature[title]}{Prints the 4-column Table of Symbols and Abbreviations.}{\printotnomenclature}{src/packages/otsymbols.sty}{82}
 \end{featuretable}
 
 \subsection{otprofiles.sty}
 
 \begin{featuretable}
-\feature{mode=val}{Sets the target audience mode: \code{full}, \code{student}, \code{instructor}, \code{draft}.}{[mode=student]}{src/packages/otprofiles.sty}{22}
-\feature{print=true}{Enables grayscale palette and black links for physical printing.}{[print=true]}{src/packages/otprofiles.sty}{24}
-\feature{watermark=true}{Adds a "DRAFT" watermark to the background of every page.}{[watermark=true]}{src/packages/otprofiles.sty}{26}
-\feature{\otifmode{modes}{text}}{Renders text only if current mode is in the comma-separated list.}{\otifmode{draft}{Internal}}{src/packages/otprofiles.sty}{50}
-\feature{\otifprint{T}{F}}{Renders first part if \code{print=true}, otherwise second part.}{\otifprint{B\&W}{Color}}{src/packages/otprofiles.sty}{59}
-\feature{\othideenvironment{env}}{Strips an environment's content from the output; useful for modes.}{\othideenvironment{solution}}{src/packages/otprofiles.sty}{67}
+\feature{mode=val}{Sets the target audience mode: \code{full}, \code{student}, \code{instructor}, \code{draft}.}{[mode=student]}{src/packages/otprofiles.sty}{38}
+\feature{print=true}{Enables grayscale palette and black links for physical printing.}{[print=true]}{src/packages/otprofiles.sty}{39}
+\feature{watermark=true}{Adds a "DRAFT" watermark to the background of every page.}{[watermark=true]}{src/packages/otprofiles.sty}{40}
+\feature{\otifmode{modes}{text}}{Renders text only if current mode is in the comma-separated list.}{\otifmode{draft}{Internal}}{src/packages/otprofiles.sty}{76}
+\feature{\otifprint{T}{F}}{Renders first part if \code{print=true}, otherwise second part.}{\otifprint{B\&W}{Color}}{src/packages/otprofiles.sty}{86}
+\feature{\othideenvironment{env}}{Strips an environment's content from the output; useful for modes.}{\othideenvironment{solution}}{src/packages/otprofiles.sty}{95}
 \end{featuretable}
 
 \subsection{otbib.sty}
 
 \begin{featuretable}
-\feature{\otbibliography{file}}{Sets the BibLaTeX resource file.}{\otbibliography{refs.bib}}{src/packages/otbib.sty}{50}
-\feature{\printotbibliography[title]}{Prints the bibliography.}{\printotbibliography}{src/packages/otbib.sty}{55}
+\feature{\otbibliography{file}}{Sets the BibLaTeX resource file.}{\otbibliography{refs.bib}}{src/packages/otbib.sty}{43}
+\feature{\printotbibliography[title]}{Prints the bibliography.}{\printotbibliography}{src/packages/otbib.sty}{48}
 \end{featuretable}
 
 \subsection{otindex.sty}
 
 \begin{featuretable}
-\feature{\otindex{term}}{Adds a term to the 3-column index.}{\otindex{LaTeX}}{src/packages/otindex.sty}{35}
-\feature{\printotindex}{Prints the generated index.}{\printotindex}{src/packages/otindex.sty}{39}
+\feature{\otindex{term}}{Adds a term to the 3-column index.}{\otindex{LaTeX}}{src/packages/otindex.sty}{31}
+\feature{\printotindex}{Prints the generated index.}{\printotindex}{src/packages/otindex.sty}{34}
 \end{featuretable}
 
 \subsection{otforms.sty}
 
 \begin{featuretable}
-\feature{\otstartforms}{Starts a fillable PDF form area.}{\otstartforms}{src/packages/otforms.sty}{24}
-\feature{\ottextfield{lbl}{id}}{Adds a fillable text field.}{\ottextfield{Name}{id1}}{src/packages/otforms.sty}{30}
-\feature{\otcheckbox{lbl}{id}}{Adds a clickable checkbox.}{\otcheckbox{Ready?}{chk1}}{src/packages/otforms.sty}{36}
-\feature{\otchoicefield{lbl}{id}{vals}}{Adds a combo box.}{\otchoicefield{Site}{s1}{A,B}}{src/packages/otforms.sty}{41}
-\feature{\ottextbox{lbl}{id}}{Adds a multiline text area.}{\ottextbox{Notes}{n1}}{src/packages/otforms.sty}{46}
+\feature{\otstartforms}{Starts a fillable PDF form area.}{\otstartforms}{src/packages/otforms.sty}{26}
+\feature{\ottextfield{lbl}{id}}{Adds a fillable text field.}{\ottextfield{Name}{id1}}{src/packages/otforms.sty}{36}
+\feature{\otcheckbox{lbl}{id}}{Adds a clickable checkbox.}{\otcheckbox{Ready?}{chk1}}{src/packages/otforms.sty}{42}
+\feature{\otchoicefield{lbl}{id}{vals}}{Adds a combo box.}{\otchoicefield{Site}{s1}{A,B}}{src/packages/otforms.sty}{49}
+\feature{\ottextbox{lbl}{id}}{Adds a multiline text area.}{\ottextbox{Notes}{n1}}{src/packages/otforms.sty}{55}
 \end{featuretable}
 
 \subsection{otreproduce.sty}
 
 \begin{featuretable}
-\feature{\otloadsnippets{file}}{Loads math results generated by Ot-Calculator.}{\otloadsnippets{math.tex}}{src/packages/otreproduce.sty}{22}
-\feature{\otcompute{key}}{Inserts a deterministic math result from the calculator.}{\otcompute{root2}}{src/packages/otreproduce.sty}{31}
+\feature{\otloadsnippets{file}}{Loads math results generated by Ot-Calculator.}{\otloadsnippets{math.tex}}{src/packages/otreproduce.sty}{20}
+\feature{\otcompute{key}}{Inserts a deterministic math result from the calculator.}{\otcompute{root2}}{src/packages/otreproduce.sty}{30}
 \end{featuretable}
 
 \section{Figure and Diagram Workflow}
@@ -900,16 +923,16 @@ Use \pkg{otengineering.cls} for engineering notebooks and R\&D logs. It has a fi
 \textbf{Do not use \pkg{src/legacy/otscience.sty} for new documents.} The active project state has moved science-note functionality into \pkg{src/classes/otscience.cls} plus companion packages under \pkg{src/packages}. The legacy package is included here only so authors recognize older source and can migrate deliberately.
 
 \begin{featuretable}
-  \feature{legacy otscibox}{Old generic science box. Prefer \pkg{otboxes.sty}.}{\begin{otscibox}[Title]{OTBlue}...\end{otscibox}}{src/legacy/otscience.sty}{75}
-  \feature{legacy semantic boxes}{Old single breakable box family: definition, theorem, law, formula, derivation, example, warning, intuition, summary, experiment. Prefer \pkg{otscience.cls}.}{\begin{definitionbox}...\end{definitionbox}}{src/legacy/otscience.sty}{94}
-  \feature{\important, \keyterm, \concept, \result}{Old text emphasis helpers. Prefer \pkg{otnotation.sty}.}{\important{text}}{src/legacy/otscience.sty}{138}
-  \feature{\unit, \vectorq, \mat}{Old unit/vector/matrix helpers. Prefer \pkg{otnotation.sty}.}{\unit{m}}{src/legacy/otscience.sty}{147}
-  \feature{\ddx, \dvx, \pdvx}{Old derivative helpers. Prefer \pkg{otnotation.sty}.}{\dvx{y}{x}}{src/legacy/otscience.sty}{151}
-  \feature{\mean, \absval, \normval}{Old delimiter helpers. Prefer \pkg{otnotation.sty}.}{\absval{x}}{src/legacy/otscience.sty}{155}
-  \feature{\netforce, \accel, \velocity, \position}{Old mechanics symbols. Prefer \pkg{otphysics.sty}.}{\velocity}{src/legacy/otscience.sty}{163}
-  \feature{\ke, \gpe, \momentum}{Old mechanics formulas. Prefer \pkg{otphysics.sty}.}{\ke}{src/legacy/otscience.sty}{168}
-  \feature{\chem, \reaction}{Old chemistry helpers; no active replacement was identified in the active package list.}{\chem{H2O}}{src/legacy/otscience.sty}{176}
-  \feature{\given, \find, \solutionstep, \thereforeanswer}{Old worked-solution helpers. Prefer \pkg{otpractice.sty}.}{\given{data}}{src/legacy/otscience.sty}{185}
+  \feature{legacy otscibox}{Old generic science box. Prefer \pkg{otboxes.sty}.}{\begin{otscibox}[Title]{OTBlue}...\end{otscibox}}{src/legacy/otscience.sty}{82}
+  \feature{legacy semantic boxes}{Old single breakable box family: definition, theorem, law, formula, derivation, example, warning, intuition, summary, experiment. Prefer \pkg{otscience.cls}.}{\begin{definitionbox}...\end{definitionbox}}{src/legacy/otscience.sty}{101}
+  \feature{\important, \keyterm, \concept, \result}{Old text emphasis helpers. Prefer \pkg{otnotation.sty}.}{\important{text}}{src/legacy/otscience.sty}{144}
+  \feature{\unit, \vectorq, \mat}{Old unit/vector/matrix helpers. Prefer \pkg{otnotation.sty}.}{\unit{m}}{src/legacy/otscience.sty}{153}
+  \feature{\ddx, \dvx, \pdvx}{Old derivative helpers. Prefer \pkg{otnotation.sty}.}{\dvx{y}{x}}{src/legacy/otscience.sty}{157}
+  \feature{\mean, \absval, \normval}{Old delimiter helpers. Prefer \pkg{otnotation.sty}.}{\absval{x}}{src/legacy/otscience.sty}{161}
+  \feature{\netforce, \accel, \velocity, \position}{Old mechanics symbols. Prefer \pkg{otphysics.sty}.}{\velocity}{src/legacy/otscience.sty}{169}
+  \feature{\ke, \gpe, \momentum}{Old mechanics formulas. Prefer \pkg{otphysics.sty}.}{\ke}{src/legacy/otscience.sty}{174}
+  \feature{\chem, \reaction}{Old chemistry helpers; no active replacement was identified in the active package list.}{\chem{H2O}}{src/legacy/otscience.sty}{182}
+  \feature{\given, \find, \solutionstep, \thereforeanswer}{Old worked-solution helpers. Prefer \pkg{otpractice.sty}.}{\given{data}}{src/legacy/otscience.sty}{191}
 \end{featuretable}
 
 \section{Ambiguous, Internal, or Unsafe to Present as Public}

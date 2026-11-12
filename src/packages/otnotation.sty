@@ -4,17 +4,26 @@
 % ============================================================
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{otnotation}[2026/06/22 OT notation macros]
+\ProvidesPackage{otnotation}[2026/11/12 v0.2 OT notation macros]
+
+% Options:
+%   noemphasis  do not load otemphasis (\important, \keyterm, \concept,
+%               \result). Without it, otnotation loads no OT colour or
+%               presentation package.
+\newif\ifotnotation@emphasis\otnotation@emphasistrue
+\DeclareOption{noemphasis}{\otnotation@emphasisfalse}
+\ProcessOptions\relax
 
 \RequirePackage{amsmath}
 \RequirePackage{amssymb}
 \RequirePackage{bm}
-\RequirePackage{ottheme}
 \RequirePackage{siunitx}
 
 % -----------------------------
 % Sets and fields
 % -----------------------------
+% Deliberate deferral: if another package already defines one of these
+% names, its definition is kept.
 \providecommand{\N}{\mathbb{N}}
 \providecommand{\Z}{\mathbb{Z}}
 \providecommand{\Q}{\mathbb{Q}}
@@ -24,10 +33,11 @@
 % -----------------------------
 % Text emphasis
 % -----------------------------
-\newcommand{\important}[1]{\textbf{\color{OTRed}#1}}
-\newcommand{\keyterm}[1]{\textbf{\color{OTBlue}#1}}
-\newcommand{\concept}[1]{\textbf{\color{OTPurple}#1}}
-\newcommand{\result}[1]{\textbf{\color{OTGreen}#1}}
+% Presentation helpers now live in otemphasis.sty (loaded here unless the
+% noemphasis option is given).
+\ifotnotation@emphasis
+  \RequirePackage{otemphasis}
+\fi
 
 % -----------------------------
 % Vectors, matrices, tensors
@@ -57,9 +67,15 @@
 % -----------------------------
 % Operators
 % -----------------------------
-\providecommand{\tr}{\operatorname{tr}}
+% Load-order contract (PLAN.md decision 8): the short names \tr, \rank,
+% \dd and \grad defer to an earlier definition (the physics package defines
+% all four, and wins under otscience/otbook). The \ot... names always have
+% the OT meaning.
+\newcommand{\ottrace}{\operatorname{tr}}
+\newcommand{\otrank}{\operatorname{rank}}
+\@ifundefined{tr}{\NewCommandCopy{\tr}{\ottrace}}{}
 \DeclareMathOperator{\diag}{diag}
-\providecommand{\rank}{\operatorname{rank}}
+\@ifundefined{rank}{\NewCommandCopy{\rank}{\otrank}}{}
 \DeclareMathOperator{\spanop}{span}
 \DeclareMathOperator{\im}{Im}
 \DeclareMathOperator{\kernel}{Ker}
@@ -68,12 +84,14 @@
 % -----------------------------
 % Differentials
 % -----------------------------
-\providecommand{\dd}{\,\mathrm{d}}
+\newcommand{\otdiff}{\,\mathrm{d}}
+\@ifundefined{dd}{\NewCommandCopy{\dd}{\otdiff}}{}
 \newcommand{\ddx}[1]{\frac{\mathrm{d}}{\mathrm{d}#1}}
 \newcommand{\dvx}[2]{\frac{\mathrm{d}#1}{\mathrm{d}#2}}
 \newcommand{\pdvx}[2]{\frac{\partial #1}{\partial #2}}
 \newcommand{\pdd}[2]{\frac{\partial}{\partial #1}\left(#2\right)}
-\providecommand{\grad}{\nabla}
+\newcommand{\otgrad}{\nabla}
+\@ifundefined{grad}{\NewCommandCopy{\grad}{\otgrad}}{}
 \newcommand{\lap}{\nabla^2}
 
 % -----------------------------
@@ -84,12 +102,14 @@
 \newcommand{\bracee}[1]{\left\{#1\right\}}
 \newcommand{\absval}[1]{\left|#1\right|}
 \newcommand{\normval}[1]{\left\lVert#1\right\rVert}
-\newcommand{\mean}[1]{\left\langle #1 \right\rangle}
+\newcommand{\otmean}[1]{\left\langle #1 \right\rangle}
+\NewCommandCopy{\mean}{\otmean}
 
 % -----------------------------
 % Units and constants
 % -----------------------------
-\providecommand{\unit}[1]{\,\si{#1}}
+% (A former \providecommand{\unit} was removed: siunitx v3, loaded above,
+% always defines \unit first, so it never took effect. \unit is siunitx's.)
 \newcommand{\const}{\mathrm{const.}}
 
 \endinput

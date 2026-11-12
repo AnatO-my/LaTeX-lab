@@ -19,6 +19,13 @@ Read the relevant guide:
 * `docs/BRANCH_AND_PR_POLICY.md` for branch and pull-request expectations; and
 * `docs/RELEASE_READINESS.md` before preparing release assets.
 
+## Adding or Changing Classes and Packages
+
+Follow `docs/PACKAGE_AUTHOR_CHECKLIST.md`. It covers ownership, the `\ot...`
+naming convention, deterministic loading, tests and the documentation that
+must change in the same commit. `docs/MIGRATION_GUIDE.md` records every
+renamed, moved or changed author interface.
+
 ## Branches
 
 Use short branch names that describe the work:

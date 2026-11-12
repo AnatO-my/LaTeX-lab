@@ -1,0 +1,25 @@
+\documentclass{article}
+
+% PLAN.md Phase E exit criterion: the domain/notation packages load in a
+% standard class without importing OT visual policy (colours, tcolorbox,
+% hyperref) when their presentation companions are switched off.
+\usepackage[noemphasis]{otnotation}
+\usepackage[noboxes]{otmath}
+\usepackage{otphysics}
+\usepackage{otcoordinates}
+\usepackage{ottensors}
+
+\makeatletter
+\AtBeginDocument{%
+  \@for\ot@pkg:={otcolors,ottheme,otemphasis,otmathboxes,tcolorbox,hyperref}\do{%
+    \@ifpackageloaded{\ot@pkg}{%
+      \PackageError{ot-notation-neutral}{\ot@pkg\space was loaded}{}}{}}}
+\makeatother
+
+\begin{document}
+\typeout{OTREFACTOR-E:NEUTRAL-LOADING}
+$\vect{v} = \otinverse{A}\,\vect{b}$, $\otforce = m\vect{a}$,
+$\ottrace(\mat{M})$, $\otrank(\mat{M})$, $\int f(x)\otdiff x$, $\otgrad\phi$,
+$\otmean{x}$.
+\begin{otplainthm}A neutral theorem.\end{otplainthm}
+\end{document}

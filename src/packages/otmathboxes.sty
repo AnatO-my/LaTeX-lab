@@ -1,0 +1,38 @@
+% ============================================================
+% OT Mathematics Boxes
+% otmathboxes.sty
+% Version: 0.1
+% Purpose: Boxed proof and identity environments (presentation)
+% ============================================================
+%
+% proofbox and identitybox were defined in otmath.sty. They are presentation,
+% so they live here (PLAN.md Phase E). otmath still loads this package by
+% default for compatibility; \usepackage[noboxes]{otmath} gives the theorem
+% environments and algebra helpers without tcolorbox or the OT colours.
+
+\NeedsTeXFormat{LaTeX2e}[2022-06-01]
+\ProvidesPackage{otmathboxes}[2026/11/12 v0.1 OT Mathematics Boxes]
+
+\RequirePackage{otcolors}
+\RequirePackage{tcolorbox}
+\tcbuselibrary{skins,breakable}
+
+\newtcolorbox{proofbox}[1][Proof]{
+  enhanced,
+  breakable,
+  colback=OTLight,
+  colframe=OTOrange,
+  title=#1,
+  fonttitle=\bfseries
+}
+
+\newtcolorbox{identitybox}[1][Identity]{
+  enhanced,
+  breakable,
+  colback=OTLight,
+  colframe=OTTeal,
+  title=#1,
+  fonttitle=\bfseries
+}
+
+\endinput

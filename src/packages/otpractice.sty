@@ -4,7 +4,7 @@
 % ============================================================
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{otpractice}[2026/06/22 OT practice macros]
+\ProvidesPackage{otpractice}[2026/11/12 v0.2 OT practice macros]
 
 \RequirePackage{otboxes}
 \RequirePackage{enumitem}
@@ -12,10 +12,17 @@
 % -----------------------------
 % Fill-in helpers
 % -----------------------------
-\providecommand{\blank}[1][3cm]{\rule{#1}{0.4pt}}
-\providecommand{\bigblank}{\rule{7cm}{0.4pt}}
-\providecommand{\longblank}{\rule{11cm}{0.4pt}}
-\providecommand{\componentblank}{\rule{2.5cm}{0.4pt}}
+% Load-order contract (PLAN.md decision 8): the short names defer to an
+% earlier definition (xsim, used by physicsquiz, defines \blank). The \ot...
+% names always have the OT meaning.
+\newcommand{\otblank}[1][3cm]{\rule{#1}{0.4pt}}
+\newcommand{\otbigblank}{\rule{7cm}{0.4pt}}
+\newcommand{\otlongblank}{\rule{11cm}{0.4pt}}
+\newcommand{\otcomponentblank}{\rule{2.5cm}{0.4pt}}
+\@ifundefined{blank}{\NewCommandCopy{\blank}{\otblank}}{}
+\@ifundefined{bigblank}{\NewCommandCopy{\bigblank}{\otbigblank}}{}
+\@ifundefined{longblank}{\NewCommandCopy{\longblank}{\otlongblank}}{}
+\@ifundefined{componentblank}{\NewCommandCopy{\componentblank}{\otcomponentblank}}{}
 
 % -----------------------------
 % Question helpers
@@ -43,7 +50,8 @@
 % -----------------------------
 % Worked solution template
 % -----------------------------
-\newcommand{\given}[1]{\textbf{Given:} #1\par}
+\newcommand{\otgiven}[1]{\textbf{Given:} #1\par}
+\NewCommandCopy{\given}{\otgiven}
 \newcommand{\find}[1]{\textbf{Find:} #1\par}
 \newcommand{\strategy}[1]{\textbf{Strategy:} #1\par}
 \newcommand{\solutionstep}[1]{\textbf{Step:} #1\par}
@@ -88,6 +96,11 @@
 % -----------------------------
 % Mark scheme helper
 % -----------------------------
-\providecommand{\marks}[1]{\hfill\textbf{[#1 marks]}}
+% \otmarks{<n>} prints a right-aligned "[<n> marks]" label.
+% It replaces the earlier \marks{<n>}, which never worked: \marks is an e-TeX
+% primitive (used by LaTeX's mark mechanism), so \providecommand left it
+% untouched and \marks{4} stopped with "Missing number". The primitive must
+% not be redefined, so the helper has a new, namespaced name.
+\newcommand{\otmarks}[1]{\hfill\textbf{[#1 marks]}}
 
 \endinput

@@ -2,6 +2,15 @@
 % OT Engineering Notebook Class
 % Version: 0.3
 % Purpose: Informal engineering design + personal R&D notebook
+%
+% Composition (PLAN.md Phase D):
+%   base class   article (11pt, A4), or extbook (14pt) with `eee-report'
+%   foundations  otcore (facade: otcolors + otlayout + table/date packages),
+%                ottheme (palette + OT link policy)
+%   preset       none yet: engineering page style and heading colours are set
+%                in this class; its own `otbox' primitive is kept because its
+%                styling differs from otboxes
+%   bundle       none; companions are loaded explicitly by the document
 % ============================================================
 
 \NeedsTeXFormat{LaTeX2e}

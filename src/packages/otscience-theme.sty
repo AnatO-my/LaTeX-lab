@@ -1,0 +1,48 @@
+% ============================================================
+% OT Science Theme (preset)
+% otscience-theme.sty
+% Version: 0.1
+% Purpose: Named visual preset shared by otscience.cls and otbook.cls
+% ============================================================
+%
+% A preset owns a family of visual choices; it does not own document
+% structure. This one collects the settings that otscience.cls and otbook.cls
+% previously duplicated: quantity formatting, list spacing and heading
+% colours. Each class still chooses its own running-head label (through
+% \otsciencepagestyle) and any genre-specific styling, such as otbook's
+% chapter headings.
+
+\NeedsTeXFormat{LaTeX2e}[2022-06-01]
+\ProvidesPackage{otscience-theme}[2026/11/12 v0.1 OT Science Theme Preset]
+
+\RequirePackage{otcolors}
+\RequirePackage{otlayout}
+\RequirePackage{siunitx}
+
+% -----------------------------
+% Quantity formatting
+% -----------------------------
+\sisetup{
+  per-mode=symbol,
+  separate-uncertainty=true,
+  detect-all=true
+}
+
+% -----------------------------
+% Lists and headings
+% -----------------------------
+\otcorelistdefaults
+\otcoresectionstyles{0.75em}{OTPurple}
+
+% -----------------------------
+% Running heads
+% -----------------------------
+% \otsciencepagestyle{<left-head label>}
+\newcommand{\otsciencepagestyle}[1]{%
+  \otcorepagestyle
+    {\textcolor{OTMuted}{#1}}
+    {\textcolor{OTMuted}{\leftmark}}
+    {0.3pt}%
+}
+
+\endinput

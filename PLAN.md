@@ -50,9 +50,11 @@ their reusable implementation.
    defining them unconditionally would break any standalone document that
    defines its own `examplebox` or `summarybox` (the vector workbook already
    guards against exactly this with `\@ifundefined`). The family is therefore
-   opt-in: `\usepackage[semantic]{otboxes}` (or an equivalent companion
-   package, e.g. `otsciboxes`, if a separate file proves cleaner). Plain
-   `\usepackage{otboxes}` keeps today's surface: `otscibox` and
+   opt-in, through the companion package `otsciboxes`, which requires
+   `otboxes`. A companion was chosen over a `semantic` option because a
+   package option can raise an "option clash" when `otpractice` has already
+   loaded `otboxes` without it; a separate package loads safely in any order.
+   Plain `\usepackage{otboxes}` keeps today's surface: `otscibox` and
    `otsciboxnosplit` only.
 
    `otscibox` and `otsciboxnosplit` remain advanced primitives. `otscience`
@@ -105,6 +107,9 @@ their reusable implementation.
 5. **New public commands are namespaced by default.**
 
    Use `\ot...` for commands and an OT-specific environment/package namespace.
+   Canonical names follow the repository's established lowercase convention
+   (`\otmean`, `\otinverse`, `\otforce`, `\otgiven`, `\otresult`, like the
+   existing `\otremark` and `\otcorepagestyle`), not camelCase.
    Existing short commands remain supported where documented, but new short
    names require a clear collision analysis and compatibility justification.
 
@@ -173,9 +178,8 @@ representative documents, and regression targets.
 semantic boxes, without exposing new names to documents that did not ask
 for them.
 
-- Add the shared semantic wrappers to `otboxes` behind the `semantic` option
-  (or in a companion package; decide in this phase), using its existing
-  primitives.
+- Add the shared semantic wrappers in the companion package `otsciboxes`
+  (decided in this phase; see decision 1), using the `otboxes` primitives.
 - Retain exact defaults, titles, colours, breakability, and syntax from the
   current `otscience` and `otbook` implementations.
 - Make the move **one atomic change**: in the same commit, add the family to
@@ -190,7 +194,8 @@ for them.
   or reduce to a wrapper around `otboxes`); do not leave it as an unmentioned
   third copy.
 - Extend the existing tests rather than starting new ones:
-  `tests/ot_boxes_package_smoke.tex` (plain and `semantic` modes),
+  `tests/ot_boxes_package_smoke.tex`, a new
+  `tests/ot_sciboxes_package_smoke.tex`,
   `tests/otscience_boxes_compatibility.tex`, `tests/otbook_class_smoke.tex`,
   and `tests/otpractice_standalone.tex`. Add a test document that defines its
   own `examplebox` after `\usepackage{otboxes}` and `\usepackage{otpractice}`
@@ -284,8 +289,8 @@ Proposed package roles:
   `hyperref` through `ottheme`.
 - Make domain packages depend only on neutral notation or basic math packages,
   unless a visual dependency is explicitly part of their public purpose.
-- Introduce canonical namespaced commands such as `\otMean`, `\otInverse`,
-  `\otForce`, `\otGiven`, and `\otResult` where appropriate.
+- Introduce canonical namespaced commands such as `\otmean`, `\otinverse`,
+  `\otforce`, `\otgiven`, and `\otresult` where appropriate.
 - Preserve established short commands as compatibility aliases until a future,
   explicit deprecation decision.
 
@@ -354,6 +359,20 @@ The first implementation change should still be Phase B. It adds no new
 link-policy exposure (`otboxes` already loads `ottheme`), has the narrowest
 scope, and, with the opt-in option and atomic move, a straightforward
 compatibility story.
+
+## Progress
+
+| Phase | Status | Evidence |
+| --- | --- | --- |
+| A | Done 2026-11-11 | `docs/ARCHITECTURE_AUDIT.md`, `docs/INTERFACE_INVENTORY.md`, `scripts/audit_interfaces.py` |
+| B | Done 2026-11-11 | `otsciboxes.sty`; class copies removed; 22 baseline documents pixel-identical |
+| C | Done 2026-11-11 | unconditional bundles with `minimal`; `otaccess` messages |
+| Decision 7 | Done 2026-11-11 (approved) | `otcolors.sty`; `ottheme` is the link-policy wrapper; boundary and opt-in tests |
+| `\marks` defect (from Phase E) | Done 2026-11-11 | `\otmarks` in `otpractice`; `tests/otpractice_otmarks.tex` |
+| D | Done 2026-11-12 | `otlayout.sty`; `otcore` v0.3 facade; `otscience-theme.sty` preset; class composition table; `otbase` contract defined, package not created |
+| E | Done 2026-11-12 | `otemphasis.sty`, `otmathboxes.sty`; `noemphasis`/`noboxes` options; canonical `\ot...` names with aliases; `physics`/`xsim` collision scan; neutral-loading test |
+| `OTLight` unification | Done 2026-11-12 (requested) | `otcolors` v0.2: `#F3F4F6` for all OT classes |
+| F | Done 2026-11-12 | `docs/MIGRATION_GUIDE.md`, `docs/PACKAGE_AUTHOR_CHECKLIST.md`, `docs/RELEASE_NOTES_ARCHITECTURE_REFACTOR.md` (draft); author manual updated and its `\src` line references re-pointed; `CONTRIBUTING.md` link; visual PDF review |
 
 ## Revision notes
 

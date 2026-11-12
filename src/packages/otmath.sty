@@ -4,19 +4,22 @@
 % ============================================================
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{otmath}[2026/06/22 OT mathematics macros]
+\ProvidesPackage{otmath}[2026/11/12 v0.2 OT mathematics macros]
 
 \RequirePackage{amsmath}
 \RequirePackage{amssymb}
 \RequirePackage{amsthm}
 \RequirePackage{mathtools}
-\RequirePackage{ottheme}
-\RequirePackage{tcolorbox}
-\tcbuselibrary{skins,breakable}
 \RequirePackage{kvoptions}
 
+% Options:
+%   theorems=section|chapter  counter scope of the plain theorem environments
+%   noboxes (boxes=false)     do not load otmathboxes (proofbox, identitybox);
+%                             otmath then loads no OT colour or tcolorbox code
 \SetupKeyvalOptions{family=OTMATH,prefix=otmath@}
 \DeclareStringOption[section]{theorems}
+\DeclareBoolOption[true]{boxes}
+\DeclareComplementaryOption{noboxes}{boxes}
 \ProcessKeyvalOptions*
 
 % -----------------------------
@@ -49,33 +52,25 @@
 \newtheorem{otplaindef}[otplainthm]{Definition}
 \newtheorem{otplainex}[otplainthm]{Example}
 \newtheorem{otplainexer}[otplainthm]{Exercise}
+% Unboxed, theorem-numbered counterpart of otbook's boxed `designrule'
+% (which has its own counter). The two are deliberately separate.
 \newtheorem{otplaindesignrule}[otplainthm]{Design Rule}
 
 % -----------------------------
 % Boxed theorem-like environments
 % -----------------------------
-\newtcolorbox{proofbox}[1][Proof]{
-  enhanced,
-  breakable,
-  colback=OTLight,
-  colframe=OTOrange,
-  title=#1,
-  fonttitle=\bfseries
-}
-
-\newtcolorbox{identitybox}[1][Identity]{
-  enhanced,
-  breakable,
-  colback=OTLight,
-  colframe=OTTeal,
-  title=#1,
-  fonttitle=\bfseries
-}
+% proofbox and identitybox are presentation and live in otmathboxes.sty.
+% (\makeatletter: the theorem block above ends with \makeatother.)
+\makeatletter
+\ifotmath@boxes
+  \RequirePackage{otmathboxes}
+\fi
 
 % -----------------------------
 % Algebra helpers
 % -----------------------------
-\newcommand{\inv}[1]{#1^{-1}}
+\newcommand{\otinverse}[1]{#1^{-1}}
+\NewCommandCopy{\inv}{\otinverse}
 \newcommand{\transpose}[1]{#1^{\mathsf{T}}}
 \newcommand{\adj}[1]{#1^{\ast}}
 \newcommand{\conj}[1]{\overline{#1}}

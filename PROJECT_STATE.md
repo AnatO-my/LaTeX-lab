@@ -485,6 +485,10 @@ Phase 5 has also introduced shared infrastructure packages:
 * `src/packages/otboxes.sty`
 * `src/packages/otcore.sty`
 
+The architecture refactor (PLAN.md Phase B, 2026-11-11) adds
+`src/packages/otsciboxes.sty`, the single owner of the semantic science boxes
+previously duplicated in `otscience.cls` and `otbook.cls`.
+
 Four of the seven — `otnotation`, `otmath`, `otpractice` and `otfigures` —
 depended on colours defined by `otscience.cls`, and `otpractice` also depended
 on its `otscibox` environment. Checkpoint 5B moved the colour dependency to
@@ -705,7 +709,10 @@ The canonical repository structure is now supported by the shared Phase 1 class 
 
 * `\CartToCyl` and `\CartToSph` use `\tan^{-1}(y/x)`, which loses quadrant information; a later implementation should use an `atan2` formulation.
 * The companion packages currently depend on class-defined colours and box interfaces.
-* The optional-loading arrangement can hide missing ecosystem dependencies.
+* ~~The optional-loading arrangement can hide missing ecosystem dependencies.~~
+  Resolved by the architecture refactor (PLAN.md Phase C, 2026-11-11): the
+  `otscience` and `otbook` bundles now load unconditionally, with a `minimal`
+  opt-out.
 * Combined and standalone builds require controlled regression testing after path configuration.
 
 ### General ecosystem issues
@@ -727,6 +734,23 @@ The canonical repository structure is now supported by the shared Phase 1 class 
   `xsim`-backed storage engine behind a `physicsquiz`-owned author syntax.
 * **The Phase 4 question-record interface and metadata validation policy:**
   fixed at Checkpoint 4C and documented in `docs/PUBLIC_INTERFACES.md`.
+
+## Architecture refactor (PLAN.md)
+
+Branch `refactor/architecture-plan`. Phases A–C completed on 11 November 2026;
+see `docs/ARCHITECTURE_AUDIT.md` for the audit, move register and evidence.
+Decision 7 (colour tokens split from link policy: new `otcolors.sty`) and the
+`\otmarks` fix were completed on 11 November 2026 after approval. Phase D
+(`otlayout`, `otcore` facade, `otscience-theme` preset, class composition) was
+completed on 12 November 2026. Phase E (notation: `otemphasis`,
+`otmathboxes`, canonical `\ot...` names) and the `OTLight` unification
+(`#F3F4F6` for every class) were completed on 12 November 2026. The Phase 5
+baseline manifest must be re-recorded for the new `OTLight`. Phase F
+(migration guide, package-author checklist, release-notes draft, manual
+update) was completed on 12 November 2026. Remaining before release: run
+`tests\run_ot_phase5_tests.ps1 -Record`, then
+`tests\run_architecture_refactor_tests.ps1` and
+`tests\run_manual_author_reference_guard.ps1` under MiKTeX, then commit.
 
 ## Decisions still required
 

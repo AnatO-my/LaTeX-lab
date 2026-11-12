@@ -8,7 +8,7 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{otbib}[2026/09/11 v0.1 OT Bibliography]
 
-\RequirePackage{ottheme}
+\RequirePackage{otcolors}
 
 % Load biblatex with biber backend
 \RequirePackage[
@@ -24,7 +24,7 @@
 
 % Color citation callouts in OTBlue
 \AtBeginDocument{
-  \hypersetup{citecolor=OTBlue}
+  \@ifpackageloaded{hyperref}{\hypersetup{citecolor=OTBlue}}{}
 }
 
 % Customize the bibliography appearance
