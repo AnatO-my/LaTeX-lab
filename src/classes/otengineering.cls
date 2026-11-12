@@ -3,7 +3,7 @@
 % Version: 0.3
 % Purpose: Informal engineering design + personal R&D notebook
 %
-% Composition (PLAN.md Phase D):
+% Composition (docs/architecture/PLAN.md Phase D):
 %   base class   article (11pt, A4), or extbook (14pt) with `eee-report'
 %   foundations  otcore (facade: otcolors + otlayout + table/date packages),
 %                ottheme (palette + OT link policy)

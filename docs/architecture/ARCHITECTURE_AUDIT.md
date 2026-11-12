@@ -1,8 +1,8 @@
-# Architecture Audit (PLAN.md Phase A)
+# Architecture Audit (docs/architecture/PLAN.md Phase A)
 
 Date: 11 November 2026. Branch: `refactor/architecture-plan`.
 
-This is the Phase A record for the architecture refactor in `PLAN.md`. It sets
+This is the Phase A record for the architecture refactor in `docs/architecture/PLAN.md`. It sets
 out what the source declares today, where it depends on load order, and the
 register of planned moves with their regression targets.
 
@@ -178,7 +178,7 @@ update the documented contract.
   only if they are still undefined, so OT's definitions win. Each hit, plus the
   plan's named examples, gained a canonical `\ot...` name.
 * **Naming convention.** Canonical names are lowercase `\ot...`, matching the
-  existing OT commands; `PLAN.md` decision 5 is updated.
+  existing OT commands; `docs/architecture/PLAN.md` decision 5 is updated.
 * **Evidence.** With `OTLight` held at its old value, the 22 baseline
   documents and the manual are identical after the Phase E refactor. The
   separate `OTLight` change alters pixels in 19 documents (box backgrounds)

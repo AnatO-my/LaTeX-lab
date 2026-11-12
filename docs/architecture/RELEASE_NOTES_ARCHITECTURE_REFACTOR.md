@@ -1,6 +1,6 @@
 # Release Notes Draft: Architecture Refactor
 
-Draft prepared from `docs/RELEASE_NOTES_TEMPLATE.md`. Local MiKTeX validation
+Draft prepared from `docs/release/templates/RELEASE_NOTES_TEMPLATE.md`. Local MiKTeX validation
 was completed on 12 November 2026. Do not publish until the source commit below
 is selected after pull-request integration and the hosted checks have passed.
 

@@ -15,9 +15,9 @@ Read the relevant guide:
 * `docs/AUTHOR_WORKFLOW.md` for local author setup;
 * `docs/STARTER_INVENTORY.md` for copyable starter documents;
 * `docs/PUBLIC_INTERFACES.md` before changing author-facing commands;
-* `docs/GITHUB_COLLABORATION.md` for the collaboration policy;
-* `docs/BRANCH_AND_PR_POLICY.md` for branch and pull-request expectations; and
-* `docs/RELEASE_READINESS.md` before preparing release assets.
+* `docs/GITHUB_WORKFLOW.md#github-collaboration-checklist` for the collaboration policy;
+* `docs/GITHUB_WORKFLOW.md#branch-and-pull-request-policy` for branch and pull-request expectations; and
+* `docs/release/RELEASE_PROCESS.md#release-readiness` before preparing release assets.
 
 ## Adding or Changing Classes and Packages
 
@@ -37,7 +37,7 @@ fix-physicsquiz-selection-message
 docs-author-workflow
 ```
 
-See `docs/BRANCH_AND_PR_POLICY.md` for the current branch and pull-request
+See `docs/GITHUB_WORKFLOW.md#branch-and-pull-request-policy` for the current branch and pull-request
 working agreement.
 
 ## Checks

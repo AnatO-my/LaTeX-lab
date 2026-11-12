@@ -3,7 +3,7 @@
 % otbook.cls
 % Version: 0.3
 %
-% Composition (PLAN.md Phase D):
+% Composition (docs/architecture/PLAN.md Phase D):
 %   base class   book (11pt, A4, one-sided)
 %   foundations  otcore (facade: otcolors + otlayout + table/date packages),
 %                ottheme (palette + OT link policy)

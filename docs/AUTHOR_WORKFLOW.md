@@ -215,9 +215,9 @@ Recommended first GitHub shape:
 * track public author guarantees in `docs/PUBLIC_INTERFACES.md`.
 
 Phase 7 should prepare this structure before any serious multi-person editing.
-See `docs/GITHUB_COLLABORATION.md` for the working checklist.
+See `docs/GITHUB_WORKFLOW.md#github-collaboration-checklist` for the working checklist.
 See `CONTRIBUTING.md` before opening a collaborator pull request.
-See `docs/RELEASE_READINESS.md` before preparing a release or author kit.
-See `docs/GITHUB_PUSH_CHECKLIST.md` before pushing the repository to GitHub.
-See `docs/COLLABORATOR_ONBOARDING_CHECKLIST.md` before inviting or onboarding
+See `docs/release/RELEASE_PROCESS.md#release-readiness` before preparing a release or author kit.
+See `docs/GITHUB_WORKFLOW.md#github-push-checklist` before pushing the repository to GitHub.
+See `docs/GITHUB_WORKFLOW.md#collaborator-onboarding-checklist` before inviting or onboarding
 first collaborators.

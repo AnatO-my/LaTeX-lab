@@ -3,7 +3,7 @@
 % otscience.cls
 % Version: 0.3
 %
-% Composition (PLAN.md Phase D):
+% Composition (docs/architecture/PLAN.md Phase D):
 %   base class   article (11pt, A4)
 %   foundations  otcore (facade: otcolors + otlayout + table/date packages),
 %                ottheme (palette + OT link policy)

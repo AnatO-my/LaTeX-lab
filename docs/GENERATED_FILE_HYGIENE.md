@@ -70,7 +70,7 @@ checkpoint calls for a fresh-build measurement.
 
 ## Repository Hygiene Update (September 2026)
 
-Checkpoint records now live in `PHASE CHECKPOINTS/`. All 61 relocated files
+Checkpoint records now live in `docs/history/checkpoints/`. All 61 relocated files
 match their original Git contents. The Phase 9 closeout and Phase 10 release
 checks resolve the records from that directory.
 

@@ -44,11 +44,11 @@ try {
 
     $requiredFiles = @(
         ".github\workflows\starter-build.yml",
-        "docs\L3BUILD_PILOT.md",
-        "docs\GITHUB_ACTIONS_CI_CHECKLIST.md",
-        "docs\LOCAL_RELEASE_CHECKLIST.md",
-        "docs\VERSIONING_RELEASE_POLICY.md",
-        "PHASE CHECKPOINTS/PHASE10_CHECKPOINT_10E.md",
+        "docs\release\RELEASE_PROCESS.md",
+        "docs\GITHUB_WORKFLOW.md",
+        "docs\release\RELEASE_PROCESS.md",
+        "docs\release\RELEASE_PROCESS.md",
+        "docs/history/checkpoints/PHASE10_CHECKPOINT_10E.md",
         "tests\run_phase10e_l3build_pilot.ps1",
         "CHANGELOG.md",
         "PROJECT_STATE.md",
@@ -62,24 +62,24 @@ try {
     }
 
     $requiredMarkers = @(
-        [pscustomobject]@{ Path = "docs\L3BUILD_PILOT.md"; Pattern = 'Checkpoint 10E does not add an active root `build.lua`.'; Message = "Pilot must avoid active root build.lua adoption." },
-        [pscustomobject]@{ Path = "docs\L3BUILD_PILOT.md"; Pattern = "PowerShell runners remain the source of truth for existing tests"; Message = "Pilot must preserve existing runners." },
-        [pscustomobject]@{ Path = "docs\L3BUILD_PILOT.md"; Pattern = 'no release requires `l3build check`'; Message = "Pilot must keep l3build out of release requirements." },
-        [pscustomobject]@{ Path = "docs\L3BUILD_PILOT.md"; Pattern = "tests/l3build-proof/"; Message = "Pilot must name the candidate proof folder." },
-        [pscustomobject]@{ Path = "docs\L3BUILD_PILOT.md"; Pattern = 'Adopt `l3build` only when all of these are true'; Message = "Adoption conditions are missing." },
-        [pscustomobject]@{ Path = "docs\L3BUILD_PILOT.md"; Pattern = 'Do not adopt `l3build` if'; Message = "Rejection conditions are missing." },
-        [pscustomobject]@{ Path = "docs\L3BUILD_PILOT.md"; Pattern = 'It creates no active `build.lua`, no `.lvt` or `.tlg` fixtures'; Message = "Phase 10E boundary is missing." },
+        [pscustomobject]@{ Path = "docs\release\RELEASE_PROCESS.md"; Pattern = 'Checkpoint 10E does not add an active root `build.lua`.'; Message = "Pilot must avoid active root build.lua adoption." },
+        [pscustomobject]@{ Path = "docs\release\RELEASE_PROCESS.md"; Pattern = "PowerShell runners remain the source of truth for existing tests"; Message = "Pilot must preserve existing runners." },
+        [pscustomobject]@{ Path = "docs\release\RELEASE_PROCESS.md"; Pattern = 'no release requires `l3build check`'; Message = "Pilot must keep l3build out of release requirements." },
+        [pscustomobject]@{ Path = "docs\release\RELEASE_PROCESS.md"; Pattern = "tests/l3build-proof/"; Message = "Pilot must name the candidate proof folder." },
+        [pscustomobject]@{ Path = "docs\release\RELEASE_PROCESS.md"; Pattern = 'Adopt `l3build` only when all of these are true'; Message = "Adoption conditions are missing." },
+        [pscustomobject]@{ Path = "docs\release\RELEASE_PROCESS.md"; Pattern = 'Do not adopt `l3build` if'; Message = "Rejection conditions are missing." },
+        [pscustomobject]@{ Path = "docs\release\RELEASE_PROCESS.md"; Pattern = 'It creates no active `build.lua`, no `.lvt` or `.tlg` fixtures'; Message = "Phase 10E boundary is missing." },
         [pscustomobject]@{ Path = ".github\workflows\starter-build.yml"; Pattern = '"amscls"'; Message = "Starter workflow must install amscls for amsthm.sty." },
         [pscustomobject]@{ Path = ".github\workflows\starter-build.yml"; Pattern = "MiKTeX package install failed for"; Message = "Starter workflow must fail loudly on package install errors." },
-        [pscustomobject]@{ Path = "docs\GITHUB_ACTIONS_CI_CHECKLIST.md"; Pattern = '`amsthm.sty`'; Message = "CI checklist must record the hosted amsthm dependency failure." },
-        [pscustomobject]@{ Path = "docs\GITHUB_ACTIONS_CI_CHECKLIST.md"; Pattern = '`amscls` provides `amsthm.sty`'; Message = "CI checklist must record the amscls package reason." },
-        [pscustomobject]@{ Path = "docs\LOCAL_RELEASE_CHECKLIST.md"; Pattern = "docs/L3BUILD_PILOT.md"; Message = "Local release checklist does not link the l3build pilot." },
-        [pscustomobject]@{ Path = "PHASE CHECKPOINTS/PHASE10_CHECKPOINT_10E.md"; Pattern = "Checkpoint 10E adds an l3build pilot decision record"; Message = "Checkpoint 10E summary is missing." },
-        [pscustomobject]@{ Path = "PHASE CHECKPOINTS/PHASE10_CHECKPOINT_10E.md"; Pattern = "Hosted Starter CI Follow-up"; Message = "Checkpoint 10E CI follow-up is missing." },
+        [pscustomobject]@{ Path = "docs\GITHUB_WORKFLOW.md"; Pattern = '`amsthm.sty`'; Message = "CI checklist must record the hosted amsthm dependency failure." },
+        [pscustomobject]@{ Path = "docs\GITHUB_WORKFLOW.md"; Pattern = '`amscls` provides `amsthm.sty`'; Message = "CI checklist must record the amscls package reason." },
+        [pscustomobject]@{ Path = "docs\release\RELEASE_PROCESS.md"; Pattern = "docs/release/RELEASE_PROCESS.md"; Message = "Local release checklist does not link the l3build pilot." },
+        [pscustomobject]@{ Path = "docs/history/checkpoints/PHASE10_CHECKPOINT_10E.md"; Pattern = "Checkpoint 10E adds an l3build pilot decision record"; Message = "Checkpoint 10E summary is missing." },
+        [pscustomobject]@{ Path = "docs/history/checkpoints/PHASE10_CHECKPOINT_10E.md"; Pattern = "Hosted Starter CI Follow-up"; Message = "Checkpoint 10E CI follow-up is missing." },
         [pscustomobject]@{ Path = "CHANGELOG.md"; Pattern = "### Added (Checkpoint 10E)"; Message = "Changelog does not record Checkpoint 10E." },
         [pscustomobject]@{ Path = "CHANGELOG.md"; Pattern = "### Changed (Hosted Starter CI Follow-up)"; Message = "Changelog does not record the hosted starter CI follow-up." },
         [pscustomobject]@{ Path = "PROJECT_STATE.md"; Pattern = "Checkpoint 10E adds an l3build pilot decision record"; Message = "Project state does not record Checkpoint 10E." },
-        [pscustomobject]@{ Path = "README.md"; Pattern = "docs/L3BUILD_PILOT.md"; Message = "README does not link the l3build pilot." }
+        [pscustomobject]@{ Path = "README.md"; Pattern = "docs/release/RELEASE_PROCESS.md"; Message = "README does not link the l3build pilot." }
     )
 
     foreach ($marker in $requiredMarkers) {

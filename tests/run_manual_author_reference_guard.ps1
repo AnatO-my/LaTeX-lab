@@ -5,7 +5,7 @@ $root = Split-Path -Parent $PSScriptRoot
 Set-Location $root
 
 $manualPath = "examples\manual\ot_author_workbook_manual.tex"
-$checkpointPath = "docs\AUTHOR_WORKBOOK_MANUAL_CHECKPOINT.md"
+$checkpointPath = "docs\history\AUTHOR_WORKBOOK_MANUAL_CHECKPOINT.md"
 
 $requiredFiles = @(
     "src/classes/physicsquiz.cls",

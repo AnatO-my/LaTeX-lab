@@ -99,7 +99,7 @@ Important implementation details:
 
 - [PROJECT_STATE.md](C:/Users/Ot/OneDrive/Documents/LaTeX/LaTeX-lab/PROJECT_STATE.md) and [CHANGELOG.md](C:/Users/Ot/OneDrive/Documents/LaTeX/LaTeX-lab/CHANGELOG.md).
 - [PUBLIC_INTERFACES.md](C:/Users/Ot/OneDrive/Documents/LaTeX/LaTeX-lab/docs/PUBLIC_INTERFACES.md) and [AUTHOR_WORKFLOW.md](C:/Users/Ot/OneDrive/Documents/LaTeX/LaTeX-lab/docs/AUTHOR_WORKFLOW.md).
-- [Phase checkpoints](<C:/Users/Ot/OneDrive/Documents/LaTeX/LaTeX-lab/PHASE CHECKPOINTS/>). The chat used the older root-level locations; a later chat moved the checkpoint files here.
+- [Phase checkpoints](<C:/Users/Ot/OneDrive/Documents/LaTeX/LaTeX-lab/docs/history/checkpoints/>). The chat used the older root-level locations; a later chat moved the checkpoint files here.
 - [Starter build workflow](C:/Users/Ot/OneDrive/Documents/LaTeX/LaTeX-lab/.github/workflows/starter-build.yml) and [release-source workflow](C:/Users/Ot/OneDrive/Documents/LaTeX/LaTeX-lab/.github/workflows/release-source-checks.yml).
 - [Targeted regression plan](C:/Users/Ot/OneDrive/Documents/LaTeX/LaTeX-lab/docs/TARGETED_REGRESSION_GATE_PLAN.md) and [release-candidate dry run](C:/Users/Ot/OneDrive/Documents/LaTeX/LaTeX-lab/docs/RELEASE_CANDIDATE_DRY_RUN.md).
 

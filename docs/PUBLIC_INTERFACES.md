@@ -1384,7 +1384,7 @@ not features provided by this documentation integration.
 
 # Notation packages: canonical names and options
 
-Since 12 November 2026 (PLAN.md Phase E), the notation and practice packages
+Since 12 November 2026 (docs/architecture/PLAN.md Phase E), the notation and practice packages
 follow these rules.
 
 * **Canonical names are namespaced.** They use the repository's existing
@@ -1529,7 +1529,7 @@ When changing any class interface documented here:
 The title-only decision/risk interfaces remain valid. Status is a second optional
 bracket argument: `\begin{decision}[Title][Status]`. The unreleased local
 required-brace status syntax is superseded. Optional forms/profiles are explicitly
-loaded by documents. See [Engineering registry compatibility](ENGINEERING_REGISTRY_COMPATIBILITY.md)
+loaded by documents. See [Engineering registry compatibility](docs/history/ENGINEERING_REGISTRY_COMPATIBILITY.md)
 for lifecycle, dependency, forms, migration and regression details.
 
 

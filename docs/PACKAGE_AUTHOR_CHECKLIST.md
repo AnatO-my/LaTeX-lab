@@ -1,7 +1,7 @@
 # Package and Class Author Checklist
 
 Use this checklist when adding or changing a class or package in `src/`. It
-turns the rules in `PLAN.md` ("Rules for every new class or package") into
+turns the rules in `docs/architecture/PLAN.md` ("Rules for every new class or package") into
 checks. A change is ready for review when every applicable box is ticked in
 the pull request.
 

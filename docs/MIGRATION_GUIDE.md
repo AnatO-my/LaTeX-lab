@@ -1,7 +1,7 @@
 # Migration Guide: Architecture Refactor (2026)
 
 This guide is for authors updating to the LaTeX-lab architecture refactor in
-`PLAN.md` (phases A to E, 11–12 November 2026).
+`docs/architecture/PLAN.md` (phases A to E, 11–12 November 2026).
 
 **In short:** documents that use `otscience`, `otbook` or `otengineering`
 compile unchanged. Only two changes are visible:
@@ -37,7 +37,7 @@ Status values:
 * **changed**: behaviour differs; see the note.
 
 Any removal would need a separate, versioned deprecation decision
-(`docs/VERSIONING_RELEASE_POLICY.md`).
+(`docs/release/RELEASE_PROCESS.md#versioning-and-release-policy`).
 
 | Old interface | Canonical interface | Package | Status | Note |
 | --- | --- | --- | --- | --- |
@@ -106,5 +106,5 @@ Exam sheet:
 
 * `tests/run_architecture_refactor_tests.ps1` runs every refactor fixture,
   the interface-inventory check, the Phase 5 baseline and the otbook runner.
-* `docs/ARCHITECTURE_AUDIT.md` records the before-and-after evidence for
+* `docs/architecture/ARCHITECTURE_AUDIT.md` records the before-and-after evidence for
   each phase.

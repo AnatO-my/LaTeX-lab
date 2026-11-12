@@ -204,7 +204,7 @@ The term used is "signatory".
 Continue using decision, risk, assumption, experiment, failure, lesson and their
 class helpers. The new package neither replaces these interfaces nor duplicates
 their decision/risk registers. If printing those older registers, follow their
-previous-run compilation rules in ENGINEERING_REGISTRY_COMPATIBILITY.md.
+previous-run compilation rules in docs/history/ENGINEERING_REGISTRY_COMPATIBILITY.md.
 
 ## Examples and build
 

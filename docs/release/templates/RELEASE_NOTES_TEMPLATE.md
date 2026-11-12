@@ -84,8 +84,8 @@ Record known limitations, deferred work, or environment notes.
 
 ## Links
 
-* Versioning policy: `docs/VERSIONING_RELEASE_POLICY.md`
+* Versioning policy: `docs/release/RELEASE_PROCESS.md#versioning-and-release-policy`
 * Public interfaces: `docs/PUBLIC_INTERFACES.md`
-* Release readiness: `docs/RELEASE_READINESS.md`
-* Release PDFs: `docs/RELEASE_PDF_CHECKLIST.md`
-* Author kit: `docs/AUTHOR_KIT_BUILD_CHECKLIST.md`
+* Release readiness: `docs/release/RELEASE_PROCESS.md#release-readiness`
+* Release PDFs: `docs/release/RELEASE_PROCESS.md#release-pdf-checklist`
+* Author kit: `docs/AUTHOR_KIT.md#author-kit-build-checklist`

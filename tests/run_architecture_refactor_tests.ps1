@@ -1,5 +1,5 @@
 <#
-    Architecture refactor (PLAN.md) - Phases A to C regression runner.
+    Architecture refactor (docs/architecture/PLAN.md) - Phases A to C regression runner.
 
     Builds the fixtures added for the refactor and checks that each emits its
     marker. The fixtures prove that:

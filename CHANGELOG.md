@@ -1,5 +1,51 @@
 # Changelog
 
+## Unreleased - Repository structure
+
+Branch `chore/repo-structure`. Change level: **none for authors** (no class,
+package or document output changes).
+
+### Removed
+
+* Untracked build output (`build/`, `tmp/`, `tests/build/`, `output/pdf/`,
+  template build folders, stray LaTeX auxiliary files) and leftover git data.
+* 14 generated PDFs and logs committed from the Phase 0 baseline. They can be
+  recovered from the local tag `archive/phase0-preserved-outputs`.
+
+### Moved and merged (old -> new)
+
+* `docs/release/RELEASE_PROCESS.md` merges `VERSIONING_RELEASE_POLICY`,
+  `LOCAL_RELEASE_CHECKLIST`, `RELEASE_READINESS`, `RELEASE_PDF_CHECKLIST`,
+  `RELEASE_CANDIDATE_DRY_RUN`, `CI_RELEASE_GATE_PLAN`,
+  `TARGETED_REGRESSION_GATE_PLAN`, `RELEASE_SOURCE_CHECKS_PROMOTION` and
+  `L3BUILD_PILOT`. Each original is kept as a section.
+* `docs/release/templates/`: `RELEASE_NOTES_TEMPLATE.md` and
+  `RELEASE_ASSET_MANIFEST_TEMPLATE.md`.
+* `docs/GITHUB_WORKFLOW.md` merges `GITHUB_COLLABORATION`,
+  `BRANCH_AND_PR_POLICY`, `BRANCH_PROTECTION_CHECKLIST`, `GITHUB_PUSH_CHECKLIST`,
+  `GITHUB_ACTIONS_CI_CHECKLIST`, `COLLABORATOR_ONBOARDING_CHECKLIST` and
+  `GITHUB_LAUNCH_AUDIT`.
+* `docs/AUTHOR_KIT.md` merges `AUTHOR_KIT_MANIFEST`, `AUTHOR_KIT_BUILD_CHECKLIST`
+  and `AUTHOR_KIT_AUDIT`.
+* `docs/architecture/`: `PLAN.md` (from the root), `ARCHITECTURE_AUDIT.md`,
+  `RELEASE_NOTES_ARCHITECTURE_REFACTOR.md`.
+* `docs/history/`: the Phase 9 audits, `RELEASE_PREVIEW_PDF_AUDIT`,
+  `AUTHOR_WORKBOOK_MANUAL_CHECKPOINT` and `ENGINEERING_REGISTRY_COMPATIBILITY`,
+  plus `checkpoints/` (was `PHASE CHECKPOINTS/`) and `PROJECT_LOG.md` (the
+  history part of `PROJECT_STATE.md`).
+* All live references were updated, including runners, `scripts/new-author-kit.ps1`
+  and source comments. History records keep their original wording.
+* `README.md` now has a documentation map in place of the list of
+  "See ..." lines.
+
+### Tests
+
+* `tests/run_release_policy_guard.ps1` replaces the Phase 10 checkpoint guards
+  (10A–10G/H), checking the same release rules against the merged documents.
+  `.github/workflows/release-source-checks.yml` now runs it.
+* Retired to `tests/history/`: `run_phase10a`–`10gh`, `run_phase10ij` and
+  `run_phase9g`.
+
 ## Unreleased - Architecture-refactor local validation
 
 Release proposal: `v0.2.0` **minor**; no tag or GitHub release has been

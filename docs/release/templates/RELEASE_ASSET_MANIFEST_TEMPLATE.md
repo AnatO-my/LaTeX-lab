@@ -21,13 +21,11 @@ assets from unstaged edits.
 ```powershell
 git status --short --branch
 git diff --check
-powershell -ExecutionPolicy Bypass -File tests\run_phase10a_release_policy.ps1
-powershell -ExecutionPolicy Bypass -File tests\run_phase10b_release_notes_template.ps1
-powershell -ExecutionPolicy Bypass -File tests\run_phase10c_local_release_checklist.ps1
+powershell -ExecutionPolicy Bypass -File tests\run_release_policy_guard.ps1
 powershell -ExecutionPolicy Bypass -File tests\run_phase7c_starter_tests.ps1
 ```
 
-Record the result in `docs/RELEASE_NOTES_TEMPLATE.md`.
+Record the result in `docs/release/templates/RELEASE_NOTES_TEMPLATE.md`.
 
 ## Planned Assets
 
@@ -37,7 +35,7 @@ prepared.
 
 | Asset id | Status | Source | Output name | Hash |
 | --- | --- | --- | --- | --- |
-| starter-pdfs | `included | omitted` | `docs/RELEASE_PDF_CHECKLIST.md` | `latex-lab-starter-pdfs-YYYY-MM-DD.zip` or individual PDFs | `sha256:<hash>` |
+| starter-pdfs | `included | omitted` | `docs/release/RELEASE_PROCESS.md#release-pdf-checklist` | `latex-lab-starter-pdfs-YYYY-MM-DD.zip` or individual PDFs | `sha256:<hash>` |
 | starter-quiz-bank-pdf | `included | omitted` | `examples/physicsquiz/starter_quiz_bank.tex` | `latex-lab-starter-quiz-bank-YYYY-MM-DD.pdf` | `sha256:<hash>` |
 | starter-versioned-quiz-pdf | `included | omitted` | `examples/physicsquiz/starter_versioned_quiz.tex` | `latex-lab-starter-versioned-quiz-YYYY-MM-DD.pdf` | `sha256:<hash>` |
 | starter-student-notes-pdf | `included | omitted` | `examples/studentnotes/starter_notes.tex` | `latex-lab-starter-student-notes-YYYY-MM-DD.pdf` | `sha256:<hash>` |
@@ -45,7 +43,7 @@ prepared.
 | starter-science-notes-pdf | `included | omitted` | `examples/otscience/starter_science_notes.tex` | `latex-lab-starter-science-notes-YYYY-MM-DD.pdf` | `sha256:<hash>` |
 | starter-workbook-module-pdf | `included | omitted` | `examples/vector-workbook/starter_module.tex` | `latex-lab-starter-workbook-module-YYYY-MM-DD.pdf` | `sha256:<hash>` |
 | starter-combined-workbook-pdf | `included | omitted` | `examples/vector-workbook/starter_combined_workbook.tex` | `latex-lab-starter-combined-workbook-YYYY-MM-DD.pdf` | `sha256:<hash>` |
-| author-kit | `included | omitted` | `docs/AUTHOR_KIT_BUILD_CHECKLIST.md` | `latex-lab-author-kit-YYYY-MM-DD.zip` | `sha256:<hash>` |
+| author-kit | `included | omitted` | `docs/AUTHOR_KIT.md#author-kit-build-checklist` | `latex-lab-author-kit-YYYY-MM-DD.zip` | `sha256:<hash>` |
 
 ## Asset Review
 
@@ -74,7 +72,7 @@ template.
 
 ## Related Guides
 
-* `docs/LOCAL_RELEASE_CHECKLIST.md`
-* `docs/RELEASE_PDF_CHECKLIST.md`
-* `docs/AUTHOR_KIT_BUILD_CHECKLIST.md`
-* `docs/RELEASE_NOTES_TEMPLATE.md`
+* `docs/release/RELEASE_PROCESS.md#local-release-checklist`
+* `docs/release/RELEASE_PROCESS.md#release-pdf-checklist`
+* `docs/AUTHOR_KIT.md#author-kit-build-checklist`
+* `docs/release/templates/RELEASE_NOTES_TEMPLATE.md`

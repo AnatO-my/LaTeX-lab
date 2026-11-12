@@ -45,7 +45,7 @@ powershell -ExecutionPolicy Bypass -File tests\run_ot_phase5_tests.ps1
 
 Generated build outputs belong under `build/` and are not source files.
 
-Historical checkpoint records live in [PHASE CHECKPOINTS/](PHASE%20CHECKPOINTS/).
+Historical checkpoint records live in [docs/history/checkpoints/](docs/history/checkpoints/).
 
 ## Author Workflow
 
@@ -67,56 +67,23 @@ For a new book outside this repository, copy
 chapter, figure, and bibliography folders plus a `.latexmkrc` pointer to
 LaTeX-lab, with PDFs under `build/pdf/` and auxiliary files under `build/aux/`.
 
-See `docs/AUTHOR_WORKFLOW.md` for document-starting steps, build commands,
-collaboration notes, and the Phase 7 GitHub-readiness checklist.
-See [`skills/README.md`](skills/README.md) for the project-local library of
-build-diagnostics, academic-writing, and general LaTeX skill families.
-See `docs/RELEASE_READINESS.md` for the first shareable repository boundary and
-future author-kit rules.
-Use `scripts/new-author-kit.ps1` to create a source-only author kit under
-ignored `build/author-kit/`; see `docs/AUTHOR_KIT_BUILD_CHECKLIST.md` before
-creating or sharing an author-kit zip.
-See `docs/AUTHOR_KIT_AUDIT.md` for the current local source-derived author kit.
-See `docs/RELEASE_PDF_CHECKLIST.md` before attaching preview PDFs to a release.
-See `docs/RELEASE_PREVIEW_PDF_AUDIT.md` for the current local preview PDF set.
-See `docs/GITHUB_PUSH_CHECKLIST.md` before adding a GitHub remote or pushing
-`main`.
-See `docs/GITHUB_LAUNCH_AUDIT.md` for the current local pre-push audit.
-See `docs/COLLABORATOR_ONBOARDING_CHECKLIST.md` before inviting first
-collaborators.
-See `docs/BRANCH_AND_PR_POLICY.md` for the branch and pull-request working
-agreement.
-See `docs/BRANCH_PROTECTION_CHECKLIST.md` for the first protected-`main`
-settings.
-See `docs/GITHUB_ACTIONS_CI_CHECKLIST.md` for the starter-build GitHub Actions
-boundary.
-See `docs/BUILD_MEASUREMENT_BASELINE.md` for Phase 9 build timing and generated
-file measurement.
-See `docs/GENERATED_FILE_HYGIENE.md` for Phase 9 generated-file hygiene and
-cleanup boundaries.
-See `docs/BUILD_RECIPE_RELIABILITY.md` for Phase 9 build-script and hosted
-workflow reliability checks.
-See `docs/STARTER_SUITE_TIMING.md` for Phase 9 per-starter timing breakdowns.
-See `docs/TIKZ_DOTGRID_AUDIT.md` for Phase 9 TikZ and dot-grid audit results.
-See `docs/DOTGRID_MODERNIZATION.md` for the opt-in StudentNotes image/PDF
-dot-grid path.
-See `docs/PHASE9_CLOSEOUT.md` for the completed Phase 9 outcome and Phase 10
-carry-forward list.
-See `docs/VERSIONING_RELEASE_POLICY.md` for the Phase 10 release/versioning
-policy.
-See `docs/RELEASE_NOTES_TEMPLATE.md` when drafting a release record or GitHub
-release notes.
-See `docs/LOCAL_RELEASE_CHECKLIST.md` before choosing a release source commit.
-See `docs/RELEASE_ASSET_MANIFEST_TEMPLATE.md` when a release needs downloadable
-PDFs or an author-kit zip.
-See `docs/L3BUILD_PILOT.md` for the Phase 10 `l3build` evaluation boundary.
-See `docs/CI_RELEASE_GATE_PLAN.md` for the staged hosted-CI release-gate plan.
-See `docs/RELEASE_SOURCE_CHECKS_PROMOTION.md` before making `Release source
-checks` a required branch-protection check.
-See `docs/TARGETED_REGRESSION_GATE_PLAN.md` before adding wider hosted
-regression checks.
-See `docs/RELEASE_CANDIDATE_DRY_RUN.md` before rehearsing a source-only release
-candidate.
+## Documentation Map
+
+| Need | Document |
+| --- | --- |
+| Start a document, build commands | [`docs/AUTHOR_WORKFLOW.md`](docs/AUTHOR_WORKFLOW.md) |
+| Which starter to copy | [`docs/STARTER_INVENTORY.md`](docs/STARTER_INVENTORY.md) |
+| Public commands, environments, options | [`docs/PUBLIC_INTERFACES.md`](docs/PUBLIC_INTERFACES.md) (contracts) and [`docs/INTERFACE_INVENTORY.md`](docs/INTERFACE_INVENTORY.md) (generated list) |
+| Upgrading after the 2026 refactor | [`docs/MIGRATION_GUIDE.md`](docs/MIGRATION_GUIDE.md) |
+| Adding or changing a class or package | [`docs/PACKAGE_AUTHOR_CHECKLIST.md`](docs/PACKAGE_AUTHOR_CHECKLIST.md) |
+| Architecture plan, audit and refactor release notes | [`docs/architecture/`](docs/architecture/) |
+| Versioning, release checks, CI gates, `l3build` | [`docs/release/RELEASE_PROCESS.md`](docs/release/RELEASE_PROCESS.md), templates in [`docs/release/templates/`](docs/release/templates/) |
+| Author kit (contents, build, audit) | [`docs/AUTHOR_KIT.md`](docs/AUTHOR_KIT.md); build with `scripts/new-author-kit.ps1` |
+| GitHub collaboration, branches, protection, CI | [`docs/GITHUB_WORKFLOW.md`](docs/GITHUB_WORKFLOW.md) and `CONTRIBUTING.md` |
+| Generated-file rules | [`docs/GENERATED_FILE_HYGIENE.md`](docs/GENERATED_FILE_HYGIENE.md) |
+| Running the tests | [`tests/README.md`](tests/README.md) |
+| Skill library | [`skills/README.md`](skills/README.md) |
+| Completed audits, phase checkpoints, project log | [`docs/history/`](docs/history/) |
 
 ## Collaboration
 

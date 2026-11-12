@@ -364,7 +364,7 @@ compatibility story.
 
 | Phase | Status | Evidence |
 | --- | --- | --- |
-| A | Done 2026-11-11 | `docs/ARCHITECTURE_AUDIT.md`, `docs/INTERFACE_INVENTORY.md`, `scripts/audit_interfaces.py` |
+| A | Done 2026-11-11 | `docs/architecture/ARCHITECTURE_AUDIT.md`, `docs/INTERFACE_INVENTORY.md`, `scripts/audit_interfaces.py` |
 | B | Done 2026-11-11 | `otsciboxes.sty`; class copies removed; 22 baseline documents pixel-identical |
 | C | Done 2026-11-11 | unconditional bundles with `minimal`; `otaccess` messages |
 | Decision 7 | Done 2026-11-11 (approved) | `otcolors.sty`; `ottheme` is the link-policy wrapper; boundary and opt-in tests |
@@ -372,7 +372,7 @@ compatibility story.
 | D | Done 2026-11-12 | `otlayout.sty`; `otcore` v0.3 facade; `otscience-theme.sty` preset; class composition table; `otbase` contract defined, package not created |
 | E | Done 2026-11-12 | `otemphasis.sty`, `otmathboxes.sty`; `noemphasis`/`noboxes` options; canonical `\ot...` names with aliases; `physics`/`xsim` collision scan; neutral-loading test |
 | `OTLight` unification | Done 2026-11-12 (requested) | `otcolors` v0.2: `#F3F4F6` for all OT classes |
-| F | Done 2026-11-12 | `docs/MIGRATION_GUIDE.md`, `docs/PACKAGE_AUTHOR_CHECKLIST.md`, `docs/RELEASE_NOTES_ARCHITECTURE_REFACTOR.md` (draft); author manual updated and its `\src` line references re-pointed; `CONTRIBUTING.md` link; visual PDF review |
+| F | Done 2026-11-12 | `docs/MIGRATION_GUIDE.md`, `docs/PACKAGE_AUTHOR_CHECKLIST.md`, `docs/architecture/RELEASE_NOTES_ARCHITECTURE_REFACTOR.md` (draft); author manual updated and its `\src` line references re-pointed; `CONTRIBUTING.md` link; visual PDF review |
 
 ## Revision notes
 
