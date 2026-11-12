@@ -1,0 +1,1045 @@
+\documentclass{studentnotes}
+\usepackage{siunitx}
+\usepackage{multicol}
+
+\setnotetitle{Resonance, Transients, and Wave Propagation}
+\setnotecourse{Continuous Notes on Coupled SHM and Waves}
+\setnoteauthor{Ot}
+\setnotedate{\today}
+\lhead{\textbf{Resonance and Waves}}
+\chead{Continuous Study Note}
+\rhead{\thepage}
+
+\begin{document}
+
+\makenotetitle
+
+\tableofcontents
+\newpage
+
+\section{From One Oscillator to a Wave}
+
+An isolated simple harmonic oscillator is the basic unit. A coupled system is
+what happens when two or more such units can exchange energy. A wave is what
+happens when many coupled units form a continuous medium, so that a disturbance
+started in one region is passed on to neighbouring regions.
+
+The common mathematical thread is a restoring effect plus inertia. The restoring
+effect tries to bring the system back toward equilibrium; inertia prevents the
+return from being instantaneous. This delay is what makes oscillation possible.
+When oscillators are coupled, energy can move from one oscillator to another. In
+a continuous medium, that transfer appears as propagation.
+
+\begin{importantnote}
+    The most important distinction in this note is between \textbf{natural
+    behaviour} and \textbf{forced behaviour}. Natural behaviour depends on the
+    system itself. Forced behaviour also depends on the driving source.
+\end{importantnote}
+
+\section{Coupled SHM Systems}
+
+Consider two equal masses \(m\), each attached to fixed supports by springs of
+constant \(k\), and coupled to each other by a spring of constant \(k_c\). Let
+\(x_1\) and \(x_2\) be the small displacements of the masses from equilibrium.
+The equations of motion can be written as
+
+\[
+    m\ddot{x}_1=-kx_1-k_c(x_1-x_2),
+    \qquad
+    m\ddot{x}_2=-kx_2-k_c(x_2-x_1).
+\]
+
+The coupled terms contain \(x_1-x_2\), because the coupling spring cares about
+relative displacement. If the masses move together, the coupling spring is not
+stretched. If they move oppositely, the coupling spring is stretched strongly.
+
+\begin{namedformula}{Two identical coupled oscillators}
+    \ddot{x}_1+\frac{k+k_c}{m}x_1-\frac{k_c}{m}x_2=0,
+    \qquad
+    \ddot{x}_2+\frac{k+k_c}{m}x_2-\frac{k_c}{m}x_1=0
+\end{namedformula}
+
+The best coordinates are not always \(x_1\) and \(x_2\). Instead, use normal
+coordinates:
+
+\begin{namedformula}{Normal coordinates}
+    q_+=x_1+x_2,
+    \qquad
+    q_-=x_1-x_2
+\end{namedformula}
+
+The \(q_+\) mode describes the masses moving in phase. The \(q_-\) mode describes
+the masses moving out of phase. Substituting these combinations into the
+equations gives two independent SHM equations.
+
+\begin{namedformula}{Normal-mode frequencies}
+    \omega_+=\sqrt{\frac{k}{m}},
+    \qquad
+    \omega_-=\sqrt{\frac{k+2k_c}{m}}
+\end{namedformula}
+
+The in-phase mode has the lower frequency because the coupling spring is not
+stretched. The out-of-phase mode has the higher frequency because the coupling
+spring adds extra restoring force.
+
+\subsection{Worked Example: Normal Modes}
+
+Let \(m=\SI{0.50}{kg}\), \(k=\SI{18}{N.m^{-1}}\), and
+\(k_c=\SI{2.0}{N.m^{-1}}\). Then
+
+\[
+    \omega_+=\sqrt{\frac{18}{0.50}}=\SI{6.0}{rad.s^{-1}}.
+\]
+
+\[
+    \omega_-=\sqrt{\frac{18+2(2.0)}{0.50}}
+             =\sqrt{44}
+             =\SI{6.63}{rad.s^{-1}}.
+\]
+
+\[
+    \boxed{\omega_+=\SI{6.0}{rad.s^{-1}},
+    \qquad
+    \omega_-=\SI{6.6}{rad.s^{-1}}}
+\]
+
+The two natural frequencies are close because the coupling spring is weak
+compared with the support springs.
+
+\subsection{Energy Exchange and Beats}
+
+If only one oscillator is displaced at \(t=0\), the motion is usually not a pure
+normal mode. It is a superposition of the in-phase and out-of-phase modes. The
+two normal frequencies then interfere in time, producing a slow transfer of
+energy back and forth between the oscillators.
+
+When \(\omega_+\) and \(\omega_-\) are close, the energy exchange is slow. The
+beat angular frequency is approximately the difference between the two normal
+angular frequencies.
+
+\begin{namedformula}{Beat rate in weakly coupled oscillators}
+    \omega_{\text{beat}}=|\omega_- - \omega_+|
+\end{namedformula}
+
+In formula F2.4, \(\omega_{\text{beat}}\) is the angular frequency of the slow
+envelope, or the rate at which energy appears to move back and forth between
+the two oscillators. The symbols \(\omega_-\) and \(\omega_+\) are the angular
+frequencies of the two normal modes. The vertical bars mean ``take the positive
+difference'', because a beat rate cannot be negative. If \(\omega_-\) and
+\(\omega_+\) are almost equal, their difference is small, so the energy exchange
+is slow. If the two normal frequencies are farther apart, the beat envelope is
+faster.
+
+\begin{quicknote}
+    Beats in coupled oscillators and beats in sound have the same mathematics:
+    two nearby frequencies combine into rapid oscillation with a slow envelope.
+\end{quicknote}
+
+\section{Transient and Steady-State Motion}
+
+A damped, driven oscillator is the standard model for resonance and transients.
+It obeys
+
+\begin{namedformula}{Driven damped oscillator}
+    m\ddot{x}+b\dot{x}+kx=F_0\cos(\omega_d t)
+\end{namedformula}
+
+The solution has two parts:
+
+\[
+    x(t)=x_{\text{transient}}(t)+x_{\text{steady}}(t).
+\]
+
+The transient part depends strongly on initial conditions and dies away because
+of damping. The steady-state part survives after a long time and oscillates at
+the driving angular frequency \(\omega_d\), not necessarily at the natural
+frequency.
+
+For an underdamped oscillator, the transient part may be written as
+
+\[
+    x_{\text{transient}}(t)
+    =Ae^{-\gamma t}\cos(\omega' t+\phi),
+    \qquad
+    \gamma=\frac{b}{2m},
+\]
+
+where its damped natural angular frequency is
+
+\[
+    \omega'
+    =\sqrt{\omega_0^2-\gamma^2}
+    =\sqrt{\frac{k}{m}-\left(\frac{b}{2m}\right)^2}.
+\]
+
+Here, \(A\) and \(\phi\) are determined by the initial conditions, while the
+exponential factor \(e^{-\gamma t}\) makes the transient amplitude decay. The
+frequency \(\omega'\) is fixed by the oscillator's mass \(m\), damping constant
+\(b\), and spring constant \(k\). It is not generally the same as \(\omega_d\),
+which is selected by the external driving source.
+
+Combining the two parts, the complete underdamped motion has the form
+
+\[
+    x(t)
+    =\underbrace{Ae^{-\gamma t}\cos(\omega' t+\phi)}_
+        {\text{transient at the damped natural frequency}}
+    +\underbrace{X(\omega_d)\cos(\omega_d t-\delta)}_
+        {\text{steady state at the driving frequency}}.
+\]
+
+The two frequencies may be close when the oscillator is driven near its damped
+natural frequency, but they still describe different physical quantities.
+
+\begin{importantnote}
+    Notation varies between textbooks. Some authors use \(\omega_d\) for the
+    damped natural frequency. In these notes, \(\omega_d\) always means the
+    \textbf{driving angular frequency}, while \(\omega'\) means the
+    \textbf{damped natural angular frequency}.
+\end{importantnote}
+
+\begin{namedformula}{Steady-state response}
+    x_{\text{steady}}(t)=X(\omega_d)\cos(\omega_d t-\delta)
+\end{namedformula}
+
+In formula F3.2, \(x_{\text{steady}}(t)\) is the displacement after the
+transient part has died away. The symbol \(t\) is time. The factor
+\(X(\omega_d)\) is the steady-state amplitude, and it depends on the driving
+angular frequency \(\omega_d\). The cosine term shows that the final motion
+oscillates at the same angular frequency as the external driving force. The
+quantity \(\delta\) is the phase lag: it tells how far behind the driving force
+the oscillator's motion is. Thus the formula says that the long-term motion is
+sinusoidal, but its size and timing are controlled by the driving frequency,
+damping, mass, and spring stiffness.
+
+\begin{namedformula}{Amplitude response}
+    X(\omega_d)=
+    \frac{F_0}
+    {\sqrt{(k-m\omega_d^2)^2+(b\omega_d)^2}}
+\end{namedformula}
+
+Formula F3.3 explains the amplitude \(X(\omega_d)\) used in F3.2. The numerator
+\(F_0\) is the maximum value of the driving force. A larger \(F_0\) gives a
+larger response. The first term in the denominator, \(k-m\omega_d^2\), compares
+the spring restoring effect \(k\) with the inertial effect \(m\omega_d^2\). Near
+resonance these nearly cancel, so the denominator becomes small. The second
+term, \(b\omega_d\), is the damping contribution; it prevents the amplitude from
+becoming infinite.
+
+\begin{namedformula}{Phase lag}
+    \tan\delta=
+    \frac{b\omega_d}{k-m\omega_d^2}
+\end{namedformula}
+
+Formula F3.4 gives the phase lag \(\delta\). The numerator \(b\omega_d\) shows
+that damping and driving frequency increase the tendency for the motion to lag
+behind the force. The denominator \(k-m\omega_d^2\) again compares spring
+response with inertia. At low frequency, \(k\) dominates and the lag is small.
+Near resonance, \(k-m\omega_d^2\) is close to zero and the lag is about
+\(\pi/2\). At very high frequency, inertia dominates and the motion is almost
+opposite in phase to the force.
+
+At low driving frequency, the oscillator almost follows the force. Near
+resonance, the amplitude becomes large and the phase lag is about \(\pi/2\). At
+very high driving frequency, inertia dominates and the oscillator cannot keep up
+with the driver.
+
+\begin{definition}
+    A \textbf{transient} is the part of the motion that depends on initial
+    conditions and fades with time. The \textbf{steady state} is the long-term
+    forced motion after transients have decayed.
+\end{definition}
+
+\subsection{Resonance}
+
+The undamped natural angular frequency is
+
+\begin{namedformula}{Natural angular frequency}
+    \omega_0=\sqrt{\frac{k}{m}}
+\end{namedformula}
+
+For light damping, the displacement amplitude is largest near
+
+\begin{namedformula}{Approximate resonance condition}
+    \omega_d\approx\omega_0
+\end{namedformula}
+
+More carefully, the frequency that maximizes displacement amplitude is slightly
+below \(\omega_0\) when damping is present:
+
+\begin{namedformula}{Damped displacement resonance}
+    \omega_{\text{res}}
+    =
+    \sqrt{\omega_0^2-\frac{b^2}{2m^2}}
+\end{namedformula}
+
+\begin{importantnote}
+    Damping prevents the amplitude from becoming infinite. Without damping, the
+    ideal driven oscillator has unbounded growth at exact resonance.
+\end{importantnote}
+
+\subsection{Worked Example: Driven Response}
+
+A mass-spring system has \(m=\SI{1.0}{kg}\), \(k=\SI{100}{N.m^{-1}}\), damping
+\(b=\SI{2.0}{kg.s^{-1}}\), and driving force amplitude \(F_0=\SI{5.0}{N}\). Find
+the response amplitude when \(\omega_d=\SI{10}{rad.s^{-1}}\).
+
+Here
+
+\[
+    k-m\omega_d^2=100-1(10)^2=0.
+\]
+
+Thus the amplitude is controlled by the damping term:
+
+\[
+    X=\frac{5.0}{\sqrt{0^2+(2.0\cdot10)^2}}
+      =\frac{5.0}{20}
+      =\SI{0.25}{m}.
+\]
+
+\[
+    \boxed{X=\SI{0.25}{m}}
+\]
+
+The phase lag is
+
+\[
+    \tan\delta\to\infty,
+    \qquad
+    \delta\approx\frac{\pi}{2}.
+\]
+
+So near resonance the displacement lags the driving force by about a quarter
+cycle.
+
+\section{Interference of Waves}
+
+Interference is superposition with phase awareness. When two waves overlap, the
+medium does not choose one wave or the other; it adds their displacements.
+
+\begin{definition}
+    The \textbf{principle of superposition} says that the net displacement is the
+    sum of the displacements that each wave would have produced separately.
+\end{definition}
+
+For two sinusoidal waves of the same amplitude, same wavelength, and same
+angular frequency moving in the same direction,
+
+\[
+    y_1=y_m\sin(kx-\omega t),
+    \qquad
+    y_2=y_m\sin(kx-\omega t+\phi).
+\]
+
+Their sum is another sinusoidal wave:
+
+\begin{namedformula}{Two-wave interference}
+    y'=2y_m\cos\left(\frac{\phi}{2}\right)
+    \sin\left(kx-\omega t+\frac{\phi}{2}\right)
+\end{namedformula}
+
+The resultant amplitude is
+
+\begin{namedformula}{Resultant amplitude}
+    y'_m=2y_m\left|\cos\left(\frac{\phi}{2}\right)\right|
+\end{namedformula}
+
+\begin{itemize}
+    \item If \(\phi=0\), the waves are in phase and interference is fully
+    constructive.
+    \item If \(\phi=\pi\), the waves are out of phase and interference is fully
+    destructive for equal amplitudes.
+    \item If \(\phi\) is between these values, the interference is partial.
+\end{itemize}
+
+\subsection{Path Difference}
+
+When two coherent waves meet at a point after travelling different distances,
+their phase difference is linked to path difference:
+
+\begin{namedformula}{Phase from path difference}
+    \phi=\frac{2\pi\Delta L}{\lambda}
+\end{namedformula}
+
+\begin{namedformula}{Constructive and destructive path difference}
+    \Delta L=m\lambda
+    \quad\text{constructive},
+    \qquad
+    \Delta L=\left(m+\frac{1}{2}\right)\lambda
+    \quad\text{destructive}
+\end{namedformula}
+
+Here \(m=0,1,2,\ldots\), assuming the sources start in phase.
+
+\subsection{Worked Example: Path Difference}
+
+Two speakers emit the same tone in phase. At a listening point, the path length
+difference is \(\Delta L=\SI{1.50}{m}\). If the wavelength is
+\(\lambda=\SI{0.50}{m}\), then
+
+\[
+    \frac{\Delta L}{\lambda}=\frac{1.50}{0.50}=3.
+\]
+
+Since the path difference is an integer number of wavelengths, the interference
+is constructive.
+
+\[
+    \boxed{\text{Constructive interference}}
+\]
+
+\section{Diffraction}
+
+Diffraction is the spreading of waves when they pass through an opening or
+around an obstacle. It is strongest when the opening size is comparable to the
+wavelength. If the opening is much larger than the wavelength, the wave mostly
+continues forward with little spreading.
+
+\begin{quicknote}
+    Interference is about adding waves. Diffraction is about how one wavefront
+    spreads and interferes with itself after being restricted by an aperture.
+\end{quicknote}
+
+\subsection{Single-Slit Diffraction}
+
+For a slit of width \(a\), destructive minima occur at
+
+\begin{namedformula}{Single-slit minima}
+    a\sin\theta=m\lambda,
+    \qquad
+    m=1,2,3,\ldots
+\end{namedformula}
+
+Single-slit maxima are less simple than minima. The central maximum occurs at
+\(\theta=0\). The side maxima are found exactly from
+
+\begin{namedformula}{Single-slit secondary maxima}
+    \tan\beta=\beta,
+    \qquad
+    \beta=\frac{\pi a\sin\theta}{\lambda}
+\end{namedformula}
+
+For many introductory calculations, the side maxima are estimated by placing
+them roughly halfway between neighbouring minima:
+
+\begin{namedformula}{Approximate single-slit secondary maxima}
+    a\sin\theta\approx\left(m+\frac{1}{2}\right)\lambda,
+    \qquad
+    m=1,2,3,\ldots
+\end{namedformula}
+
+This maxima formula is approximate, while the minima formula above is exact for
+the ideal single-slit pattern. The approximation becomes most useful when only
+the angular positions of the side bright fringes are needed.
+
+The central maximum is wide when \(a\) is small or \(\lambda\) is large. That is
+why long-wavelength waves, such as sound, bend noticeably around doorways, while
+visible light usually does not bend dramatically around everyday openings.
+
+\subsection{Circular Aperture and Resolution}
+
+For a circular aperture of diameter \(D\), the first dark ring of the diffraction
+pattern occurs at approximately
+
+\begin{namedformula}{Rayleigh angular scale}
+    \theta\approx1.22\frac{\lambda}{D}
+\end{namedformula}
+
+This sets a diffraction limit: even a perfect lens cannot resolve two point
+sources if diffraction spreads their images too much.
+
+\subsection{Worked Example: Single-Slit Minimum}
+
+Light of wavelength \(\SI{600}{nm}\) passes through a slit of width
+\(\SI{0.20}{mm}\). Find the first minimum angle.
+
+\[
+    a\sin\theta=\lambda
+    \quad\Longrightarrow\quad
+    \sin\theta=\frac{600\times10^{-9}}{0.20\times10^{-3}}.
+\]
+
+\[
+    \sin\theta=3.0\times10^{-3},
+    \qquad
+    \theta\approx3.0\times10^{-3}\text{ rad}.
+\]
+
+\[
+    \boxed{\theta\approx\SI{0.172}{\degree}}
+\]
+
+\section{Dispersion}
+
+Dispersion occurs when wave speed depends on frequency or wavelength. In a
+nondispersive medium, all sinusoidal components travel with the same speed, so a
+pulse preserves its shape. In a dispersive medium, different components travel at
+different speeds, so a pulse can spread and change shape.
+
+\begin{definition}
+    A \textbf{dispersion relation} is a formula connecting angular frequency
+    \(\omega\) and wave vector magnitude \(k\).
+\end{definition}
+
+\begin{namedformula}{Phase and group velocity}
+    v_p=\frac{\omega}{k},
+    \qquad
+    v_g=\frac{d\omega}{dk}
+\end{namedformula}
+
+The distinction is easiest to see by imagining a short pulse travelling along a
+rope. The pulse can be constructed by adding many sinusoidal waves with nearby
+frequencies and wave numbers. Inside the pulse, individual crests and troughs
+form a rapidly repeating pattern, while the whole region of noticeable
+disturbance forms a slower-changing group.
+
+The phase velocity \(v_p\) is the speed of an individual feature of the repeating
+pattern. If one particular crest is followed as it moves through the pulse, its
+speed is \(v_p\). The group velocity \(v_g\) is the speed of the pulse as a whole:
+it is found by following the region in which the oscillations are concentrated.
+
+An analogy is a group of people walking through a moving spotlight. Each person
+represents a crest, while the illuminated group represents the wave packet. A
+person can enter the illuminated region at the back, pass through it, and leave
+at the front. In the same way, crests can move through a wave packet even when
+the packet itself travels at a different speed. Thus, \(v_p\) describes the
+motion of the carrier oscillations, whereas \(v_g\) describes the motion of the
+overall disturbance or modulation. Group velocity is often the speed at which
+wave energy and information are transported.
+
+The formula
+
+\[
+    v_p=\frac{\omega}{k}=f\lambda
+\]
+
+measures how quickly the repeating phase pattern of one sinusoidal component
+moves. The derivative
+
+\[
+    v_g=\frac{d\omega}{dk}
+\]
+
+measures how the angular frequencies of neighbouring components change as their
+wave numbers change. That change determines how quickly their region of
+reinforcement moves.
+
+In strongly dispersive or absorbing media, group velocity can behave unusually
+and does not always equal the true arrival speed of new information. For the
+ordinary weakly dispersive media considered here, however, it is normally the
+relevant speed of the pulse and its energy.
+
+\subsection{Calculating Group Velocity from a Dispersion Relation}
+
+The method depends on the form in which the dispersion relation is given. If
+angular frequency is explicitly written as a function of wave number,
+
+\[
+    \omega=\omega(k),
+\]
+
+differentiate it directly:
+
+\begin{namedformula}{Group velocity from \(\omega(k)\)}
+    v_g=\frac{d\omega}{dk}
+\end{namedformula}
+
+For example, if \(\omega=Ak^2\), then
+
+\[
+    v_g=\frac{d}{dk}(Ak^2)=2Ak.
+\]
+
+If wave number is instead written as a function of angular frequency,
+
+\[
+    k=k(\omega),
+\]
+
+calculate \(dk/d\omega\) and take its reciprocal:
+
+\begin{namedformula}{Group velocity from \(k(\omega)\)}
+    v_g=\left(\frac{dk}{d\omega}\right)^{-1}
+\end{namedformula}
+
+This follows from the inverse-derivative relation
+
+\[
+    \frac{d\omega}{dk}\frac{dk}{d\omega}=1.
+\]
+
+For example, if \(k=B\omega^2\), then
+
+\[
+    \frac{dk}{d\omega}=2B\omega,
+    \qquad
+    v_g=\frac{1}{2B\omega}.
+\]
+
+These are two alternative procedures: either find \(d\omega/dk\) directly, or
+find \(dk/d\omega\) and take its reciprocal. No additional derivative is
+multiplied after taking the reciprocal.
+
+Sometimes the dispersion relation is implicit, so that \(\omega\) cannot easily
+be isolated. If it is written as
+
+\[
+    F(\omega,k)=0,
+\]
+
+differentiate the whole relation with respect to \(k\):
+
+\[
+    \frac{\partial F}{\partial\omega}\frac{d\omega}{dk}
+    +\frac{\partial F}{\partial k}=0.
+\]
+
+Solving for the required derivative gives
+
+\begin{namedformula}{Group velocity from an implicit relation}
+    v_g=\frac{d\omega}{dk}
+       =-\frac{\partial F/\partial k}{\partial F/\partial\omega}
+\end{namedformula}
+
+Phase velocity does not require differentiation; once \(\omega\) and \(k\) are
+known, use \(v_p=\omega/k\). A useful summary is: divide to obtain phase velocity
+and differentiate to obtain group velocity.
+
+\begin{importantnote}
+    In a nondispersive medium, \(\omega=vk\), so \(v_p=v_g=v\). In a dispersive
+    medium, \(v_p\) and \(v_g\) are generally different.
+\end{importantnote}
+
+\subsection{Worked Example: A Dispersive Wave}
+
+Suppose a medium has dispersion relation
+
+\[
+    \omega=\alpha k^2,
+\]
+
+where \(\alpha=\SI{0.040}{m^2.s^{-1}}\). At \(k=\SI{25}{m^{-1}}\),
+
+\[
+    v_p=\frac{\omega}{k}=\frac{\alpha k^2}{k}=\alpha k
+       =(0.040)(25)=\SI{1.0}{m.s^{-1}}.
+\]
+
+\[
+    v_g=\frac{d\omega}{dk}=2\alpha k
+       =2(0.040)(25)=\SI{2.0}{m.s^{-1}}.
+\]
+
+\[
+    \boxed{v_p=\SI{1.0}{m.s^{-1}},
+    \qquad
+    v_g=\SI{2.0}{m.s^{-1}}}
+\]
+
+The envelope travels twice as fast as the individual crests.
+
+\section{Polarization}
+
+Polarization describes the direction of oscillation of a transverse wave. It is
+meaningful for transverse waves such as electromagnetic waves and waves on a
+string. It is not available for an ideal longitudinal sound wave in air, because
+the displacement is along the direction of propagation.
+
+For an electromagnetic wave travelling in the \(+z\) direction, the electric
+field may be linearly polarized in the \(x\) direction:
+
+\[
+    \vec{E}(z,t)=E_0\cos(kz-\omega t)\,\hat{x}.
+\]
+
+A polarizer transmits the component of the electric field along its transmission
+axis. Since intensity is proportional to field amplitude squared, the transmitted
+intensity follows Malus's law.
+
+\begin{namedformula}{Malus's law}
+    I=I_0\cos^2\theta
+\end{namedformula}
+
+Here \(\theta\) is the angle between the incident polarization direction and the
+polarizer axis.
+
+\subsection{Types of Polarization}
+
+Linear polarization has oscillation along a fixed line. Circular polarization can
+be formed by two perpendicular components of equal amplitude with a phase
+difference of \(\pi/2\). Elliptical polarization is the general case, where the
+tip of the field vector traces an ellipse.
+
+\begin{quicknote}
+    Polarization tells you about the direction of the disturbance, not the
+    direction of wave travel.
+\end{quicknote}
+
+\subsection{Worked Example: Two Polarizers}
+
+Unpolarized light of intensity \(I_{\text{in}}\) passes through a polarizer, then
+through a second polarizer at \(\theta=60^\circ\) to the first. The first
+polarizer transmits half the intensity:
+
+\[
+    I_1=\frac{1}{2}I_{\text{in}}.
+\]
+
+The second follows Malus's law:
+
+\[
+    I_2=I_1\cos^2(60^\circ)
+       =
+       \frac{1}{2}I_{\text{in}}\left(\frac{1}{2}\right)^2.
+\]
+
+\[
+    \boxed{I_2=\frac{1}{8}I_{\text{in}}}
+\]
+
+\section{Mathematical Modelling with Wave Equations}
+
+The wave equation is a mathematical statement that curvature in space produces
+acceleration in time. In one dimension, it is
+
+\begin{namedformula}{One-dimensional wave equation}
+    \frac{\partial^2 u}{\partial t^2}
+    =
+    v^2
+    \frac{\partial^2 u}{\partial x^2}
+\end{namedformula}
+
+Here \(u(x,t)\) may represent transverse displacement of a string, pressure
+variation in a sound wave, or one component of an electromagnetic field. The
+quantity \(v\) is the wave speed in the medium.
+
+\subsection{General Solutions in One Dimension}
+
+The one-dimensional wave equation admits right-moving and left-moving solutions:
+
+\begin{namedformula}{D'Alembert form}
+    u(x,t)=f(x-vt)+g(x+vt)
+\end{namedformula}
+
+The function \(f(x-vt)\) travels in the \(+x\) direction. The function
+\(g(x+vt)\) travels in the \(-x\) direction.
+
+\subsection{The Two-Dimensional Wave Equation}
+
+For a membrane or water-surface model with displacement \(u(x,y,t)\),
+
+\begin{namedformula}{Two-dimensional wave equation}
+    \frac{\partial^2 u}{\partial t^2}
+    =
+    v^2
+    \left(
+    \frac{\partial^2 u}{\partial x^2}
+    +
+    \frac{\partial^2 u}{\partial y^2}
+    \right)
+\end{namedformula}
+
+The expression in parentheses is the two-dimensional Laplacian,
+\(\nabla^2u\). Boundary conditions now matter strongly. A rectangular membrane,
+a circular drumhead, and an open water surface can have very different mode
+patterns even if the local wave speed is similar.
+
+\subsection{The Three-Dimensional Wave Equation}
+
+For waves in space,
+
+\begin{namedformula}{Three-dimensional wave equation}
+    \frac{\partial^2 u}{\partial t^2}
+    =
+    v^2\nabla^2u
+    =
+    v^2
+    \left(
+    \frac{\partial^2 u}{\partial x^2}
+    +
+    \frac{\partial^2 u}{\partial y^2}
+    +
+    \frac{\partial^2 u}{\partial z^2}
+    \right)
+\end{namedformula}
+
+Plane waves are solutions of the form
+
+\begin{namedformula}{Plane wave in three dimensions}
+    u(\vec{r},t)=A\cos(\vec{k}\cdot\vec{r}-\omega t+\phi)
+\end{namedformula}
+
+The dispersion relation for a nondispersive three-dimensional wave is
+
+\begin{namedformula}{Nondispersive relation}
+    \omega=v|\vec{k}|
+\end{namedformula}
+
+\subsection{Initial and Boundary Conditions}
+
+A wave equation alone is not a full physical prediction. To determine the motion,
+we also need initial conditions and boundary conditions. Initial conditions say
+what the medium is doing at \(t=0\). Boundary conditions say how the edges or
+interfaces behave.
+
+\begin{itemize}
+    \item Fixed end: displacement is zero at the boundary.
+    \item Free end: slope or force condition is zero at the boundary.
+    \item Interface: displacement and force, or field components, must match
+    according to the medium.
+\end{itemize}
+
+\subsection{Worked Example: Testing a Plane Wave}
+
+Show that
+
+\[
+    u(x,t)=A\cos(kx-\omega t)
+\]
+
+solves the one-dimensional wave equation if \(\omega=vk\).
+
+Differentiate twice:
+
+\[
+    \frac{\partial^2u}{\partial t^2}
+    =
+    -\omega^2A\cos(kx-\omega t),
+\]
+
+\[
+    \frac{\partial^2u}{\partial x^2}
+    =
+    -k^2A\cos(kx-\omega t).
+\]
+
+The wave equation requires
+
+\[
+    -\omega^2A\cos(kx-\omega t)
+    =
+    v^2[-k^2A\cos(kx-\omega t)].
+\]
+
+Cancel the common factor:
+
+\[
+    \omega^2=v^2k^2,
+    \qquad
+    \omega=vk.
+\]
+
+\[
+    \boxed{\text{The sinusoidal wave solves the equation when } \omega=vk.}
+\]
+
+\section{Propagation in Different Media}
+
+The wave equation tells us the mathematical shape of propagation, but the medium
+sets the wave speed and often the allowed wave type. Different media resist
+deformation in different ways and carry inertia differently.
+
+\subsection{String Waves}
+
+For a stretched string,
+
+\begin{namedformula}{String wave speed}
+    v=\sqrt{\frac{\tau}{\mu}}
+\end{namedformula}
+
+The tension \(\tau\) supplies the restoring effect and the linear density
+\(\mu\) supplies inertia. More tension gives faster waves; more mass per length
+gives slower waves.
+
+\subsection{Sound in Fluids}
+
+For sound in a fluid,
+
+\begin{namedformula}{Sound speed in a fluid}
+    v=\sqrt{\frac{B}{\rho}}
+\end{namedformula}
+
+The bulk modulus \(B\) measures resistance to compression, while \(\rho\) is
+density. Stiffer media tend to carry sound faster; denser media tend to carry it
+slower when stiffness is fixed.
+
+\subsection{Sound in Solids}
+
+Solids can support longitudinal and transverse mechanical waves. A simplified
+longitudinal speed in a slender rod is
+
+\begin{namedformula}{Longitudinal wave speed in a rod}
+    v=\sqrt{\frac{Y}{\rho}}
+\end{namedformula}
+
+Here \(Y\) is Young's modulus. Real solids can also support shear waves, surface
+waves, and multiple polarizations of elastic motion.
+
+\subsection{Electromagnetic Waves}
+
+In vacuum, electromagnetic waves travel at
+
+\begin{namedformula}{Speed of light}
+    c=\frac{1}{\sqrt{\mu_0\epsilon_0}}
+\end{namedformula}
+
+In a transparent medium, a common model is
+
+\begin{namedformula}{Light speed in a medium}
+    v=\frac{c}{n}
+\end{namedformula}
+
+where \(n\) is the refractive index. If \(n\) depends on wavelength, the medium
+is dispersive and separates colours.
+
+\subsection{Water Waves}
+
+Water waves can be dispersive. In deep water, gravity waves approximately obey
+
+\begin{namedformula}{Deep-water gravity waves}
+    \omega^2=gk
+\end{namedformula}
+
+Thus
+
+\[
+    v_p=\frac{\omega}{k}=\sqrt{\frac{g}{k}},
+    \qquad
+    v_g=\frac{d\omega}{dk}=\frac{1}{2}\sqrt{\frac{g}{k}}.
+\]
+
+The group velocity is half the phase velocity, so wave packets and individual
+crests do not move together.
+
+\subsection{Worked Example: Comparing Media}
+
+Compare a string wave and a sound wave. A string has
+\(\tau=\SI{100}{N}\) and \(\mu=\SI{0.010}{kg.m^{-1}}\). A fluid has
+\(B=\SI{2.2e9}{Pa}\) and \(\rho=\SI{1000}{kg.m^{-3}}\).
+
+For the string,
+
+\[
+    v_{\text{string}}=\sqrt{\frac{100}{0.010}}=\SI{100}{m.s^{-1}}.
+\]
+
+For the fluid,
+
+\[
+    v_{\text{sound}}=\sqrt{\frac{2.2\times10^9}{1000}}
+    \approx\SI{1.48e3}{m.s^{-1}}.
+\]
+
+\[
+    \boxed{v_{\text{string}}=\SI{100}{m.s^{-1}},
+    \qquad
+    v_{\text{sound}}\approx\SI{1480}{m.s^{-1}}}
+\]
+
+The fluid wave is much faster here because the fluid is very resistant to
+compression compared with its density.
+
+\section{Connecting the Topics}
+
+Resonance, interference, diffraction, dispersion, and polarization are not
+separate islands. They are behaviours of solutions to wave and oscillator
+equations.
+
+Resonance happens when a system is driven near one of its natural modes.
+Transients describe how the system approaches its long-term motion. Coupling
+creates normal modes, and a continuous set of coupled oscillators gives a wave
+equation. Interference is the linear addition of solutions. Diffraction is the
+spreading forced by apertures and boundaries. Dispersion appears when the medium
+changes the relationship between \(\omega\) and \(k\). Polarization records the
+directional structure of transverse waves.
+
+\begin{importantnote}
+    When solving a problem, first identify the model: oscillator, coupled
+    oscillator, travelling wave, standing wave, aperture diffraction, dispersive
+    packet, polarized transverse wave, or wave propagation in a specified medium.
+    The correct equation usually becomes much clearer after that classification.
+\end{importantnote}
+
+\section{Compact Formula Map}
+
+\begin{multicols}{2}
+
+\subsection*{Coupled SHM}
+\[
+    q_+=x_1+x_2,\quad q_-=x_1-x_2
+\]
+\[
+    \omega_+=\sqrt{k/m},
+    \quad
+    \omega_-=\sqrt{(k+2k_c)/m}
+\]
+
+\subsection*{Driven Damped SHM}
+\[
+    m\ddot{x}+b\dot{x}+kx=F_0\cos(\omega_d t)
+\]
+\[
+    X=
+    \frac{F_0}{\sqrt{(k-m\omega_d^2)^2+(b\omega_d)^2}}
+\]
+\[
+    \omega_0=\sqrt{k/m}
+\]
+
+\subsection*{Interference}
+\[
+    y'_m=2y_m\left|\cos(\phi/2)\right|
+\]
+\[
+    \phi=\frac{2\pi\Delta L}{\lambda}
+\]
+
+\subsection*{Diffraction}
+\[
+    a\sin\theta=m\lambda
+\]
+\[
+    \theta\approx1.22\lambda/D
+\]
+
+\subsection*{Dispersion}
+\[
+    v_p=\omega/k,
+    \qquad
+    v_g=d\omega/dk
+\]
+
+\subsection*{Polarization}
+\[
+    I=I_0\cos^2\theta
+\]
+
+\subsection*{Wave Equations}
+\[
+    u_{tt}=v^2u_{xx}
+\]
+\[
+    u_{tt}=v^2(u_{xx}+u_{yy})
+\]
+\[
+    u_{tt}=v^2\nabla^2u
+\]
+
+\subsection*{Media}
+\[
+    v=\sqrt{\tau/\mu}
+\]
+\[
+    v=\sqrt{B/\rho}
+\]
+\[
+    v=\sqrt{Y/\rho}
+\]
+\[
+    v=c/n
+\]
+
+\end{multicols}
+
+\end{document}

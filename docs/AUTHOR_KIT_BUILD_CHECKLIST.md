@@ -2,8 +2,8 @@
 
 ## Purpose
 
-This checklist describes how to produce a future source-derived author kit from
-`docs/AUTHOR_KIT_MANIFEST.md`. It is a manual packaging runbook, not a second
+This checklist describes how to produce a source-derived author kit from
+`docs/AUTHOR_KIT_MANIFEST.md`. It is a generated release asset, not a second
 copy of the project.
 
 ## 1. Decide the Kit Shape
@@ -31,24 +31,28 @@ From the repository root:
 git status --short --branch
 git diff --check
 powershell -ExecutionPolicy Bypass -File tests\run_phase7c_starter_tests.ps1
+powershell -ExecutionPolicy Bypass -File tests\run_otbook_tests.ps1
 ```
 
 Only build a kit from a committed source state. Do not include local-only files
 such as `AGENTS.md`, `examples/physicsquiz/indent.log`, `tests/__pycache__/`, or
 line-ending-only working-tree noise.
 
-## 3. Create a Temporary Kit Folder
+## 3. Create the Kit
 
-Create the kit outside the repository or under an ignored temporary path. The
-kit folder should not become a maintained source folder inside the repo.
-
-Example location:
+Run the generator from the repository root. It writes the kit under ignored
+`build/author-kit/`, copies only manifest-approved source files, and refuses a
+dirty working tree by default:
 
 ```powershell
-New-Item -ItemType Directory -Force -Path ..\latex-lab-author-kit-YYYY-MM-DD
+powershell -ExecutionPolicy Bypass -File scripts\new-author-kit.ps1
 ```
 
-## 4. Copy Required Files
+For an explicitly local, uncommitted snapshot, add `-AllowDirty`. To create a
+zip alongside the kit, add `-Zip`. The generator never overwrites an existing
+kit folder; choose a distinct `-Name` when needed.
+
+## 4. Inspect Required Files
 
 Copy only the required files listed in `docs/AUTHOR_KIT_MANIFEST.md`:
 
@@ -56,9 +60,11 @@ Copy only the required files listed in `docs/AUTHOR_KIT_MANIFEST.md`:
 * `.latexmkrc`;
 * `src/classes/`;
 * `src/packages/`;
-* the seven starter documents;
+* the eight starter documents, including `examples/otbook/starter_personal_book.tex`;
+* `templates/otbook-project/`, including dotfiles but excluding `build/`;
 * `examples/vector-workbook/00_common_setup.tex`;
-* `tests/run_phase7c_starter_tests.ps1`; and
+* `tests/run_phase7c_starter_tests.ps1` and `tests/run_otbook_tests.ps1`;
+* `tests/otbook_class_smoke.tex`; and
 * `tests/powershell_log_helpers.ps1`.
 
 If optional reference examples are included, keep them in their original
@@ -82,15 +88,22 @@ Open a shell from the kit root and run:
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File tests\run_phase7c_starter_tests.ps1
+powershell -ExecutionPolicy Bypass -File tests\run_otbook_tests.ps1
 ```
 
-The kit is usable when all starter builds pass.
+The Phase 7 runner covers the original seven starters. The otbook runner
+builds the book starter, smoke document, and project template. Include
+`otbook.cls` with the other classes and the complete OT package tree; no
+standalone copy of the book class is sufficient.
+
+Require exit status zero and `templates/otbook-project/build/pdf/main.pdf`.
+Exclude this nested `build/` folder as well when packaging the kit.
 
 ## 7. Package the Kit
 
 After verification, remove kit-local generated `build/` outputs, then zip the
-kit folder. Keep the zip outside the source repository unless it is
-intentionally attached to a GitHub release.
+kit folder. Or run the generator initially with `-Zip`, which creates the zip
+beside the kit under ignored `build/author-kit/`.
 
 Recommended zip name:
 

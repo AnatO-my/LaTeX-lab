@@ -1,0 +1,58 @@
+% ============================================================
+% OT Circuits Package
+% otcircuits.sty
+% Version: 0.1
+% Purpose: Electrical schematics following the OT design system
+% ============================================================
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{otcircuits}[2026/09/10 v0.1 OT Circuit Diagrams]
+
+\RequirePackage{ottheme}
+\RequirePackage{circuitikz}
+\RequirePackage{tcolorbox}
+\tcbuselibrary{skins,breakable}
+
+% -----------------------------
+% CircuiTikZ Global Styling
+% -----------------------------
+\ctikzset{
+  % Use modern american styling as default
+  logic ports=ieee,
+  % Set default color for all components
+  color=OTBlue,
+}
+
+% -----------------------------
+% OT Differentiation Styles
+% -----------------------------
+% These styles can be applied to individual components or paths
+\tikzset{
+  ot-highlight/.style={color=OTOrange, thick},
+  ot-fault/.style={color=OTRed, thick},
+  ot-safe/.style={color=OTGreen},
+  ot-signal/.style={color=OTPurple},
+  ot-muted/.style={color=OTMuted, thin},
+}
+
+% -----------------------------
+% Helper Environments
+% -----------------------------
+
+% A tcolorbox specifically designed for schematics
+\newtcolorbox{otschembox}[1][Schematic]{
+  enhanced,
+  breakable,
+  colback=OTLight,
+  colframe=OTBlue,
+  title=#1,
+  fonttitle=\bfseries,
+  center
+}
+
+% Environment wrapper for consistent options
+\newenvironment{otcircuit}[1][]
+{\begin{circuitikz}[#1]}
+{\end{circuitikz}}
+
+\endinput

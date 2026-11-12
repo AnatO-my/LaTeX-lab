@@ -1,0 +1,119 @@
+\projectname{OAU EEE Student Records \& Identification}
+\projectid{OAU-EEE-SRI}
+\projectversion{0.1 planning example}
+\projectstatus{Draft -- requirements review}
+\projectcategory{Software and embedded systems}
+\projectstarted{To be confirmed}
+\projectupdated{28 September 2026}
+
+\OTWorkstream[status={Agreed scope},owner={Software lead (unassigned)}]
+ {WS-A}{Departmental records platform}
+ {Web-first staff administration for biodata, guardian contacts, course registrations,
+ outstanding courses, semester/session results and exports. Mobile remains a later option.}
+\OTWorkstream[status={Agreed scope},owner={Hardware/firmware leads (unassigned)}]
+ {WS-B}{Standalone biometric terminal}
+ {A physical fingerprint terminal with local controller, acquisition/matching,
+ status indicators, communications, power and enclosure. Future smart-card/NFC
+ identification remains an option.}
+\OTWorkstream[status={Agreed scope}]{WS-I}{Student Identity Interface}
+ {Join the independent workstreams through a stable internal student identity.
+ The terminal reports an identity outcome; the records platform authorises access.}
+
+\OTRequirement[workstream=WS-A,status={Agreed scope},owner={Academic data steward},
+ acceptance={A synthetic profile retains names, contacts, school email, guardian details,
+ current level and admission year across updates.},related={TEST-01}]
+ {REQ-A01}{Student and academic records}
+ {Separate university-sourced authoritative data from department-owned extensions.
+ Derive outstanding courses only where curriculum rules and source information support it.}
+\OTRequirement[workstream=WS-B,status={Agreed scope},
+ acceptance={The terminal can demonstrate acquisition and identity outcomes against a mock receiver.},
+ related={TEST-02}]
+ {REQ-B01}{Independent physical terminal}
+ {Keep academic records off the biometric device. Isolate biometric credentials;
+ fingerprints are not primary student identifiers.}
+\OTRequirement[workstream=WS-I,status={Agreed scope},
+ acceptance={An identity match without staff permission does not grant access.},
+ related={REQ-A01,REQ-B01,TEST-02}]
+ {REQ-I01}{Identity is separate from authorisation}
+ {The device returns a stable student ID only on a successful match, plus status and
+ minimal metadata. Failure, ambiguous matches and communication errors are explicit outcomes.}
+
+\OTPerson[category=role,status=Unassigned,organisation={OAU EEE Department}]
+ {ROLE-01}{Academic data steward}
+ {Confirm curriculum, result authority, data definitions and correction rules.}
+\OTPerson[category=role,status=Unassigned,organisation={OAU EEE Department}]
+ {ROLE-02}{Project lead}
+ {Coordinate requirements, owners, resources, documentation and review stages.}
+\OTPerson[category=organisation,status={Context only}]
+ {ORG-01}{OAU EEE Department}
+ {The department is the project context; institutional ownership and approval responsibilities
+ still require confirmation. This category can be hidden when already understood.}
+
+\OTMaterial[workstream=WS-B,status=Unselected,quantity=TBD,unit=module,
+ unit-cost=TBD,currency=NGN,supplier={Not selected}]
+ {BOM-01}{Fingerprint scanner and controller}
+ {Compare capacity, interfaces, SDK terms, security, availability and power needs before selection.}
+\OTMaterial[workstream=WS-B,status=Unselected,quantity=TBD,unit=set,related={BOM-01}]
+ {BOM-02}{Power, communications and enclosure}
+ {Define the power budget, connection method, mounting and maintenance needs.}
+
+\OTCost[workstream=WS-B,status=Unpriced,currency=NGN,planned=TBD,actual=TBD,
+ related={BOM-01,BOM-02}]
+ {COST-01}{Terminal materials budget}
+ {No estimate or expenditure has been confirmed. Unknown values remain TBD, not zero.}
+\OTCost[workstream=WS-B,status={Format example},currency=USD,planned=TBD,actual=TBD]
+ {COST-02}{Foreign-currency entry example}
+ {This entry demonstrates explicit foreign-currency notation only.
+ No supplier, purchase currency or exchange rate has been selected.
+ Any later NGN equivalent must have a manually supplied rate, date and source.}
+
+\OTMilestone[status=Proposed,owner={Project lead},acceptance={Reviewed workflows,
+ curriculum questions, identity use cases and responsible owners.}]
+ {STAGE-01}{Requirements and feasibility}
+ {Review the planning baseline with departmental stakeholders and assess authorised portal access.}
+\OTMilestone[status=Proposed,depends-on={STAGE-01},related={TEST-01,TEST-02},
+ acceptance={A reviewed interface contract and independently usable test fixtures.}]
+ {STAGE-02}{Independent prototype planning}
+ {Choose software and terminal approaches after constraints are known.
+ This report does not authorise a production deployment.}
+
+\OTAlternative[workstream=WS-A,status={To investigate},
+ pros={Structured, repeatable upstream updates.},
+ cons={Access, coverage, support and ownership remain unverified.},
+ rationale={Evaluate only with authorisation.},related={EVID-01}]
+ {ALT-01}{Supported university API}
+ {Treat the portal as a candidate source, not as an assumed integration.}
+\OTAlternative[workstream=WS-A,status={To investigate},
+ pros={Reviewable snapshots and a practical staged import path.},
+ cons={Manual effort, stale data and schema changes.},related={EVID-01}]
+ {ALT-02}{Authorised official exports}
+ {Consider approved exports if an API is unavailable. Departmental entries must remain
+ distinguishable from university-verified records.}
+
+\OTProblem[workstream=WS-A,status=Open,owner={Integration contact (unassigned)},
+ resolution={Pending: identify the data owner and request documented integration scope.},
+ related={ALT-01,ALT-02,EVID-01}]
+ {ISSUE-01}{Upstream access is unknown}
+ {Do not infer API rights or backend ownership from the portal's visible interface.}
+\OTTest[workstream=WS-A,status=Planned,related={REQ-A01},result={Not run},
+ method={Synthetic profiles, session data and repeat imports.},
+ acceptance={Correct fields and periods, preserved provenance and no duplicate records.}]
+ {TEST-01}{Records and import validation}
+ {Test missing inputs and corrections as well as the successful path.}
+\OTTest[workstream=WS-I,status=Planned,related={REQ-B01,REQ-I01},result={Not run},
+ method={Mock terminal events and a mock records receiver.},
+ acceptance={Reject failed, ambiguous, stale or unauthorised identity assertions.}]
+ {TEST-02}{Identity interface validation}
+ {Software and hardware should each be testable without the other being complete.}
+\OTEvidence[status={User-supplied candidate},date={28 September 2026},
+ source={\url{https://eportal2.oauife.edu.ng/}}]
+ {EVID-01}{Potential university source}
+ {The URL is from the project brief. No portal audit or access verification is claimed by this example.}
+\OTRevision[status=Draft,date={28 September 2026},version=0.1]
+ {REV-01}{Initial project-package example}
+ {Demonstrates the agreed scope and reusable package features. Costs, personnel assignments,
+ institutional approvals and technical validation remain unresolved.}
+
+\OTSignatory[title={Project lead},capacity={Prepared by}]{SIG-01}{}
+\OTSignatory[title={Department representative},capacity={Reviewed by}]{SIG-02}{}
+

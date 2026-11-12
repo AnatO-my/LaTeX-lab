@@ -1,17 +1,27 @@
 % ============================================================
 % OT Engineering Notebook Class
-% Version: 0.1
+% Version: 0.3
 % Purpose: Informal engineering design + personal R&D notebook
 % ============================================================
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{otengineering}[2026/06/09 OT Engineering Notebook Class]
+\ProvidesClass{otengineering}[2026/09/28 v0.3 OT Engineering Notebook Class]
 
 % ============================================================
 % 1. Base Class
 % ============================================================
 
-\LoadClass[11pt,a4paper]{article}
+\newif\ifoteng@eeereport
+\DeclareOption{eee-report}{\oteng@eeereporttrue}
+\DeclareOption*{%
+  \ifoteng@eeereport\PassOptionsToClass{\CurrentOption}{extbook}%
+  \else\PassOptionsToClass{\CurrentOption}{article}\fi}
+\ProcessOptions\relax
+\ifoteng@eeereport
+  \LoadClass[14pt,a4paper,oneside,openany]{extbook}
+\else
+  \LoadClass[11pt,a4paper]{article}
+\fi
 
 % ============================================================
 % 2. Required Packages
@@ -22,10 +32,13 @@
 \RequirePackage{amssymb}
 \RequirePackage{amsmath}
 \RequirePackage{ottheme}
+\RequirePackage{marginnote}
+\RequirePackage{tabularx}
+\RequirePackage{hyperref}
+\RequirePackage{etoolbox}
 
-% otengineering keeps its slightly darker notebook background while sharing the
-% rest of the OT palette with otscience.
-\definecolor{OTLight}{HTML}{F3F4F6}
+% Optional companion packages are loaded explicitly by the document.
+% This keeps output independent of which extra packages happen to be installed.
 
 \tcbuselibrary{skins,breakable}
 
@@ -35,8 +48,9 @@
 
 \otcorepagestyle
     {\textbf{OT Engineering Notebook}}
-    {\leftmark}
+    {\parbox[b]{0.55\textwidth}{\raggedleft\small\leftmark}}
     {0.4pt}
+\setlength{\headheight}{28pt}
 
 % ============================================================
 % 6. Section Styling
@@ -77,7 +91,7 @@
             title=\textbf{Project Dashboard},
             fonttitle=\large\bfseries
         ]
-        \begin{tabularx}{\textwidth}{>{\bfseries}l X}
+        \begin{tabularx}{\linewidth}{>{\bfseries}l X}
             Project Name: & \OTProjectName     \\
             Project ID:   & \OTProjectID       \\
             Version:      & \OTProjectVersion  \\
@@ -90,8 +104,44 @@
 }
 
 % ============================================================
-% 9. Base Box Style
+% 9. Base Box Style and Registry Infrastructure
 % ============================================================
+
+% Read the previous completed run before opening new output streams.
+% Cached tokens allow registers to be printed repeatedly, including in front matter.
+\newwrite\otdecisionlog
+\newwrite\otrisklog
+\newcommand{\oteng@decisions}{}
+\newcommand{\oteng@risks}{}
+\AtBeginDocument{%
+    \begingroup
+        \long\def\otlogentry#1#2#3{%
+            \gappto\oteng@decisions{\otlogentry{#1}{#2}{#3}}}%
+        \InputIfFileExists{\jobname.decisions}{}{}%
+    \endgroup
+    \begingroup
+        \long\def\otlogentry#1#2#3{%
+            \gappto\oteng@risks{\otlogentry{#1}{#2}{#3}}}%
+        \InputIfFileExists{\jobname.risks}{}{}%
+    \endgroup
+    \immediate\openout\otdecisionlog=\jobname.decisions
+    \immediate\openout\otrisklog=\jobname.risks
+}
+% Flush deferred page writes before closing either stream.
+\AtEndDocument{%
+    \clearpage
+    \immediate\closeout\otdecisionlog
+    \immediate\closeout\otrisklog
+}
+\newcommand{\oteng@record}[3]{%
+    % This write node is placed INSIDE the box, so its page is the shipped page.
+    \protected@write#1{}{\string\otlogentry{#2}{#3}{\thepage}}%
+}
+
+% Status markers
+\newcommand{\otstatusmarker}[1]{%
+    \marginnote{\footnotesize #1}%
+}
 
 \newtcolorbox{otbox}[2][]{
     enhanced,
@@ -102,6 +152,24 @@
     title=#1,
     sharp corners,
     boxrule=0.8pt
+}
+
+% Style for registry entries
+\tcbset{
+    ot-registry-style/.style={
+        enhanced,
+        breakable,
+        colback=white,
+        colframe=OTMuted,
+        boxrule=0.5pt,
+        fontupper=\small,
+        top=2pt,
+        bottom=2pt,
+        left=4pt,
+        right=4pt,
+        before skip=4pt,
+        after skip=4pt
+    }
 }
 
 % ============================================================
@@ -116,9 +184,13 @@
 {\begin{otbox}[#1]{OTPurple}}
 {\end{otbox}}
 
-\newenvironment{decision}[1][Design Decision]
-{\begin{otbox}[#1]{OTGreen}}
-{\end{otbox}}
+\NewDocumentEnvironment{decision}{O{Design Decision} O{}}{%
+    \begin{otbox}[#1]{OTGreen}%
+    \oteng@record{\otdecisionlog}{#1}{#2}%
+    \ifstrempty{#2}{}{\otstatusmarker{\textbf{Status:} #2}}%
+}{%
+    \end{otbox}%
+}
 
 \newenvironment{experiment}[1][Experiment]
 {\begin{otbox}[#1]{OTOrange}}
@@ -164,9 +236,13 @@
 % 12. Risk and Assumption Tracking
 % ============================================================
 
-\newenvironment{risk}[1][Risk Register Entry]
-{\begin{otbox}[#1]{OTRed}}
-{\end{otbox}}
+\NewDocumentEnvironment{risk}{O{Risk Register Entry} O{}}{%
+    \begin{otbox}[#1]{OTRed}%
+    \oteng@record{\otrisklog}{#1}{#2}%
+    \ifstrempty{#2}{}{\otstatusmarker{\textbf{Status:} #2}}%
+}{%
+    \end{otbox}%
+}
 
 \newenvironment{assumption}[1][Assumption Tracker]
 {\begin{otbox}[#1]{OTOrange}}
@@ -252,5 +328,53 @@
 }
 
 % ============================================================
+% 19. Project Registry Printing
+% ============================================================
+
+\newcommand{\otlogentry}[3]{%
+    \begin{tcolorbox}[ot-registry-style, title={#1}]
+        \textbf{Status:} \ifstrempty{#2}{Not specified}{#2} \hfill \textbf{Page:} #3
+    \end{tcolorbox}
+}
+
+\newcommand{\printprojectdecisionlog}[1][Project Decision Log]{%
+    \section*{#1}%
+    \ifdefempty{\oteng@decisions}{%
+        \begin{otbox}[No Decisions Recorded]{OTMuted}
+            No entries are available from the previous run.
+            After adding or removing entries, compile until the registers settle.
+        \end{otbox}%
+    }{%
+        \oteng@decisions
+    }%
+}
+
+\newcommand{\printprojectriskregister}[1][Project Risk Register]{%
+    \section*{#1}%
+    \ifdefempty{\oteng@risks}{%
+        \begin{otbox}[No Risks Recorded]{OTMuted}
+            No entries are available from the previous run.
+            After adding or removing entries, compile until the registers settle.
+        \end{otbox}%
+    }{%
+        \oteng@risks
+    }%
+}
+
+\newcommand{\makeprojectstatusreport}{%
+    \begin{tcolorbox}[
+        enhanced,
+        colback=OTLight,
+        colframe=OTPurple,
+        title=\textbf{Project Status Report},
+        fonttitle=\bfseries
+    ]
+        This notebook contains design decisions and risks tracked in the back matter.
+        Current project status: \OTProjectStatus.
+    \end{tcolorbox}%
+}
+
+% ============================================================
 % End of Class
 % ============================================================
+\ifoteng@eeereport\RequirePackage{oteeereport}\fi

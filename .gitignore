@@ -6,27 +6,46 @@
 *.fdb_latexmk
 *.fls
 *.lof
+*.log
 *.lot
 *.nav
 *.out
 *.run.xml
 *.snm
 *.synctex.gz
+*.synctex(busy)
 *.toc
 *.vrb
 *.xdv
+*.xsim
 
-# LaTeX formatter diagnostics
-indent.log
+# Compiled documents (keep PDF figures and historical baselines trackable)
+/examples/**/*.pdf
+/tests/**/*.pdf
 
 # Python cache files
 __pycache__/
 *.py[cod]
 
-# Future controlled build directories
-build/
-out/
+# Controlled build directories
+/build/
+/out/
+
+# Local PDF exports and rendering scratch files; output/tex remains source
+/output/**/pdf/
+/tmp/pdfs/
 
 # Editor and operating-system clutter
 .DS_Store
+
 Thumbs.db
+
+# Generated release PDFs
+/dist/
+
+# Emergency TeX artefacts
+*.bak
+*.synctex.gz(busy)
+
+# Nested project and example builds
+**/build/

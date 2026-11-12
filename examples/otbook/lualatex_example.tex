@@ -1,0 +1,30 @@
+\documentclass{otbook}
+
+\usepackage{otprofiles}
+
+\title{LuaLaTeX Typography Superpower}
+\author{O. T. Typographer}
+\date{\today}
+
+\begin{document}
+
+\makeotbooktitle
+
+\section{Introduction}
+
+This document is being compiled with:
+\ifluatex
+    \textbf{LuaLaTeX}. We are using the \texttt{fontspec} package and modern OpenType fonts.
+\else
+    \textbf{pdfLaTeX}. We are using traditional Type 1 fonts and \texttt{fontenc}.
+\fi
+
+\section{Advanced Typography}
+
+LuaLaTeX allows for advanced micro-typography and direct access to system fonts.
+
+\begin{designrule}[Font Check]
+    In LuaLaTeX, we can use fonts like \textit{Latin Modern Roman} natively as OpenType assets.
+\end{designrule}
+
+\end{document}

@@ -1,0 +1,31 @@
+\documentclass{otengineering}
+\usepackage{otforms}
+
+\projectname{Field Sensor Calibration}
+\projectid{FIELD-001}
+
+\begin{document}
+
+\makeotengtitle
+
+\section{Site Metadata}
+
+\otstartforms
+
+\ottextfield{Location}{site_loc}
+\ottextfield{Inspector Name}{inspector}
+\otchoicefield{Assigned Site}{site_choice}{Site A,Site B,Site C}
+
+\section{Calibration Checklist}
+
+\otcheckbox{Battery level checked?}{chk_batt}
+\otcheckbox{Physical damage inspected?}{chk_phys}
+\otcheckbox{Firmware updated to v1.2?}{chk_firm}
+
+\section{Detailed Observations}
+
+\ottextbox[4cm]{Notes and Anomalies}{notes_field}
+
+\otendforms
+
+\end{document}

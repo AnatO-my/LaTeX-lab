@@ -1,0 +1,32 @@
+\documentclass{otbook}
+
+\title{My Personal Book}
+\booksubtitle{Notes, examples, and reflections}
+\author{Author Name}
+\bookedition{Draft edition}
+\date{\today}
+
+\graphicspath{{figures/}}
+
+\begin{document}
+
+% The title page has no page anchor, avoiding duplicate page destinations.
+\hypersetup{pageanchor=false}
+\makeotbooktitle
+\frontmatter
+% \makeotbookdedication{For the people who made this book possible.}
+\hypersetup{pageanchor=true}
+\tableofcontents
+
+\mainmatter
+\input{chapters/01-introduction}
+
+% Add numbered appendices here, before \backmatter.
+% \appendix
+% \input{chapters/appendix-formulae}
+
+\backmatter
+\chapter{Reading Notes}
+Record references and notes here as the book develops.
+
+\end{document}

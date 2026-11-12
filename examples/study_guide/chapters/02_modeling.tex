@@ -1,0 +1,33 @@
+\chapter{Modeling and the Question Phase}
+
+\otbookepigraph{A relationship becomes secure only after it acquires an internal reason.}{PLDS Principle}
+
+\section{The Structure of Rotation}
+
+In Spong Chapter 2, we encounter the \otindex{Rotation Matrix}. Instead of seeing it as a collection of sines and cosines, we \otindex{Model} it as a transformation that preserves the dot product.
+
+\begin{intuitionbox}[Necessity of Orthogonality]
+    A rotation matrix \(R\) must satisfy \(R^T R = I\) because the lengths of vectors and the angles between them must not change after rotation.
+\end{intuitionbox}
+
+\section{Symbolic Clarity}
+
+Dense texts often reuse symbols. By using the \acr{plds} key-based approach, we distinguish between a \sym{joint-angle} (\(\theta\)) and the \sym{temperature} (\(\theta\)) of the actuator.
+
+\begin{examplebox}[DH Matrix Construction]
+    The homogeneous transformation matrix is a composition of:
+    \begin{enumerate}
+        \item Rotation around \(z\) by \sym{joint-angle}.
+        \item Translation along \(z\).
+        \item Translation along \(x\).
+        \item Rotation around \(x\).
+    \end{enumerate}
+\end{examplebox}
+
+\section{Attacking the Arbitrary}
+
+When reading Spong's derivation of the \otindex{Euler-Lagrange} equations, don't just follow the algebra. Use the \textit{Strong Question} technique:
+\begin{itemize}
+    \item \textbf{Weak:} Why is the kinetic energy subtracted from potential?
+    \item \textbf{Stronger:} How does the \otindex{Lagrangian} formulation represent the constraints of the system without requiring explicit constraint forces?
+\end{itemize}

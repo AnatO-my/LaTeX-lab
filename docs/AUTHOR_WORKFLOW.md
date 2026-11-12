@@ -33,6 +33,7 @@ Use these copyable starters:
 | Student notes | `examples/studentnotes/starter_notes.tex` |
 | Engineering notes | `examples/otengineering/starter_engineering_notes.tex` |
 | Science notes | `examples/otscience/starter_science_notes.tex` |
+| Personal book with native chapters | `examples/otbook/starter_personal_book.tex` |
 | Vector workbook module | `examples/vector-workbook/starter_module.tex` |
 | Combined vector workbook | `examples/vector-workbook/starter_combined_workbook.tex` |
 
@@ -43,6 +44,97 @@ you want to study a finished document rather than start a small one.
 Copy a starter into a new project folder only after deciding whether the new
 document should remain inside this repository or become a separate downstream
 author project.
+
+## Personal Books with `otbook`
+
+Choose `otbook` for a long document organized into chapters. It derives from
+LaTeX's `book` class; `otscience` derives from `article` and has no native
+`\chapter`. The default book settings are 11pt, A4, and one-sided. Standard
+book options are forwarded, for example `\documentclass[12pt]{otbook}`.
+
+Start with `examples/otbook/starter_personal_book.tex`. Its structure is:
+
+```latex
+\documentclass{otbook}
+\title{My Personal Book}
+\booksubtitle{Notes and worked examples}
+\author{Author Name}
+\bookedition{Draft edition}
+\date{\today}
+
+\begin{document}
+\frontmatter
+\hypersetup{pageanchor=false}
+\makeotbooktitle
+\makeotbookdedication{For the people who made this book possible.} % Optional
+\hypersetup{pageanchor=true}
+\tableofcontents
+\mainmatter
+\chapter{Foundations}
+\otbookepigraph{A short chapter quotation.}{Attribution}
+\begin{chapteroverview}
+  Explain what this chapter covers and why it matters.
+\end{chapteroverview}
+\begin{chaptergoals}
+  \item Understand the central idea.
+\end{chaptergoals}
+\section{Main Idea}
+Write the chapter content here.
+\appendix
+\chapter{Formula Reference}
+Write optional appendix content here.
+\backmatter
+\chapter{Reading Notes}
+Write unnumbered reference notes here.
+\end{document}
+```
+
+Subtitle and edition are optional. Use `\makeotbooktitle` for the OT title
+page; the inherited `\maketitle` does not render those extra fields. Put
+numbered appendices before `\backmatter`, which disables chapter numbering.
+
+`\makeotbookdedication{...}` creates a dedicated, unnumbered page and is
+optional. Keep the title and dedication between the `pageanchor=false` and
+`pageanchor=true` lines shown above. Use `\otbookepigraph{<quotation>}{<attribution>}`
+after a chapter heading when a brief quotation helps frame it. `chapteroverview`
+is a compact opening summary box for prose; use `chaptergoals` when the opening
+is a list. Both boxes are breakable, so a long chapter opening can continue
+onto the next page.
+
+The class loads `otcore`, `ottheme`, and `otboxes`, plus `otnotation`, `otmath`,
+`ottensors`, `otphysics`, `otcoordinates`, `otpractice`, and `otfigures` when
+available. Keep the full `src/classes/` and `src/packages/` trees accessible;
+copying `otbook.cls` alone is insufficient. Do not load another OT class as a
+package. See `docs/PUBLIC_INTERFACES.md` for the book metadata, box interfaces,
+package ownership, and current numbering limits.
+
+From the repository root, build with an absolute output directory so the
+repository's change-directory setting cannot place it inside `examples/`:
+
+```powershell
+$bookOutput = Join-Path (Get-Location).Path 'build/examples/otbook'
+latexmk -pdf -halt-on-error "-outdir=$bookOutput" examples/otbook/starter_personal_book.tex
+```
+
+The PDF is `build/examples/otbook/starter_personal_book.pdf`; auxiliary files
+share that directory. The existing Phase 7 starter runner covers its original
+seven documents, so run this book build separately.
+
+For a separate project under `Current-projects/`, copy the source files from
+[`templates/otbook-project/`](../templates/otbook-project/README.md), including
+its dotfiles and source subfolders, without copying generated `build/` output.
+Set the LaTeX-lab path in the copied `.latexmkrc` or through `LATEX_LAB_ROOT`.
+From the new project's root, run `latexmk -pdf main.tex`; the PDF lands in
+`build/pdf/main.pdf` and auxiliary files in `build/aux/`.
+
+Edit metadata and chapter order in `main.tex`, and content in `chapters/`.
+The template README explains figure lookup, cleanup, and the reserved
+bibliography folder. Keep LaTeX-lab as the shared styling source. Verify all
+three book paths from the repository root with:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File tests\run_otbook_tests.ps1
+```
 
 ## Build Commands
 

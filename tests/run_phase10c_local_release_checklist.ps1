@@ -48,7 +48,7 @@ try {
         "docs\PUBLIC_INTERFACES.md",
         "docs\RELEASE_PDF_CHECKLIST.md",
         "docs\AUTHOR_KIT_BUILD_CHECKLIST.md",
-        "PHASE10_CHECKPOINT_10C.md",
+        "PHASE CHECKPOINTS/PHASE10_CHECKPOINT_10C.md",
         "tests\run_phase10c_local_release_checklist.ps1",
         "CHANGELOG.md",
         "PROJECT_STATE.md",
@@ -68,7 +68,7 @@ try {
         [pscustomobject]@{ Path = "docs\LOCAL_RELEASE_CHECKLIST.md"; Pattern = "docs/VERSIONING_RELEASE_POLICY.md"; Message = "Release checklist must point to versioning policy." },
         [pscustomobject]@{ Path = "docs\LOCAL_RELEASE_CHECKLIST.md"; Pattern = "tests\run_phase7c_starter_tests.ps1"; Message = "Release checklist must name starter build verification." },
         [pscustomobject]@{ Path = "docs\LOCAL_RELEASE_CHECKLIST.md"; Pattern = "Generated assets should be attached to a GitHub release"; Message = "Release checklist must preserve generated-asset boundary." },
-        [pscustomobject]@{ Path = "PHASE10_CHECKPOINT_10C.md"; Pattern = "Checkpoint 10C adds a local release checklist"; Message = "Checkpoint 10C summary is missing." },
+        [pscustomobject]@{ Path = "PHASE CHECKPOINTS/PHASE10_CHECKPOINT_10C.md"; Pattern = "Checkpoint 10C adds a local release checklist"; Message = "Checkpoint 10C summary is missing." },
         [pscustomobject]@{ Path = "CHANGELOG.md"; Pattern = "### Added (Checkpoint 10C)"; Message = "Changelog does not record Checkpoint 10C." },
         [pscustomobject]@{ Path = "PROJECT_STATE.md"; Pattern = "Checkpoint 10C adds a local release checklist"; Message = "Project state does not record Checkpoint 10C." },
         [pscustomobject]@{ Path = "README.md"; Pattern = "docs/LOCAL_RELEASE_CHECKLIST.md"; Message = "README does not link the local release checklist." }

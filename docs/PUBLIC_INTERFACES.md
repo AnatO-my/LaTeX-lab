@@ -6,8 +6,9 @@ This document records the supported public interfaces of:
 
 * `physicsquiz.cls`;
 * `studentnotes.cls`;
-* `otengineering.cls`; and
-* `otscience.cls`.
+* `otengineering.cls`;
+* `otscience.cls`; and
+* `otbook.cls`.
 
 It also records the shared OT ecosystem hooks that these classes and their
 companion packages expose deliberately, including the Phase 5 `ottheme.sty`
@@ -1192,6 +1193,118 @@ The semantic science-box names are less collision-prone than the generic names i
 the other classes, but `examplebox`, the two generic base-box names, and the shared
 `OT...` colour names still require coordination with the wider OT ecosystem.
 
+# `otbook.cls`
+
+## Class declaration and scope
+
+```latex
+\documentclass{otbook}
+% Or, for example:
+% \documentclass[12pt]{otbook}
+```
+
+Version 0.2 is based on native LaTeX `book`, with 11pt, A4, and one-sided
+defaults. Options are forwarded to `book`. The shared `otcore` setup supplies
+one-inch margins. Native `\part`, `\chapter`, section numbering, contents,
+`\frontmatter`, `\mainmatter`, `\appendix`, and `\backmatter` retain their
+book roles; OT supplies the heading and page styling.
+
+Use `\appendix` before `\backmatter` when lettered appendix chapters are
+needed. Back matter disables chapter numbering. `otscience` remains an
+article-based alternative, not a substitute for native book chapters.
+
+This section records source-verified interfaces. The starter and smoke
+document provide limited compile coverage; the science-class regression
+claims above do not imply equivalent book pagination or option coverage.
+
+## Title metadata
+
+| Command | Contract |
+| --- | --- |
+| `\title{<text>}` | Standard title metadata used by the OT title page. |
+| `\author{<text>}` | Standard author metadata used by the OT title page. |
+| `\date{<text>}` | Standard date metadata; `\date{}` suppresses the date text. |
+| `\booksubtitle{<text>}` | Optional subtitle, empty by default. |
+| `\bookedition{<text>}` | Optional edition line, empty by default. |
+| `\makeotbooktitle` | Prints the OT title page from these fields. |
+| `\makeotbookdedication{<text>}` | Prints an optional unnumbered dedication page. |
+
+Set metadata before calling `\makeotbooktitle` inside the document. The
+inherited `\maketitle` remains available but does not use the OT subtitle or
+edition fields. `\OTBookSubtitle` and `\OTBookEdition` are internal storage;
+authors should use the public setters.
+
+`\makeotbookdedication{...}` is independent of title metadata and places its
+text flush right on a page of its own. Call it in front matter, ordinarily
+after `\makeotbooktitle` and before `\tableofcontents`. Disable PDF page
+anchors around title and dedication pages, as shown in the starter and template.
+
+## Semantic boxes
+
+The book class defines the same ten semantic box families, default titles,
+and colours listed for `otscience`: `definitionbox`, `theorembox`, `lawbox`,
+`formulabox`, `derivationbox`, `examplebox`, `warningbox`, `intuitionbox`,
+`summarybox`, and `experimentbox`. Each accepts an optional replacement title
+and has a corresponding `nosplit` environment. Their shared bases are
+`otboxes`' breakable `otscibox` and indivisible `otsciboxnosplit`.
+
+Two additional book interfaces are:
+
+| Environment | Optional title | Body and pagination |
+| --- | --- | --- |
+| `reflectionbox` | Reflection | Ordinary content in a breakable orange box. |
+| `chaptergoals` | Chapter Goals | `\item` entries in a breakable blue box; opens its own `itemize`. |
+| `chapteroverview` | Chapter Overview | Ordinary prose in a breakable teal box. |
+
+```latex
+\begin{chaptergoals}[Learning Goals]
+  \item State the core principle.
+  \item Solve one worked example.
+\end{chaptergoals}
+\begin{reflectionbox}[Personal Connection]
+  Record a useful connection or question.
+\end{reflectionbox}
+\otbookepigraph{A short chapter quotation.}{Attribution}
+```
+
+`\otbookepigraph{<quotation>}{<attribution>}` is a lightweight chapter-opening
+helper; it does not create a contents entry, counter, or page break.
+
+There is no `reflectionboxnosplit` interface in v0.2. These boxes, including
+`theorembox`, have no automatic theorem counters. When `otmath` is loaded, its
+numbered theorem environments retain their section-based counter. Book-native
+chapters do not change those package-owned counters to chapter-based ones.
+
+## Shared packages and compatibility
+
+The class requires `otcore`, `ottheme`, and `otboxes`. It conditionally loads
+`otnotation`, `otmath`, `ottensors`, `otphysics`, `otcoordinates`, `otpractice`,
+and `otfigures` when available. Their commands remain package-owned. A missing
+conditional package can leave its commands unavailable, so distribute the
+complete package tree with the class. Workbook setup commands such as
+`\standalonetitle` and `practicebox` are not book-class interfaces.
+
+As in `otscience`, `\qty` is deliberately copied from `siunitx`'s `\SI` at
+document start. Use `\quantity` for the `physics` delimiter operation. Shared
+OT box names and palette names require a collision check before adding
+another package that defines them.
+
+## Verification and current limits
+
+Use `examples/otbook/starter_personal_book.tex` and
+`tests/otbook_class_smoke.tex`, with the build commands in
+`docs/STARTER_INVENTORY.md`. The dedicated book runner is
+`tests/run_otbook_tests.ps1`; automatic inclusion
+in the Phase 7 starter suite are not yet implemented.
+
+The maintained starter and smoke document compile with MiKTeX pdfLaTeX and
+latexmk 4.88 under `build/`. This is a compile check, not a rendered-layout or
+exhaustive hyperlink audit.
+
+Version 0.2 does not supply a book-specific print mode, bibliography setup,
+index, glossary, or chapter-numbered theorem policy. These are follow-up items,
+not features provided by this documentation integration.
+
 # Cross-class ownership and collision notes
 
 | Name or family | Owner | Classification | Important qualification |
@@ -1209,14 +1322,15 @@ the other classes, but `examplebox`, the two generic base-box names, and the sha
 | `OT...` colours | `ottheme` | advanced | `otengineering.cls` deliberately overrides `OTLight` to preserve its established `#F3F4F6` value |
 | `practicebox`, `practiceboxnosplit` | vector-workbook setup | external to class | defined by `00_common_setup.tex` |
 | `\standalonetitle` | vector-workbook setup | external to class | not defined by `otscience` |
-| OT companion commands | individual `.sty` packages | external to class | loaded conditionally by `otscience` |
-| `\qty` in `otscience` | compatibility rule | stable behaviour | resolves to the `siunitx`/`\SI` meaning at document start |
+| OT companion commands | individual `.sty` packages | external to class | loaded conditionally by `otscience` and `otbook` |
+| `\qty` in `otscience` and `otbook` | compatibility rule | stable behaviour | resolves to the `siunitx`/`\SI` meaning at document start |
+| `\booksubtitle`, `\bookedition`, `\makeotbooktitle`, `\makeotbookdedication`, `\otbookepigraph`, `chaptergoals`, `chapteroverview`, `reflectionbox` | `otbook` | author interface | source-verified v0.2 book interface |
 
 # Interfaces excluded from this document
 
 This reference does not define contracts for:
 
-* commands inherited unchanged from `article`;
+* commands inherited unchanged from `article` or `book`;
 * commands supplied by third-party packages, except where a class explicitly
   resolves a collision such as `otscience`'s `\qty` behaviour;
 * detailed APIs in the seven OT companion packages;
@@ -1246,3 +1360,19 @@ When changing any class interface documented here:
 5. inspect rendered pagination when layout behaviour is affected;
 6. update this reference and the changelog in the same checkpoint; and
 7. record any deprecation, collision, or migration requirement before release.
+
+
+## Engineering registry repair (2026-09-28)
+
+The title-only decision/risk interfaces remain valid. Status is a second optional
+bracket argument: `\begin{decision}[Title][Status]`. The unreleased local
+required-brace status syntax is superseded. Optional forms/profiles are explicitly
+loaded by documents. See [Engineering registry compatibility](ENGINEERING_REGISTRY_COMPATIBILITY.md)
+for lifecycle, dependency, forms, migration and regression details.
+
+
+## Project records package (2026-09-29)
+
+Load ot-projects explicitly with otengineering. The package provides preamble-declared records, automatic summary registers, detailed report/notebook views, configurable people categories, manually sourced NGN/foreign-cost fields and optional named/titled signatories. Existing decision/risk/assumption/lesson interfaces remain unchanged.
+
+See [OT Projects v0.1](OT_PROJECTS.md) for the author interface, validation rules, examples and version boundaries. Package IDs are stable and distinct from the class's legacy decision/risk logs.

@@ -1,24 +1,35 @@
 % ============================================================
 % OT Personal Book Class
 % otbook.cls
-% Version: 0.1
+% Version: 0.2
 % ============================================================
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{otbook}[2026/08/20 v0.1 OT Personal Book Class]
+\ProvidesClass{otbook}[2026/09/09 v0.2 OT Personal Book Class]
 
 % -----------------------------
 % Base class
 % -----------------------------
+\newif\ifotbook@chaptertheorems\otbook@chaptertheoremsfalse
+\DeclareOption{chaptertheorems}{\otbook@chaptertheoremstrue}
+
 \PassOptionsToClass{11pt,a4paper,oneside}{book}
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{book}}
 \ProcessOptions\relax
 \LoadClass{book}
 
+\ifotbook@chaptertheorems
+  \PassOptionsToPackage{theorems=chapter}{otmath}
+\fi
+
 % -----------------------------
 % Core packages
 % -----------------------------
 \RequirePackage{otcore}
+\geometry{
+  marginparwidth=1.8cm,
+  marginparsep=0.4cm
+}
 \RequirePackage[T1]{fontenc}
 \RequirePackage[utf8]{inputenc}
 \RequirePackage{lmodern}
@@ -113,6 +124,25 @@
     {\normalsize\color{OTMuted}\@date\par}
   \end{titlepage}
 }
+
+\newcommand{\makeotbookdedication}[1]{
+  \thispagestyle{empty}
+  \vspace*{0.38\textheight}
+  \begin{flushright}
+    \itshape #1
+  \end{flushright}
+  \clearpage
+}
+
+\newcommand{\otbookepigraph}[2]{
+  \par\medskip
+  \noindent\hfill
+  \begin{minipage}{0.68\textwidth}
+    \itshape #1\par
+    \vspace{0.5em}
+    \raggedleft --- #2
+  \end{minipage}\par\medskip
+}
 \makeatother
 
 % -----------------------------
@@ -182,8 +212,50 @@
 {\begin{otscibox}[#1]{OTOrange}}{\end{otscibox}}
 
 \newenvironment{chaptergoals}[1][Chapter Goals]
-{\begin{otsciboxnosplit}[#1]{OTBlue}\begin{itemize}}
-{\end{itemize}\end{otsciboxnosplit}}
+{\begin{otscibox}[#1]{OTBlue}\begin{itemize}}
+{\end{itemize}\end{otscibox}}
+
+\newenvironment{chapteroverview}[1][Chapter Overview]
+{\begin{otscibox}[#1]{OTTeal}}
+{\end{otscibox}}
+
+\makeatletter
+\newcounter{otdesignrule}
+\ifotbook@chaptertheorems
+  \@addtoreset{otdesignrule}{chapter}
+  \renewcommand{\theotdesignrule}{\thechapter.\arabic{otdesignrule}}
+\else
+  \@addtoreset{otdesignrule}{section}
+  \renewcommand{\theotdesignrule}{\thesection.\arabic{otdesignrule}}
+\fi
+\makeatother
+
+\newenvironment{designrule}[1][Design Rule]
+{\refstepcounter{otdesignrule}\begin{otscibox}[#1\ \theotdesignrule]{OTPurple}}
+{\end{otscibox}}
+
+\newenvironment{designrulenosplit}[1][Design Rule]
+{\refstepcounter{otdesignrule}\begin{otsciboxnosplit}[#1\ \theotdesignrule]{OTPurple}}
+{\end{otsciboxnosplit}}
+
+% -----------------------------
+% Margin notes
+% -----------------------------
+\RequirePackage{marginnote}
+
+\newcommand{\otmarginnote}[2]{%
+  \marginpar{%
+    \raggedright
+    \footnotesize
+    \color{#1}%
+    #2%
+  }%
+}
+
+\newcommand{\otremark}[1]{\otmarginnote{OTBlue}{\textbf{Note:}\\ #1}}
+\newcommand{\otcaveat}[1]{\otmarginnote{OTOrange}{\textbf{Caveat:}\\ #1}}
+\newcommand{\otsideinfo}[1]{\otmarginnote{OTDark}{\textbf{Info:}\\ #1}}
+\newcommand{\otpracticehint}[1]{\otmarginnote{OTTeal}{\textbf{Hint:}\\ #1}}
 
 % -----------------------------
 % Load ecosystem modules if available
@@ -195,5 +267,13 @@
 \IfFileExists{otcoordinates.sty}{\RequirePackage{otcoordinates}}{}
 \IfFileExists{otpractice.sty}{\RequirePackage{otpractice}}{}
 \IfFileExists{otfigures.sty}{\RequirePackage{otfigures}}{}
+\IfFileExists{otcircuits.sty}{\RequirePackage{otcircuits}}{}
+\IfFileExists{otplots.sty}{\RequirePackage{otplots}}{}
+\IfFileExists{otcode.sty}{\RequirePackage{otcode}}{}
+\IfFileExists{otsymbols.sty}{\RequirePackage{otsymbols}}{}
+\IfFileExists{otprofiles.sty}{\RequirePackage{otprofiles}}{}
+\IfFileExists{otbib.sty}{\RequirePackage{otbib}}{}
+\IfFileExists{otindex.sty}{\RequirePackage{otindex}}{}
+\IfFileExists{otaccess.sty}{\RequirePackage{otaccess}}{}
 
 \endinput

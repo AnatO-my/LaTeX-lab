@@ -1,0 +1,71 @@
+% ============================================================
+% OT Plots Package
+% otplots.sty
+% Version: 0.1
+% Purpose: Data plotting following the OT design system
+% ============================================================
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{otplots}[2026/09/10 v0.1 OT Data Plots]
+
+\RequirePackage{ottheme}
+\RequirePackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+% -----------------------------
+% OT Plot Cycle List
+% -----------------------------
+% Defines the order of colors for multiple series
+\pgfplotscreateplotcyclelist{ot-colors}{
+  {OTBlue, thick},
+  {OTPurple, thick},
+  {OTOrange, thick},
+  {OTGreen, thick},
+  {OTTeal, thick},
+  {OTRed, thick},
+  {OTDark, thick}
+}
+
+% -----------------------------
+% OT Axis Styling
+% -----------------------------
+\pgfplotsset{
+  ot-plot/.style={
+    axis line style={OTDark, thick},
+    tick label style={font=\footnotesize, color=OTDark},
+    label style={font=\small, color=OTDark},
+    legend style={
+      font=\footnotesize,
+      draw=OTMuted,
+      fill=white,
+      at={(0.98,0.98)},
+      anchor=north east
+    },
+    grid style={OTMuted, dashed},
+    xmajorgrids=true,
+    ymajorgrids=true,
+    cycle list name=ot-colors,
+  }
+}
+
+% -----------------------------
+% Helper Macros
+% -----------------------------
+
+% Simplified command to plot data from a CSV
+% Usage: \otplotdata[axis options]{csv_file}{plot options}
+\newcommand{\otplotdata}[3][]{
+  \begin{axis}[ot-plot, #1]
+    \addplot+ [#3] table [col sep=comma] {#2};
+  \end{axis}
+}
+
+% Simplified command for plotting functions
+% Usage: \otplotfunction[axis options]{expression}{plot options}
+\newcommand{\otplotfunction}[3][]{
+  \begin{axis}[ot-plot, #1]
+    \addplot+ [#3] {#2};
+  \end{axis}
+}
+
+\endinput

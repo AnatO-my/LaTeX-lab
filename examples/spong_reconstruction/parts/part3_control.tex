@@ -1,0 +1,29 @@
+\chapter{Control: Managing the Error State}
+
+\otbookepigraph{Control is just the art of making the universe behave like your math model.}{OT Interpretation}
+
+\section{De-construction: PD Control}
+The standard PD law is:
+\begin{equation}
+    \tau = \sym{kp} \sym{error-e} + \sym{kd} \dot{\sym{error-e}}
+\end{equation}
+
+\section{Re-interpretation: The ``Spring-Damper'' Analogy}
+\begin{intuitionbox}[Virtual Physics]
+    Don't see \sym{kp} and \sym{kd} as gain numbers. See them as virtual components.
+    \begin{itemize}
+        \item \sym{kp} is a \textbf{Virtual Spring} that pulls the robot back to the target.
+        \item \sym{kd} is a \textbf{Virtual Shock Absorber} that stops it from oscillating wildly.
+    \end{itemize}
+    Tuning a robot is just choosing how stiff and how squishy you want your virtual world to be.
+\end{intuitionbox}
+
+\section{Computed Torque Control}
+\begin{designrule}[The Cancellation Move]
+    The most powerful move in robotics is \textbf{Inverse Dynamics}. We use our known model (\sym{mass-matrix}, \sym{coriolis}, \sym{gravity-g}) to calculate and subtract the nonlinearities. This leaves behind a perfectly simple linear system.
+\end{designrule}
+
+\section{Mastery Check}
+\begin{practice}[The Stability Question]
+    Why do we often add a gravity compensation term \(\hat{g}(q)\) to our PD control? What happens to the \sym{error-e} in steady-state if we don't? (It sags due to gravity).
+\end{practice}

@@ -1,7 +1,8 @@
 # LaTeX Lab
 
 Local LaTeX class, package, and document-workflow lab for OT notes, engineering
-notes, science notes, vector workbooks, and structured physics quiz papers.
+notes, science notes, personal books, vector workbooks, and structured physics
+quiz papers.
 
 The project is currently moving from internal refactoring into author workflow
 and collaboration readiness. The working source lives under `src/`, examples
@@ -44,19 +45,37 @@ powershell -ExecutionPolicy Bypass -File tests\run_ot_phase5_tests.ps1
 
 Generated build outputs belong under `build/` and are not source files.
 
+Historical checkpoint records live in [PHASE CHECKPOINTS/](PHASE%20CHECKPOINTS/).
+
 ## Author Workflow
 
 Start with the copyable starter documents in `examples/`, then build from the
 repository root so `.latexmkrc` can discover the project-local classes and
 packages. Phase 7 currently provides starters for quiz banks, versioned quiz
 papers, student notes, engineering notebooks, science notes, and workbook
-modules, including a combined workbook root.
+modules, including a combined workbook root. The `otbook` class adds a
+[personal-book starter](examples/otbook/starter_personal_book.tex) with native
+chapters, front matter, main matter, back matter, and OT semantic boxes.
+
+For a chaptered book, use `\documentclass{otbook}`; `otscience` remains an
+article-based class for science notes. See the
+[book workflow](docs/AUTHOR_WORKFLOW.md#personal-books-with-otbook) for metadata,
+document structure, and a build command that writes under `build/`.
+
+For a new book outside this repository, copy
+[`templates/otbook-project/`](templates/otbook-project/README.md). It includes
+chapter, figure, and bibliography folders plus a `.latexmkrc` pointer to
+LaTeX-lab, with PDFs under `build/pdf/` and auxiliary files under `build/aux/`.
 
 See `docs/AUTHOR_WORKFLOW.md` for document-starting steps, build commands,
 collaboration notes, and the Phase 7 GitHub-readiness checklist.
+See [`skills/README.md`](skills/README.md) for the project-local library of
+build-diagnostics, academic-writing, and general LaTeX skill families.
 See `docs/RELEASE_READINESS.md` for the first shareable repository boundary and
 future author-kit rules.
-See `docs/AUTHOR_KIT_BUILD_CHECKLIST.md` before creating any author-kit zip.
+Use `scripts/new-author-kit.ps1` to create a source-only author kit under
+ignored `build/author-kit/`; see `docs/AUTHOR_KIT_BUILD_CHECKLIST.md` before
+creating or sharing an author-kit zip.
 See `docs/AUTHOR_KIT_AUDIT.md` for the current local source-derived author kit.
 See `docs/RELEASE_PDF_CHECKLIST.md` before attaching preview PDFs to a release.
 See `docs/RELEASE_PREVIEW_PDF_AUDIT.md` for the current local preview PDF set.

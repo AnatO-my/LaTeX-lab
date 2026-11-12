@@ -51,7 +51,7 @@ try {
         "docs\LOCAL_RELEASE_CHECKLIST.md",
         "docs\RELEASE_NOTES_TEMPLATE.md",
         "docs\RELEASE_ASSET_MANIFEST_TEMPLATE.md",
-        "PHASE10_CHECKPOINT_10I_10J.md",
+        "PHASE CHECKPOINTS/PHASE10_CHECKPOINT_10I_10J.md",
         "tests\run_phase10ij_release_candidate.ps1",
         "CHANGELOG.md",
         "PROJECT_STATE.md",
@@ -78,7 +78,7 @@ try {
         [pscustomobject]@{ Path = $dryRunPath; Pattern = "Phase 10J creates no Git tag"; Message = "Phase 10J boundary is missing." },
         [pscustomobject]@{ Path = "docs\CI_RELEASE_GATE_PLAN.md"; Pattern = "docs/TARGETED_REGRESSION_GATE_PLAN.md"; Message = "CI release-gate plan must link the targeted regression plan." },
         [pscustomobject]@{ Path = "docs\LOCAL_RELEASE_CHECKLIST.md"; Pattern = "docs/RELEASE_CANDIDATE_DRY_RUN.md"; Message = "Local release checklist must link the release-candidate dry run." },
-        [pscustomobject]@{ Path = "PHASE10_CHECKPOINT_10I_10J.md"; Pattern = "Checkpoints 10I and 10J add targeted regression planning and a release-candidate dry run"; Message = "Checkpoint 10I/J summary is missing." },
+        [pscustomobject]@{ Path = "PHASE CHECKPOINTS/PHASE10_CHECKPOINT_10I_10J.md"; Pattern = "Checkpoints 10I and 10J add targeted regression planning and a release-candidate dry run"; Message = "Checkpoint 10I/J summary is missing." },
         [pscustomobject]@{ Path = "CHANGELOG.md"; Pattern = "### Added (Checkpoints 10I and 10J)"; Message = "Changelog does not record 10I/J." },
         [pscustomobject]@{ Path = "PROJECT_STATE.md"; Pattern = "Checkpoints 10I and 10J add targeted regression planning and a release-candidate dry run"; Message = "Project state does not record 10I/J." },
         [pscustomobject]@{ Path = "README.md"; Pattern = "docs/RELEASE_CANDIDATE_DRY_RUN.md"; Message = "README does not link the release-candidate dry run." }

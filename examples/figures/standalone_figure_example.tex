@@ -1,0 +1,23 @@
+\documentclass[tikz,border=2mm]{standalone}
+
+% The OT theme defines colors like OTBlue, OTRed, etc.
+\usepackage{ottheme}
+
+\usetikzlibrary{arrows.meta}
+
+\begin{document}
+\begin{tikzpicture}[>=Latex, scale=1.5]
+    % Coordinate axes
+    \draw[->] (-0.2,0) -- (3,0) node[right] {$x$};
+    \draw[->] (0,-0.2) -- (0,2) node[above] {$y$};
+
+    % Vectors
+    \draw[->, thick, OTBlue] (0,0) -- (2,1.5) node[midway, above left] {$\mathbf{v}$};
+    \draw[->, thick, OTRed] (0,0) -- (1.5,0.5) node[midway, below right] {$\mathbf{u}$};
+
+    % Resultant
+    \draw[->, thick, OTPurple] (0,0) -- (3.5,2) node[above right] {$\mathbf{v}+\mathbf{u}$};
+    \draw[dashed, OTMuted] (2,1.5) -- (3.5,2);
+    \draw[dashed, OTMuted] (1.5,0.5) -- (3.5,2);
+\end{tikzpicture}
+\end{document}

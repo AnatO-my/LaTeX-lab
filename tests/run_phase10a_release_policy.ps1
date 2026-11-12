@@ -43,7 +43,7 @@ try {
     $findings = New-Object System.Collections.ArrayList
     $requiredFiles = @(
         "docs\VERSIONING_RELEASE_POLICY.md",
-        "PHASE10_CHECKPOINT_10A.md",
+        "PHASE CHECKPOINTS/PHASE10_CHECKPOINT_10A.md",
         "tests\run_phase10a_release_policy.ps1",
         "CHANGELOG.md",
         "PROJECT_STATE.md",
@@ -60,7 +60,7 @@ try {
         [pscustomobject]@{ Path = "docs\VERSIONING_RELEASE_POLICY.md"; Pattern = "Phase 10A does not change these values."; Message = "Policy must preserve current source versions." },
         [pscustomobject]@{ Path = "docs\VERSIONING_RELEASE_POLICY.md"; Pattern = "Generated PDFs, author kits, and preview zips remain release assets."; Message = "Generated-asset release rule is missing." },
         [pscustomobject]@{ Path = "docs\VERSIONING_RELEASE_POLICY.md"; Pattern = "v0.1.0"; Message = "Repository release-label examples are missing." },
-        [pscustomobject]@{ Path = "PHASE10_CHECKPOINT_10A.md"; Pattern = "Checkpoint 10A opens Phase 10"; Message = "Checkpoint does not open Phase 10." },
+        [pscustomobject]@{ Path = "PHASE CHECKPOINTS/PHASE10_CHECKPOINT_10A.md"; Pattern = "Checkpoint 10A opens Phase 10"; Message = "Checkpoint does not open Phase 10." },
         [pscustomobject]@{ Path = "CHANGELOG.md"; Pattern = "## Phase 10"; Message = "Changelog does not record Phase 10." },
         [pscustomobject]@{ Path = "PROJECT_STATE.md"; Pattern = "Checkpoint 10A opens Phase 10"; Message = "Project state does not record Checkpoint 10A." },
         [pscustomobject]@{ Path = "README.md"; Pattern = "docs/VERSIONING_RELEASE_POLICY.md"; Message = "README does not link the versioning policy." }

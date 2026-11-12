@@ -1,0 +1,38 @@
+% ============================================================
+% OT Indexing Package
+% otindex.sty
+% Version: 0.1
+% Purpose: Standardized indexing for lab books and handbooks
+% ============================================================
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{otindex}[2026/09/11 v0.1 OT Indexing]
+
+\RequirePackage{ottheme}
+\RequirePackage{imakeidx}
+
+% -----------------------------
+% Global Configuration
+% -----------------------------
+
+% Setup the index with 3 columns and a column rule in OTMuted
+\makeindex[
+  columns=3,
+  title=Index,
+  options=-s otindex.ist,
+  intoc
+]
+
+% -----------------------------
+% Author Interface
+% -----------------------------
+
+% Wrapper for convenience (semantic naming)
+\newcommand{\otindex}[1]{\index{#1}}
+
+% Command to print the index
+\newcommand{\printotindex}{%
+  \printindex%
+}
+
+\endinput

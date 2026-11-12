@@ -1,0 +1,1084 @@
+\documentclass[10pt,a4paper,full]{physicsquiz}
+
+\quiztitle{PHY 104 Vibrations and Wave Phenomena}
+\quizcourse{100-Question Examination Practice Bank}
+\quizauthor{Ot}
+\quizinstitution{}
+\quizversion{1.0}
+\quizinstructions{Choose the best answer in each case. All questions carry one mark. A calculator may be used.}
+\quizconstants{
+  \(g=\SI{9.80}{m.s^{-2}}\),
+  \(v_{\text{sound, air}}=\SI{343}{m.s^{-1}}\),
+  \(c=\SI{3.00e8}{m.s^{-1}}\), and
+  \(\rho_{\text{air}}=\SI{1.20}{kg.m^{-3}}\)
+}
+
+\newcommand{\bankq}[9]{%
+  \begin{quizquestion}[
+    id=#1,
+    topic={#2},
+    difficulty=#3,
+    marks=1,
+    correct=#4,
+    tags={#5},
+    outcome={#6}
+  ]
+    #7
+    \begin{choiceoptions}
+      #8
+    \end{choiceoptions}
+  \end{quizquestion}
+  \begin{quizsolution}
+    #9
+  \end{quizsolution}
+}
+
+\begin{document}
+\hypersetup{pageanchor=false}
+\makequiztitle
+\hypersetup{pageanchor=true}
+\pagenumbering{arabic}
+
+\begin{quizreferencecontent}
+\section*{Curriculum Coverage}
+\begin{multicols}{2}
+\begin{itemize}[leftmargin=*]
+  \item SHM and energy
+  \item Damping, resonance, and transients
+  \item Coupled SHM, quality factor, and power response
+  \item Normal modes
+  \item Wave properties and classification
+  \item Interference, diffraction, dispersion, and polarization
+  \item Wave equations in one, two, and three dimensions
+  \item Echoes, beats, and the Doppler effect
+  \item Propagation in gases, liquids, and solids
+\end{itemize}
+\end{multicols}
+\end{quizreferencecontent}
+
+\begin{quizbank}
+
+% -----------------------------------------------------------------------------
+% 1--12: SHM and energy (4 foundation, 5 applied, 3 challenge)
+% -----------------------------------------------------------------------------
+
+\bankq{shm-001}{SHM and Energy}{foundation}{B}{shm,definition}{Identify the defining acceleration law of SHM.}{%
+Which relation defines ideal simple harmonic motion?}{%
+\item \(a=+\omega^2x\)
+\item \(a=-\omega^2x\)
+\item \(a=-\omega x^2\)
+\item \(a=\omega/x\)
+\item \(a\) is constant}{%
+In SHM the acceleration is proportional to displacement and directed toward equilibrium, hence \(a=-\omega^2x\).}
+
+\bankq{shm-002}{SHM and Energy}{foundation}{D}{shm,kinematics}{Locate maximum speed in an SHM cycle.}{%
+At which position is the speed of an ideal oscillator greatest?}{%
+\item At \(x=A\)
+\item At \(x=-A\)
+\item At \(x=A/2\)
+\item At \(x=0\)
+\item At every position}{%
+From \(v^2=\omega^2(A^2-x^2)\), the speed is largest when \(x=0\).}
+
+\bankq{shm-003}{SHM and Energy}{foundation}{A}{shm,energy}{Recall the total energy of a spring oscillator.}{%
+A spring oscillator has spring constant \(k\) and amplitude \(A\). Its total mechanical energy is}{%
+\item \(\tfrac12kA^2\)
+\item \(kA\)
+\item \(\tfrac12mA^2\)
+\item \(kA^2\)
+\item \(\tfrac12kx^2\) at every position}{%
+At a turning point \(v=0\) and \(|x|=A\), so all the energy is elastic: \(E=\tfrac12kA^2\).}
+
+\bankq{shm-004}{SHM and Energy}{foundation}{C}{shm,period}{Relate period and angular frequency.}{%
+The period of an oscillator with angular frequency \(\omega\) is}{%
+\item \(1/\omega\)
+\item \(\omega/2\pi\)
+\item \(2\pi/\omega\)
+\item \(2\pi\omega\)
+\item \(\pi/\omega^2\)}{%
+Since \(\omega=2\pi f\) and \(T=1/f\), \(T=2\pi/\omega\).}
+
+\bankq{shm-005}{SHM and Energy}{applied}{C}{shm,spring,numerical}{Calculate a mass--spring period.}{%
+A \(\SI{0.50}{kg}\) mass is attached to a spring of constant \(\SI{200}{N.m^{-1}}\). Its period is closest to}{%
+\item \(\SI{0.157}{s}\)
+\item \(\SI{0.222}{s}\)
+\item \(\SI{0.314}{s}\)
+\item \(\SI{0.628}{s}\)
+\item \(\SI{1.57}{s}\)}{%
+\(T=2\pi\sqrt{m/k}=2\pi\sqrt{0.50/200}=\SI{0.314}{s}\).}
+
+\bankq{shm-006}{SHM and Energy}{applied}{E}{shm,energy,numerical}{Determine the potential-energy fraction in SHM.}{%
+An oscillator has amplitude \(A\). At \(x=A/2\), what fraction of its total energy is elastic potential energy?}{%
+\item \(1\)
+\item \(3/4\)
+\item \(1/2\)
+\item \(1/3\)
+\item \(1/4\)}{%
+\(U/E=(\tfrac12kx^2)/(\tfrac12kA^2)=x^2/A^2=(1/2)^2=1/4\).}
+
+\bankq{shm-007}{SHM and Energy}{applied}{B}{shm,kinematics,numerical}{Calculate speed from displacement in SHM.}{%
+A particle has \(A=\SI{0.050}{m}\), \(\omega=\SI{10}{rad.s^{-1}}\), and \(x=\SI{0.030}{m}\). Its speed is}{%
+\item \(\SI{0.20}{m.s^{-1}}\)
+\item \(\SI{0.40}{m.s^{-1}}\)
+\item \(\SI{0.50}{m.s^{-1}}\)
+\item \(\SI{0.80}{m.s^{-1}}\)
+\item \(\SI{1.00}{m.s^{-1}}\)}{%
+\(v=\omega\sqrt{A^2-x^2}=10\sqrt{0.050^2-0.030^2}=\SI{0.40}{m.s^{-1}}\).}
+
+\bankq{shm-008}{SHM and Energy}{applied}{D}{shm,pendulum,scaling}{Apply pendulum period scaling.}{%
+The length of a small-angle pendulum is increased by a factor of four. Its new period is}{%
+\item one-quarter of the original
+\item one-half of the original
+\item unchanged
+\item twice the original
+\item four times the original}{%
+Because \(T=2\pi\sqrt{L/g}\), replacing \(L\) by \(4L\) multiplies \(T\) by \(2\).}
+
+\bankq{shm-009}{SHM and Energy}{applied}{A}{shm,phase}{Interpret phase in an SHM expression.}{%
+For \(x=A\cos(\omega t+\phi)\), a particle is at equilibrium and moving in the positive direction at \(t=0\). A suitable principal phase is}{%
+\item \(-\pi/2\)
+\item \(0\)
+\item \(\pi/2\)
+\item \(\pi\)
+\item \(3\pi/2\) only}{%
+At \(t=0\), \(x=A\cos\phi=0\), while \(v=-A\omega\sin\phi>0\). Thus \(\cos\phi=0\) and \(\sin\phi<0\), giving \(\phi=-\pi/2\).}
+
+\bankq{shm-010}{SHM and Energy}{challenge}{C}{shm,energy,multistep}{Relate kinetic and potential energy to displacement.}{%
+At what magnitude of displacement is the kinetic energy of an ideal spring oscillator three times its potential energy?}{%
+\item \(A/4\)
+\item \(A/\sqrt{3}\)
+\item \(A/2\)
+\item \(A/\sqrt{2}\)
+\item \(\sqrt{3}A/2\)}{%
+With \(K=E-U\) and \(K=3U\), \(E=4U\). Therefore \(\tfrac12kA^2=4(\tfrac12kx^2)\), so \(|x|=A/2\).}
+
+\bankq{shm-011}{SHM and Energy}{challenge}{C}{shm,phase,time}{Determine a travel time between two SHM positions.}{%
+A particle starts at \(x=A\) and moves toward equilibrium. How long does it first take to reach \(x=-A/2\)?}{%
+\item \(T/6\)
+\item \(T/4\)
+\item \(T/3\)
+\item \(5T/12\)
+\item \(2T/3\)}{%
+Using \(x=A\cos\omega t\), set \(\cos\omega t=-1/2\). The first solution is \(\omega t=2\pi/3\), hence \(t=(2\pi/3)/\omega=T/3\).}
+
+\bankq{shm-012}{SHM and Energy}{challenge}{B}{shm,collision,energy}{Combine momentum conservation with SHM energy.}{%
+A mass \(M\) moving at speed \(u\) sticks to an equal stationary mass attached to an unstretched spring of constant \(k\). What is the amplitude of the subsequent oscillation?}{%
+\item \(u\sqrt{M/k}\)
+\item \(u\sqrt{M/(2k)}\)
+\item \(2u\sqrt{M/k}\)
+\item \(u\sqrt{2M/k}\)
+\item \(Mu/k\)}{%
+Momentum gives the combined mass \(2M\) speed \(u/2\). Then \(\tfrac12(2M)(u/2)^2=\tfrac12kA^2\), so \(A=u\sqrt{M/(2k)}\).}
+
+% -----------------------------------------------------------------------------
+% 13--25: damping, resonance, and transients (4 foundation, 6 applied, 3 challenge)
+% -----------------------------------------------------------------------------
+
+\bankq{damping-013}{Damping, Resonance, and Transients}{foundation}{D}{damping,transient}{Distinguish transient and steady-state motion.}{%
+In a damped driven oscillator, the transient motion is the part that}{%
+\item always oscillates at the driving frequency
+\item grows indefinitely
+\item is independent of initial conditions
+\item depends on initial conditions and decays with time
+\item remains after an infinite time}{%
+The homogeneous solution carries the initial-condition dependence and is multiplied by a decaying exponential, so it is the transient.}
+
+\bankq{damping-014}{Damping, Resonance, and Transients}{foundation}{A}{damping,frequency,notation}{Distinguish driving and damped natural frequencies.}{%
+In these notes, \(\omega_d\) in \(F_0\cos(\omega_dt)\) denotes the}{%
+\item driving angular frequency
+\item damped natural angular frequency
+\item undamped natural angular frequency
+\item decay constant
+\item resonance width}{%
+The argument of the applied force fixes its driving angular frequency, denoted here by \(\omega_d\).}
+
+\bankq{damping-015}{Damping, Resonance, and Transients}{foundation}{C}{resonance,concept}{Recognize the resonance condition.}{%
+For light damping, the displacement response is largest when the driving frequency is}{%
+\item zero
+\item much greater than the natural frequency
+\item close to the natural frequency
+\item equal to the damping constant
+\item independent of the natural frequency}{%
+Resonance occurs when the forcing rate is close to a natural oscillation rate of the system.}
+
+\bankq{damping-016}{Damping, Resonance, and Transients}{foundation}{B}{damping,critical}{Identify critical damping.}{%
+Critical damping is the damping that}{%
+\item produces the longest possible oscillation
+\item returns the system to equilibrium fastest without oscillation
+\item makes the amplitude infinite
+\item removes the restoring force
+\item makes \(Q\) infinite}{%
+Critical damping is the boundary between underdamped oscillation and overdamped non-oscillatory return, and gives the fastest non-oscillatory settling.}
+
+\bankq{damping-017}{Damping, Resonance, and Transients}{applied}{E}{damping,decay,numerical}{Calculate a damping decay constant.}{%
+The amplitude envelope is \(A=A_0e^{-\gamma t}\). If it falls to \(A_0/e\) in \(\SI{4.0}{s}\), \(\gamma\) is}{%
+\item \(\SI{4.0}{s^{-1}}\)
+\item \(\SI{2.0}{s^{-1}}\)
+\item \(\SI{1.0}{s^{-1}}\)
+\item \(\SI{0.50}{s^{-1}}\)
+\item \(\SI{0.25}{s^{-1}}\)}{%
+\(e^{-4\gamma}=e^{-1}\), so \(4\gamma=1\) and \(\gamma=\SI{0.25}{s^{-1}}\).}
+
+\bankq{damping-018}{Damping, Resonance, and Transients}{applied}{C}{damping,frequency,numerical}{Calculate the damped natural frequency.}{%
+For \(m=\SI{1.0}{kg}\), \(k=\SI{100}{N.m^{-1}}\), and \(b=\SI{4.0}{kg.s^{-1}}\), the damped natural angular frequency is}{%
+\item \(\SI{2.00}{rad.s^{-1}}\)
+\item \(\SI{8.00}{rad.s^{-1}}\)
+\item \(\SI{9.80}{rad.s^{-1}}\)
+\item \(\SI{10.0}{rad.s^{-1}}\)
+\item \(\SI{12.0}{rad.s^{-1}}\)}{%
+\(\gamma=b/(2m)=2\) and \(\omega_0=\sqrt{k/m}=10\). Hence \(\omega'=\sqrt{\omega_0^2-\gamma^2}=\sqrt{96}=\SI{9.80}{rad.s^{-1}}\).}
+
+\bankq{damping-019}{Damping, Resonance, and Transients}{applied}{A}{resonance,amplitude,numerical}{Evaluate the driven amplitude at resonance.}{%
+A system has \(F_0=\SI{5.0}{N}\), \(b=\SI{2.0}{kg.s^{-1}}\), and is driven at \(\omega_d=\SI{10}{rad.s^{-1}}\) where \(k-m\omega_d^2=0\). Its steady amplitude is}{%
+\item \(\SI{0.25}{m}\)
+\item \(\SI{0.50}{m}\)
+\item \(\SI{1.0}{m}\)
+\item \(\SI{2.0}{m}\)
+\item \(\SI{25}{m}\)}{%
+At this frequency \(X=F_0/(b\omega_d)=5/(2\times10)=\SI{0.25}{m}\).}
+
+\bankq{damping-020}{Damping, Resonance, and Transients}{applied}{D}{resonance,phase}{Interpret phase at resonance.}{%
+Near displacement resonance in a lightly damped oscillator, the displacement lags the driving force by approximately}{%
+\item \(0\)
+\item \(\pi/4\)
+\item \(\pi\)
+\item \(\pi/2\)
+\item \(2\pi\)}{%
+At resonance the reactive terms nearly cancel, so \(\tan\delta\) becomes large and \(\delta\approx\pi/2\).}
+
+\bankq{damping-021}{Damping, Resonance, and Transients}{applied}{B}{transient,steady-state,frequency}{Identify frequencies in the complete driven response.}{%
+An underdamped oscillator has \(\omega'=\SI{9.8}{rad.s^{-1}}\) and is driven at \(\omega_d=\SI{8.0}{rad.s^{-1}}\). Which statement is correct?}{%
+\item Both parts oscillate permanently at \(\SI{9.8}{rad.s^{-1}}\)
+\item The transient uses \(\omega'\), while the surviving steady state uses \(\omega_d\)
+\item The transient uses \(\omega_d\), while the steady state uses \(\omega'\)
+\item Both parts oscillate permanently at \(\SI{8.0}{rad.s^{-1}}\)
+\item Neither frequency appears in the displacement}{%
+The homogeneous transient oscillates at the damped natural frequency \(\omega'\); the particular steady response follows the driver at \(\omega_d\).}
+
+\bankq{damping-022}{Damping, Resonance, and Transients}{applied}{D}{damping,critical,numerical}{Determine the critical damping coefficient.}{%
+For \(m=\SI{2.0}{kg}\) and \(k=\SI{50}{N.m^{-1}}\), the critical damping coefficient is}{%
+\item \(\SI{5}{kg.s^{-1}}\)
+\item \(\SI{10}{kg.s^{-1}}\)
+\item \(\SI{14.1}{kg.s^{-1}}\)
+\item \(\SI{20}{kg.s^{-1}}\)
+\item \(\SI{25}{kg.s^{-1}}\)}{%
+\(b_c=2\sqrt{mk}=2\sqrt{2\times50}=\SI{20}{kg.s^{-1}}\).}
+
+\bankq{damping-023}{Damping, Resonance, and Transients}{challenge}{B}{resonance,half-power,bandwidth}{Relate half-power frequencies to bandwidth and quality factor.}{%
+A resonance curve has half-power frequencies \(\SI{98}{Hz}\) and \(\SI{102}{Hz}\), with resonance at \(\SI{100}{Hz}\). Its quality factor is}{%
+\item \(4\)
+\item \(25\)
+\item \(50\)
+\item \(100\)
+\item \(200\)}{%
+The bandwidth is \(\Delta f=102-98=\SI{4}{Hz}\). Thus \(Q=f_0/\Delta f=100/4=25\).}
+
+\bankq{damping-024}{Damping, Resonance, and Transients}{challenge}{D}{resonance,power,derivation}{Locate maximum average power absorption.}{%
+For \(m\ddot x+b\dot x+kx=F_0\cos\omega t\), at what angular frequency is the average absorbed power maximum?}{%
+\item \(0\)
+\item \(\sqrt{k/m-b^2/(2m^2)}\)
+\item \(b/m\)
+\item \(\sqrt{k/m}\)
+\item It has no maximum}{%
+The average power is \(\bar P=\tfrac12F_0^2b\omega^2/[(k-m\omega^2)^2+b^2\omega^2]\). Differentiation shows its maximum occurs at \(\omega=\omega_0=\sqrt{k/m}\).}
+
+\bankq{damping-025}{Damping, Resonance, and Transients}{challenge}{C}{transient,resonance,superposition}{Analyze beating during the transient approach.}{%
+A lightly damped oscillator with \(\omega'=\SI{10.0}{rad.s^{-1}}\) is driven at \(\omega_d=\SI{9.6}{rad.s^{-1}}\). Before the transient decays, the approximate angular beat rate is}{%
+\item \(\SI{19.6}{rad.s^{-1}}\)
+\item \(\SI{9.8}{rad.s^{-1}}\)
+\item \(\SI{0.40}{rad.s^{-1}}\)
+\item \(\SI{0.20}{rad.s^{-1}}\)
+\item \(\SI{0.04}{rad.s^{-1}}\)}{%
+The temporary response contains nearby frequencies \(\omega'\) and \(\omega_d\), so the beat angular rate is \(|\omega'-\omega_d|=|10.0-9.6|=\SI{0.40}{rad.s^{-1}}\).}
+
+% -----------------------------------------------------------------------------
+% 26--35: coupled SHM, Q values, and power response (3 foundation, 4 applied,
+% 3 challenge)
+% -----------------------------------------------------------------------------
+
+\bankq{coupled-026}{Coupled SHM, Q, and Power Response}{foundation}{A}{coupling,concept}{Recognize the effect of coupling.}{%
+The essential effect of coupling two oscillators is that it allows them to}{%
+\item exchange energy
+\item lose all restoring force
+\item acquire identical displacements at all times
+\item oscillate only at zero frequency
+\item violate energy conservation}{%
+The coupling force depends on relative motion and transfers energy between the oscillators.}
+
+\bankq{coupled-027}{Coupled SHM, Q, and Power Response}{foundation}{D}{quality-factor,definition}{Interpret the quality factor.}{%
+A large quality factor \(Q\) indicates}{%
+\item very heavy damping and a broad resonance
+\item no restoring force
+\item a low natural frequency only
+\item weak damping and a sharp resonance
+\item that resonance cannot occur}{%
+Large \(Q\) means little energy is lost per cycle, producing a narrow, high resonance peak.}
+
+\bankq{coupled-028}{Coupled SHM, Q, and Power Response}{foundation}{B}{power,response-curve}{Identify half-power points.}{%
+At a half-power frequency, the steady displacement amplitude is what fraction of its resonant value for a lightly damped oscillator?}{%
+\item \(1/2\)
+\item \(1/\sqrt{2}\)
+\item \(1/4\)
+\item \(\sqrt{2}\)
+\item \(2\)}{%
+Average power is proportional to amplitude squared near resonance. Half the maximum power therefore corresponds to amplitude \(X_{\max}/\sqrt{2}\).}
+
+\bankq{coupled-029}{Coupled SHM, Q, and Power Response}{applied}{C}{quality-factor,numerical}{Calculate quality factor from oscillator parameters.}{%
+An oscillator has \(m=\SI{0.50}{kg}\), \(\omega_0=\SI{20}{rad.s^{-1}}\), and \(b=\SI{0.40}{kg.s^{-1}}\). Its quality factor is}{%
+\item \(5\)
+\item \(10\)
+\item \(25\)
+\item \(40\)
+\item \(50\)}{%
+For viscous damping, \(Q=m\omega_0/b=(0.50)(20)/0.40=25\).}
+
+\bankq{coupled-030}{Coupled SHM, Q, and Power Response}{applied}{E}{quality-factor,bandwidth}{Calculate resonance bandwidth.}{%
+A resonator has \(f_0=\SI{600}{Hz}\) and \(Q=120\). Its half-power bandwidth is}{%
+\item \(\SI{0.20}{Hz}\)
+\item \(\SI{1.0}{Hz}\)
+\item \(\SI{2.5}{Hz}\)
+\item \(\SI{4.0}{Hz}\)
+\item \(\SI{5.0}{Hz}\)}{%
+\(Q=f_0/\Delta f\), so \(\Delta f=600/120=\SI{5.0}{Hz}\).}
+
+\bankq{coupled-031}{Coupled SHM, Q, and Power Response}{applied}{A}{coupling,normal-frequency}{Calculate coupled-oscillator frequencies.}{%
+Two identical masses have \(m=\SI{0.50}{kg}\), outer spring constant \(k=\SI{100}{N.m^{-1}}\), and coupling constant \(k_c=\SI{50}{N.m^{-1}}\). Their in-phase and out-of-phase angular frequencies are}{%
+\item \(\SI{14.1}{rad.s^{-1}}\) and \(\SI{20.0}{rad.s^{-1}}\)
+\item \(\SI{10.0}{rad.s^{-1}}\) and \(\SI{14.1}{rad.s^{-1}}\)
+\item \(\SI{14.1}{rad.s^{-1}}\) and \(\SI{17.3}{rad.s^{-1}}\)
+\item \(\SI{20.0}{rad.s^{-1}}\) and \(\SI{28.3}{rad.s^{-1}}\)
+\item \(\SI{10.0}{rad.s^{-1}}\) and \(\SI{20.0}{rad.s^{-1}}\)}{%
+\(\omega_+=\sqrt{k/m}=\sqrt{200}=\SI{14.1}{rad.s^{-1}}\), while \(\omega_-=\sqrt{(k+2k_c)/m}=\sqrt{400}=\SI{20.0}{rad.s^{-1}}\).}
+
+\bankq{coupled-032}{Coupled SHM, Q, and Power Response}{applied}{D}{power,response,numerical}{Compare absorbed powers at one frequency.}{%
+At the same driving frequency, one steady response has amplitude \(0.60\) times another. If the damping coefficient is unchanged, what is the ratio of their average absorbed powers?}{%
+\item \(0.20\)
+\item \(0.30\)
+\item \(0.60\)
+\item \(0.36\)
+\item \(0.78\)}{%
+At fixed \(b\) and \(\omega\), \(\bar P=\tfrac12b\omega^2X^2\). Therefore the power ratio is \((0.60)^2=0.36\).}
+
+\bankq{coupled-033}{Coupled SHM, Q, and Power Response}{challenge}{B}{coupling,energy-transfer}{Calculate the first envelope-transfer time.}{%
+Two coupled oscillators have normal angular frequencies \(\SI{14.14}{rad.s^{-1}}\) and \(\SI{20.00}{rad.s^{-1}}\). If only one is initially displaced, the first complete transfer of the oscillation envelope occurs after approximately}{%
+\item \(\SI{0.268}{s}\)
+\item \(\SI{0.536}{s}\)
+\item \(\SI{1.07}{s}\)
+\item \(\SI{2.14}{s}\)
+\item \(\SI{5.86}{s}\)}{%
+The transfer envelope first peaks at \(t=\pi/|\omega_2-\omega_1|=\pi/(20.00-14.14)=\SI{0.536}{s}\).}
+
+\bankq{coupled-034}{Coupled SHM, Q, and Power Response}{challenge}{C}{quality-factor,energy-loss}{Relate Q to fractional energy loss.}{%
+A lightly damped resonator has \(Q=50\). Approximately what fraction of its stored energy is lost per cycle?}{%
+\item \(0.010\)
+\item \(0.020\)
+\item \(0.126\)
+\item \(0.314\)
+\item \(0.500\)}{%
+For light damping, \(Q=2\pi(E/\Delta E)\). Thus \(\Delta E/E\approx2\pi/Q=2\pi/50=0.126\).}
+
+\bankq{coupled-035}{Coupled SHM, Q, and Power Response}{challenge}{E}{power,response-curve,scaling}{Analyze how damping changes a resonance curve.}{%
+The damping coefficient of a lightly damped driven oscillator is doubled while \(m\), \(k\), and \(F_0\) remain fixed. Which pair best describes the new resonant amplitude and half-power bandwidth?}{%
+\item amplitude doubles; bandwidth halves
+\item amplitude unchanged; bandwidth doubles
+\item amplitude halves; bandwidth halves
+\item amplitude becomes one-quarter; bandwidth doubles
+\item amplitude approximately halves; bandwidth approximately doubles}{%
+Near resonance \(X_{\max}\approx F_0/(b\omega_0)\), so doubling \(b\) halves the peak. Also \(\Delta\omega\approx b/m\), so the bandwidth doubles.}
+
+% -----------------------------------------------------------------------------
+% 36--45: normal modes (3 foundation, 4 applied, 3 challenge)
+% -----------------------------------------------------------------------------
+
+\bankq{modes-036}{Normal Modes}{foundation}{C}{normal-modes,definition}{Define a normal mode.}{%
+In a normal mode, all coordinates oscillate}{%
+\item with unrelated frequencies
+\item with steadily changing phase differences
+\item at one common frequency with fixed amplitude ratios and phases
+\item only in the same direction
+\item without exchanging any form of energy}{%
+A normal mode is a collective pattern with one frequency and fixed relative motion among all coordinates.}
+
+\bankq{modes-037}{Normal Modes}{foundation}{A}{normal-modes,in-phase}{Identify the in-phase eigenvector.}{%
+For two identical coupled oscillators, the in-phase mode is proportional to}{%
+\item \(\begin{bmatrix}1\\1\end{bmatrix}\)
+\item \(\begin{bmatrix}1\\-1\end{bmatrix}\)
+\item \(\begin{bmatrix}1\\0\end{bmatrix}\)
+\item \(\begin{bmatrix}0\\1\end{bmatrix}\)
+\item \(\begin{bmatrix}2\\-1\end{bmatrix}\)}{%
+In phase means equal displacements with the same sign, represented by \([1,1]^T\).}
+
+\bankq{modes-038}{Normal Modes}{foundation}{D}{normal-modes,eigenvalue}{Recall the normal-frequency condition.}{%
+For \(M\ddot{\mathbf x}+K\mathbf x=0\), nonzero normal-mode amplitudes require}{%
+\item \(\det(K+\omega M)=0\)
+\item \(\det(M-\omega K)=0\)
+\item \(\det(K-\omega M)=1\)
+\item \(\det(K-\omega^2M)=0\)
+\item \(K=M\)}{%
+Substituting \(\mathbf x=\mathbf A\cos\omega t\) gives \((K-\omega^2M)\mathbf A=0\), which has nonzero solutions only when its determinant vanishes.}
+
+\bankq{modes-039}{Normal Modes}{applied}{B}{normal-modes,matrix}{Find eigenfrequencies of a two-mode system.}{%
+For unit masses and \(K=\begin{bmatrix}4&-2\\-2&4\end{bmatrix}\), the normal angular frequencies are}{%
+\item \(1\) and \(2\)
+\item \(\sqrt2\) and \(\sqrt6\)
+\item \(2\) and \(\sqrt6\)
+\item \(2\) and \(2\sqrt2\)
+\item \(4\) and \(6\)}{%
+\(\det(K-\omega^2I)=(4-\omega^2)^2-4=0\), so \(\omega^2=2,6\) and \(\omega=\sqrt2,\sqrt6\).}
+
+\bankq{modes-040}{Normal Modes}{applied}{E}{normal-modes,decomposition}{Decompose an initial displacement into normal modes.}{%
+Using mode vectors \([1,1]^T\) and \([1,-1]^T\), the displacement \([3,1]^T\) has respective coefficients}{%
+\item \(3\) and \(1\)
+\item \(1\) and \(3\)
+\item \(4\) and \(2\)
+\item \(1\) and \(1\)
+\item \(2\) and \(1\)}{%
+Solve \([3,1]^T=a[1,1]^T+b[1,-1]^T\). Then \(a+b=3\), \(a-b=1\), giving \(a=2\), \(b=1\).}
+
+\bankq{modes-041}{Normal Modes}{applied}{C}{normal-modes,coupling,scaling}{Predict how coupling changes mode frequencies.}{%
+For identical masses with fixed outer springs, increasing a positive coupling constant changes the two normal frequencies how?}{%
+\item Both remain unchanged
+\item Both increase equally
+\item The in-phase frequency stays fixed while the out-of-phase frequency increases
+\item The in-phase frequency decreases while the out-of-phase frequency stays fixed
+\item Both become zero}{%
+In phase, the coupling spring is unstrained, so \(\omega_+=\sqrt{k/m}\). Out of phase, it contributes restoring force, so \(\omega_-=\sqrt{(k+2k_c)/m}\) increases with \(k_c\).}
+
+\bankq{modes-042}{Normal Modes}{applied}{A}{normal-modes,coordinates}{Use normal coordinates.}{%
+If \(x_1=\SI{3}{cm}\) and \(x_2=-\SI{1}{cm}\), then \(q_+=x_1+x_2\) and \(q_-=x_1-x_2\) are}{%
+\item \(\SI{2}{cm}\) and \(\SI{4}{cm}\)
+\item \(\SI{4}{cm}\) and \(\SI{2}{cm}\)
+\item \(\SI{2}{cm}\) and \(\SI{-4}{cm}\)
+\item \(\SI{-2}{cm}\) and \(\SI{4}{cm}\)
+\item \(\SI{3}{cm}\) and \(\SI{1}{cm}\)}{%
+Direct substitution gives \(q_+=3+(-1)=\SI{2}{cm}\) and \(q_-=3-(-1)=\SI{4}{cm}\).}
+
+\bankq{modes-043}{Normal Modes}{challenge}{D}{normal-modes,inverse-problem}{Infer spring constants from measured mode frequencies.}{%
+A symmetric two-mass system has \(m=\SI{0.50}{kg}\), \(\omega_+=\SI{10}{rad.s^{-1}}\), and \(\omega_-=\SI{20}{rad.s^{-1}}\). The outer and coupling spring constants are}{%
+\item \(k=\SI{25}{N.m^{-1}},\ k_c=\SI{50}{N.m^{-1}}\)
+\item \(k=\SI{50}{N.m^{-1}},\ k_c=\SI{50}{N.m^{-1}}\)
+\item \(k=\SI{100}{N.m^{-1}},\ k_c=\SI{25}{N.m^{-1}}\)
+\item \(k=\SI{50}{N.m^{-1}},\ k_c=\SI{75}{N.m^{-1}}\)
+\item \(k=\SI{200}{N.m^{-1}},\ k_c=\SI{75}{N.m^{-1}}\)}{%
+From \(k=m\omega_+^2\), \(k=0.50(100)=\SI{50}{N.m^{-1}}\). Also \(k+2k_c=m\omega_-^2=0.50(400)=200\), so \(k_c=(200-50)/2=\SI{75}{N.m^{-1}}\).}
+
+\bankq{modes-044}{Normal Modes}{challenge}{B}{normal-modes,initial-conditions}{Construct motion from two normal modes.}{%
+For normal frequencies \(\omega_+\) and \(\omega_-\), the initial conditions \(x_1(0)=A\), \(x_2(0)=0\), and zero initial velocities give}{%
+\item \(x_1=A\cos\omega_+t,\ x_2=0\)
+\item \(x_1=\tfrac A2(\cos\omega_+t+\cos\omega_-t),\ x_2=\tfrac A2(\cos\omega_+t-\cos\omega_-t)\)
+\item \(x_1=x_2=A\cos(\omega_++\omega_-)t\)
+\item \(x_1=A\sin\omega_+t,\ x_2=A\sin\omega_-t\)
+\item \(x_1=0,\ x_2=A\cos\omega_-t\)}{%
+The initial vector \([A,0]^T\) is \(A[1,1]^T/2+A[1,-1]^T/2\). Evolving each mode at its own frequency gives option B.}
+
+\bankq{modes-045}{Normal Modes}{challenge}{E}{normal-modes,generalized-eigenvalue}{Solve a generalized two-mass eigenvalue problem.}{%
+For \(M=\begin{bmatrix}2&0\\0&1\end{bmatrix}\) and \(K=\begin{bmatrix}6&-2\\-2&4\end{bmatrix}\), the squared normal frequencies are}{%
+\item \(1\) and \(2\)
+\item \(2\) and \(3\)
+\item \(1\) and \(5\)
+\item \(3\) and \(4\)
+\item \(2\) and \(5\)}{%
+\(\det(K-\omega^2M)=(6-2s)(4-s)-4=2s^2-14s+20=2(s-2)(s-5)\), where \(s=\omega^2\). Thus \(\omega^2=2,5\), stated in option E.}
+
+% -----------------------------------------------------------------------------
+% 46--53: general wave properties and classification (3 foundation, 3 applied,
+% 2 challenge)
+% -----------------------------------------------------------------------------
+
+\bankq{waves-046}{Wave Properties and Classification}{foundation}{B}{waves,classification}{Classify a transverse wave.}{%
+In a transverse mechanical wave, particles of the medium oscillate}{%
+\item parallel to the direction of propagation
+\item perpendicular to the direction of propagation
+\item only in circular paths
+\item without acceleration
+\item at the group velocity}{%
+Transverse motion is defined by disturbance perpendicular to propagation.}
+
+\bankq{waves-047}{Wave Properties and Classification}{foundation}{D}{waves,classification,sound}{Classify sound in a fluid.}{%
+An ideal sound wave travelling through air is primarily}{%
+\item transverse and polarized
+\item electromagnetic
+\item a surface wave
+\item longitudinal
+\item stationary}{%
+Air supports alternating compressions and rarefactions, with molecular displacement parallel to propagation, so the wave is longitudinal.}
+
+\bankq{waves-048}{Wave Properties and Classification}{foundation}{A}{waves,parameters}{Relate speed, frequency, and wavelength.}{%
+The speed of a periodic wave is}{%
+\item \(v=f\lambda\)
+\item \(v=f/\lambda\)
+\item \(v=\lambda/f\)
+\item \(v=2\pi f/\lambda\)
+\item \(v=\omega k\)}{%
+One wavelength passes a point during one period, giving \(v=\lambda/T=f\lambda\).}
+
+\bankq{waves-049}{Wave Properties and Classification}{applied}{C}{waves,wavefunction}{Extract wave parameters from a sinusoidal wave.}{%
+For \(y=0.020\sin(4x-20t)\) in SI units, the amplitude and wave speed are}{%
+\item \(\SI{4.0}{m}\) and \(\SI{20}{m.s^{-1}}\)
+\item \(\SI{0.020}{m}\) and \(\SI{80}{m.s^{-1}}\)
+\item \(\SI{0.020}{m}\) and \(\SI{5.0}{m.s^{-1}}\)
+\item \(\SI{0.040}{m}\) and \(\SI{5.0}{m.s^{-1}}\)
+\item \(\SI{0.020}{m}\) and \(\SI{0.20}{m.s^{-1}}\)}{%
+The amplitude is \(0.020\) m. With \(k=4\) and \(\omega=20\), \(v=\omega/k=\SI{5.0}{m.s^{-1}}\).}
+
+\bankq{waves-050}{Wave Properties and Classification}{applied}{E}{waves,phase}{Calculate separation from phase difference.}{%
+Two points on a sinusoidal wave differ in phase by \(\pi/3\). If \(\lambda=\SI{0.60}{m}\), their smallest separation along the propagation direction is}{%
+\item \(\SI{0.60}{m}\)
+\item \(\SI{0.30}{m}\)
+\item \(\SI{0.20}{m}\)
+\item \(\SI{0.15}{m}\)
+\item \(\SI{0.10}{m}\)}{%
+\(\Delta\phi=2\pi\Delta x/\lambda\), so \(\Delta x=(\pi/3)(0.60)/(2\pi)=\SI{0.10}{m}\).}
+
+\bankq{waves-051}{Wave Properties and Classification}{applied}{B}{waves,direction}{Determine propagation direction from phase.}{%
+The wave \(y=A\cos(kx+\omega t)\) travels in the}{%
+\item \(+x\) direction
+\item \(-x\) direction
+\item \(+y\) direction
+\item \(-y\) direction
+\item direction of increasing amplitude}{%
+Constant phase requires \(kx+\omega t=\text{constant}\), so \(x\) decreases as \(t\) increases. The wave travels toward \(-x\).}
+
+\bankq{waves-052}{Wave Properties and Classification}{challenge}{D}{waves,energy,scaling}{Apply wave-power scaling.}{%
+For a sinusoidal wave on the same string, the amplitude is doubled and the frequency is tripled. By what factor does the average transmitted power change?}{%
+\item \(6\)
+\item \(9\)
+\item \(12\)
+\item \(36\)
+\item \(81\)}{%
+For fixed string properties, \(P_{\text{av}}\propto A^2\omega^2\). The factor is \(2^2\times3^2=36\).}
+
+\bankq{waves-053}{Wave Properties and Classification}{challenge}{A}{waves,particle-motion}{Distinguish particle velocity from wave velocity.}{%
+For \(y=A\sin(kx-\omega t)\), the maximum transverse particle speed divided by the wave speed is}{%
+\item \(Ak\)
+\item \(A/k\)
+\item \(k/A\)
+\item \(A\omega/k^2\)
+\item \(1\) for every wave}{%
+The maximum particle speed is \(A\omega\), while the wave speed is \(\omega/k\). Their ratio is \(A\omega/(\omega/k)=Ak\).}
+
+% -----------------------------------------------------------------------------
+% 54--70: interference, diffraction, dispersion, and polarization
+% (5 foundation, 8 applied, 4 challenge)
+% -----------------------------------------------------------------------------
+
+\bankq{phenomena-054}{Interference, Diffraction, Dispersion, and Polarization}{foundation}{C}{superposition,principle}{State the superposition principle.}{%
+When two linear waves overlap, the resultant displacement is}{%
+\item the product of their displacements
+\item always zero
+\item the algebraic sum of their individual displacements
+\item the larger displacement only
+\item independent of phase}{%
+For a linear medium, simultaneous disturbances add point by point.}
+
+\bankq{phenomena-055}{Interference, Diffraction, Dispersion, and Polarization}{foundation}{A}{interference,constructive}{Recognize constructive interference.}{%
+Two coherent waves of equal frequency arrive in phase. Their interference is}{%
+\item constructive
+\item destructive
+\item necessarily unpolarized
+\item dispersive
+\item incoherent}{%
+In-phase displacements reinforce, producing constructive interference.}
+
+\bankq{phenomena-056}{Interference, Diffraction, Dispersion, and Polarization}{foundation}{E}{diffraction,single-slit}{Recall the exact single-slit minimum condition.}{%
+For an ideal slit of width \(a\), diffraction minima occur at}{%
+\item \(a\cos\theta=m\lambda\)
+\item \(2a\sin\theta=m\lambda\)
+\item \(a\sin\theta=(m+\tfrac12)\lambda\)
+\item \(a\tan\theta=m\lambda\)
+\item \(a\sin\theta=m\lambda\), \(m=1,2,3,\ldots\)}{%
+Destructive cancellation across the slit gives the exact ideal condition \(a\sin\theta=m\lambda\) for nonzero integer \(m\).}
+
+\bankq{phenomena-057}{Interference, Diffraction, Dispersion, and Polarization}{foundation}{B}{polarization,classification}{Identify which waves can be polarized.}{%
+Polarization is a property that directly demonstrates that a wave is}{%
+\item longitudinal
+\item transverse
+\item stationary
+\item necessarily mechanical
+\item nondispersive}{%
+Polarization selects an oscillation direction perpendicular to propagation, which is possible for transverse waves.}
+
+\bankq{phenomena-058}{Interference, Diffraction, Dispersion, and Polarization}{foundation}{D}{dispersion,concept}{Define dispersion.}{%
+Dispersion occurs when}{%
+\item amplitude is independent of time
+\item all frequencies travel at one speed
+\item a wave reflects from a boundary
+\item wave speed depends on frequency or wavelength
+\item two waves have equal phase}{%
+Frequency-dependent propagation speed causes the components of a pulse to separate or spread.}
+
+\bankq{phenomena-059}{Interference, Diffraction, Dispersion, and Polarization}{applied}{B}{interference,amplitude}{Calculate a resultant amplitude.}{%
+Two waves of equal amplitude \(A\) and phase difference \(2\pi/3\) overlap. Their resultant amplitude is}{%
+\item \(0\)
+\item \(A\)
+\item \(\sqrt2A\)
+\item \(\sqrt3A\)
+\item \(2A\)}{%
+\(A_R=2A|\cos(\phi/2)|=2A\cos(\pi/3)=A\).}
+
+\bankq{phenomena-060}{Interference, Diffraction, Dispersion, and Polarization}{applied}{C}{interference,path-difference}{Classify interference from path difference.}{%
+Two in-phase coherent sources have path difference \(3\lambda/2\) at a point. The interference there is}{%
+\item fully constructive
+\item partially constructive only
+\item fully destructive
+\item incoherent
+\item independent of wavelength}{%
+For in-phase sources, destructive interference occurs at \((m+1/2)\lambda\). Here \(3\lambda/2\) corresponds to \(m=1\).}
+
+\bankq{phenomena-061}{Interference, Diffraction, Dispersion, and Polarization}{applied}{D}{diffraction,single-slit,numerical}{Calculate a first-minimum angle.}{%
+Light of wavelength \(\SI{600}{nm}\) passes through a slit of width \(\SI{0.20}{mm}\). The first minimum is closest to}{%
+\item \(0.043^\circ\)
+\item \(0.086^\circ\)
+\item \(0.115^\circ\)
+\item \(0.172^\circ\)
+\item \(0.344^\circ\)}{%
+For the first minimum, \(\sin\theta=\lambda/a=3.00\times10^{-3}\). Thus \(\theta\approx0.00300\) rad \(=0.172^\circ\).}
+
+\bankq{phenomena-062}{Interference, Diffraction, Dispersion, and Polarization}{applied}{A}{diffraction,scaling}{Predict how slit width changes diffraction.}{%
+If the width of a single slit is halved, the small-angle width of its central diffraction maximum approximately}{%
+\item doubles
+\item halves
+\item quadruples
+\item remains unchanged
+\item becomes zero}{%
+The first minima satisfy \(\theta_1\approx\lambda/a\), so the central width \(2\theta_1\) is inversely proportional to \(a\).}
+
+\bankq{phenomena-063}{Interference, Diffraction, Dispersion, and Polarization}{applied}{E}{polarization,malus-law}{Apply Malus's law to unpolarized light.}{%
+Unpolarized light of intensity \(I_0\) passes through an ideal polarizer and then an analyzer at \(60^\circ\) to it. The final intensity is}{%
+\item \(I_0\)
+\item \(I_0/2\)
+\item \(I_0/4\)
+\item \(I_0/6\)
+\item \(I_0/8\)}{%
+The first polarizer gives \(I_1=I_0/2\). Malus's law then gives \(I_2=I_1\cos^260^\circ=(I_0/2)(1/4)=I_0/8\).}
+
+\bankq{phenomena-064}{Interference, Diffraction, Dispersion, and Polarization}{applied}{C}{dispersion,phase-velocity,group-velocity}{Calculate phase and group velocities.}{%
+A medium obeys \(\omega=3k+0.50k^2\). At \(k=\SI{4.0}{m^{-1}}\), \((v_p,v_g)\) is}{%
+\item \((3,4)\,\mathrm{m\,s^{-1}}\)
+\item \((4,5)\,\mathrm{m\,s^{-1}}\)
+\item \((5,7)\,\mathrm{m\,s^{-1}}\)
+\item \((7,5)\,\mathrm{m\,s^{-1}}\)
+\item \((7,7)\,\mathrm{m\,s^{-1}}\)}{%
+At \(k=4\), \(\omega=3(4)+0.5(16)=20\). Hence \(v_p=\omega/k=5\), while \(v_g=d\omega/dk=3+k=7\), in \(\mathrm{m\,s^{-1}}\).}
+
+\bankq{phenomena-065}{Interference, Diffraction, Dispersion, and Polarization}{applied}{B}{dispersion,inverse-derivative}{Use the reciprocal derivative for group velocity.}{%
+If \(k=B\omega^2\), the group velocity is}{%
+\item \(2B\omega\)
+\item \(1/(2B\omega)\)
+\item \(B\omega\)
+\item \(\omega/(2B)\)
+\item \(2\omega/B\)}{%
+Since \(v_g=d\omega/dk=(dk/d\omega)^{-1}\) and \(dk/d\omega=2B\omega\), \(v_g=1/(2B\omega)\).}
+
+\bankq{phenomena-066}{Interference, Diffraction, Dispersion, and Polarization}{applied}{D}{diffraction,resolution}{Apply the Rayleigh criterion.}{%
+A circular aperture of diameter \(\SI{5.0}{cm}\) observes light of wavelength \(\SI{500}{nm}\). Its Rayleigh angular resolution is closest to}{%
+\item \(1.0\times10^{-7}\,\mathrm{rad}\)
+\item \(2.0\times10^{-6}\,\mathrm{rad}\)
+\item \(5.0\times10^{-6}\,\mathrm{rad}\)
+\item \(1.22\times10^{-5}\,\mathrm{rad}\)
+\item \(6.10\times10^{-5}\,\mathrm{rad}\)}{%
+\(\theta_R=1.22\lambda/D=1.22(500\times10^{-9})/0.050=1.22\times10^{-5}\,\mathrm{rad}\).}
+
+\bankq{phenomena-067}{Interference, Diffraction, Dispersion, and Polarization}{challenge}{A}{dispersion,implicit-differentiation}{Differentiate an implicit dispersion relation.}{%
+A wave satisfies \(F(\omega,k)=\omega^2-c^2k^2-\alpha k^4=0\). Its group velocity is}{%
+\item \((c^2k+2\alpha k^3)/\omega\)
+\item \((c^2k+\alpha k^3)/\omega\)
+\item \(\omega/k\)
+\item \(2\omega/(c^2k+2\alpha k^3)\)
+\item \(c^2k/\omega^2\)}{%
+Implicit differentiation gives \(2\omega\,d\omega/dk-2c^2k-4\alpha k^3=0\). Therefore \(v_g=d\omega/dk=(c^2k+2\alpha k^3)/\omega\).}
+
+\bankq{phenomena-068}{Interference, Diffraction, Dispersion, and Polarization}{challenge}{C}{interference,diffraction,missing-orders}{Determine missing double-slit orders.}{%
+A double slit has slit separation \(d=4a\), where \(a\) is each slit width. Which interference maxima are suppressed by the single-slit diffraction minima?}{%
+\item every second order
+\item every third order
+\item orders \(4,8,12,\ldots\)
+\item orders \(5,10,15,\ldots\)
+\item no orders}{%
+Interference maxima obey \(d\sin\theta=m\lambda\), while diffraction minima obey \(a\sin\theta=p\lambda\). Thus \(m=p(d/a)=4p\), so every fourth order is missing.}
+
+\bankq{phenomena-069}{Interference, Diffraction, Dispersion, and Polarization}{challenge}{D}{polarization,multiple-polarizers}{Analyze three successive polarizers.}{%
+Unpolarized light passes through ideal polarizers at \(0^\circ\), \(30^\circ\), and \(90^\circ\). The transmitted intensity is}{%
+\item \(I_0/2\)
+\item \(3I_0/16\)
+\item \(I_0/8\)
+\item \(3I_0/32\)
+\item \(3I_0/64\)}{%
+After the first, \(I_1=I_0/2\). Then \(I_2=I_1\cos^230^\circ=3I_0/8\). The final axis differs by \(60^\circ\), so \(I_3=(3I_0/8)\cos^260^\circ=3I_0/32\).}
+
+\bankq{phenomena-070}{Interference, Diffraction, Dispersion, and Polarization}{challenge}{B}{diffraction,secondary-maximum}{Use the exact single-slit secondary-maximum condition.}{%
+For a slit of width \(\SI{0.20}{mm}\) and wavelength \(\SI{600}{nm}\), use the first root \(\beta=4.493\) of \(\tan\beta=\beta\). The first secondary maximum is closest to}{%
+\item \(0.172^\circ\)
+\item \(0.246^\circ\)
+\item \(0.258^\circ\)
+\item \(0.344^\circ\)
+\item \(0.492^\circ\)}{%
+From \(\beta=\pi a\sin\theta/\lambda\), \(\sin\theta=4.493(600\times10^{-9})/[\pi(0.20\times10^{-3})]=4.29\times10^{-3}\). Thus \(\theta\approx0.246^\circ\).}
+
+% -----------------------------------------------------------------------------
+% 71--80: wave equations in 1D, 2D, and 3D (3 foundation, 4 applied,
+% 3 challenge)
+% -----------------------------------------------------------------------------
+
+\bankq{waveeq-071}{Wave Equations in 1D, 2D, and 3D}{foundation}{A}{wave-equation,one-dimensional}{Recognize the one-dimensional wave equation.}{%
+The standard one-dimensional wave equation is}{%
+\item \(u_{tt}=v^2u_{xx}\)
+\item \(u_t=vu_x\)
+\item \(u_{xx}=v^2u\)
+\item \(u_{tt}=vu_x\)
+\item \(u_t=v^2u_{xx}\)}{%
+The second time derivative is proportional to the second spatial derivative: \(u_{tt}=v^2u_{xx}\).}
+
+\bankq{waveeq-072}{Wave Equations in 1D, 2D, and 3D}{foundation}{C}{wave-equation,two-dimensional}{Identify the two-dimensional Laplacian.}{%
+For a membrane displacement \(u(x,y,t)\), the spatial term in the wave equation is}{%
+\item \(u_x+u_y\)
+\item \(u_{xy}\)
+\item \(u_{xx}+u_{yy}\)
+\item \(u_{xx}-u_{yy}\)
+\item \(u_xu_y\)}{%
+The two-dimensional Laplacian is \(\nabla^2u=u_{xx}+u_{yy}\).}
+
+\bankq{waveeq-073}{Wave Equations in 1D, 2D, and 3D}{foundation}{D}{wave-equation,boundary-condition}{Interpret a fixed-end boundary condition.}{%
+A string fixed at \(x=0\) satisfies which boundary condition?}{%
+\item \(u_x(0,t)=1\)
+\item \(u_t(0,t)=0\) only
+\item \(u_{xx}(0,t)=0\)
+\item \(u(0,t)=0\)
+\item \(u(0,t)=A\)}{%
+A fixed support cannot move, so its displacement is zero for all time.}
+
+\bankq{waveeq-074}{Wave Equations in 1D, 2D, and 3D}{applied}{B}{wave-equation,plane-wave}{Test a sinusoidal solution.}{%
+The function \(u=A\cos(kx-\omega t)\) satisfies \(u_{tt}=v^2u_{xx}\) provided}{%
+\item \(\omega=k/v\)
+\item \(\omega=vk\)
+\item \(\omega=v/k\)
+\item \(\omega^2=vk\)
+\item \(k=v\omega\)}{%
+Substitution gives \(-\omega^2u=v^2(-k^2u)\), hence \(\omega^2=v^2k^2\) and \(\omega=vk\) for positive frequencies.}
+
+\bankq{waveeq-075}{Wave Equations in 1D, 2D, and 3D}{applied}{E}{wave-equation,general-solution}{Recognize the d'Alembert solution.}{%
+The general solution of the ideal one-dimensional wave equation can be written}{%
+\item \(u=f(x)g(t)\) only
+\item \(u=f(x-vt)g(x+vt)\)
+\item \(u=f(vx-t)+g(vx+t)\)
+\item \(u=f(x-vt)-f(x-vt)\)
+\item \(u=f(x-vt)+g(x+vt)\)}{%
+The two arbitrary functions represent right- and left-moving waves, respectively: \(f(x-vt)+g(x+vt)\).}
+
+\bankq{waveeq-076}{Wave Equations in 1D, 2D, and 3D}{applied}{C}{wave-equation,speed}{Read wave speed from a PDE.}{%
+A field obeys \(u_{tt}=144u_{xx}\) in SI units. Its wave speed is}{%
+\item \(\SI{6}{m.s^{-1}}\)
+\item \(\SI{10}{m.s^{-1}}\)
+\item \(\SI{12}{m.s^{-1}}\)
+\item \(\SI{72}{m.s^{-1}}\)
+\item \(\SI{144}{m.s^{-1}}\)}{%
+Comparing with \(u_{tt}=v^2u_{xx}\) gives \(v^2=144\), so \(v=\SI{12}{m.s^{-1}}\).}
+
+\bankq{waveeq-077}{Wave Equations in 1D, 2D, and 3D}{applied}{A}{wave-equation,three-dimensional}{Interpret a three-dimensional plane wave.}{%
+For \(u(\mathbf r,t)=A\cos(\mathbf k\cdot\mathbf r-\omega t)\), the direction of propagation is}{%
+\item parallel to \(\mathbf k\)
+\item perpendicular to \(\mathbf k\)
+\item parallel to the amplitude \(A\)
+\item always along \(+z\)
+\item undefined}{%
+Surfaces of constant phase move in the direction of increasing \(\mathbf k\cdot\mathbf r\), so propagation is parallel to \(\mathbf k\).}
+
+\bankq{waveeq-078}{Wave Equations in 1D, 2D, and 3D}{challenge}{D}{wave-equation,string,derivation}{Connect string properties to the wave equation.}{%
+A string under tension \(\tau\) and linear density \(\mu\) obeys \(u_{tt}=(\tau/\mu)u_{xx}\). If \(\tau=\SI{90}{N}\) and \(\mu=\SI{0.010}{kg.m^{-1}}\), its wave speed is}{%
+\item \(\SI{9.0}{m.s^{-1}}\)
+\item \(\SI{30}{m.s^{-1}}\)
+\item \(\SI{90}{m.s^{-1}}\)
+\item \(\SI{94.9}{m.s^{-1}}\)
+\item \(\SI{9000}{m.s^{-1}}\)}{%
+The coefficient equals \(v^2\), so \(v=\sqrt{\tau/\mu}=\sqrt{90/0.010}=\sqrt{9000}=\SI{94.9}{m.s^{-1}}\).}
+
+\bankq{waveeq-079}{Wave Equations in 1D, 2D, and 3D}{challenge}{B}{wave-equation,membrane,normal-mode}{Calculate a rectangular-membrane mode frequency.}{%
+A rectangular membrane of sides \(a=\SI{2.0}{m}\), \(b=\SI{1.0}{m}\) supports waves at \(v=\SI{20}{m.s^{-1}}\). The \((m,n)=(1,1)\) mode frequency is}{%
+\item \(\SI{5.00}{Hz}\)
+\item \(\SI{11.2}{Hz}\)
+\item \(\SI{15.0}{Hz}\)
+\item \(\SI{22.4}{Hz}\)
+\item \(\SI{44.7}{Hz}\)}{%
+For fixed edges, \(f_{mn}=\tfrac v2\sqrt{(m/a)^2+(n/b)^2}\). Thus \(f_{11}=10\sqrt{(1/2)^2+1^2}=\SI{11.2}{Hz}\).}
+
+\bankq{waveeq-080}{Wave Equations in 1D, 2D, and 3D}{challenge}{C}{wave-equation,three-dimensional,dispersion}{Verify a three-dimensional plane-wave relation.}{%
+A plane wave has \(\mathbf k=(2,3,6)\,\mathrm{m^{-1}}\) in a nondispersive medium with \(v=\SI{5.0}{m.s^{-1}}\). Its angular frequency is}{%
+\item \(\SI{7}{rad.s^{-1}}\)
+\item \(\SI{25}{rad.s^{-1}}\)
+\item \(\SI{35}{rad.s^{-1}}\)
+\item \(\SI{55}{rad.s^{-1}}\)
+\item \(\SI{70}{rad.s^{-1}}\)}{%
+\(|\mathbf k|=\sqrt{2^2+3^2+6^2}=7\,\mathrm{m^{-1}}\). For \(\omega=v|\mathbf k|\), \(\omega=5(7)=\SI{35}{rad.s^{-1}}\).}
+
+% -----------------------------------------------------------------------------
+% 81--90: acoustics, echoes, beats, and Doppler effect
+% (3 foundation, 5 applied, 2 challenge)
+% -----------------------------------------------------------------------------
+
+\bankq{acoustics-081}{Acoustics: Echoes, Beats, and Doppler Effect}{foundation}{B}{acoustics,echo}{Interpret echo travel time.}{%
+If an echo returns \(t\) seconds after a sound is emitted in a medium of speed \(v\), the reflector distance is}{%
+\item \(vt\)
+\item \(vt/2\)
+\item \(2vt\)
+\item \(v/(2t)\)
+\item \(t/(2v)\)}{%
+The sound travels to the reflector and back, a total distance \(2d=vt\). Therefore \(d=vt/2\).}
+
+\bankq{acoustics-082}{Acoustics: Echoes, Beats, and Doppler Effect}{foundation}{D}{acoustics,beats}{Relate beat frequency to source frequencies.}{%
+Two tones of frequencies \(f_1\) and \(f_2\) produce beats at frequency}{%
+\item \(f_1+f_2\)
+\item \((f_1+f_2)/2\)
+\item \(2|f_1-f_2|\)
+\item \(|f_1-f_2|\)
+\item \(f_1f_2\)}{%
+The slow amplitude modulation repeats at the absolute frequency difference: \(f_b=|f_1-f_2|\).}
+
+\bankq{acoustics-083}{Acoustics: Echoes, Beats, and Doppler Effect}{foundation}{A}{acoustics,doppler}{Predict the sign of a Doppler shift.}{%
+When a sound source approaches a stationary observer, the observed frequency is generally}{%
+\item greater than the emitted frequency
+\item smaller than the emitted frequency
+\item always zero
+\item unchanged for all source speeds
+\item equal to the beat frequency}{%
+An approaching source compresses the wavefront spacing, reducing wavelength and increasing the observed frequency.}
+
+\bankq{acoustics-084}{Acoustics: Echoes, Beats, and Doppler Effect}{applied}{C}{acoustics,echo,numerical}{Calculate distance from an echo delay.}{%
+An echo is heard \(\SI{0.80}{s}\) after a shout. Taking the sound speed as \(\SI{343}{m.s^{-1}}\), the reflecting wall is approximately}{%
+\item \(\SI{68.6}{m}\) away
+\item \(\SI{109}{m}\) away
+\item \(\SI{137}{m}\) away
+\item \(\SI{274}{m}\) away
+\item \(\SI{429}{m}\) away}{%
+\(d=vt/2=343(0.80)/2=\SI{137.2}{m}\), approximately \(\SI{137}{m}\).}
+
+\bankq{acoustics-085}{Acoustics: Echoes, Beats, and Doppler Effect}{applied}{D}{acoustics,beats,tuning}{Infer an unknown tone from beat information.}{%
+A tuning fork of frequency \(\SI{440}{Hz}\) produces \(\SI{6}{beats.s^{-1}}\) with a string. Tightening the string increases the beat rate. The original string frequency was}{%
+\item \(\SI{428}{Hz}\)
+\item \(\SI{434}{Hz}\)
+\item \(\SI{440}{Hz}\)
+\item \(\SI{446}{Hz}\)
+\item \(\SI{452}{Hz}\)}{%
+The original possibilities are \(440\pm6\), namely \(434\) or \(446\) Hz. Tightening raises the string frequency; if it was already \(446\) Hz, the difference would increase. Thus the original was \(\SI{446}{Hz}\).}
+
+\bankq{acoustics-086}{Acoustics: Echoes, Beats, and Doppler Effect}{applied}{B}{acoustics,doppler,numerical}{Calculate a Doppler shift for a moving source.}{%
+A source emitting \(\SI{500}{Hz}\) approaches a stationary observer at \(\SI{20}{m.s^{-1}}\). For \(v=\SI{343}{m.s^{-1}}\), the observed frequency is closest to}{%
+\item \(\SI{472}{Hz}\)
+\item \(\SI{531}{Hz}\)
+\item \(\SI{500}{Hz}\)
+\item \(\SI{563}{Hz}\)
+\item \(\SI{686}{Hz}\)}{%
+For an approaching source, \(f'=fv/(v-v_s)=500(343)/(343-20)=\SI{531}{Hz}\).}
+
+\bankq{acoustics-087}{Acoustics: Echoes, Beats, and Doppler Effect}{applied}{D}{acoustics,resonance,pipe}{Calculate a closed-pipe fundamental.}{%
+A pipe closed at one end has length \(\SI{0.85}{m}\). Its fundamental frequency is closest to}{%
+\item \(\SI{50.4}{Hz}\)
+\item \(\SI{80.7}{Hz}\)
+\item \(\SI{151}{Hz}\)
+\item \(\SI{101}{Hz}\)
+\item \(\SI{202}{Hz}\)}{%
+For a closed pipe, \(f_1=v/(4L)=343/[4(0.85)]=\SI{101}{Hz}\). Option D carries this value.}
+
+\bankq{acoustics-088}{Acoustics: Echoes, Beats, and Doppler Effect}{applied}{A}{acoustics,intensity,decibel}{Convert an intensity ratio to decibels.}{%
+If sound intensity increases by a factor of \(100\), the sound level increases by}{%
+\item \(\SI{20}{dB}\)
+\item \(\SI{10}{dB}\)
+\item \(\SI{40}{dB}\)
+\item \(\SI{50}{dB}\)
+\item \(\SI{100}{dB}\)}{%
+\(\Delta\beta=10\log_{10}(I_2/I_1)=10\log_{10}(100)=\SI{20}{dB}\).}
+
+\bankq{acoustics-089}{Acoustics: Echoes, Beats, and Doppler Effect}{challenge}{C}{acoustics,doppler,reflection}{Analyze the double Doppler shift from a moving reflector.}{%
+A stationary detector emits \(\SI{1000}{Hz}\) sound toward a vehicle approaching at \(\SI{30}{m.s^{-1}}\). The reflected frequency received back at the detector is closest to}{%
+\item \(\SI{917}{Hz}\)
+\item \(\SI{1000}{Hz}\)
+\item \(\SI{1192}{Hz}\)
+\item \(\SI{1300}{Hz}\)
+\item \(\SI{1430}{Hz}\)}{%
+The vehicle first acts as moving observer, then as moving source. Thus \(f_r=f(v+u)/(v-u)=1000(343+30)/(343-30)=\SI{1192}{Hz}\).}
+
+\bankq{acoustics-090}{Acoustics: Echoes, Beats, and Doppler Effect}{challenge}{B}{acoustics,echo,falling-object}{Combine free fall with sound travel time.}{%
+A stone is dropped into a well and the splash is heard \(\SI{3.00}{s}\) later. Neglecting air resistance, the depth is closest to}{%
+\item \(\SI{35.0}{m}\)
+\item \(\SI{40.7}{m}\)
+\item \(\SI{44.1}{m}\)
+\item \(\SI{51.5}{m}\)
+\item \(\SI{67.0}{m}\)}{%
+Let the fall time be \(t\). Then \(h=\tfrac12gt^2\) and the sound time is \(h/v\), so \(t+h/343=3.00\). Solving gives \(t\approx2.88\) s and \(h\approx\SI{40.7}{m}\).}
+
+% -----------------------------------------------------------------------------
+% 91--100: propagation in gases, liquids, and solids
+% (2 foundation, 6 applied, 2 challenge)
+% -----------------------------------------------------------------------------
+
+\bankq{media-091}{Propagation in Different Media}{foundation}{C}{media,string}{Identify the parameters controlling string-wave speed.}{%
+The speed of a transverse wave on an ideal stretched string is}{%
+\item \(\sqrt{\mu/\tau}\)
+\item \(\tau/\mu\)
+\item \(\sqrt{\tau/\mu}\)
+\item \(\sqrt{\tau\mu}\)
+\item \(\mu/\tau\)}{%
+String tension supplies restoring force and linear density supplies inertia, giving \(v=\sqrt{\tau/\mu}\).}
+
+\bankq{media-092}{Propagation in Different Media}{foundation}{A}{media,fluid}{Identify the sound-speed formula in a fluid.}{%
+For a fluid of bulk modulus \(B\) and density \(\rho\), the longitudinal sound speed is}{%
+\item \(\sqrt{B/\rho}\)
+\item \(\sqrt{\rho/B}\)
+\item \(B/\rho\)
+\item \(\sqrt{B\rho}\)
+\item \(1/\sqrt{B\rho}\)}{%
+The elastic resistance is measured by \(B\) and inertia by \(\rho\), hence \(v=\sqrt{B/\rho}\).}
+
+\bankq{media-093}{Propagation in Different Media}{applied}{D}{media,string,numerical}{Calculate string-wave speed.}{%
+A string has tension \(\SI{100}{N}\) and linear density \(\SI{0.010}{kg.m^{-1}}\). Its wave speed is}{%
+\item \(\SI{10}{m.s^{-1}}\)
+\item \(\SI{31.6}{m.s^{-1}}\)
+\item \(\SI{50}{m.s^{-1}}\)
+\item \(\SI{100}{m.s^{-1}}\)
+\item \(\SI{1000}{m.s^{-1}}\)}{%
+\(v=\sqrt{\tau/\mu}=\sqrt{100/0.010}=\sqrt{10000}=\SI{100}{m.s^{-1}}\).}
+
+\bankq{media-094}{Propagation in Different Media}{applied}{B}{media,liquid,numerical}{Calculate sound speed in a liquid.}{%
+Water has \(B=\SI{2.2e9}{Pa}\) and \(\rho=\SI{1000}{kg.m^{-3}}\). Its sound speed is closest to}{%
+\item \(\SI{343}{m.s^{-1}}\)
+\item \(\SI{1.48e3}{m.s^{-1}}\)
+\item \(\SI{2.20e3}{m.s^{-1}}\)
+\item \(\SI{4.69e3}{m.s^{-1}}\)
+\item \(\SI{2.20e6}{m.s^{-1}}\)}{%
+\(v=\sqrt{B/\rho}=\sqrt{2.2\times10^9/1000}=\SI{1.48e3}{m.s^{-1}}\).}
+
+\bankq{media-095}{Propagation in Different Media}{applied}{E}{media,solid,numerical}{Calculate longitudinal wave speed in a rod.}{%
+A slender rod has Young's modulus \(Y=\SI{2.0e11}{Pa}\) and density \(\rho=\SI{8.0e3}{kg.m^{-3}}\). Its longitudinal wave speed is closest to}{%
+\item \(\SI{500}{m.s^{-1}}\)
+\item \(\SI{1.58e3}{m.s^{-1}}\)
+\item \(\SI{2.50e3}{m.s^{-1}}\)
+\item \(\SI{4.00e3}{m.s^{-1}}\)
+\item \(\SI{5.00e3}{m.s^{-1}}\)}{%
+\(v=\sqrt{Y/\rho}=\sqrt{2.0\times10^{11}/8.0\times10^3}=\sqrt{2.5\times10^7}=\SI{5.00e3}{m.s^{-1}}\).}
+
+\bankq{media-096}{Propagation in Different Media}{applied}{C}{media,scaling}{Apply stiffness-density scaling.}{%
+A material's elastic modulus is quadrupled while its density is unchanged. The wave speed becomes}{%
+\item one-quarter as large
+\item one-half as large
+\item twice as large
+\item four times as large
+\item unchanged}{%
+Since \(v\propto\sqrt{\text{modulus}/\rho}\), multiplying the modulus by four multiplies speed by \(\sqrt4=2\).}
+
+\bankq{media-097}{Propagation in Different Media}{applied}{A}{media,interface}{Identify what remains continuous in transmission.}{%
+A periodic wave crosses a stationary boundary into a medium where its speed is lower. Which quantity remains unchanged?}{%
+\item frequency
+\item wavelength
+\item wave number
+\item phase velocity
+\item amplitude in every case}{%
+The boundary is driven at the incident frequency, so transmitted oscillations have the same frequency. Since \(v=f\lambda\), the wavelength changes.}
+
+\bankq{media-098}{Propagation in Different Media}{applied}{D}{media,refraction,waves}{Apply the wave refraction law.}{%
+A plane wave crosses from a region of speed \(v_1=\SI{6.0}{m.s^{-1}}\) into one of speed \(v_2=\SI{3.0}{m.s^{-1}}\) at incidence angle \(30^\circ\). The refracted angle is}{%
+\item \(7.2^\circ\)
+\item \(24.6^\circ\)
+\item \(30.0^\circ\)
+\item \(14.5^\circ\)
+\item \(60.0^\circ\)}{%
+Wave refraction gives \(\sin\theta_1/v_1=\sin\theta_2/v_2\). Thus \(\sin\theta_2=(3/6)\sin30^\circ=0.25\), so \(\theta_2=14.5^\circ\), listed as option D.}
+
+\bankq{media-099}{Propagation in Different Media}{challenge}{B}{media,impedance,reflection}{Calculate an amplitude reflection coefficient.}{%
+A normally incident acoustic pressure wave crosses from impedance \(Z_1=\SI{2.0e6}{kg.m^{-2}.s^{-1}}\) to \(Z_2=\SI{6.0e6}{kg.m^{-2}.s^{-1}}\). Its pressure-amplitude reflection coefficient is}{%
+\item \(-0.50\)
+\item \(+0.50\)
+\item \(+0.25\)
+\item \(+0.75\)
+\item \(+2.0\)}{%
+For normal incidence, \(r_p=(Z_2-Z_1)/(Z_2+Z_1)=(6-2)/(6+2)=0.50\). The positive sign means no pressure phase reversal.}
+
+\bankq{media-100}{Propagation in Different Media}{challenge}{C}{media,travel-time,multilayer}{Calculate travel time through layered media.}{%
+A pulse travels through \(\SI{0.50}{m}\) of water at \(\SI{1500}{m.s^{-1}}\) and then \(\SI{0.80}{m}\) of steel at \(\SI{5000}{m.s^{-1}}\). Ignoring interface delay, the total travel time is}{%
+\item \(\SI{0.160}{ms}\)
+\item \(\SI{0.333}{ms}\)
+\item \(\SI{0.493}{ms}\)
+\item \(\SI{0.867}{ms}\)
+\item \(\SI{1.30}{ms}\)}{%
+Travel times add: \(t=0.50/1500+0.80/5000=3.33\times10^{-4}+1.60\times10^{-4}=4.93\times10^{-4}\) s \(=\SI{0.493}{ms}\).}
+
+\end{quizbank}
+
+\quizselectall
+\let\storedquizmarks\quizmarks
+\let\storedquizdifficulty\quizdifficulty
+\renewcommand{\quizmarks}[1]{}
+\renewcommand{\quizdifficulty}[1]{}
+\printquizquestions[2]
+\let\quizmarks\storedquizmarks
+\let\quizdifficulty\storedquizdifficulty
+
+\begin{quizanswerkeycontent}
+  \clearpage
+  \begin{answerkey}
+    \centering
+    \renewcommand{\arraystretch}{1.25}
+    \begin{tabular}{*{5}{>{\centering\arraybackslash}p{0.17\linewidth}}}
+      \toprule
+      \textbf{1.} B & \textbf{2.} D & \textbf{3.} A & \textbf{4.} C & \textbf{5.} C \\
+      \textbf{6.} E & \textbf{7.} B & \textbf{8.} D & \textbf{9.} A & \textbf{10.} C \\
+      \textbf{11.} C & \textbf{12.} B & \textbf{13.} D & \textbf{14.} A & \textbf{15.} C \\
+      \textbf{16.} B & \textbf{17.} E & \textbf{18.} C & \textbf{19.} A & \textbf{20.} D \\
+      \textbf{21.} B & \textbf{22.} D & \textbf{23.} B & \textbf{24.} D & \textbf{25.} C \\
+      \textbf{26.} A & \textbf{27.} D & \textbf{28.} B & \textbf{29.} C & \textbf{30.} E \\
+      \textbf{31.} A & \textbf{32.} D & \textbf{33.} B & \textbf{34.} C & \textbf{35.} E \\
+      \textbf{36.} C & \textbf{37.} A & \textbf{38.} D & \textbf{39.} B & \textbf{40.} E \\
+      \textbf{41.} C & \textbf{42.} A & \textbf{43.} D & \textbf{44.} B & \textbf{45.} E \\
+      \textbf{46.} B & \textbf{47.} D & \textbf{48.} A & \textbf{49.} C & \textbf{50.} E \\
+      \textbf{51.} B & \textbf{52.} D & \textbf{53.} A & \textbf{54.} C & \textbf{55.} A \\
+      \textbf{56.} E & \textbf{57.} B & \textbf{58.} D & \textbf{59.} B & \textbf{60.} C \\
+      \textbf{61.} D & \textbf{62.} A & \textbf{63.} E & \textbf{64.} C & \textbf{65.} B \\
+      \textbf{66.} D & \textbf{67.} A & \textbf{68.} C & \textbf{69.} D & \textbf{70.} B \\
+      \textbf{71.} A & \textbf{72.} C & \textbf{73.} D & \textbf{74.} B & \textbf{75.} E \\
+      \textbf{76.} C & \textbf{77.} A & \textbf{78.} D & \textbf{79.} B & \textbf{80.} C \\
+      \textbf{81.} B & \textbf{82.} D & \textbf{83.} A & \textbf{84.} C & \textbf{85.} D \\
+      \textbf{86.} B & \textbf{87.} D & \textbf{88.} A & \textbf{89.} C & \textbf{90.} B \\
+      \textbf{91.} C & \textbf{92.} A & \textbf{93.} D & \textbf{94.} B & \textbf{95.} E \\
+      \textbf{96.} C & \textbf{97.} A & \textbf{98.} D & \textbf{99.} B & \textbf{100.} C \\
+      \bottomrule
+    \end{tabular}
+    \medskip
+
+    \textbf{Total marks: 100.}
+  \end{answerkey}
+\end{quizanswerkeycontent}
+
+% Keep the first solution box on later verso pages below the physical page edge.
+% The explicit breaks preserve the class styling while avoiding clipped headers.
+\ExplSyntaxOn
+\NewDocumentCommand{\printpaginatedquizsolutions}{}
+{
+  \section{Generated~Worked~Solutions}
+  \setcounter{pqselectedquestion}{0}
+  \seq_map_inline:Nn \g__pq_selected_ids_seq
+  {
+    \int_case:nn { \value{pqselectedquestion} }
+    {
+      {33}{\clearpage\null\par\vspace*{12pt}}
+      {55}{\clearpage\null\par\vspace*{12pt}}
+      {77}{\clearpage\null\par\vspace*{12pt}}
+      {99}{\clearpage\noindent\rule{0pt}{36pt}\par\nobreak}
+    }
+    \stepcounter{pqselectedquestion}
+    \tl_gset:Nn \g__pq_current_id_tl {##1}
+    \printsolution{exercise}{##1}
+    \tl_gclear:N \g__pq_current_id_tl
+  }
+}
+\ExplSyntaxOff
+
+\begin{quizsolutioncontent}
+  \clearpage
+  \printpaginatedquizsolutions
+\end{quizsolutioncontent}
+
+\begin{quizteachercontent}
+  \clearpage
+  \printquiztopicreport
+  \printquizteacherreport
+\end{quizteachercontent}
+
+\end{document}

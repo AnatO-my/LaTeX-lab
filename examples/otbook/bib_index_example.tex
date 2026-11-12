@@ -1,0 +1,30 @@
+\documentclass{otbook}
+
+\usepackage{otbib}
+\usepackage{otindex}
+
+\otbibliography{references.bib}
+
+\title{Bibliography and Indexing Superpower}
+\author{O. T. Researcher}
+\date{\today}
+
+\begin{document}
+
+\makeotbooktitle
+
+\chapter{Research and Citations}
+
+The \otindex{LaTeX} system is extensively documented in classic texts like the \textcite{latexcompanion}. For local installation management, we refer to the \textcite{miktex} documentation.
+
+Technical documents often require linking to software assets. For instance, the \otindex{Ot-Calculator} tool \cite{otcalculator} provides the mathematical engine for this laboratory.
+
+\chapter{Organization}
+
+This book uses the \otindex{otindex} package for managing terms and the \otindex{otbib} package for managing references. Notice how the index term \otindex{Superpower} appears in the final index.
+
+\printotindex
+
+\printotbibliography
+
+\end{document}

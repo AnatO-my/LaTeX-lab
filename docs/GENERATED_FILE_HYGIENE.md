@@ -68,6 +68,36 @@ Ignored generated files under `build/` are normal, but a large or stale `build/`
 tree can make performance measurements harder to compare. Clean only when the
 checkpoint calls for a fresh-build measurement.
 
+## Repository Hygiene Update (September 2026)
+
+Checkpoint records now live in `PHASE CHECKPOINTS/`. All 61 relocated files
+match their original Git contents. The Phase 9 closeout and Phase 10 release
+checks resolve the records from that directory.
+
+The shared ignore rules also cover:
+
+* LaTeX logs, `xsim` state, and busy SyncTeX files;
+* compiled PDFs under `examples/` and `tests/`;
+* nested `build/` directories, including copied project-template builds;
+* PDF export directories under `output/`; and
+* PDF rendering scratch files under `tmp/pdfs/`.
+
+`output/tex/` contains document sources and is deliberately not ignored.
+PDFs elsewhere remain eligible for tracking, for example source figures or
+release assets. Use `git add -f <path>` only for an intentional PDF fixture
+inside an ignored location. Existing tracked PDF/log baselines stay tracked.
+
+Personal portfolio media in this checkout use `.git/info/exclude`, keeping
+machine-specific exclusions out of the shared project rules. Ignore rules do
+not delete files, move them, or change compiler output locations. Continue
+using the documented build recipes to direct new output into `build/`.
+
+The copyable book project at `templates/otbook-project/` uses a local
+`.latexmkrc` to keep its generated files inside the project: PDFs and SyncTeX
+files go to `build/pdf/`, while logs and auxiliaries go to `build/aux/`. When
+that folder is copied into `Current-projects/` or another author workspace,
+the same rule keeps the manuscript root focused on source files.
+
 ## Cleanup Rule
 
 Do not delete generated outputs as part of ordinary hygiene reporting.

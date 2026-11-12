@@ -50,7 +50,7 @@ try {
         "docs\AUTHOR_KIT_BUILD_CHECKLIST.md",
         "docs\RELEASE_NOTES_TEMPLATE.md",
         "docs\VERSIONING_RELEASE_POLICY.md",
-        "PHASE10_CHECKPOINT_10D.md",
+        "PHASE CHECKPOINTS/PHASE10_CHECKPOINT_10D.md",
         "tests\run_phase10d_release_asset_manifest.ps1",
         "CHANGELOG.md",
         "PROJECT_STATE.md",
@@ -72,7 +72,7 @@ try {
         [pscustomobject]@{ Path = $manifestPath; Pattern = "sha256:<hash>"; Message = "Hash marker is missing." },
         [pscustomobject]@{ Path = $manifestPath; Pattern = "No tag, version bump, generated PDF, zip, or GitHub release is created by this"; Message = "No-release-action boundary is missing." },
         [pscustomobject]@{ Path = "docs\LOCAL_RELEASE_CHECKLIST.md"; Pattern = "docs/RELEASE_ASSET_MANIFEST_TEMPLATE.md"; Message = "Local release checklist does not link the asset manifest template." },
-        [pscustomobject]@{ Path = "PHASE10_CHECKPOINT_10D.md"; Pattern = "Checkpoint 10D adds a release-asset manifest template"; Message = "Checkpoint 10D summary is missing." },
+        [pscustomobject]@{ Path = "PHASE CHECKPOINTS/PHASE10_CHECKPOINT_10D.md"; Pattern = "Checkpoint 10D adds a release-asset manifest template"; Message = "Checkpoint 10D summary is missing." },
         [pscustomobject]@{ Path = "CHANGELOG.md"; Pattern = "### Added (Checkpoint 10D)"; Message = "Changelog does not record Checkpoint 10D." },
         [pscustomobject]@{ Path = "PROJECT_STATE.md"; Pattern = "Checkpoint 10D adds a release-asset manifest template"; Message = "Project state does not record Checkpoint 10D." },
         [pscustomobject]@{ Path = "README.md"; Pattern = "docs/RELEASE_ASSET_MANIFEST_TEMPLATE.md"; Message = "README does not link the asset manifest template." }

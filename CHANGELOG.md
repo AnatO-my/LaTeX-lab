@@ -1,5 +1,28 @@
 # Changelog
 
+## Unreleased - OT book integration
+
+* Documented the existing `otbook` v0.1 class, native chapter structure, title
+  metadata, semantic boxes, companion-package boundary, and numbering limits.
+* Added the personal-book starter to the author workflow and starter inventory.
+* Updated the author-kit manifest and checklist to include the eighth starter
+  and book smoke document, with separate build commands under `build/`.
+* Added `tests/run_otbook_tests.ps1`, which builds the public book starter,
+  class smoke document, and copyable project template. The historical audited
+  author kit has not been rebuilt by this documentation change.
+* Verified the existing book starter and smoke document with MiKTeX pdfLaTeX
+  and latexmk 4.88. Both builds passed; the known duplicate `page.i` PDF
+  destination warning is recorded in the public interface reference.
+* Added `templates/otbook-project/` with a root document, chapter file,
+  figure/bibliography folders, local ignore rules, and a configurable
+  LaTeX-lab pointer. PDF and auxiliary outputs use `build/pdf/` and `build/aux/`.
+* The new template suppresses title-page PDF anchors to avoid the duplicate
+  destination warning without changing the existing class or starters.
+* Added a repeatable author-kit generator and source-only guard. The generated
+  kit includes the otbook workflow and remains under ignored `build/author-kit/`.
+* Upgraded `otbook` to v0.2 with optional dedication and chapter-epigraph
+  helpers plus a compact `chapteroverview` environment.
+
 ## Phase 10 - Testing and releases
 
 **In progress. Checkpoint 10A opened: 15 August 2026.**
@@ -1508,3 +1531,23 @@ This file records significant changes to the LaTeX Workspace Learning and Class 
 - Audited public interfaces, dependencies, known warnings, and layout defects.
 - Created the initial Git baseline.
 - Tagged the baseline as `phase-0-baseline`.
+
+
+## 2026-09-28 -- Engineering prerequisite repairs
+
+- Preserve legacy decision/risk bodies; introduce optional bracket status and migrate local examples/manual.
+- Cache previous-run registers, defer page writes inside boxes, and flush/close streams after shipout.
+- Make profiles/forms explicit document dependencies and bound long engineering headers.
+- Correct dropdown argument order, preserve literal form identifiers, and fix multiline field width/spacing.
+- Add semantic PDF/register regression checks with fail-fast compilation, convergence and fresh output directories.
+- Document migration and validation before the future ot-projects.sty work.
+
+
+## 2026-09-29 -- ot-projects v0.1
+
+- Add explicit ot-projects.sty companion package with shared records and formal-report/notebook views.
+- Generate multi-page registers and detail views with stable IDs, workstreams and cross-references.
+- Support roles, individuals and organisations, with empty-category suppression and explicit visibility settings.
+- Default costs to NGN, preserve foreign currency, and require provenance for manually entered exchange rates and native equivalents; no automatic budget arithmetic.
+- Add optional sign-off blocks with independent name, title, capacity, signature and date fields.
+- Supply shared OAU planning examples, an author guide, and positive/negative PDF regression cases.

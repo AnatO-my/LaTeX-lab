@@ -1,0 +1,31 @@
+\chapter{Orientation: Mapping the Territory}
+
+\otbookepigraph{Understand structure first. Store only what deserves storage.}{PLDS Principle}
+
+Before diving into the complex equations of \textcite{spong2020}, we must \otindex{Orient} ourselves by classifying the type of knowledge presented in each section.
+
+\begin{chapteroverview}
+    This chapter applies the PLDS classification system to robotic theory, distinguishing between derivable relationships and arbitrary conventions.
+\end{chapteroverview}
+
+\section{Classification of Robotics Knowledge}
+
+Following the \acr{plds}, we categorize the early chapters of Spong as follows:
+
+\begin{itemize}
+    \item \textbf{Derivable Relationships:} Rigid Body Motion (Rotations and Translations). These should be reconstructed from first principles (geometry and matrix properties) rather than memorized.
+    \item \textbf{Arbitrary Conventions:} The Denavit-Hartenberg (\otindex{DH Convention}) parameters. These are chosen standard rules for labeling frames.
+    \item \textbf{Procedures:} The algorithm for calculating the \otindex{Jacobian} matrix.
+\end{itemize}
+
+\begin{designrule}[The Arbitrariness Detector]
+    If a coordinate frame assignment in Spong feels arbitrary, use the \otindex{Arbitrariness Detector}. Ask: ``Which convention (e.g., DH) is forcing this choice?'' This transforms frustration into a procedural check.
+\end{designrule}
+
+\section{Setting the Boundary}
+
+In \textcite{spong2020}, Chapter 1 usually provides an overview. Your \otindex{First Contact Protocol} should be:
+\begin{enumerate}
+    \item Identify the target capability: "Calculate the tip position of a 3-DOF robot."
+    \item Set the boundary: "No inverse kinematics or dynamics yet; focus on forward geometry."
+\end{enumerate}

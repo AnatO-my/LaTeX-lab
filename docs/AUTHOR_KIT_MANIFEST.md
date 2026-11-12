@@ -2,11 +2,13 @@
 
 ## Purpose
 
-This manifest lists the files that belong in a future source-derived author kit.
-It is a packaging boundary, not a second copy of the project.
+This manifest lists the files that belong in a source-derived author kit. It is
+a packaging boundary, not a second copy of the project.
 
 Use `docs/AUTHOR_KIT_BUILD_CHECKLIST.md` for the step-by-step process of
-assembling, verifying, and sharing the kit.
+assembling, verifying, and sharing the kit. Use
+`scripts/new-author-kit.ps1` to create the standard kit under
+`build/author-kit/`.
 
 ## Required Files
 
@@ -25,11 +27,19 @@ assembling, verifying, and sharing the kit.
 | Student notes starter | `examples/studentnotes/starter_notes.tex` |
 | Engineering notes starter | `examples/otengineering/starter_engineering_notes.tex` |
 | Science notes starter | `examples/otscience/starter_science_notes.tex` |
+| Personal book starter | `examples/otbook/starter_personal_book.tex` |
+| Copyable book project | `templates/otbook-project/` (source only, including dotfiles) |
 | Workbook module starter | `examples/vector-workbook/starter_module.tex` |
 | Combined workbook starter | `examples/vector-workbook/starter_combined_workbook.tex` |
 | Workbook shared setup | `examples/vector-workbook/00_common_setup.tex` |
-| Starter verification | `tests/run_phase7c_starter_tests.ps1` |
+| Starter verification | `tests/run_phase7c_starter_tests.ps1` and `tests/run_otbook_tests.ps1` |
+| Book smoke document | `tests/otbook_class_smoke.tex` |
 | Log retry helper | `tests/powershell_log_helpers.ps1` |
+
+The required class tree includes `src/classes/otbook.cls`. Include the complete
+package tree so its conditional OT companion commands are available. The kit
+contains eight starters; the Phase 7 runner verifies the original seven and
+the otbook runner verifies the book workflow.
 
 ## Optional Reference Examples
 
@@ -60,6 +70,11 @@ After creating an author kit from the manifest, run:
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File tests\run_phase7c_starter_tests.ps1
+powershell -ExecutionPolicy Bypass -File tests\run_otbook_tests.ps1
 ```
 
-The kit is usable when all starter builds pass.
+The kit is usable when both runners pass. The otbook runner verifies the book
+starter, smoke document, and project template; do not include the generated
+template `build/` directory when packaging the kit.
+The historical kit in `docs/AUTHOR_KIT_AUDIT.md` predates `otbook`; updating this
+manifest does not rebuild that archive.

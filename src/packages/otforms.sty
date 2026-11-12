@@ -1,0 +1,61 @@
+% ============================================================
+% OT Interactive Forms Package
+% otforms.sty
+% Version: 0.2
+% Purpose: Fillable PDF forms for engineering field reports and logs
+% ============================================================
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{otforms}[2026/09/28 v0.2 OT Interactive Forms]
+
+\RequirePackage{ottheme}
+\RequirePackage{hyperref}
+
+% -----------------------------
+% Form Style Configuration
+% -----------------------------
+% We use hyperref's built-in field styling
+\def\otformborder{OTMuted}
+\def\otformbackground{white}
+
+% -----------------------------
+% Author Interface
+% -----------------------------
+
+% Start a form section
+\newcommand{\otstartforms}{%
+  \begin{Form}%
+}
+
+% End a form section
+\newcommand{\otendforms}{%
+  \end{Form}%
+}
+
+% \ottextfield[width]{label}{name}
+\newcommand{\ottextfield}[3][0.3\textwidth]{%
+  \par\noindent
+  \textbf{#2:} \TextField[name={\detokenize{#3}}, width=#1, bordercolor=OTMuted, backgroundcolor=white, charsize=10pt]{}\par\smallskip
+}
+
+% \otcheckbox{label}{name}
+\newcommand{\otcheckbox}[2]{%
+  \par\noindent
+  \CheckBox[name={\detokenize{#2}}, bordercolor=OTMuted, backgroundcolor=white]{#1}\par\smallskip
+}
+
+% \otchoicefield{label}{name}{choices}
+% choices is a list like {Value1, Value2, Value3}
+\newcommand{\otchoicefield}[3]{%
+  \par\noindent
+  \textbf{#1:} \ChoiceMenu[name={\detokenize{#2}}, combo, bordercolor=OTMuted, backgroundcolor=white]{}{#3}\par\smallskip
+}
+
+% \ottextbox[height]{label}{name}
+\newcommand{\ottextbox}[3][2cm]{%
+  \par\noindent
+  \textbf{#2:}\par\smallskip
+  \noindent\TextField[name={\detokenize{#3}}, multiline=true, width=\linewidth, height=#1, bordercolor=OTMuted, backgroundcolor=white]{}\par
+}
+
+\endinput

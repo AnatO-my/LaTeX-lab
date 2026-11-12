@@ -1,0 +1,44 @@
+\documentclass[a4paper]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+% Load the new OT code package
+\usepackage{otcode}
+\usepackage{geometry}
+\geometry{margin=1in}
+
+\begin{document}
+
+\section{Code Listings Example}
+
+\begin{otcode}[language=Python]{Python Example}
+def hello_world():
+    # This is a comment in OTGreen
+    message = "Hello, OT Design System!" # String in OTOrange
+    print(message)
+
+if __name__ == "__main__":
+    hello_world()
+\end{otcode}
+
+\section{Terminal Output Example}
+
+\begin{otterminal}[PowerShell Session]
+PS C:\Users\Ot> powershell -File scripts/build-figures.ps1
+Found 1 figure(s) in examples/figures
+Building standalone_figure_example.tex...
+Build complete. Assets are in build/figures
+\end{otterminal}
+
+\section{Algorithm Example}
+
+\begin{otalgorithm}[Simple Search]
+procedure Search(List, Target)
+  for each item in List do
+    if item == Target then
+      return true
+  return false
+end procedure
+\end{otalgorithm}
+
+\end{document}

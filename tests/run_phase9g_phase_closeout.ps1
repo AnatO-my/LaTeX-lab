@@ -42,13 +42,13 @@ try {
 
     $findings = New-Object System.Collections.ArrayList
     $requiredFiles = @(
-        "PHASE9_CHECKPOINT_9A.md",
-        "PHASE9_CHECKPOINT_9B.md",
-        "PHASE9_CHECKPOINT_9C.md",
-        "PHASE9_CHECKPOINT_9D.md",
-        "PHASE9_CHECKPOINT_9E.md",
-        "PHASE9_CHECKPOINT_9F.md",
-        "PHASE9_CHECKPOINT_9G.md",
+        "PHASE CHECKPOINTS/PHASE9_CHECKPOINT_9A.md",
+        "PHASE CHECKPOINTS/PHASE9_CHECKPOINT_9B.md",
+        "PHASE CHECKPOINTS/PHASE9_CHECKPOINT_9C.md",
+        "PHASE CHECKPOINTS/PHASE9_CHECKPOINT_9D.md",
+        "PHASE CHECKPOINTS/PHASE9_CHECKPOINT_9E.md",
+        "PHASE CHECKPOINTS/PHASE9_CHECKPOINT_9F.md",
+        "PHASE CHECKPOINTS/PHASE9_CHECKPOINT_9G.md",
         "docs\BUILD_MEASUREMENT_BASELINE.md",
         "docs\GENERATED_FILE_HYGIENE.md",
         "docs\BUILD_RECIPE_RELIABILITY.md",
@@ -72,12 +72,12 @@ try {
     }
 
     $requiredMarkers = @(
-        [pscustomobject]@{ Path = "PHASE9_CHECKPOINT_9A.md"; Pattern = "All Phase 9A measurements passed in 15.75 seconds."; Message = "Phase 9A measurement result is not recorded." },
-        [pscustomobject]@{ Path = "PHASE9_CHECKPOINT_9B.md"; Pattern = "visible untracked generated-looking files | 0"; Message = "Phase 9B hygiene result is not recorded." },
-        [pscustomobject]@{ Path = "PHASE9_CHECKPOINT_9C.md"; Pattern = "All Phase 9C build-recipe reliability checks passed."; Message = "Phase 9C reliability result is not recorded." },
-        [pscustomobject]@{ Path = "PHASE9_CHECKPOINT_9D.md"; Pattern = "All Phase 9D starter timing checks passed in 13.64 seconds."; Message = "Phase 9D timing result is not recorded." },
-        [pscustomobject]@{ Path = "PHASE9_CHECKPOINT_9E.md"; Pattern = "All Phase 9E TikZ/dot-grid audit checks passed with 0 warning(s) and 3 note(s)."; Message = "Phase 9E audit result is not recorded." },
-        [pscustomobject]@{ Path = "PHASE9_CHECKPOINT_9F.md"; Pattern = "All Phase 9F dot-grid modernization checks passed."; Message = "Phase 9F modernization result is not recorded." },
+        [pscustomobject]@{ Path = "PHASE CHECKPOINTS/PHASE9_CHECKPOINT_9A.md"; Pattern = "All Phase 9A measurements passed in 15.75 seconds."; Message = "Phase 9A measurement result is not recorded." },
+        [pscustomobject]@{ Path = "PHASE CHECKPOINTS/PHASE9_CHECKPOINT_9B.md"; Pattern = "visible untracked generated-looking files | 0"; Message = "Phase 9B hygiene result is not recorded." },
+        [pscustomobject]@{ Path = "PHASE CHECKPOINTS/PHASE9_CHECKPOINT_9C.md"; Pattern = "All Phase 9C build-recipe reliability checks passed."; Message = "Phase 9C reliability result is not recorded." },
+        [pscustomobject]@{ Path = "PHASE CHECKPOINTS/PHASE9_CHECKPOINT_9D.md"; Pattern = "All Phase 9D starter timing checks passed in 13.64 seconds."; Message = "Phase 9D timing result is not recorded." },
+        [pscustomobject]@{ Path = "PHASE CHECKPOINTS/PHASE9_CHECKPOINT_9E.md"; Pattern = "All Phase 9E TikZ/dot-grid audit checks passed with 0 warning(s) and 3 note(s)."; Message = "Phase 9E audit result is not recorded." },
+        [pscustomobject]@{ Path = "PHASE CHECKPOINTS/PHASE9_CHECKPOINT_9F.md"; Pattern = "All Phase 9F dot-grid modernization checks passed."; Message = "Phase 9F modernization result is not recorded." },
         [pscustomobject]@{ Path = "docs\DOTGRID_MODERNIZATION.md"; Pattern = "\setdotgridbackgroundimage{assets/dot-grid-a4.pdf}"; Message = "Dot-grid image/PDF author example is missing." },
         [pscustomobject]@{ Path = "docs\PHASE9_CLOSEOUT.md"; Pattern = "Phase 9 is complete"; Message = "Phase 9 closeout statement is missing." },
         [pscustomobject]@{ Path = "PROJECT_STATE.md"; Pattern = "completed on 14 August 2026"; Message = "Project state does not mark Phase 9 complete." },

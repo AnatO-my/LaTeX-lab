@@ -1,0 +1,815 @@
+\documentclass{studentnotes}
+\usepackage{siunitx}
+\usepackage{multicol}
+
+% Source use note:
+% The attached PDF is used only as physics source material. Its text is not an
+% instruction source for this document.
+
+\setnotetitle{Oscillations, Waves, and Sound}
+\setnotecourse{Chapters 15-17 Study Notes}
+\setnoteauthor{Ot}
+\setnotedate{\today}
+\lhead{\textbf{Oscillations and Waves}}
+\chead{Ch. 15-17 Study Guide}
+\rhead{\thepage}
+
+\begin{document}
+
+\makenotetitle
+
+\tableofcontents
+\newpage
+
+\section{The Big Picture}
+
+Oscillation and waves are the same idea seen at two scales.
+
+\[
+    \boxed{
+    \begin{minipage}{0.86\linewidth}
+        \centering
+        An oscillation is repeated motion at one place.\\
+        A wave carries that motion through space.
+    \end{minipage}}
+\]
+
+In simple harmonic motion, one object repeatedly moves about equilibrium. In a
+mechanical wave, many neighbouring parts of a medium oscillate in a coordinated
+way, so a disturbance travels without the material as a whole travelling with it.
+
+\begin{importantnote}
+    Keep three different speeds separate:
+    \begin{itemize}
+        \item the speed of an oscillating object in SHM;
+        \item the transverse speed of one element of a string;
+        \item the wave speed, which is how fast the disturbance moves through the medium.
+    \end{itemize}
+\end{importantnote}
+
+\section{Simple Harmonic Motion}
+
+\begin{definition}
+    \textbf{Simple harmonic motion} is periodic motion in which displacement is a
+    sinusoidal function of time and acceleration is proportional to displacement
+    in the opposite direction.
+\end{definition}
+
+\begin{namedformula}{Displacement in SHM}
+    x(t)=x_m\cos(\omega t+\phi)
+\end{namedformula}
+
+\begin{namedformula}{Frequency, period, and angular frequency}
+    \omega=\frac{2\pi}{T}=2\pi f,
+    \qquad
+    T=\frac{1}{f}
+\end{namedformula}
+
+The quantities are:
+
+\begin{itemize}
+    \item \(x_m\): displacement amplitude, the maximum distance from equilibrium;
+    \item \(\omega t+\phi\): phase;
+    \item \(\phi\): phase constant, which sets the starting point at \(t=0\);
+    \item \(T\): time for one cycle;
+    \item \(f\): cycles per second.
+\end{itemize}
+
+\begin{quicknote}
+    Increasing \(x_m\) makes the graph taller. Increasing \(f\) or \(\omega\) makes
+    cycles happen more quickly. Changing \(\phi\) slides the graph left or right.
+\end{quicknote}
+
+\subsection{Velocity and Acceleration}
+
+Differentiate \(x(t)\) to get the velocity and acceleration.
+
+\begin{namedformula}{Velocity in SHM}
+    v(t)=-\omega x_m\sin(\omega t+\phi)
+\end{namedformula}
+
+\begin{namedformula}{Acceleration in SHM}
+    a(t)=-\omega^2x_m\cos(\omega t+\phi)=-\omega^2x
+\end{namedformula}
+
+\begin{itemize}
+    \item Speed is greatest at equilibrium, where \(x=0\).
+    \item Speed is zero at the extreme points, where \(x=\pm x_m\).
+    \item Acceleration has greatest magnitude at the extreme points.
+    \item Acceleration is zero at equilibrium.
+\end{itemize}
+
+\begin{personalnote}
+    SHM is easiest to read as a story: at the ends the object has no speed but
+    strong pull back; at the centre it has maximum speed but no restoring force.
+\end{personalnote}
+
+\subsection{Worked Example: Reading a Motion Function}
+
+Suppose
+\[
+    x(t)=(\SI{0.080}{m})\cos(6.0t+\pi/3).
+\]
+
+Identify the amplitude, angular frequency, frequency, and period.
+
+\[
+    x_m=\SI{0.080}{m},
+    \qquad
+    \omega=\SI{6.0}{rad.s^{-1}}.
+\]
+
+\[
+    f=\frac{\omega}{2\pi}
+      =\frac{6.0}{2\pi}
+      =\SI{0.955}{Hz},
+    \qquad
+    T=\frac{1}{f}=\SI{1.05}{s}.
+\]
+
+\[
+    \boxed{x_m=\SI{8.0}{cm},\quad f\approx\SI{0.96}{Hz},\quad T\approx\SI{1.05}{s}}
+\]
+
+\subsection{Worked Example: Maximum Speed and Acceleration}
+
+For the same oscillator, find \(v_m\) and \(a_m\).
+
+\[
+    v_m=\omega x_m=(6.0)(0.080)=\SI{0.48}{m.s^{-1}}.
+\]
+
+\[
+    a_m=\omega^2x_m=(6.0)^2(0.080)=\SI{2.88}{m.s^{-2}}.
+\]
+
+\[
+    \boxed{v_m=\SI{0.48}{m.s^{-1}},\qquad a_m=\SI{2.9}{m.s^{-2}}}
+\]
+
+\section{The Spring-Block Oscillator}
+
+Hooke's law gives the restoring force for an ideal spring:
+
+\begin{namedformula}{Hooke's law}
+    F=-kx
+\end{namedformula}
+
+The minus sign means the force points opposite the displacement. Combining
+Hooke's law with Newton's second law gives the spring-block oscillator.
+
+\begin{namedformula}{Spring-block angular frequency}
+    \omega=\sqrt{\frac{k}{m}}
+\end{namedformula}
+
+\begin{namedformula}{Spring-block period}
+    T=2\pi\sqrt{\frac{m}{k}}
+\end{namedformula}
+
+\begin{importantnote}
+    For a horizontal ideal spring-block oscillator, the period depends on \(m\)
+    and \(k\), not on the amplitude. Larger amplitude means larger speed and
+    larger energy, but not a different period.
+\end{importantnote}
+
+\subsection{Worked Example: Spring Period}
+
+A \(\SI{0.50}{kg}\) block is attached to a spring with
+\(k=\SI{200}{N.m^{-1}}\). Find the angular frequency and period.
+
+\[
+    \omega=\sqrt{\frac{200}{0.50}}=\sqrt{400}=\SI{20}{rad.s^{-1}}.
+\]
+
+\[
+    T=2\pi\sqrt{\frac{0.50}{200}}
+      =\frac{2\pi}{20}
+      =\SI{0.314}{s}.
+\]
+
+\[
+    \boxed{\omega=\SI{20}{rad.s^{-1}},\qquad T=\SI{0.314}{s}}
+\]
+
+\section{Energy in SHM}
+
+In an ideal oscillator, energy continually changes form between kinetic energy
+and potential energy, while total mechanical energy remains constant.
+
+\begin{namedformula}{SHM total energy}
+    E=\frac{1}{2}kx_m^2
+\end{namedformula}
+
+\begin{namedformula}{Spring potential and kinetic energy}
+    U=\frac{1}{2}kx^2,
+    \qquad
+    K=E-U=\frac{1}{2}k(x_m^2-x^2)
+\end{namedformula}
+
+\begin{namedformula}{Energy and maximum speed}
+    E=\frac{1}{2}mv_m^2
+\end{namedformula}
+
+\begin{quicknote}
+    At \(x=\pm x_m\), all the energy is potential. At \(x=0\), all the energy is
+    kinetic.
+\end{quicknote}
+
+\subsection{Worked Example: Speed Away from Equilibrium}
+
+A spring has \(k=\SI{120}{N.m^{-1}}\) and amplitude \(x_m=\SI{0.20}{m}\).
+What is the kinetic energy when \(x=\SI{0.12}{m}\)?
+
+\[
+    K=\frac{1}{2}k(x_m^2-x^2)
+      =
+      \frac{1}{2}(120)\left[(0.20)^2-(0.12)^2\right].
+\]
+
+\[
+    K=60(0.0400-0.0144)=60(0.0256)=\SI{1.54}{J}.
+\]
+
+\[
+    \boxed{K\approx\SI{1.5}{J}}
+\]
+
+\section{Angular SHM and Pendulums}
+
+Rotational oscillations use the same logic as linear SHM, but the displacement is
+an angle.
+
+\begin{namedformula}{Angular SHM}
+    \tau=-\kappa\theta,
+    \qquad
+    \omega=\sqrt{\frac{\kappa}{I}},
+    \qquad
+    T=2\pi\sqrt{\frac{I}{\kappa}}
+\end{namedformula}
+
+Here \(\kappa\) is the torsion constant and \(I\) is rotational inertia.
+
+\subsection{Simple Pendulum}
+
+For small angles, a simple pendulum behaves approximately as an SHM oscillator.
+
+\begin{namedformula}{Simple pendulum period}
+    T=2\pi\sqrt{\frac{L}{g}}
+\end{namedformula}
+
+\subsection{Physical Pendulum}
+
+A physical pendulum is an extended object swinging about a pivot.
+
+\begin{namedformula}{Physical pendulum period}
+    T=2\pi\sqrt{\frac{I}{mgh}}
+\end{namedformula}
+
+Here \(h\) is the distance from pivot to centre of mass.
+
+\begin{importantnote}
+    The pendulum formulas above are small-angle formulas. Large swings are not
+    perfectly simple harmonic.
+\end{importantnote}
+
+\subsection{Worked Example: Pendulum Length}
+
+What length gives a simple pendulum a period of \(\SI{2.0}{s}\)?
+
+\[
+    T=2\pi\sqrt{\frac{L}{g}}
+    \quad\Longrightarrow\quad
+    L=g\left(\frac{T}{2\pi}\right)^2.
+\]
+
+\[
+    L=9.8\left(\frac{2.0}{2\pi}\right)^2
+      =\SI{0.99}{m}.
+\]
+
+\[
+    \boxed{L\approx\SI{1.0}{m}}
+\]
+
+\section{Damping, Driving, and Resonance}
+
+Real oscillators lose mechanical energy to thermal energy, sound, and other
+forms. This is called damping.
+
+\begin{namedformula}{Damped SHM displacement}
+    x(t)=x_m e^{-bt/2m}\cos(\omega' t+\phi)
+\end{namedformula}
+
+\begin{namedformula}{Damped angular frequency}
+    \omega'=\sqrt{\frac{k}{m}-\frac{b^2}{4m^2}}
+\end{namedformula}
+
+If damping is weak, \(\omega'\) is close to the undamped value
+\(\omega=\sqrt{k/m}\).
+
+\begin{definition}
+    \textbf{Resonance} occurs when a periodic driving force transfers energy most
+    efficiently to an oscillator, usually when the driving frequency is near the
+    natural frequency.
+\end{definition}
+
+\begin{quicknote}
+    Resonance is useful in musical instruments and dangerous in structures,
+    bridges, aircraft parts, and machinery.
+\end{quicknote}
+
+\subsection{Worked Example: Damping Decay}
+
+An oscillator has an initial amplitude of \(\SI{12}{cm}\). After several cycles
+the amplitude is \(\SI{9.0}{cm}\). What fraction of the initial mechanical energy
+remains?
+
+For a spring oscillator, \(E\propto x_m^2\). Thus
+
+\[
+    \frac{E}{E_0}
+    =
+    \left(\frac{x_m}{x_{m0}}\right)^2
+    =
+    \left(\frac{9.0}{12}\right)^2
+    =
+    0.5625.
+\]
+
+\[
+    \boxed{56\% \text{ of the initial energy remains.}}
+\]
+
+\section{Traveling Waves}
+
+\begin{definition}
+    A \textbf{transverse wave} has medium motion perpendicular to the direction
+    of travel. A \textbf{longitudinal wave} has medium motion parallel to the
+    direction of travel.
+\end{definition}
+
+For a sinusoidal wave travelling in the \(+x\) direction:
+
+\begin{namedformula}{Sinusoidal traveling wave}
+    y(x,t)=y_m\sin(kx-\omega t)
+\end{namedformula}
+
+\begin{namedformula}{Wave number, angular frequency, and speed}
+    k=\frac{2\pi}{\lambda},
+    \qquad
+    \omega=2\pi f,
+    \qquad
+    v=\frac{\omega}{k}=\lambda f
+\end{namedformula}
+
+\begin{importantnote}
+    A wave of the form \(h(kx-\omega t)\) travels in the \(+x\) direction. A
+    wave of the form \(h(kx+\omega t)\) travels in the \(-x\) direction.
+\end{importantnote}
+
+\subsection{Worked Example: Reading a Wave Equation}
+
+A wave on a string is
+\[
+    y(x,t)=(\SI{0.020}{m})\sin(4.0x-12t),
+\]
+with \(x\) in metres and \(t\) in seconds. Find amplitude, wavelength, frequency,
+speed, and direction.
+
+\[
+    y_m=\SI{0.020}{m},
+    \qquad
+    k=\SI{4.0}{rad.m^{-1}},
+    \qquad
+    \omega=\SI{12}{rad.s^{-1}}.
+\]
+
+\[
+    \lambda=\frac{2\pi}{k}=\frac{2\pi}{4.0}=\SI{1.57}{m},
+    \qquad
+    f=\frac{\omega}{2\pi}=\SI{1.91}{Hz}.
+\]
+
+\[
+    v=\frac{\omega}{k}=\frac{12}{4.0}=\SI{3.0}{m.s^{-1}}.
+\]
+
+Because the phase is \(kx-\omega t\), the wave travels in the \(+x\) direction.
+
+\section{Waves on a Stretched String}
+
+For a string, wave speed is set by tension and linear mass density.
+
+\begin{namedformula}{Wave speed on a string}
+    v=\sqrt{\frac{\tau}{\mu}}
+\end{namedformula}
+
+Here \(\tau\) is the tension and \(\mu\) is the mass per unit length.
+
+\begin{namedformula}{Average power in a sinusoidal string wave}
+    P_{\text{avg}}=\frac{1}{2}\mu v\omega^2y_m^2
+\end{namedformula}
+
+\begin{namedformula}{One-dimensional wave equation}
+    \frac{\partial^2 y}{\partial x^2}
+    =
+    \frac{1}{v^2}
+    \frac{\partial^2 y}{\partial t^2}
+\end{namedformula}
+
+\subsection{Worked Example: String Speed and Power}
+
+A string has tension \(\tau=\SI{80}{N}\) and linear density
+\(\mu=\SI{0.020}{kg.m^{-1}}\). A sinusoidal wave has amplitude
+\(\SI{3.0}{mm}\) and frequency \(\SI{50}{Hz}\). Find the wave speed and average
+power.
+
+\[
+    v=\sqrt{\frac{80}{0.020}}=\sqrt{4000}=\SI{63.2}{m.s^{-1}}.
+\]
+
+\[
+    \omega=2\pi f=2\pi(50)=\SI{314}{rad.s^{-1}},
+    \qquad
+    y_m=\SI{0.0030}{m}.
+\]
+
+\[
+    P_{\text{avg}}
+    =
+    \frac{1}{2}(0.020)(63.2)(314)^2(0.0030)^2
+    \approx\SI{0.56}{W}.
+\]
+
+\[
+    \boxed{v\approx\SI{63}{m.s^{-1}},\qquad P_{\text{avg}}\approx\SI{0.56}{W}}
+\]
+
+\section{Superposition and Interference}
+
+\begin{definition}
+    The \textbf{principle of superposition} says that when waves overlap, the net
+    displacement is the algebraic sum of the individual displacements.
+\end{definition}
+
+For two equal-amplitude waves travelling in the same direction with phase
+difference \(\phi\):
+
+\begin{namedformula}{Resultant amplitude for equal waves}
+    y'_m=2y_m\cos\left(\frac{\phi}{2}\right)
+\end{namedformula}
+
+\begin{itemize}
+    \item \(\phi=0\): fully constructive interference.
+    \item \(\phi=\pi\): fully destructive interference.
+    \item intermediate \(\phi\): partial reinforcement or cancellation.
+\end{itemize}
+
+\subsection{Worked Example: Two Waves Out of Step}
+
+Two equal waves each have amplitude \(\SI{4.0}{mm}\) and phase difference
+\(\phi=2\pi/3\). Find the resultant amplitude.
+
+\[
+    y'_m=2(4.0)\cos\left(\frac{2\pi/3}{2}\right)
+        =8.0\cos(\pi/3)
+        =\SI{4.0}{mm}.
+\]
+
+\[
+    \boxed{y'_m=\SI{4.0}{mm}}
+\]
+
+\section{Standing Waves and Resonance on Strings}
+
+A standing wave is formed by two identical waves travelling in opposite
+directions.
+
+\begin{namedformula}{Standing wave on a string}
+    y'(x,t)=2y_m\sin(kx)\cos(\omega t)
+\end{namedformula}
+
+\begin{itemize}
+    \item Nodes: points that do not move.
+    \item Antinodes: points with maximum oscillation amplitude.
+\end{itemize}
+
+For a string fixed at both ends, the allowed wavelengths and frequencies are:
+
+\begin{namedformula}{Fixed-string harmonics}
+    \lambda_n=\frac{2L}{n},
+    \qquad
+    f_n=\frac{nv}{2L},
+    \qquad
+    n=1,2,3,\ldots
+\end{namedformula}
+
+\subsection{Worked Example: Guitar-String Harmonics}
+
+A string of length \(\SI{0.65}{m}\) has wave speed \(\SI{260}{m.s^{-1}}\). Find
+the first three resonant frequencies.
+
+\[
+    f_1=\frac{v}{2L}=\frac{260}{2(0.65)}=\SI{200}{Hz}.
+\]
+
+\[
+    f_2=2f_1=\SI{400}{Hz},
+    \qquad
+    f_3=3f_1=\SI{600}{Hz}.
+\]
+
+\[
+    \boxed{f_1=\SI{200}{Hz},\quad f_2=\SI{400}{Hz},\quad f_3=\SI{600}{Hz}}
+\]
+
+\section{Sound Waves}
+
+Sound is a longitudinal mechanical wave. In air at \(\SI{20}{\celsius}\), the
+speed of sound is about \(\SI{343}{m.s^{-1}}\).
+
+\begin{namedformula}{Speed of sound in a medium}
+    v=\sqrt{\frac{B}{\rho}}
+\end{namedformula}
+
+Here \(B\) is the bulk modulus and \(\rho\) is density.
+
+A sound wave may be described by a displacement wave and a pressure wave:
+
+\begin{namedformula}{Sound displacement and pressure waves}
+    s=s_m\cos(kx-\omega t),
+    \qquad
+    \Delta p=\Delta p_m\sin(kx-\omega t)
+\end{namedformula}
+
+\begin{namedformula}{Pressure amplitude}
+    \Delta p_m=\rho v\omega s_m
+\end{namedformula}
+
+\begin{quicknote}
+    The displacement wave and pressure wave are a quarter-cycle out of phase.
+    Maximum pressure change occurs where displacement crosses equilibrium.
+\end{quicknote}
+
+\section{Sound Intensity and Decibels}
+
+\begin{namedformula}{Sound intensity}
+    I=\frac{P}{A}
+\end{namedformula}
+
+For a point source radiating uniformly:
+
+\begin{namedformula}{Point-source intensity}
+    I=\frac{P_s}{4\pi r^2}
+\end{namedformula}
+
+\begin{namedformula}{Sound level}
+    \beta=(\SI{10}{dB})\log_{10}\left(\frac{I}{I_0}\right),
+    \qquad
+    I_0=\SI{1.0e-12}{W.m^{-2}}
+\end{namedformula}
+
+\begin{importantnote}
+    Decibels are logarithmic. Multiplying intensity by 10 adds \(\SI{10}{dB}\).
+    Multiplying intensity by 100 adds \(\SI{20}{dB}\).
+\end{importantnote}
+
+\subsection{Worked Example: Decibel Change}
+
+A sound intensity increases from \(I\) to \(1000I\). How much does the sound
+level change?
+
+\[
+    \Delta\beta=(\SI{10}{dB})\log_{10}\left(\frac{1000I}{I}\right)
+    =
+    (\SI{10}{dB})\log_{10}(1000).
+\]
+
+\[
+    \Delta\beta=(\SI{10}{dB})(3)=\SI{30}{dB}.
+\]
+
+\[
+    \boxed{\text{The sound level increases by } \SI{30}{dB}.}
+\]
+
+\section{Sound Interference and Pipes}
+
+For two in-phase sources, interference depends on path length difference.
+
+\begin{namedformula}{Sound phase from path difference}
+    \phi=\frac{2\pi\Delta L}{\lambda}
+\end{namedformula}
+
+\begin{namedformula}{Path conditions}
+    \text{constructive: } \frac{\Delta L}{\lambda}=0,1,2,\ldots,
+    \qquad
+    \text{destructive: } \frac{\Delta L}{\lambda}=0.5,1.5,2.5,\ldots
+\end{namedformula}
+
+Standing sound waves in pipes have different boundary conditions.
+
+\begin{namedformula}{Open-open pipe}
+    f_n=\frac{nv}{2L},
+    \qquad
+    n=1,2,3,\ldots
+\end{namedformula}
+
+\begin{namedformula}{Closed-open pipe}
+    f_n=\frac{nv}{4L},
+    \qquad
+    n=1,3,5,\ldots
+\end{namedformula}
+
+\subsection{Worked Example: Closed Pipe}
+
+A pipe closed at one end has length \(\SI{0.85}{m}\). Using
+\(v=\SI{343}{m.s^{-1}}\), find the fundamental frequency and the next allowed
+frequency.
+
+\[
+    f_1=\frac{v}{4L}=\frac{343}{4(0.85)}=\SI{101}{Hz}.
+\]
+
+Only odd harmonics occur:
+
+\[
+    f_3=3f_1=\SI{303}{Hz}.
+\]
+
+\[
+    \boxed{f_1\approx\SI{101}{Hz},\qquad f_3\approx\SI{303}{Hz}}
+\]
+
+\section{Beats, Doppler Effect, and Shock Waves}
+
+\subsection{Beats}
+
+Beats occur when two similar frequencies are heard together.
+
+\begin{namedformula}{Beat frequency}
+    f_{\text{beat}}=|f_1-f_2|
+\end{namedformula}
+
+\subsection{Doppler Effect}
+
+\begin{namedformula}{Doppler effect for sound}
+    f'=f\frac{v\pm v_D}{v\pm v_S}
+\end{namedformula}
+
+Choose signs so that motion toward gives a higher observed frequency and motion
+away gives a lower observed frequency.
+
+\subsection{Shock Waves}
+
+When a source moves faster than sound in the medium, a shock wave forms.
+
+\begin{namedformula}{Mach cone angle}
+    \sin\theta=\frac{v}{v_S}
+\end{namedformula}
+
+\subsection{Worked Example: Moving Source}
+
+A stationary detector hears a source moving toward it at
+\(\SI{30}{m.s^{-1}}\). The source emits \(f=\SI{800}{Hz}\). Take
+\(v=\SI{343}{m.s^{-1}}\). Find the observed frequency.
+
+For a moving source approaching a stationary detector:
+
+\[
+    f'=f\frac{v}{v-v_S}
+       =
+       800\frac{343}{343-30}.
+\]
+
+\[
+    f'\approx\SI{877}{Hz}.
+\]
+
+\[
+    \boxed{f'\approx\SI{8.8e2}{Hz}}
+\]
+
+\section{Problem-Solving Map}
+
+\begin{enumerate}
+    \item Decide whether the problem is about one oscillator, a travelling wave,
+    a standing wave, sound intensity, or observed frequency.
+    \item Write the governing equation before substituting.
+    \item Check units: radians are dimensionless, but \(\omega\), \(k\), \(f\),
+    and \(T\) are not interchangeable.
+    \item For SHM, ask where the object is in its cycle: extreme, equilibrium,
+    or between.
+    \item For waves, ask whether you are tracking the wave shape or one element
+    of the medium.
+    \item For sound, decide whether the issue is speed, intensity, interference,
+    pipe resonance, beats, Doppler shift, or shock waves.
+\end{enumerate}
+
+\section{Formula Sheet}
+
+\begin{multicols}{2}
+
+\subsection*{SHM}
+\[
+    x=x_m\cos(\omega t+\phi)
+\]
+\[
+    v=-\omega x_m\sin(\omega t+\phi)
+\]
+\[
+    a=-\omega^2x
+\]
+\[
+    \omega=\frac{2\pi}{T}=2\pi f
+\]
+
+\subsection*{Spring Oscillator}
+\[
+    F=-kx
+\]
+\[
+    \omega=\sqrt{\frac{k}{m}},
+    \qquad
+    T=2\pi\sqrt{\frac{m}{k}}
+\]
+\[
+    E=\frac{1}{2}kx_m^2
+\]
+\[
+    K=\frac{1}{2}k(x_m^2-x^2)
+\]
+
+\subsection*{Pendulums}
+\[
+    T=2\pi\sqrt{\frac{L}{g}}
+\]
+\[
+    T=2\pi\sqrt{\frac{I}{mgh}}
+\]
+
+\subsection*{Waves}
+\[
+    y=y_m\sin(kx-\omega t)
+\]
+\[
+    k=\frac{2\pi}{\lambda},
+    \quad
+    \omega=2\pi f,
+    \quad
+    v=\lambda f
+\]
+\[
+    v=\sqrt{\frac{\tau}{\mu}}
+\]
+\[
+    P_{\text{avg}}=\frac{1}{2}\mu v\omega^2y_m^2
+\]
+
+\subsection*{Standing Waves}
+\[
+    y'=2y_m\sin(kx)\cos(\omega t)
+\]
+\[
+    f_n=\frac{nv}{2L}
+\]
+
+\subsection*{Sound}
+\[
+    v=\sqrt{\frac{B}{\rho}}
+\]
+\[
+    I=\frac{P}{A},
+    \qquad
+    I=\frac{P_s}{4\pi r^2}
+\]
+\[
+    \beta=(\SI{10}{dB})\log_{10}\left(\frac{I}{I_0}\right)
+\]
+\[
+    f_{\text{beat}}=|f_1-f_2|
+\]
+\[
+    f'=f\frac{v\pm v_D}{v\pm v_S}
+\]
+
+\end{multicols}
+
+\section{Common Mistakes}
+
+\begin{enumerate}
+    \item Confusing frequency \(f\) with angular frequency \(\omega\).
+    \item Saying speed is maximum at the turning points in SHM.
+    \item Forgetting that \(a=-\omega^2x\), so acceleration points back toward
+    equilibrium.
+    \item Using amplitude when the problem asks for wavelength.
+    \item Treating wave speed as the speed of one string element.
+    \item Using \(kx+\omega t\) and \(kx-\omega t\) without checking direction.
+    \item Assuming every standing-wave system has all harmonics; closed-open
+    pipes have only odd harmonics.
+    \item Adding decibels as though they were ordinary intensities.
+    \item Choosing Doppler signs mechanically instead of checking whether the
+    observed frequency should increase or decrease.
+\end{enumerate}
+
+\end{document}

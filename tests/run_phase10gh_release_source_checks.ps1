@@ -50,7 +50,7 @@ try {
         "docs\CI_RELEASE_GATE_PLAN.md",
         "docs\GITHUB_ACTIONS_CI_CHECKLIST.md",
         "docs\BRANCH_PROTECTION_CHECKLIST.md",
-        "PHASE10_CHECKPOINT_10G_10H.md",
+        "PHASE CHECKPOINTS/PHASE10_CHECKPOINT_10G_10H.md",
         "tests\run_phase10gh_release_source_checks.ps1",
         "CHANGELOG.md",
         "PROJECT_STATE.md",
@@ -78,7 +78,7 @@ try {
         [pscustomobject]@{ Path = "docs\CI_RELEASE_GATE_PLAN.md"; Pattern = ".github/workflows/release-source-checks.yml"; Message = "CI release-gate plan must link the new workflow." },
         [pscustomobject]@{ Path = "docs\GITHUB_ACTIONS_CI_CHECKLIST.md"; Pattern = "docs/RELEASE_SOURCE_CHECKS_PROMOTION.md"; Message = "CI checklist must link the promotion checklist." },
         [pscustomobject]@{ Path = "docs\BRANCH_PROTECTION_CHECKLIST.md"; Pattern = "docs/RELEASE_SOURCE_CHECKS_PROMOTION.md"; Message = "Branch protection checklist must link the promotion checklist." },
-        [pscustomobject]@{ Path = "PHASE10_CHECKPOINT_10G_10H.md"; Pattern = "Checkpoints 10G and 10H add the non-required Release source checks workflow"; Message = "Checkpoint 10G/H summary is missing." },
+        [pscustomobject]@{ Path = "PHASE CHECKPOINTS/PHASE10_CHECKPOINT_10G_10H.md"; Pattern = "Checkpoints 10G and 10H add the non-required Release source checks workflow"; Message = "Checkpoint 10G/H summary is missing." },
         [pscustomobject]@{ Path = "CHANGELOG.md"; Pattern = "### Added (Checkpoints 10G and 10H)"; Message = "Changelog does not record 10G/H." },
         [pscustomobject]@{ Path = "PROJECT_STATE.md"; Pattern = "Checkpoints 10G and 10H add the non-required Release source checks workflow"; Message = "Project state does not record 10G/H." },
         [pscustomobject]@{ Path = "README.md"; Pattern = "docs/RELEASE_SOURCE_CHECKS_PROMOTION.md"; Message = "README does not link the promotion checklist." }

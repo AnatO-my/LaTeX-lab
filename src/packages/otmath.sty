@@ -13,11 +13,34 @@
 \RequirePackage{ottheme}
 \RequirePackage{tcolorbox}
 \tcbuselibrary{skins,breakable}
+\RequirePackage{kvoptions}
+
+\SetupKeyvalOptions{family=OTMATH,prefix=otmath@}
+\DeclareStringOption[section]{theorems}
+\ProcessKeyvalOptions*
 
 % -----------------------------
 % Theorem environments
 % -----------------------------
-\newtheorem{otplainthm}{Theorem}[section]
+\makeatletter
+\def\otmath@scope{section}
+\ifx\otmath@theorems\otmath@scope
+  \newtheorem{otplainthm}{Theorem}[section]
+\else
+  \def\otmath@scope@chapter{chapter}
+  \ifx\otmath@theorems\otmath@scope@chapter
+    \@ifundefined{thechapter}{%
+      \PackageWarning{otmath}{Chapter counter not found; falling back to section-based theorems}%
+      \newtheorem{otplainthm}{Theorem}[section]
+    }{%
+      \newtheorem{otplainthm}{Theorem}[chapter]
+    }
+  \else
+    \newtheorem{otplainthm}{Theorem}[section]
+  \fi
+\fi
+\makeatother
+
 \newtheorem{otplainlemma}[otplainthm]{Lemma}
 \newtheorem{otplainprop}[otplainthm]{Proposition}
 \newtheorem{otplaincor}[otplainthm]{Corollary}
@@ -26,6 +49,7 @@
 \newtheorem{otplaindef}[otplainthm]{Definition}
 \newtheorem{otplainex}[otplainthm]{Example}
 \newtheorem{otplainexer}[otplainthm]{Exercise}
+\newtheorem{otplaindesignrule}[otplainthm]{Design Rule}
 
 % -----------------------------
 % Boxed theorem-like environments

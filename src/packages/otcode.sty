@@ -1,0 +1,157 @@
+% ============================================================
+% OT Code Package
+% otcode.sty
+% Version: 0.1
+% Purpose: Code listings and algorithms following the OT design system
+% ============================================================
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{otcode}[2026/11/11 v0.2 OT Code and Algorithms]
+
+\RequirePackage{ottheme}
+\RequirePackage{iftex}
+\RequirePackage{listings}
+\RequirePackage{tcolorbox}
+\tcbuselibrary{listings,skins,breakable}
+
+% -----------------------------
+% Shared Listing Styles
+% -----------------------------
+\lstdefinestyle{ot-base}{
+  basicstyle=\ttfamily\small,
+  breaklines=true,
+  breakatwhitespace=true,
+  showstringspaces=false,
+  upquote=true,
+  % Colors
+  keywordstyle=\color{OTBlue}\bfseries,
+  commentstyle=\color{OTGreen}\itshape,
+  stringstyle=\color{OTOrange},
+  numberstyle=\tiny\color{OTMuted},
+  identifierstyle=\color{OTDark},
+  % Layout
+  numbers=left,
+  numbersep=8pt,
+  xleftmargin=1.5em,
+}
+
+% -----------------------------
+% Terminal Style
+% -----------------------------
+\lstdefinestyle{ot-terminal}{
+  basicstyle=\ttfamily\small\color{white},
+  backgroundcolor=\color{OTDark},
+  keywordstyle=\color{white},
+  commentstyle=\color{white},
+  stringstyle=\color{white},
+  identifierstyle=\color{white},
+  numbers=none,
+  xleftmargin=0pt,
+}
+
+% -----------------------------
+% Algorithm Style (Pseudocode)
+% -----------------------------
+\lstdefinestyle{ot-algo}{
+  mathescape=true,
+  numbers=none,
+  basicstyle=\small\sffamily,
+  keywordstyle=\color{OTPurple}\bfseries,
+  morekeywords={if,then,else,while,do,for,return,input,output,procedure,function,begin,end},
+}
+
+% -----------------------------
+% High-Level Environments
+% -----------------------------
+
+% Source Code Box
+% Usage: \begin{otcode}[language=Python]{Title}
+\newtcblisting{otcode}[2][]{
+  enhanced,
+  breakable,
+  before={\vspace{0.5em}},
+  after={\vspace{0.5em}},
+  colback=OTLight,
+  colframe=OTDark,
+  boxrule=0.8pt,
+  arc=1mm,
+  fonttitle=\bfseries,
+  title={#2},
+  listing only,
+  listing options={style=ot-base, #1}
+}
+
+% Unicode source box
+% Usage: \begin{otunicodecode}{Title} ... \end{otunicodecode}
+%
+% `listings` deliberately remains the default backend above: it gives ordinary
+% PDFLaTeX documents syntax highlighting and stable line-number behaviour.
+% This companion environment is for literal source containing characters that
+% listings cannot represent (for example, non-Latin program strings). It uses
+% fvextra under a Unicode-native engine and leaves font selection to the
+% document, so an author can choose a font with the needed script coverage.
+\ifPDFTeX
+  \newenvironment{otunicodecode}[1]
+    {\PackageError{otcode}{otunicodecode requires LuaLaTeX or XeLaTeX}
+      {Use otcode for PDFLaTeX listings, or compile this document with a Unicode-native engine.}}
+    {}
+\else
+  \RequirePackage{fvextra}
+  \newenvironment{otunicodecode}[1]
+    {\VerbatimEnvironment
+     \begin{tcolorbox}[
+       enhanced,
+       breakable,
+       before={\vspace{0.5em}},
+       after={\vspace{0.5em}},
+       colback=OTLight,
+       colframe=OTDark,
+       boxrule=0.8pt,
+       arc=1mm,
+       fonttitle=\bfseries,
+       title={#1}]
+     \begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\small]}
+    {\end{Verbatim}\end{tcolorbox}}
+\fi
+
+% Terminal / CLI Box
+\newtcblisting{otterminal}[1][Terminal]{
+  enhanced,
+  breakable,
+  colback=OTDark,
+  colframe=OTDark,
+  colupper=white,
+  fonttitle=\bfseries,
+  title={#1},
+  listing only,
+  listing options={style=ot-terminal}
+}
+
+% Algorithm Box
+\newtcblisting{otalgorithm}[1][Algorithm]{
+  enhanced,
+  breakable,
+  colback=OTLight,
+  colframe=OTPurple,
+  fonttitle=\bfseries,
+  title={#1},
+  listing only,
+  listing options={style=ot-algo}
+}
+
+% Helper for file inclusion
+\newcommand{\otinputcode}[3][]{
+  \tcbinputlisting{
+    enhanced,
+    breakable,
+    colback=OTLight,
+    colframe=OTDark,
+    fonttitle=\bfseries,
+    title={#3},
+    listing file={#2},
+    listing only,
+    listing options={style=ot-base, #1}
+  }
+}
+
+\endinput

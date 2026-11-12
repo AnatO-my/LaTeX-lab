@@ -1,0 +1,86 @@
+% ============================================================
+% OT Symbols and Nomenclature Package
+% otsymbols.sty
+% Version: 0.1
+% Purpose: Centralized symbol and acronym management
+% ============================================================
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{otsymbols}[2026/09/10 v0.1 OT Symbols and Nomenclature]
+
+\RequirePackage{ottheme}
+\RequirePackage[utf8]{inputenc}
+\RequirePackage[T1]{fontenc}
+
+% Load glossaries-extra with symbols and abbreviations support
+\RequirePackage[
+  symbols,
+  abbreviations,
+  nonumberlist,
+  nogroupskip
+]{glossaries-extra}
+
+% Load longtable for the nomenclature layout
+\RequirePackage{longtable}
+\RequirePackage{glossary-longextra}
+
+% -----------------------------
+% Global Configuration
+% -----------------------------
+\makeglossaries
+
+% -----------------------------
+% OT Nomenclature Style
+% -----------------------------
+% We define a style with 4 columns: Symbol, Name, Unit, Description
+\newglossarystyle{otnomenclature}{%
+  \setglossarystyle{long-name-desc}%
+  \renewenvironment{theglossary}%
+    {\begin{longtable}{lp{0.15\textwidth}lp{0.45\textwidth}}}%
+    {\end{longtable}}%
+  \renewcommand*{\glossaryheader}{%
+    \toprule
+    \textbf{Symbol} & \textbf{Name} & \textbf{Unit} & \textbf{Description} \\
+    \midrule
+    \endhead
+    \bottomrule
+    \endfoot
+  }%
+  \renewcommand*{\glossentry}[2]{%
+    \glstarget{##1}{\glossentryname{##1}} &
+    \glsuseri{##1} &
+    \glsuserii{##1} &
+    \glossentrydesc{##1} \\
+  }%
+}
+
+% -----------------------------
+% Author Interface
+% -----------------------------
+
+% \otdefinesymbol{key}{symbol}{name}{unit}{description}
+\newcommand{\otdefinesymbol}[5]{%
+  \glsxtrnewsymbol[
+    user1={#3},
+    user2={#4},
+    description={#5}
+  ]{#1}{\ensuremath{#2}}%
+}
+
+% \otdefineacronym{key}{short}{long}{description}
+\newcommand{\otdefineacronym}[4]{%
+  \newabbreviation[
+    description={#4}
+  ]{#1}{#2}{#3}%
+}
+
+% Wrappers for ease of use
+\newcommand{\sym}[1]{\gls{#1}}
+\newcommand{\acr}[1]{\gls{#1}}
+
+% Command to print the nomenclature
+\newcommand{\printotnomenclature}[1][Nomenclature]{%
+  \printunsrtglossary[style=otnomenclature, title={#1}]%
+}
+
+\endinput

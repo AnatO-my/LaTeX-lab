@@ -1,0 +1,47 @@
+\documentclass[tikz,border=2mm]{standalone}
+
+% Load the new OT plots package
+\usepackage{otplots}
+
+\begin{document}
+\begin{tikzpicture}
+    \begin{axis}[
+        ot-plot,
+        title={Mathematical Functions},
+        xlabel={$x$},
+        ylabel={$f(x)$},
+        width=10cm,
+        height=7cm,
+        legend pos=north west,
+        domain=0:10,
+        samples=100
+    ]
+        % Series 1: Blue (default first)
+        \addplot {x^2};
+        \addlegendentry{$x^2$}
+
+        % Series 2: Purple (default second)
+        \addplot {10*x};
+        \addlegendentry{$10x$}
+
+        % Series 3: Orange (default third)
+        \addplot {50*sin(deg(x)) + 50};
+        \addlegendentry{$50\sin(x) + 50$}
+    \end{axis}
+\end{tikzpicture}
+
+\begin{tikzpicture}
+    \begin{axis}[
+        ot-plot,
+        title={Experimental Data},
+        xlabel={Time (s)},
+        ylabel={Measurement},
+        width=10cm,
+        height=7cm
+    ]
+        % Plotting from the CSV file
+        \addplot+ [only marks, mark=x] table [col sep=comma] {plot_data.csv};
+        \addlegendentry{Observed}
+    \end{axis}
+\end{tikzpicture}
+\end{document}

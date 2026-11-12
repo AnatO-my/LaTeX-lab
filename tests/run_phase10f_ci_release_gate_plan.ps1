@@ -48,7 +48,7 @@ try {
         "docs\GITHUB_ACTIONS_CI_CHECKLIST.md",
         "docs\LOCAL_RELEASE_CHECKLIST.md",
         "docs\BRANCH_PROTECTION_CHECKLIST.md",
-        "PHASE10_CHECKPOINT_10F.md",
+        "PHASE CHECKPOINTS/PHASE10_CHECKPOINT_10F.md",
         "tests\run_phase10f_ci_release_gate_plan.ps1",
         "CHANGELOG.md",
         "PROJECT_STATE.md",
@@ -77,7 +77,7 @@ try {
         [pscustomobject]@{ Path = $planPath; Pattern = "Phase 10F creates no new GitHub Actions workflow"; Message = "Phase 10F boundary is missing." },
         [pscustomobject]@{ Path = "docs\GITHUB_ACTIONS_CI_CHECKLIST.md"; Pattern = "docs/CI_RELEASE_GATE_PLAN.md"; Message = "CI checklist does not link the release-gate plan." },
         [pscustomobject]@{ Path = "docs\LOCAL_RELEASE_CHECKLIST.md"; Pattern = "docs/CI_RELEASE_GATE_PLAN.md"; Message = "Local release checklist does not link the release-gate plan." },
-        [pscustomobject]@{ Path = "PHASE10_CHECKPOINT_10F.md"; Pattern = "Checkpoint 10F adds a broader CI release-gate plan"; Message = "Checkpoint 10F summary is missing." },
+        [pscustomobject]@{ Path = "PHASE CHECKPOINTS/PHASE10_CHECKPOINT_10F.md"; Pattern = "Checkpoint 10F adds a broader CI release-gate plan"; Message = "Checkpoint 10F summary is missing." },
         [pscustomobject]@{ Path = "CHANGELOG.md"; Pattern = "### Added (Checkpoint 10F)"; Message = "Changelog does not record Checkpoint 10F." },
         [pscustomobject]@{ Path = "PROJECT_STATE.md"; Pattern = "Checkpoint 10F adds a broader CI release-gate plan"; Message = "Project state does not record Checkpoint 10F." },
         [pscustomobject]@{ Path = "README.md"; Pattern = "docs/CI_RELEASE_GATE_PLAN.md"; Message = "README does not link the CI release-gate plan." }

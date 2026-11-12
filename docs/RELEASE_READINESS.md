@@ -32,7 +32,8 @@ ordinary source commits.
 
 An author kit can be produced later as a GitHub release asset, but it should be
 derived from source rather than maintained as another hand-edited copy.
-Use `docs/AUTHOR_KIT_BUILD_CHECKLIST.md` when preparing the kit.
+Use `scripts/new-author-kit.ps1` and
+`docs/AUTHOR_KIT_BUILD_CHECKLIST.md` when preparing the kit.
 The current local source-derived kit is recorded in `docs/AUTHOR_KIT_AUDIT.md`.
 
 If an author kit is prepared, include:
@@ -50,10 +51,19 @@ If an author kit is prepared, include:
 * `examples/studentnotes/starter_notes.tex`;
 * `examples/otengineering/starter_engineering_notes.tex`;
 * `examples/otscience/starter_science_notes.tex`;
+* `examples/otbook/starter_personal_book.tex`;
+* `templates/otbook-project/` (source only, including dotfiles);
 * `examples/vector-workbook/starter_module.tex`;
 * `examples/vector-workbook/starter_combined_workbook.tex`;
-* `examples/vector-workbook/00_common_setup.tex`; and
-* `tests/run_phase7c_starter_tests.ps1`.
+* `examples/vector-workbook/00_common_setup.tex`;
+* `tests/run_phase7c_starter_tests.ps1`;
+* `tests/run_otbook_tests.ps1`;
+* `tests/powershell_log_helpers.ps1`; and
+* `tests/otbook_class_smoke.tex`.
+
+The original audited kit predates `otbook`. New kits must include the book
+class and starter and pass `tests/run_otbook_tests.ps1` as recorded in
+`docs/AUTHOR_KIT_BUILD_CHECKLIST.md`; the Phase 7 runner covers seven starters.
 
 Do not include:
 
@@ -90,6 +100,7 @@ Before pushing for collaborators:
 * `git status --short --branch` shows only intentional source changes;
 * `git diff --check` passes;
 * `tests/run_phase7c_starter_tests.ps1` passes;
+* the book starter and smoke builds in `docs/STARTER_INVENTORY.md` pass;
 * generated build files are excluded;
 * the README points to the author workflow and contributing guide;
 * issue and pull-request templates are present; and

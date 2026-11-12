@@ -1,0 +1,26 @@
+\chapter{Dynamics: Physical Necessity}
+
+\otbookepigraph{Dynamics is the study of why things move, not just where they go.}{OT Interpretation}
+
+\section{De-construction: Euler-Lagrange}
+The \acr{el} equation is:
+\begin{equation}
+    \frac{d}{dt}\frac{\partial L}{\partial \dot{q}} - \frac{\partial L}{\partial q} = \tau
+\end{equation}
+
+\section{Re-interpretation: The ``Budget'' Analogy}
+\begin{intuitionbox}[The Energy Budget]
+    Nature is lazy. It wants to minimize the ``Action'' (the integral of \(L = T-V\)).
+    Think of \(T\) (Kinetic) as your current cash and \(V\) (Potential) as your debt. The \acr{el} equation is the bookkeeping rule that tells you how much force \(\tau\) you need to apply to move between states while respecting your energy budget.
+\end{intuitionbox}
+
+\section{The Inertia Matrix \sym{mass-matrix}}
+\begin{designrule}[Matrix Invariants]
+    The inertia matrix \sym{mass-matrix} is always symmetric and positive-definite.
+    \textit{Interpretation:} A robot cannot have negative mass, and if you push it, it must move in a way that consumes energy. If your derived \sym{mass-matrix} is not positive-definite, your model is physically impossible.
+\end{designrule}
+
+\section{Mental Re-construction}
+\begin{practice}[The 1-Link Test]
+    Derive the \acr{el} equation for a single pendulum. Identify the \sym{gravity-g} term. Why is it a sine function? (Because gravity acts on the lever arm's vertical displacement).
+\end{practice}

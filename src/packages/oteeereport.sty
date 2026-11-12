@@ -1,0 +1,100 @@
+% ============================================================
+% OT EEE Report: opt-in departmental report formatting
+% ============================================================
+\NeedsTeXFormat{LaTeX2e}[2022-06-01]
+\ProvidesPackage{oteeereport}[2026/09/30 v0.1 OT EEE Report]
+\@ifundefined{chapter}{\PackageError{oteeereport}{A chapter-capable class is required}{Use documentclass[eee-report]{otengineering}.}\endinput}{}
+\RequirePackage{setspace}
+% Permit exact 14pt Computer Modern rather than a 14.4pt size substitution.
+\RequirePackage{fix-cm}
+\RequirePackage{caption}
+\RequirePackage{float}
+\RequirePackage{booktabs}
+\RequirePackage{pgfkeys}
+\RequirePackage[backend=biber,style=ieee,sorting=none]{biblatex}
+% Margin defaults are provisional policy values; configure before document.
+\newcommand{\oteeereportsetup}[1]{\pgfkeys{/oteeereport/.cd,#1}}
+\pgfkeys{/oteeereport/.is family,/oteeereport,
+ left/.store in=\oteee@left,right/.store in=\oteee@right,
+ top/.store in=\oteee@top,bottom/.store in=\oteee@bottom,
+ table-start/.is choice,table-start/0/.code={\def\oteee@ts{0}},
+ table-start/1/.code={\def\oteee@ts{1}},
+ figure-start/.is choice,figure-start/0/.code={\def\oteee@fs{0}},
+ figure-start/1/.code={\def\oteee@fs{1}},
+ plate-start/.is choice,plate-start/0/.code={\def\oteee@ps{0}},
+ plate-start/1/.code={\def\oteee@ps{1}}}
+\oteeereportsetup{left=1.5in,right=1in,top=1in,bottom=1in,
+ table-start=1,figure-start=1,plate-start=1}
+\AtEndPreamble{\geometry{left=\oteee@left,right=\oteee@right,
+ top=\oteee@top,bottom=\oteee@bottom,headheight=18pt}}
+\floatstyle{plain}
+\newfloat{plate}{tbp}{lop}[chapter]
+\floatname{plate}{Plate}
+\newcommand{\listofplates}{\listof{plate}{LIST OF PLATES}}
+% Offset printed ordinals only, retaining positive unique hyperlink counters.
+\renewcommand{\thetable}{\thechapter.\number\numexpr\value{table}+\oteee@ts-1\relax}
+\renewcommand{\thefigure}{\thechapter.\number\numexpr\value{figure}+\oteee@fs-1\relax}
+\renewcommand{\theplate}{\thechapter.\number\numexpr\value{plate}+\oteee@ps-1\relax}
+\DeclareCaptionLabelSeparator{oteeecolon}{\textbf{:}\space}
+\captionsetup{font={normalsize,stretch=1},labelfont=bf,labelsep=oteeecolon}
+\AtBeginEnvironment{table}{\singlespacing}
+\AtBeginEnvironment{table*}{\singlespacing}
+\AtBeginEnvironment{tabular}{\singlespacing}
+\AtBeginEnvironment{tabularx}{\singlespacing}
+\AtBeginEnvironment{longtable}{\singlespacing}
+% extsizes supplies the full size hierarchy; establish exact 14pt body text.
+\let\oteee@normalsize\normalsize
+\renewcommand{\normalsize}{\oteee@normalsize\@setfontsize\normalsize{14}{17}}
+\AtBeginDocument{\normalsize\doublespacing}
+\renewcommand{\bibfont}{\normalfont\normalsize\doublespacing}
+\defbibheading{bibliography}[REFERENCES]{\chapter*{#1}\addcontentsline{toc}{chapter}{#1}}
+\fancypagestyle{oteeefront}{\fancyhf{}\fancyfoot[C]{\thepage}
+ \renewcommand{\headrulewidth}{0pt}\renewcommand{\footrulewidth}{0pt}}
+\fancypagestyle{oteeemain}{\fancyhf{}\fancyhead[C]{\thepage}
+ \renewcommand{\headrulewidth}{0pt}\renewcommand{\footrulewidth}{0pt}}
+\newcommand{\oteee@pagestyle}[1]{\pagestyle{#1}%
+ \expandafter\let\expandafter\ps@plain\csname ps@#1\endcsname}
+\renewcommand{\frontmatter}{\clearpage\@mainmatterfalse
+ \pagenumbering{roman}\oteee@pagestyle{oteeefront}}
+\renewcommand{\mainmatter}{\clearpage\@mainmattertrue
+ \pagenumbering{arabic}\oteee@pagestyle{oteeemain}}
+\renewcommand{\backmatter}{\clearpage\@mainmatterfalse}
+\AtBeginDocument{\oteee@pagestyle{oteeefront}}
+\titleformat{\chapter}[display]{\normalfont\normalsize\bfseries\centering}
+ {\MakeUppercase{\chaptertitlename}\space\thechapter}{1em}{\MakeUppercase}
+\titleformat{\section}{\normalfont\normalsize\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalfont\normalsize\bfseries}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}{\normalfont\normalsize\bfseries}{\thesubsubsection}{1em}{}
+\renewcommand{\contentsname}{TABLE OF CONTENTS}
+\renewcommand{\listtablename}{LIST OF TABLES}
+\renewcommand{\listfigurename}{LIST OF FIGURES}
+\let\oteee@lot\listoftables
+\let\oteee@lof\listoffigures
+\let\oteee@lop\listofplates
+\renewcommand{\listoftables}{\clearpage\phantomsection
+ \addcontentsline{toc}{chapter}{\listtablename}\oteee@lot}
+\renewcommand{\listoffigures}{\clearpage\phantomsection
+ \addcontentsline{toc}{chapter}{\listfigurename}\oteee@lof}
+\renewcommand{\listofplates}{\clearpage\phantomsection
+ \addcontentsline{toc}{chapter}{LIST OF PLATES}\oteee@lop}
+\let\oteee@lchapter\l@chapter
+\renewcommand{\l@chapter}[2]{\oteee@lchapter{\MakeUppercase{#1}}{#2}}
+\newcommand{\reportpreface}[1]{\chapter*{#1}\addcontentsline{toc}{chapter}{#1}}
+\newenvironment{acknowledgements}{\reportpreface{Acknowledgement}}{}
+\newenvironment{abstract}{\reportpreface{Abstract}}{}
+\newcommand{\oteee@abbreviations}{}
+\newcommand{\reportabbreviations}[1]{\gdef\oteee@abbreviations{#1}}
+\newcommand{\listofabbreviations}{\reportpreface{List of Abbreviations}\oteee@abbreviations}
+\newcommand{\reportlists}{\tableofcontents\listoftables\listoffigures
+ \listofplates\listofabbreviations}
+\newcommand{\projectdescription}[1]{\gdef\oteee@description{#1}}
+\newcommand{\projectyear}[1]{\gdef\oteee@year{#1}}
+\newcommand{\matricnumber}[1]{\gdef\oteee@matric{#1}}
+\projectdescription{}\projectyear{\the\year}\matricnumber{}
+\renewcommand{\maketitle}{\hypersetup{pageanchor=false}\begin{titlepage}\thispagestyle{empty}
+ \centering\normalsize\vspace*{1cm}
+ {\MakeUppercase{\@title}\par}\vfill
+ {\fontsize{12}{14.5}\selectfont\def\and{\par}\@author\par\oteee@matric\par}\vfill
+ {\normalsize\MakeUppercase{\oteee@description}\par}\vfill
+ {\normalsize\oteee@year\par}\end{titlepage}\hypersetup{pageanchor=true}}
+\endinput

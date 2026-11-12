@@ -44,7 +44,7 @@ try {
     $templatePath = "docs\RELEASE_NOTES_TEMPLATE.md"
     $requiredFiles = @(
         $templatePath,
-        "PHASE10_CHECKPOINT_10B.md",
+        "PHASE CHECKPOINTS/PHASE10_CHECKPOINT_10B.md",
         "tests\run_phase10b_release_notes_template.ps1",
         "CHANGELOG.md",
         "PROJECT_STATE.md",
@@ -96,7 +96,7 @@ try {
     }
 
     $requiredRecordMarkers = @(
-        [pscustomobject]@{ Path = "PHASE10_CHECKPOINT_10B.md"; Pattern = "Checkpoint 10B adds the first release-notes template"; Message = "Checkpoint 10B summary is missing." },
+        [pscustomobject]@{ Path = "PHASE CHECKPOINTS/PHASE10_CHECKPOINT_10B.md"; Pattern = "Checkpoint 10B adds the first release-notes template"; Message = "Checkpoint 10B summary is missing." },
         [pscustomobject]@{ Path = "CHANGELOG.md"; Pattern = "### Added (Checkpoint 10B)"; Message = "Changelog does not record Checkpoint 10B." },
         [pscustomobject]@{ Path = "PROJECT_STATE.md"; Pattern = "Checkpoint 10B adds the first release-notes template"; Message = "Project state does not record Checkpoint 10B." },
         [pscustomobject]@{ Path = "README.md"; Pattern = "docs/RELEASE_NOTES_TEMPLATE.md"; Message = "README does not link the release notes template." }

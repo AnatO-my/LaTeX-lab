@@ -1,0 +1,41 @@
+\documentclass[eee-report]{otengineering}
+% Later departmental changes can use table-start=0 (and figure/plate-start).
+% \oteeereportsetup{left=1.5in,right=1in,table-start=0}
+\title{Design and Implementation of a Monitoring System}
+\author{John Doe \and Jane Doe}
+\matricnumber{EEE/2023/001 and EEE/2023/002}
+\projectdescription{A project report submitted to the Department of
+ Electronic and Electrical Engineering in partial fulfilment of the
+ requirements for the award of the Bachelor of Science degree}
+\projectyear{2026}
+\addbibresource{eee_report_references.bib}
+\reportabbreviations{\begin{description}\item[ADC] Analogue-to-digital converter\end{description}}
+\begin{document}
+\maketitle
+\frontmatter
+\begin{acknowledgements}We thank our supervisors and colleagues.\end{acknowledgements}
+\reportlists
+\begin{abstract}This report demonstrates the departmental interface.\end{abstract}
+\mainmatter
+\chapter{Introduction}
+\section{Background to the Study}
+The design follows standard engineering practice~\cite{sample}.
+\begin{quote}Long quotations retain the report's double spacing.\end{quote}
+\begin{table}[htbp]\centering
+\caption{Measured performance}\label{tab:performance}
+\begin{tabular}{ll}\toprule Parameter & Value\\\midrule
+Voltage & 5 V\\ Current & 250 mA\\\bottomrule\end{tabular}
+\end{table}
+\begin{figure}[htbp]\centering\fbox{System diagram}
+\caption{System overview}\label{fig:overview}\end{figure}
+\begin{plate}[htbp]\centering\fbox{Prototype photograph}
+\caption{Completed prototype}\label{plate:prototype}\end{plate}
+\chapter{Evaluation}
+Chapter titles remain freely chosen. See Table~\ref{tab:performance}.
+\begin{table}[htbp]\centering\caption{Second chapter measurement}
+\begin{tabular}{ll}\toprule Test & Result\\\midrule A & Pass\\\bottomrule\end{tabular}\end{table}
+\printbibliography
+\appendix
+\chapter{Supporting Measurements}
+Appendices retain chapter-based numbering.
+\end{document}

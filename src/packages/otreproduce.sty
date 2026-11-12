@@ -1,0 +1,38 @@
+% ============================================================
+% OT Reproducible Documents Package
+% otreproduce.sty
+% Version: 0.2
+% Purpose: Integration with Ot-Calculator for deterministic math and data
+% ============================================================
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{otreproduce}[2026/09/11 v0.2 OT Reproducible Docs]
+
+\RequirePackage{ottheme}
+\RequirePackage{amsmath}
+\RequirePackage{tcolorbox}
+
+% -----------------------------
+% Ot-Calculator Integration
+% -----------------------------
+
+% Load generated snippets
+\newcommand{\otloadsnippets}[1]{%
+  \IfFileExists{#1}{%
+    \input{#1}%
+  }{%
+    \PackageWarning{otreproduce}{Generated math snippets file not found: #1}%
+  }%
+}
+
+% Display a computed result.
+% This version handles both text and math snippets gracefully.
+\newcommand{\otcompute}[1]{%
+  \expandafter\ifx\csname OTMathGenerated@#1\endcsname\relax
+    \textcolor{OTRed}{\texttt{[Missing: #1]}}%
+  \else
+    \csname OTMathGenerated@#1\endcsname%
+  \fi
+}
+
+\endinput
