@@ -38,13 +38,18 @@ the pull request.
 
 ## 3. Loading behaviour
 
-- [ ] **Options use `l3keys`.** Define keys with `\keys_define:nn` under a
-      family named after the package (for example `{otfoo/setup}`).
-      - *Setup commands* apply them with `\keys_set:nn`, as `ot-projects`
-        does in `\OTProjectSetup`.
-      - *Package options* (`\usepackage[...]{otfoo}`) are processed with
-        `\ProcessKeyOptions` (LaTeX 2022-06-01 or later). No current OT
-        package does this yet, so there is no in-repo example to copy.
+- [ ] **Options use `l3keys`**, defined with `\keys_define:nn`. Use two
+      families:
+      - *Package options* (`\usepackage[...]{otfoo}`) go in the family named
+        exactly after the package, `{otfoo}`, and are processed with a plain
+        `\ProcessKeyOptions` (LaTeX 2022-06-01 or later). Without an
+        argument it reads only that family; keys defined elsewhere (for
+        example `{otfoo/setup}`) are not seen unless you pass the family
+        explicitly, `\ProcessKeyOptions[otfoo/setup]`. No current OT package
+        processes package options this way yet, so there is no in-repo
+        example to copy.
+      - *Setup commands* use a separate `{otfoo/setup}` family and apply it
+        with `\keys_set:nn`, as `ot-projects` does in `\OTProjectSetup`.
 
       Do not add new `kvoptions` or `pgfkeys` option interfaces. Existing packages keep
       theirs until there is a reason to migrate. This convention comes before
