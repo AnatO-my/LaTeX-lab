@@ -1,0 +1,11 @@
+\documentclass{article}
+
+% Refactor Phase C: \otenabletagging must report, rather than silently
+% ignore, the cases in which it cannot tag the PDF.
+\usepackage{otaccess}
+\otenabletagging
+
+\begin{document}
+\typeout{OTREFACTOR-C:OTACCESS-MESSAGE}
+Tagging request under pdfLaTeX.
+\end{document}

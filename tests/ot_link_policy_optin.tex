@@ -1,0 +1,19 @@
+\documentclass{article}
+
+% Plan decision 7 migration path: a standalone document that relied on the OT
+% link styling arriving through a capability package restores it by loading
+% ottheme explicitly.
+\usepackage{ottheme}
+\usepackage{otnotation}
+
+\makeatletter
+\AtBeginDocument{%
+  \@ifpackageloaded{hyperref}{}{%
+    \PackageError{ot-link-policy-optin}{ottheme did not load hyperref}{}}}
+\makeatother
+
+\begin{document}
+\typeout{OTREFACTOR-D7:LINK-POLICY-OPTIN}
+\section{Target}\label{sec:target}
+See Section~\ref{sec:target} and \url{https://example.org}.
+\end{document}

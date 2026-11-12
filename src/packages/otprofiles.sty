@@ -1,0 +1,140 @@
+% ============================================================
+% OT Build Profiles Package
+% otprofiles.sty
+% Version: 0.3
+% Purpose: Unified multi-target output management (Student, Instructor, Print, Draft)
+% ============================================================
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{otprofiles}[2026/09/11 v0.3 OT Build Profiles]
+
+\RequirePackage{kvoptions}
+\RequirePackage{etoolbox}
+\RequirePackage{environ}
+\RequirePackage{xcolor}
+
+\RequirePackage{iftex}
+
+% -----------------------------
+% Engine-Specific Typography
+% -----------------------------
+\ifluatex
+  \RequirePackage{fontspec}
+  % Load system fonts if possible, or fallback to Latin Modern OpenType
+  \setmainfont{Latin Modern Roman}
+  \setsansfont{Latin Modern Sans}
+  \setmonofont{Latin Modern Mono}
+\else
+  \RequirePackage[T1]{fontenc}
+  \RequirePackage[utf8]{inputenc}
+\fi
+
+\SetupKeyvalOptions{
+  family=OTPRF,
+  prefix=OTPRF@
+}
+
+% --- Options ---
+\DeclareStringOption[full]{mode}
+\DeclareBoolOption[false]{print}
+\DeclareBoolOption[false]{watermark}
+
+\ProcessKeyvalOptions*
+
+% -----------------------------
+% Internal Flags and Public Macros
+% -----------------------------
+\newif\ifotmode@full
+\newif\ifotmode@student
+\newif\ifotmode@instructor
+\newif\ifotmode@draft
+
+\ifdefstring{\OTPRF@mode}{full}{\otmode@fulltrue}{}
+\ifdefstring{\OTPRF@mode}{student}{\otmode@studenttrue}{}
+\ifdefstring{\OTPRF@mode}{instructor}{\otmode@instructortrue}{}
+\ifdefstring{\OTPRF@mode}{draft}{\otmode@drafttrue}{}
+
+% Default to full if none set
+\ifotmode@full\else
+  \ifotmode@student\else
+    \ifotmode@instructor\else
+      \ifotmode@draft\else
+        \otmode@fulltrue
+      \fi
+    \fi
+  \fi
+\fi
+
+% Expose current mode safely
+\newcommand{\otcurrentmode}{\OTPRF@mode}
+
+% -----------------------------
+% Conditional Content Helpers
+% -----------------------------
+
+% \otifmode{mode-list}{content}
+\newcommand{\otifmode}[2]{%
+  \def\ot@temp@match{0}%
+  \forcsvlist{\ot@check@mode}{#1}%
+  \ifnum\ot@temp@match=1\relax #2\fi
+}
+\newcommand{\ot@check@mode}[1]{%
+  \ifdefstring{\OTPRF@mode}{#1}{\def\ot@temp@match{1}}{}%
+}
+
+% \otifprint{true-part}{false-part}
+\newcommand{\otifprint}[2]{%
+  \ifOTPRF@print #1\else #2\fi
+}
+
+% -----------------------------
+% Environment Hiding
+% -----------------------------
+
+% \othideenvironment{envname}
+\newcommand{\othideenvironment}[1]{%
+  \AtBeginDocument{%
+    \ifcsdef{#1}{%
+       \RenewEnviron{#1}{}%
+    }{}%
+  }%
+}
+
+% -----------------------------
+% Print Mode Adjustments
+% -----------------------------
+\ifOTPRF@print
+  \AtBeginDocument{
+    \definecolor{OTBlue}{gray}{0}
+    \definecolor{OTPurple}{gray}{0.2}
+    \definecolor{OTGreen}{gray}{0.3}
+    \definecolor{OTTeal}{gray}{0.25}
+    \definecolor{OTOrange}{gray}{0.15}
+    \definecolor{OTRed}{gray}{0.1}
+    \definecolor{OTDark}{gray}{0}
+    \definecolor{OTMuted}{gray}{0.5}
+    \@ifpackageloaded{hyperref}{
+      \hypersetup{colorlinks=true, linkcolor=black, citecolor=black, urlcolor=black}
+    }{}
+  }
+\fi
+
+% -----------------------------
+% Watermark Integration
+% -----------------------------
+\ifOTPRF@watermark
+  \RequirePackage{draftwatermark}
+  \SetWatermarkText{DRAFT}
+  \SetWatermarkScale{1.2}
+  \SetWatermarkColor[gray]{0.9}
+\fi
+
+% -----------------------------
+% Mode-Specific Defaults
+% -----------------------------
+
+\ifotmode@student
+  \othideenvironment{workedsolution}
+\fi
+
+\endinput

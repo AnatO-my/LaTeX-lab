@@ -1,4 +1,9 @@
 \documentclass{otbook}
+% Package loading: this class loads its companion bundle
+% (otnotation, otmath, otbib, otindex, ...) for you.
+% For a lean build, use \documentclass[minimal]{otbook} and load only
+% what you need, e.g. \usepackage{otphysics}. The semantic boxes
+% (definitionbox, formulabox, ...) are available either way.
 
 \typeout{OTBOOK-STARTER:PERSONAL-BOOK}
 
@@ -11,12 +16,21 @@
 \begin{document}
 
 \frontmatter
-\makeotbooktitle
+\hypersetup{pageanchor=false}
+\makeotbooktitle%
+% \makeotbookdedication{For the people who made this book possible.}
+\hypersetup{pageanchor=true}
 \tableofcontents
 
-\mainmatter
+\mainmatter%
 
 \chapter{Foundations}
+
+\otbookepigraph{Add a short quotation that frames the chapter.}{Attribution}
+
+\begin{chapteroverview}
+  Explain the question, boundary, or thread that this chapter will develop.
+\end{chapteroverview}
 
 \begin{chaptergoals}
   \item State the central idea of the chapter.
@@ -50,7 +64,7 @@
   Add the personal note, caveat, or connection that makes this chapter yours.
 \end{reflectionbox}
 
-\backmatter
+\backmatter%
 
 \chapter{Reference Notes}
 

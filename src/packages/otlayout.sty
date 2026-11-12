@@ -1,0 +1,74 @@
+% ============================================================
+% OT Layout Package
+% otlayout.sty
+% Version: 0.1
+% Purpose: Opt-in OT page layout defaults and page-furniture helpers
+% ============================================================
+%
+% Owns the layout half of the former otcore.sty: default page geometry, list
+% spacing, running heads and section-heading styles. otcore.sty loads this
+% package, so existing classes are unchanged.
+%
+% Geometry contract:
+%   * If geometry is NOT yet loaded, this package loads it with margin=1in
+%     (the established OT default).
+%   * If geometry IS already loaded, its settings are left untouched. A class
+%     that needs different page geometry therefore loads geometry with its
+%     own options before otlayout/otcore, or adjusts it afterwards with
+%     \geometry{...}. Either way there is no option clash.
+
+\NeedsTeXFormat{LaTeX2e}[2022-06-01]
+\ProvidesPackage{otlayout}[2026/11/12 v0.1 OT Layout Package]
+
+\RequirePackage{otcolors}
+
+% -----------------------------
+% Page geometry
+% -----------------------------
+\@ifpackageloaded{geometry}
+  {\PackageInfo{otlayout}{geometry already loaded; keeping its settings}}
+  {\RequirePackage[margin=1in]{geometry}}
+
+\RequirePackage{titlesec}
+\RequirePackage{fancyhdr}
+\RequirePackage{enumitem}
+
+% -----------------------------
+% Shared list defaults
+% -----------------------------
+\newcommand{\otcorelistdefaults}{
+  \setlist[itemize]{topsep=3pt,itemsep=2pt}
+  \setlist[enumerate]{topsep=3pt,itemsep=2pt}
+}
+
+% -----------------------------
+% Shared page furniture
+% -----------------------------
+\newcommand{\otcorepagestyle}[3]{
+  \setlength{\headheight}{15pt}
+  \pagestyle{fancy}
+  \fancyhf{}
+  \lhead{#1}
+  \rhead{#2}
+  \cfoot{\thepage}
+  \renewcommand{\headrulewidth}{#3}
+}
+
+% -----------------------------
+% Shared section styling
+% -----------------------------
+\newcommand{\otcoresectionstyles}[2]{
+  \titleformat{\section}
+  {\Large\bfseries\color{OTDark}}
+  {\thesection}{#1}{}
+
+  \titleformat{\subsection}
+  {\large\bfseries\color{OTBlue}}
+  {\thesubsection}{#1}{}
+
+  \titleformat{\subsubsection}
+  {\normalsize\bfseries\color{#2}}
+  {\thesubsubsection}{#1}{}
+}
+
+\endinput

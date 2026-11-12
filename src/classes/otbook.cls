@@ -1,24 +1,49 @@
 % ============================================================
 % OT Personal Book Class
 % otbook.cls
-% Version: 0.1
+% Version: 0.3
+%
+% Composition (docs/architecture/PLAN.md Phase D):
+%   base class   book (11pt, A4, one-sided)
+%   foundations  otcore (facade: otcolors + otlayout + table/date packages),
+%                ottheme (palette + OT link policy)
+%   preset       otscience-theme (shared with otscience), plus book chapter
+%                headings and margin geometry set here
+%   boxes        otboxes primitives, otsciboxes semantic family, book boxes
+%   bundle       the otscience bundle plus otcircuits, otplots, otcode,
+%                otsymbols, otprofiles, otbib, otindex, otaccess (skipped with
+%                the `minimal' option)
 % ============================================================
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{otbook}[2026/08/20 v0.1 OT Personal Book Class]
+\ProvidesClass{otbook}[2026/11/11 v0.3 OT Personal Book Class]
 
 % -----------------------------
 % Base class
 % -----------------------------
+\newif\ifotbook@chaptertheorems\otbook@chaptertheoremsfalse
+\DeclareOption{chaptertheorems}{\otbook@chaptertheoremstrue}
+% minimal: skip the companion-package bundle loaded at the end of the class.
+\newif\ifotbook@minimal\otbook@minimalfalse
+\DeclareOption{minimal}{\otbook@minimaltrue}
+
 \PassOptionsToClass{11pt,a4paper,oneside}{book}
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{book}}
 \ProcessOptions\relax
 \LoadClass{book}
 
+\ifotbook@chaptertheorems
+  \PassOptionsToPackage{theorems=chapter}{otmath}
+\fi
+
 % -----------------------------
 % Core packages
 % -----------------------------
 \RequirePackage{otcore}
+\geometry{
+  marginparwidth=1.8cm,
+  marginparsep=0.4cm
+}
 \RequirePackage[T1]{fontenc}
 \RequirePackage[utf8]{inputenc}
 \RequirePackage{lmodern}
@@ -43,28 +68,22 @@
 \RequirePackage{needspace}
 \RequirePackage{ottheme}
 \RequirePackage{otboxes}
+\RequirePackage{otsciboxes}
 \RequirePackage{cleveref}
 
 \tcbuselibrary{theorems,listings}
 
 % -----------------------------
-% Global settings
+% Visual preset
 % -----------------------------
-\sisetup{
-  per-mode=symbol,
-  separate-uncertainty=true,
-  detect-all=true
-}
-
-\otcorelistdefaults
+% otscience-theme supplies quantity formatting, list spacing and heading
+% colours shared with otscience.
+\RequirePackage{otscience-theme}
 
 % -----------------------------
 % Page style
 % -----------------------------
-\otcorepagestyle
-  {\textcolor{OTMuted}{OT Book}}
-  {\textcolor{OTMuted}{\leftmark}}
-  {0.3pt}
+\otsciencepagestyle{OT Book}
 
 % -----------------------------
 % Chapter and section style
@@ -77,7 +96,7 @@
 
 \titlespacing*{\chapter}{0pt}{-10pt}{2.5em}
 
-\otcoresectionstyles{0.75em}{OTPurple}
+% Section, subsection and subsubsection styles come from otscience-theme.
 
 % -----------------------------
 % Book metadata and title page
@@ -113,87 +132,109 @@
     {\normalsize\color{OTMuted}\@date\par}
   \end{titlepage}
 }
+
+\newcommand{\makeotbookdedication}[1]{
+  \thispagestyle{empty}
+  \vspace*{0.38\textheight}
+  \begin{flushright}
+    \itshape #1
+  \end{flushright}
+  \clearpage
+}
+
+\newcommand{\otbookepigraph}[2]{
+  \par\medskip
+  \noindent\hfill
+  \begin{minipage}{0.68\textwidth}
+    \itshape #1\par
+    \vspace{0.5em}
+    \raggedleft --- #2
+  \end{minipage}\par\medskip
+}
 \makeatother
 
 % -----------------------------
 % Standard OT book boxes
 % -----------------------------
-\newenvironment{definitionbox}[1][Definition]
-{\begin{otscibox}[#1]{OTBlue}}{\end{otscibox}}
-
-\newenvironment{definitionboxnosplit}[1][Definition]
-{\begin{otsciboxnosplit}[#1]{OTBlue}}{\end{otsciboxnosplit}}
-
-\newenvironment{theorembox}[1][Theorem]
-{\begin{otscibox}[#1]{OTPurple}}{\end{otscibox}}
-
-\newenvironment{theoremboxnosplit}[1][Theorem]
-{\begin{otsciboxnosplit}[#1]{OTPurple}}{\end{otsciboxnosplit}}
-
-\newenvironment{lawbox}[1][Law / Principle]
-{\begin{otscibox}[#1]{OTGreen}}{\end{otscibox}}
-
-\newenvironment{lawboxnosplit}[1][Law / Principle]
-{\begin{otsciboxnosplit}[#1]{OTGreen}}{\end{otsciboxnosplit}}
-
-\newenvironment{formulabox}[1][Formula]
-{\begin{otscibox}[{#1}]{OTTeal}}{\end{otscibox}}
-
-\newenvironment{formulaboxnosplit}[1][Formula]
-{\begin{otsciboxnosplit}[{#1}]{OTTeal}}{\end{otsciboxnosplit}}
-
-\newenvironment{derivationbox}[1][Derivation]
-{\begin{otscibox}[#1]{OTOrange}}{\end{otscibox}}
-
-\newenvironment{derivationboxnosplit}[1][Derivation]
-{\begin{otsciboxnosplit}[#1]{OTOrange}}{\end{otsciboxnosplit}}
-
-\newenvironment{examplebox}[1][Worked Example]
-{\begin{otscibox}[#1]{OTGreen}}{\end{otscibox}}
-
-\newenvironment{exampleboxnosplit}[1][Worked Example]
-{\begin{otsciboxnosplit}[#1]{OTGreen}}{\end{otsciboxnosplit}}
-
-\newenvironment{warningbox}[1][Common Mistake]
-{\begin{otscibox}[#1]{OTRed}}{\end{otscibox}}
-
-\newenvironment{warningboxnosplit}[1][Common Mistake]
-{\begin{otsciboxnosplit}[#1]{OTRed}}{\end{otsciboxnosplit}}
-
-\newenvironment{intuitionbox}[1][Intuition]
-{\begin{otscibox}[#1]{OTYellow}}{\end{otscibox}}
-
-\newenvironment{intuitionboxnosplit}[1][Intuition]
-{\begin{otsciboxnosplit}[#1]{OTYellow}}{\end{otsciboxnosplit}}
-
-\newenvironment{summarybox}[1][Key Summary]
-{\begin{otscibox}[{#1}]{OTDark}}{\end{otscibox}}
-
-\newenvironment{summaryboxnosplit}[1][Key Summary]
-{\begin{otsciboxnosplit}[{#1}]{OTDark}}{\end{otsciboxnosplit}}
-
-\newenvironment{experimentbox}[1][Experiment / Observation]
-{\begin{otscibox}[{#1}]{OTPurple}}{\end{otscibox}}
-
-\newenvironment{experimentboxnosplit}[1][Experiment / Observation]
-{\begin{otsciboxnosplit}[{#1}]{OTPurple}}{\end{otsciboxnosplit}}
+% The shared semantic science boxes come from otsciboxes.sty (loaded above).
+% The boxes below are specific to otbook.
 
 \newenvironment{reflectionbox}[1][Reflection]
 {\begin{otscibox}[#1]{OTOrange}}{\end{otscibox}}
 
 \newenvironment{chaptergoals}[1][Chapter Goals]
-{\begin{otsciboxnosplit}[#1]{OTBlue}\begin{itemize}}
-{\end{itemize}\end{otsciboxnosplit}}
+{\begin{otscibox}[#1]{OTBlue}\begin{itemize}}
+{\end{itemize}\end{otscibox}}
+
+\newenvironment{chapteroverview}[1][Chapter Overview]
+{\begin{otscibox}[#1]{OTTeal}}
+{\end{otscibox}}
+
+\makeatletter
+\newcounter{otdesignrule}
+\ifotbook@chaptertheorems
+  \@addtoreset{otdesignrule}{chapter}
+  \renewcommand{\theotdesignrule}{\thechapter.\arabic{otdesignrule}}
+\else
+  \@addtoreset{otdesignrule}{section}
+  \renewcommand{\theotdesignrule}{\thesection.\arabic{otdesignrule}}
+\fi
+\makeatother
+
+\newenvironment{designrule}[1][Design Rule]
+{\refstepcounter{otdesignrule}\begin{otscibox}[#1\ \theotdesignrule]{OTPurple}}
+{\end{otscibox}}
+
+\newenvironment{designrulenosplit}[1][Design Rule]
+{\refstepcounter{otdesignrule}\begin{otsciboxnosplit}[#1\ \theotdesignrule]{OTPurple}}
+{\end{otsciboxnosplit}}
 
 % -----------------------------
-% Load ecosystem modules if available
+% Margin notes
 % -----------------------------
-\IfFileExists{otnotation.sty}{\RequirePackage{otnotation}}{}
-\IfFileExists{otmath.sty}{\RequirePackage{otmath}}{}
-\IfFileExists{ottensors.sty}{\RequirePackage{ottensors}}{}
-\IfFileExists{otphysics.sty}{\RequirePackage{otphysics}}{}
-\IfFileExists{otcoordinates.sty}{\RequirePackage{otcoordinates}}{}
-\IfFileExists{otpractice.sty}{\RequirePackage{otpractice}}{}
-\IfFileExists{otfigures.sty}{\RequirePackage{otfigures}}{}
+\RequirePackage{marginnote}
+
+\newcommand{\otmarginnote}[2]{%
+  \marginpar{%
+    \raggedright
+    \footnotesize
+    \color{#1}%
+    #2%
+  }%
+}
+
+\newcommand{\otremark}[1]{\otmarginnote{OTBlue}{\textbf{Note:}\\ #1}}
+\newcommand{\otcaveat}[1]{\otmarginnote{OTOrange}{\textbf{Caveat:}\\ #1}}
+\newcommand{\otsideinfo}[1]{\otmarginnote{OTDark}{\textbf{Info:}\\ #1}}
+\newcommand{\otpracticehint}[1]{\otmarginnote{OTTeal}{\textbf{Hint:}\\ #1}}
+
+% -----------------------------
+% Companion-package bundle
+% -----------------------------
+% These companions ship with the class in the LaTeX-lab author kit and are
+% loaded unconditionally, so every installation yields the same commands.
+% A missing companion now stops with a clear "File not found" error
+% instead of silently removing its commands. The class option `minimal'
+% skips this bundle; load the companions you need with \usepackage.
+% (\makeatletter is needed because earlier blocks in this class end with
+% \makeatother.)
+\makeatletter
+\ifotbook@minimal\else
+  \RequirePackage{otnotation}
+  \RequirePackage{otmath}
+  \RequirePackage{ottensors}
+  \RequirePackage{otphysics}
+  \RequirePackage{otcoordinates}
+  \RequirePackage{otpractice}
+  \RequirePackage{otfigures}
+  \RequirePackage{otcircuits}
+  \RequirePackage{otplots}
+  \RequirePackage{otcode}
+  \RequirePackage{otsymbols}
+  \RequirePackage{otprofiles}
+  \RequirePackage{otbib}
+  \RequirePackage{otindex}
+  \RequirePackage{otaccess}
+\fi
 
 \endinput

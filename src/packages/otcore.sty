@@ -1,60 +1,27 @@
 % ============================================================
 % OT Core Package
 % otcore.sty
-% Version: 0.2
-% Purpose: Shared OT class setup and page furniture helpers
+% Version: 0.3
+% Purpose: Compatibility facade for shared OT class setup
 % ============================================================
+%
+% Since v0.3 otcore is a facade (docs/architecture/PLAN.md Phase D). Its former contents now
+% live in:
+%   * otcolors.sty - colour tokens (previously an unstated dependency: the
+%     section styles used OTDark/OTBlue without loading them);
+%   * otlayout.sty - geometry default, list defaults, running heads and
+%     section styles (\otcorelistdefaults, \otcorepagestyle,
+%     \otcoresectionstyles keep their names and behaviour).
+% The remaining table and date packages are loaded here as before. Existing
+% classes and documents see the same packages and commands.
 
 \NeedsTeXFormat{LaTeX2e}[2022-06-01]
-\ProvidesPackage{otcore}[2026/08/12 v0.2 OT Shared Core Package]
+\ProvidesPackage{otcore}[2026/11/12 v0.3 OT Shared Core Package]
 
-% -----------------------------
-% Shared class setup packages
-% -----------------------------
-\RequirePackage[margin=1in]{geometry}
-\RequirePackage{titlesec}
-\RequirePackage{fancyhdr}
-\RequirePackage{enumitem}
+\RequirePackage{otcolors}
+\RequirePackage{otlayout}
 \RequirePackage{tabularx}
 \RequirePackage{array}
 \RequirePackage{datetime2}
-
-% -----------------------------
-% Shared list defaults
-% -----------------------------
-\newcommand{\otcorelistdefaults}{
-  \setlist[itemize]{topsep=3pt,itemsep=2pt}
-  \setlist[enumerate]{topsep=3pt,itemsep=2pt}
-}
-
-% -----------------------------
-% Shared page furniture
-% -----------------------------
-\newcommand{\otcorepagestyle}[3]{
-  \setlength{\headheight}{15pt}
-  \pagestyle{fancy}
-  \fancyhf{}
-  \lhead{#1}
-  \rhead{#2}
-  \cfoot{\thepage}
-  \renewcommand{\headrulewidth}{#3}
-}
-
-% -----------------------------
-% Shared section styling
-% -----------------------------
-\newcommand{\otcoresectionstyles}[2]{
-  \titleformat{\section}
-  {\Large\bfseries\color{OTDark}}
-  {\thesection}{#1}{}
-
-  \titleformat{\subsection}
-  {\large\bfseries\color{OTBlue}}
-  {\thesubsection}{#1}{}
-
-  \titleformat{\subsubsection}
-  {\normalsize\bfseries\color{#2}}
-  {\thesubsubsection}{#1}{}
-}
 
 \endinput

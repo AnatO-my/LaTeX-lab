@@ -1,0 +1,42 @@
+\chapter{Rigid Motion: Preserving the Invariant}
+
+\otbookepigraph{Rotations are just a way of looking at the same world from a different angle without changing its distances.}{OT Interpretation}
+
+\begin{chapteroverview}
+    We de-construct the rotation matrix from a box of numbers into a structural guardian of geometry.
+\end{chapteroverview}
+
+\section{The Formal De-construction}
+A rotation matrix \sym{rot-matrix} in \otindex{SO(3)} is defined such that:
+\begin{equation}
+    \sym{rot-matrix}^T \sym{rot-matrix} = I, \quad \det(\sym{rot-matrix}) = 1
+\end{equation}
+
+\section{The Re-interpretation: The ``Ruler'' Analogy}
+\begin{intuitionbox}[The Rigid Ruler]
+    Think of a rigid ruler. If you rotate it, the length marked on it does not change. Mathematically, the inner product \(\mathbf{x}^T \mathbf{y}\) must be invariant.
+    \begin{equation}
+        (\sym{rot-matrix}\mathbf{x})^T (\sym{rot-matrix}\mathbf{y}) = \mathbf{x}^T (\sym{rot-matrix}^T \sym{rot-matrix}) \mathbf{y} = \mathbf{x}^T \mathbf{y}
+    \end{equation}
+    This is \textit{why} the transpose must be the inverse. The geometry \textit{forces} the matrix to have this property.
+\end{intuitionbox}
+
+\section{Mental Re-construction}
+\begin{practice}[Derivation Anchor]
+    Close the book. Draw two frames \(o_0\) and \(o_1\). Write the coordinates of a unit vector \(\hat{i}_1\) as seen from frame 0. Why are the columns of \sym{rot-matrix} actually the unit axes of the new frame?
+\end{practice}
+
+\chapter{Forward Kinematics: The Geometric Chain}
+
+\section{De-construction: The DH Convention}
+The \acr{dh} convention uses four parameters (\(a, \alpha, d, \theta\)) to describe the transformation between links.
+
+\section{Re-interpretation: The ``Joint-to-Joint'' Handshake}
+\begin{designrule}[Chain of Command]
+    Don't see forward kinematics as a single massive matrix. See it as a series of handshakes. Frame \(i\) says to Frame \(i+1\): ``Move along my common normal, then rotate about your own axis.''
+\end{designrule}
+
+\section{Stress-test}
+\begin{reflectionbox}
+    What happens if two joint axes are parallel? Does the \acr{dh} convention's unique common normal still exist? This is where the model is most likely to confuse the beginner.
+\end{reflectionbox}

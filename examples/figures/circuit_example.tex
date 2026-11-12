@@ -1,0 +1,37 @@
+\documentclass[tikz,border=2mm]{standalone}
+
+% Load the new OT circuits package
+\usepackage{otcircuits}
+
+\begin{document}
+\begin{otcircuit}[scale=1.2]
+    % Standard RC Circuit in OTBlue (default)
+    \draw (0,0) to[V=$V_s$] (0,3)
+          to[R=$R$, -*] (3,3)
+          to[C=$C$] (3,0)
+          to[short] (0,0);
+
+    % Ground in OTGreen (safe)
+    \draw (3,0) to[short, -*] (3,-0.5) node[ground, ot-safe]{};
+
+    % Differentiation: Highlighting a specific path or component
+    % Feedback loop example with Op-Amp
+    \begin{scope}[xshift=6cm]
+        \node[op amp] (oa) at (0,0) {};
+
+        % Inputs in OTPurple (signal)
+        \draw (oa.-) to[short, -*] ++(-1,0) node[left, ot-signal]{$V_{in}$};
+        \draw (oa.+) to[short] ++(-0.5,0) node[ground, ot-safe]{};
+
+        % Feedback path in OTOrange (highlight)
+        \draw (oa.-) to[short, *-] ++(0,1.5) coordinate(fb)
+              to[R=$R_f$, ot-highlight] (fb -| oa.out)
+              to[short, -*] (oa.out);
+
+        \draw (oa.out) to[short, -o] ++(1,0) node[right]{$V_{out}$};
+
+        % Label in OTDark (explicit)
+        \node[color=OTDark] at (0,-1.5) {Inverting Amplifier Schematic};
+    \end{scope}
+\end{otcircuit}
+\end{document}

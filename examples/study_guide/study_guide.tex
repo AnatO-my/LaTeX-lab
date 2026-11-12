@@ -1,0 +1,50 @@
+\documentclass{otbook}
+
+% Load advanced superpowers
+\usepackage{otbib}
+\usepackage{otindex}
+\usepackage{otsymbols}
+\usepackage{otcode}
+\usepackage{otprofiles}
+
+% Configure Bibliography
+\otbibliography{references.bib}
+
+% Define key symbols from Spong to demonstrate collision handling
+\otdefinesymbol{joint-angle}{\theta}{Joint Angle}{\unit{rad}}{The rotation of a robotic joint, typically the variable of interest in kinematics.}
+\otdefinesymbol{temperature}{\theta}{Temperature}{\unit{^\circ C}}{Thermal state of a motor, sometimes using the same Greek letter as angles.}
+
+\title{Navigating Robot Dynamics and Control}
+\booksubtitle{A Study Guide based on the OT Personal Learning System}
+\author{O. T. Student}
+\date{\today}
+
+% --- Acronym Definitions ---
+\otdefineacronym{plds}{PLDS}{Personal Learning Development System}{The core methodology for structured technical learning.}
+
+\begin{document}
+
+\frontmatter
+\makeotbooktitle
+
+\chapter{Preface}
+This guide provides a structured approach to mastering dense technical texts like \textcite{spong2020}. It integrates the principles of the \textcite{plds2026} to ensure that each chapter read becomes a durable part of your technical capability.
+
+\tableofcontents
+
+\mainmatter
+
+\include{chapters/01_orientation}
+\include{chapters/02_modeling}
+\include{chapters/03_mastery}
+
+\backmatter
+
+\chapter{Project Registries}
+% For future use if using otengineering logic inside the guide
+
+\printotindex
+
+\printotbibliography
+
+\end{document}

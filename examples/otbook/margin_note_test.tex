@@ -1,0 +1,41 @@
+\documentclass{otbook}
+
+\title{Margin Note Test}
+\author{Test Author}
+\date{\today}
+
+\begin{document}
+
+\makeotbooktitle
+
+\chapter{Testing Side Commentary}
+
+This is a regular paragraph of text intended to test how margin notes appear alongside the main narrative. We want to ensure that they are correctly colored and sized.
+
+\otremark{This is a blue remark. It should be legible and placed in the margin.}
+
+\vspace{2cm}
+
+Margin notes are useful for adding context without interrupting the flow of the main text. In a book class, they should handle two-sided layouts by appearing in the outer margin.
+
+\otcaveat{This is an orange caveat. Use it for warnings or notes to self.}
+
+\section{Formatting Checks}
+
+We also have information and practice notes.
+
+\otsideinfo{This is dark info. Good for references or symbol definitions.}
+
+\otpracticehint{This is a teal practice hint. Use it for recall cues or small exercises.}
+
+\newpage
+
+\section{Second Page Test}
+
+On a new page, the notes should still align correctly.
+
+\otremark{Another note on a different page.}
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+
+\end{document}

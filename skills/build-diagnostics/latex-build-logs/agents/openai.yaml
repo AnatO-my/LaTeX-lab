@@ -1,0 +1,4 @@
+interface:
+  display_name: "LaTeX Build Logs"
+  short_description: "Diagnose LaTeX compiler logs and fix builds"
+  default_prompt: "Inspect this LaTeX build log, identify the first actionable error and important warnings, then propose the smallest safe fix."

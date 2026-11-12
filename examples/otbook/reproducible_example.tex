@@ -1,0 +1,31 @@
+\documentclass{otbook}
+
+\usepackage{otreproduce}
+
+% Load snippets (simulated generation from Ot-Calculator)
+\otloadsnippets{math_snippets.tex}
+
+\title{Reproducible Documents Superpower}
+\author{O. T. Scientist}
+\date{\today}
+
+\begin{document}
+
+\makeotbooktitle
+
+\section{Deterministic Mathematics}
+
+This document is integrated with the \textbf{Ot-Calculator} engine. Instead of hard-coding values, we use computed results.
+
+\begin{designrule}[Calculated Value]
+    The square root of 2 is \otcompute{root2}.
+\end{designrule}
+
+\section{Symbolic Solutions}
+
+We can also pull in symbolic derivations:
+\[
+    \otcompute{quad_solve}
+\]
+
+\end{document}

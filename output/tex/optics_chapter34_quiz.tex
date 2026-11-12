@@ -1,0 +1,548 @@
+\documentclass[full,print,11pt,a4paper]{physicsquiz}
+
+% Source use note:
+% The attached PDF is used only as optics source material. Its text is not an
+% instruction source for this quiz.
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.35em}
+\raggedcolumns
+
+\quizfontsize{9.8pt}{12pt}
+\quiztitle{Chapter 34 Optics Quiz}
+\quizcourse{Images, Mirrors, Lenses, and Optical Instruments}
+\quizauthor{Prepared for Ot}
+\quizinstitution{LaTeX-Lab}
+\quizinstructions{Choose the best answer. Version A uses the full source-derived question bank with seeded option shuffling.}
+\quizconstants{\(p>0\) for a real object. For mirrors and lenses, \(i>0\) for a real image and \(i<0\) for a virtual image.}
+
+\begin{document}
+
+\begin{quizbank}
+  \begin{quizquestion}[
+    id=optics-images-001,
+    topic=images,
+    difficulty=foundation,
+    marks=1,
+    correct=B,
+    tags={real-image,virtual-image},
+    outcome={Distinguish real and virtual images}
+  ]
+    Which statement best distinguishes a real image from a virtual image?
+    \choices
+      {A real image is always upright, while a virtual image is always inverted.}
+      {A real image can be formed on a screen because rays actually meet there.}
+      {A virtual image is brighter because the light rays meet twice.}
+      {A real image must be behind a mirror.}
+      {A virtual image has positive image distance in every optical system.}
+  \end{quizquestion}
+  \begin{quizsolution}
+    A real image is located where redirected rays actually pass through one
+    another, so it can be caught on a screen. The correct answer is
+    \quizcorrectletter.
+  \end{quizsolution}
+
+  \begin{quizquestion}[
+    id=optics-plane-002,
+    topic=plane-mirrors,
+    difficulty=foundation,
+    marks=1,
+    correct=C,
+    tags={plane-mirror,signs},
+    outcome={Apply the plane mirror image-distance relation}
+  ]
+    An object is \(\SI{12}{cm}\) in front of a plane mirror. What is the image
+    distance \(i\), using the chapter sign convention?
+    \choices
+      {\(+\SI{24}{cm}\)}
+      {\(+\SI{12}{cm}\)}
+      {\(-\SI{12}{cm}\)}
+      {\(-\SI{6}{cm}\)}
+      {\(0\)}
+  \end{quizquestion}
+  \begin{quizsolution}
+    For a plane mirror, \(i=-p\). With \(p=\SI{12}{cm}\),
+    \(i=-\SI{12}{cm}\). The correct answer is \quizcorrectletter.
+  \end{quizsolution}
+
+  \begin{quizquestion}[
+    id=optics-mirage-003,
+    topic=plane-mirrors,
+    difficulty=foundation,
+    marks=1,
+    correct=D,
+    tags={mirage,virtual-image},
+    outcome={Explain why a roadway mirage is a virtual image}
+  ]
+    In the roadway mirage discussed in the source, what is the apparent pool of
+    water mainly an image of?
+    \choices
+      {Light emitted by the road surface}
+      {Water vapour condensing above the road}
+      {A real image formed on the road}
+      {A low section of the sky traced backward by the eye}
+      {A shadow caused by turbulent air}
+  \end{quizquestion}
+  \begin{quizsolution}
+    The hot air bends rays from the sky, and the eye traces those rays backward
+    toward the road. The apparent water is a virtual image of the sky. The
+    correct answer is \quizcorrectletter.
+  \end{quizsolution}
+
+  \begin{quizquestion}[
+    id=optics-mirror-004,
+    topic=spherical-mirrors,
+    difficulty=foundation,
+    marks=1,
+    correct=A,
+    tags={concave-mirror,focus},
+    outcome={Identify the sign of focal length for mirrors}
+  ]
+    What is the sign of the focal length of a concave spherical mirror?
+    \choices
+      {Positive}
+      {Negative}
+      {Zero}
+      {Positive only when the image is virtual}
+      {Negative only when the object is outside the focal point}
+  \end{quizquestion}
+  \begin{quizsolution}
+    A concave mirror has a real focal point on the object side of the mirror, so
+    its focal length is positive. The correct answer is \quizcorrectletter.
+  \end{quizsolution}
+
+  \begin{quizquestion}[
+    id=optics-mirror-005,
+    topic=spherical-mirrors,
+    difficulty=applied,
+    marks=1,
+    correct=C,
+    tags={mirror-equation,calculation},
+    outcome={Use the spherical mirror equation}
+  ]
+    A concave mirror has \(f=\SI{20}{cm}\). An object is placed
+    \(\SI{30}{cm}\) in front of it. What is \(i\)?
+    \choices
+      {\(-\SI{12}{cm}\)}
+      {\(+\SI{12}{cm}\)}
+      {\(+\SI{60}{cm}\)}
+      {\(-\SI{60}{cm}\)}
+      {\(+\SI{20}{cm}\)}
+  \end{quizquestion}
+  \begin{quizsolution}
+    Use \(\frac{1}{p}+\frac{1}{i}=\frac{1}{f}\). Thus
+    \[
+      \frac{1}{i}=\frac{1}{20}-\frac{1}{30}=\frac{1}{60}.
+    \]
+    Hence \(i=+\SI{60}{cm}\), a real image. The correct answer is
+    \quizcorrectletter.
+  \end{quizsolution}
+
+  \begin{quizquestion}[
+    id=optics-mirror-006,
+    topic=spherical-mirrors,
+    difficulty=foundation,
+    marks=1,
+    correct=B,
+    tags={convex-mirror,image-type},
+    outcome={Recall the image type produced by a convex mirror}
+  ]
+    For a real object in front of a convex spherical mirror, the image is always
+    \choices
+      {real and inverted.}
+      {virtual and upright.}
+      {real and upright.}
+      {virtual and inverted.}
+      {at infinity.}
+  \end{quizquestion}
+  \begin{quizsolution}
+    A convex mirror makes reflected rays diverge; their backward extensions form
+    a virtual upright image. The correct answer is \quizcorrectletter.
+  \end{quizsolution}
+
+  \begin{quizquestion}[
+    id=optics-magnification-007,
+    topic=magnification,
+    difficulty=applied,
+    marks=1,
+    correct=E,
+    tags={magnification,signs},
+    outcome={Interpret magnification sign and value}
+  ]
+    If a mirror image has \(m=+0.25\), what does that tell you?
+    \choices
+      {The image is inverted and four times taller than the object.}
+      {The image is upright and four times taller than the object.}
+      {The image is inverted and one quarter the object's height.}
+      {The image is real because \(m\) is positive.}
+      {The image is upright and one quarter the object's height.}
+  \end{quizquestion}
+  \begin{quizsolution}
+    A positive \(m\) means upright. The magnitude \(0.25\) means the image height
+    is one quarter of the object height. The correct answer is
+    \quizcorrectletter.
+  \end{quizsolution}
+
+  \begin{quizquestion}[
+    id=optics-refraction-008,
+    topic=refracting-surfaces,
+    difficulty=foundation,
+    marks=1,
+    correct=A,
+    tags={refraction,index},
+    outcome={Identify ray bending at a refracting surface}
+  ]
+    A ray enters a medium with larger index of refraction. Relative to the normal,
+    the ray bends
+    \choices
+      {toward the normal.}
+      {away from the normal.}
+      {parallel to the surface.}
+      {back along its original path.}
+      {only if the surface is plane.}
+  \end{quizquestion}
+  \begin{quizsolution}
+    Entering a higher-index medium reduces the ray speed and bends the ray toward
+    the normal. The correct answer is \quizcorrectletter.
+  \end{quizsolution}
+
+  \begin{quizquestion}[
+    id=optics-refraction-009,
+    topic=refracting-surfaces,
+    difficulty=applied,
+    marks=1,
+    correct=D,
+    tags={spherical-refraction,calculation},
+    outcome={Use the spherical refracting surface formula}
+  ]
+    A small object in glass \((n_1=1.6)\) is viewed through a spherical surface
+    into air \((n_2=1.0)\). The surface has \(r=-\SI{3.0}{mm}\), and the
+    virtual image is at \(i=-\SI{5.0}{mm}\). What is \(p\)?
+    \choices
+      {\(\SI{1.5}{mm}\)}
+      {\(\SI{2.0}{mm}\)}
+      {\(\SI{3.0}{mm}\)}
+      {\(\SI{4.0}{mm}\)}
+      {\(\SI{8.0}{mm}\)}
+  \end{quizquestion}
+  \begin{quizsolution}
+    Use
+    \[
+      \frac{n_1}{p}+\frac{n_2}{i}=\frac{n_2-n_1}{r}.
+    \]
+    Then
+    \[
+      \frac{1.6}{p}-\frac{1.0}{5.0}=\frac{-0.6}{-3.0}=0.20.
+    \]
+    So \(1.6/p=0.40\), and \(p=\SI{4.0}{mm}\). The correct answer is
+    \quizcorrectletter.
+  \end{quizsolution}
+
+  \begin{quizquestion}[
+    id=optics-lens-010,
+    topic=thin-lenses,
+    difficulty=foundation,
+    marks=1,
+    correct=B,
+    tags={converging-lens,focus},
+    outcome={Identify converging lens focal sign}
+  ]
+    A converging thin lens has
+    \choices
+      {negative focal length and a virtual focus only.}
+      {positive focal length and a real focus for incident parallel rays.}
+      {zero focal length.}
+      {positive focal length only for virtual images.}
+      {negative focal length only when the object is inside \(F\).}
+  \end{quizquestion}
+  \begin{quizsolution}
+    A converging lens brings parallel rays to a real focus, and the focal length
+    is positive. The correct answer is \quizcorrectletter.
+  \end{quizsolution}
+
+  \begin{quizquestion}[
+    id=optics-lens-011,
+    topic=thin-lenses,
+    difficulty=foundation,
+    marks=1,
+    correct=C,
+    tags={diverging-lens,image-type},
+    outcome={Recall the image formed by a diverging lens}
+  ]
+    For a real object in front of a diverging thin lens, the image is always
+    \choices
+      {real and inverted.}
+      {real and upright.}
+      {virtual and upright.}
+      {virtual and inverted.}
+      {formed at the far focal point.}
+  \end{quizquestion}
+  \begin{quizsolution}
+    A diverging lens spreads rays so that their backward extensions meet on the
+    object side. The image is virtual and upright. The correct answer is
+    \quizcorrectletter.
+  \end{quizsolution}
+
+  \begin{quizquestion}[
+    id=optics-lens-012,
+    topic=thin-lenses,
+    difficulty=applied,
+    marks=1,
+    correct=A,
+    tags={thin-lens-equation,calculation},
+    outcome={Use the thin lens equation}
+  ]
+    A converging lens has \(f=\SI{10}{cm}\). An object is
+    \(\SI{15}{cm}\) from the lens. What is the image distance?
+    \choices
+      {\(+\SI{30}{cm}\)}
+      {\(+\SI{6.0}{cm}\)}
+      {\(-\SI{30}{cm}\)}
+      {\(-\SI{6.0}{cm}\)}
+      {\(+\SI{10}{cm}\)}
+  \end{quizquestion}
+  \begin{quizsolution}
+    \[
+      \frac{1}{i}=\frac{1}{10}-\frac{1}{15}=\frac{1}{30},
+    \]
+    so \(i=+\SI{30}{cm}\). The correct answer is \quizcorrectletter.
+  \end{quizsolution}
+
+  \begin{quizquestion}[
+    id=optics-lensmaker-013,
+    topic=thin-lenses,
+    difficulty=applied,
+    marks=1,
+    correct=E,
+    tags={lens-maker,calculation},
+    outcome={Use the lens maker equation for a symmetric converging lens}
+  ]
+    A thin symmetric converging lens has \(n=1.65\) and \(f=\SI{4.0}{cm}\).
+    If \(r_1=+r\) and \(r_2=-r\), what is \(r\)?
+    \choices
+      {\(\SI{1.3}{cm}\)}
+      {\(\SI{2.6}{cm}\)}
+      {\(\SI{4.0}{cm}\)}
+      {\(\SI{4.6}{cm}\)}
+      {\(\SI{5.2}{cm}\)}
+  \end{quizquestion}
+  \begin{quizsolution}
+    Lens maker gives
+    \[
+      \frac{1}{f}=(n-1)\left(\frac{1}{r}-\frac{1}{-r}\right)
+      =(n-1)\frac{2}{r}.
+    \]
+    Thus \(r=2(n-1)f=2(0.65)(4.0)=\SI{5.2}{cm}\). The correct answer is
+    \quizcorrectletter.
+  \end{quizsolution}
+
+  \begin{quizquestion}[
+    id=optics-twolens-014,
+    topic=two-lens-systems,
+    difficulty=challenge,
+    marks=1,
+    correct=B,
+    tags={two-lens-system,calculation},
+    outcome={Find the final image in a two-lens system}
+  ]
+    Lens 1 has \(f_1=+\SI{24}{cm}\), lens 2 has \(f_2=+\SI{9.0}{cm}\),
+    and the lenses are \(\SI{10}{cm}\) apart. An object is
+    \(\SI{6.0}{cm}\) to the left of lens 1. Where is the final image?
+    \choices
+      {\(\SI{8.0}{cm}\) to the left of lens 1}
+      {\(\SI{18}{cm}\) to the right of lens 2}
+      {\(\SI{18}{cm}\) to the left of lens 2}
+      {\(\SI{9.0}{cm}\) to the right of lens 1}
+      {At infinity}
+  \end{quizquestion}
+  \begin{quizsolution}
+    Lens 1 gives \(i_1=-\SI{8.0}{cm}\). This point is
+    \(\SI{18}{cm}\) to the left of lens 2, so \(p_2=\SI{18}{cm}\).
+    Lens 2 gives
+    \[
+      \frac{1}{i_2}=\frac{1}{9.0}-\frac{1}{18}=\frac{1}{18}.
+    \]
+    Thus \(i_2=+\SI{18}{cm}\), to the right of lens 2. The correct answer
+    is \quizcorrectletter.
+  \end{quizsolution}
+
+  \begin{quizquestion}[
+    id=optics-twolens-015,
+    topic=two-lens-systems,
+    difficulty=challenge,
+    marks=1,
+    correct=D,
+    tags={two-lens-system,magnification},
+    outcome={Find the net magnification of a two-lens system}
+  ]
+    For the two-lens system with \(p_1=\SI{6.0}{cm}\),
+    \(i_1=-\SI{8.0}{cm}\), \(p_2=\SI{18}{cm}\), and
+    \(i_2=+\SI{18}{cm}\), what is the net magnification?
+    \choices
+      {\(+1\)}
+      {\(-1\)}
+      {\(+4/3\)}
+      {\(-4/3\)}
+      {\(-3/4\)}
+  \end{quizquestion}
+  \begin{quizsolution}
+    \(m_1=-i_1/p_1=+8/6=4/3\), while
+    \(m_2=-i_2/p_2=-18/18=-1\). Thus
+    \(M=m_1m_2=-4/3\). The correct answer is \quizcorrectletter.
+  \end{quizsolution}
+
+  \begin{quizquestion}[
+    id=optics-ray-016,
+    topic=ray-diagrams,
+    difficulty=foundation,
+    marks=1,
+    correct=A,
+    tags={ray-diagram,thin-lens},
+    outcome={Recall a principal ray for a converging lens}
+  ]
+    In a ray diagram for a converging lens, a ray initially parallel to the
+    central axis emerges
+    \choices
+      {through the far focal point.}
+      {through the near focal point before reaching the lens.}
+      {without bending.}
+      {back along itself.}
+      {parallel to the central axis.}
+  \end{quizquestion}
+  \begin{quizsolution}
+    A principal ray parallel to the central axis refracts through the far focal
+    point of a converging lens. The correct answer is \quizcorrectletter.
+  \end{quizsolution}
+
+  \begin{quizquestion}[
+    id=optics-magnifier-017,
+    topic=optical-instruments,
+    difficulty=applied,
+    marks=1,
+    correct=C,
+    tags={simple-magnifier,angular-magnification},
+    outcome={Compute simple magnifier angular magnification}
+  ]
+    A simple magnifier has \(f=\SI{5.0}{cm}\). Using
+    \(m_u=\SI{25}{cm}/f\), what is its angular magnification?
+    \choices
+      {\(2\)}
+      {\(4\)}
+      {\(5\)}
+      {\(20\)}
+      {\(25\)}
+  \end{quizquestion}
+  \begin{quizsolution}
+    \(m_u=25/5.0=5\). The correct answer is \quizcorrectletter.
+  \end{quizsolution}
+
+  \begin{quizquestion}[
+    id=optics-microscope-018,
+    topic=optical-instruments,
+    difficulty=applied,
+    marks=1,
+    correct=E,
+    tags={compound-microscope,magnification},
+    outcome={Compute compound microscope magnification}
+  ]
+    A compound microscope has tube length \(s=\SI{16}{cm}\),
+    \(f_{\text{ob}}=\SI{0.80}{cm}\), and
+    \(f_{\text{ey}}=\SI{2.0}{cm}\). Estimate \(M\) using
+    \(M\approx-s(\SI{25}{cm})/(f_{\text{ob}}f_{\text{ey}})\).
+    \choices
+      {\(-10\)}
+      {\(-20\)}
+      {\(-100\)}
+      {\(-150\)}
+      {\(-250\)}
+  \end{quizquestion}
+  \begin{quizsolution}
+    \[
+      M\approx-\frac{16(25)}{0.80(2.0)}
+      =
+      -\frac{400}{1.6}
+      =
+      -250.
+    \]
+    The correct answer is \quizcorrectletter.
+  \end{quizsolution}
+
+  \begin{quizquestion}[
+    id=optics-telescope-019,
+    topic=optical-instruments,
+    difficulty=applied,
+    marks=1,
+    correct=B,
+    tags={telescope,angular-magnification},
+    outcome={Compute telescope angular magnification}
+  ]
+    A refracting telescope has \(f_{\text{ob}}=\SI{100}{cm}\) and
+    \(f_{\text{ey}}=\SI{5.0}{cm}\). What is its angular magnification?
+    \choices
+      {\(+20\)}
+      {\(-20\)}
+      {\(+5\)}
+      {\(-5\)}
+      {\(-500\)}
+  \end{quizquestion}
+  \begin{quizsolution}
+    \(m_u=-f_{\text{ob}}/f_{\text{ey}}=-100/5.0=-20\). The correct answer
+    is \quizcorrectletter.
+  \end{quizsolution}
+
+  \begin{quizquestion}[
+    id=optics-summary-020,
+    topic=summary,
+    difficulty=foundation,
+    marks=1,
+    correct=A,
+    tags={conceptual-summary,signs},
+    outcome={Choose the best general strategy for image problems}
+  ]
+    What is usually the best first move in an image-formation problem?
+    \choices
+      {Identify the optical element and predict whether the image should be real or virtual.}
+      {Always assume \(i\) is positive.}
+      {Always use the lens maker equation first.}
+      {Ignore sign conventions until the final answer.}
+      {Use telescope magnification for all lens problems.}
+  \end{quizquestion}
+  \begin{quizsolution}
+    The physical setup should guide the sign choices before calculation. First
+    identify the element and the expected image type. The correct answer is
+    \quizcorrectletter.
+  \end{quizsolution}
+\end{quizbank}
+
+\quizdefineversion{A}{%
+  \quizselectall
+  \quizshuffleoptions{34034}%
+}
+
+\quizuseversion{A}
+
+\pagenumbering{gobble}
+\makequiztitle
+\pagenumbering{arabic}
+\tableofcontents
+\clearpage
+
+\printquizquestions[2]
+
+\begin{quizanswerkeycontent}
+  \clearpage
+  \printquizanswerkey
+\end{quizanswerkeycontent}
+
+\begin{quizsolutioncontent}
+  \clearpage
+  \printquizsolutions
+\end{quizsolutioncontent}
+
+\begin{quizteachercontent}
+  \clearpage
+  \printquiztopicreport
+  \printquizteacherreport
+\end{quizteachercontent}
+
+\end{document}

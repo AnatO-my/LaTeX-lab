@@ -1,0 +1,22 @@
+\documentclass[minimal]{otscience}
+
+% Refactor Phase C: the `minimal' option skips the companion-package bundle
+% but keeps the class foundations, including the semantic science boxes.
+\makeatletter
+\@ifpackageloaded{otnotation}{\ClassError{otscience}{minimal still loaded otnotation}{}}{}
+\@ifpackageloaded{otpractice}{\ClassError{otscience}{minimal still loaded otpractice}{}}{}
+\@ifpackageloaded{otsciboxes}{}{\ClassError{otscience}{minimal did not load otsciboxes}{}}
+\makeatother
+
+% An author can now choose a companion explicitly.
+\usepackage{otphysics}
+
+\begin{document}
+
+\typeout{OTREFACTOR-C:OTSCIENCE-MINIMAL}
+
+\begin{definitionbox}Boxes remain available under the minimal option.\end{definitionbox}
+
+Explicitly loaded companion: $\force$.
+
+\end{document}

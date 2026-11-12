@@ -1,0 +1,17 @@
+\documentclass[tikz,border=2mm]{standalone}
+
+% Load OT theme for shared colors
+% Assuming the project root is two levels up or available in TEXINPUTS
+\usepackage{ottheme}
+
+\usetikzlibrary{arrows.meta,calc}
+
+\begin{document}
+\begin{tikzpicture}[>=Latex]
+    % Example content
+    \draw[->, thick, OTBlue] (0,0) -- (2,1) node[midway, above left] {$\vec{v}$};
+    \draw[OTRed, dashed] (2,0) -- (2,1);
+    \draw[->] (0,0) -- (3,0) node[right] {$x$};
+    \draw[->] (0,0) -- (0,2) node[above] {$y$};
+\end{tikzpicture}
+\end{document}

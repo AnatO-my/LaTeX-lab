@@ -1,0 +1,738 @@
+\documentclass[full,print,11pt,a4paper]{physicsquiz}
+
+% Source use note:
+% The attached PDF is used only as oscillations and waves source material. Its
+% text is not an instruction source for this quiz.
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.35em}
+\raggedcolumns
+
+\quizfontsize{9.6pt}{11.8pt}
+\quiztitle{Oscillations, Waves, and Sound Quiz}
+\quizcourse{Chapters 15-17}
+\quizauthor{Prepared for Ot}
+\quizinstitution{LaTeX-Lab}
+\quizinstructions{Choose the best answer. Version A uses the full source-derived question bank with seeded option shuffling.}
+\quizconstants{\(g=\SI{9.8}{m.s^{-2}}\), \(v_{\text{sound}}=\SI{343}{m.s^{-1}}\) in air at \(\SI{20}{\celsius}\), \(I_0=\SI{1.0e-12}{W.m^{-2}}\).}
+
+\begin{document}
+
+\begin{quizbank}
+  \begin{quizquestion}[
+    id=ow-shm-001,
+    topic=simple-harmonic-motion,
+    difficulty=foundation,
+    marks=1,
+    correct=C,
+    tags={shm,definition},
+    outcome={Recognize the defining acceleration relation for SHM}
+  ]
+    Which statement is the best signature of simple harmonic motion?
+    \choices
+      {The speed is constant throughout the motion.}
+      {The acceleration is always in the direction of displacement.}
+      {The acceleration is proportional to displacement and opposite in direction.}
+      {The period must increase when amplitude increases.}
+      {The object moves only in a circular path.}
+  \end{quizquestion}
+  \begin{quizsolution}
+    In SHM, \(a=-\omega^2x\). The acceleration is proportional to displacement
+    and points back toward equilibrium. The correct answer is \quizcorrectletter.
+  \end{quizsolution}
+
+  \begin{quizquestion}[
+    id=ow-shm-002,
+    topic=simple-harmonic-motion,
+    difficulty=foundation,
+    marks=1,
+    correct=A,
+    tags={period,frequency},
+    outcome={Relate period and frequency}
+  ]
+    An oscillator has frequency \(\SI{4.0}{Hz}\). What is its period?
+    \choices
+      {\(\SI{0.25}{s}\)}
+      {\(\SI{0.50}{s}\)}
+      {\(\SI{2.0}{s}\)}
+      {\(\SI{4.0}{s}\)}
+      {\(\SI{8.0}{s}\)}
+  \end{quizquestion}
+  \begin{quizsolution}
+    \(T=1/f=1/4.0=\SI{0.25}{s}\). The correct answer is
+    \quizcorrectletter.
+  \end{quizsolution}
+
+  \begin{quizquestion}[
+    id=ow-shm-003,
+    topic=simple-harmonic-motion,
+    difficulty=applied,
+    marks=1,
+    correct=D,
+    tags={angular-frequency,calculation},
+    outcome={Compute angular frequency from period}
+  ]
+    If an SHM oscillator has period \(\SI{0.50}{s}\), what is its angular
+    frequency?
+    \choices
+      {\(\SI{0.25}{rad.s^{-1}}\)}
+      {\(\SI{2.0}{rad.s^{-1}}\)}
+      {\(\SI{6.3}{rad.s^{-1}}\)}
+      {\(\SI{12.6}{rad.s^{-1}}\)}
+      {\(\SI{25.1}{rad.s^{-1}}\)}
+  \end{quizquestion}
+  \begin{quizsolution}
+    \(\omega=2\pi/T=2\pi/0.50=\SI{12.6}{rad.s^{-1}}\). The correct answer is
+    \quizcorrectletter.
+  \end{quizsolution}
+
+  \begin{quizquestion}[
+    id=ow-shm-004,
+    topic=simple-harmonic-motion,
+    difficulty=applied,
+    marks=1,
+    correct=B,
+    tags={velocity-amplitude},
+    outcome={Compute velocity amplitude in SHM}
+  ]
+    For \(x(t)=(\SI{0.080}{m})\cos(6.0t+\pi/3)\), what is the velocity amplitude?
+    \choices
+      {\(\SI{0.013}{m.s^{-1}}\)}
+      {\(\SI{0.48}{m.s^{-1}}\)}
+      {\(\SI{2.9}{m.s^{-1}}\)}
+      {\(\SI{6.0}{m.s^{-1}}\)}
+      {\(\SI{48}{m.s^{-1}}\)}
+  \end{quizquestion}
+  \begin{quizsolution}
+    \(v_m=\omega x_m=(6.0)(0.080)=\SI{0.48}{m.s^{-1}}\). The correct answer is
+    \quizcorrectletter.
+  \end{quizsolution}
+
+  \begin{quizquestion}[
+    id=ow-shm-005,
+    topic=simple-harmonic-motion,
+    difficulty=foundation,
+    marks=1,
+    correct=E,
+    tags={phase,turning-points},
+    outcome={Identify speed and acceleration at an extreme point}
+  ]
+    At a turning point of an ideal SHM oscillator, which statement is true?
+    \choices
+      {Speed and acceleration are both zero.}
+      {Speed is maximum and acceleration is zero.}
+      {Speed is maximum and acceleration has maximum magnitude.}
+      {Speed is zero and acceleration is zero.}
+      {Speed is zero and acceleration has maximum magnitude.}
+  \end{quizquestion}
+  \begin{quizsolution}
+    At \(x=\pm x_m\), the oscillator momentarily stops, but the restoring
+    acceleration has maximum magnitude. The correct answer is
+    \quizcorrectletter.
+  \end{quizsolution}
+
+  \begin{quizquestion}[
+    id=ow-spring-006,
+    topic=spring-oscillator,
+    difficulty=applied,
+    marks=1,
+    correct=C,
+    tags={spring,period},
+    outcome={Compute the period of a spring-block oscillator}
+  ]
+    A \(\SI{0.50}{kg}\) block is attached to a spring with
+    \(k=\SI{200}{N.m^{-1}}\). What is the period?
+    \choices
+      {\(\SI{0.050}{s}\)}
+      {\(\SI{0.16}{s}\)}
+      {\(\SI{0.31}{s}\)}
+      {\(\SI{1.6}{s}\)}
+      {\(\SI{3.1}{s}\)}
+  \end{quizquestion}
+  \begin{quizsolution}
+    \(T=2\pi\sqrt{m/k}=2\pi\sqrt{0.50/200}=\SI{0.314}{s}\). The correct answer
+    is \quizcorrectletter.
+  \end{quizsolution}
+
+  \begin{quizquestion}[
+    id=ow-energy-007,
+    topic=energy-in-shm,
+    difficulty=applied,
+    marks=1,
+    correct=D,
+    tags={energy,kinetic-energy},
+    outcome={Find kinetic energy from amplitude and displacement}
+  ]
+    A spring oscillator has \(k=\SI{120}{N.m^{-1}}\), amplitude
+    \(\SI{0.20}{m}\), and instantaneous displacement \(\SI{0.12}{m}\). What is
+    its kinetic energy?
+    \choices
+      {\(\SI{0.43}{J}\)}
+      {\(\SI{0.86}{J}\)}
+      {\(\SI{1.20}{J}\)}
+      {\(\SI{1.54}{J}\)}
+      {\(\SI{2.40}{J}\)}
+  \end{quizquestion}
+  \begin{quizsolution}
+    \(K=\frac{1}{2}k(x_m^2-x^2)=60(0.0400-0.0144)=\SI{1.54}{J}\). The correct
+    answer is \quizcorrectletter.
+  \end{quizsolution}
+
+  \begin{quizquestion}[
+    id=ow-energy-008,
+    topic=energy-in-shm,
+    difficulty=foundation,
+    marks=1,
+    correct=A,
+    tags={energy,amplitude},
+    outcome={Relate SHM energy to amplitude}
+  ]
+    If the amplitude of a spring oscillator is doubled, while \(k\) is unchanged,
+    the total mechanical energy is
+    \choices
+      {quadrupled.}
+      {doubled.}
+      {unchanged.}
+      {halved.}
+      {reduced by a factor of four.}
+  \end{quizquestion}
+  \begin{quizsolution}
+    \(E=\frac{1}{2}kx_m^2\), so energy is proportional to amplitude squared.
+    Doubling amplitude makes energy four times larger. The correct answer is
+    \quizcorrectletter.
+  \end{quizsolution}
+
+  \begin{quizquestion}[
+    id=ow-pendulum-009,
+    topic=pendulums,
+    difficulty=applied,
+    marks=1,
+    correct=B,
+    tags={simple-pendulum},
+    outcome={Compute simple pendulum length from period}
+  ]
+    What length gives a simple pendulum a period of about \(\SI{2.0}{s}\)?
+    \choices
+      {\(\SI{0.25}{m}\)}
+      {\(\SI{0.99}{m}\)}
+      {\(\SI{2.0}{m}\)}
+      {\(\SI{4.9}{m}\)}
+      {\(\SI{9.8}{m}\)}
+  \end{quizquestion}
+  \begin{quizsolution}
+    \(L=g(T/2\pi)^2=9.8(2.0/2\pi)^2=\SI{0.99}{m}\). The correct answer is
+    \quizcorrectletter.
+  \end{quizsolution}
+
+  \begin{quizquestion}[
+    id=ow-pendulum-010,
+    topic=pendulums,
+    difficulty=foundation,
+    marks=1,
+    correct=E,
+    tags={small-angle},
+    outcome={State the condition for pendulum SHM}
+  ]
+    The simple pendulum formula \(T=2\pi\sqrt{L/g}\) is best applied when
+    \choices
+      {the bob is very massive.}
+      {the string is horizontal.}
+      {the amplitude is extremely large.}
+      {air resistance is the main force.}
+      {the angular displacement is small.}
+  \end{quizquestion}
+  \begin{quizsolution}
+    The usual pendulum period formula comes from the small-angle approximation.
+    The correct answer is \quizcorrectletter.
+  \end{quizsolution}
+
+  \begin{quizquestion}[
+    id=ow-damping-011,
+    topic=damped-oscillations,
+    difficulty=applied,
+    marks=1,
+    correct=C,
+    tags={damping,energy},
+    outcome={Relate amplitude decay to energy decay}
+  ]
+    A damped oscillator's amplitude falls from \(\SI{12}{cm}\) to
+    \(\SI{9}{cm}\). What fraction of its original mechanical energy remains?
+    \choices
+      {\(0.25\)}
+      {\(0.44\)}
+      {\(0.56\)}
+      {\(0.75\)}
+      {\(1.33\)}
+  \end{quizquestion}
+  \begin{quizsolution}
+    Since \(E\propto x_m^2\), \(E/E_0=(9/12)^2=0.5625\). The correct answer is
+    \quizcorrectletter.
+  \end{quizsolution}
+
+  \begin{quizquestion}[
+    id=ow-resonance-012,
+    topic=forced-oscillations,
+    difficulty=foundation,
+    marks=1,
+    correct=A,
+    tags={resonance},
+    outcome={Explain resonance}
+  ]
+    Resonance is most closely associated with
+    \choices
+      {large response when the driving frequency is near the natural frequency.}
+      {motion that never repeats.}
+      {a wave that must travel in vacuum.}
+      {zero energy transfer from a driver.}
+      {a decrease in amplitude when damping is removed.}
+  \end{quizquestion}
+  \begin{quizsolution}
+    A driven oscillator responds most strongly when driven near its natural
+    frequency. The correct answer is \quizcorrectletter.
+  \end{quizsolution}
+
+  \begin{quizquestion}[
+    id=ow-wave-013,
+    topic=traveling-waves,
+    difficulty=foundation,
+    marks=1,
+    correct=D,
+    tags={wave-types},
+    outcome={Distinguish transverse and longitudinal waves}
+  ]
+    In a transverse wave, particles of the medium oscillate
+    \choices
+      {parallel to the direction of wave travel.}
+      {only in circular paths.}
+      {only if there is no medium.}
+      {perpendicular to the direction of wave travel.}
+      {with zero acceleration.}
+  \end{quizquestion}
+  \begin{quizsolution}
+    Transverse means the medium motion is perpendicular to the propagation
+    direction. The correct answer is \quizcorrectletter.
+  \end{quizsolution}
+
+  \begin{quizquestion}[
+    id=ow-wave-014,
+    topic=traveling-waves,
+    difficulty=applied,
+    marks=1,
+    correct=B,
+    tags={wave-equation,calculation},
+    outcome={Extract speed from a sinusoidal wave equation}
+  ]
+    A wave is \(y=(\SI{0.020}{m})\sin(4.0x-12t)\). What is its speed?
+    \choices
+      {\(\SI{0.33}{m.s^{-1}}\)}
+      {\(\SI{3.0}{m.s^{-1}}\)}
+      {\(\SI{8.0}{m.s^{-1}}\)}
+      {\(\SI{12}{m.s^{-1}}\)}
+      {\(\SI{48}{m.s^{-1}}\)}
+  \end{quizquestion}
+  \begin{quizsolution}
+    For \(y=y_m\sin(kx-\omega t)\), \(v=\omega/k=12/4.0=\SI{3.0}{m.s^{-1}}\).
+    The correct answer is \quizcorrectletter.
+  \end{quizsolution}
+
+  \begin{quizquestion}[
+    id=ow-wave-015,
+    topic=traveling-waves,
+    difficulty=foundation,
+    marks=1,
+    correct=E,
+    tags={direction,phase},
+    outcome={Identify wave direction from phase}
+  ]
+    A wave of the form \(y=A\sin(kx+\omega t)\) travels in which direction?
+    \choices
+      {Positive \(y\)}
+      {Negative \(y\)}
+      {Positive \(x\)}
+      {It does not travel.}
+      {Negative \(x\)}
+  \end{quizquestion}
+  \begin{quizsolution}
+    A phase \(kx+\omega t\) corresponds to travel in the \(-x\) direction. The
+    correct answer is \quizcorrectletter.
+  \end{quizsolution}
+
+  \begin{quizquestion}[
+    id=ow-string-016,
+    topic=waves-on-strings,
+    difficulty=applied,
+    marks=1,
+    correct=A,
+    tags={string-speed,tension},
+    outcome={Compute wave speed on a string}
+  ]
+    A string has tension \(\SI{80}{N}\) and linear density
+    \(\SI{0.020}{kg.m^{-1}}\). What is the wave speed?
+    \choices
+      {\(\SI{63}{m.s^{-1}}\)}
+      {\(\SI{40}{m.s^{-1}}\)}
+      {\(\SI{20}{m.s^{-1}}\)}
+      {\(\SI{4.0}{m.s^{-1}}\)}
+      {\(\SI{1.6}{m.s^{-1}}\)}
+  \end{quizquestion}
+  \begin{quizsolution}
+    \(v=\sqrt{\tau/\mu}=\sqrt{80/0.020}=\SI{63}{m.s^{-1}}\). The correct answer
+    is \quizcorrectletter.
+  \end{quizsolution}
+
+  \begin{quizquestion}[
+    id=ow-power-017,
+    topic=waves-on-strings,
+    difficulty=applied,
+    marks=1,
+    correct=C,
+    tags={wave-power},
+    outcome={Compute average power for a string wave}
+  ]
+    A wave on a string has \(\mu=\SI{0.020}{kg.m^{-1}}\),
+    \(v=\SI{63.2}{m.s^{-1}}\), \(f=\SI{50}{Hz}\), and
+    \(y_m=\SI{3.0}{mm}\). What is \(P_{\text{avg}}\)?
+    \choices
+      {\(\SI{0.056}{W}\)}
+      {\(\SI{0.18}{W}\)}
+      {\(\SI{0.56}{W}\)}
+      {\(\SI{5.6}{W}\)}
+      {\(\SI{56}{W}\)}
+  \end{quizquestion}
+  \begin{quizsolution}
+    With \(\omega=2\pi f=\SI{314}{rad.s^{-1}}\),
+    \(P_{\text{avg}}=\frac{1}{2}\mu v\omega^2y_m^2\approx\SI{0.56}{W}\). The
+    correct answer is \quizcorrectletter.
+  \end{quizsolution}
+
+  \begin{quizquestion}[
+    id=ow-interference-018,
+    topic=interference,
+    difficulty=applied,
+    marks=1,
+    correct=D,
+    tags={phase,resultant-amplitude},
+    outcome={Compute resultant amplitude for equal waves}
+  ]
+    Two equal waves each have amplitude \(\SI{4.0}{mm}\) and phase difference
+    \(2\pi/3\). What is the resultant amplitude?
+    \choices
+      {\(\SI{0}{mm}\)}
+      {\(\SI{2.0}{mm}\)}
+      {\(\SI{3.5}{mm}\)}
+      {\(\SI{4.0}{mm}\)}
+      {\(\SI{8.0}{mm}\)}
+  \end{quizquestion}
+  \begin{quizsolution}
+    \(y'_m=2y_m\cos(\phi/2)=8.0\cos(\pi/3)=\SI{4.0}{mm}\). The correct answer
+    is \quizcorrectletter.
+  \end{quizsolution}
+
+  \begin{quizquestion}[
+    id=ow-standing-019,
+    topic=standing-waves,
+    difficulty=foundation,
+    marks=1,
+    correct=B,
+    tags={nodes,antinodes},
+    outcome={Define a node in a standing wave}
+  ]
+    A node in a standing wave is a point where
+    \choices
+      {the amplitude is maximum.}
+      {the displacement is always zero.}
+      {the wave speed is zero everywhere.}
+      {two waves stop interfering.}
+      {the string tension must be zero.}
+  \end{quizquestion}
+  \begin{quizsolution}
+    Nodes are fixed points of zero displacement in a standing wave. The correct
+    answer is \quizcorrectletter.
+  \end{quizsolution}
+
+  \begin{quizquestion}[
+    id=ow-standing-020,
+    topic=standing-waves,
+    difficulty=applied,
+    marks=1,
+    correct=E,
+    tags={harmonics,string},
+    outcome={Compute fixed-string resonant frequencies}
+  ]
+    A fixed string has \(L=\SI{0.65}{m}\) and wave speed
+    \(\SI{260}{m.s^{-1}}\). What is its third harmonic?
+    \choices
+      {\(\SI{100}{Hz}\)}
+      {\(\SI{200}{Hz}\)}
+      {\(\SI{300}{Hz}\)}
+      {\(\SI{400}{Hz}\)}
+      {\(\SI{600}{Hz}\)}
+  \end{quizquestion}
+  \begin{quizsolution}
+    \(f_1=v/(2L)=260/[2(0.65)]=\SI{200}{Hz}\), so
+    \(f_3=3f_1=\SI{600}{Hz}\). The correct answer is \quizcorrectletter.
+  \end{quizsolution}
+
+  \begin{quizquestion}[
+    id=ow-sound-021,
+    topic=sound-waves,
+    difficulty=foundation,
+    marks=1,
+    correct=C,
+    tags={sound,longitudinal},
+    outcome={Identify sound as a longitudinal mechanical wave}
+  ]
+    In air, sound is best described as
+    \choices
+      {a transverse electromagnetic wave.}
+      {a wave that needs no medium.}
+      {a longitudinal mechanical wave.}
+      {a standing wave only.}
+      {a wave with no pressure variation.}
+  \end{quizquestion}
+  \begin{quizsolution}
+    Sound in air is a longitudinal mechanical wave, involving pressure and
+    displacement variations in the medium. The correct answer is
+    \quizcorrectletter.
+  \end{quizsolution}
+
+  \begin{quizquestion}[
+    id=ow-sound-022,
+    topic=sound-intensity,
+    difficulty=applied,
+    marks=1,
+    correct=A,
+    tags={intensity,decibels},
+    outcome={Convert intensity ratio to sound-level change}
+  ]
+    If a sound intensity increases by a factor of \(1000\), the sound level
+    increases by
+    \choices
+      {\(\SI{30}{dB}\)}
+      {\(\SI{20}{dB}\)}
+      {\(\SI{10}{dB}\)}
+      {\(\SI{3}{dB}\)}
+      {\(\SI{1000}{dB}\)}
+  \end{quizquestion}
+  \begin{quizsolution}
+    \(\Delta\beta=10\log_{10}(1000)=10(3)=\SI{30}{dB}\). The correct answer is
+    \quizcorrectletter.
+  \end{quizsolution}
+
+  \begin{quizquestion}[
+    id=ow-sound-023,
+    topic=sound-intensity,
+    difficulty=foundation,
+    marks=1,
+    correct=D,
+    tags={inverse-square},
+    outcome={Apply inverse-square spreading for a point sound source}
+  ]
+    If distance from a point sound source is doubled, the intensity becomes
+    \choices
+      {twice as large.}
+      {half as large.}
+      {unchanged.}
+      {one fourth as large.}
+      {four times as large.}
+  \end{quizquestion}
+  \begin{quizsolution}
+    For a point source, \(I=P_s/(4\pi r^2)\). Doubling \(r\) makes intensity
+    \(1/4\) as large. The correct answer is \quizcorrectletter.
+  \end{quizsolution}
+
+  \begin{quizquestion}[
+    id=ow-pipe-024,
+    topic=sound-pipes,
+    difficulty=applied,
+    marks=1,
+    correct=B,
+    tags={closed-pipe,harmonics},
+    outcome={Compute closed-open pipe resonance}
+  ]
+    A pipe closed at one end has length \(\SI{0.85}{m}\). What is its
+    fundamental frequency, using \(v=\SI{343}{m.s^{-1}}\)?
+    \choices
+      {\(\SI{50}{Hz}\)}
+      {\(\SI{101}{Hz}\)}
+      {\(\SI{202}{Hz}\)}
+      {\(\SI{303}{Hz}\)}
+      {\(\SI{404}{Hz}\)}
+  \end{quizquestion}
+  \begin{quizsolution}
+    For a closed-open pipe, \(f_1=v/(4L)=343/[4(0.85)]=\SI{101}{Hz}\). The
+    correct answer is \quizcorrectletter.
+  \end{quizsolution}
+
+  \begin{quizquestion}[
+    id=ow-pipe-025,
+    topic=sound-pipes,
+    difficulty=foundation,
+    marks=1,
+    correct=E,
+    tags={closed-pipe,odd-harmonics},
+    outcome={Recall allowed harmonics in a closed-open pipe}
+  ]
+    Which harmonics are allowed in a pipe that is closed at one end and open at
+    the other?
+    \choices
+      {Only even harmonics}
+      {All integer harmonics}
+      {Only the second harmonic}
+      {Only the zeroth harmonic}
+      {Only odd harmonics}
+  \end{quizquestion}
+  \begin{quizsolution}
+    A closed-open pipe has \(n=1,3,5,\ldots\), so only odd harmonics are allowed.
+    The correct answer is \quizcorrectletter.
+  \end{quizsolution}
+
+  \begin{quizquestion}[
+    id=ow-beats-026,
+    topic=beats,
+    difficulty=applied,
+    marks=1,
+    correct=C,
+    tags={beats},
+    outcome={Compute beat frequency}
+  ]
+    Two tuning forks have frequencies \(\SI{440}{Hz}\) and \(\SI{446}{Hz}\). What
+    beat frequency is heard?
+    \choices
+      {\(\SI{3}{Hz}\)}
+      {\(\SI{4}{Hz}\)}
+      {\(\SI{6}{Hz}\)}
+      {\(\SI{443}{Hz}\)}
+      {\(\SI{886}{Hz}\)}
+  \end{quizquestion}
+  \begin{quizsolution}
+    \(f_{\text{beat}}=|446-440|=\SI{6}{Hz}\). The correct answer is
+    \quizcorrectletter.
+  \end{quizsolution}
+
+  \begin{quizquestion}[
+    id=ow-doppler-027,
+    topic=doppler-effect,
+    difficulty=applied,
+    marks=1,
+    correct=A,
+    tags={doppler,moving-source},
+    outcome={Compute observed frequency for an approaching source}
+  ]
+    A stationary detector hears a source moving toward it at
+    \(\SI{30}{m.s^{-1}}\). The source emits \(\SI{800}{Hz}\). What frequency is
+    observed?
+    \choices
+      {\(\SI{877}{Hz}\)}
+      {\(\SI{800}{Hz}\)}
+      {\(\SI{735}{Hz}\)}
+      {\(\SI{343}{Hz}\)}
+      {\(\SI{30}{Hz}\)}
+  \end{quizquestion}
+  \begin{quizsolution}
+    For an approaching source and stationary detector,
+    \(f'=f v/(v-v_S)=800(343)/(343-30)=\SI{877}{Hz}\). The correct answer is
+    \quizcorrectletter.
+  \end{quizsolution}
+
+  \begin{quizquestion}[
+    id=ow-doppler-028,
+    topic=doppler-effect,
+    difficulty=foundation,
+    marks=1,
+    correct=D,
+    tags={doppler,concept},
+    outcome={Predict qualitative Doppler shift}
+  ]
+    If a sound source moves away from a stationary listener, the observed
+    frequency is
+    \choices
+      {higher than the emitted frequency.}
+      {always doubled.}
+      {equal to the emitted frequency.}
+      {lower than the emitted frequency.}
+      {zero.}
+  \end{quizquestion}
+  \begin{quizsolution}
+    Motion away stretches the wavefront spacing at the listener, so the observed
+    frequency is lower. The correct answer is \quizcorrectletter.
+  \end{quizsolution}
+
+  \begin{quizquestion}[
+    id=ow-shock-029,
+    topic=shock-waves,
+    difficulty=foundation,
+    marks=1,
+    correct=B,
+    tags={mach-cone},
+    outcome={State the condition for a shock wave}
+  ]
+    A shock wave forms when a source
+    \choices
+      {moves slower than the wave speed.}
+      {moves faster than the sound speed in the medium.}
+      {has zero frequency.}
+      {emits only transverse waves.}
+      {is stationary.}
+  \end{quizquestion}
+  \begin{quizsolution}
+    Shock waves occur when the source speed exceeds the sound speed in the
+    medium. The correct answer is \quizcorrectletter.
+  \end{quizsolution}
+
+  \begin{quizquestion}[
+    id=ow-summary-030,
+    topic=summary,
+    difficulty=foundation,
+    marks=1,
+    correct=E,
+    tags={strategy,units},
+    outcome={Choose a reliable problem-solving first step}
+  ]
+    What is the best first step when a problem mixes oscillations and waves?
+    \choices
+      {Assume every frequency is angular frequency.}
+      {Use the Doppler formula first.}
+      {Ignore units until the final answer.}
+      {Treat all waves as standing waves.}
+      {Identify whether the unknown belongs to one oscillator, a traveling wave, a standing wave, or sound.}
+  \end{quizquestion}
+  \begin{quizsolution}
+    The formula family depends on the physical situation. First classify the
+    situation, then choose the equation. The correct answer is
+    \quizcorrectletter.
+  \end{quizsolution}
+\end{quizbank}
+
+\quizdefineversion{A}{%
+  \quizselectall
+  \quizshuffleoptions{151617}%
+}
+
+\quizuseversion{A}
+
+\pagenumbering{gobble}
+\makequiztitle
+\pagenumbering{arabic}
+\tableofcontents
+\clearpage
+
+\printquizquestions[2]
+
+\begin{quizanswerkeycontent}
+  \clearpage
+  \printquizanswerkey
+\end{quizanswerkeycontent}
+
+\begin{quizsolutioncontent}
+  \clearpage
+  \printquizsolutions
+\end{quizsolutioncontent}
+
+\begin{quizteachercontent}
+  \clearpage
+  \printquiztopicreport
+  \printquizteacherreport
+\end{quizteachercontent}
+
+\end{document}

@@ -1,0 +1,44 @@
+\documentclass{otbook}
+
+\usepackage{otprofiles}
+\usepackage{otpractice} % For showing solution hiding
+
+\title{Build Profiles Superpower}
+\author{O. T. Profiler}
+\date{\today}
+
+\begin{document}
+
+\makeotbooktitle
+
+\section{Introduction}
+
+Current Mode: \textbf{\ifdefstring{\otcurrentmode}{full}{Full (Default)}{\otcurrentmode}}
+
+\otifmode{draft}{
+    \begin{designrule}[Draft Note]
+        This section is only visible in \texttt{draft} mode.
+        It's perfect for internal reviewer comments.
+    \end{designrule}
+}
+
+\section{Practice Problem}
+
+What is the color of the OT design system?
+
+\begin{workedsolution}{0}{A}
+    The primary color is \textbf{OTBlue}.
+    This solution will be HIDDEN in \texttt{student} mode.
+\end{workedsolution}
+
+\section{Print vs Digital}
+
+\otifprint{
+    This text is optimized for \textbf{Print}.
+    Colors like \textcolor{OTBlue}{Blue} and \textcolor{OTPurple}{Purple} should appear as grayscale or black in the PDF for maximum contrast on paper.
+}{
+    This text is for the \textbf{Digital} version.
+    The vibrant OT palette is used throughout.
+}
+
+\end{document}

@@ -1,0 +1,18 @@
+\documentclass{article}
+
+% docs/architecture/PLAN.md Phase D: a class or document that loads geometry with its own
+% options BEFORE otlayout (or otcore) keeps those settings, with no option
+% clash and no override by the OT one-inch default.
+\usepackage[margin=2cm]{geometry}
+\usepackage{otcore}
+
+\makeatletter
+\AtBeginDocument{%
+  \ifdim\dimexpr\Gm@lmargin-2cm\relax=0pt\else
+    \PackageError{otlayout-precedence}{otlayout overrode the 2cm margin}{}\fi}
+\makeatother
+
+\begin{document}
+\typeout{OTREFACTOR-D:GEOMETRY-PRECEDENCE}
+Margins stay at 2\,cm.
+\end{document}

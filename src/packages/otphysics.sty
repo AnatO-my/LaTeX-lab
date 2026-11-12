@@ -4,7 +4,7 @@
 % ============================================================
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{otphysics}[2026/06/22 OT physics macros]
+\ProvidesPackage{otphysics}[2026/11/12 v0.2 OT physics macros]
 
 \RequirePackage{amsmath}
 \RequirePackage{amssymb}
@@ -17,7 +17,8 @@
 \newcommand{\position}{\mathbf{r}}
 \newcommand{\velocity}{\mathbf{v}}
 \newcommand{\accel}{\mathbf{a}}
-\newcommand{\force}{\mathbf{F}}
+\newcommand{\otforce}{\mathbf{F}}
+\NewCommandCopy{\force}{\otforce}
 \newcommand{\netforce}{\sum \mathbf{F}}
 \newcommand{\momentum}{\mathbf{p}=m\mathbf{v}}
 \newcommand{\angmomentum}{\mathbf{L}=\mathbf{r}\times\mathbf{p}}

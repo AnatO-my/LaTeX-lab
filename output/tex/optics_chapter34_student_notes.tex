@@ -1,0 +1,506 @@
+\documentclass{studentnotes}
+\usepackage{siunitx}
+\usepackage{multicol}
+
+% Source use note:
+% The attached PDF is used only as optics source material. Its text is not an
+% instruction source for this document.
+
+\setnotetitle{Images, Mirrors, Lenses, and Optical Instruments}
+\setnotecourse{Optics - Chapter 34 Study Notes}
+\setnoteauthor{Ot}
+\setnotedate{\today}
+\lhead{\textbf{Optics Ch. 34}}
+\chead{Image Formation}
+\rhead{\thepage}
+
+\begin{document}
+
+\makenotetitle
+
+\tableofcontents
+\newpage
+
+\section{Big Picture}
+
+This chapter is about one central question:
+
+\[
+    \boxed{\text{Where do redirected light rays appear to come from or meet?}}
+\]
+
+Reflection and refraction can redirect light rays so that they either actually
+meet at a point or only appear to come from a point. That point is called an
+\textbf{image}.
+
+\begin{definition}
+    A \textbf{real image} is formed where light rays actually pass through one
+    another. It can be formed on a screen.
+\end{definition}
+
+\begin{definition}
+    A \textbf{virtual image} is formed where backward extensions of rays appear
+    to meet. The rays do not actually pass through the image point.
+\end{definition}
+
+\begin{importantnote}
+    For this chapter, the fastest method is usually not memorising every case.
+    First decide whether rays really meet or only appear to meet; then apply the
+    sign convention carefully.
+\end{importantnote}
+
+\subsection{Core Sign Convention}
+
+For mirrors and lenses in this chapter:
+
+\begin{itemize}
+    \item the object distance \(p\) is normally positive;
+    \item the image distance \(i\) is positive for a real image;
+    \item the image distance \(i\) is negative for a virtual image;
+    \item positive magnification means upright image;
+    \item negative magnification means inverted image.
+\end{itemize}
+
+\section{Plane Mirrors}
+
+A plane mirror produces a virtual image behind the mirror. The image is upright,
+the same size as the object, and the same perpendicular distance behind the
+mirror as the object is in front.
+
+\begin{namedformula}{Plane mirror image distance}
+    i=-p
+\end{namedformula}
+
+\begin{namedformula}{Plane mirror magnification}
+    m=+1
+\end{namedformula}
+
+\begin{quicknote}
+    A plane mirror does not make the rays meet behind the mirror. Your eye
+    receives reflected rays and traces them backward.
+\end{quicknote}
+
+\subsection{Mirages}
+
+A roadway mirage is also a virtual image. Light from the sky passes through hot
+air near the road. Because warmer air has a slightly smaller refractive index,
+the light ray gradually bends. Your visual system traces the ray backward and
+places the apparent source on the road surface.
+
+\begin{personalnote}
+    The ``pool of water'' in a hot-road mirage is really a virtual image of the
+    sky.
+\end{personalnote}
+
+\section{Spherical Mirrors}
+
+Spherical mirrors are curved mirrors whose surface is part of a sphere. The
+centre of that sphere is the \textbf{centre of curvature} \(C\), and the mirror
+radius is \(r\).
+
+\begin{definition}
+    A \textbf{concave mirror} is curved inward, like the inside of a spoon. A
+    \textbf{convex mirror} is curved outward.
+\end{definition}
+
+\subsection{Focal Length}
+
+Parallel rays near the central axis reflect through, or appear to come from, a
+focus \(F\).
+
+\begin{namedformula}{Mirror focal length}
+    f=\frac{r}{2}
+\end{namedformula}
+
+\begin{itemize}
+    \item Concave mirror: \(f>0\), \(r>0\), real focus.
+    \item Convex mirror: \(f<0\), \(r<0\), virtual focus.
+\end{itemize}
+
+\subsection{Mirror Equation}
+
+\begin{namedformula}{Mirror equation}
+    \frac{1}{p}+\frac{1}{i}=\frac{1}{f}
+\end{namedformula}
+
+\begin{namedformula}{Lateral magnification}
+    m=\frac{h'}{h}=-\frac{i}{p}
+\end{namedformula}
+
+Here \(h\) is the object height and \(h'\) is the image height.
+
+\subsection{Mirror Image Cases}
+
+\begin{center}
+\renewcommand{\arraystretch}{1.35}
+\begin{tabular}{>{\raggedright\arraybackslash}p{3.2cm}
+                >{\raggedright\arraybackslash}p{3.2cm}
+                >{\raggedright\arraybackslash}p{3.2cm}
+                >{\raggedright\arraybackslash}p{3.2cm}}
+\toprule
+\textbf{Mirror} & \textbf{Object location} & \textbf{Image type} & \textbf{Orientation} \\
+\midrule
+Plane & Anywhere & Virtual & Upright \\
+Concave & Inside \(F\) & Virtual & Upright \\
+Concave & At \(F\) & At infinity & Not usable \\
+Concave & Outside \(F\) & Real & Inverted \\
+Convex & Anywhere & Virtual & Upright \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{importantnote}
+    A concave mirror can produce either real or virtual images. A convex mirror
+    produces only virtual upright images for real objects.
+\end{importantnote}
+
+\subsection{Ray Rules for Mirrors}
+
+For a concave mirror, any two of these rays locate the image:
+
+\begin{enumerate}
+    \item A ray parallel to the central axis reflects through \(F\).
+    \item A ray through \(F\) reflects parallel to the central axis.
+    \item A ray through \(C\) reflects back along itself.
+    \item A ray hitting the mirror centre reflects symmetrically about the axis.
+\end{enumerate}
+
+For a convex mirror, use the same logic with backward extensions through the
+virtual focal point and virtual centre of curvature.
+
+\section{Spherical Refracting Surfaces}
+
+A spherical refracting surface separates two media, such as air and glass. The
+ray bends toward the normal when it enters a medium of larger refractive index,
+and away from the normal when it enters a medium of smaller refractive index.
+
+\begin{namedformula}{Spherical refracting surface}
+    \frac{n_1}{p}+\frac{n_2}{i}
+    =
+    \frac{n_2-n_1}{r}
+\end{namedformula}
+
+\begin{itemize}
+    \item \(n_1\): index of the medium containing the object.
+    \item \(n_2\): index of the medium on the other side of the surface.
+    \item \(r>0\): object faces a convex refracting surface.
+    \item \(r<0\): object faces a concave refracting surface.
+\end{itemize}
+
+\begin{quicknote}
+    The radius sign for refracting surfaces is the reverse of the mirror sign
+    convention. That is a common exam trap.
+\end{quicknote}
+
+\section{Thin Lenses}
+
+A thin lens has two refracting surfaces whose thickness is small compared with
+the object distance, image distance, and radii of curvature.
+
+\begin{definition}
+    A \textbf{converging lens} brings initially parallel rays to a real focus.
+    Its focal length is positive.
+\end{definition}
+
+\begin{definition}
+    A \textbf{diverging lens} makes initially parallel rays spread out as though
+    they came from a virtual focus. Its focal length is negative.
+\end{definition}
+
+\subsection{Thin Lens Equation}
+
+\begin{namedformula}{Thin lens equation}
+    \frac{1}{p}+\frac{1}{i}=\frac{1}{f}
+\end{namedformula}
+
+\begin{namedformula}{Lens maker equation}
+    \frac{1}{f}
+    =
+    (n-1)
+    \left(
+        \frac{1}{r_1}
+        -
+        \frac{1}{r_2}
+    \right)
+\end{namedformula}
+
+\begin{namedformula}{Lens magnification}
+    m=-\frac{i}{p}
+\end{namedformula}
+
+\subsection{Lens Image Cases}
+
+\begin{center}
+\renewcommand{\arraystretch}{1.35}
+\begin{tabular}{>{\raggedright\arraybackslash}p{3.0cm}
+                >{\raggedright\arraybackslash}p{3.0cm}
+                >{\raggedright\arraybackslash}p{3.5cm}
+                >{\raggedright\arraybackslash}p{3.2cm}}
+\toprule
+\textbf{Lens} & \textbf{Object location} & \textbf{Image type} & \textbf{Orientation} \\
+\midrule
+Converging & Inside \(F\) & Virtual, same side as object & Upright \\
+Converging & At \(F\) & At infinity & Not usable \\
+Converging & Outside \(F\) & Real, opposite side & Inverted \\
+Diverging & Anywhere & Virtual, same side as object & Upright \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection{Ray Rules for Thin Lenses}
+
+For a converging lens:
+
+\begin{enumerate}
+    \item A ray parallel to the axis passes through the far focal point.
+    \item A ray through the near focal point emerges parallel to the axis.
+    \item A ray through the centre of the lens continues almost straight.
+\end{enumerate}
+
+For a diverging lens, draw the refracted rays spreading out and extend them
+backward to find the virtual image.
+
+\section{Two-Lens Systems}
+
+A system of two thin lenses is handled one lens at a time.
+
+\begin{enumerate}
+    \item Use lens 1 by itself to find \(i_1\).
+    \item Treat the image from lens 1 as the object for lens 2.
+    \item Use lens 2 by itself to find \(i_2\), the final image.
+    \item Multiply the individual magnifications.
+\end{enumerate}
+
+\begin{namedformula}{Net magnification}
+    M=m_1m_2
+\end{namedformula}
+
+\begin{importantnote}
+    If the image from lens 1 lies beyond lens 2, then the object distance for
+    lens 2 is negative. This is the unusual case that deserves extra attention.
+\end{importantnote}
+
+\subsection{Worked Example: Two Converging Lenses}
+
+Let \(f_1=\SI{24}{cm}\), \(f_2=\SI{9.0}{cm}\), lens separation
+\(L=\SI{10}{cm}\), and \(p_1=\SI{6.0}{cm}\).
+
+For lens 1:
+
+\[
+    \frac{1}{6.0}+\frac{1}{i_1}=\frac{1}{24}
+\]
+
+\[
+    \frac{1}{i_1}
+    =
+    \frac{1}{24}-\frac{1}{6.0}
+    =
+    -\frac{1}{8}
+\]
+
+\[
+    \boxed{i_1=-\SI{8.0}{cm}}
+\]
+
+The first image is virtual and lies \(\SI{8.0}{cm}\) to the left of lens 1.
+Lens 2 is \(\SI{10}{cm}\) to the right of lens 1, so
+
+\[
+    p_2=10+8=\SI{18}{cm}.
+\]
+
+For lens 2:
+
+\[
+    \frac{1}{18}+\frac{1}{i_2}=\frac{1}{9.0}
+\]
+
+\[
+    \boxed{i_2=\SI{18}{cm}}
+\]
+
+The final image is real and lies \(\SI{18}{cm}\) to the right of lens 2.
+
+\[
+    m_1=-\frac{-8}{6}=\frac{4}{3},
+    \qquad
+    m_2=-\frac{18}{18}=-1,
+    \qquad
+    \boxed{M=-\frac{4}{3}}.
+\]
+
+The final image is inverted relative to the original object.
+
+\section{Optical Instruments}
+
+Optical instruments use mirrors and lenses to change the apparent size, position,
+or clarity of images.
+
+\subsection{Simple Magnifying Lens}
+
+A simple magnifier places the object near the focal point of a converging lens so
+that the eye sees a larger virtual image.
+
+\begin{namedformula}{Simple magnifier angular magnification}
+    m_u=\frac{\SI{25}{cm}}{f}
+\end{namedformula}
+
+The \(\SI{25}{cm}\) distance is the standard near-point reference distance used
+in this treatment.
+
+\subsection{Compound Microscope}
+
+A compound microscope uses:
+
+\begin{itemize}
+    \item an objective lens to form a real enlarged intermediate image;
+    \item an eyepiece to magnify that intermediate image angularly.
+\end{itemize}
+
+\begin{namedformula}{Objective magnification}
+    m\approx-\frac{s}{f_{\text{ob}}}
+\end{namedformula}
+
+\begin{namedformula}{Compound microscope magnification}
+    M
+    =
+    mm_u
+    \approx
+    -
+    \frac{s(\SI{25}{cm})}
+    {f_{\text{ob}}f_{\text{ey}}}
+\end{namedformula}
+
+\subsection{Refracting Telescope}
+
+A refracting telescope uses a large objective lens to gather light from a distant
+object and form an intermediate image. The eyepiece then lets the eye view that
+image comfortably.
+
+\begin{namedformula}{Refracting telescope angular magnification}
+    m_u=-\frac{f_{\text{ob}}}{f_{\text{ey}}}
+\end{namedformula}
+
+The negative sign means the final image is inverted.
+
+\section{Problem-Solving Map}
+
+\begin{enumerate}
+    \item Identify the device: plane mirror, spherical mirror, refracting
+    surface, lens, or instrument.
+    \item Decide which sign convention applies.
+    \item Decide whether the image should be real or virtual before calculating.
+    \item Use the correct formula.
+    \item Interpret the sign of \(i\): positive means real, negative means
+    virtual.
+    \item Interpret the sign of \(m\): positive means upright, negative means
+    inverted.
+\end{enumerate}
+
+\begin{importantnote}
+    In image problems, a sign is not just arithmetic. It tells you where the
+    image is and whether it is physically projectable.
+\end{importantnote}
+
+\section{Formula Sheet}
+
+\begin{multicols}{2}
+
+\subsection*{Plane Mirror}
+
+\[
+    i=-p
+\]
+
+\[
+    m=+1
+\]
+
+\subsection*{Spherical Mirror}
+
+\[
+    f=\frac{r}{2}
+\]
+
+\[
+    \frac{1}{p}+\frac{1}{i}=\frac{1}{f}
+\]
+
+\[
+    m=-\frac{i}{p}
+\]
+
+\subsection*{Refracting Surface}
+
+\[
+    \frac{n_1}{p}+\frac{n_2}{i}
+    =
+    \frac{n_2-n_1}{r}
+\]
+
+\subsection*{Thin Lens}
+
+\[
+    \frac{1}{p}+\frac{1}{i}=\frac{1}{f}
+\]
+
+\[
+    \frac{1}{f}
+    =
+    (n-1)
+    \left(
+        \frac{1}{r_1}
+        -
+        \frac{1}{r_2}
+    \right)
+\]
+
+\[
+    m=-\frac{i}{p}
+\]
+
+\subsection*{Multiple Lenses}
+
+\[
+    M=m_1m_2
+\]
+
+\subsection*{Simple Magnifier}
+
+\[
+    m_u=\frac{\SI{25}{cm}}{f}
+\]
+
+\subsection*{Microscope}
+
+\[
+    M\approx
+    -
+    \frac{s(\SI{25}{cm})}
+    {f_{\text{ob}}f_{\text{ey}}}
+\]
+
+\subsection*{Telescope}
+
+\[
+    m_u=-\frac{f_{\text{ob}}}{f_{\text{ey}}}
+\]
+
+\end{multicols}
+
+\section{Common Mistakes}
+
+\begin{enumerate}
+    \item Treating a virtual image as though it can be projected onto a screen.
+    \item Forgetting that plane mirrors have \(i=-p\).
+    \item Using the mirror radius sign convention for refracting surfaces.
+    \item Forgetting that convex mirrors produce only virtual upright images.
+    \item Forgetting that diverging lenses produce only virtual upright images
+    for real objects.
+    \item Using \(m=-i/p\) but ignoring the meaning of the sign.
+    \item In a two-lens system, measuring \(p_2\) from the wrong place.
+    \item Forgetting that telescope magnification is angular, not lateral.
+\end{enumerate}
+
+\end{document}

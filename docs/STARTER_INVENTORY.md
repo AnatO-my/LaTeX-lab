@@ -8,7 +8,7 @@ course-specific to be the best starting point for a new author document.
 
 ## Current Starters and Examples
 
-| Area | Current file | Current role | Phase 7 decision |
+| Area | Current file | Current role | Usage decision |
 | --- | --- | --- | --- |
 | Structured physics quiz bank | `examples/physicsquiz/starter_quiz_bank.tex` | True starter | Keep as the first approved starter. |
 | Full PHY104 structured paper | `examples/physicsquiz/PHY104_structured_revision.tex` | Representative example | Do not present as a blank starter. |
@@ -20,9 +20,29 @@ course-specific to be the best starting point for a new author document.
 | Engineering notes | `examples/otengineering/starter_engineering_notes.tex` | True starter | Use as the copyable engineering notebook starter. |
 | Engineering headphones document | `examples/otengineering/test.tex` | Representative example | Keep as a larger worked example. |
 | Science notes | `examples/otscience/starter_science_notes.tex` | True starter | Use as the copyable science notes starter. |
+| Personal book | `examples/otbook/starter_personal_book.tex` | True starter | Use for native chapters and OT styling; verify with `tests/run_otbook_tests.ps1`. |
 | Vector workbook module | `examples/vector-workbook/starter_module.tex` | True starter | Use as the copyable standalone module starter. |
 | Vector workbook combined root | `examples/vector-workbook/starter_combined_workbook.tex` | True starter | Use as the copyable combined-workbook root. |
 | Vector workbook | `examples/vector-workbook/00_main_combined_workbook.tex` | Representative combined workbook | Keep as the full combined-workbook example. |
+
+## Copyable Project Folder
+
+`templates/otbook-project/` packages the personal-book workflow as a folder
+with `main.tex`, a chapter file, figure/bibliography directories, `.gitignore`,
+and a local `.latexmkrc`. It is a project variant of the book starter, not an
+additional entry in the eight-document starter suite. See its README for
+copying and configuring it outside LaTeX-lab.
+
+To verify the template inside the repository, run from its own directory:
+
+```powershell
+Push-Location templates/otbook-project
+try { latexmk -pdf main.tex } finally { Pop-Location }
+```
+
+Require exit status zero and `templates/otbook-project/build/pdf/main.pdf`.
+`tests/run_otbook_tests.ps1` performs this build alongside the book starter
+and smoke document.
 
 ## Starter Acceptance Rules
 
@@ -45,12 +65,25 @@ The minimum useful starter set is:
 * `examples/studentnotes/starter_notes.tex`;
 * `examples/otengineering/starter_engineering_notes.tex`;
 * `examples/otscience/starter_science_notes.tex`;
+* `examples/otbook/starter_personal_book.tex`;
 * `examples/vector-workbook/starter_module.tex`; and
 * `examples/vector-workbook/starter_combined_workbook.tex`.
 
 ## Verification
 
 Checkpoint 7C added the missing minimal starters and
-`tests/run_phase7c_starter_tests.ps1`. The runner is separate from the large
+`tests/run_starter_tests.ps1`. The runner is separate from the large
 regression suites so authors can quickly verify that the copyable starting
 points still work.
+
+The current inventory adds `otbook` as an eighth starter. The Phase 7 runner
+still covers the original seven; use the dedicated runner for book coverage:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File tests\run_otbook_tests.ps1
+```
+
+It requires the public starter, smoke document, and project template to build
+successfully and checks their expected PDFs. The smoke document exercises
+native book structure and selected OT helpers;
+it does not establish complete visual or option-compatibility coverage.

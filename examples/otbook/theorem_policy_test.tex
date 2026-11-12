@@ -1,0 +1,42 @@
+\documentclass[chaptertheorems]{otbook}
+
+\title{Theorem Policy Test}
+\author{Test Author}
+\date{\today}
+
+\begin{document}
+
+\makeotbooktitle
+
+\chapter{Mathematical Foundations}
+
+\section{Introduction}
+
+Here is a theorem that should be numbered by chapter (1.1) instead of section (1.1.1).
+
+\begin{otplainthm}[Central Limit Theorem]
+  \label{thm:clt}
+  Let $X_1, X_2, \dots$ be i.i.d. random variables...
+\end{otplainthm}
+
+\begin{equation}
+  \label{eq:clt}
+  \bar{X}_n \approx \mathcal{N}(\mu, \sigma^2/n)
+\end{equation}
+
+\begin{designrule}[Principle of Least Astonishment]
+  \label{rule:astonishment}
+  The design should behave in a way that the user expects.
+\end{designrule}
+
+\chapter{Application}
+
+\begin{otplainthm}[Another Theorem]
+  This should be Theorem 2.1.
+\end{otplainthm}
+
+\begin{equation}
+  PV = nRT
+\end{equation}
+
+\end{document}

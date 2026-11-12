@@ -1,0 +1,52 @@
+% ============================================================
+% OT Bibliography Package
+% otbib.sty
+% Version: 0.1
+% Purpose: Standardized bibliography and citation management
+% ============================================================
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{otbib}[2026/09/11 v0.1 OT Bibliography]
+
+\RequirePackage{otcolors}
+
+% Load biblatex with biber backend
+\RequirePackage[
+  backend=biber,
+  style=numeric-comp,
+  sorting=none,
+  backref=true
+]{biblatex}
+
+% -----------------------------
+% OT Citation Styling
+% -----------------------------
+
+% Color citation callouts in OTBlue
+\AtBeginDocument{
+  \@ifpackageloaded{hyperref}{\hypersetup{citecolor=OTBlue}}{}
+}
+
+% Customize the bibliography appearance
+\ExecuteBibliographyOptions{
+  maxbibnames=99,
+  giveninits=true,
+  uniquename=init
+}
+
+% -----------------------------
+% Author Interface
+% -----------------------------
+
+% Helper to add a resource and set up the bib
+% Usage: \otbibliography{references.bib}
+\newcommand{\otbibliography}[1]{%
+  \addbibresource{#1}%
+}
+
+% Command to print the bibliography with OT header
+\newcommand{\printotbibliography}[1][References]{%
+  \printbibliography[title={#1}]%
+}
+
+\endinput

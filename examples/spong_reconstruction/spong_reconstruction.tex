@@ -1,0 +1,45 @@
+\documentclass{otbook}
+
+% --- Core Superpowers ---
+\usepackage{otbib}
+\usepackage{otindex}
+\usepackage{otcode}
+\usepackage{otprofiles}
+
+% --- Local Assets ---
+\input{spong_symbols}
+\otbibliography{spong_references.bib}
+
+\title{The Spong Re-construction}
+\booksubtitle{A Mental Operating Manual for Robot Dynamics and Control}
+\author{O. T.}
+\date{\today}
+
+\begin{document}
+
+\frontmatter
+\makeotbooktitle
+
+\chapter{The Reconstruction Thesis}
+This is not a copy of Spong. It is a \textit{taking apart} and a \textit{putting together again}. Following the \acr{plds}, we assume that nothing is understood until it can be reconstructed from a diagram or an invariant.
+
+\tableofcontents
+
+\mainmatter
+
+\part{The Geometry of Robots}
+\include{parts/part1_geometry}
+
+\part{Dynamics and Physical Necessity}
+\include{parts/part2_dynamics}
+
+\part{Operational Control}
+\include{parts/part3_control}
+
+\backmatter
+
+\printotindex
+
+\printotbibliography
+
+\end{document}

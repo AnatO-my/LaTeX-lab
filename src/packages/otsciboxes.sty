@@ -1,0 +1,85 @@
+% ============================================================
+% OT Semantic Science Boxes
+% otsciboxes.sty
+% Version: 0.1
+% Purpose: Canonical semantic science-box family built on otboxes
+% ============================================================
+%
+% This companion to otboxes.sty is the single owner of the shared semantic
+% science boxes used by otscience.cls and otbook.cls. It is a separate,
+% opt-in package so that documents loading only otboxes (directly or through
+% otpractice) do not acquire these common environment names.
+%
+% Every environment takes an optional title and has a non-splitting
+% "nosplit" variant. Defaults are identical to the definitions previously
+% duplicated in otscience.cls and otbook.cls.
+
+\NeedsTeXFormat{LaTeX2e}[2022-06-01]
+\ProvidesPackage{otsciboxes}[2026/11/11 v0.1 OT Semantic Science Boxes]
+
+\RequirePackage{otboxes}
+
+% -----------------------------
+% Semantic science boxes
+% -----------------------------
+\newenvironment{definitionbox}[1][Definition]
+{\begin{otscibox}[#1]{OTBlue}}{\end{otscibox}}
+
+\newenvironment{definitionboxnosplit}[1][Definition]
+{\begin{otsciboxnosplit}[#1]{OTBlue}}{\end{otsciboxnosplit}}
+
+\newenvironment{theorembox}[1][Theorem]
+{\begin{otscibox}[#1]{OTPurple}}{\end{otscibox}}
+
+\newenvironment{theoremboxnosplit}[1][Theorem]
+{\begin{otsciboxnosplit}[#1]{OTPurple}}{\end{otsciboxnosplit}}
+
+\newenvironment{lawbox}[1][Law / Principle]
+{\begin{otscibox}[#1]{OTGreen}}{\end{otscibox}}
+
+\newenvironment{lawboxnosplit}[1][Law / Principle]
+{\begin{otsciboxnosplit}[#1]{OTGreen}}{\end{otsciboxnosplit}}
+
+\newenvironment{formulabox}[1][Formula]
+{\begin{otscibox}[{#1}]{OTTeal}}{\end{otscibox}}
+
+\newenvironment{formulaboxnosplit}[1][Formula]
+{\begin{otsciboxnosplit}[{#1}]{OTTeal}}{\end{otsciboxnosplit}}
+
+\newenvironment{derivationbox}[1][Derivation]
+{\begin{otscibox}[#1]{OTOrange}}{\end{otscibox}}
+
+\newenvironment{derivationboxnosplit}[1][Derivation]
+{\begin{otsciboxnosplit}[#1]{OTOrange}}{\end{otsciboxnosplit}}
+
+\newenvironment{examplebox}[1][Worked Example]
+{\begin{otscibox}[#1]{OTGreen}}{\end{otscibox}}
+
+\newenvironment{exampleboxnosplit}[1][Worked Example]
+{\begin{otsciboxnosplit}[#1]{OTGreen}}{\end{otsciboxnosplit}}
+
+\newenvironment{warningbox}[1][Common Mistake]
+{\begin{otscibox}[#1]{OTRed}}{\end{otscibox}}
+
+\newenvironment{warningboxnosplit}[1][Common Mistake]
+{\begin{otsciboxnosplit}[#1]{OTRed}}{\end{otsciboxnosplit}}
+
+\newenvironment{intuitionbox}[1][Intuition]
+{\begin{otscibox}[#1]{OTYellow}}{\end{otscibox}}
+
+\newenvironment{intuitionboxnosplit}[1][Intuition]
+{\begin{otsciboxnosplit}[#1]{OTYellow}}{\end{otsciboxnosplit}}
+
+\newenvironment{summarybox}[1][Key Summary]
+{\begin{otscibox}[{#1}]{OTDark}}{\end{otscibox}}
+
+\newenvironment{summaryboxnosplit}[1][Key Summary]
+{\begin{otsciboxnosplit}[{#1}]{OTDark}}{\end{otsciboxnosplit}}
+
+\newenvironment{experimentbox}[1][Experiment / Observation]
+{\begin{otscibox}[{#1}]{OTPurple}}{\end{otscibox}}
+
+\newenvironment{experimentboxnosplit}[1][Experiment / Observation]
+{\begin{otsciboxnosplit}[{#1}]{OTPurple}}{\end{otsciboxnosplit}}
+
+\endinput

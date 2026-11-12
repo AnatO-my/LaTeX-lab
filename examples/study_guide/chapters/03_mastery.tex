@@ -1,0 +1,42 @@
+\chapter{Mastery and the Retrieval Loop}
+
+\otbookepigraph{Measure capability, not study time.}{PLDS Principle}
+
+\section{The Reconstruction Test}
+
+After reading Spong's chapter on \otindex{Velocity Kinematics}, close the book immediately.
+
+\begin{practice}[Reconstruction Challenge]
+    Starting only from the forward kinematics \(x = f(q)\), derive the relationship for tip velocity \(\dot{x}\).
+    \textit{Hint: Use the chain rule to reveal the \otindex{Jacobian} \(J\).}
+\end{practice}
+
+\section{Stress-Testing the Robot}
+
+Robotics is a ``Mixed Project Domain''. A model that works for a 2-link planar arm must survive a \otindex{Stress-test}.
+
+\begin{designrule}[Breaking the Model]
+    Take your derived Jacobian and set the robot into a \otindex{Singularity} configuration.
+    \begin{itemize}
+        \item What happens to the inverse \(J^{-1}\)?
+        \item Physically, why can't the robot move in a specific direction?
+    \end{itemize}
+\end{designrule}
+
+\section{Closing the Loop}
+
+Use the \otindex{3-Day-On / 3-Day-Off} cycle for the control laws in Spong Chapter 7:
+\begin{itemize}
+    \item \textbf{On Block:} Build the model of PD Control with Gravity Compensation.
+    \item \textbf{Off Block:} Step away and work on your \otindex{LaTeX-lab} templates.
+    \item \textbf{Return Cold:} Attempt to draw the block diagram of the control system from memory.
+\end{itemize}
+
+\begin{summarybox}
+    You have mastered a chapter in Spong when you can:
+    \begin{enumerate}
+        \item Explain the necessity of the main terms.
+        \item Rebuild the core derivation without looking.
+        \item Predict where the model breaks (singularities, limits).
+    \end{enumerate}
+\end{summarybox}

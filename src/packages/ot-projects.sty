@@ -1,0 +1,517 @@
+% OT Projects -- additive project records for otengineering
+% Records are declared once in the preamble; all views use those records.
+\NeedsTeXFormat{LaTeX2e}[2022-06-01]
+\ProvidesPackage{ot-projects}[2026/09/28 v0.1 Project records and report views]
+\makeatletter
+\@ifclassloaded{otengineering}{}{%
+  \PackageError{ot-projects}{The otengineering class is required}
+    {Use \string\documentclass{otengineering} before loading ot-projects.}%
+  \expandafter\endinput
+}
+\makeatother
+\RequirePackage{longtable}
+\RequirePackage{needspace}
+\RequirePackage{array}
+\RequirePackage{hyperref}
+\ExplSyntaxOn
+\msg_new:nnn {ot-projects}{invalid}{#1}
+\cs_new_protected:Npn \__otp_error:n #1
+  { \msg_fatal:nnn {ot-projects}{invalid}{#1} }
+\seq_new:N \g__otp_ids_seq
+\seq_new:N \g__otp_anchors_seq
+\prop_new:N \g__otp_types_prop
+\prop_gput:Nnn \g__otp_types_prop {workstream}{Workstreams}
+\prop_gput:Nnn \g__otp_types_prop {requirement}{Requirements}
+\prop_gput:Nnn \g__otp_types_prop {person}{People~and~responsibilities}
+\prop_gput:Nnn \g__otp_types_prop {material}{Materials~and~BOM}
+\prop_gput:Nnn \g__otp_types_prop {cost}{Costs}
+\prop_gput:Nnn \g__otp_types_prop {milestone}{Milestones~and~dependencies}
+\prop_gput:Nnn \g__otp_types_prop {alternative}{Alternatives}
+\prop_gput:Nnn \g__otp_types_prop {problem}{Problems~and~solutions}
+\prop_gput:Nnn \g__otp_types_prop {test}{Acceptance~and~validation}
+\prop_gput:Nnn \g__otp_types_prop {evidence}{Evidence~and~sources}
+\prop_gput:Nnn \g__otp_types_prop {revision}{Revision~history}
+\prop_gput:Nnn \g__otp_types_prop {signatory}{Sign-off}
+\tl_new:N \g__otp_style_tl
+\tl_gset:Nn \g__otp_style_tl {report}
+\bool_new:N \g__otp_roles_bool
+\bool_new:N \g__otp_individuals_bool
+\bool_new:N \g__otp_organisations_bool
+\bool_new:N \g__otp_signoff_bool
+\bool_gset_true:N \g__otp_roles_bool
+\bool_gset_true:N \g__otp_individuals_bool
+\bool_gset_true:N \g__otp_organisations_bool
+\keys_define:nn {ot-projects/setup}
+  {
+    style .choice:,
+    style / report .code:n = \tl_gset:Nn \g__otp_style_tl {report},
+    style / notebook .code:n = \tl_gset:Nn \g__otp_style_tl {notebook},
+    show-roles .bool_gset:N = \g__otp_roles_bool,
+    show-individuals .bool_gset:N = \g__otp_individuals_bool,
+    show-organisations .bool_gset:N = \g__otp_organisations_bool,
+    show-signoff .bool_gset:N = \g__otp_signoff_bool
+  }
+\NewDocumentCommand \OTProjectSetup {m}
+  {\keys_set:nn {ot-projects/setup}{#1}}
+
+\prop_new:N \l__otp_record_prop
+\tl_new:N \l__otp_value_tl
+\tl_new:N \l__otp_currency_tl
+\tl_new:N \l__otp_rate_tl
+\tl_new:N \l__otp_current_id_tl
+\tl_new:N \l__otp_category_tl
+\tl_new:N \l__otp_filter_tl
+\seq_new:N \l__otp_selection_seq
+\tl_new:N \l__otp_rows_tl
+% Field values are stored without expansion, including paragraph bodies.
+\clist_map_inline:nn
+ {workstream,owner,status,date,source,related,depends-on,acceptance,method,
+  result,evidence,pros,cons,rationale,resolution,version,category,organisation,
+  role,quantity,unit,unit-cost,supplier,planned,actual,currency,rate,rate-date,
+  rate-source,native-planned,native-actual,title,capacity,signature}
+ {
+   \keys_define:nn {ot-projects/record}
+     {#1 .code:n = \prop_put:Nnn \l__otp_record_prop {#1}{##1}}
+ }
+\keys_define:nn {ot-projects/print}
+  {workstream .tl_set:N = \l__otp_filter_tl}
+\cs_generate_variant:Nn \prop_item:Nn {cn}
+\cs_generate_variant:Nn \prop_get:NnN {cnN}
+\cs_generate_variant:Nn \prop_gset_eq:NN {cN}
+\cs_generate_variant:Nn \prop_if_in:NnTF {NVTF}
+\cs_generate_variant:Nn \seq_if_in:NnTF {NVTF}
+\cs_generate_variant:Nn \regex_match:nnTF {nVTF}
+\cs_generate_variant:Nn \clist_map_inline:nn {Vn}
+
+\cs_new_protected:Npn \__otp_add:nnnnn #1#2#3#4#5
+ {
+   \regex_match:nnTF {\A[A-Za-z][A-Za-z0-9-]*\Z}{#2}
+     {}{\__otp_error:n {Invalid~record~ID~'#2'.~Use~letters,~digits~and~hyphens.}}
+   \seq_if_in:NnTF \g__otp_ids_seq {#2}
+     {\__otp_error:n {Duplicate~record~ID~'#2'.}}{}
+   \group_begin:
+   \prop_clear:N \l__otp_record_prop
+   \clist_map_inline:nn
+     {workstream,owner,status,date,source,related,depends-on,acceptance,method,
+      result,evidence,pros,cons,rationale,resolution,version,category,organisation,
+      role,quantity,unit,unit-cost,supplier,planned,actual,currency,rate,rate-date,
+      rate-source,native-planned,native-actual,title,capacity,signature}
+     {\prop_put:Nnn \l__otp_record_prop {##1}{}}
+   \prop_put:Nnn \l__otp_record_prop {status}{Not~specified}
+   \prop_put:Nnn \l__otp_record_prop {category}{role}
+   \prop_put:Nnn \l__otp_record_prop {currency}{NGN}
+   \keys_set:nn {ot-projects/record}{#4}
+   \prop_put:Nnn \l__otp_record_prop {type}{#1}
+   \prop_put:Nnn \l__otp_record_prop {heading}{#3}
+   \prop_put:Nnn \l__otp_record_prop {body}{#5}
+   \str_if_eq:nnT {#1}{person}
+     {
+       \prop_get:NnN \l__otp_record_prop {category}\l__otp_value_tl
+       \str_case:VnF \l__otp_value_tl
+         {{role}{}{individual}{}{organisation}{}}
+         {\__otp_error:n {Person~'#2':~category~must~be~role,~individual~or~organisation.}}
+     }
+   \prop_get:NnN \l__otp_record_prop {currency}\l__otp_currency_tl
+   \regex_match:nVTF {\A[A-Z]{3}\Z}\l__otp_currency_tl
+     {}{\__otp_error:n {Record~'#2':~currency~must~be~three~uppercase~letters.}}
+   \prop_get:NnN \l__otp_record_prop {rate}\l__otp_rate_tl
+   \tl_if_blank:VF \l__otp_rate_tl
+     {
+       \regex_match:nVTF {\A[0-9]+(\.[0-9]+)?\Z}\l__otp_rate_tl
+         {}{\__otp_error:n {Record~'#2':~manual~rate~must~be~a~positive~number.}}
+       \fp_compare:nNnF {\l__otp_rate_tl}>{0}
+         {\__otp_error:n {Record~'#2':~manual~rate~must~be~positive.}}
+       \str_if_eq:VnT \l__otp_currency_tl {NGN}
+         {\__otp_error:n {Record~'#2':~an~exchange~rate~is~only~for~foreign~currency.}}
+       \clist_map_inline:nn {rate-date,rate-source}
+         {
+           \prop_get:NnN \l__otp_record_prop {##1}\l__otp_value_tl
+           \tl_if_blank:VT \l__otp_value_tl
+             {\__otp_error:n {Record~'#2':~a~manual~rate~requires~##1.}}
+         }
+     }
+   \clist_map_inline:nn {native-planned,native-actual}
+     {
+       \prop_get:NnN \l__otp_record_prop {##1}\l__otp_value_tl
+       \tl_if_blank:VF \l__otp_value_tl
+         {
+           \str_if_eq:VnTF \l__otp_currency_tl {NGN}
+             {\__otp_error:n {Record~'#2':~use~planned/actual~for~native~NGN~amounts.}}
+             {
+               \tl_if_blank:VT \l__otp_rate_tl
+                 {\__otp_error:n {Record~'#2':~a~manual~NGN~equivalent~requires~rate,~rate-date~and~rate-source.}}
+             }
+         }
+     }
+   \prop_new:c {g__otp_record_#2_prop}
+   \prop_gset_eq:cN {g__otp_record_#2_prop}\l__otp_record_prop
+   \seq_gput_right:Nn \g__otp_ids_seq {#2}
+   \group_end:
+ }
+\NewDocumentCommand \OTWorkstream {O{} m m +m}
+  {\__otp_add:nnnnn {workstream}{#2}{#3}{#1}{#4}}
+\NewDocumentCommand \OTRequirement {O{} m m +m}
+  {\__otp_add:nnnnn {requirement}{#2}{#3}{#1}{#4}}
+\NewDocumentCommand \OTPerson {O{} m m +m}
+  {\__otp_add:nnnnn {person}{#2}{#3}{#1}{#4}}
+\NewDocumentCommand \OTMaterial {O{} m m +m}
+  {\__otp_add:nnnnn {material}{#2}{#3}{#1}{#4}}
+\NewDocumentCommand \OTCost {O{} m m +m}
+  {\__otp_add:nnnnn {cost}{#2}{#3}{#1}{#4}}
+\NewDocumentCommand \OTMilestone {O{} m m +m}
+  {\__otp_add:nnnnn {milestone}{#2}{#3}{#1}{#4}}
+\NewDocumentCommand \OTAlternative {O{} m m +m}
+  {\__otp_add:nnnnn {alternative}{#2}{#3}{#1}{#4}}
+\NewDocumentCommand \OTProblem {O{} m m +m}
+  {\__otp_add:nnnnn {problem}{#2}{#3}{#1}{#4}}
+\NewDocumentCommand \OTTest {O{} m m +m}
+  {\__otp_add:nnnnn {test}{#2}{#3}{#1}{#4}}
+\NewDocumentCommand \OTEvidence {O{} m m +m}
+  {\__otp_add:nnnnn {evidence}{#2}{#3}{#1}{#4}}
+\NewDocumentCommand \OTRevision {O{} m m +m}
+  {\__otp_add:nnnnn {revision}{#2}{#3}{#1}{#4}}
+\NewDocumentCommand \OTSignatory {O{} m m}
+  {\__otp_add:nnnnn {signatory}{#2}{#3}{#1}{}}
+
+\cs_new_protected:Npn \__otp_validate:
+ {
+   \seq_map_inline:Nn \g__otp_ids_seq
+     {
+       \clist_map_inline:nn {related,depends-on}
+         {
+           \prop_get:cnN {g__otp_record_##1_prop}{####1}\l__otp_value_tl
+           \clist_map_inline:Vn \l__otp_value_tl
+             {
+               \seq_if_in:NnTF \g__otp_ids_seq {########1}{}
+                 {\__otp_error:n {Record~'##1'~references~unknown~ID~'########1'.}}
+               \str_if_eq:nnT {####1}{depends-on}
+                 {
+                   \str_if_eq:nnT {##1}{########1}
+                     {\__otp_error:n {Record~'##1'~cannot~depend~on~itself.}}
+                 }
+             }
+         }
+       \prop_get:cnN {g__otp_record_##1_prop}{workstream}\l__otp_value_tl
+       \tl_if_blank:VF \l__otp_value_tl
+         {
+           \seq_if_in:NVTF \g__otp_ids_seq \l__otp_value_tl
+             {
+               \tl_set:Nx \l_tmpa_tl
+                 {\prop_item:cn {g__otp_record_\l__otp_value_tl _prop}{type}}
+               \str_if_eq:VnF \l_tmpa_tl {workstream}
+                 {\__otp_error:n {Record~'##1':~workstream~must~reference~a~workstream~record.}}
+             }
+             {\__otp_error:n {Record~'##1'~has~an~unknown~workstream.}}
+         }
+     }
+ }
+\AtBeginDocument{\__otp_validate:}
+\prg_new_protected_conditional:Npnn \__otp_visible:n #1 {TF,T}
+ {
+   \tl_set:Nx \l_tmpa_tl {\prop_item:cn {g__otp_record_#1_prop}{type}}
+   \str_case:VnF \l_tmpa_tl
+     {
+       {person}
+         {
+           \tl_set:Nx \l_tmpb_tl {\prop_item:cn {g__otp_record_#1_prop}{category}}
+           \str_case:Vn \l_tmpb_tl
+             {
+               {role}{\bool_if:NTF \g__otp_roles_bool {\prg_return_true:}{\prg_return_false:}}
+               {individual}{\bool_if:NTF \g__otp_individuals_bool {\prg_return_true:}{\prg_return_false:}}
+               {organisation}{\bool_if:NTF \g__otp_organisations_bool {\prg_return_true:}{\prg_return_false:}}
+             }
+         }
+       {signatory}{\bool_if:NTF \g__otp_signoff_bool {\prg_return_true:}{\prg_return_false:}}
+     }
+     {\prg_return_true:}
+ }
+\cs_new_protected:Npn \__otp_anchor:n #1
+ {
+   \seq_if_in:NnF \g__otp_anchors_seq {#1}
+     {
+       \phantomsection\label{otproject:#1}
+       \seq_gput_right:Nn \g__otp_anchors_seq {#1}
+     }
+ }
+\NewDocumentCommand \OTRecordRef {m}
+ {
+   \seq_if_in:NnTF \g__otp_ids_seq {#1}
+     {
+       \__otp_visible:nTF {#1}
+         {
+           \cs_if_exist:cTF {r@otproject:#1}
+             {\hyperref[otproject:#1]{\texttt{#1}}}
+             {\texttt{#1}}
+         }
+         {\texttt{#1}}
+     }
+     {\__otp_error:n {Unknown~record~reference~'#1'.}}
+ }
+\cs_new_protected:Npn \__otp_links:n #1
+ {
+   \prop_get:cnN {g__otp_record_\l__otp_current_id_tl _prop}{#1}\l__otp_value_tl
+   \clist_set:NV \l_tmpa_clist \l__otp_value_tl
+   \bool_set_false:N \l_tmpa_bool
+   \clist_map_inline:Nn \l_tmpa_clist
+     {
+       \bool_if:NT \l_tmpa_bool {,~}
+       \bool_set_true:N \l_tmpa_bool
+       \OTRecordRef{##1}
+     }
+ }
+\cs_new_protected:Npn \__otp_field:nn #1#2
+ {
+   \prop_get:cnN {g__otp_record_\l__otp_current_id_tl _prop}{#1}\l__otp_value_tl
+   \tl_if_blank:VF \l__otp_value_tl
+     {\noindent\textbf{#2:}~\tl_use:N \l__otp_value_tl\par\smallskip}
+ }
+\cs_new_protected:Npn \__otp_linkfield:nn #1#2
+ {
+   \prop_get:cnN {g__otp_record_\l__otp_current_id_tl _prop}{#1}\l__otp_value_tl
+   \tl_if_blank:VF \l__otp_value_tl
+     {\noindent\textbf{#2:}~\__otp_links:n {#1}\par\smallskip}
+ }
+\cs_new_protected:Npn \__otp_money:nn #1#2
+ {
+   \noindent\textbf{#2:}~
+   \prop_item:cn {g__otp_record_\l__otp_current_id_tl _prop}{currency}~
+   \prop_get:cnN {g__otp_record_\l__otp_current_id_tl _prop}{#1}\l__otp_value_tl
+   \tl_if_blank:VTF \l__otp_value_tl {TBD}{\tl_use:N \l__otp_value_tl}
+   \par\smallskip
+ }
+\cs_new_protected:Npn \__otp_detail:n #1
+ {
+   \group_begin:
+   \Needspace{8\baselineskip}
+   \tl_set:Nn \l__otp_current_id_tl {#1}
+   \tl_set:Nx \l_tmpa_tl {\prop_item:cn {g__otp_record_#1_prop}{heading}}
+   \tl_if_eq:NnTF \g__otp_style_tl {notebook}
+     {\begin{otbox}[\texttt{#1}~--~\tl_use:N \l_tmpa_tl]{OTBlue}}
+     {\subsection*{\texttt{#1}~--~\tl_use:N \l_tmpa_tl}}
+   \__otp_anchor:n {#1}
+   \__otp_field:nn {status}{Status}
+   \__otp_field:nn {owner}{Owner}
+   \__otp_linkfield:nn {workstream}{Workstream}
+   \__otp_field:nn {date}{Date}
+   \__otp_field:nn {version}{Version}
+   \__otp_field:nn {role}{Role}
+   \bool_if:NT \g__otp_organisations_bool
+     {\__otp_field:nn {organisation}{Organisation}}
+   \__otp_linkfield:nn {related}{Related~records}
+   \__otp_linkfield:nn {depends-on}{Depends~on}
+   \__otp_field:nn {quantity}{Quantity}
+   \__otp_field:nn {unit}{Unit}
+   \__otp_field:nn {supplier}{Supplier}
+   \prop_get:cnN {g__otp_record_#1_prop}{unit-cost}\l__otp_value_tl
+   \tl_if_blank:VF \l__otp_value_tl {\__otp_money:nn {unit-cost}{Unit~cost}}
+   \str_if_eq:eeT {\prop_item:cn {g__otp_record_#1_prop}{type}}{cost}
+     {
+       \__otp_money:nn {planned}{Planned~line~total}
+       \__otp_money:nn {actual}{Actual~line~total}
+       \prop_get:cnN {g__otp_record_#1_prop}{currency}\l__otp_currency_tl
+       \str_if_eq:VnF \l__otp_currency_tl {NGN}
+         {
+           \prop_get:cnN {g__otp_record_#1_prop}{rate}\l__otp_rate_tl
+           \tl_if_blank:VTF \l__otp_rate_tl
+             {\noindent\textit{Manual~exchange~rate~not~supplied;~no~NGN~conversion.}\par\smallskip}
+             {
+               \noindent\textbf{Manual~rate:}~NGN~\tl_use:N \l__otp_rate_tl \c_space_tl
+                 per~1~\tl_use:N \l__otp_currency_tl.\par\smallskip
+               \__otp_field:nn {rate-date}{Rate~date}
+               \__otp_field:nn {rate-source}{Rate~source}
+               \__otp_field:nn {native-planned}{Manual~planned~equivalent~(NGN)}
+               \__otp_field:nn {native-actual}{Manual~actual~equivalent~(NGN)}
+             }
+         }
+     }
+   \__otp_field:nn {acceptance}{Acceptance~criteria}
+   \__otp_field:nn {method}{Method}
+   \__otp_field:nn {result}{Result}
+   \__otp_field:nn {evidence}{Evidence}
+   \__otp_field:nn {pros}{Advantages}
+   \__otp_field:nn {cons}{Disadvantages}
+   \__otp_field:nn {rationale}{Rationale}
+   \__otp_field:nn {resolution}{Resolution}
+   \__otp_field:nn {source}{Source}
+   \prop_item:cn {g__otp_record_#1_prop}{body}\par
+   \tl_if_eq:NnT \g__otp_style_tl {notebook}{\end{otbox}}
+   \group_end:
+ }
+\cs_new_protected:Npn \__otp_select:nn #1#2
+ {
+   \prop_if_in:NnTF \g__otp_types_prop {#2}{}
+     {\__otp_error:n {Unknown~record~type~'#2'.}}
+   \tl_clear:N \l__otp_filter_tl
+   \keys_set:nn {ot-projects/print}{#1}
+   \tl_if_blank:VF \l__otp_filter_tl
+     {
+       \seq_if_in:NVTF \g__otp_ids_seq \l__otp_filter_tl
+         {
+           \str_if_eq:eeF
+             {\prop_item:cn {g__otp_record_\l__otp_filter_tl _prop}{type}}{workstream}
+             {\__otp_error:n {Print~filter~must~reference~a~workstream~record.}}
+         }
+         {\__otp_error:n {Unknown~workstream~print~filter.}}
+     }
+   \seq_clear:N \l__otp_selection_seq
+   \seq_map_inline:Nn \g__otp_ids_seq
+     {
+       \str_if_eq:eeT {\prop_item:cn {g__otp_record_##1_prop}{type}}{#2}
+         {
+           \__otp_visible:nT {##1}
+             {
+               \tl_if_blank:VTF \l__otp_filter_tl
+                 {\seq_put_right:Nn \l__otp_selection_seq {##1}}
+                 {
+                   \str_if_eq:eeT
+                     {\prop_item:cn {g__otp_record_##1_prop}{workstream}}
+                     {\l__otp_filter_tl}
+                     {\seq_put_right:Nn \l__otp_selection_seq {##1}}
+                 }
+             }
+         }
+     }
+ }
+\cs_new_protected:Npn \__otp_table_row:n #1
+ {
+   \__otp_anchor:n {#1}\OTRecordRef{#1}
+   & \prop_item:cn {g__otp_record_#1_prop}{heading}
+   & \str_if_eq:eeTF {\prop_item:cn {g__otp_record_#1_prop}{type}}{person}
+       {\prop_item:cn {g__otp_record_#1_prop}{category}}
+       {\prop_item:cn {g__otp_record_#1_prop}{workstream}}
+   & \prop_item:cn {g__otp_record_#1_prop}{status}
+   \\[5pt]\hline
+ }
+\NewDocumentCommand \OTPrintRegister {O{} m}
+ {
+   \group_begin:
+   \__otp_select:nn {#1}{#2}
+   \seq_if_empty:NF \l__otp_selection_seq
+     {
+       \Needspace{8\baselineskip}
+       \section*{\prop_item:Nn \g__otp_types_prop {#2}~--~register}
+       \tl_clear:N \l__otp_rows_tl
+       \seq_map_inline:Nn \l__otp_selection_seq
+         {\tl_put_right:Nn \l__otp_rows_tl {\__otp_table_row:n {##1}}}
+       \small\setlength{\LTleft}{0pt}\setlength{\LTright}{0pt}
+       \begin{longtable}{@{}>{\raggedright\arraybackslash}p{.16\linewidth}
+         >{\raggedright\arraybackslash}p{.43\linewidth}
+         >{\raggedright\arraybackslash}p{.20\linewidth}
+         >{\raggedright\arraybackslash}p{\dimexpr.21\linewidth-6\tabcolsep\relax}@{}}
+       \hline\textbf{ID}&\textbf{Record}&
+       \str_if_eq:nnTF {#2}{person}{\textbf{Category}}{\textbf{Workstream}}
+       &\textbf{Status}\\[4pt]\hline\endhead
+       \tl_use:N \l__otp_rows_tl
+       \end{longtable}
+     }
+   \group_end:
+ }
+\NewDocumentCommand \OTPrintRecords {O{} m}
+ {
+   \group_begin:
+   \__otp_select:nn {#1}{#2}
+   \seq_if_empty:NF \l__otp_selection_seq
+     {
+       \Needspace{14\baselineskip}
+       \section*{\prop_item:Nn \g__otp_types_prop {#2}}
+       \str_if_eq:nnTF {#2}{person}
+         {
+           \clist_map_inline:nn {role,individual,organisation}
+             {
+               \bool_set_false:N \l_tmpa_bool
+               \seq_map_inline:Nn \l__otp_selection_seq
+                 {
+                   \str_if_eq:eeT {\prop_item:cn {g__otp_record_####1_prop}{category}}{##1}
+                     {
+                       \bool_if:NF \l_tmpa_bool
+                         {
+                           \Needspace{12\baselineskip}
+                           \str_case:nn {##1}
+                             {{role}{\subsection*{Roles}}
+                              {individual}{\subsection*{Individuals}}
+                              {organisation}{\subsection*{Organisations}}}
+                           \bool_set_true:N \l_tmpa_bool
+                         }
+                       \__otp_detail:n {####1}
+                     }
+                 }
+             }
+         }
+         {\seq_map_inline:Nn \l__otp_selection_seq {\__otp_detail:n {##1}}}
+     }
+   \group_end:
+ }
+\NewDocumentCommand \OTPrintSignoffs {}
+ {
+   \group_begin:
+   \__otp_select:nn {}{signatory}
+   \seq_if_empty:NF \l__otp_selection_seq
+     {
+       \Needspace{16\baselineskip}
+       \section*{Sign-off}
+       \noindent These~fields~do~not~imply~approval~until~completed~by~the~named~signatory.\par
+       \seq_map_inline:Nn \l__otp_selection_seq
+         {
+           \group_begin:
+           \Needspace{12\baselineskip}
+           \tl_set:Nn \l__otp_current_id_tl {##1}
+           \begin{otbox}[Signatory~\texttt{##1}]{OTMuted}
+           \__otp_anchor:n {##1}
+           \__otp_field:nn {capacity}{Capacity}
+           \noindent\textbf{Name:}~
+           \prop_get:cnN {g__otp_record_##1_prop}{heading}\l__otp_value_tl
+           \tl_if_blank:VTF \l__otp_value_tl {\hrulefill}{\tl_use:N \l__otp_value_tl}
+           \par\medskip
+           \noindent\textbf{Title:}~
+           \prop_get:cnN {g__otp_record_##1_prop}{title}\l__otp_value_tl
+           \tl_if_blank:VTF \l__otp_value_tl {\hrulefill}{\tl_use:N \l__otp_value_tl}
+           \par\medskip
+           \noindent\textbf{Signature:}~
+           \prop_get:cnN {g__otp_record_##1_prop}{signature}\l__otp_value_tl
+           \tl_if_blank:VTF \l__otp_value_tl {\hrulefill}{\tl_use:N \l__otp_value_tl}
+           \par\medskip
+           \noindent\textbf{Date:}~
+           \prop_get:cnN {g__otp_record_##1_prop}{date}\l__otp_value_tl
+           \tl_if_blank:VTF \l__otp_value_tl {\hrulefill}{\tl_use:N \l__otp_value_tl}
+           \par
+           \end{otbox}
+           \group_end:
+         }
+     }
+   \group_end:
+ }
+\NewDocumentCommand \OTMakeProjectTitle {}
+ {
+   \tl_if_eq:NnTF \g__otp_style_tl {report}
+     {
+       \lhead{\textbf{OT~Engineering~Project~Report}}
+       \begin{center}
+       {\LARGE\bfseries\OTProjectName\par}\medskip
+       {\large Project~Report~and~Analysis\par}\medskip
+       {\small Project~ID:~\OTProjectID\quad Version:~\OTProjectVersion\par}
+       \end{center}
+       \makeprojectdashboard
+     }
+     {
+       \lhead{\textbf{OT~Engineering~Notebook}}
+       \makeotengtitle
+     }
+ }
+\ExplSyntaxOff
+% Declarations must precede document rendering: no prior-run record cache is needed.
+\makeatletter
+\@onlypreamble\OTWorkstream
+\@onlypreamble\OTRequirement
+\@onlypreamble\OTPerson
+\@onlypreamble\OTMaterial
+\@onlypreamble\OTCost
+\@onlypreamble\OTMilestone
+\@onlypreamble\OTAlternative
+\@onlypreamble\OTProblem
+\@onlypreamble\OTTest
+\@onlypreamble\OTEvidence
+\@onlypreamble\OTRevision
+\@onlypreamble\OTSignatory
+\makeatother
+\endinput
+

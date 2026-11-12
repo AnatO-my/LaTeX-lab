@@ -1,5 +1,304 @@
 # Changelog
 
+## Unreleased - Repository structure
+
+Branch `chore/repo-structure`. Change level: **none for authors** (no class,
+package or document output changes).
+
+### Removed
+
+* Untracked build output (`build/`, `tmp/`, `tests/build/`, `output/pdf/`,
+  template build folders, stray LaTeX auxiliary files) and leftover git data.
+* 14 generated PDFs and logs committed from the Phase 0 baseline. They can be
+  recovered from the local tag `archive/phase0-preserved-outputs`.
+
+### Moved and merged (old -> new)
+
+* `docs/release/RELEASE_PROCESS.md` merges `VERSIONING_RELEASE_POLICY`,
+  `LOCAL_RELEASE_CHECKLIST`, `RELEASE_READINESS`, `RELEASE_PDF_CHECKLIST`,
+  `RELEASE_CANDIDATE_DRY_RUN`, `CI_RELEASE_GATE_PLAN`,
+  `TARGETED_REGRESSION_GATE_PLAN`, `RELEASE_SOURCE_CHECKS_PROMOTION` and
+  `L3BUILD_PILOT`. Each original is kept as a section.
+* `docs/release/templates/`: `RELEASE_NOTES_TEMPLATE.md` and
+  `RELEASE_ASSET_MANIFEST_TEMPLATE.md`.
+* `docs/GITHUB_WORKFLOW.md` merges `GITHUB_COLLABORATION`,
+  `BRANCH_AND_PR_POLICY`, `BRANCH_PROTECTION_CHECKLIST`, `GITHUB_PUSH_CHECKLIST`,
+  `GITHUB_ACTIONS_CI_CHECKLIST`, `COLLABORATOR_ONBOARDING_CHECKLIST` and
+  `GITHUB_LAUNCH_AUDIT`.
+* `docs/AUTHOR_KIT.md` merges `AUTHOR_KIT_MANIFEST`, `AUTHOR_KIT_BUILD_CHECKLIST`
+  and `AUTHOR_KIT_AUDIT`.
+* `docs/architecture/`: `PLAN.md` (from the root), `ARCHITECTURE_AUDIT.md`,
+  `RELEASE_NOTES_ARCHITECTURE_REFACTOR.md`.
+* `docs/history/`: the Phase 9 audits, `RELEASE_PREVIEW_PDF_AUDIT`,
+  `AUTHOR_WORKBOOK_MANUAL_CHECKPOINT` and `ENGINEERING_REGISTRY_COMPATIBILITY`,
+  plus `checkpoints/` (was `PHASE CHECKPOINTS/`) and `PROJECT_LOG.md` (the
+  history part of `PROJECT_STATE.md`).
+* All live references were updated, including runners, `scripts/new-author-kit.ps1`
+  and source comments. History records keep their original wording.
+* `README.md` now has a documentation map in place of the list of
+  "See ..." lines.
+
+### Tests
+
+* `tests/run_release_policy_guard.ps1` replaces the Phase 10 checkpoint guards
+  (10A–10G/H), checking the same release rules against the merged documents.
+  `.github/workflows/release-source-checks.yml` now runs it.
+* Retired to `tests/history/`: `run_phase10a`–`10gh`, `run_phase10ij`,
+  `run_phase9g`, `run_phase9d` (starter timing) and `run_phase9e` (TikZ and
+  dot-grid audit).
+* New `tests/run_all_tests.ps1` runs all 28 active suites, each in its own
+  process, and prints a summary. It accepts `-List`, `-Only` and `-Skip`.
+* New `tests/run_physicsquiz_tests.ps1` runs both `physicsquiz` chains
+  (4IJ→3D and 6F→6A). The per-phase scripts remain as its internal steps.
+* Renamed by purpose (all references updated, including both workflows):
+  * `run_phase7c_starter_tests` → `run_starter_tests`
+  * `run_phase9a_measurement` → `run_build_measurement`
+  * `run_phase9b_generated_hygiene` → `run_generated_file_guard`
+  * `run_phase9c_build_recipe_reliability` → `run_build_recipe_guard`
+  * `run_phase9f_dotgrid_modernization` → `run_dotgrid_tests`
+  * `run_ot_phase5_tests` → `run_ot_baseline_tests`
+  * `run_architecture_refactor_tests` → `run_ot_contract_tests`
+* Added `tests/README.md` (suites, internal steps, fixtures) and an updated
+  repository tree in `PROJECT_STATE.md`.
+
+### Fixed (found by the first full `run_all_tests.ps1` run)
+
+* `.gitignore` again ignores `indent.log`. The line had been dropped in an
+  earlier pending-work commit, so `run_build_recipe_guard.ps1` failed.
+* `otsymbols` v0.2, two defects that predate the refactor:
+  * `\otdefinesymbol` entries with `siunitx` units (for example
+    `\unit{\ohm.m}`) stopped with "Undefined control sequence". Entry fields
+    are now stored unexpanded (`\glsnoexpandfields`).
+  * `\printotnomenclature` printed the empty `main` glossary, so every
+    nomenclature table was blank. It now prints the `symbols` and
+    `abbreviations` glossaries, and abbreviations show their long form in the
+    Name column. This affects the nomenclature example, the Spong
+    reconstruction and the study guide, whose tables now appear.
+* `run_engineering_tests`, `run_forms_tests` and `run_projects_tests` use the
+  `py -3` launcher when `-Python` is not given, as the other runners do.
+
+## Unreleased - Architecture-refactor local validation
+
+Release proposal: `v0.2.0` **minor**; no tag or GitHub release has been
+created.
+
+* Completed the Phase 5 `OTLight` baseline re-record, the architecture-refactor
+  runner, and the manual author-reference guard under MiKTeX on 12 November
+  2026.
+* Hosted `Starter documents` and `Release source checks` remain required
+  integration evidence before a release-candidate dry run.
+* Accepted three non-functional TeX source cleanups in the Science/Book
+  starters and semantic-box compatibility fixture.
+
+## Unreleased - Architecture refactor, Phase F (PLAN.md)
+
+Change level: documentation only.
+
+* Added `docs/MIGRATION_GUIDE.md`: who needs to act, an old-to-canonical
+  table with status, new options and examples.
+* Added `docs/PACKAGE_AUTHOR_CHECKLIST.md`, linked from `CONTRIBUTING.md`.
+* Added `docs/RELEASE_NOTES_ARCHITECTURE_REFACTOR.md`, a draft from the release
+  template, with the MiKTeX checks still to run listed.
+* Author manual: new "What Changed in the 2026 Architecture Refactor"
+  subsection and new package rows. All `\src{file}{line}` references were
+  re-pointed to the current definition lines: 248 had drifted, 41 to a new
+  owning file. The `OTLight` and `\unit` rows are corrected.
+* Visual review: rendered the semantic-box compatibility test with the new
+  `OTLight`; only the box background changed.
+
+## Unreleased - Architecture refactor, Phase E and `OTLight` (PLAN.md)
+
+Change level: **minor**, except one **visible** change: `OTLight` is now
+`#F3F4F6` for every OT class, so science-class box backgrounds are slightly
+darker. Versions: `otcolors` 0.1 -> 0.2; `otnotation`, `otmath`, `otphysics`,
+`otpractice` -> 0.2; new `otemphasis` 0.1 and `otmathboxes` 0.1.
+
+### Added
+
+* `otemphasis.sty`: `\otimportant`, `\otkeyterm`, `\otconcept` and `\otresult`,
+  with `\important`, `\keyterm`, `\concept` and `\result` as aliases.
+* `otmathboxes.sty`: `proofbox` and `identitybox`.
+* Options `\usepackage[noemphasis]{otnotation}` and `\usepackage[noboxes]{otmath}`
+  for loading notation with no OT colours or presentation code.
+* Canonical names, with the old short names as exact aliases:
+  * `otnotation`: `\otmean`, `\otdiff`, `\otgrad`, `\ottrace`, `\otrank`;
+  * `otmath`: `\otinverse`;
+  * `otphysics`: `\otforce`;
+  * `otpractice`: `\otgiven`, `\otblank`, `\otbigblank`, `\otlongblank`,
+    `\otcomponentblank`.
+* Fixtures `tests/ot_notation_neutral_loading.tex`,
+  `tests/ot_notation_canonical_names.tex` and
+  `tests/otemphasis_package_smoke.tex`.
+
+### Changed
+
+* `otcolors`: `OTLight` is `#F3F4F6` for all classes (was `#F9FAFB` for
+  science; the engineering working copy had lost its override).
+* `otnotation` and `otmath` load `otemphasis` and `otmathboxes` by default
+  instead of defining those helpers themselves.
+* Short names that other packages commonly define (`\dd`, `\grad`, `\tr`,
+  `\rank`, `\blank` and the other blanks) still defer to an earlier
+  definition. This is now a documented contract, and the `\ot...` name always
+  gives the OT meaning.
+
+### Removed
+
+* `otnotation`'s `\providecommand{\unit}`. It never took effect, because
+  `siunitx` v3 defines `\unit` first.
+
+### Verified
+
+* With `OTLight` at its old value, the 22 baseline documents and the author
+  manual are identical after the refactor. With the new `OTLight`, page
+  counts and text are unchanged in all 22, and pixels differ in 19 (box
+  backgrounds).
+* Re-record the Phase 5 baseline manifest under MiKTeX
+  (`tests\run_ot_phase5_tests.ps1 -Record`), because the palette probes now
+  print the new `OTLight` value.
+
+## Unreleased - Architecture refactor, Phase D (PLAN.md)
+
+Change level: **minor**. Versions: `otcore` 0.2 -> 0.3; new `otlayout` 0.1
+and `otscience-theme` 0.1.
+
+### Added
+
+* `src/packages/otlayout.sty`: the geometry default, list spacing, running
+  heads and section styles formerly in `otcore`. It applies `margin=1in` only
+  when `geometry` is not already loaded, so a class or document can load
+  `geometry` with its own options first without an option clash.
+* `src/packages/otscience-theme.sty`: the first named preset, shared by
+  `otscience` and `otbook`. It holds the `siunitx` formatting, list spacing and
+  heading styles they previously duplicated, plus `\otsciencepagestyle{<label>}`.
+* "Class composition" section in `docs/PUBLIC_INTERFACES.md` and composition
+  headers in `otscience.cls`, `otbook.cls` and `otengineering.cls`.
+* Fixtures `tests/otlayout_default_geometry.tex`,
+  `tests/otlayout_geometry_precedence.tex` and
+  `tests/otscience_theme_preset_smoke.tex`, added to
+  `tests/run_architecture_refactor_tests.ps1`.
+
+### Changed
+
+* `otcore` is a compatibility facade loading `otcolors`, `otlayout`,
+  `tabularx`, `array` and `datetime2`. Its helper commands are unchanged. It now
+  declares its colour dependency instead of relying on the class.
+
+### Verified
+
+* The 22 baseline documents are identical in a same-day rebuild; the author
+  manual is unchanged.
+
+### Noted
+
+* The working copy of `otengineering.cls` no longer overrides `OTLight` to
+  `#F3F4F6`, contrary to `docs/PUBLIC_INTERFACES.md`. This predates the
+  refactor and is left for a decision.
+
+## Unreleased - Architecture refactor, decision 7 and `\otmarks` (PLAN.md)
+
+Change level: **major for standalone package users** (link policy), otherwise
+minor. Approved on 11 November 2026. Versions: new `otcolors` 0.1, `ottheme`
+0.2 -> 0.3.
+
+### Changed
+
+* New `src/packages/otcolors.sty` holds the OT palette with no other side
+  effects. `ottheme` now loads `otcolors` and keeps the hyperlink policy, so
+  all OT classes behave exactly as before.
+* `otboxes`, `otnotation`, `otmath`, `otfigures`, `otcode`, `otcircuits`,
+  `otplots`, `otindex`, `otforms`, `otsymbols`, `otreproduce`, `otaccess` and
+  `otbib` require `otcolors` instead of `ottheme`. **In a standard class these
+  packages no longer load `hyperref` or colour links.** To keep the old
+  behaviour, add `\usepackage{ottheme}`.
+* `otbib` applies its `citecolor` only when `hyperref` is loaded.
+
+### Fixed
+
+* `otpractice`: new `\otmarks{<n>}` prints the right-aligned "[n marks]" label.
+  The old `\marks{<n>}` never worked: `\marks` is an e-TeX primitive, so the
+  package's `\providecommand` was ignored and `\marks{4}` stopped with
+  "Missing number". The primitive is left untouched because LaTeX's mark
+  mechanism uses it. The author manual now documents `\otmarks`.
+
+### Verified
+
+* The same 22 baseline documents plus the author manual: all 22 identical;
+  the manual differs only in the two edited table rows. New fixtures
+  `tests/ot_colors_package_smoke.tex`, `tests/ot_link_policy_boundary.tex`,
+  `tests/ot_link_policy_optin.tex`, and `tests/otpractice_otmarks.tex` pass and
+  are in `tests/run_architecture_refactor_tests.ps1`.
+
+## Unreleased - Architecture refactor, Phases A-C (PLAN.md)
+
+Branch `refactor/architecture-plan`. Change level: **minor** (new package,
+new class options; no existing interface removed or changed). Versions:
+`otscience` 0.2 -> 0.3, `otbook` 0.2 -> 0.3, new `otsciboxes` 0.1.
+
+### Added
+
+* `src/packages/otsciboxes.sty`, the single owner of the ten semantic science
+  boxes and their `nosplit` variants (`definitionbox` ... `experimentbox`).
+  Usable with standard classes via `\usepackage{otsciboxes}`.
+* `minimal` class option for `otscience` and `otbook`: skips the companion
+  bundle while keeping the class foundations and semantic boxes.
+* `scripts/audit_interfaces.py`, which generates
+  `docs/INTERFACE_INVENTORY.md` (every name, option, counter, colour and
+  dependency per class/package, plus cross-file collisions and
+  `\providecommand` load-order risks). `--check` detects a stale inventory.
+* `docs/ARCHITECTURE_AUDIT.md`: Phase A findings and the move register.
+* Fixtures `tests/ot_sciboxes_package_smoke.tex`,
+  `tests/ot_boxes_default_surface.tex`, `tests/otscience_minimal_option.tex`,
+  `tests/otbook_minimal_option.tex`, `tests/otaccess_tagging_message.tex`, and
+  runner `tests/run_architecture_refactor_tests.ps1`.
+
+### Changed
+
+* `otscience` and `otbook` load the semantic boxes from `otsciboxes` instead
+  of each defining its own copy. Names, syntax, titles, colours and
+  pagination are unchanged.
+* `otscience` and `otbook` load their companion bundles with `\RequirePackage`
+  instead of `\IfFileExists`. Existing documents get the same packages; an
+  incomplete installation now fails with "File not found" instead of silently
+  losing commands.
+* `otaccess`: `\otenabletagging` now writes a warning when `tagpdf.sty` is
+  missing under LuaLaTeX and an info message under other engines, instead of
+  doing nothing silently.
+* `src/legacy/otscience.sty` is marked frozen; its boxes are superseded by
+  `otsciboxes`.
+
+### Verified
+
+* 22 existing tests, starters and examples (otscience, otbook, otengineering,
+  studentnotes, vector workbook, otbook template) rebuilt before and after
+  the change with pdfLaTeX (TeX Live 2023): identical page counts, extracted
+  text, rendered page images and warning counts. In that environment
+  `biblatex` and `tracklang` were replaced by minimal local stand-ins, so
+  bibliography output itself was not exercised; rerun
+  `tests\run_architecture_refactor_tests.ps1` under MiKTeX to confirm.
+
+## Unreleased - OT book integration
+
+* Documented the existing `otbook` v0.1 class, native chapter structure, title
+  metadata, semantic boxes, companion-package boundary, and numbering limits.
+* Added the personal-book starter to the author workflow and starter inventory.
+* Updated the author-kit manifest and checklist to include the eighth starter
+  and book smoke document, with separate build commands under `build/`.
+* Added `tests/run_otbook_tests.ps1`, which builds the public book starter,
+  class smoke document, and copyable project template. The historical audited
+  author kit has not been rebuilt by this documentation change.
+* Verified the existing book starter and smoke document with MiKTeX pdfLaTeX
+  and latexmk 4.88. Both builds passed; the known duplicate `page.i` PDF
+  destination warning is recorded in the public interface reference.
+* Added `templates/otbook-project/` with a root document, chapter file,
+  figure/bibliography folders, local ignore rules, and a configurable
+  LaTeX-lab pointer. PDF and auxiliary outputs use `build/pdf/` and `build/aux/`.
+* The new template suppresses title-page PDF anchors to avoid the duplicate
+  destination warning without changing the existing class or starters.
+* Added a repeatable author-kit generator and source-only guard. The generated
+  kit includes the otbook workflow and remains under ignored `build/author-kit/`.
+* Upgraded `otbook` to v0.2 with optional dedication and chapter-epigraph
+  helpers plus a compact `chapteroverview` environment.
+
 ## Phase 10 - Testing and releases
 
 **In progress. Checkpoint 10A opened: 15 August 2026.**
@@ -1508,3 +1807,23 @@ This file records significant changes to the LaTeX Workspace Learning and Class 
 - Audited public interfaces, dependencies, known warnings, and layout defects.
 - Created the initial Git baseline.
 - Tagged the baseline as `phase-0-baseline`.
+
+
+## 2026-09-28 -- Engineering prerequisite repairs
+
+- Preserve legacy decision/risk bodies; introduce optional bracket status and migrate local examples/manual.
+- Cache previous-run registers, defer page writes inside boxes, and flush/close streams after shipout.
+- Make profiles/forms explicit document dependencies and bound long engineering headers.
+- Correct dropdown argument order, preserve literal form identifiers, and fix multiline field width/spacing.
+- Add semantic PDF/register regression checks with fail-fast compilation, convergence and fresh output directories.
+- Document migration and validation before the future ot-projects.sty work.
+
+
+## 2026-09-29 -- ot-projects v0.1
+
+- Add explicit ot-projects.sty companion package with shared records and formal-report/notebook views.
+- Generate multi-page registers and detail views with stable IDs, workstreams and cross-references.
+- Support roles, individuals and organisations, with empty-category suppression and explicit visibility settings.
+- Default costs to NGN, preserve foreign currency, and require provenance for manually entered exchange rates and native equivalents; no automatic budget arithmetic.
+- Add optional sign-off blocks with independent name, title, capacity, signature and date fields.
+- Supply shared OAU planning examples, an author guide, and positive/negative PDF regression cases.

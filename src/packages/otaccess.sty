@@ -1,0 +1,61 @@
+% ============================================================
+% OT Accessibility Package
+% otaccess.sty
+% Version: 0.2
+% Purpose: PDF accessibility metadata and structural hooks
+% ============================================================
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{otaccess}[2026/09/11 v0.2 OT Accessibility]
+
+\RequirePackage{otcolors}
+\RequirePackage{iftex}
+
+% -----------------------------
+% PDF Metadata for Accessibility
+% -----------------------------
+\AtBeginDocument{
+  \@ifpackageloaded{hyperref}{
+    \hypersetup{
+      pdfdisplaydoctitle=true,
+      pdflang={en-US}
+    }
+  }{}
+}
+
+% -----------------------------
+% Structural Tagging Hook
+% -----------------------------
+% Standard tagging is provided for engines that support it.
+% For pdfLaTeX, we primarily focus on metadata and alt-text hooks.
+
+\newcommand{\otenabletagging}{%
+  \ifluatex
+    \IfFileExists{tagpdf.sty}{
+      \RequirePackage{tagpdf}
+      \tagpdfsetup{activate-all}
+    }{%
+      \PackageWarning{otaccess}{%
+        \string\otenabletagging\space requested, but tagpdf.sty\MessageBreak
+        was not found; the PDF will not be tagged}%
+    }
+  \else
+    % pdfLaTeX tagging via 'accessibility' is often unstable.
+    % We omit it by default to avoid breaking fancyhdr/amsthm.
+    \PackageInfo{otaccess}{%
+      \string\otenabletagging\space has no effect under this engine;\MessageBreak
+      structure tagging is applied only with LuaLaTeX}%
+  \fi
+}
+
+% -----------------------------
+% Author Interface
+% -----------------------------
+
+% Helper for alternative text on images
+% In the future, this will inject /Alt tags into the PDF structure.
+\newcommand{\otalttext}[2]{%
+  #2%
+}
+
+\endinput

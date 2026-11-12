@@ -1,0 +1,53 @@
+\documentclass{otengineering}
+
+\projectname{Advanced Drone Propulsion}
+\projectid{ADP-2026}
+\projectversion{0.8}
+\projectstatus{Prototyping}
+\projectcategory{Aerospace}
+
+\begin{document}
+
+\makeotengtitle
+
+\makeprojectstatusreport
+
+\section{Introduction}
+This notebook tracks the design decisions and risks for the new motor controller.
+
+\section{Design Decisions}
+
+\begin{decision}[MOSFET Selection][Resolved]
+    We have decided to use the Infineon BSC014N04LS for its low $R_{DS(on)}$.
+    \context{High current requirements for the motor.}
+    \tradeoff{Cost vs. Performance.}
+    \reason{Thermal management is the primary bottleneck.}
+\end{decision}
+
+\begin{decision}[PWM Frequency][Open]
+    Current testing is at 20kHz, but we might move to 40kHz to reduce audible noise.
+    \observation{Audible whine at 20kHz.}
+    \nextstep{Test with 40kHz and measure switching losses.}
+\end{decision}
+
+\section{Risk Management}
+
+\begin{risk}[Supply Chain][Critical]
+    The selected MOSFET has a 26-week lead time.
+    \observation{Global semiconductor shortage.}
+    \nextstep{Order immediate stock or find a pin-compatible alternative.}
+\end{risk}
+
+\begin{risk}[Thermal Throttling][Low]
+    The PCB might overheat in static hover.
+    \observation{Limited airflow during hover.}
+    \reason{Active cooling is not planned due to weight.}
+\end{risk}
+
+\newpage
+
+\printprojectdecisionlog
+
+\printprojectriskregister
+
+\end{document}

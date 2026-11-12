@@ -1,0 +1,20 @@
+\documentclass{article}
+
+% docs/architecture/PLAN.md Phase D: when geometry is not yet loaded, otlayout applies the
+% established OT default of one-inch margins.
+\usepackage{otlayout}
+
+\makeatletter
+\AtBeginDocument{%
+  \ifdim\dimexpr\Gm@lmargin-1in\relax=0pt\else
+    \PackageError{otlayout-default}{left margin is not 1in}{}\fi}
+\makeatother
+
+\begin{document}
+\typeout{OTREFACTOR-D:OTLAYOUT-DEFAULT}
+\otcorelistdefaults
+\otcorepagestyle{Left}{Right}{0.3pt}
+\otcoresectionstyles{0.75em}{OTPurple}
+\section{Layout}
+\begin{itemize}\item One-inch margins by default.\end{itemize}
+\end{document}

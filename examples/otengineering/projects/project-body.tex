@@ -1,0 +1,38 @@
+\OTMakeProjectTitle
+\section*{Purpose and scope}
+This is a planning example for the departmental project, using one shared record set
+for a formal report and an engineering notebook. It is not an approved project report.
+No production code, portal integration or hardware performance is claimed.
+\OTPrintRecords{workstream}
+\OTPrintRegister{requirement}
+\OTPrintRecords{requirement}
+\OTPrintRecords{person}
+\OTPrintRegister{material}
+\OTPrintRecords{material}
+\OTPrintRecords{cost}
+\OTPrintRecords{milestone}
+\OTPrintRecords{alternative}
+\OTPrintRecords{problem}
+\OTPrintRegister{test}
+\OTPrintRecords{test}
+\OTPrintRecords{evidence}
+\section*{Engineering decisions and learning}
+The existing engineering environments remain available alongside the new records.
+\begin{decision}[Stable student identity][Agreed scope]
+\label{decision:identity}
+Use a stable internal student ID as the bridge. Credentials may change without
+changing the student's identity. See \OTRecordRef{REQ-I01}.
+\end{decision}
+\begin{risk}[Unverified upstream access][Open]
+Source coverage and integration permission remain unknown; refer to \OTRecordRef{ISSUE-01}.
+\end{risk}
+\begin{assumption}
+The department can nominate a sponsor and data steward. This is not yet verified.
+\end{assumption}
+\begin{lesson}
+No implementation lessons are claimed yet. Record observed outcomes and evidence
+as development proceeds.
+\end{lesson}
+\OTPrintRecords{revision}
+\OTPrintSignoffs
+

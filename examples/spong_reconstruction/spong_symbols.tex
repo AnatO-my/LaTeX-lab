@@ -1,0 +1,27 @@
+% ============================================================
+% Spong Re-construction: Centralized Symbols
+% ============================================================
+
+% --- Configuration ---
+\usepackage{otsymbols}
+
+% --- Kinematics ---
+\otdefinesymbol{joint-q}{q}{Joint Vector}{}{The vector of joint variables (angles or displacements).}
+\otdefinesymbol{rot-matrix}{R}{Rotation Matrix}{}{A $3\times3$ orthogonal matrix representing orientation.}
+\otdefinesymbol{jacobian}{J}{Manipulator Jacobian}{}{The matrix relating joint velocities to task-space velocities: $\dot{x} = J(q)\dot{q}$.}
+
+% --- Dynamics ---
+\otdefinesymbol{mass-matrix}{M(q)}{Inertia Matrix}{}{A symmetric, positive-definite matrix representing the robot's inertia.}
+\otdefinesymbol{coriolis}{C(q, \dot{q})}{Coriolis/Centripetal}{}{The matrix representing velocity-dependent forces.}
+\otdefinesymbol{gravity-g}{g(q)}{Gravity Vector}{}{The vector of forces required to balance gravity.}
+
+% --- Control ---
+\otdefinesymbol{error-e}{e}{Tracking Error}{}{The difference between desired and actual state: $e = q_d - q$.}
+\otdefinesymbol{kp}{K_p}{Proportional Gain}{}{Determines the "stiffness" of the control response.}
+\otdefinesymbol{kd}{K_d}{Derivative Gain}{}{Determines the "damping" or energy dissipation of the control response.}
+
+% --- Acronyms ---
+\otdefineacronym{plds}{PLDS}{Personal Learning Development System}{The core methodology for structured technical learning.}
+\otdefineacronym{dh}{DH}{Denavit-Hartenberg}{A standard convention for attaching coordinate frames to robot links.}
+\otdefineacronym{dof}{DOF}{Degrees of Freedom}{The number of independent variables that define the robot's configuration.}
+\otdefineacronym{el}{E-L}{Euler-Lagrange}{An energy-based approach to deriving equations of motion.}

@@ -1,0 +1,631 @@
+\documentclass[10pt,a4paper,full]{physicsquiz}
+
+\quiztitle{PHY 104 Calculation-Only Question Bank}
+\quizcourse{100-Question Numerical Examination Practice}
+\quizauthor{Ot}
+\quizinstitution{}
+\quizversion{1.0}
+\quizinstructions{Choose the best numerical answer. Show working before selecting an option. All questions carry one mark. A calculator may be used.}
+\quizconstants{
+  \(g=\SI{9.80}{m.s^{-2}}\),
+  \(v_{\text{sound, air}}=\SI{343}{m.s^{-1}}\),
+  \(c=\SI{3.00e8}{m.s^{-1}}\), and
+  \(I_{\mathrm{ref}}=\SI{1.00e-12}{W.m^{-2}}\)
+}
+
+\newcommand{\fivechoices}[5]{%
+  \item #1
+  \item #2
+  \item #3
+  \item #4
+  \item #5
+}
+
+\newcommand{\bankq}[9]{%
+  \begin{quizquestion}[
+    id=#1,
+    topic={#2},
+    difficulty=#3,
+    marks=1,
+    correct=#4,
+    tags={#5},
+    outcome={#6}
+  ]
+    #7
+    \begin{choiceoptions}
+      #8
+    \end{choiceoptions}
+  \end{quizquestion}
+  \begin{quizsolution}
+    #9
+  \end{quizsolution}
+}
+
+\begin{document}
+\hypersetup{pageanchor=false}
+\makequiztitle
+\hypersetup{pageanchor=true}
+\pagenumbering{arabic}
+
+\begin{quizreferencecontent}
+\section*{Calculation Coverage}
+\begin{multicols}{2}
+\begin{itemize}[leftmargin=*]
+  \item SHM kinematics and energy
+  \item Damping, resonance, transients, and quality factor
+  \item Coupled oscillators and normal modes
+  \item Travelling waves, power, and intensity
+  \item Interference, beats, and optical path calculations
+  \item Diffraction and polarization
+  \item Phase velocity, group velocity, and dispersion
+  \item Wave equations and bounded modes in 1D, 2D, and 3D
+  \item Echoes, pipes, sound levels, and Doppler shift
+  \item Propagation, impedance, transmission, and refraction
+\end{itemize}
+\end{multicols}
+\end{quizreferencecontent}
+
+\begin{quizbank}
+
+% 1--10: SHM and energy (3 foundation, 5 applied, 2 challenge)
+\bankq{calc-shm-001}{SHM Kinematics and Energy}{foundation}{A}{shm,period}{Calculate a mass-spring period.}{%
+A \(\SI{0.50}{kg}\) mass is attached to a spring of constant \(\SI{200}{N.m^{-1}}\). What is its period?}{%
+\fivechoices{\(\SI{0.314}{s}\)}{\(\SI{0.444}{s}\)}{\(\SI{0.628}{s}\)}{\(\SI{1.57}{s}\)}{\(\SI{2.00}{s}\)}}{%
+\(T=2\pi\sqrt{m/k}=2\pi\sqrt{0.50/200}=\SI{0.314}{s}\).}
+
+\bankq{calc-shm-002}{SHM Kinematics and Energy}{foundation}{B}{shm,speed}{Calculate maximum SHM speed.}{%
+An oscillator has amplitude \(\SI{0.080}{m}\) and frequency \(\SI{2.0}{Hz}\). Find its maximum speed.}{%
+\fivechoices{\(\SI{0.503}{m.s^{-1}}\)}{\(\SI{1.01}{m.s^{-1}}\)}{\(\SI{1.26}{m.s^{-1}}\)}{\(\SI{2.01}{m.s^{-1}}\)}{\(\SI{4.02}{m.s^{-1}}\)}}{%
+\(v_{\max}=\omega A=2\pi fA=2\pi(2.0)(0.080)=\SI{1.01}{m.s^{-1}}\).}
+
+\bankq{calc-shm-003}{SHM Kinematics and Energy}{foundation}{C}{shm,energy}{Calculate total SHM energy.}{%
+A spring of constant \(\SI{250}{N.m^{-1}}\) oscillates with amplitude \(\SI{0.120}{m}\). Find the total energy.}{%
+\fivechoices{\(\SI{0.90}{J}\)}{\(\SI{1.20}{J}\)}{\(\SI{1.80}{J}\)}{\(\SI{3.60}{J}\)}{\(\SI{7.20}{J}\)}}{%
+\(E=\tfrac12kA^2=\tfrac12(250)(0.120)^2=\SI{1.80}{J}\).}
+
+\bankq{calc-shm-004}{SHM Kinematics and Energy}{applied}{D}{shm,kinematics}{Calculate speed at a specified displacement.}{%
+An oscillator has \(A=\SI{0.100}{m}\), \(\omega=\SI{8.0}{rad.s^{-1}}\), and instantaneous displacement \(x=\SI{0.060}{m}\). Find its speed.}{%
+\fivechoices{\(\SI{0.32}{m.s^{-1}}\)}{\(\SI{0.48}{m.s^{-1}}\)}{\(\SI{0.60}{m.s^{-1}}\)}{\(\SI{0.64}{m.s^{-1}}\)}{\(\SI{0.80}{m.s^{-1}}\)}}{%
+\(v=\omega\sqrt{A^2-x^2}=8\sqrt{0.100^2-0.060^2}=\SI{0.64}{m.s^{-1}}\).}
+
+\bankq{calc-shm-005}{SHM Kinematics and Energy}{applied}{E}{shm,acceleration}{Calculate SHM acceleration from period and displacement.}{%
+An oscillator of period \(\SI{0.500}{s}\) is at \(x=\SI{0.040}{m}\). What is the magnitude of its acceleration?}{%
+\fivechoices{\(\SI{1.58}{m.s^{-2}}\)}{\(\SI{3.16}{m.s^{-2}}\)}{\(\SI{4.00}{m.s^{-2}}\)}{\(\SI{5.03}{m.s^{-2}}\)}{\(\SI{6.32}{m.s^{-2}}\)}}{%
+\(\omega=2\pi/T=4\pi\), so \(|a|=\omega^2|x|=(4\pi)^2(0.040)=\SI{6.32}{m.s^{-2}}\).}
+
+\bankq{calc-shm-006}{SHM Kinematics and Energy}{applied}{A}{pendulum,period}{Calculate pendulum length from period.}{%
+A simple pendulum has period \(\SI{2.00}{s}\). Find its length.}{%
+\fivechoices{\(\SI{0.993}{m}\)}{\(\SI{1.24}{m}\)}{\(\SI{1.56}{m}\)}{\(\SI{2.48}{m}\)}{\(\SI{9.80}{m}\)}}{%
+\(L=g(T/2\pi)^2=9.80(2.00/2\pi)^2=\SI{0.993}{m}\).}
+
+\bankq{calc-shm-007}{SHM Kinematics and Energy}{applied}{B}{shm,energy}{Calculate amplitude from energy.}{%
+An oscillator has total energy \(\SI{0.720}{J}\) and spring constant \(\SI{100}{N.m^{-1}}\). Find its amplitude.}{%
+\fivechoices{\(\SI{0.085}{m}\)}{\(\SI{0.120}{m}\)}{\(\SI{0.144}{m}\)}{\(\SI{0.240}{m}\)}{\(\SI{0.720}{m}\)}}{%
+\(A=\sqrt{2E/k}=\sqrt{2(0.720)/100}=\SI{0.120}{m}\).}
+
+\bankq{calc-shm-008}{SHM Kinematics and Energy}{applied}{C}{shm,phase}{Calculate phase from displacement and velocity sign.}{%
+For \(x=A\cos\phi\), an oscillator is at \(x=A/2\) and moving toward decreasing \(x\). What is the smallest positive phase \(\phi\)?}{%
+\fivechoices{\(\pi/6\)}{\(\pi/4\)}{\(\pi/3\)}{\(2\pi/3\)}{\(5\pi/3\)}}{%
+\(\cos\phi=1/2\). Since \(v=-A\omega\sin\phi<0\), \(\sin\phi>0\), hence \(\phi=\pi/3\).}
+
+\bankq{calc-shm-009}{SHM Kinematics and Energy}{challenge}{D}{shm,time}{Calculate first-passage time in SHM.}{%
+An oscillator obeys \(x=A\cos(2.5t)\) in SI units. How long after \(t=0\) does it first pass through equilibrium?}{%
+\fivechoices{\(\SI{0.157}{s}\)}{\(\SI{0.314}{s}\)}{\(\SI{0.500}{s}\)}{\(\SI{0.628}{s}\)}{\(\SI{1.257}{s}\)}}{%
+At the first equilibrium crossing, \(2.5t=\pi/2\). Thus \(t=\pi/5=\SI{0.628}{s}\).}
+
+\bankq{calc-shm-010}{SHM Kinematics and Energy}{challenge}{E}{spring,scaling}{Calculate period after changing spring length.}{%
+A uniform spring gives a mass a period of \(\SI{0.800}{s}\). The spring is cut in half and the same mass is attached to one half. Find the new period.}{%
+\fivechoices{\(\SI{0.283}{s}\)}{\(\SI{0.400}{s}\)}{\(\SI{0.466}{s}\)}{\(\SI{0.520}{s}\)}{\(\SI{0.566}{s}\)}}{%
+Halving the spring length doubles \(k\). Therefore \(T'=T/\sqrt2=0.800/\sqrt2=\SI{0.566}{s}\).}
+
+% 11--20: Damping, resonance, and transients (3 foundation, 5 applied, 2 challenge)
+\bankq{calc-damp-011}{Damping, Resonance, and Transients}{foundation}{A}{damping,decay}{Calculate the damping constant.}{%
+For \(m\ddot x+b\dot x+kx=0\), let \(m=\SI{0.30}{kg}\) and \(b=\SI{1.20}{kg.s^{-1}}\). Find \(\gamma=b/(2m)\).}{%
+\fivechoices{\(\SI{2.00}{s^{-1}}\)}{\(\SI{1.20}{s^{-1}}\)}{\(\SI{0.600}{s^{-1}}\)}{\(\SI{0.250}{s^{-1}}\)}{\(\SI{4.00}{s^{-1}}\)}}{%
+\(\gamma=b/(2m)=1.20/[2(0.30)]=\SI{2.00}{s^{-1}}\).}
+
+\bankq{calc-damp-012}{Damping, Resonance, and Transients}{foundation}{B}{damping,frequency}{Calculate the damped natural frequency.}{%
+An oscillator has \(\omega_0=\SI{10.0}{rad.s^{-1}}\) and \(\gamma=\SI{3.0}{s^{-1}}\). Find its damped natural frequency.}{%
+\fivechoices{\(\SI{7.00}{rad.s^{-1}}\)}{\(\SI{9.54}{rad.s^{-1}}\)}{\(\SI{10.4}{rad.s^{-1}}\)}{\(\SI{13.0}{rad.s^{-1}}\)}{\(\SI{91.0}{rad.s^{-1}}\)}}{%
+\(\omega'=\sqrt{\omega_0^2-\gamma^2}=\sqrt{100-9}=\SI{9.54}{rad.s^{-1}}\).}
+
+\bankq{calc-damp-013}{Damping, Resonance, and Transients}{foundation}{C}{damping,half-life}{Calculate amplitude half-life.}{%
+The amplitude envelope is \(A(t)=A_0e^{-0.40t}\). Find the time for the amplitude to fall to \(A_0/2\).}{%
+\fivechoices{\(\SI{0.693}{s}\)}{\(\SI{1.00}{s}\)}{\(\SI{1.73}{s}\)}{\(\SI{2.50}{s}\)}{\(\SI{4.33}{s}\)}}{%
+\(1/2=e^{-0.40t}\), so \(t=\ln2/0.40=\SI{1.73}{s}\).}
+
+\bankq{calc-damp-014}{Damping, Resonance, and Transients}{applied}{D}{damping,critical}{Calculate critical damping coefficient.}{%
+A mass-spring system has \(m=\SI{0.50}{kg}\) and \(k=\SI{72}{N.m^{-1}}\). Find the critical damping coefficient.}{%
+\fivechoices{\(\SI{3.0}{kg.s^{-1}}\)}{\(\SI{6.0}{kg.s^{-1}}\)}{\(\SI{8.5}{kg.s^{-1}}\)}{\(\SI{12.0}{kg.s^{-1}}\)}{\(\SI{36.0}{kg.s^{-1}}\)}}{%
+\(b_c=2\sqrt{mk}=2\sqrt{(0.50)(72)}=\SI{12.0}{kg.s^{-1}}\).}
+
+\bankq{calc-damp-015}{Damping, Resonance, and Transients}{applied}{E}{resonance,amplitude}{Calculate resonant amplitude.}{%
+A lightly damped oscillator has force amplitude \(F_0=\SI{6.0}{N}\), damping coefficient \(b=\SI{0.30}{kg.s^{-1}}\), and \(\omega_0=\SI{20}{rad.s^{-1}}\). Estimate its resonant amplitude.}{%
+\fivechoices{\(\SI{0.10}{m}\)}{\(\SI{0.25}{m}\)}{\(\SI{0.50}{m}\)}{\(\SI{0.75}{m}\)}{\(\SI{1.00}{m}\)}}{%
+For light damping, \(X_{\max}\approx F_0/(b\omega_0)=6.0/[0.30(20)]=\SI{1.00}{m}\).}
+
+\bankq{calc-damp-016}{Damping, Resonance, and Transients}{applied}{A}{quality-factor,damping}{Calculate quality factor.}{%
+An oscillator has \(m=\SI{0.80}{kg}\), \(\omega_0=\SI{25}{rad.s^{-1}}\), and \(b=\SI{0.50}{kg.s^{-1}}\). Find \(Q\).}{%
+\fivechoices{40}{20}{16}{10}{5}{}}{%
+\(Q=m\omega_0/b=(0.80)(25)/0.50=40\).}
+
+\bankq{calc-damp-017}{Damping, Resonance, and Transients}{applied}{B}{quality-factor,bandwidth}{Calculate resonance bandwidth.}{%
+A resonance has central frequency \(\SI{120}{Hz}\) and \(Q=30\). Find its bandwidth.}{%
+\fivechoices{\(\SI{2.0}{Hz}\)}{\(\SI{4.0}{Hz}\)}{\(\SI{6.0}{Hz}\)}{\(\SI{15}{Hz}\)}{\(\SI{30}{Hz}\)}}{%
+\(\Delta f=f_0/Q=120/30=\SI{4.0}{Hz}\).}
+
+\bankq{calc-damp-018}{Damping, Resonance, and Transients}{applied}{C}{resonance,power}{Calculate average resonant power.}{%
+A sinusoidal force of amplitude \(\SI{4.0}{N}\) drives an oscillator with \(b=\SI{0.50}{kg.s^{-1}}\) at resonance. Find the average input power.}{%
+\fivechoices{\(\SI{4}{W}\)}{\(\SI{8}{W}\)}{\(\SI{16}{W}\)}{\(\SI{24}{W}\)}{\(\SI{32}{W}\)}}{%
+At resonance, \(\overline P=F_0^2/(2b)=4.0^2/[2(0.50)]=\SI{16}{W}\).}
+
+\bankq{calc-damp-019}{Damping, Resonance, and Transients}{challenge}{D}{resonance,phase}{Calculate phase lag of a driven oscillator.}{%
+For \(m=\SI{1.0}{kg}\), \(k=\SI{100}{N.m^{-1}}\), \(b=\SI{4.0}{kg.s^{-1}}\), and drive frequency \(\omega=\SI{8.0}{rad.s^{-1}}\), find the phase lag \(\delta\).}{%
+\fivechoices{\(20.8^\circ\)}{\(28.1^\circ\)}{\(36.9^\circ\)}{\(41.6^\circ\)}{\(48.4^\circ\)}}{%
+\(\tan\delta=b\omega/(k-m\omega^2)=32/(100-64)=0.8889\), so \(\delta=41.6^\circ\).}
+
+\bankq{calc-damp-020}{Damping, Resonance, and Transients}{challenge}{E}{transient,beats}{Calculate transient beating time.}{%
+A transient contains angular frequencies \(\SI{12.0}{rad.s^{-1}}\) and \(\SI{11.2}{rad.s^{-1}}\). Find the envelope period.}{%
+\fivechoices{\(\SI{0.80}{s}\)}{\(\SI{1.25}{s}\)}{\(\SI{3.93}{s}\)}{\(\SI{6.28}{s}\)}{\(\SI{7.85}{s}\)}}{%
+The envelope period is \(2\pi/|\Delta\omega|=2\pi/0.80=\SI{7.85}{s}\).}
+
+% 21--30: Coupled SHM and normal modes (3 foundation, 4 applied, 3 challenge)
+\bankq{calc-mode-021}{Coupled SHM and Normal Modes}{foundation}{A}{normal-modes,frequency}{Calculate the in-phase normal frequency.}{%
+Two identical masses \(m=\SI{2.0}{kg}\) are attached to end springs of constant \(k=\SI{50}{N.m^{-1}}\) and coupled symmetrically. Find the in-phase angular frequency.}{%
+\fivechoices{\(\SI{5.00}{rad.s^{-1}}\)}{\(\SI{7.07}{rad.s^{-1}}\)}{\(\SI{10.0}{rad.s^{-1}}\)}{\(\SI{25.0}{rad.s^{-1}}\)}{\(\SI{50.0}{rad.s^{-1}}\)}}{%
+The coupling spring is unstretched in phase, so \(\omega_+=\sqrt{k/m}=\sqrt{50/2}=\SI{5.00}{rad.s^{-1}}\).}
+
+\bankq{calc-mode-022}{Coupled SHM and Normal Modes}{foundation}{B}{normal-modes,frequency}{Calculate the out-of-phase normal frequency.}{%
+For the system in Question 21, let the coupling spring constant be \(k_c=\SI{25}{N.m^{-1}}\). Find the out-of-phase angular frequency.}{%
+\fivechoices{\(\SI{5.00}{rad.s^{-1}}\)}{\(\SI{7.07}{rad.s^{-1}}\)}{\(\SI{8.66}{rad.s^{-1}}\)}{\(\SI{10.0}{rad.s^{-1}}\)}{\(\SI{12.5}{rad.s^{-1}}\)}}{%
+\(\omega_- =\sqrt{(k+2k_c)/m}=\sqrt{(50+50)/2}=\sqrt{50}=\SI{7.07}{rad.s^{-1}}\).}
+
+\bankq{calc-mode-023}{Coupled SHM and Normal Modes}{foundation}{C}{coupled-oscillators,energy-transfer}{Calculate energy-transfer time from mode splitting.}{%
+Two coupled modes have angular frequencies \(\SI{6.0}{rad.s^{-1}}\) and \(\SI{8.0}{rad.s^{-1}}\). Estimate the first complete energy-transfer time.}{%
+\fivechoices{\(\SI{0.785}{s}\)}{\(\SI{1.00}{s}\)}{\(\SI{1.57}{s}\)}{\(\SI{3.14}{s}\)}{\(\SI{6.28}{s}\)}}{%
+The first transfer occurs at \(t=\pi/(\omega_2-\omega_1)=\pi/2=\SI{1.57}{s}\).}
+
+\bankq{calc-mode-024}{Coupled SHM and Normal Modes}{applied}{D}{eigenvalues,normal-modes}{Calculate a normal frequency from a stiffness matrix.}{%
+For unit mass, the stiffness matrix is \(K=\begin{pmatrix}5&-1\\-1&5\end{pmatrix}\). Find the higher normal angular frequency.}{%
+\fivechoices{\(\sqrt2\)}{2}{\(\sqrt5\)}{\(\sqrt6\)}{3}{}}{%
+The eigenvalues of \(K\) are \(4\) and \(6\), so the higher frequency is \(\omega=\sqrt6\).}
+
+\bankq{calc-mode-025}{Coupled SHM and Normal Modes}{applied}{E}{normal-modes,normalization}{Normalize a mode vector.}{%
+The low-frequency mode is proportional to \([1,1]^T\). What is the first component of its unit-normalized vector?}{%
+\fivechoices{0.250}{0.500}{0.577}{0.667}{0.707}{}}{%
+The norm is \(\sqrt{1^2+1^2}=\sqrt2\), so the component is \(1/\sqrt2=0.707\).}
+
+\bankq{calc-mode-026}{Coupled SHM and Normal Modes}{applied}{A}{normal-modes,decomposition}{Calculate modal amplitudes.}{%
+Write \([3,1]^T=a[1,1]^T+b[1,-1]^T\). Find \((a,b)\).}{%
+\fivechoices{\((2,1)\)}{\((1,2)\)}{\((3,1)\)}{\((2,-1)\)}{\((4,2)\)}}{%
+The component equations are \(a+b=3\) and \(a-b=1\). Hence \(a=2\), \(b=1\).}
+
+\bankq{calc-mode-027}{Coupled SHM and Normal Modes}{applied}{B}{coupled-oscillators,beats}{Calculate transfer time from two frequencies.}{%
+Weakly coupled oscillators have normal angular frequencies \(\SI{4.0}{rad.s^{-1}}\) and \(\SI{5.0}{rad.s^{-1}}\). Find the first maximum transfer time.}{%
+\fivechoices{\(\SI{1.57}{s}\)}{\(\SI{3.14}{s}\)}{\(\SI{4.00}{s}\)}{\(\SI{5.00}{s}\)}{\(\SI{6.28}{s}\)}}{%
+\(t_{\mathrm{transfer}}=\pi/\Delta\omega=\pi/(5-4)=\SI{3.14}{s}\).}
+
+\bankq{calc-mode-028}{Coupled SHM and Normal Modes}{challenge}{C}{generalized-eigenvalue,modes}{Calculate the lower generalized normal frequency.}{%
+For \(M=2I\) and \(K=\begin{pmatrix}10&-4\\-4&10\end{pmatrix}\), find the lower normal angular frequency.}{%
+\fivechoices{\(\SI{1.22}{rad.s^{-1}}\)}{\(\SI{1.41}{rad.s^{-1}}\)}{\(\SI{1.73}{rad.s^{-1}}\)}{\(\SI{2.24}{rad.s^{-1}}\)}{\(\SI{2.65}{rad.s^{-1}}\)}}{%
+The stiffness eigenvalues are \(6\) and \(14\). Dividing by mass \(2\) gives \(\omega^2=3,7\), so \(\omega_{\min}=\sqrt3=\SI{1.73}{rad.s^{-1}}\).}
+
+\bankq{calc-mode-029}{Coupled SHM and Normal Modes}{challenge}{D}{generalized-eigenvalue,modes}{Solve an unequal-mass normal-mode determinant.}{%
+Let \(M=\operatorname{diag}(1,2)\) and \(K=\begin{pmatrix}3&-1\\-1&3\end{pmatrix}\) in SI units. Find the higher normal angular frequency.}{%
+\fivechoices{\(\SI{1.10}{rad.s^{-1}}\)}{\(\SI{1.41}{rad.s^{-1}}\)}{\(\SI{1.58}{rad.s^{-1}}\)}{\(\SI{1.81}{rad.s^{-1}}\)}{\(\SI{2.28}{rad.s^{-1}}\)}}{%
+\(\det(K-sM)=2s^2-9s+8=0\), so \(s=(9+\sqrt{17})/4=3.281\). Thus \(\omega=\sqrt{s}=\SI{1.81}{rad.s^{-1}}\).}
+
+\bankq{calc-mode-030}{Coupled SHM and Normal Modes}{challenge}{E}{normal-modes,reconstruction}{Reconstruct a coordinate from normal coordinates.}{%
+Normal coordinates are \(q_+=2\cos(3t)\) cm and \(q_-=4\cos(5t)\) cm, with \(x_1=(q_++q_-)/2\). Find \(x_1\) at \(t=\pi/10\) s.}{%
+\fivechoices{\(-1.18\) cm}{\(-0.588\) cm}{0}{\(0.294\) cm}{\(0.588\) cm}}{%
+At \(t=\pi/10\), \(q_+=2\cos(3\pi/10)=1.176\) cm and \(q_-=4\cos(\pi/2)=0\). Hence \(x_1=1.176/2=0.588\) cm.}
+
+% 31--40: Travelling waves, power, and intensity (3 foundation, 5 applied, 2 challenge)
+\bankq{calc-wave-031}{Travelling Waves, Power, and Intensity}{foundation}{A}{waves,speed}{Calculate wave speed.}{%
+A wave has frequency \(\SI{25}{Hz}\) and wavelength \(\SI{0.80}{m}\). Find its speed.}{%
+\fivechoices{\(\SI{20}{m.s^{-1}}\)}{\(\SI{25}{m.s^{-1}}\)}{\(\SI{31.3}{m.s^{-1}}\)}{\(\SI{40}{m.s^{-1}}\)}{\(\SI{50}{m.s^{-1}}\)}}{%
+\(v=f\lambda=(25)(0.80)=\SI{20}{m.s^{-1}}\).}
+
+\bankq{calc-wave-032}{Travelling Waves, Power, and Intensity}{foundation}{B}{waves,wavenumber}{Calculate wave number.}{%
+Find the wave number of a sinusoidal wave with wavelength \(\SI{0.400}{m}\).}{%
+\fivechoices{\(\SI{7.85}{m^{-1}}\)}{\(\SI{15.7}{m^{-1}}\)}{\(\SI{20.0}{m^{-1}}\)}{\(\SI{31.4}{m^{-1}}\)}{\(\SI{40.0}{m^{-1}}\)}}{%
+\(k=2\pi/\lambda=2\pi/0.400=\SI{15.7}{m^{-1}}\).}
+
+\bankq{calc-wave-033}{Travelling Waves, Power, and Intensity}{foundation}{C}{waves,angular-frequency}{Calculate angular frequency.}{%
+A wave has frequency \(\SI{50.0}{Hz}\). Find its angular frequency.}{%
+\fivechoices{\(\SI{50}{rad.s^{-1}}\)}{\(\SI{157}{rad.s^{-1}}\)}{\(\SI{314}{rad.s^{-1}}\)}{\(\SI{628}{rad.s^{-1}}\)}{\(\SI{2500}{rad.s^{-1}}\)}}{%
+\(\omega=2\pi f=2\pi(50.0)=\SI{314}{rad.s^{-1}}\).}
+
+\bankq{calc-wave-034}{Travelling Waves, Power, and Intensity}{applied}{D}{waves,phase-velocity}{Calculate signed phase velocity.}{%
+For \(y=0.02\cos(6x+18t)\), with SI units, find the signed phase velocity along the \(x\)-axis.}{%
+\fivechoices{\(\SI{9}{m.s^{-1}}\)}{\(\SI{6}{m.s^{-1}}\)}{\(\SI{3}{m.s^{-1}}\)}{\(\SI{-3}{m.s^{-1}}\)}{\(\SI{-18}{m.s^{-1}}\)}}{%
+Constant phase gives \(6x+18t=\text{constant}\), hence \(dx/dt=-18/6=\SI{-3}{m.s^{-1}}\).}
+
+\bankq{calc-wave-035}{Travelling Waves, Power, and Intensity}{applied}{E}{waves,particle-speed}{Calculate maximum particle speed.}{%
+A transverse wave has amplitude \(\SI{0.020}{m}\) and angular frequency \(\SI{40}{rad.s^{-1}}\). Find the maximum particle speed.}{%
+\fivechoices{\(\SI{0.20}{m.s^{-1}}\)}{\(\SI{0.40}{m.s^{-1}}\)}{\(\SI{0.60}{m.s^{-1}}\)}{\(\SI{0.70}{m.s^{-1}}\)}{\(\SI{0.80}{m.s^{-1}}\)}}{%
+\(v_{y,\max}=A\omega=(0.020)(40)=\SI{0.80}{m.s^{-1}}\).}
+
+\bankq{calc-wave-036}{Travelling Waves, Power, and Intensity}{applied}{A}{string,wave-speed}{Calculate string-wave speed.}{%
+A string has tension \(\SI{144}{N}\) and linear density \(\SI{0.0100}{kg.m^{-1}}\). Find the wave speed.}{%
+\fivechoices{\(\SI{120}{m.s^{-1}}\)}{\(\SI{100}{m.s^{-1}}\)}{\(\SI{72}{m.s^{-1}}\)}{\(\SI{14.4}{m.s^{-1}}\)}{\(\SI{12}{m.s^{-1}}\)}}{%
+\(v=\sqrt{T/\mu}=\sqrt{144/0.0100}=\SI{120}{m.s^{-1}}\).}
+
+\bankq{calc-wave-037}{Travelling Waves, Power, and Intensity}{applied}{B}{string,power}{Calculate average power on a string.}{%
+A sinusoidal string wave has \(\mu=\SI{0.020}{kg.m^{-1}}\), \(\omega=\SI{50}{rad.s^{-1}}\), \(A=\SI{0.010}{m}\), and \(v=\SI{100}{m.s^{-1}}\). Find its average power.}{%
+\fivechoices{\(\SI{0.125}{W}\)}{\(\SI{0.250}{W}\)}{\(\SI{0.500}{W}\)}{\(\SI{1.25}{W}\)}{\(\SI{2.50}{W}\)}}{%
+\(\overline P=\tfrac12\mu\omega^2A^2v=\tfrac12(0.020)(50)^2(0.010)^2(100)=\SI{0.250}{W}\).}
+
+\bankq{calc-wave-038}{Travelling Waves, Power, and Intensity}{applied}{C}{intensity,spherical-wave}{Calculate spherical-wave intensity.}{%
+An isotropic source radiates \(\SI{12.6}{W}\). Find the intensity at \(r=\SI{10.0}{m}\).}{%
+\fivechoices{\(\SI{1.00e-3}{W.m^{-2}}\)}{\(\SI{5.00e-3}{W.m^{-2}}\)}{\(\SI{1.00e-2}{W.m^{-2}}\)}{\(\SI{2.00e-2}{W.m^{-2}}\)}{\(\SI{1.00e-1}{W.m^{-2}}\)}}{%
+\(I=P/(4\pi r^2)=12.6/[4\pi(10.0)^2]=\SI{1.00e-2}{W.m^{-2}}\).}
+
+\bankq{calc-wave-039}{Travelling Waves, Power, and Intensity}{challenge}{D}{sound,pressure-amplitude}{Calculate pressure amplitude from intensity.}{%
+A plane sound wave in air has intensity \(\SI{0.600}{W.m^{-2}}\), with \(\rho=\SI{1.20}{kg.m^{-3}}\) and \(v=\SI{343}{m.s^{-1}}\). Find its pressure amplitude.}{%
+\fivechoices{\(\SI{11.1}{Pa}\)}{\(\SI{15.7}{Pa}\)}{\(\SI{19.8}{Pa}\)}{\(\SI{22.2}{Pa}\)}{\(\SI{31.4}{Pa}\)}}{%
+\(p_0=\sqrt{2\rho vI}=\sqrt{2(1.20)(343)(0.600)}=\SI{22.2}{Pa}\).}
+
+\bankq{calc-wave-040}{Travelling Waves, Power, and Intensity}{challenge}{E}{standing-waves,wavenumber}{Calculate wavelength and wave number from node spacing.}{%
+Adjacent nodes of a standing wave are \(\SI{0.150}{m}\) apart. Find the wave number.}{%
+\fivechoices{\(\SI{5.24}{m^{-1}}\)}{\(\SI{10.5}{m^{-1}}\)}{\(\SI{15.7}{m^{-1}}\)}{\(\SI{18.8}{m^{-1}}\)}{\(\SI{20.9}{m^{-1}}\)}}{%
+Node spacing is \(\lambda/2\), so \(\lambda=\SI{0.300}{m}\) and \(k=2\pi/\lambda=\SI{20.9}{m^{-1}}\).}
+
+% 41--50: Interference and beats (3 foundation, 4 applied, 3 challenge)
+\bankq{calc-int-041}{Interference and Beats}{foundation}{A}{interference,resultant-amplitude}{Calculate resultant amplitude.}{%
+Two waves each have amplitude \(\SI{3.0}{cm}\) and phase difference \(60^\circ\). Find the resultant amplitude.}{%
+\fivechoices{\(\SI{5.20}{cm}\)}{\(\SI{4.24}{cm}\)}{\(\SI{3.00}{cm}\)}{\(\SI{2.60}{cm}\)}{\(\SI{1.50}{cm}\)}}{%
+\(A_R=2A\cos(\phi/2)=2(3.0)\cos30^\circ=\SI{5.20}{cm}\).}
+
+\bankq{calc-int-042}{Interference and Beats}{foundation}{B}{interference,phase}{Calculate phase difference from path difference.}{%
+Two coherent waves have path difference \(0.75\lambda\). Find their phase difference in degrees.}{%
+\fivechoices{\(180^\circ\)}{\(270^\circ\)}{\(300^\circ\)}{\(360^\circ\)}{\(540^\circ\)}}{%
+\(\Delta\phi=2\pi\Delta x/\lambda=2\pi(0.75)=3\pi/2=270^\circ\).}
+
+\bankq{calc-int-043}{Interference and Beats}{foundation}{C}{double-slit,fringe-spacing}{Calculate double-slit fringe spacing.}{%
+Light of wavelength \(\SI{600}{nm}\) passes through slits separated by \(\SI{0.500}{mm}\). A screen is \(\SI{2.00}{m}\) away. Find the fringe spacing.}{%
+\fivechoices{\(\SI{0.60}{mm}\)}{\(\SI{1.20}{mm}\)}{\(\SI{2.40}{mm}\)}{\(\SI{4.80}{mm}\)}{\(\SI{6.00}{mm}\)}}{%
+\(\Delta y=\lambda L/d=(600\times10^{-9})(2.00)/(0.500\times10^{-3})=\SI{2.40}{mm}\).}
+
+\bankq{calc-int-044}{Interference and Beats}{applied}{D}{double-slit,bright-fringe}{Calculate bright-fringe position.}{%
+Using the arrangement in Question 43, find the position of the fourth bright fringe from the centre.}{%
+\fivechoices{\(\SI{2.4}{mm}\)}{\(\SI{4.8}{mm}\)}{\(\SI{7.2}{mm}\)}{\(\SI{9.6}{mm}\)}{\(\SI{12.0}{mm}\)}}{%
+\(y_4=4\Delta y=4(2.40)=\SI{9.60}{mm}\).}
+
+\bankq{calc-int-045}{Interference and Beats}{applied}{E}{beats,frequency}{Calculate beat frequency.}{%
+Two tuning forks have frequencies \(\SI{256}{Hz}\) and \(\SI{260}{Hz}\). Find the beat frequency.}{%
+\fivechoices{\(\SI{516}{Hz}\)}{\(\SI{258}{Hz}\)}{\(\SI{8}{Hz}\)}{\(\SI{6}{Hz}\)}{\(\SI{4}{Hz}\)}}{%
+\(f_b=|f_2-f_1|=|260-256|=\SI{4}{Hz}\).}
+
+\bankq{calc-int-046}{Interference and Beats}{applied}{A}{interference,intensity}{Calculate constructive intensity.}{%
+Two coherent waves separately produce intensities \(\SI{9}{W.m^{-2}}\) and \(\SI{4}{W.m^{-2}}\). Find the intensity at complete constructive interference.}{%
+\fivechoices{\(\SI{25}{W.m^{-2}}\)}{\(\SI{13}{W.m^{-2}}\)}{\(\SI{10}{W.m^{-2}}\)}{\(\SI{5}{W.m^{-2}}\)}{\(\SI{1}{W.m^{-2}}\)}}{%
+Amplitudes are proportional to \(\sqrt I\), so \(I_{\max}=(\sqrt9+\sqrt4)^2=(3+2)^2=\SI{25}{W.m^{-2}}\).}
+
+\bankq{calc-int-047}{Interference and Beats}{applied}{B}{interference,intensity}{Calculate destructive intensity.}{%
+For the same two waves as Question 46, find the intensity at complete destructive interference.}{%
+\fivechoices{\(\SI{0}{W.m^{-2}}\)}{\(\SI{1}{W.m^{-2}}\)}{\(\SI{5}{W.m^{-2}}\)}{\(\SI{9}{W.m^{-2}}\)}{\(\SI{13}{W.m^{-2}}\)}}{%
+\(I_{\min}=(\sqrt9-\sqrt4)^2=(3-2)^2=\SI{1}{W.m^{-2}}\).}
+
+\bankq{calc-int-048}{Interference and Beats}{challenge}{C}{interference,phase}{Infer phase difference from intensity.}{%
+Two equal coherent sources each produce intensity \(I_0\). Their resultant intensity is \(I_0\). Find the smaller phase difference.}{%
+\fivechoices{\(30^\circ\)}{\(60^\circ\)}{\(120^\circ\)}{\(150^\circ\)}{\(180^\circ\)}}{%
+\(I=2I_0(1+\cos\phi)=I_0\), so \(\cos\phi=-1/2\) and \(\phi=120^\circ\).}
+
+\bankq{calc-int-049}{Interference and Beats}{challenge}{D}{thin-film,interference}{Calculate minimum film thickness.}{%
+A film of refractive index \(1.50\) is in air and illuminated normally with \(\SI{600}{nm}\) light. With one phase reversal, find the least nonzero thickness for constructive reflected light.}{%
+\fivechoices{\(\SI{50}{nm}\)}{\(\SI{75}{nm}\)}{\(\SI{80}{nm}\)}{\(\SI{100}{nm}\)}{\(\SI{200}{nm}\)}}{%
+With one phase reversal, the first constructive condition is \(2nt=\lambda/2\). Thus \(t=\lambda/(4n)=600/[4(1.50)]=\SI{100}{nm}\).}
+
+\bankq{calc-int-050}{Interference and Beats}{challenge}{E}{interferometer,fringes}{Calculate Michelson fringe count.}{%
+In a Michelson interferometer using \(\SI{600}{nm}\) light, one mirror moves \(\SI{0.150}{mm}\). How many fringes pass the detector?}{%
+\fivechoices{125}{250}{300}{400}{500}{}}{%
+\(N=2\Delta d/\lambda=2(0.150\times10^{-3})/(600\times10^{-9})=500\).}
+
+% 51--60: Diffraction and polarization (3 foundation, 5 applied, 2 challenge)
+\bankq{calc-diff-051}{Diffraction and Polarization}{foundation}{A}{single-slit,minima}{Calculate a single-slit minimum angle.}{%
+Light of wavelength \(\SI{500}{nm}\) passes through a slit of width \(\SI{0.100}{mm}\). Find the first-minimum angle.}{%
+\fivechoices{\(0.286^\circ\)}{\(0.410^\circ\)}{\(0.500^\circ\)}{\(0.573^\circ\)}{\(1.00^\circ\)}}{%
+\(\sin\theta_1=\lambda/a=500\times10^{-9}/10^{-4}=0.005\), so \(\theta_1=0.286^\circ\).}
+
+\bankq{calc-diff-052}{Diffraction and Polarization}{foundation}{B}{single-slit,central-width}{Calculate central diffraction width.}{%
+A slit of width \(\SI{0.200}{mm}\) is illuminated by \(\SI{600}{nm}\) light. A screen is \(\SI{2.00}{m}\) away. Find the central-maximum width.}{%
+\fivechoices{\(\SI{6.0}{mm}\)}{\(\SI{12.0}{mm}\)}{\(\SI{18.0}{mm}\)}{\(\SI{24.0}{mm}\)}{\(\SI{30.0}{mm}\)}}{%
+For small angles, \(w=2L\lambda/a=2(2.00)(600\times10^{-9})/(0.200\times10^{-3})=\SI{12.0}{mm}\).}
+
+\bankq{calc-diff-053}{Diffraction and Polarization}{foundation}{C}{single-slit,minima}{Calculate a higher diffraction minimum.}{%
+For the slit in Question 51, find the angle of the second minimum.}{%
+\fivechoices{\(0.143^\circ\)}{\(0.286^\circ\)}{\(0.573^\circ\)}{\(0.860^\circ\)}{\(1.15^\circ\)}}{%
+\(\sin\theta_2=2\lambda/a=0.010\), giving \(\theta_2=0.573^\circ\).}
+
+\bankq{calc-diff-054}{Diffraction and Polarization}{applied}{D}{single-slit,maxima}{Calculate a secondary diffraction maximum.}{%
+For \(\lambda=\SI{500}{nm}\) and slit width \(a=\SI{0.100}{mm}\), use the first root \(\beta=4.493\) of \(\tan\beta=\beta\). Find the first secondary-maximum angle.}{%
+\fivechoices{\(0.143^\circ\)}{\(0.286^\circ\)}{\(0.358^\circ\)}{\(0.410^\circ\)}{\(0.573^\circ\)}}{%
+Since \(\beta=\pi a\sin\theta/\lambda\), \(\sin\theta=4.493(500\times10^{-9})/[\pi(10^{-4})]=0.00715\). Thus \(\theta=0.410^\circ\).}
+
+\bankq{calc-diff-055}{Diffraction and Polarization}{applied}{E}{grating,order}{Calculate the greatest grating order.}{%
+A grating has spacing \(d=\SI{2.00}{um}\) and is illuminated by \(\lambda=\SI{500}{nm}\). What is the greatest possible order?}{%
+\fivechoices{0}{1}{2}{3}{4}{}}{%
+Because \(m\lambda\le d\), \(m_{\max}=\lfloor d/\lambda\rfloor=\lfloor2000/500\rfloor=4\).}
+
+\bankq{calc-diff-056}{Diffraction and Polarization}{applied}{A}{grating,angle}{Calculate a grating diffraction angle.}{%
+A grating has \(1000\) lines per mm and is illuminated normally by \(\SI{600}{nm}\) light. Find the first-order angle.}{%
+\fivechoices{\(36.9^\circ\)}{\(30.0^\circ\)}{\(26.6^\circ\)}{\(18.4^\circ\)}{\(12.0^\circ\)}}{%
+The spacing is \(d=1/(10^6)=\SI{1.00}{um}\). Thus \(\sin\theta=\lambda/d=0.600\), so \(\theta=36.9^\circ\).}
+
+\bankq{calc-diff-057}{Diffraction and Polarization}{applied}{B}{circular-aperture,resolution}{Calculate Rayleigh angular resolution.}{%
+A circular aperture has diameter \(\SI{0.100}{m}\) and observes \(\SI{500}{nm}\) light. Find its Rayleigh angular resolution.}{%
+\fivechoices{\(\SI{5.00e-6}{rad}\)}{\(\SI{6.10e-6}{rad}\)}{\(\SI{1.00e-5}{rad}\)}{\(\SI{1.22e-5}{rad}\)}{\(\SI{6.10e-5}{rad}\)}}{%
+\(\theta_R=1.22\lambda/D=1.22(500\times10^{-9})/0.100=\SI{6.10e-6}{rad}\).}
+
+\bankq{calc-diff-058}{Diffraction and Polarization}{applied}{C}{polarization,malus-law}{Calculate transmitted polarized intensity.}{%
+Plane-polarized light of intensity \(\SI{80}{W.m^{-2}}\) meets an analyzer at \(30^\circ\). Find the transmitted intensity.}{%
+\fivechoices{\(\SI{20}{W.m^{-2}}\)}{\(\SI{40}{W.m^{-2}}\)}{\(\SI{60}{W.m^{-2}}\)}{\(\SI{69.3}{W.m^{-2}}\)}{\(\SI{80}{W.m^{-2}}\)}}{%
+By Malus's law, \(I=I_0\cos^230^\circ=80(3/4)=\SI{60}{W.m^{-2}}\).}
+
+\bankq{calc-diff-059}{Diffraction and Polarization}{challenge}{D}{polarization,malus-law}{Calculate transmission through two polarizers.}{%
+Unpolarized light passes through an ideal polarizer and then an analyzer at \(45^\circ\). What percentage of the original intensity emerges?}{%
+\fivechoices{12.5\%}{18.8\%}{20.0\%}{25.0\%}{50.0\%}}{%
+The first polarizer gives \(I_0/2\), and the analyzer gives another factor \(\cos^245^\circ=1/2\). Thus \(I=I_0/4=25.0\%\,I_0\).}
+
+\bankq{calc-diff-060}{Diffraction and Polarization}{challenge}{E}{polarization,brewster-angle}{Calculate Brewster angle.}{%
+Light travels from air onto glass of refractive index \(1.50\). Find Brewster's angle.}{%
+\fivechoices{\(33.7^\circ\)}{\(41.8^\circ\)}{\(45.0^\circ\)}{\(48.2^\circ\)}{\(56.3^\circ\)}}{%
+\(\tan\theta_B=n_2/n_1=1.50\), so \(\theta_B=\tan^{-1}(1.50)=56.3^\circ\).}
+
+% 61--70: Dispersion and velocities (3 foundation, 4 applied, 3 challenge)
+\bankq{calc-disp-061}{Dispersion, Phase Velocity, and Group Velocity}{foundation}{A}{dispersion,phase-velocity}{Calculate phase velocity from a dispersion relation.}{%
+A medium obeys \(\omega=4k\) in SI units. Find the phase velocity.}{%
+\fivechoices{\(\SI{4.0}{m.s^{-1}}\)}{\(\SI{2.0}{m.s^{-1}}\)}{\(\SI{1.0}{m.s^{-1}}\)}{\(\SI{0.50}{m.s^{-1}}\)}{\(\SI{0.25}{m.s^{-1}}\)}}{%
+\(v_p=\omega/k=4k/k=\SI{4.0}{m.s^{-1}}\).}
+
+\bankq{calc-disp-062}{Dispersion, Phase Velocity, and Group Velocity}{foundation}{B}{dispersion,group-velocity}{Calculate group velocity by differentiation.}{%
+For \(\omega=2k+0.5k^2\), find the group velocity at \(k=\SI{3.0}{m^{-1}}\).}{%
+\fivechoices{\(\SI{3.5}{m.s^{-1}}\)}{\(\SI{5.0}{m.s^{-1}}\)}{\(\SI{6.0}{m.s^{-1}}\)}{\(\SI{7.5}{m.s^{-1}}\)}{\(\SI{10.5}{m.s^{-1}}\)}}{%
+\(v_g=d\omega/dk=2+k\). At \(k=3.0\), \(v_g=\SI{5.0}{m.s^{-1}}\).}
+
+\bankq{calc-disp-063}{Dispersion, Phase Velocity, and Group Velocity}{foundation}{C}{dispersion,inverse-relation}{Calculate group velocity from k as a function of omega.}{%
+A medium obeys \(k=0.040\omega^2\). Find \(v_g\) at \(\omega=\SI{10}{rad.s^{-1}}\).}{%
+\fivechoices{\(\SI{0.80}{m.s^{-1}}\)}{\(\SI{1.00}{m.s^{-1}}\)}{\(\SI{1.25}{m.s^{-1}}\)}{\(\SI{2.50}{m.s^{-1}}\)}{\(\SI{4.00}{m.s^{-1}}\)}}{%
+\(dk/d\omega=0.080\omega=0.80\). Therefore \(v_g=d\omega/dk=(dk/d\omega)^{-1}=\SI{1.25}{m.s^{-1}}\).}
+
+\bankq{calc-disp-064}{Dispersion, Phase Velocity, and Group Velocity}{applied}{D}{water-waves,phase-velocity}{Calculate deep-water phase velocity.}{%
+Deep-water waves obey \(\omega=\sqrt{gk}\). Find \(v_p\) at \(k=\SI{4.00}{m^{-1}}\).}{%
+\fivechoices{\(\SI{0.783}{m.s^{-1}}\)}{\(\SI{1.00}{m.s^{-1}}\)}{\(\SI{1.25}{m.s^{-1}}\)}{\(\SI{1.57}{m.s^{-1}}\)}{\(\SI{3.13}{m.s^{-1}}\)}}{%
+\(\omega=\sqrt{9.80(4.00)}=\SI{6.26}{rad.s^{-1}}\), so \(v_p=\omega/k=6.26/4.00=\SI{1.57}{m.s^{-1}}\).}
+
+\bankq{calc-disp-065}{Dispersion, Phase Velocity, and Group Velocity}{applied}{E}{water-waves,group-velocity}{Calculate deep-water group velocity.}{%
+For the wave in Question 64, find the group velocity.}{%
+\fivechoices{\(\SI{3.13}{m.s^{-1}}\)}{\(\SI{1.57}{m.s^{-1}}\)}{\(\SI{1.25}{m.s^{-1}}\)}{\(\SI{1.00}{m.s^{-1}}\)}{\(\SI{0.783}{m.s^{-1}}\)}}{%
+For \(\omega=\sqrt{gk}\), \(v_g=\tfrac12v_p=\tfrac12(1.57)=\SI{0.783}{m.s^{-1}}\).}
+
+\bankq{calc-disp-066}{Dispersion, Phase Velocity, and Group Velocity}{applied}{A}{dispersion,cutoff}{Calculate group velocity with a cutoff frequency.}{%
+A medium obeys \(\omega^2=9k^2+25\). Find \(v_g\) at \(k=\SI{4.0}{m^{-1}}\).}{%
+\fivechoices{\(\SI{2.77}{m.s^{-1}}\)}{\(\SI{3.00}{m.s^{-1}}\)}{\(\SI{3.25}{m.s^{-1}}\)}{\(\SI{4.00}{m.s^{-1}}\)}{\(\SI{13.0}{m.s^{-1}}\)}}{%
+Here \(\omega=\sqrt{9(16)+25}=13\). Differentiation gives \(v_g=9k/\omega=36/13=\SI{2.77}{m.s^{-1}}\).}
+
+\bankq{calc-disp-067}{Dispersion, Phase Velocity, and Group Velocity}{applied}{B}{optics,phase-velocity}{Calculate optical phase speed.}{%
+Light travels in a medium of refractive index \(1.50\). Find its phase speed.}{%
+\fivechoices{\(\SI{1.50e8}{m.s^{-1}}\)}{\(\SI{2.00e8}{m.s^{-1}}\)}{\(\SI{2.25e8}{m.s^{-1}}\)}{\(\SI{3.00e8}{m.s^{-1}}\)}{\(\SI{4.50e8}{m.s^{-1}}\)}}{%
+\(v_p=c/n=(3.00\times10^8)/1.50=\SI{2.00e8}{m.s^{-1}}\).}
+
+\bankq{calc-disp-068}{Dispersion, Phase Velocity, and Group Velocity}{challenge}{C}{dispersion,velocity-ratio}{Calculate the group-to-phase velocity ratio.}{%
+A medium obeys \(\omega=0.20k^3\). Find \(v_g/v_p\) at \(k=\SI{2.0}{m^{-1}}\).}{%
+\fivechoices{1}{2}{3}{4}{6}{}}{%
+\(v_p=\omega/k=0.20k^2\), while \(v_g=d\omega/dk=0.60k^2\). Thus \(v_g/v_p=3\).}
+
+\bankq{calc-disp-069}{Dispersion, Phase Velocity, and Group Velocity}{challenge}{D}{dispersion,pulse-spreading}{Estimate dispersive pulse spreading.}{%
+For \(\omega=ck+0.50k^2\), a packet has wave-number width \(\Delta k=\SI{0.40}{m^{-1}}\). Estimate its extra width after \(\SI{10}{s}\) using \(\Delta v_g\approx|d^2\omega/dk^2|\Delta k\).}{%
+\fivechoices{\(\SI{1.0}{m}\)}{\(\SI{2.0}{m}\)}{\(\SI{3.0}{m}\)}{\(\SI{4.0}{m}\)}{\(\SI{5.0}{m}\)}}{%
+\(d^2\omega/dk^2=1.0\), so \(\Delta v_g=(1.0)(0.40)=\SI{0.40}{m.s^{-1}}\). Hence \(\Delta x\approx\Delta v_gt=0.40(10)=\SI{4.0}{m}\).}
+
+\bankq{calc-disp-070}{Dispersion, Phase Velocity, and Group Velocity}{challenge}{E}{dispersion,implicit-differentiation}{Calculate group velocity by implicit differentiation.}{%
+A dispersion relation is \(\omega^2-9k^2-0.10k^4=0\). Find \(v_g\) at \(k=\SI{2.0}{m^{-1}}\).}{%
+\fivechoices{\(\SI{2.40}{m.s^{-1}}\)}{\(\SI{2.77}{m.s^{-1}}\)}{\(\SI{3.00}{m.s^{-1}}\)}{\(\SI{3.13}{m.s^{-1}}\)}{\(\SI{3.20}{m.s^{-1}}\)}}{%
+At \(k=2\), \(\omega=\sqrt{36+1.6}=6.132\). Differentiation gives \(2\omega v_g=18k+0.40k^3\), so \(v_g=(36+3.2)/(2\times6.132)=\SI{3.20}{m.s^{-1}}\).}
+
+% 71--80: Wave equations and bounded modes (3 foundation, 5 applied, 2 challenge)
+\bankq{calc-eq-071}{Wave Equations and Bounded Modes}{foundation}{A}{wave-equation,speed}{Calculate speed from a 1D wave equation.}{%
+A field obeys \(u_{tt}=225u_{xx}\). Find the wave speed.}{%
+\fivechoices{\(\SI{15}{m.s^{-1}}\)}{\(\SI{112.5}{m.s^{-1}}\)}{\(\SI{225}{m.s^{-1}}\)}{\(\SI{450}{m.s^{-1}}\)}{\(\SI{50625}{m.s^{-1}}\)}}{%
+Comparing with \(u_{tt}=v^2u_{xx}\) gives \(v=\sqrt{225}=\SI{15}{m.s^{-1}}\).}
+
+\bankq{calc-eq-072}{Wave Equations and Bounded Modes}{foundation}{B}{string,fundamental}{Calculate a string fundamental frequency.}{%
+A string of length \(\SI{1.20}{m}\) is fixed at both ends and supports waves at \(\SI{120}{m.s^{-1}}\). Find its fundamental frequency.}{%
+\fivechoices{\(\SI{25}{Hz}\)}{\(\SI{50}{Hz}\)}{\(\SI{75}{Hz}\)}{\(\SI{100}{Hz}\)}{\(\SI{144}{Hz}\)}}{%
+\(f_1=v/(2L)=120/[2(1.20)]=\SI{50}{Hz}\).}
+
+\bankq{calc-eq-073}{Wave Equations and Bounded Modes}{foundation}{C}{string,harmonics}{Calculate a string harmonic.}{%
+For the string in Question 72, find the third-harmonic frequency.}{%
+\fivechoices{\(\SI{50}{Hz}\)}{\(\SI{100}{Hz}\)}{\(\SI{150}{Hz}\)}{\(\SI{200}{Hz}\)}{\(\SI{300}{Hz}\)}}{%
+\(f_3=3f_1=3(50)=\SI{150}{Hz}\).}
+
+\bankq{calc-eq-074}{Wave Equations and Bounded Modes}{applied}{D}{membrane,normal-mode}{Calculate a rectangular membrane frequency.}{%
+A rectangular membrane has sides \(a=\SI{2.0}{m}\), \(b=\SI{1.0}{m}\), and wave speed \(v=\SI{40}{m.s^{-1}}\). Find the \((1,1)\) mode frequency.}{%
+\fivechoices{\(\SI{10.0}{Hz}\)}{\(\SI{15.0}{Hz}\)}{\(\SI{20.0}{Hz}\)}{\(\SI{22.4}{Hz}\)}{\(\SI{28.3}{Hz}\)}}{%
+\(f_{mn}=\tfrac v2\sqrt{(m/a)^2+(n/b)^2}\). Thus \(f_{11}=20\sqrt{(1/2)^2+1^2}=\SI{22.4}{Hz}\).}
+
+\bankq{calc-eq-075}{Wave Equations and Bounded Modes}{applied}{E}{membrane,normal-mode}{Calculate a second membrane mode.}{%
+For the membrane in Question 74, find the \((2,1)\) mode frequency.}{%
+\fivechoices{\(\SI{20.0}{Hz}\)}{\(\SI{22.4}{Hz}\)}{\(\SI{25.0}{Hz}\)}{\(\SI{26.8}{Hz}\)}{\(\SI{28.3}{Hz}\)}}{%
+\(f_{21}=20\sqrt{(2/2)^2+(1/1)^2}=20\sqrt2=\SI{28.3}{Hz}\).}
+
+\bankq{calc-eq-076}{Wave Equations and Bounded Modes}{applied}{A}{cavity,3d-mode}{Calculate a cubic-cavity mode frequency.}{%
+A cubic cavity of side \(\SI{2.0}{m}\) supports waves at \(\SI{300}{m.s^{-1}}\). Find the \((1,1,1)\) mode frequency using fixed-boundary mode numbers.}{%
+\fivechoices{\(\SI{130}{Hz}\)}{\(\SI{150}{Hz}\)}{\(\SI{212}{Hz}\)}{\(\SI{260}{Hz}\)}{\(\SI{450}{Hz}\)}}{%
+\(f_{111}=\tfrac v2\sqrt{3(1/2)^2}=150(\sqrt3/2)=\SI{130}{Hz}\).}
+
+\bankq{calc-eq-077}{Wave Equations and Bounded Modes}{applied}{B}{wave-vector,wavelength}{Calculate wavelength from a 3D wave vector.}{%
+A plane wave has \(\mathbf{k}=(3,4,12)\,\si{m^{-1}}\). Find its wavelength.}{%
+\fivechoices{\(\SI{0.242}{m}\)}{\(\SI{0.483}{m}\)}{\(\SI{0.785}{m}\)}{\(\SI{1.21}{m}\)}{\(\SI{2.07}{m}\)}}{%
+\(|\mathbf{k}|=\sqrt{3^2+4^2+12^2}=13\,\si{m^{-1}}\), so \(\lambda=2\pi/13=\SI{0.483}{m}\).}
+
+\bankq{calc-eq-078}{Wave Equations and Bounded Modes}{applied}{C}{wave-equation,plane-wave}{Calculate wave speed from omega and wave vector.}{%
+A plane-wave solution of \(u_{tt}=v^2\nabla^2u\) has \(|\mathbf{k}|=\SI{5.0}{m^{-1}}\) and \(\omega=\SI{50}{rad.s^{-1}}\). Find \(v\).}{%
+\fivechoices{\(\SI{2.0}{m.s^{-1}}\)}{\(\SI{5.0}{m.s^{-1}}\)}{\(\SI{10.0}{m.s^{-1}}\)}{\(\SI{25.0}{m.s^{-1}}\)}{\(\SI{250}{m.s^{-1}}\)}}{%
+For a nondispersive wave, \(\omega=v|\mathbf{k}|\). Thus \(v=50/5.0=\SI{10.0}{m.s^{-1}}\).}
+
+\bankq{calc-eq-079}{Wave Equations and Bounded Modes}{challenge}{D}{dalembert,pulse}{Track a travelling pulse.}{%
+The peak of \(f(x-6t)\) is at \(x=-\SI{2.0}{m}\) when \(t=0\). Where is it at \(t=\SI{3.0}{s}\)?}{%
+\fivechoices{\(-\SI{20}{m}\)}{\(-\SI{16}{m}\)}{\(\SI{12}{m}\)}{\(\SI{16}{m}\)}{\(\SI{20}{m}\)}}{%
+The pulse travels in \(+x\) at \(\SI{6}{m.s^{-1}}\), so \(x=-2+6(3)=\SI{16}{m}\).}
+
+\bankq{calc-eq-080}{Wave Equations and Bounded Modes}{challenge}{E}{spherical-wave,travel-time}{Calculate 3D wave travel time.}{%
+A spherical wave travels \(\SI{30}{m}\) through a medium at \(\SI{1500}{m.s^{-1}}\). Find its travel time.}{%
+\fivechoices{\(\SI{2.0}{ms}\)}{\(\SI{5.0}{ms}\)}{\(\SI{10}{ms}\)}{\(\SI{15}{ms}\)}{\(\SI{20}{ms}\)}}{%
+\(t=r/v=30/1500=0.020\,\si{s}=\SI{20}{ms}\).}
+
+% 81--90: Acoustics (3 foundation, 4 applied, 3 challenge)
+\bankq{calc-ac-081}{Acoustics}{foundation}{A}{echo,distance}{Calculate echo distance.}{%
+An echo returns \(\SI{1.20}{s}\) after a shout. How far away is the reflector?}{%
+\fivechoices{\(\SI{206}{m}\)}{\(\SI{286}{m}\)}{\(\SI{343}{m}\)}{\(\SI{412}{m}\)}{\(\SI{686}{m}\)}}{%
+The sound makes a round trip, so \(d=vt/2=343(1.20)/2=\SI{206}{m}\).}
+
+\bankq{calc-ac-082}{Acoustics}{foundation}{B}{beats,frequency}{Calculate an unknown beat frequency.}{%
+A \(\SI{440}{Hz}\) fork produces \(\SI{6}{beats.s^{-1}}\) with a higher-frequency fork. Find the second frequency.}{%
+\fivechoices{\(\SI{434}{Hz}\)}{\(\SI{446}{Hz}\)}{\(\SI{440}{Hz}\)}{\(\SI{452}{Hz}\)}{\(\SI{2640}{Hz}\)}}{%
+Since the unknown fork is higher, \(f_2=440+6=\SI{446}{Hz}\).}
+
+\bankq{calc-ac-083}{Acoustics}{foundation}{C}{doppler,moving-source}{Calculate Doppler shift for a moving source.}{%
+A \(\SI{500}{Hz}\) source approaches a stationary observer at \(\SI{20}{m.s^{-1}}\). Find the observed frequency.}{%
+\fivechoices{\(\SI{472}{Hz}\)}{\(\SI{500}{Hz}\)}{\(\SI{531}{Hz}\)}{\(\SI{563}{Hz}\)}{\(\SI{686}{Hz}\)}}{%
+\(f'=fv/(v-v_s)=500(343)/(343-20)=\SI{531}{Hz}\).}
+
+\bankq{calc-ac-084}{Acoustics}{applied}{D}{doppler,moving-observer}{Calculate Doppler shift for a moving observer.}{%
+A stationary \(\SI{600}{Hz}\) source is approached by an observer at \(\SI{15}{m.s^{-1}}\). Find the observed frequency.}{%
+\fivechoices{\(\SI{574}{Hz}\)}{\(\SI{600}{Hz}\)}{\(\SI{615}{Hz}\)}{\(\SI{626}{Hz}\)}{\(\SI{643}{Hz}\)}}{%
+\(f'=f(v+v_o)/v=600(343+15)/343=\SI{626}{Hz}\).}
+
+\bankq{calc-ac-085}{Acoustics}{applied}{E}{doppler,moving-source-observer}{Calculate Doppler shift with both moving.}{%
+A \(\SI{400}{Hz}\) source moves toward an observer at \(\SI{20}{m.s^{-1}}\), while the observer moves toward the source at \(\SI{10}{m.s^{-1}}\). Find the observed frequency.}{%
+\fivechoices{\(\SI{388}{Hz}\)}{\(\SI{400}{Hz}\)}{\(\SI{412}{Hz}\)}{\(\SI{425}{Hz}\)}{\(\SI{437}{Hz}\)}}{%
+\(f'=f(v+v_o)/(v-v_s)=400(343+10)/(343-20)=\SI{437}{Hz}\).}
+
+\bankq{calc-ac-086}{Acoustics}{applied}{A}{closed-pipe,fundamental}{Calculate a closed-pipe fundamental.}{%
+A pipe closed at one end has length \(\SI{0.850}{m}\). Find its fundamental frequency.}{%
+\fivechoices{\(\SI{101}{Hz}\)}{\(\SI{202}{Hz}\)}{\(\SI{303}{Hz}\)}{\(\SI{404}{Hz}\)}{\(\SI{505}{Hz}\)}}{%
+\(f_1=v/(4L)=343/[4(0.850)]=\SI{101}{Hz}\).}
+
+\bankq{calc-ac-087}{Acoustics}{applied}{B}{open-pipe,harmonics}{Calculate an open-pipe harmonic.}{%
+An open pipe is \(\SI{1.00}{m}\) long. Find its third-harmonic frequency.}{%
+\fivechoices{\(\SI{343}{Hz}\)}{\(\SI{515}{Hz}\)}{\(\SI{686}{Hz}\)}{\(\SI{858}{Hz}\)}{\(\SI{1029}{Hz}\)}}{%
+For an open pipe, \(f_3=3v/(2L)=3(343)/2=\SI{515}{Hz}\).}
+
+\bankq{calc-ac-088}{Acoustics}{challenge}{C}{sound-level,decibel}{Calculate sound intensity level.}{%
+A sound has intensity \(\SI{1.00e-6}{W.m^{-2}}\). Find its intensity level.}{%
+\fivechoices{\(\SI{20}{dB}\)}{\(\SI{40}{dB}\)}{\(\SI{60}{dB}\)}{\(\SI{80}{dB}\)}{\(\SI{120}{dB}\)}}{%
+\(\beta=10\log_{10}(I/I_{\mathrm{ref}})=10\log_{10}(10^{-6}/10^{-12})=\SI{60}{dB}\).}
+
+\bankq{calc-ac-089}{Acoustics}{challenge}{D}{sound-level,addition}{Add two sound levels.}{%
+Two independent sources each produce \(\SI{70.0}{dB}\) at a point. Find the combined level.}{%
+\fivechoices{\(\SI{70.0}{dB}\)}{\(\SI{71.0}{dB}\)}{\(\SI{72.0}{dB}\)}{\(\SI{73.0}{dB}\)}{\(\SI{140}{dB}\)}}{%
+Equal independent intensities add, so the increase is \(10\log_{10}2=\SI{3.01}{dB}\). The total is \(70.0+3.01=\SI{73.0}{dB}\).}
+
+\bankq{calc-ac-090}{Acoustics}{challenge}{E}{well,fall-time,sound-time}{Calculate depth using fall and sound times.}{%
+A stone is dropped into a well and the splash is heard \(\SI{3.00}{s}\) later. Neglect air resistance. Find the depth by solving \(\sqrt{2h/g}+h/343=3.00\).}{%
+\fivechoices{\(\SI{35.0}{m}\)}{\(\SI{37.8}{m}\)}{\(\SI{39.2}{m}\)}{\(\SI{40.0}{m}\)}{\(\SI{40.7}{m}\)}}{%
+Testing \(h=\SI{40.7}{m}\) gives \(t_f=\sqrt{2(40.7)/9.80}=2.882\,\si{s}\) and \(t_s=40.7/343=0.119\,\si{s}\). Their sum is \(3.001\,\si{s}\), so \(h\approx\SI{40.7}{m}\).}
+
+% 91--100: Propagation in different media (3 foundation, 5 applied, 2 challenge)
+\bankq{calc-med-091}{Propagation in Different Media}{foundation}{A}{string,propagation}{Calculate transverse speed on a string.}{%
+A string has tension \(\SI{196}{N}\) and linear density \(\SI{0.0140}{kg.m^{-1}}\). Find its wave speed.}{%
+\fivechoices{\(\SI{118}{m.s^{-1}}\)}{\(\SI{98.0}{m.s^{-1}}\)}{\(\SI{84.0}{m.s^{-1}}\)}{\(\SI{14.0}{m.s^{-1}}\)}{\(\SI{3.74}{m.s^{-1}}\)}}{%
+\(v=\sqrt{T/\mu}=\sqrt{196/0.0140}=\sqrt{14000}=\SI{118}{m.s^{-1}}\).}
+
+\bankq{calc-med-092}{Propagation in Different Media}{foundation}{B}{liquid,sound-speed}{Calculate sound speed in a liquid.}{%
+Water has bulk modulus \(B=\SI{2.25e9}{Pa}\) and density \(\rho=\SI{1000}{kg.m^{-3}}\). Find the sound speed.}{%
+\fivechoices{\(\SI{1125}{m.s^{-1}}\)}{\(\SI{1500}{m.s^{-1}}\)}{\(\SI{2250}{m.s^{-1}}\)}{\(\SI{3000}{m.s^{-1}}\)}{\(\SI{4.74e4}{m.s^{-1}}\)}}{%
+\(v=\sqrt{B/\rho}=\sqrt{2.25\times10^9/1000}=\SI{1500}{m.s^{-1}}\).}
+
+\bankq{calc-med-093}{Propagation in Different Media}{foundation}{C}{solid,rod-wave}{Calculate longitudinal speed in a solid rod.}{%
+A rod has Young's modulus \(Y=\SI{7.20e10}{Pa}\) and density \(\rho=\SI{8000}{kg.m^{-3}}\). Find the longitudinal wave speed.}{%
+\fivechoices{\(\SI{1500}{m.s^{-1}}\)}{\(\SI{2400}{m.s^{-1}}\)}{\(\SI{3000}{m.s^{-1}}\)}{\(\SI{6000}{m.s^{-1}}\)}{\(\SI{9000}{m.s^{-1}}\)}}{%
+\(v=\sqrt{Y/\rho}=\sqrt{7.20\times10^{10}/8000}=\sqrt{9.00\times10^6}=\SI{3000}{m.s^{-1}}\).}
+
+\bankq{calc-med-094}{Propagation in Different Media}{applied}{D}{gas,sound-speed}{Calculate sound speed in a gas.}{%
+For air, take \(\gamma=1.40\), \(P=\SI{1.01e5}{Pa}\), and \(\rho=\SI{1.20}{kg.m^{-3}}\). Find \(v=\sqrt{\gamma P/\rho}\).}{%
+\fivechoices{\(\SI{289}{m.s^{-1}}\)}{\(\SI{316}{m.s^{-1}}\)}{\(\SI{331}{m.s^{-1}}\)}{\(\SI{343}{m.s^{-1}}\)}{\(\SI{412}{m.s^{-1}}\)}}{%
+\(v=\sqrt{1.40(1.01\times10^5)/1.20}=\SI{343}{m.s^{-1}}\).}
+
+\bankq{calc-med-095}{Propagation in Different Media}{applied}{E}{impedance,acoustics}{Calculate acoustic impedance.}{%
+Water has density \(\SI{1000}{kg.m^{-3}}\) and sound speed \(\SI{1500}{m.s^{-1}}\). Find its acoustic impedance.}{%
+\fivechoices{\(\SI{1.50e3}{kg.m^{-2}.s^{-1}}\)}{\(\SI{1.50e4}{kg.m^{-2}.s^{-1}}\)}{\(\SI{1.50e5}{kg.m^{-2}.s^{-1}}\)}{\(\SI{1.00e6}{kg.m^{-2}.s^{-1}}\)}{\(\SI{1.50e6}{kg.m^{-2}.s^{-1}}\)}}{%
+\(Z=\rho v=(1000)(1500)=\SI{1.50e6}{kg.m^{-2}.s^{-1}}\).}
+
+\bankq{calc-med-096}{Propagation in Different Media}{applied}{A}{impedance,reflection}{Calculate pressure reflection coefficient.}{%
+A wave meets a boundary from impedance \(Z_1=2.0\) units to \(Z_2=6.0\) units. Find the pressure-amplitude reflection coefficient.}{%
+\fivechoices{+0.50}{+0.25}{0}{-0.25}{-0.50}}{%
+\(r_p=(Z_2-Z_1)/(Z_2+Z_1)=(6-2)/(6+2)=+0.50\).}
+
+\bankq{calc-med-097}{Propagation in Different Media}{applied}{B}{impedance,transmission}{Calculate intensity transmission coefficient.}{%
+For the boundary in Question 96, find the normal-incidence intensity transmission coefficient \(T_I=4Z_1Z_2/(Z_1+Z_2)^2\).}{%
+\fivechoices{0.50}{0.75}{1.00}{1.50}{3.00}}{%
+\(T_I=4(2)(6)/(2+6)^2=48/64=0.75\).}
+
+\bankq{calc-med-098}{Propagation in Different Media}{challenge}{C}{refraction,waves}{Calculate refracted wave angle.}{%
+A wave crosses from speed \(v_1=\SI{6.0}{m.s^{-1}}\) into speed \(v_2=\SI{3.0}{m.s^{-1}}\) at incidence angle \(30^\circ\). Find the refracted angle.}{%
+\fivechoices{\(7.2^\circ\)}{\(12.0^\circ\)}{\(14.5^\circ\)}{\(24.6^\circ\)}{\(30.0^\circ\)}}{%
+\(\sin\theta_1/v_1=\sin\theta_2/v_2\), so \(\sin\theta_2=(3/6)\sin30^\circ=0.25\). Thus \(\theta_2=14.5^\circ\).}
+
+\bankq{calc-med-099}{Propagation in Different Media}{challenge}{D}{travel-time,multimedia}{Calculate travel time through layered media.}{%
+A pulse travels \(\SI{0.400}{m}\) through water at \(\SI{1500}{m.s^{-1}}\), then \(\SI{1.20}{m}\) through steel at \(\SI{5000}{m.s^{-1}}\). Ignore interface delay. Find the total time.}{%
+\fivechoices{\(\SI{0.267}{ms}\)}{\(\SI{0.400}{ms}\)}{\(\SI{0.480}{ms}\)}{\(\SI{0.507}{ms}\)}{\(\SI{0.800}{ms}\)}}{%
+\(t=0.400/1500+1.20/5000=2.667\times10^{-4}+2.400\times10^{-4}=5.067\times10^{-4}\,\si{s}=\SI{0.507}{ms}\).}
+
+\bankq{calc-med-100}{Propagation in Different Media}{challenge}{E}{refraction,critical-angle}{Calculate a critical angle for waves.}{%
+A wave travels from a medium where its speed is \(\SI{1500}{m.s^{-1}}\) toward one where its speed is \(\SI{3000}{m.s^{-1}}\). Find the critical incidence angle.}{%
+\fivechoices{\(15.0^\circ\)}{\(20.0^\circ\)}{\(24.6^\circ\)}{\(26.6^\circ\)}{\(30.0^\circ\)}}{%
+At the critical angle, \(\sin\theta_c/v_1=1/v_2\), so \(\sin\theta_c=v_1/v_2=1500/3000=0.5\). Hence \(\theta_c=30.0^\circ\).}
+
+\end{quizbank}
+
+\quizselectall
+\let\storedquizmarks\quizmarks
+\let\storedquizdifficulty\quizdifficulty
+\renewcommand{\quizmarks}[1]{}
+\renewcommand{\quizdifficulty}[1]{}
+\printquizquestions[2]
+\let\quizmarks\storedquizmarks
+\let\quizdifficulty\storedquizdifficulty
+
+\begin{quizanswerkeycontent}
+  \clearpage
+  \begin{answerkey}
+    \centering
+    \renewcommand{\arraystretch}{1.25}
+    \begin{tabular}{*{5}{>{\centering\arraybackslash}p{0.17\linewidth}}}
+      \toprule
+      \textbf{1.} A & \textbf{2.} B & \textbf{3.} C & \textbf{4.} D & \textbf{5.} E \\
+      \textbf{6.} A & \textbf{7.} B & \textbf{8.} C & \textbf{9.} D & \textbf{10.} E \\
+      \textbf{11.} A & \textbf{12.} B & \textbf{13.} C & \textbf{14.} D & \textbf{15.} E \\
+      \textbf{16.} A & \textbf{17.} B & \textbf{18.} C & \textbf{19.} D & \textbf{20.} E \\
+      \textbf{21.} A & \textbf{22.} B & \textbf{23.} C & \textbf{24.} D & \textbf{25.} E \\
+      \textbf{26.} A & \textbf{27.} B & \textbf{28.} C & \textbf{29.} D & \textbf{30.} E \\
+      \textbf{31.} A & \textbf{32.} B & \textbf{33.} C & \textbf{34.} D & \textbf{35.} E \\
+      \textbf{36.} A & \textbf{37.} B & \textbf{38.} C & \textbf{39.} D & \textbf{40.} E \\
+      \textbf{41.} A & \textbf{42.} B & \textbf{43.} C & \textbf{44.} D & \textbf{45.} E \\
+      \textbf{46.} A & \textbf{47.} B & \textbf{48.} C & \textbf{49.} D & \textbf{50.} E \\
+      \textbf{51.} A & \textbf{52.} B & \textbf{53.} C & \textbf{54.} D & \textbf{55.} E \\
+      \textbf{56.} A & \textbf{57.} B & \textbf{58.} C & \textbf{59.} D & \textbf{60.} E \\
+      \textbf{61.} A & \textbf{62.} B & \textbf{63.} C & \textbf{64.} D & \textbf{65.} E \\
+      \textbf{66.} A & \textbf{67.} B & \textbf{68.} C & \textbf{69.} D & \textbf{70.} E \\
+      \textbf{71.} A & \textbf{72.} B & \textbf{73.} C & \textbf{74.} D & \textbf{75.} E \\
+      \textbf{76.} A & \textbf{77.} B & \textbf{78.} C & \textbf{79.} D & \textbf{80.} E \\
+      \textbf{81.} A & \textbf{82.} B & \textbf{83.} C & \textbf{84.} D & \textbf{85.} E \\
+      \textbf{86.} A & \textbf{87.} B & \textbf{88.} C & \textbf{89.} D & \textbf{90.} E \\
+      \textbf{91.} A & \textbf{92.} B & \textbf{93.} C & \textbf{94.} D & \textbf{95.} E \\
+      \textbf{96.} A & \textbf{97.} B & \textbf{98.} C & \textbf{99.} D & \textbf{100.} E \\
+      \bottomrule
+    \end{tabular}
+    \medskip
+
+    \textbf{Total marks: 100.}
+  \end{answerkey}
+\end{quizanswerkeycontent}
+
+\begin{quizsolutioncontent}
+  \clearpage
+  \printquizsolutions
+\end{quizsolutioncontent}
+
+\end{document}

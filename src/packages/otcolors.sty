@@ -1,0 +1,33 @@
+% ============================================================
+% OT Colour Tokens
+% otcolors.sty
+% Version: 0.2
+% Purpose: Shared OT colour palette, with no other side effects
+% ============================================================
+%
+% This package defines the OT colour names and nothing else. It does not
+% load hyperref or change link styling, so capability packages can depend on
+% it without imposing OT link policy on a document. ottheme.sty loads this
+% package and adds the OT hyperlink policy on top.
+
+\NeedsTeXFormat{LaTeX2e}[2022-06-01]
+\ProvidesPackage{otcolors}[2026/11/12 v0.2 OT Colour Tokens]
+
+\RequirePackage{xcolor}
+
+% -----------------------------
+% Colour palette
+% -----------------------------
+\definecolor{OTDark}{HTML}{1F2937}
+\definecolor{OTMuted}{HTML}{6B7280}
+% OTLight: one value for every OT class since v0.2 (was F9FAFB for science).
+\definecolor{OTLight}{HTML}{F3F4F6}
+\definecolor{OTBlue}{HTML}{2563EB}
+\definecolor{OTGreen}{HTML}{059669}
+\definecolor{OTOrange}{HTML}{D97706}
+\definecolor{OTRed}{HTML}{DC2626}
+\definecolor{OTPurple}{HTML}{7C3AED}
+\definecolor{OTTeal}{HTML}{0891B2}
+\definecolor{OTYellow}{HTML}{CA8A04}
+
+\endinput

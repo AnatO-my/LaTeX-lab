@@ -1,0 +1,36 @@
+\documentclass{otbook}
+
+\usepackage{otsymbols}
+
+\title{Nomenclature and Symbol Management}
+\author{O. T. Author}
+\date{\today}
+
+% --- Symbol Definitions ---
+% Notice how both use \rho but have different keys
+\otdefinesymbol{mass-density}{\rho}{Density}{\unit{kg.m^{-3}}}{The mass per unit volume of a substance.}
+\otdefinesymbol{resistivity}{\rho}{Resistivity}{\unit{\ohm.m}}{The inherent property of a material to resist electrical current.}
+
+\otdefinesymbol{pressure}{P}{Pressure}{\unit{Pa}}{The force applied perpendicular to the surface of an object per unit area.}
+\otdefinesymbol{power}{P}{Power}{\unit{W}}{The rate at which work is done or energy is transferred.}
+
+% --- Acronym Definitions ---
+\otdefineacronym{ota}{OTA}{Original Tech Author}{The primary maintainer of the LaTeX Lab suite.}
+
+\begin{document}
+
+\makeotbooktitle
+
+\chapter{The Collision Problem}
+
+In scientific writing, the same Greek symbol is often used for different physical quantities. For example, \sym{mass-density} represents mass density, while \sym{resistivity} represents electrical resistivity. Both appear as $\rho$, but they are distinct concepts.
+
+Similarly, we might use $P$ for \sym{pressure} and \sym{power}. By using unique keys, we ensure that the nomenclature table tracks them separately.
+
+We can also use acronyms like \acr{ota}. On first use, it expands. On subsequent use, like \acr{ota}, it shows only the short form.
+
+\chapter{Nomenclature Table}
+
+\printotnomenclature[Table of Symbols and Abbreviations]
+
+\end{document}
