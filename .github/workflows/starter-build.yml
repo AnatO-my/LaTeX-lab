@@ -122,7 +122,7 @@ jobs:
 
       - name: Build starter documents
         shell: pwsh
-        run: tests\run_phase7c_starter_tests.ps1
+        run: tests\run_starter_tests.ps1
 
       - name: Upload starter PDFs
         if: always()

@@ -23,7 +23,7 @@
     prove that existing documents are unchanged, and checks that the interface
     inventory is current.
 
-        powershell -ExecutionPolicy Bypass -File tests\run_architecture_refactor_tests.ps1
+        powershell -ExecutionPolicy Bypass -File tests\run_ot_contract_tests.ps1
 
     -SkipBaseline omits the Phase 5 baseline and otbook runners (iteration only).
 #>
@@ -102,7 +102,7 @@ try {
 
     if (-not $SkipBaseline) {
         Write-Host "Running the Phase 5 OT-side baseline (existing documents must be unchanged)..." -ForegroundColor Cyan
-        & (Join-Path $PSScriptRoot "run_ot_phase5_tests.ps1") -SkipGuard
+        & (Join-Path $PSScriptRoot "run_ot_baseline_tests.ps1") -SkipGuard
         if ($LASTEXITCODE -ne 0) { throw "Phase 5 OT-side baseline failed." }
 
         Write-Host "Running the otbook runner..." -ForegroundColor Cyan

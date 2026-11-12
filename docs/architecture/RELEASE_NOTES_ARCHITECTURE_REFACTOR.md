@@ -60,7 +60,7 @@ OT packages are used in a standard class.
 | Author manual | builds; differs only in edited rows |
 | Refactor fixtures (15) | pass |
 | `scripts/audit_interfaces.py --check` | pass |
-| `tests\run_architecture_refactor_tests.ps1` under MiKTeX | completed locally on 12 November 2026 |
+| `tests\run_ot_contract_tests.ps1` under MiKTeX | completed locally on 12 November 2026 |
 | Phase 5 baseline re-record (`-Record`) for `OTLight` | completed locally on 12 November 2026 |
 | `run_manual_author_reference_guard.ps1` | completed locally on 12 November 2026 |
 

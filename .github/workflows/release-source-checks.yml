@@ -27,7 +27,7 @@ jobs:
         run: |
           $checks = @(
               "tests\run_release_policy_guard.ps1",
-              "tests\run_phase9c_build_recipe_reliability.ps1"
+              "tests\run_build_recipe_guard.ps1"
           )
 
           foreach ($check in $checks) {

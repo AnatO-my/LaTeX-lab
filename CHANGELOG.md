@@ -43,8 +43,23 @@ package or document output changes).
 * `tests/run_release_policy_guard.ps1` replaces the Phase 10 checkpoint guards
   (10A–10G/H), checking the same release rules against the merged documents.
   `.github/workflows/release-source-checks.yml` now runs it.
-* Retired to `tests/history/`: `run_phase10a`–`10gh`, `run_phase10ij` and
-  `run_phase9g`.
+* Retired to `tests/history/`: `run_phase10a`–`10gh`, `run_phase10ij`,
+  `run_phase9g`, `run_phase9d` (starter timing) and `run_phase9e` (TikZ and
+  dot-grid audit).
+* New `tests/run_all_tests.ps1` runs all 28 active suites, each in its own
+  process, and prints a summary. It accepts `-List`, `-Only` and `-Skip`.
+* New `tests/run_physicsquiz_tests.ps1` runs both `physicsquiz` chains
+  (4IJ→3D and 6F→6A). The per-phase scripts remain as its internal steps.
+* Renamed by purpose (all references updated, including both workflows):
+  * `run_phase7c_starter_tests` → `run_starter_tests`
+  * `run_phase9a_measurement` → `run_build_measurement`
+  * `run_phase9b_generated_hygiene` → `run_generated_file_guard`
+  * `run_phase9c_build_recipe_reliability` → `run_build_recipe_guard`
+  * `run_phase9f_dotgrid_modernization` → `run_dotgrid_tests`
+  * `run_ot_phase5_tests` → `run_ot_baseline_tests`
+  * `run_architecture_refactor_tests` → `run_ot_contract_tests`
+* Added `tests/README.md` (suites, internal steps, fixtures) and an updated
+  repository tree in `PROJECT_STATE.md`.
 
 ## Unreleased - Architecture-refactor local validation
 

@@ -22,7 +22,7 @@ assets from unstaged edits.
 git status --short --branch
 git diff --check
 powershell -ExecutionPolicy Bypass -File tests\run_release_policy_guard.ps1
-powershell -ExecutionPolicy Bypass -File tests\run_phase7c_starter_tests.ps1
+powershell -ExecutionPolicy Bypass -File tests\run_starter_tests.ps1
 ```
 
 Record the result in `docs/release/templates/RELEASE_NOTES_TEMPLATE.md`.

@@ -18,11 +18,11 @@
 
     Record the baseline against unmodified sources first:
 
-        powershell -ExecutionPolicy Bypass -File tests\run_ot_phase5_tests.ps1 -Record
+        powershell -ExecutionPolicy Bypass -File tests\run_ot_baseline_tests.ps1 -Record
 
     Then every later checkpoint verifies against it:
 
-        powershell -ExecutionPolicy Bypass -File tests\run_ot_phase5_tests.ps1
+        powershell -ExecutionPolicy Bypass -File tests\run_ot_baseline_tests.ps1
 
     -SkipGuard omits the physicsquiz chain.  It exists for iteration only; a
     checkpoint is not complete without a full run.

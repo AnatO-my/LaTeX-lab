@@ -801,7 +801,7 @@ baseline for every author.
 
 ```powershell
 # LaTeX-lab starters
-powershell -ExecutionPolicy Bypass -File tests\run_phase7c_starter_tests.ps1
+powershell -ExecutionPolicy Bypass -File tests\run_starter_tests.ps1
 
 # otbook starter, smoke test, and copied-project template
 powershell -ExecutionPolicy Bypass -File tests\run_otbook_tests.ps1

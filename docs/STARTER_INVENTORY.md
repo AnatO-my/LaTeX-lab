@@ -72,7 +72,7 @@ The minimum useful starter set is:
 ## Verification
 
 Checkpoint 7C added the missing minimal starters and
-`tests/run_phase7c_starter_tests.ps1`. The runner is separate from the large
+`tests/run_starter_tests.ps1`. The runner is separate from the large
 regression suites so authors can quickly verify that the copyable starting
 points still work.
 

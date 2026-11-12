@@ -104,7 +104,7 @@ Exam sheet:
 
 ## Verification references
 
-* `tests/run_architecture_refactor_tests.ps1` runs every refactor fixture,
+* `tests/run_ot_contract_tests.ps1` runs every refactor fixture,
   the interface-inventory check, the Phase 5 baseline and the otbook runner.
 * `docs/architecture/ARCHITECTURE_AUDIT.md` records the before-and-after evidence for
   each phase.

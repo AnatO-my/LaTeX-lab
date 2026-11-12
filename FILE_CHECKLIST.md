@@ -153,7 +153,7 @@ Include any class such as `otscience.cls`; otherwise shared-code decisions will 
 
 Also required from Checkpoint 5A onwards:
 
-- `tests/run_ot_phase5_tests.ps1` and `tests/check_ot_baseline.py`
+- `tests/run_ot_baseline_tests.ps1` and `tests/check_ot_baseline.py`
 - `tests/ot_baseline_manifest.json`
 - `PHASE5_CHECKPOINT_5A.md` and any later `PHASE5_CHECKPOINT_5*.md`
 

@@ -14,14 +14,14 @@ tightened.
 Run from the repository root:
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File tests\run_phase9b_generated_hygiene.ps1
+powershell -ExecutionPolicy Bypass -File tests\run_generated_file_guard.ps1
 ```
 
 For a stricter local check that fails when visible generated-looking files are
 present:
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File tests\run_phase9b_generated_hygiene.ps1 -FailOnVisibleGenerated
+powershell -ExecutionPolicy Bypass -File tests\run_generated_file_guard.ps1 -FailOnVisibleGenerated
 ```
 
 ## What It Reports

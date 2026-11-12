@@ -159,13 +159,13 @@ powershell -ExecutionPolicy Bypass -File tests\run_phase6f_tests.ps1
 Run the fast starter guard:
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File tests\run_phase7c_starter_tests.ps1
+powershell -ExecutionPolicy Bypass -File tests\run_starter_tests.ps1
 ```
 
 Run the OT-side guard:
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File tests\run_ot_phase5_tests.ps1
+powershell -ExecutionPolicy Bypass -File tests\run_ot_baseline_tests.ps1
 ```
 
 ## Git Hygiene

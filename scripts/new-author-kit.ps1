@@ -80,7 +80,7 @@ $files = @(
     "examples\vector-workbook\starter_module.tex",
     "examples\vector-workbook\starter_combined_workbook.tex",
     "examples\vector-workbook\00_common_setup.tex",
-    "tests\run_phase7c_starter_tests.ps1",
+    "tests\run_starter_tests.ps1",
     "tests\run_otbook_tests.ps1",
     "tests\otbook_class_smoke.tex",
     "tests\powershell_log_helpers.ps1"

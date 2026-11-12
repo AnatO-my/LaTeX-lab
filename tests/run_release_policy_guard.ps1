@@ -138,7 +138,7 @@ try {
     if (Test-Path -LiteralPath $releaseWorkflow) {
         $workflowText = Get-Content -Raw -Path $releaseWorkflow
     }
-    foreach ($forbidden in @("latexmk", "mpm --install", "upload-artifact", "run_starter_tests.ps1", "run_phase7c_starter_tests.ps1")) {
+    foreach ($forbidden in @("latexmk", "mpm --install", "upload-artifact", "run_starter_tests.ps1")) {
         if ($workflowText.Contains($forbidden)) {
             Add-Finding $findings "fail" $releaseWorkflow "Release source checks must not run starter/PDF/MiKTeX workflow step: $forbidden"
         }

@@ -120,7 +120,7 @@ after builds, so the comparison stays valid, but bibliography output itself
 was not exercised. Confirm under MiKTeX with:
 
 ```text
-powershell -ExecutionPolicy Bypass -File tests\run_architecture_refactor_tests.ps1
+powershell -ExecutionPolicy Bypass -File tests\run_ot_contract_tests.ps1
 ```
 
 ## Phase D decisions (12 November 2026)
@@ -185,7 +185,7 @@ update the documented contract.
   but not their page counts or text. Only the two palette probes, which
   print colour values, change their text. The Phase 5 baseline manifest
   (`tests/ot_baseline_manifest.json`) must therefore be re-recorded:
-  `tests\run_ot_phase5_tests.ps1 -Record`.
+  `tests\run_ot_baseline_tests.ps1 -Record`.
 
 ## Open items from Phase A
 

@@ -65,7 +65,7 @@ the pull request.
       `tests/ot_boxes_default_surface.tex` and
       `tests/ot_notation_neutral_loading.tex`.
 - [ ] The fixture is added to the relevant runner, for example
-      `tests/run_architecture_refactor_tests.ps1`.
+      `tests/run_ot_contract_tests.ps1`.
 - [ ] If output may change, rebuild the representative documents and compare
       page counts, text and page images. Record the result in the changelog.
       Re-record the Phase 5 baseline only for an intended visual change.

@@ -130,7 +130,7 @@ Run the starter build check in a normal MiKTeX PowerShell environment before a
 real release:
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File tests\run_phase7c_starter_tests.ps1
+powershell -ExecutionPolicy Bypass -File tests\run_starter_tests.ps1
 ```
 
 ### Optional Release Assets
@@ -218,7 +218,7 @@ If an author kit is prepared, include:
 * `examples/vector-workbook/starter_module.tex`;
 * `examples/vector-workbook/starter_combined_workbook.tex`;
 * `examples/vector-workbook/00_common_setup.tex`;
-* `tests/run_phase7c_starter_tests.ps1`;
+* `tests/run_starter_tests.ps1`;
 * `tests/run_otbook_tests.ps1`;
 * `tests/powershell_log_helpers.ps1`; and
 * `tests/otbook_class_smoke.tex`.
@@ -261,7 +261,7 @@ Before pushing for collaborators:
 
 * `git status --short --branch` shows only intentional source changes;
 * `git diff --check` passes;
-* `tests/run_phase7c_starter_tests.ps1` passes;
+* `tests/run_starter_tests.ps1` passes;
 * the book starter and smoke builds in `docs/STARTER_INVENTORY.md` pass;
 * generated build files are excluded;
 * the README points to the author workflow and contributing guide;
@@ -315,7 +315,7 @@ From the repository root:
 ```powershell
 git status --short --branch
 git diff --check
-powershell -ExecutionPolicy Bypass -File tests\run_phase7c_starter_tests.ps1
+powershell -ExecutionPolicy Bypass -File tests\run_starter_tests.ps1
 ```
 
 Use the committed source state as the release source. Do not build release PDFs
@@ -426,13 +426,13 @@ Run source checks:
 ```powershell
 git diff --check
 powershell -ExecutionPolicy Bypass -File tests\run_release_policy_guard.ps1
-powershell -ExecutionPolicy Bypass -File tests\run_phase9c_build_recipe_reliability.ps1
+powershell -ExecutionPolicy Bypass -File tests\run_build_recipe_guard.ps1
 ```
 
 Run the starter build in the normal MiKTeX PowerShell environment:
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File tests\run_phase7c_starter_tests.ps1
+powershell -ExecutionPolicy Bypass -File tests\run_starter_tests.ps1
 ```
 
 ### Draft Release Notes
@@ -527,7 +527,7 @@ Keep requiring:
 
 ```powershell
 git diff --check
-tests\run_phase7c_starter_tests.ps1
+tests\run_starter_tests.ps1
 ```
 
 This remains the only branch-protection requirement until broader hosted checks
@@ -547,7 +547,7 @@ Candidate checks:
 
 ```powershell
 tests\run_release_policy_guard.ps1
-tests\run_phase9c_build_recipe_reliability.ps1
+tests\run_build_recipe_guard.ps1
 ```
 
 Purpose:
@@ -575,7 +575,7 @@ Candidate checks:
 
 ```powershell
 tests\run_phase6f_tests.ps1
-tests\run_ot_phase5_tests.ps1
+tests\run_ot_baseline_tests.ps1
 ```
 
 Purpose:
@@ -665,7 +665,7 @@ Start with the smallest high-value candidates:
 | Candidate | Command | Why it matters | First hosted mode |
 | --- | --- | --- | --- |
 | PhysicsQuiz versioned-paper review | `tests\run_phase6f_tests.ps1` | catches versioned-paper selection and review regressions | manual dispatch |
-| OT rendering baseline | `tests\run_ot_phase5_tests.ps1` | catches class/package rendering drift | manual dispatch or scheduled |
+| OT rendering baseline | `tests\run_ot_baseline_tests.ps1` | catches class/package rendering drift | manual dispatch or scheduled |
 
 These checks are intentionally separate from `Release source checks` because
 they may need MiKTeX package installation, generated build output, and more
@@ -774,7 +774,7 @@ The workflow runs source-level checks only:
 ```powershell
 git diff --check
 tests\run_release_policy_guard.ps1
-tests\run_phase9c_build_recipe_reliability.ps1
+tests\run_build_recipe_guard.ps1
 ```
 
 It does not install MiKTeX, build starter PDFs, run the Phase 5 rendering

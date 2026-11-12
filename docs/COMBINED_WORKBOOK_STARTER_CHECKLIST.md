@@ -30,7 +30,7 @@ An author can now start from:
 Both starters are included in the starter runner:
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File tests\run_phase7c_starter_tests.ps1
+powershell -ExecutionPolicy Bypass -File tests\run_starter_tests.ps1
 ```
 
 The combined starter is accepted when it builds a PDF and emits the

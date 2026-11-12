@@ -84,23 +84,23 @@ try {
         }
     }
 
-    $phase9aText = Get-Content -Raw -Path "tests\run_phase9a_measurement.ps1"
+    $phase9aText = Get-Content -Raw -Path "tests\run_build_measurement.ps1"
     foreach ($pattern in @("IsPathRooted", "Out-Host", "Add-Member", "build\phase9a-measurement")) {
         if (-not (Test-FileContains -Text $phase9aText -Pattern $pattern)) {
-            Add-Finding $findings "fail" "run_phase9a_measurement.ps1" "Missing reliability marker: $pattern"
+            Add-Finding $findings "fail" "run_build_measurement.ps1" "Missing reliability marker: $pattern"
         }
     }
 
-    $phase9bText = Get-Content -Raw -Path "tests\run_phase9b_generated_hygiene.ps1"
+    $phase9bText = Get-Content -Raw -Path "tests\run_generated_file_guard.ps1"
     foreach ($pattern in @("FailOnVisibleGenerated", "git ls-files --others --exclude-standard", "git ls-files --others --ignored --exclude-standard", "build\phase9b-generated-hygiene")) {
         if (-not (Test-FileContains -Text $phase9bText -Pattern $pattern)) {
-            Add-Finding $findings "fail" "run_phase9b_generated_hygiene.ps1" "Missing hygiene marker: $pattern"
+            Add-Finding $findings "fail" "run_generated_file_guard.ps1" "Missing hygiene marker: $pattern"
         }
     }
 
-    $starterText = Get-Content -Raw -Path "tests\run_phase7c_starter_tests.ps1"
+    $starterText = Get-Content -Raw -Path "tests\run_starter_tests.ps1"
     if (-not (Test-FileContains -Text $starterText -Pattern 'Join-Path $root $starter.Output')) {
-        Add-Finding $findings "fail" "run_phase7c_starter_tests.ps1" "Starter output directories should resolve from the repository root."
+        Add-Finding $findings "fail" "run_starter_tests.ps1" "Starter output directories should resolve from the repository root."
     }
 
     $workflowPath = ".github\workflows\starter-build.yml"
@@ -110,7 +110,7 @@ try {
     } else {
         $workflowText = Get-Content -Raw -Path $workflowPath
     }
-    foreach ($pattern in @("Invoke-DownloadWithRetry", "tests\run_phase7c_starter_tests.ps1", "Starter documents", "actions/upload-artifact@v4")) {
+    foreach ($pattern in @("Invoke-DownloadWithRetry", "tests\run_starter_tests.ps1", "Starter documents", "actions/upload-artifact@v4")) {
         if (-not (Test-FileContains -Text $workflowText -Pattern $pattern)) {
             Add-Finding $findings "fail" $workflowPath "Missing hosted workflow marker: $pattern"
         }

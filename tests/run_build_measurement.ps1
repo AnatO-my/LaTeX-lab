@@ -131,7 +131,7 @@ try {
         -Name "phase7c-starter-suite" `
         -Description "Builds all seven copyable starter documents through the existing starter runner." `
         -Action {
-            & powershell -NoProfile -ExecutionPolicy Bypass -File "tests\run_phase7c_starter_tests.ps1"
+            & powershell -NoProfile -ExecutionPolicy Bypass -File "tests\run_starter_tests.ps1"
             if ($LASTEXITCODE -ne 0) {
                 throw "Phase 7C starter runner failed with exit code $LASTEXITCODE."
             }

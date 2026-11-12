@@ -213,7 +213,7 @@ For documentation, starter, workflow, packaging, and onboarding changes, also
 run:
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File tests\run_phase7c_starter_tests.ps1
+powershell -ExecutionPolicy Bypass -File tests\run_starter_tests.ps1
 ```
 
 For `physicsquiz.cls` behavior changes, run the latest relevant physicsquiz
@@ -222,7 +222,7 @@ phase runner and explain why that runner is sufficient.
 For OT class or package changes, run:
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File tests\run_ot_phase5_tests.ps1
+powershell -ExecutionPolicy Bypass -File tests\run_ot_baseline_tests.ps1
 ```
 
 ### Generated Artifacts
@@ -383,7 +383,7 @@ Before creating or pushing to a remote:
 * run the starter check:
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File tests\run_phase7c_starter_tests.ps1
+powershell -ExecutionPolicy Bypass -File tests\run_starter_tests.ps1
 ```
 
 Expected known local leftovers before push:
@@ -502,7 +502,7 @@ The first CI workflow is narrow:
 
 * install or provide a TeX environment;
 * run `git diff --check`;
-* run `tests/run_phase7c_starter_tests.ps1`; and
+* run `tests/run_starter_tests.ps1`; and
 * upload starter PDFs only as workflow artifacts, not as source files.
 
 The first workflow does not run the full historical regression suites.
@@ -644,7 +644,7 @@ Ask them to start by cloning the repository and building one starter document.
 From the repository root, run:
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File tests\run_phase7c_starter_tests.ps1
+powershell -ExecutionPolicy Bypass -File tests\run_starter_tests.ps1
 ```
 
 A collaborator is ready to edit source when the starter runner passes locally.
@@ -675,7 +675,7 @@ Before opening a pull request:
 ```powershell
 git status --short --branch
 git diff --check
-powershell -ExecutionPolicy Bypass -File tests\run_phase7c_starter_tests.ps1
+powershell -ExecutionPolicy Bypass -File tests\run_starter_tests.ps1
 ```
 
 The pull request should say what changed, which command was run, and whether any

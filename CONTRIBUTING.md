@@ -45,7 +45,7 @@ working agreement.
 For starter or workflow changes, run:
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File tests\run_phase7c_starter_tests.ps1
+powershell -ExecutionPolicy Bypass -File tests\run_starter_tests.ps1
 git diff --check
 ```
 
@@ -55,7 +55,7 @@ phase runner and explain why that runner is sufficient.
 For OT class or package changes, run:
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File tests\run_ot_phase5_tests.ps1
+powershell -ExecutionPolicy Bypass -File tests\run_ot_baseline_tests.ps1
 ```
 
 ## Pull Requests

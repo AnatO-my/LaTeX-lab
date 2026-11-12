@@ -38,144 +38,55 @@ LaTeX Workspace Learning and Class Refactoring Project
 
 ## Canonical repository structure
 
+Updated 12 November 2026 (branch `chore/repo-structure`).
+
 ```text
-LaTeX-Lab/
-├── .gitignore
-├── .latexmkrc
-├── CHANGELOG.md
-├── FILE_CHECKLIST.md
-├── MASTER_PROMPT.md
-├── PHASE_PROMPTS.md
-├── PROJECT_STATE.md
-├── ROADMAP.md
-├── PHASE3_CHECKPOINT_3B.md … PHASE3_CHECKPOINT_3E.md
-├── PHASE4_CHECKPOINT_4B.md … PHASE4_CHECKPOINT_4G.md
-│
-├── .vscode/
-│   └── settings.json
-│
-├── docs/
-│   └── PUBLIC_INTERFACES.md
-│
+LaTeX-lab/
+├── README.md, CONTRIBUTING.md, CHANGELOG.md, PROJECT_STATE.md, AGENTS.md
+├── .latexmkrc, .gitignore, .gitattributes, .github/workflows/
 ├── src/
-│   ├── classes/
-│   │   ├── otengineering.cls
-│   │   ├── otscience.cls
-│   │   ├── physicsquiz.cls
-│   │   └── studentnotes.cls
-│   │
-│   ├── packages/
-│   │   ├── otcoordinates.sty
-│   │   ├── otfigures.sty
-│   │   ├── otmath.sty
-│   │   ├── otnotation.sty
-│   │   ├── otphysics.sty
-│   │   ├── otpractice.sty
-│   │   └── ottensors.sty
-│   │
-│   └── legacy/
-│       └── otscience.sty
-│
-├── examples/
-│   ├── otengineering/
-│   │   └── test.tex
-│   │
-│   ├── physicsquiz/
-│   │   ├── PHY104_Exam revision.tex        ← legacy fidelity baseline
-│   │   ├── PHY104_migration_pilot.tex
-│   │   ├── PHY104_structured_revision.tex
-│   │   └── banks/
-│   │       ├── phy104_migration_pilot_bank.tex
-│   │       └── phy104_full_question_bank.tex
-│   │
-│   ├── studentnotes/
-│   │   └── Optics.tex
-│   │
-│   └── vector-workbook/
-│       ├── 00_common_setup.tex
-│       ├── 00_main_combined_workbook.tex
-│       └── 01_… through 07_… module sources (+ preserved PDFs)
-│
-├── tests/
-│   ├── compatibility and helper fixtures (Phase 2)
-│   ├── physicsquiz output-mode and presentation drivers (Phase 3)
-│   ├── physicsquiz_xsim_* drivers (Phase 4C)
-│   ├── physicsquiz_selection_* drivers (Phase 4D)
-│   ├── physicsquiz_random_* drivers (Phase 4E)
-│   ├── physicsquiz_migration_pilot_* drivers (Phase 4F)
-│   ├── physicsquiz_full_migration_* drivers (Phase 4G)
-│   ├── check_physicsquiz_output_modes.py
-│   ├── check_physicsquiz_xsim_facade.py
-│   ├── check_physicsquiz_selection.py
-│   ├── check_physicsquiz_random_selection.py
-│   ├── check_physicsquiz_migration_pilot.py
-│   ├── check_physicsquiz_full_migration.py
-│   ├── run_physicsquiz_phase3d/4c/4d/4e/4f/4g/4ij_tests.ps1
-│   ├── check_ot_baseline.py                (Phase 5A)
-│   ├── ot_baseline_manifest.json           (Phase 5A)
-│   ├── ot_palette_probe_*.tex              (Phase 5A)
-│   ├── otpractice_standalone.tex           (Phase 5A cycle witness)
-│   └── run_ot_phase5_tests.ps1             (Phase 5A)
-│
-└── build/                                  ← generated, git-ignored
+│   ├── classes/    otbook, otengineering, otscience, physicsquiz, studentnotes
+│   ├── packages/   foundations: otcolors, otlayout, otcore (facade), ottheme
+│   │               presets and boxes: otscience-theme, otboxes, otsciboxes,
+│   │                 otmathboxes, otemphasis
+│   │               notation: otnotation, otmath, otphysics, otcoordinates, ottensors
+│   │               capabilities: otpractice, otfigures, otcircuits, otplots, otcode,
+│   │                 otsymbols, otprofiles, otbib, otindex, otaccess, otforms,
+│   │                 otreproduce, ot-projects, oteeereport
+│   └── legacy/     otscience.sty (frozen; not on the build path)
+├── examples/       starters and representative documents per class, the
+│                   vector workbook, the author manual, study guide, Spong example
+├── templates/      otbook-project/, figure-standalone/
+├── tests/          suites (run_all_tests.ps1 + named runners), fixtures,
+│                   Python checkers; tests/history/ holds retired runners
+├── scripts/        build and author-kit scripts; audit_interfaces.py
+├── docs/           author, interface and process documents (map in README.md)
+│   ├── architecture/   refactor plan, audit, release notes
+│   ├── release/        RELEASE_PROCESS.md and templates/
+│   └── history/        project log, checkpoints, completed audits
+├── skills/         third-party AI skill bundles (placement still to decide)
+├── output/tex/     generated quiz/notes sources (placement still to decide)
+└── build/          generated, git-ignored (also tests/build/, examples/**/build/)
 ```
 
-Generated files belong under the mirrored `build/` tree and must not be
-committed from the source directories. Some Phase 2 auxiliary files still sit
-loose in `tests/`; they are git-ignored by extension but could be cleaned.
+Generated files belong under `build/` and are never committed. The Phase 0
+preserved PDFs were removed from the tree on 12 November 2026 (tag
+`archive/phase0-preserved-outputs`).
 
 ## Canonical source files
 
-### Classes
-
-* `src/classes/studentnotes.cls`
-* `src/classes/physicsquiz.cls`
-* `src/classes/otengineering.cls`
-* `src/classes/otscience.cls`
-
-All four active classes have now been supplied and audited.
-
-### Active OT packages
-
-* `src/packages/otnotation.sty`
-* `src/packages/otmath.sty`
-* `src/packages/ottensors.sty`
-* `src/packages/otphysics.sty`
-* `src/packages/otcoordinates.sty`
-* `src/packages/otpractice.sty`
-* `src/packages/otfigures.sty`
-
-These seven packages form the companion package system used by `otscience.cls` and the modular workbook.
-
-Phase 5 has also introduced shared infrastructure packages:
-
-* `src/packages/ottheme.sty`
-* `src/packages/otboxes.sty`
-* `src/packages/otcore.sty`
-
-The architecture refactor (docs/architecture/PLAN.md Phase B, 2026-11-11) adds
-`src/packages/otsciboxes.sty`, the single owner of the semantic science boxes
-previously duplicated in `otscience.cls` and `otbook.cls`.
-
-Four of the seven — `otnotation`, `otmath`, `otpractice` and `otfigures` —
-depended on colours defined by `otscience.cls`, and `otpractice` also depended
-on its `otscibox` environment. Checkpoint 5B moved the colour dependency to
-`ottheme.sty` for `otnotation`, `otmath`, and `otfigures`. Checkpoint 5C moves
-the box dependency to `otboxes.sty` for `otpractice`.
-
-`ottensors`, `otphysics` and `otcoordinates` are already self-contained and
-independently loadable today.
-
-Before Checkpoint 5C, the remaining dependency was a use-time rather than a
-load-time cycle: `otpractice`'s back-reference resolved when a document used a
-practice box, not when the package loaded. Checkpoint 5C removes that remaining
-cycle and turns `tests/otpractice_standalone.tex` into a positive smoke test.
+The authoritative per-file list (options, commands, environments,
+dependencies) is the generated `docs/INTERFACE_INVENTORY.md`; the layering and
+class composition are described in `docs/PUBLIC_INTERFACES.md` ("Class
+composition"). Package history from Phase 5 is in `docs/history/PROJECT_LOG.md`.
 
 ### Legacy source
 
 * `src/legacy/otscience.sty`
 
-This is the older monolithic version 0.1 implementation. It overlaps with the newer version 0.2 `otscience.cls` and its seven companion packages. It is preserved for historical reference and must not be loaded alongside the active `otscience.cls` architecture.
+The older monolithic v0.1 implementation, frozen since the architecture
+refactor. Its semantic boxes are superseded by `src/packages/otsciboxes.sty`.
+It must not be loaded alongside the active `otscience.cls`.
 
 ## Representative projects
 

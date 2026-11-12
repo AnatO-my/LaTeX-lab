@@ -42,7 +42,7 @@ assembling, verifying, and sharing the kit. Use
 | Workbook module starter | `examples/vector-workbook/starter_module.tex` |
 | Combined workbook starter | `examples/vector-workbook/starter_combined_workbook.tex` |
 | Workbook shared setup | `examples/vector-workbook/00_common_setup.tex` |
-| Starter verification | `tests/run_phase7c_starter_tests.ps1` and `tests/run_otbook_tests.ps1` |
+| Starter verification | `tests/run_starter_tests.ps1` and `tests/run_otbook_tests.ps1` |
 | Book smoke document | `tests/otbook_class_smoke.tex` |
 | Log retry helper | `tests/powershell_log_helpers.ps1` |
 
@@ -79,7 +79,7 @@ Exclude generated or local-only files:
 After creating an author kit from the manifest, run:
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File tests\run_phase7c_starter_tests.ps1
+powershell -ExecutionPolicy Bypass -File tests\run_starter_tests.ps1
 powershell -ExecutionPolicy Bypass -File tests\run_otbook_tests.ps1
 ```
 
@@ -121,7 +121,7 @@ From the repository root:
 ```powershell
 git status --short --branch
 git diff --check
-powershell -ExecutionPolicy Bypass -File tests\run_phase7c_starter_tests.ps1
+powershell -ExecutionPolicy Bypass -File tests\run_starter_tests.ps1
 powershell -ExecutionPolicy Bypass -File tests\run_otbook_tests.ps1
 ```
 
@@ -154,7 +154,7 @@ Copy only the required files listed in `#author-kit-manifest`:
 * the eight starter documents, including `examples/otbook/starter_personal_book.tex`;
 * `templates/otbook-project/`, including dotfiles but excluding `build/`;
 * `examples/vector-workbook/00_common_setup.tex`;
-* `tests/run_phase7c_starter_tests.ps1` and `tests/run_otbook_tests.ps1`;
+* `tests/run_starter_tests.ps1` and `tests/run_otbook_tests.ps1`;
 * `tests/otbook_class_smoke.tex`; and
 * `tests/powershell_log_helpers.ps1`.
 
@@ -178,7 +178,7 @@ Before zipping or sharing, confirm the kit does not contain:
 Open a shell from the kit root and run:
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File tests\run_phase7c_starter_tests.ps1
+powershell -ExecutionPolicy Bypass -File tests\run_starter_tests.ps1
 powershell -ExecutionPolicy Bypass -File tests\run_otbook_tests.ps1
 ```
 
@@ -285,7 +285,7 @@ The kit includes:
 * `examples/vector-workbook/starter_module.tex`;
 * `examples/vector-workbook/starter_combined_workbook.tex`;
 * `examples/vector-workbook/00_common_setup.tex`;
-* `tests/run_phase7c_starter_tests.ps1`; and
+* `tests/run_starter_tests.ps1`; and
 * `tests/powershell_log_helpers.ps1`.
 
 Optional reference examples were not included.
@@ -295,7 +295,7 @@ Optional reference examples were not included.
 The kit was verified from the kit root with:
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File tests\run_phase7c_starter_tests.ps1
+powershell -ExecutionPolicy Bypass -File tests\run_starter_tests.ps1
 ```
 
 The starter runner passed.
