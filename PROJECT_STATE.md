@@ -18,6 +18,7 @@ LaTeX Workspace Learning and Class Refactoring Project
 * Primary Git branch: `main`
 * Additional required MiKTeX packages: `xsim`, `siunitx`
 * Python is required to run the Phase 3 and Phase 4 checkers (`py -3` or `python`)
+* Python package `pypdf` is required by the engineering, projects and forms suites (`py -3 -m pip install pypdf`)
 
 ## Current state (12 November 2026)
 

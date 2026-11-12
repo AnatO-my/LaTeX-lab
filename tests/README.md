@@ -9,7 +9,12 @@ powershell -ExecutionPolicy Bypass -File tests\run_all_tests.ps1 -Only starters,
 ```
 
 Run from the repository root, in a MiKTeX PowerShell where `latexmk` and
-`py -3`/`python` are on `PATH`.
+`py -3`/`python` are on `PATH`. The `engineering`, `projects` and `forms`
+suites also need the Python package `pypdf`:
+
+```powershell
+py -3 -m pip install pypdf
+```
 
 ## Suites
 
