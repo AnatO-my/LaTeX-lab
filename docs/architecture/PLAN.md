@@ -102,7 +102,9 @@ their reusable implementation.
 
    Preserve `otcore` as a compatibility facade. Gradually extract a small
    `otbase` and an opt-in `otlayout`; leave a compatibility layer in `otcore`
-   until a major-version migration is deliberately approved.
+   until a major-version migration is deliberately approved. When `otbase`
+   should exist, and what it may and may not contain, is set out in
+   [`OTBASE_ROADMAP.md`](OTBASE_ROADMAP.md) (decision gate and evidence review).
 
 5. **New public commands are namespaced by default.**
 

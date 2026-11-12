@@ -38,6 +38,17 @@ the pull request.
 
 ## 3. Loading behaviour
 
+- [ ] **Options use `l3keys`.** Define them with `\keys_define:nn` under a key
+      family named after the package (for example `{otfoo}` and
+      `{otfoo/setup}`), as `ot-projects` does, and process them with
+      `\ProcessKeyOptions` (LaTeX 2022-06-01 or later). Do not add new
+      `kvoptions` or `pgfkeys` option interfaces. Existing packages keep
+      theirs until there is a reason to migrate. This convention comes before
+      any shared `otbase` code; see `docs/architecture/OTBASE_ROADMAP.md`.
+- [ ] Before writing a "shared helper", check the roadmap's decision gate.
+      Engine checks use `iftex`, and messages use `\PackageInfo`,
+      `\PackageWarning` and `\PackageError`.
+
 - [ ] Required dependencies are loaded with `\RequirePackage`. **Never use
       `\IfFileExists` to acquire OT packages.**
 - [ ] A probe for a third-party engine capability writes a `\PackageWarning`
