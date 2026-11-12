@@ -28,7 +28,10 @@ def build(src,name=None,error=None):
         (case/f"pass-{run}.txt").write_text(stdout,encoding="utf-8")
         if error:
             assert proc.returncode!=0,"Invalid input compiled successfully: "+name
-            assert error.lower() in re.sub(r"\s+"," ",stdout.replace("(ot-projects)", "")).lower(),stdout[-4000:]
+            # TeX wraps terminal output at 79 characters, which can split a word
+            # ("In" / "valid"); compare with all whitespace removed.
+            squash=lambda t: re.sub(r"\s+","",t).lower()
+            assert squash(error) in squash(stdout.replace("(ot-projects)", "")),stdout[-4000:]
             results.append({"case":name,"expected_error":error,"passed":True})
             return
         assert proc.returncode==0,stdout[-5500:]
