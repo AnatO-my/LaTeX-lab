@@ -1,5 +1,17 @@
 # Changelog
 
+## Unreleased - `otbase` roadmap
+
+Documentation only.
+
+* Added `docs/architecture/OTBASE_ROADMAP.md`. It sets out the phased path
+  for a future `otbase`, a six-point decision gate (the sixth: not already
+  provided by the kernel or a standard package) and an evidence review of the
+  current packages. The gate is not met, so `otbase` stays a written contract.
+* `docs/PACKAGE_AUTHOR_CHECKLIST.md`: new packages define options with
+  `l3keys`, and shared helpers must pass the roadmap's gate.
+* Linked from `PLAN.md` decision 4 and the audit's Phase D notes.
+
 ## Unreleased - Repository structure
 
 Branch `chore/repo-structure`. Change level: **none for authors** (no class,

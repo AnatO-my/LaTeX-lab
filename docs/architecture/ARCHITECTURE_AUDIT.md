@@ -136,7 +136,8 @@ powershell -ExecutionPolicy Bypass -File tests\run_ot_contract_tests.ps1
   visual or layout effect, such as shared message, option or kernel-version
   helpers. No such helper exists today: everything in `otcore` was layout,
   colour, or plain package loads. Create `otbase` when a second package needs
-  a shared helper, not before.
+  a shared helper, not before. The phased roadmap, a six-point decision gate
+  and the 12 November 2026 evidence review are in `OTBASE_ROADMAP.md`.
 * **First preset: `otscience-theme`.** It replaces the settings that
   `otscience` and `otbook` duplicated. `otengineering` keeps its styling and its
   own `otbox` family in the class for now; a dedicated preset would have one

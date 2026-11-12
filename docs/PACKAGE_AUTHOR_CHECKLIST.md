@@ -38,6 +38,26 @@ the pull request.
 
 ## 3. Loading behaviour
 
+- [ ] **Options use `l3keys`**, defined with `\keys_define:nn`. Use two
+      families:
+      - *Package options* (`\usepackage[...]{otfoo}`) go in the family named
+        exactly after the package, `{otfoo}`, and are processed with a plain
+        `\ProcessKeyOptions` (LaTeX 2022-06-01 or later). Without an
+        argument it reads only that family; keys defined elsewhere (for
+        example `{otfoo/setup}`) are not seen unless you pass the family
+        explicitly, `\ProcessKeyOptions[otfoo/setup]`. No current OT package
+        processes package options this way yet, so there is no in-repo
+        example to copy.
+      - *Setup commands* use a separate `{otfoo/setup}` family and apply it
+        with `\keys_set:nn`, as `ot-projects` does in `\OTProjectSetup`.
+
+      Do not add new `kvoptions` or `pgfkeys` option interfaces. Existing packages keep
+      theirs until there is a reason to migrate. This convention comes before
+      any shared `otbase` code; see `docs/architecture/OTBASE_ROADMAP.md`.
+- [ ] Before writing a "shared helper", check the roadmap's decision gate.
+      Engine checks use `iftex`, and messages use `\PackageInfo`,
+      `\PackageWarning` and `\PackageError`.
+
 - [ ] Required dependencies are loaded with `\RequirePackage`. **Never use
       `\IfFileExists` to acquire OT packages.**
 - [ ] A probe for a third-party engine capability writes a `\PackageWarning`
