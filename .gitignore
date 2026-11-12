@@ -49,6 +49,7 @@ Thumbs.db
 # Emergency TeX artefacts
 *.bak
 *.synctex.gz(busy)
+indent.log
 
 # Nested project and example builds
 **/build/

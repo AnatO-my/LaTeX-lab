@@ -415,7 +415,7 @@ a `\providecommand`-style definition, whose meaning can depend on load order;
 
 ### `src/packages/otsymbols.sty`
 
-* **Kind / version:** package, `2026/09/10 v0.1 OT Symbols and Nomenclature`
+* **Kind / version:** package, `2026/11/12 v0.2 OT Symbols and Nomenclature`
 * **Options:** —
 * **Load-time effects:** —
 * **Commands:** `acr` (undocumented), `glossaryheader` (undocumented) ↻renew, `glossentry` (undocumented) ↻renew, `otdefineacronym` (undocumented), `otdefinesymbol` (undocumented), `printotnomenclature` (undocumented), `sym` (undocumented)

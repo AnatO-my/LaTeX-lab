@@ -61,6 +61,22 @@ package or document output changes).
 * Added `tests/README.md` (suites, internal steps, fixtures) and an updated
   repository tree in `PROJECT_STATE.md`.
 
+### Fixed (found by the first full `run_all_tests.ps1` run)
+
+* `.gitignore` again ignores `indent.log`. The line had been dropped in an
+  earlier pending-work commit, so `run_build_recipe_guard.ps1` failed.
+* `otsymbols` v0.2, two defects that predate the refactor:
+  * `\otdefinesymbol` entries with `siunitx` units (for example
+    `\unit{\ohm.m}`) stopped with "Undefined control sequence". Entry fields
+    are now stored unexpanded (`\glsnoexpandfields`).
+  * `\printotnomenclature` printed the empty `main` glossary, so every
+    nomenclature table was blank. It now prints the `symbols` and
+    `abbreviations` glossaries, and abbreviations show their long form in the
+    Name column. This affects the nomenclature example, the Spong
+    reconstruction and the study guide, whose tables now appear.
+* `run_engineering_tests`, `run_forms_tests` and `run_projects_tests` use the
+  `py -3` launcher when `-Python` is not given, as the other runners do.
+
 ## Unreleased - Architecture-refactor local validation
 
 Release proposal: `v0.2.0` **minor**; no tag or GitHub release has been

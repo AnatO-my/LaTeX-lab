@@ -6,7 +6,7 @@
 % ============================================================
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{otsymbols}[2026/09/10 v0.1 OT Symbols and Nomenclature]
+\ProvidesPackage{otsymbols}[2026/11/12 v0.2 OT Symbols and Nomenclature]
 
 \RequirePackage{otcolors}
 \RequirePackage[utf8]{inputenc}
@@ -29,6 +29,12 @@
 % -----------------------------
 \makeglossaries
 
+% Store entry fields unexpanded. Fields such as user2 carry units like
+% \unit{\ohm.m}; siunitx unit macros (\ohm) exist only inside \unit, so
+% expanding them when the entry is defined fails with "Undefined control
+% sequence".
+\glsnoexpandfields
+
 % -----------------------------
 % OT Nomenclature Style
 % -----------------------------
@@ -48,7 +54,7 @@
   }%
   \renewcommand*{\glossentry}[2]{%
     \glstarget{##1}{\glossentryname{##1}} &
-    \glsuseri{##1} &
+    \ifglshasfield{useri}{##1}{\glsuseri{##1}}{\ifglshaslong{##1}{\glsentrylong{##1}}{}} &
     \glsuserii{##1} &
     \glossentrydesc{##1} \\
   }%
@@ -80,7 +86,11 @@
 
 % Command to print the nomenclature
 \newcommand{\printotnomenclature}[1][Nomenclature]{%
-  \printunsrtglossary[style=otnomenclature, title={#1}]%
+  % Symbols are defined with \glsxtrnewsymbol (glossary `symbols') and
+  % acronyms with \newabbreviation (glossary `abbreviations'); the main
+  % glossary is empty, so print the two populated glossaries explicitly.
+  \printunsrtglossary[type=symbols, style=otnomenclature, title={#1}]%
+  \printunsrtglossary[type=abbreviations, style=otnomenclature, title={Abbreviations}]%
 }
 
 \endinput
