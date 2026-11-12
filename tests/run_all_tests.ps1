@@ -24,6 +24,11 @@ param(
 $ErrorActionPreference = "Stop"
 $root = Split-Path -Parent $PSScriptRoot
 
+# Under `powershell -File`, "-Only a,b" arrives as the single string "a,b";
+# split on commas so both calling styles work.
+$Only = @($Only | ForEach-Object { $_ -split "," } | ForEach-Object { $_.Trim() } | Where-Object { $_ })
+$Skip = @($Skip | ForEach-Object { $_ -split "," } | ForEach-Object { $_.Trim() } | Where-Object { $_ })
+
 # Name, script, extra arguments, group
 $suites = @(
     [pscustomobject]@{ Name = "release-policy";     Script = "run_release_policy_guard.ps1";          Args = @();                Group = "guards" }
