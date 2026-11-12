@@ -1,16 +1,17 @@
 # Release Notes Draft: Architecture Refactor
 
-Draft prepared from `docs/RELEASE_NOTES_TEMPLATE.md`. Do not publish until it
-has been verified under MiKTeX and the source commit below is filled in.
+Draft prepared from `docs/RELEASE_NOTES_TEMPLATE.md`. Local MiKTeX validation
+was completed on 12 November 2026. Do not publish until the source commit below
+is selected after pull-request integration and the hosted checks have passed.
 
 ## Release
 
 ```text
-Label: (to be chosen; proposed v0.2.0)
+Label: proposed v0.2.0 (no tag created)
 Date: YYYY-MM-DD
 Source branch: refactor/architecture-plan
-Source commit: (fill in after commit)
-Release type: major for standalone package users (link policy); minor otherwise
+Source commit: (select after pull-request integration)
+Release type: minor
 ```
 
 ## Summary
@@ -59,9 +60,9 @@ OT packages are used in a standard class.
 | Author manual | builds; differs only in edited rows |
 | Refactor fixtures (15) | pass |
 | `scripts/audit_interfaces.py --check` | pass |
-| `tests\run_architecture_refactor_tests.ps1` under MiKTeX | **to run** |
-| Phase 5 baseline re-record (`-Record`) for `OTLight` | **to run** |
-| `run_manual_author_reference_guard.ps1` | **to run** (manual line references were re-pointed) |
+| `tests\run_architecture_refactor_tests.ps1` under MiKTeX | completed locally on 12 November 2026 |
+| Phase 5 baseline re-record (`-Record`) for `OTLight` | completed locally on 12 November 2026 |
+| `run_manual_author_reference_guard.ps1` | completed locally on 12 November 2026 |
 
 ## Release Assets
 

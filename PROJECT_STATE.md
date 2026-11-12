@@ -747,10 +747,11 @@ completed on 12 November 2026. Phase E (notation: `otemphasis`,
 (`#F3F4F6` for every class) were completed on 12 November 2026. The Phase 5
 baseline manifest must be re-recorded for the new `OTLight`. Phase F
 (migration guide, package-author checklist, release-notes draft, manual
-update) was completed on 12 November 2026. Remaining before release: run
-`tests\run_ot_phase5_tests.ps1 -Record`, then
-`tests\run_architecture_refactor_tests.ps1` and
-`tests\run_manual_author_reference_guard.ps1` under MiKTeX, then commit.
+update) was completed on 12 November 2026. The Phase 5 baseline re-record,
+architecture-refactor runner and manual author-reference guard were completed
+under MiKTeX on 12 November 2026. Remaining before release: integrate the
+refactor branch, obtain hosted `Starter documents` and `Release source checks`
+evidence, then select a source commit for the proposed `v0.2.0` minor release.
 
 ## Decisions still required
 

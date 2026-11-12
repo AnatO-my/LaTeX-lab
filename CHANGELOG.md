@@ -1,5 +1,18 @@
 # Changelog
 
+## Unreleased - Architecture-refactor local validation
+
+Release proposal: `v0.2.0` **minor**; no tag or GitHub release has been
+created.
+
+* Completed the Phase 5 `OTLight` baseline re-record, the architecture-refactor
+  runner, and the manual author-reference guard under MiKTeX on 12 November
+  2026.
+* Hosted `Starter documents` and `Release source checks` remain required
+  integration evidence before a release-candidate dry run.
+* Accepted three non-functional TeX source cleanups in the Science/Book
+  starters and semantic-box compatibility fixture.
+
 ## Unreleased - Architecture refactor, Phase F (PLAN.md)
 
 Change level: documentation only.
