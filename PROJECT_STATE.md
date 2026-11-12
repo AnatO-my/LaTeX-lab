@@ -362,9 +362,8 @@ No `% !TeX root` directives were added. The workbook's existing conditional arch
   carries its own shuffle seed.
 * Generated PDFs, logs, and other build artefacts remain excluded from the
   source-focused checkpoints.
-* `examples/physicsquiz/PHY104_Exam revision.pdf` and its `.log` are tracked from
-  the Phase 0 baseline and have been regenerated during verification. They are
-  deliberately left unstaged.
+* `examples/physicsquiz/PHY104_Exam revision.pdf` and its `.log` were tracked from
+  the Phase 0 baseline until 12 November 2026 (see "Representative projects").
 * `examples/studentnotes/Optics.tex` remains an independent modification and is
   excluded from every Phase 3 and Phase 4 checkpoint.
 
@@ -410,7 +409,7 @@ LaTeX-Lab/
 │
 ├── examples/
 │   ├── otengineering/
-│   │   └── test.tex (+ preserved test.pdf, test.log)
+│   │   └── test.tex
 │   │
 │   ├── physicsquiz/
 │   │   ├── PHY104_Exam revision.tex        ← legacy fidelity baseline
@@ -421,7 +420,7 @@ LaTeX-Lab/
 │   │       └── phy104_full_question_bank.tex
 │   │
 │   ├── studentnotes/
-│   │   └── Optics.tex (+ preserved Optics.pdf)
+│   │   └── Optics.tex
 │   │
 │   └── vector-workbook/
 │       ├── 00_common_setup.tex
@@ -511,13 +510,16 @@ This is the older monolithic version 0.1 implementation. It overlaps with the ne
 
 ## Representative projects
 
+Generated outputs are rebuilt, not committed. The Phase 0 preserved PDFs and logs were
+removed on 12 November 2026; they remain recoverable from the local tag
+`archive/phase0-preserved-outputs` (for example
+`git show "archive/phase0-preserved-outputs:examples/studentnotes/Optics.pdf" > Optics.pdf`).
+
 ### `physicsquiz.cls`
 
 Legacy fidelity baseline:
 
 * `PHY104_Exam revision.tex`
-* `PHY104_Exam revision.pdf`
-* `PHY104_Exam revision.log`
 
 The audited baseline build produced a readable 24-page examination-revision
 document without LaTeX warnings or overfull boxes. The Phase 2 refactor replaced
@@ -544,7 +546,6 @@ source is retired.
 Canonical representative project:
 
 * `Optics.tex`
-* `Optics.pdf`
 
 The separate normal-modes project was also audited during Phase 0. Its historical log confirmed successful compilation and identified a small margin-note overflow. The `Optics` project is presently the representative example retained in the canonical repository.
 
@@ -553,8 +554,6 @@ The separate normal-modes project was also audited during Phase 0. Its historica
 Representative project:
 
 * `test.tex`
-* `test.pdf`
-* `test.log`
 
 The audited build produced a four-page engineering notebook. The project dashboard fits correctly, and the log contains only one harmless underfull-box warning.
 
