@@ -38,11 +38,15 @@ the pull request.
 
 ## 3. Loading behaviour
 
-- [ ] **Options use `l3keys`.** Define them with `\keys_define:nn` under a key
-      family named after the package (for example `{otfoo}` and
-      `{otfoo/setup}`), as `ot-projects` does, and process them with
-      `\ProcessKeyOptions` (LaTeX 2022-06-01 or later). Do not add new
-      `kvoptions` or `pgfkeys` option interfaces. Existing packages keep
+- [ ] **Options use `l3keys`.** Define keys with `\keys_define:nn` under a
+      family named after the package (for example `{otfoo/setup}`).
+      - *Setup commands* apply them with `\keys_set:nn`, as `ot-projects`
+        does in `\OTProjectSetup`.
+      - *Package options* (`\usepackage[...]{otfoo}`) are processed with
+        `\ProcessKeyOptions` (LaTeX 2022-06-01 or later). No current OT
+        package does this yet, so there is no in-repo example to copy.
+
+      Do not add new `kvoptions` or `pgfkeys` option interfaces. Existing packages keep
       theirs until there is a reason to migrate. This convention comes before
       any shared `otbase` code; see `docs/architecture/OTBASE_ROADMAP.md`.
 - [ ] Before writing a "shared helper", check the roadmap's decision gate.
